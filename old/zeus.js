@@ -1114,14 +1114,12 @@ async function handleVLESS(env, storedData = null, ctx = null) {
   });
 
   const writeToRemote = async (chunk, allowRetry = true) => {
-    // قبلاً اینجا writeAndAwait بود: هر تیکه صبر می‌کرد تا نوشتنش کامل تموم بشه، یعنی
-    // تیکه بعدی از کلاینت تا اون موقع اصلاً پردازش نمی‌شد (stop-and-wait) — همین باعث
-    // افت شدید و بی‌ثباتی سرعت آپلود می‌شد (throughput ≈ اندازه تیکه / RTT).
-    // الان فقط تیکه رو صف می‌کنیم (fire-and-forget) و صف خودش پشت‌سرهم و مرتب می‌نویسدش؛
-    // محافظت در برابر پر شدن حافظه هم با UPSTREAM_QUEUE_MAX_BYTES/ITEMS داخل enqueue تضمین شده.
-    const result = upstreamQueue.writeAndAwait(chunk, allowRetry);
-    if (result && typeof result.catch === 'function') result.catch(() => {});
-    return true;
+    // قبلاً اینجا writeAndAwait بود (صبر برای تکمیل نوشتن هر تیکه = آپلود کند).
+    // نسخه‌ی قبلیِ فیکس من اشتباهاً همیشه true برمی‌گردوند و باعث شد پارس هدر VLESS
+    // برای اتصال اول هیچ‌وقت اجرا نشه (یعنی کانفیگ‌ها اصلاً وصل نمی‌شدن).
+    // الان از upstreamQueue.write استفاده می‌کنیم: هم غیربلاکه (سریع)، هم مقدار
+    // درست true/false رو برمی‌گردونه (false یعنی هنوز وصل نشدیم، باید هدر پارس بشه).
+    return upstreamQueue.write(chunk, allowRetry);
   };
 
   const processWsMessage = async (chunk) => {
@@ -1687,6 +1685,10 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 
   return {
     writeAndAwait(data, allowRetry = true) { return enqueue(data, allowRetry, true); },
+    // نسخه غیربلاکه: مثل writeAndAwait صف می‌کنه ولی منتظر تموم‌شدن نوشتن واقعی نمی‌مونه.
+    // مقدار برگشتی هنوز حیاتیه: false یعنی "هنوز وصل نشدیم" (باید بری سراغ پارس هدر)،
+    // true یعنی "وصل بودیم و صف شد" — این تمایز رو هرگز نباید از بین برد.
+    write(data, allowRetry = true) { return enqueue(data, allowRetry, false); },
     async awaitEmpty() {
       if (!queuedBytes && !draining) return;
       await new Promise(resolve => idleResolvers.push(resolve));
