@@ -879,7 +879,7 @@ async function reloadZeusPanel(scriptName) {
             const result = await customSourcePrompt();
             if (!result) return;
             const cleanUrl = result.url;
-            if (!/^https:\/\/raw\.githubusercontent\.com\//i.test(cleanUrl)) {
+            if (!cleanUrl.toLowerCase().startsWith('https://raw.githubusercontent.com/')) {
                 showToast('⚠️ فقط آدرس‌های raw.githubusercontent.com پذیرفته می‌شن.', 'error');
                 return;
             }
