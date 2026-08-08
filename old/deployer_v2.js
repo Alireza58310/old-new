@@ -437,12 +437,16 @@ function getHtmlContent() {
                     <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                 </button>
             </div>
-            <div class="mt-4 mb-1">
-                <label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1.5">سورس دیپلوی</label>
+            <div class="mt-5 p-4 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-50/70 dark:bg-zinc-900/40">
+                <label class="block text-xs font-bold text-gray-600 dark:text-zinc-300 mb-2">📦 سورس دیپلوی</label>
+                <select id="sourceUrlSelect" class="w-full px-3 py-2.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 mb-2.5"></select>
                 <div class="flex items-center gap-2">
-                    <select id="sourceUrlSelect" class="flex-1 px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300"></select>
-                    <button type="button" onclick="addSourceUrlPrompt()" title="افزودن آدرس جدید" class="shrink-0 w-10 h-10 flex items-center justify-center border border-emerald-700 text-emerald-500 bg-emerald-900/20 hover:bg-emerald-900/40 rounded-xl transition">+</button>
-                    <button type="button" onclick="removeSelectedSourceUrl()" title="حذف آدرس انتخاب‌شده" class="shrink-0 w-10 h-10 flex items-center justify-center border border-red-700 text-red-500 bg-red-900/20 hover:bg-red-900/40 rounded-xl transition">🗑</button>
+                    <button type="button" onclick="addSourceUrlPrompt()" class="flex-1 py-2.5 flex items-center justify-center gap-1.5 border border-emerald-700 text-emerald-500 bg-emerald-900/20 hover:bg-emerald-900/40 rounded-xl text-xs font-bold transition">
+                        <span class="text-base leading-none">+</span> افزودن سورس
+                    </button>
+                    <button type="button" onclick="removeSelectedSourceUrl()" class="flex-1 py-2.5 flex items-center justify-center gap-1.5 border border-red-700 text-red-500 bg-red-900/20 hover:bg-red-900/40 rounded-xl text-xs font-bold transition">
+                        🗑 حذف سورس انتخاب‌شده
+                    </button>
                 </div>
             </div>
             <button id="deployBtn" onclick="startDeploy()" class="w-full py-3.5 border border-emerald-700 text-emerald-500 bg-emerald-900/20 hover:bg-emerald-900/40 font-black rounded-xl text-lg transition duration-300 shadow-sm mt-3">
