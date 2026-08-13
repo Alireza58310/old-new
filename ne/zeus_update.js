@@ -1341,7 +1341,9 @@ const SubscriptionService = {
 		for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 			let proxyItem = proxyList[locIdx];
 			let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-			let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (proxyStr ? "" : (globalIata || "")));
+			let countryCode = typeof proxyItem === "object" && proxyItem !== null
+				? proxyItem.country
+				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
 			if (!countryCode && proxyStr) {
 				try {
 					const payload = new TextEncoder().encode("GET /json/?fields=countryCode HTTP/1.1\r\nHost: ip-api.com\r\nConnection: close\r\n\r\n");
@@ -1407,7 +1409,8 @@ const SubscriptionService = {
 					const isTlsPort = TLS_PORTS.has(portStr);
 					const tlsVal = isTlsPort ? "tls" : "none";
 					const userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-					const remark = "ZEUS | " + flagEmoji + " | " + user.username;
+					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 					links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
 				});
 			});
@@ -6147,7 +6150,9 @@ function downloadZeusSource() {
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (proxyStr ? "" : (window._globalActiveIata || "")));
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null
+					? proxyItem.country
+					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveIata || ""));
 				let flagEmoji = "🌐";
 				if (countryCode && typeof getFlagEmojiText === 'function') {
 					flagEmoji = getFlagEmojiText(countryCode);
@@ -6160,7 +6165,8 @@ function downloadZeusSource() {
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
 						const tlsVal = isTlsPort ? "tls" : "none";
 						const userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-						const remark = "ZEUS | " + flagEmoji + " | " + user.username;
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 						links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
 					});
 				});
@@ -6382,19 +6388,34 @@ function editUser(encodedUsername) {
 			} catch (e) {}
 			return cc;
 		}
+		/* نام انگلیسی کشور از روی کد دو حرفی؛ برای چیدمان a تا z و نمایش قبل از نام فارسی */
+		function getCountryDisplayNameEn(countryCode) {
+			if (!countryCode) return '';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return String(countryCode).toUpperCase();
+			try {
+				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
+					const dn = new Intl.DisplayNames(['en'], { type: 'region' });
+					const name = dn.of(cc);
+					if (name && name.toUpperCase() !== cc) return name;
+				}
+			} catch (e) {}
+			return cc;
+		}
 /* --- بخش ثابت کردن کشور/آی‌پی پنل (Cloudflare) --- */
 window._globalLocationsList = window._globalLocationsList || [];
 function renderGlobalLocationsUI(locations, activeIata) {
 	const select = document.getElementById('location-select');
 	if (!select) return;
-	const sorted = locations.slice().sort((a, b) => (a.cca2 || '').localeCompare(b.cca2 || ''));
+	const sorted = locations.slice().sort((a, b) => getCountryDisplayNameEn(a.cca2).localeCompare(getCountryDisplayNameEn(b.cca2)));
 	let html = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
 	sorted.forEach(loc => {
 		if (loc.iata && loc.city) {
 			const isSelected = activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase() ? 'selected' : '';
 			const flag = getFlagEmojiText(loc.cca2);
+			const countryNameEn = getCountryDisplayNameEn(loc.cca2);
 			const countryName = getCountryDisplayName(loc.cca2);
-			html += '<option value="' + loc.iata + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryName + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
+			html += '<option value="' + loc.iata + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
 		}
 	});
 	select.innerHTML = html;
@@ -6405,7 +6426,7 @@ function filterGlobalLocations() {
 	if (!select) return;
 	const activeIata = select.value;
 	if (!q) { renderGlobalLocationsUI(window._globalLocationsList, activeIata); return; }
-	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + getCountryDisplayName(loc.cca2)).toLowerCase().includes(q));
+	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + getCountryDisplayNameEn(loc.cca2) + ' ' + getCountryDisplayName(loc.cca2)).toLowerCase().includes(q));
 	renderGlobalLocationsUI(filtered, activeIata);
 }
 async function loadLocations() {
@@ -7175,13 +7196,19 @@ function toggleProxySelectorModal(show) { setModalState('proxy-selector-modal', 
 					.filter(function(file) { return file.name.endsWith('.txt'); })
 					.map(function(file) { return file.name.replace('.txt', '').toUpperCase(); });
 				if (validCountries.length === 0) throw new Error('Empty');
+				validCountries.sort(function(a, b) {
+					const nameA = typeof getCountryDisplayNameEn === 'function' ? getCountryDisplayNameEn(a) : a;
+					const nameB = typeof getCountryDisplayNameEn === 'function' ? getCountryDisplayNameEn(b) : b;
+					return nameA.localeCompare(nameB);
+				});
 				select.innerHTML = '<option value="">یک کشور VIP انتخاب کنید...</option>';
 				validCountries.forEach(function(country) {
 					const option = document.createElement('option');
 					option.value = country;
 					/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
 					const flag = typeof getFlagEmojiText === 'function' ? getFlagEmojiText(country) : '🌐';
-					option.textContent = flag + ' ' + country;
+					const nameFa = typeof getCountryDisplayName === 'function' ? getCountryDisplayName(country) : '';
+					option.textContent = flag + ' ' + country + (nameFa ? ' - ' + nameFa : '');
 					select.appendChild(option);
 				});
 				btn.disabled = false;
@@ -7817,7 +7844,9 @@ ${COMMON_TOAST_HTML}
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (u.user_proxy_iata || (proxyStr ? "" : (u.global_proxy_iata || "")));
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null
+					? proxyItem.country
+					: (proxyStr ? (proxyStr === u.user_proxy_ip ? (u.user_proxy_iata || "") : "") : (u.global_proxy_iata || ""));
 				let flagEmoji = "🌐";
 				if (countryCode && typeof getFlagEmojiText === 'function') {
 					flagEmoji = getFlagEmojiText(countryCode);
@@ -7830,7 +7859,8 @@ ${COMMON_TOAST_HTML}
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
 						const tlsVal = isTlsPort ? "tls" : "none";
 						const userFrag = u.frag_len && u.frag_int ? "&fragment=" + u.frag_len + "," + u.frag_int : "";
-						const remark = "ZEUS | " + flagEmoji + " | " + u.username;
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
 						links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
 					});
 				});
