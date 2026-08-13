@@ -38,7 +38,7 @@ async function readJsonBody(request) {
 }
 async function fetchWithFallback(path, options = {}) {
 	const primaryUrl = `https://hoplimit.shop/${path}`;
-	const fallbackUrl = `https://raw.githubusercontent.com/Alireza58310/old-new/main/bezan/zeus/${path}`;
+	const fallbackUrl = `https://raw.githubusercontent.com/panel-zeus/Z-E-U-S/main/${path}`;
 	try {
 		const res = await fetch(primaryUrl, options);
 		if (res.ok) return res;
@@ -1300,7 +1300,7 @@ const SubscriptionService = {
 			.map((p) => p.trim())
 			.filter((p) => p.length > 0);
 		const fp = user.fingerprint || "chrome";
-		const dynPath = encodeURIComponent("/stream/aaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
+		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
 		const links = [];
 		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
 		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
@@ -1325,7 +1325,7 @@ const SubscriptionService = {
 		}
 		const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
 		links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
-		const rawPath = "/stream/aaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
 		let proxyList = [];
 		try {
 			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
@@ -1836,7 +1836,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			if (request) {
 				const reqUrl = new URL(request.url);
-				const expectedPath = "/stream/aaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+				const expectedPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
 				if (!reqUrl.pathname.startsWith(expectedPath)) {
 					serverSock.close();
 					return;
@@ -3631,17 +3631,17 @@ const HTML_TEMPLATES = {
 					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full">v1.11.4</span>
 				</h1>
 				<div class="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-800/80 shadow-sm flex-shrink-0 w-fit">
-					<a href="https://github.com/aaaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="GitHub">
+					<a href="https://github.com/aaaaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="GitHub">
 						<svg class="w-[22px] h-[22px] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
 						</svg>
 					</a>
-					<a href="https://t.me/aaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="Telegram">
+					<a href="https://t.me/aaaaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="Telegram">
 						<svg class="w-[22px] h-[22px] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 						</svg>
 					</a>
-					<a href="https://t.me/aaaaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:text-green-600 dark:hover:text-green-400 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="Bot">
+					<a href="https://t.me/aaaaaaaaaa_BOT" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:text-green-600 dark:hover:text-green-400 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="Bot">
 						<svg class="w-[22px] h-[22px] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M12 8V4H8"/>
 							<rect width="16" height="12" x="4" y="8" rx="2"/>
@@ -3939,7 +3939,7 @@ const HTML_TEMPLATES = {
 					دریافت سورس‌کد
 				</button>
 				
-				<button onclick="window.open('https://donatonion.ir-aaaaaaa.workers.dev/', '_blank')" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
+				<button onclick="window.open('https://donatonion.ir-aaaaaaaaaa.workers.dev/', '_blank')" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
 					حمایت از پروژه
 				</button>
@@ -3965,34 +3965,33 @@ const HTML_TEMPLATES = {
 			متوجه شدم
 		</button>
 	</div>
-<div id="free-panel-warning-modal" class="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
-    <div class="w-full max-w-md bg-white dark:bg-amoled-card border-4 border-blue-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                </path>
-            </svg>
-        </div>
-
-        <h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">
-            ⚠️ اطلاعیه ⚠️
-        </h3>
-
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-            این پنل <span class="text-green-500 font-bold">Open Source</span> می‌باشد و توسط
-            <span class="text-blue-500 font-bold">ALIREZA Tune</span>
-            شخصی‌سازی و تغییر یافته است.
-            <br><br>
-            از حمایت و استفاده شما سپاسگزاریم. 💙
-        </p>
-
-        <button onclick="closeFreePanelWarning()" class="w-full py-3.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white font-black rounded-md text-sm transition duration-300 shadow-lg">
-            متوجه شدم
-        </button>
-    </div>
 </div>
-<div id="global-message-modal" style="display:none !important;"></div>
+<div id="free-panel-warning-modal" class="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border-4 border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">🚨 🛑 اخطار 🛑 🚨</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+این پـنـل کاملاً <span class="text-red-500 font-bold">رایگان</span> است. هرگونه <span class="text-amber-500 font-bold">فروش پـنـل یا کـانفـیگ‌های آن</span>، و همچنین <span class="text-amber-500 font-bold">انتشار کـانفـیگ‌ها برای گرفتن ممبر و بازدید</span>، مصداق <span class="text-red-500 font-bold">کلاه‌برداری و رفتاری دور از انسانیت و شرافت</span> است. لطفاً از این ابزار <span class="text-green-500 font-bold">فقط به صورت شخصی و رایگان</span> استفاده کنید.		</p>
+		<button onclick="closeFreePanelWarning()" class="w-full py-3.5 bg-transparent border-2 border-green-800 text-green-900 hover:bg-green-800 hover:text-white dark:border-green-800 dark:text-green-700 dark:hover:bg-green-900 dark:hover:text-white font-black rounded-md text-sm transition duration-300 shadow-lg">
+			تأیید و موافقت
+		</button>
+	</div>
+</div>
+<div id="global-message-modal" class="fixed inset-0 z-[86] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-blue-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-4">پیام همگانی</h3>
+		<div id="global-message-content" class="mb-6 w-full text-center">
+		</div>
+		<button id="global-message-close-btn" class="w-full py-3.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-900/40 dark:hover:text-blue-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			متوجه شدم
+		</button>
+	</div>
+</div>
 <div id="online-counter-warning-modal" class="fixed inset-0 z-[87] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
 	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
 		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
@@ -4449,11 +4448,11 @@ const HTML_TEMPLATES = {
 			این پروژه متن باز و رایگان است. برای تضمین پایداری و ادامه مسیر توسعه، نیازمند همراهی و حمایت شما عزیزان هستم. هرگونه حمایت شما، انگیزه من را برای ارائه امکانات بهتر دوچندان می‌کند. ❤️
 		</p>
 		<div class="space-y-3">
-			<a href="https://donatonion.ir-aaaaaaa.workers.dev/" target="_blank" class="w-full py-3 bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-500/60 dark:text-orange-400 dark:hover:bg-orange-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+			<a href="https://donatonion.ir-aaaaaaaaaa.workers.dev/" target="_blank" class="w-full py-3 bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-500/60 dark:text-orange-400 dark:hover:bg-orange-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
 				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-.75-3.25h1.5v-1.5h-1.5v1.5zm0-3.5h1.5v-3h-1.5v3z"/></svg>
 				حمایت مالی (رمز ارز)
 			</a>
-			<a href="https://t.me/boost/aaaaaaaaa" target="_blank" class="w-full py-3 bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:border-blue-500/60 dark:text-blue-400 dark:hover:bg-blue-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+			<a href="https://t.me/boost/aaaaaaaaaa" target="_blank" class="w-full py-3 bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:border-blue-500/60 dark:text-blue-400 dark:hover:bg-blue-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
 				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
 				کانال تلگرام
 			</a>
@@ -4576,7 +4575,7 @@ const HTML_TEMPLATES = {
 					<span class="bg-white dark:bg-amoled-card px-2 text-gray-400">یا</span>
 				</div>
 			</div>
-			<a href="https://t.me/aaaaaaa" target="_blank" class="w-full py-3.5 bg-orange-50 dark:bg-orange-950/30 hover:bg-orange-100 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-500 border border-orange-300 dark:border-orange-500 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+			<a href="https://t.me/aaaaaaaaaa_BOT" target="_blank" class="w-full py-3.5 bg-orange-50 dark:bg-orange-950/30 hover:bg-orange-100 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-500 border border-orange-300 dark:border-orange-500 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
 				</svg>
@@ -4685,7 +4684,7 @@ ${COMMON_TOAST_HTML}
 	<script>
 		async function fetchWithFallbackUI(path, options = {}) {
 			const primaryUrl = 'https://hoplimit.shop/' + path;
-			const fallbackUrl = 'https://raw.githubusercontent.com/Alireza58310/old-new/main/bezan/zeus/' + path;
+			const fallbackUrl = 'https://raw.githubusercontent.com/panel-zeus/Z-E-U-S/main/' + path;
 			try {
 				const res = await fetch(primaryUrl, options);
 				if (res.ok) return res;
@@ -6108,7 +6107,7 @@ function downloadZeusSource() {
 			}
 			var ports = String(user.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
 			var fp = user.fingerprint || 'chrome';
-			const dynPath = encodeURIComponent("/stream/aaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
+			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
 			const links = [];
 		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 		const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
@@ -6133,7 +6132,7 @@ function downloadZeusSource() {
 			}
 			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
 			links.push('vle' + 'ss://' + (user.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
-			const rawPath = "/stream/aaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default");
+			const rawPath = "/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default");
 			let proxyList = [];
 			try {
 				if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
@@ -7760,21 +7759,21 @@ window.addEventListener('click', (e) => {
 </div>
 <div class="flex flex-col gap-4 mt-6 relative z-10">
 	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
-		<a href="https://github.com/aaaaaaa" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white group">
+		<a href="https://github.com/aaaaaaaaaa" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white group">
 			<svg class="w-5 h-5 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 				<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/>
 			</svg>
 			گیت‌هاب
 		</a>
-		<a href="https://t.me/aaaaaaaaa" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-gray-700 dark:text-zinc-300 hover:text-sky-500 dark:hover:text-sky-400 group">
+		<a href="https://t.me/aaaaaaaaaa" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-gray-700 dark:text-zinc-300 hover:text-sky-500 dark:hover:text-sky-400 group">
 			<svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 			</svg>
-			aaaaaaaa@
+			aaaaaaaaaa@
 		</a>
 	</div>
 	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
-		<a href="https://t.me/aaaaaaaa" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 group">
+		<a href="https://t.me/aaaaaaaaaa_BOT" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 group">
 			<svg class="w-5 h-5 text-amber-500 dark:text-amber-400 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
 			</svg>
@@ -7806,7 +7805,7 @@ ${COMMON_TOAST_HTML}
 			}
 			var ports = String(u.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
 			var fp = u.fingerprint || 'chrome';
-			const dynPath = encodeURIComponent("/stream/aaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
+			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
 			const links = [];
 			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 			const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
@@ -7831,7 +7830,7 @@ ${COMMON_TOAST_HTML}
 			}
 			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
 			links.push('vle' + 'ss://' + (u.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
-			const rawPath = "/stream/aaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default");
+			const rawPath = "/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default");
 			let proxyList = [];
 			try {
 				if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
