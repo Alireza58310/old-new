@@ -439,12 +439,12 @@ const Router = {
 			try {
 				await env.DB.prepare("UPDATE users SET used_req = used_req + 1 WHERE username = ?").bind(user.username).run();
 			} catch (e) {}
-			let panelIata = "";
+			let globalIata = "";
 			try {
-				const panelIataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
-				panelIata = panelIataRow ? panelIataRow.value : "";
+				const iataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
+				if (iataRow && iataRow.value) globalIata = iataRow.value;
 			} catch (e) {}
-			return await SubscriptionService.generateText(user, host, panelIata);
+			return await SubscriptionService.generateText(user, host, globalIata);
 		} catch (err) {
 			return new Response("Error building config: " + err.message, { status: 500 });
 		}
@@ -481,6 +481,11 @@ const Router = {
 			if (!user) {
 				return new Response("User not found", { status: 404 });
 			}
+			let globalProxyIata = "";
+			try {
+				const iataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
+				if (iataRow && iataRow.value) globalProxyIata = iataRow.value;
+			} catch (e) {}
 			const userJson = JSON.stringify({
 				username: user.username,
 				uuid: user.uuid,
@@ -500,13 +505,9 @@ const Router = {
 				user_proxy_iata: user.user_proxy_iata,
 				user_socks5: user.user_socks5,
 				user_proxy_ip: user.user_proxy_ip,
+				global_proxy_iata: globalProxyIata,
 			});
-			let panelGlobalIata = "";
-			try {
-				const panelIataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
-				panelGlobalIata = panelIataRow ? panelIataRow.value : "";
-			} catch (e) {}
-			const html = HTML_TEMPLATES.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson}; window.panelGlobalIata = ${JSON.stringify(panelGlobalIata)};`);
+			const html = HTML_TEMPLATES.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
 			return new Response(html, {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
@@ -1282,7 +1283,7 @@ function getActiveIpCount(activeIpsJson) {
 	}
 }
 const SubscriptionService = {
-	async generateText(user, host, panelIata) {
+	async generateText(user, host, globalIata) {
 		let ips = [host];
 		if (user.ips) {
 			const parsedIps = user.ips
@@ -1340,7 +1341,7 @@ const SubscriptionService = {
 		for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 			let proxyItem = proxyList[locIdx];
 			let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-			let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (!proxyStr ? (panelIata || "") : ""));
+			let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (proxyStr ? "" : (globalIata || "")));
 			if (!countryCode && proxyStr) {
 				try {
 					const payload = new TextEncoder().encode("GET /json/?fields=countryCode HTTP/1.1\r\nHost: ip-api.com\r\nConnection: close\r\n\r\n");
@@ -4489,14 +4490,14 @@ const HTML_TEMPLATES = {
 				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
 					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">📍 ثابت کردن کشور (Cloudflare)</h4>
 					<div class="space-y-2">
-						<input type="text" id="global-location-search" oninput="filterGlobalLocations()" onfocus="toggleLocationDropdown(true)" placeholder="جستجوی شهر، کشور یا IATA" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 transition">
-						<div class="relative" id="location-dropdown-wrap">
-							<select id="location-select" class="hidden"></select>
-							<button type="button" id="location-select-btn" onclick="toggleLocationDropdown()" class="w-full flex items-center justify-between gap-2 pl-3 pr-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer">
-								<span id="location-select-label" class="flex items-center gap-2 truncate">🌐 پیش‌فرض (لوکیشن خودکار)</span>
-								<svg class="w-4 h-4 shrink-0 text-gray-500 dark:text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-							</button>
-							<div id="location-select-panel" class="hidden absolute z-20 mt-1 w-full max-h-64 overflow-y-auto bg-white dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-lg"></div>
+						<input type="text" id="global-location-search" oninput="filterGlobalLocations()" placeholder="جستجوی شهر، کشور یا IATA" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 transition">
+						<div class="relative">
+							<select id="location-select" class="w-full pl-8 pr-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer appearance-none">
+								<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-zinc-400">
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+							</div>
 						</div>
 						<p class="text-[11px] text-gray-500 dark:text-gray-400">این تنظیم روی کل پنل اثر می‌گذارد؛ کشور انتخابی به یک IP ثابت resolve و ذخیره می‌شود.</p>
 					</div>
@@ -6146,7 +6147,7 @@ function downloadZeusSource() {
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (!proxyStr ? (window._globalActiveIata || "") : ""));
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (user.user_proxy_iata || (proxyStr ? "" : (window._globalActiveIata || "")));
 				let flagEmoji = "🌐";
 				if (countryCode && typeof getFlagEmojiText === 'function') {
 					flagEmoji = getFlagEmojiText(countryCode);
@@ -6367,81 +6368,45 @@ function editUser(encodedUsername) {
 				return '🌐';
 			}
 		}
+		/* نام فارسی کشور از روی کد دو حرفی؛ داخل <option> فقط متن ساده (نه SVG) قابل نمایشه */
+		function getCountryDisplayName(countryCode) {
+			if (!countryCode) return '';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return String(countryCode).toUpperCase();
+			try {
+				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
+					const dn = new Intl.DisplayNames(['fa'], { type: 'region' });
+					const name = dn.of(cc);
+					if (name && name.toUpperCase() !== cc) return name;
+				}
+			} catch (e) {}
+			return cc;
+		}
 /* --- بخش ثابت کردن کشور/آی‌پی پنل (Cloudflare) --- */
 window._globalLocationsList = window._globalLocationsList || [];
-/* اسم کامل کشور از روی کد دو حرفی؛ اگه مرورگر پشتیبانی نکنه، خود کد رو برمی‌گردونه */
-function getCountryDisplayName(cc) {
-	if (!cc) return '';
-	try {
-		if (!window._countryNamer) window._countryNamer = new Intl.DisplayNames(['en'], { type: 'region' });
-		return window._countryNamer.of(cc.toUpperCase()) || cc.toUpperCase();
-	} catch (e) {
-		return cc.toUpperCase();
-	}
-}
 function renderGlobalLocationsUI(locations, activeIata) {
 	const select = document.getElementById('location-select');
-	const panel = document.getElementById('location-select-panel');
-	const label = document.getElementById('location-select-label');
-	if (!select || !panel) return;
-	const withNames = locations
-		.filter(loc => loc.iata && loc.city)
-		.map(loc => Object.assign({}, loc, { _name: getCountryDisplayName(loc.cca2) }));
-	/* مرتب‌سازی بر اساس اسم کامل کشور، از A تا Z */
-	withNames.sort((a, b) => a._name.localeCompare(b._name));
-
-	let selectHtml = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
-	let panelHtml = '<div class="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-white/5' + (!activeIata ? ' bg-blue-50 dark:bg-blue-500/10' : '') + '" onclick="selectGlobalLocation(\'\')"><span class="zeus-flag-globe">🌐</span><span class="text-gray-700 dark:text-zinc-200">پیش‌فرض (لوکیشن خودکار)</span></div>';
-	let matched = false;
-
-	withNames.forEach(loc => {
-		const isSelected = !!(activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase());
-		selectHtml += '<option value="' + loc.iata + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + loc._name + ' ' + (loc.cca2 || '')).toLowerCase() + '" ' + (isSelected ? 'selected' : '') + '>' + (loc.cca2 ? loc.cca2.toUpperCase() + ' ' : '') + loc._name + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
-		panelHtml += '<div class="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-white/5' + (isSelected ? ' bg-blue-50 dark:bg-blue-500/10' : '') + '" onclick="selectGlobalLocation(\'' + loc.iata + '\')">' + getFlagEmoji(loc.cca2) + '<span class="text-gray-700 dark:text-zinc-200 truncate">' + loc._name + '</span><span class="text-gray-400 dark:text-zinc-500 text-xs shrink-0 mr-auto">' + loc.city + ' (' + loc.iata + ')</span></div>';
-		if (isSelected) {
-			matched = true;
-			if (label) label.innerHTML = getFlagEmoji(loc.cca2) + '<span class="truncate">' + loc._name + ' - ' + loc.city + '</span>';
+	if (!select) return;
+	const sorted = locations.slice().sort((a, b) => (a.cca2 || '').localeCompare(b.cca2 || ''));
+	let html = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
+	sorted.forEach(loc => {
+		if (loc.iata && loc.city) {
+			const isSelected = activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase() ? 'selected' : '';
+			const flag = getFlagEmojiText(loc.cca2);
+			const countryName = getCountryDisplayName(loc.cca2);
+			html += '<option value="' + loc.iata + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryName + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
 		}
 	});
-	if (!matched && label) {
-		label.innerHTML = '🌐 پیش‌فرض (لوکیشن خودکار)';
-	}
-	select.innerHTML = selectHtml;
-	panel.innerHTML = panelHtml;
+	select.innerHTML = html;
 }
-function toggleLocationDropdown(forceState) {
-	const panel = document.getElementById('location-select-panel');
-	if (!panel) return;
-	const shouldOpen = typeof forceState === 'boolean' ? forceState : panel.classList.contains('hidden');
-	if (shouldOpen) {
-		panel.classList.remove('hidden');
-		document.addEventListener('click', closeLocationDropdownOnOutsideClick);
-	} else {
-		panel.classList.add('hidden');
-		document.removeEventListener('click', closeLocationDropdownOnOutsideClick);
-	}
-}
-function closeLocationDropdownOnOutsideClick(e) {
-	const wrap = document.getElementById('location-dropdown-wrap');
-	if (wrap && !wrap.contains(e.target)) {
-		toggleLocationDropdown(false);
-	}
-}
-window.selectGlobalLocation = function(iata) {
-	const select = document.getElementById('location-select');
-	if (select) select.value = iata;
-	renderGlobalLocationsUI(window._globalLocationsList, iata);
-	toggleLocationDropdown(false);
-};
 function filterGlobalLocations() {
 	const q = (document.getElementById('global-location-search').value || '').toLowerCase().trim();
 	const select = document.getElementById('location-select');
 	if (!select) return;
 	const activeIata = select.value;
 	if (!q) { renderGlobalLocationsUI(window._globalLocationsList, activeIata); return; }
-	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + getCountryDisplayName(loc.cca2) + ' ' + (loc.cca2 || '')).toLowerCase().includes(q));
+	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + getCountryDisplayName(loc.cca2)).toLowerCase().includes(q));
 	renderGlobalLocationsUI(filtered, activeIata);
-	toggleLocationDropdown(true);
 }
 async function loadLocations() {
 	const select = document.getElementById('location-select');
@@ -6461,8 +6426,6 @@ async function loadLocations() {
 		renderGlobalLocationsUI(window._globalLocationsList, activeIata);
 	} catch (err) {
 		select.innerHTML = '<option value="">⚠️ خطا در دریافت لوکیشن‌ها</option>';
-		const panel = document.getElementById('location-select-panel');
-		if (panel) panel.innerHTML = '<div class="px-3 py-2 text-sm text-red-500">⚠️ خطا در دریافت لوکیشن‌ها</div>';
 	}
 }
 async function saveSettings() {
@@ -6503,9 +6466,9 @@ async function saveSettings() {
 			if (countryResolveFailed) {
 				showToast('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
 			} else {
+				window._globalActiveIata = iata ? iata.toUpperCase() : '';
 				toggleSettingsModal(false);
-				/* بعد از ذخیره، خود IP رو هم نشون بده (نه فقط پیام موفقیت خام) */
-				showToast(iata ? ('✅ تنظیمات ذخیره شد. آی‌پی پروکسی: ' + resolvedIp) : '✅ تنظیمات ذخیره شد. آدرس پروکسی به حالت پیش‌فرض بازگشت.');
+				showToast('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
 			}
 		} else {
 			showToast('❌ خطا در ذخیره تنظیمات');
@@ -7854,7 +7817,7 @@ ${COMMON_TOAST_HTML}
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (u.user_proxy_iata || (!proxyStr ? (window.panelGlobalIata || "") : ""));
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.country : (u.user_proxy_iata || (proxyStr ? "" : (u.global_proxy_iata || "")));
 				let flagEmoji = "🌐";
 				if (countryCode && typeof getFlagEmojiText === 'function') {
 					flagEmoji = getFlagEmojiText(countryCode);
