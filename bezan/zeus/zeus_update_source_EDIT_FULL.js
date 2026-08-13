@@ -11,9 +11,12 @@ let GLOBAL_REQ_COUNT = 0;
 let GLOBAL_LAST_REQ_WRITE = 0;
 const DNS_CACHE_TTL = 5 * 60 * 1000;
 const DOH_RESOLVER = "https://cloudflare-dns.com/dns-query";
-const UPSTREAM_BUNDLE_TARGET_BYTES = 128 * 1024;
-const UPSTREAM_QUEUE_MAX_BYTES = 16 * 1024 * 1024;
-const UPSTREAM_QUEUE_MAX_ITEMS = 4096;
+// این سه عدد قبلاً ۱۲۸KB/۱۶MB/۴۰۹۶ بودن که باعث می‌شد صف آپلود هر کانکشن خیلی بزرگ بشه؛
+// زیر فشار (تست اسپید، چند کانکشن هم‌زمان) این باعث فشار حافظه و گیر کردن/تیک‌زدن نزدیک پایان
+// آپلود می‌شد. با ۶۴KB/۶MB/۳۰۰۰ (هماهنگ با نسخه‌ی قدیمی‌تر و پایدار) صف زودتر و نرم‌تر خالی می‌شه.
+const UPSTREAM_BUNDLE_TARGET_BYTES = 64 * 1024;
+const UPSTREAM_QUEUE_MAX_BYTES = 6 * 1024 * 1024;
+const UPSTREAM_QUEUE_MAX_ITEMS = 3000;
 const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
 const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
 const DOWNSTREAM_GRAIN_SILENT_MS = 1;
@@ -21,6 +24,36 @@ const DNS_CACHE_MAX_ENTRIES = 2048;
 const TEXT_ENCODER = new TextEncoder();
 const TEXT_DECODER = new TextDecoder();
 const TLS_PORTS = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
+// سقف تعداد کانکشن هم‌زمان روی این ایزوله. هر کانکشن می‌تونه تا چند مگابایت بافر آپلود/دانلود بگیره؛
+// بدون سقف، یه موج ناگهانی کانکشن (مثلاً تست اسپید با چند stream موازی، یا حتی رفتار غیرعادی)
+// می‌تونه حافظه‌ی ۱۲۸MB ایزوله رو پر کنه و کل Worker کرش کنه. این عدد شیر اطمینانه، نه چیزی که
+// تو مصرف عادی (چند کاربر، چند دستگاه) بهش برسید.
+const MAX_ISOLATE_CONNECTIONS = 300;
+let CURRENT_ISOLATE_CONNECTIONS = 0;
+// فاصله‌ی پاک‌سازی دوره‌ای Mapهای ردیابی ترافیک/کانکشن (GLOBAL_TRAFFIC_CACHE و بقیه). این Mapها
+// کلیدشون username هست و در طول عمر ایزوله فقط اضافه می‌شن مگه یه‌جا صریحاً پاک بشن؛ این تابع
+// دوره‌ای اون یوزرهایی که نه کانکشن فعال دارن نه ترافیک/ریکوئست کش‌شده، رو حذف می‌کنه.
+const GLOBAL_MAP_SWEEP_INTERVAL = 30 * 1000;
+let lastGlobalMapSweep = 0;
+function sweepGlobalTrafficMaps() {
+	const now = Date.now();
+	if (now - lastGlobalMapSweep < GLOBAL_MAP_SWEEP_INTERVAL) return;
+	lastGlobalMapSweep = now;
+	for (const uname of GLOBAL_LAST_ACTIVE_WRITE.keys()) {
+		const active = ACTIVE_CONNECTIONS_COUNT.get(uname) || 0;
+		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
+		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
+		const staleFor = now - (GLOBAL_LAST_ACTIVE_WRITE.get(uname) || 0);
+		if (active === 0 && cachedBytes === 0 && cachedReqs === 0 && staleFor > GLOBAL_MAP_SWEEP_INTERVAL) {
+			GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
+			GLOBAL_LAST_DB_WRITE.delete(uname);
+			GLOBAL_WRITE_LOCK.delete(uname);
+			ACTIVE_CONNECTIONS_COUNT.delete(uname);
+			GLOBAL_TRAFFIC_CACHE.delete(uname);
+			USER_REQ_CACHE.delete(uname);
+		}
+	}
+}
 function safeDecodeURI(value) {
 	try {
 		return decodeURIComponent(value);
@@ -342,6 +375,7 @@ export default {
 				await DbService.ensureSchema(env.DB);
 			} catch (e) {}
 			trackRequest(env, ctx);
+			sweepGlobalTrafficMaps();
 			if (schemaEnsured) {
 				ctx.waitUntil(checkAutoResets(env, ctx));
 				ctx.waitUntil(checkAutoRotates(env, ctx));
@@ -1519,6 +1553,10 @@ function getSelectedUserProxy(userSocks5, request) {
 	return typeof selected === "object" ? selected.proxy || "" : String(selected || "");
 }
 async function handlevIees(env, storedData = null, ctx = null, request = null) {
+	// اگه تعداد کانکشن هم‌زمان روی این ایزوله از سقف رد بشه، کانکشن جدید رو رد می‌کنیم تا حافظه پر نشه.
+	if (CURRENT_ISOLATE_CONNECTIONS >= MAX_ISOLATE_CONNECTIONS) {
+		return new Response(null, { status: 503 });
+	}
 	const proxyIP = storedData?.proxy_ip || "";
 	let rawClientIP = request ? request.headers.get("CF-Connecting-IP") || "unknown" : "unknown";
 	let clientIP = rawClientIP;
@@ -1539,6 +1577,15 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	const [clientSock, serverSock] = Object.values(socketPair);
 	serverSock.accept();
 	serverSock.binaryType = "arraybuffer";
+	CURRENT_ISOLATE_CONNECTIONS++;
+	let isolateSlotReleased = false;
+	const releaseIsolateSlot = () => {
+		if (isolateSlotReleased) return;
+		isolateSlotReleased = true;
+		CURRENT_ISOLATE_CONNECTIONS = Math.max(0, CURRENT_ISOLATE_CONNECTIONS - 1);
+	};
+	serverSock.addEventListener("close", releaseIsolateSlot);
+	serverSock.addEventListener("error", releaseIsolateSlot);
 	let username = null;
 	let validUUID = null;
 	let targetDns = "8.8.4.4";
@@ -1782,8 +1829,15 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		},
 		name: "vIeesWSQueue",
 	});
+	let hasRemoteWriteSucceeded = false;
 	const writeToRemote = async (chunk, allowRetry = true) => {
-		return upstreamQueue.writeAndAwait(chunk, allowRetry);
+		// بعد از اولین نوشتن موفق روی سوکت مقصد، retry خودکار رو خاموش می‌کنیم: عوض کردن بی‌صدای
+		// سوکت TCP وسط یه آپلود بزرگ (که میلیون‌ها بایتش قبلاً رفته)، از دید سرور مقصد یعنی یه
+		// کانکشن کاملاً متفاوت و session سطح بالا (TLS/HTTP) خراب می‌شه؛ بهتره خطای واقعی تمیز باشه.
+		const effectiveAllowRetry = allowRetry && !hasRemoteWriteSucceeded;
+		const result = await upstreamQueue.write(chunk, effectiveAllowRetry);
+		if (result === true) hasRemoteWriteSucceeded = true;
+		return result;
 	};
 	const processWsMessage = async (chunk) => {
 		const bytes = chunk.byteLength || 0;
@@ -2457,6 +2511,22 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 	return {
 		writeAndAwait(data, allowRetry = true) {
 			return enqueue(data, allowRetry, true);
+		},
+		// نسخه‌ی غیربلاکه: مثل writeAndAwait تیکه رو صف می‌کنه ولی منتظر تموم‌شدن نوشتن واقعی روی سوکت نمی‌مونه،
+		// پس آپلود سریع باقی می‌مونه. وقتی صف به ~۷۰٪ سقفش نزدیک می‌شه، به‌جای این‌که بذاریم پر بشه و کل
+		// کانکشن با خطای overflow قطع بشه، یه فشار برگشتی نرم اعمال می‌کنیم: کمی صبر می‌کنیم تا خالی‌تر بشه.
+		async write(data, allowRetry = true) {
+			const result = enqueue(data, allowRetry, false);
+			if (result === false || result === true) {
+				if (queuedBytes > UPSTREAM_QUEUE_MAX_BYTES * 0.7) {
+					const softLimit = UPSTREAM_QUEUE_MAX_BYTES * 0.5;
+					while (!closed && queuedBytes > softLimit) {
+						await new Promise((r) => setTimeout(r, 15));
+					}
+				}
+				return result;
+			}
+			return result;
 		},
 		async awaitEmpty() {
 			if (!queuedBytes && !draining) return;
