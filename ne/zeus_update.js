@@ -441,8 +441,8 @@ const Router = {
 			} catch (e) {}
 			let globalIata = "";
 			try {
-				const iataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
-				if (iataRow && iataRow.value) globalIata = iataRow.value;
+				const countryRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
+				if (countryRow && countryRow.value) globalIata = countryRow.value;
 			} catch (e) {}
 			return await SubscriptionService.generateText(user, host, globalIata);
 		} catch (err) {
@@ -483,8 +483,8 @@ const Router = {
 			}
 			let globalProxyIata = "";
 			try {
-				const iataRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
-				if (iataRow && iataRow.value) globalProxyIata = iataRow.value;
+				const countryRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
+				if (countryRow && countryRow.value) globalProxyIata = countryRow.value;
 			} catch (e) {}
 			const userJson = JSON.stringify({
 				username: user.username,
@@ -864,20 +864,23 @@ const Router = {
 		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
-				const { proxy_ip, iata, socks5 } = await readJsonBody(request);
+				const { proxy_ip, iata, socks5, country } = await readJsonBody(request);
 				if (proxy_ip !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_ip', ?)").bind(proxy_ip).run();
 				if (iata !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_iata', ?)").bind(iata).run();
+				if (country !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_country', ?)").bind(country).run();
 				if (socks5 !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('socks5', ?)").bind(socks5).run();
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			}
 			if (request.method === "GET") {
 				const rowIp = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
 				const rowIata = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
+				const rowCountry = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
 				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
 				return new Response(
 					JSON.stringify({
 						proxy_ip: rowIp ? rowIp.value : "",
 						iata: rowIata ? rowIata.value : "",
+						country: rowCountry ? rowCountry.value : "",
 						socks5: rowSocks ? rowSocks.value : "",
 					}),
 					{ headers: { "Content-Type": "application/json" } },
@@ -1409,7 +1412,7 @@ const SubscriptionService = {
 					const isTlsPort = TLS_PORTS.has(portStr);
 					const tlsVal = isTlsPort ? "tls" : "none";
 					const userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 					links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
 				});
@@ -6152,7 +6155,7 @@ function downloadZeusSource() {
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
 				let countryCode = typeof proxyItem === "object" && proxyItem !== null
 					? proxyItem.country
-					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveIata || ""));
+					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveCountry || ""));
 				let flagEmoji = "🌐";
 				if (countryCode && typeof getFlagEmojiText === 'function') {
 					flagEmoji = getFlagEmojiText(countryCode);
@@ -6165,7 +6168,7 @@ function downloadZeusSource() {
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
 						const tlsVal = isTlsPort ? "tls" : "none";
 						const userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 						links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
 					});
@@ -6415,7 +6418,7 @@ function renderGlobalLocationsUI(locations, activeIata) {
 			const flag = getFlagEmojiText(loc.cca2);
 			const countryNameEn = getCountryDisplayNameEn(loc.cca2);
 			const countryName = getCountryDisplayName(loc.cca2);
-			html += '<option value="' + loc.iata + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
+			html += '<option value="' + loc.iata + '" data-cca2="' + (loc.cca2 || '') + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
 		}
 	});
 	select.innerHTML = html;
@@ -6439,6 +6442,7 @@ async function loadLocations() {
 			const statusData = await statusRes.json();
 			activeIata = statusData.iata || '';
 			window._globalActiveIata = activeIata;
+			window._globalActiveCountry = statusData.country || '';
 		}
 		const res = await fetch('/locations');
 		if (!res.ok) throw new Error();
@@ -6453,6 +6457,8 @@ async function saveSettings() {
 	const btn = document.getElementById('save-settings-btn');
 	const select = document.getElementById('location-select');
 	const iata = select ? select.value : '';
+	const selectedOption = select && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
+	const cca2 = selectedOption ? (selectedOption.dataset.cca2 || '') : '';
 	if (btn) { btn.disabled = true; btn.innerText = 'در حال ذخیره...'; }
 	try {
 		let resolvedIp = '';
@@ -6481,13 +6487,14 @@ async function saveSettings() {
 		const response = await fetch('/api/proxy-ip', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ proxy_ip: resolvedIp, iata: countryResolveFailed ? '' : (iata ? iata.toUpperCase() : '') })
+			body: JSON.stringify({ proxy_ip: resolvedIp, iata: countryResolveFailed ? '' : (iata ? iata.toUpperCase() : ''), country: countryResolveFailed ? '' : (cca2 ? cca2.toUpperCase() : '') })
 		});
 		if (response.ok) {
 			if (countryResolveFailed) {
 				showToast('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
 			} else {
 				window._globalActiveIata = iata ? iata.toUpperCase() : '';
+				window._globalActiveCountry = cca2 ? cca2.toUpperCase() : '';
 				toggleSettingsModal(false);
 				showToast('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
 			}
@@ -7859,7 +7866,7 @@ ${COMMON_TOAST_HTML}
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
 						const tlsVal = isTlsPort ? "tls" : "none";
 						const userFrag = u.frag_len && u.frag_int ? "&fragment=" + u.frag_len + "," + u.frag_int : "";
-						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "ZEUS";
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
 						links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
 					});
