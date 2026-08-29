@@ -283,7 +283,7 @@ document.getElementById('confirm-add-btn').addEventListener('click', () => {
   const input = document.getElementById('new-source-input');
   const val = input.value.trim();
   if (!val) return;
-  if (!/^https:\/\//i.test(val)) {
+  if (val.toLowerCase().indexOf('https://') !== 0) {
     alert('آدرس باید با https:// شروع بشه.');
     return;
   }
