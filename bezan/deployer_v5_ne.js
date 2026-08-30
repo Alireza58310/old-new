@@ -112,7 +112,7 @@ export default {
                 const metadata = {
                     main_module: scriptFileName,
                     compatibility_date: "2024-02-08",
-                    compatibility_flags: ["allow_eval_during_startup"],
+                    compatibility_flags: ["allow_eval_during_startup", "nodejs_compat"],
                     bindings: bindings,
                     // لاگ‌های Workers (Observability) رو از همون لحظه دیپلوی روشن می‌کنیم،
                     // چون قبلاً بعد از هر دیپلوی خاموش بود و باید دستی از داشبورد روشن می‌شد.
@@ -262,7 +262,7 @@ export default {
                 const metadata = {
                     main_module: scriptFileName,
                     compatibility_date: "2024-02-08",
-                    compatibility_flags: ["allow_eval_during_startup"],
+                    compatibility_flags: ["allow_eval_during_startup", "nodejs_compat"],
                     bindings: newBindings,
                     observability: { enabled: true, head_sampling_rate: 1 },
                 };
@@ -346,7 +346,7 @@ if (request.method === "POST" && url.pathname === "/api/reset-password") {
         const metadata = {
             main_module: scriptFileName,
             compatibility_date: "2024-02-08",
-                    compatibility_flags: ["allow_eval_during_startup"],
+                    compatibility_flags: ["allow_eval_during_startup", "nodejs_compat"],
             bindings: newBindings,
             observability: { enabled: true, head_sampling_rate: 1 },
         };
