@@ -185,10 +185,10 @@ function getAdminHTML(origin) {
 	.file-item:hover { background: rgba(255,255,255,.07); }
 	.file-item.active { background: rgba(99,102,241,.18); border-color: rgba(99,102,241,.5); }
 	.file-name { font-family: monospace; font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-	.file-actions { display: flex; gap: 4px; opacity: 0; transition: .15s; flex-shrink: 0; }
-	.file-item:hover .file-actions { opacity: 1; }
-	.icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: .85rem; padding: 2px 5px; border-radius: 6px; }
-	.icon-btn:hover { color: #fff; background: rgba(255,255,255,.1); }
+	.file-actions { display: flex; gap: 4px; flex-shrink: 0; }
+	.icon-btn { background: rgba(255,255,255,.05); border: 1px solid transparent; color: var(--muted); cursor: pointer; font-size: .85rem; padding: 5px 7px; border-radius: 8px; transition: .15s; }
+	.icon-btn:hover { color: #fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.1); }
+	.icon-btn.danger:hover { color: #fca5a5; background: rgba(239,68,68,.15); border-color: rgba(239,68,68,.3); }
 	.empty-hint { color: var(--muted); font-size: .8rem; text-align: center; padding: 20px 0; }
 
 	.editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
@@ -201,10 +201,16 @@ function getAdminHTML(origin) {
 	textarea#editor:focus { border-color: rgba(99,102,241,.5); }
 	textarea#editor:disabled { opacity: .4; }
 
-	.raw-link-box { margin-top: 16px; background: rgba(0,0,0,.3); padding: 10px 14px; border-radius: 12px;
-		display: flex; align-items: center; justify-content: space-between; gap: 10px;
-		border: 1px dashed var(--border); direction: ltr; flex-wrap: wrap; }
-	.raw-link { color: #a5b4fc; text-decoration: none; word-break: break-all; font-family: monospace; font-size: .82rem; }
+	.raw-link-box { margin-top: 18px; background: linear-gradient(135deg, rgba(99,102,241,.12), rgba(236,72,153,.08));
+		padding: 14px 18px; border-radius: 16px; display: flex; align-items: center; justify-content: space-between;
+		gap: 12px; border: 1px solid rgba(165,180,252,.25); direction: ltr; flex-wrap: wrap; }
+	.raw-link-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+	.raw-link-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(165,180,252,.15);
+		display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+	.raw-link-info { min-width: 0; }
+	.raw-link-label { font-size: .7rem; color: var(--muted); margin-bottom: 2px; direction: rtl; text-align: right; }
+	.raw-link { color: #c7d2fe; text-decoration: none; word-break: break-all; font-family: monospace; font-size: .85rem; font-weight: 600; }
+	.raw-link:hover { color: #fff; text-decoration: underline; }
 
 	.no-file-state { display: flex; flex-direction: column; align-items: center; justify-content: center;
 		height: 460px; color: var(--muted); gap: 10px; text-align: center; }
@@ -337,7 +343,7 @@ function getAdminHTML(origin) {
 				'<div class="file-actions">' +
 					'<button class="icon-btn rename-btn" title="تغییر نام">✏️</button>' +
 					'<button class="icon-btn copy-btn" title="کپی لینک">🔗</button>' +
-					'<button class="icon-btn delete-btn" title="حذف">🗑️</button>' +
+					'<button class="icon-btn danger delete-btn" title="حذف">🗑️</button>' +
 				'</div>';
 			item.querySelector('.file-name').addEventListener('click', () => openFile(f));
 			item.querySelector('.rename-btn').addEventListener('click', (e) => { e.stopPropagation(); openRenameModal(f); });
@@ -364,15 +370,23 @@ function getAdminHTML(origin) {
 				'<div class="editor-filename">' + filename + '</div>' +
 				'<div class="editor-actions">' +
 					'<button class="btn btn-sm" id="save-btn">💾 ذخیره</button>' +
+					'<button class="btn btn-sm btn-danger" id="editor-delete-btn">🗑️ حذف فایل</button>' +
 				'</div>' +
 			'</div>' +
 			'<textarea id="editor" placeholder="محتوای کانفیگ‌ها / لینک‌ها را اینجا وارد کنید...">' + escapeHtml(content) + '</textarea>' +
 			'<div class="raw-link-box">' +
-				'<a class="raw-link" target="_blank" href="' + rawUrl + '">' + rawUrl + '</a>' +
-				'<button class="btn btn-secondary btn-sm" id="copy-raw-btn">کپی لینک</button>' +
+				'<div class="raw-link-left">' +
+					'<div class="raw-link-icon">🔗</div>' +
+					'<div class="raw-link-info">' +
+						'<div class="raw-link-label">لینک مستقیم (RAW)</div>' +
+						'<a class="raw-link" target="_blank" href="' + rawUrl + '">' + rawUrl + '</a>' +
+					'</div>' +
+				'</div>' +
+				'<button class="btn btn-secondary btn-sm" id="copy-raw-btn">📋 کپی</button>' +
 			'</div>';
 		document.getElementById('save-btn').addEventListener('click', saveCurrentFile);
 		document.getElementById('copy-raw-btn').addEventListener('click', () => copyRawUrl(filename));
+		document.getElementById('editor-delete-btn').addEventListener('click', () => deleteFile(filename));
 	}
 
 	function escapeHtml(str) {
