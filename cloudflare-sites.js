@@ -1,179 +1,433 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const path = url.pathname.slice(1);
+    const path = url.pathname;
 
-    // 1. پنل مدیریت و مشاهده (جایگزین index.php و style.css)
-    if (url.pathname === "/" || url.pathname === "/index.php") {
-      const html = `
-      <!DOCTYPE html>
-      <html lang="fa" dir="rtl">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VIP Proxy Explorer & Config Storage</title>
-        <style>
-          * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, Segoe UI, sans-serif; }
-          body { background-color: #0f172a; color: #f8fafc; padding: 20px; direction: rtl; }
-          .container { max-width: 900px; margin: 0 auto; background: #1e293b; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
-          h1 { color: #38bdf8; font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 10px; }
-          .btn { background: #0284c7; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
-          .btn:hover { background: #0369a1; }
-          .btn-danger { background: #e11d48; }
-          .btn-danger:hover { background: #be123c; }
-          .form-group { margin-bottom: 16px; }
-          label { display: block; margin-bottom: 6px; color: #94a3b8; font-size: 0.85rem; }
-          input, textarea { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 0.9rem; }
-          textarea { height: 120px; resize: vertical; }
-          .actions { display: flex; gap: 10px; margin-top: 10px; }
-          table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #0f172a; border-radius: 8px; overflow: hidden; }
-          th, td { padding: 12px; text-align: right; border-bottom: 1px solid #1e293b; font-size: 0.85rem; }
-          th { background: #334155; color: #38bdf8; }
-          .badge { background: #0369a1; color: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>مدیریت و ذخیره‌سازی کانفیگ‌ها (Cloudflare Worker)</h1>
-          
-          <div class="form-group">
-            <label>کلید / نام فایل (مثلاً final.txt یا کد کشور مانند US, IR):</label>
-            <input type="text" id="storageKey" value="final.txt">
-          </div>
-
-          <div class="form-group">
-            <label>محتوای کانفیگ‌ها (متن/داده):</label>
-            <textarea id="storageContent" placeholder="کانفیگ‌ها را اینجا وارد کنید..."></textarea>
-          </div>
-
-          <div class="actions">
-            <button class="btn" onclick="saveData()">ذخیره داده</button>
-            <button class="btn" onclick="fetchList()">بروزرسانی لیست کلیدها</button>
-          </div>
-
-          <table style="margin-top:25px;">
-            <thead>
-              <tr>
-                <th>کلید / نام فایل</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody id="listBody">
-              <tr><td colspan="2">در حال دریافت اطلاعات...</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <script>
-          async function saveData() {
-            const key = document.getElementById('storageKey').value.trim();
-            const content = document.getElementById('storageContent').value;
-            if (!key) return alert('لطفاً نام کلید را وارد کنید.');
-
-            const res = await fetch('/' + key, { method: 'POST', body: content });
-            if (res.ok) {
-              alert('داده با موفقیت ذخیره شد.');
-              document.getElementById('storageContent').value = '';
-              fetchList();
-            } else {
-              alert('خطا در ذخیره‌سازی.');
-            }
-          }
-
-          async function fetchList() {
-            const res = await fetch('/api.php?action=list');
-            const keys = await res.json();
-            const tbody = document.getElementById('listBody');
-            tbody.innerHTML = '';
-            
-            if (keys.length === 0) {
-              tbody.innerHTML = '<tr><td colspan="2">هیچ فایلی یافت نشد.</td></tr>';
-              return;
-            }
-
-            keys.forEach(k => {
-              tbody.innerHTML += \`
-                <tr>
-                  <td><span class="badge">\${k.name}</span></td>
-                  <td>
-                    <a href="/\${k.name}" target="_blank" style="color:#38bdf8; text-decoration:none; margin-left:10px;">مشاهده/خروجی</a>
-                    <a href="#" onclick="deleteData('\${k.name}')" style="color:#f43f5e; text-decoration:none;">حذف</a>
-                  </td>
-                </tr>
-              \`;
-            });
-          }
-
-          async function deleteData(key) {
-            if (confirm('آیا از حذف این کلید مطمئن هستید؟')) {
-              await fetch('/' + key, { method: 'DELETE' });
-              fetchList();
-            }
-          }
-
-          fetchList();
-        </script>
-      </body>
-      </html>
-      `;
-      return new Response(html, { headers: { "content-type": "text/html; charset=utf-8" } });
-    }
-
-    // 2. هندل کردن API اصلی (جایگزین api.php)
-    if (url.pathname === "/api.php" || path === "api") {
-      const action = url.searchParams.get("action");
-
-      // لیست کردن کلیدها
-      if (action === "list") {
-        const list = await env.MY_STORAGE.list();
-        return new Response(JSON.stringify(list.keys), {
-          headers: { "content-type": "application/json; charset=utf-8" }
-        });
-      }
-
-      // دریافت داده بر اساس کلید
-      const key = url.searchParams.get("key") || "final.txt";
-      const value = await env.MY_STORAGE.get(key);
-      if (!value) {
-        return new Response(JSON.stringify({ error: "Data not found" }), { status: 404 });
-      }
-      return new Response(value, { headers: { "content-type": "text/plain; charset=utf-8" } });
-    }
-
-    // 3. ذخیره اطلاعات (POST) - مثلاً برای ارسال کانفیگ یا اپدیت final.txt
-    if (request.method === "POST" || request.method === "PUT") {
-      const body = await request.text();
-      const targetKey = path || "final.txt";
-      
-      await env.MY_STORAGE.put(targetKey, body);
-      return new Response(JSON.stringify({ status: "success", key: targetKey }), {
-        headers: { "content-type": "application/json; charset=utf-8" }
+    // --- API Endpoints ---
+    
+    // 1. دریافت لیست فایل‌ها
+    if (path === "/api/files" && request.method === "GET") {
+      const list = await env.SUBS_STORE.list();
+      const files = list.keys.map(k => k.name);
+      return new Response(JSON.stringify(files), {
+        headers: { "Content-Type": "application/json" }
       });
     }
 
-    // 4. حذف اطلاعات (DELETE)
-    if (request.method === "DELETE") {
-      await env.MY_STORAGE.delete(path);
-      return new Response(JSON.stringify({ status: "deleted", key: path }), {
-        headers: { "content-type": "application/json; charset=utf-8" }
+    // 2. خواندن محتوای یک فایل برای پنل ادیتور
+    if (path === "/api/get" && request.method === "GET") {
+      const filename = url.searchParams.get("name") || "subss.txt";
+      const content = await env.SUBS_STORE.get(filename) || "";
+      return new Response(JSON.stringify({ filename, content }), {
+        headers: { "Content-Type": "application/json" }
       });
     }
 
-    // 5. دریافت مستقیم دیتا یا فایل (GET /final.txt یا GET /US)
-    if (request.method === "GET" && path) {
-      const value = await env.MY_STORAGE.get(path);
-      if (value === null) {
-        return new Response("Not Found", { status: 404 });
+    // 3. ذخیره یا ویرایش فایل
+    if (path === "/api/save" && request.method === "POST") {
+      const { filename, content } = await request.json();
+      if (!filename) return new Response("Filename required", { status: 400 });
+      await env.SUBS_STORE.put(filename, content);
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // 4. تغییر نام فایل
+    if (path === "/api/rename" && request.method === "POST") {
+      const { oldName, newName } = await request.json();
+      if (!oldName || !newName) return new Response("Bad request", { status: 400 });
+      const content = await env.SUBS_STORE.get(oldName);
+      if (content !== null) {
+        await env.SUBS_STORE.put(newName, content);
+        await env.SUBS_STORE.delete(oldName);
       }
-      return new Response(value, {
-        headers: { 
-          "content-type": "text/plain; charset=utf-8",
-          "Access-Control-Allow-Origin": "*" 
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // 5. حذف فایل
+    if (path === "/api/delete" && request.method === "POST") {
+      const { filename } = await request.json();
+      if (filename) await env.SUBS_STORE.delete(filename);
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // --- RAW Output (مثل گیت‌هاپ) ---
+    // اگر مسیر با /raw/ شروع شود یا پسوند فایل مستقیم فراخوانی شود
+    if (path.startsWith("/raw/")) {
+      const filename = path.replace("/raw/", "");
+      const content = await env.SUBS_STORE.get(filename);
+      if (content === null) {
+        return new Response("File Not Found", { status: 404 });
+      }
+      return new Response(content, {
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Access-Control-Allow-Origin": "*"
         }
       });
     }
 
-    return new Response("Method Not Allowed", { status: 405 });
+    // --- Dashboard UI (رابط کاربری مدرن سه بعدی) ---
+    if (path === "/" || path === "/admin") {
+      return new Response(getAdminHTML(url.origin), {
+        headers: { "Content-Type": "text/html; charset=utf-8" }
+      });
+    }
+
+    return new Response("Not Found", { status: 404 });
   }
 };
 
+function getAdminHTML(origin) {
+  return `<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subss Manager 3D</title>
+  <link href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c14;
+      --card-bg: rgba(20, 24, 40, 0.65);
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --danger: #ef4444;
+      --text: #f3f4f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      perspective: 1000px;
+    }
+
+    /* 3D Background Glow Objects */
+    .bg-glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      filter: blur(80px);
+      opacity: 0.3;
+      z-index: 0;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+    .bg-glow-2 {
+      bottom: 10%;
+      right: 10%;
+      background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(50px, 50px) rotate(15deg); }
+    }
+
+    /* Main Container with 3D Tilt Effect */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 
+        0 20px 50px rgba(0,0,0,0.5),
+        inset 0 1px 1px rgba(255,255,255,0.2);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 15px;
+    }
+
+    .title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    select, input {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 12px;
+      outline: none;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px var(--accent-glow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      box-shadow: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    textarea {
+      width: 100%;
+      height: 380px;
+      background: rgba(10, 12, 20, 0.85);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      color: #38bdf8;
+      font-family: monospace;
+      padding: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      direction: ltr;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    textarea:focus {
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .raw-link-box {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.3);
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px dashed rgba(255,255,255,0.15);
+      direction: ltr;
+    }
+
+    .raw-link {
+      color: #a5b4fc;
+      text-decoration: none;
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.3s ease;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="container" id="card">
+    <div class="header">
+      <div class="title">⚡ مدیریت لینک‌های اشتراک</div>
+      <button class="btn btn-secondary" onclick="createNewFile()">+ فایل جدید</button>
+    </div>
+
+    <div class="controls">
+      <select id="fileSelector" onchange="loadFile()"></select>
+      <button class="btn btn-secondary" onclick="renameCurrentFile()">✏️ تغییر نام</button>
+      <button class="btn btn-danger" onclick="deleteCurrentFile()">🗑️ حذف</button>
+    </div>
+
+    <textarea id="editor" placeholder="محتوای کانفیگ‌ها / لینک‌ها را اینجا وارد کنید..."></textarea>
+
+    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+      <button class="btn" onclick="saveFile()">💾 ذخیره تغییرات</button>
+    </div>
+
+    <div class="raw-link-box">
+      <a id="rawLink" class="raw-link" target="_blank" href="#">-</a>
+      <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyRawUrl()">کپی لینک RAW</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">پیام سیستم</div>
+
+  <script>
+    const origin = "${origin}";
+    let currentFilename = "subss.txt";
+
+    async function fetchFileList() {
+      const res = await fetch("/api/files");
+      let files = await res.json();
+      if (!files.includes("subss.txt")) {
+        files.unshift("subss.txt");
+      }
+      
+      const select = document.getElementById("fileSelector");
+      select.innerHTML = "";
+      files.forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f;
+        opt.innerText = f;
+        select.appendChild(opt);
+      });
+
+      select.value = currentFilename;
+      loadFile();
+    }
+
+    async function loadFile() {
+      currentFilename = document.getElementById("fileSelector").value || "subss.txt";
+      const res = await fetch("/api/get?name=" + encodeURIComponent(currentFilename));
+      const data = await res.json();
+      document.getElementById("editor").value = data.content;
+      
+      const rawUrl = origin + "/raw/" + currentFilename;
+      const rawAnchor = document.getElementById("rawLink");
+      rawAnchor.href = rawUrl;
+      rawAnchor.innerText = rawUrl;
+    }
+
+    async function saveFile() {
+      const content = document.getElementById("editor").value;
+      await fetch("/api/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: currentFilename, content })
+      });
+      showToast("تغییرات با موفقیت ذخیره شد");
+    }
+
+    async function createNewFile() {
+      const name = prompt("نام فایل جدید را وارد کنید (مثلا: configs.txt):");
+      if (!name) return;
+      currentFilename = name;
+      await fetch("/api/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: name, content: "" })
+      });
+      fetchFileList();
+    }
+
+    async function renameCurrentFile() {
+      const newName = prompt("نام جدید فایل را وارد کنید:", currentFilename);
+      if (!newName || newName === currentFilename) return;
+      
+      await fetch("/api/rename", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ oldName: currentFilename, newName })
+      });
+      currentFilename = newName;
+      fetchFileList();
+    }
+
+    async function deleteCurrentFile() {
+      if (!confirm("آیا از حذف این فایل مطمئن هستید؟")) return;
+      await fetch("/api/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: currentFilename })
+      });
+      currentFilename = "subss.txt";
+      fetchFileList();
+    }
+
+    function copyRawUrl() {
+      const url = document.getElementById("rawLink").href;
+      navigator.clipboard.writeText(url);
+      showToast("لینک Raw کپی شد!");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.innerText = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    // 3D Tilt Effect on Mousemove
+    const card = document.getElementById('card');
+    document.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+      card.style.transform = \`rotateY(\${xAxis}deg) rotateX(\${yAxis}deg)\`;
+    });
+
+    fetchFileList();
+  </script>
+</body>
+</html>`;
+}
