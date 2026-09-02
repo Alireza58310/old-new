@@ -1,433 +1,501 @@
+// Subs Manager — مدیریت فایل‌های اشتراک (KV-based)
+// بایندینگ لازم: KV Namespace با نام دقیقاً "kv" (سازگار با دیپلویر Netra موجود)
+
+function jsonResponse(obj, status = 200) {
+	return new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json; charset=utf-8" } });
+}
+
+const RESERVED_PATHS = new Set(["panel", "api", "favicon.ico"]);
+
 export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const path = url.pathname;
+	async fetch(request, env) {
+		try {
+			const url = new URL(request.url);
+			const path = url.pathname.replace(/^\/+/, ""); // بدون اسلش ابتدایی
 
-    // --- API Endpoints ---
-    
-    // 1. دریافت لیست فایل‌ها
-    if (path === "/api/files" && request.method === "GET") {
-      const list = await env.SUBS_STORE.list();
-      const files = list.keys.map(k => k.name);
-      return new Response(JSON.stringify(files), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+			if (!env.kv) {
+				return new Response("پیکربندی ناقص: KV Namespace با نام 'kv' به این Worker متصل نشده.", { status: 500 });
+			}
 
-    // 2. خواندن محتوای یک فایل برای پنل ادیتور
-    if (path === "/api/get" && request.method === "GET") {
-      const filename = url.searchParams.get("name") || "subss.txt";
-      const content = await env.SUBS_STORE.get(filename) || "";
-      return new Response(JSON.stringify({ filename, content }), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+			// ---------- API ----------
+			if (path === "api/files" && request.method === "GET") {
+				const list = await env.kv.list();
+				const files = list.keys.map((k) => k.name).sort();
+				return jsonResponse({ files });
+			}
 
-    // 3. ذخیره یا ویرایش فایل
-    if (path === "/api/save" && request.method === "POST") {
-      const { filename, content } = await request.json();
-      if (!filename) return new Response("Filename required", { status: 400 });
-      await env.SUBS_STORE.put(filename, content);
-      return new Response(JSON.stringify({ success: true }), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+			if (path === "api/get" && request.method === "GET") {
+				const filename = url.searchParams.get("name");
+				if (!filename) return jsonResponse({ error: "name required" }, 400);
+				const content = await env.kv.get(filename);
+				return jsonResponse({ filename, content: content === null ? null : content });
+			}
 
-    // 4. تغییر نام فایل
-    if (path === "/api/rename" && request.method === "POST") {
-      const { oldName, newName } = await request.json();
-      if (!oldName || !newName) return new Response("Bad request", { status: 400 });
-      const content = await env.SUBS_STORE.get(oldName);
-      if (content !== null) {
-        await env.SUBS_STORE.put(newName, content);
-        await env.SUBS_STORE.delete(oldName);
-      }
-      return new Response(JSON.stringify({ success: true }), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+			if (path === "api/save" && request.method === "POST") {
+				const { filename, content } = await request.json();
+				if (!filename || !filename.trim()) return jsonResponse({ error: "filename required" }, 400);
+				const clean = filename.trim();
+				if (RESERVED_PATHS.has(clean.split("/")[0].toLowerCase())) {
+					return jsonResponse({ error: "این اسم رزرو شده و قابل استفاده نیست." }, 400);
+				}
+				await env.kv.put(clean, content || "");
+				return jsonResponse({ success: true });
+			}
 
-    // 5. حذف فایل
-    if (path === "/api/delete" && request.method === "POST") {
-      const { filename } = await request.json();
-      if (filename) await env.SUBS_STORE.delete(filename);
-      return new Response(JSON.stringify({ success: true }), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+			// ساخت چند فایل هم‌زمان
+			if (path === "api/create-batch" && request.method === "POST") {
+				const { filenames } = await request.json();
+				if (!Array.isArray(filenames) || filenames.length === 0) return jsonResponse({ error: "filenames required" }, 400);
+				const created = [];
+				const skipped = [];
+				for (const raw of filenames) {
+					const name = (raw || "").trim();
+					if (!name) continue;
+					if (RESERVED_PATHS.has(name.split("/")[0].toLowerCase())) {
+						skipped.push(name);
+						continue;
+					}
+					const existing = await env.kv.get(name);
+					if (existing !== null) {
+						skipped.push(name);
+						continue;
+					}
+					await env.kv.put(name, "");
+					created.push(name);
+				}
+				return jsonResponse({ success: true, created, skipped });
+			}
 
-    // --- RAW Output (مثل گیت‌هاپ) ---
-    // اگر مسیر با /raw/ شروع شود یا پسوند فایل مستقیم فراخوانی شود
-    if (path.startsWith("/raw/")) {
-      const filename = path.replace("/raw/", "");
-      const content = await env.SUBS_STORE.get(filename);
-      if (content === null) {
-        return new Response("File Not Found", { status: 404 });
-      }
-      return new Response(content, {
-        headers: {
-          "Content-Type": "text/plain; charset=utf-8",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
+			if (path === "api/rename" && request.method === "POST") {
+				const { oldName, newName } = await request.json();
+				if (!oldName || !newName || !newName.trim()) return jsonResponse({ error: "bad request" }, 400);
+				const clean = newName.trim();
+				if (RESERVED_PATHS.has(clean.split("/")[0].toLowerCase())) {
+					return jsonResponse({ error: "این اسم رزرو شده و قابل استفاده نیست." }, 400);
+				}
+				const content = await env.kv.get(oldName);
+				if (content === null) return jsonResponse({ error: "فایل مبدا پیدا نشد" }, 404);
+				await env.kv.put(clean, content);
+				await env.kv.delete(oldName);
+				return jsonResponse({ success: true });
+			}
 
-    // --- Dashboard UI (رابط کاربری مدرن سه بعدی) ---
-    if (path === "/" || path === "/admin") {
-      return new Response(getAdminHTML(url.origin), {
-        headers: { "Content-Type": "text/html; charset=utf-8" }
-      });
-    }
+			if (path === "api/delete" && request.method === "POST") {
+				const { filename } = await request.json();
+				if (!filename) return jsonResponse({ error: "filename required" }, 400);
+				await env.kv.delete(filename);
+				return jsonResponse({ success: true });
+			}
 
-    return new Response("Not Found", { status: 404 });
-  }
+			// ---------- پنل مدیریت ----------
+			if (path === "panel" || path === "") {
+				return new Response(getAdminHTML(url.origin), { headers: { "Content-Type": "text/html; charset=utf-8" } });
+			}
+
+			// ---------- خروجی مستقیم فایل: worker-address/filename.txt ----------
+			const content = await env.kv.get(path);
+			if (content === null) {
+				return new Response("Not Found", { status: 404 });
+			}
+			return new Response(content, {
+				headers: {
+					"Content-Type": "text/plain; charset=utf-8",
+					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-store",
+				},
+			});
+		} catch (err) {
+			return new Response("Internal Server Error: " + err.message, { status: 500 });
+		}
+	},
 };
 
 function getAdminHTML(origin) {
-  return `<!DOCTYPE html>
+	return `<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subss Manager 3D</title>
-  <link href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0a0c14;
-      --card-bg: rgba(20, 24, 40, 0.65);
-      --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.4);
-      --danger: #ef4444;
-      --text: #f3f4f6;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subs Manager</title>
+<link href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+	:root {
+		--bg: #0a0c14;
+		--panel-bg: rgba(20, 24, 40, 0.65);
+		--panel-bg-solid: #12141f;
+		--accent: #6366f1;
+		--accent-glow: rgba(99, 102, 241, 0.4);
+		--accent2: #ec4899;
+		--danger: #ef4444;
+		--ok: #22c55e;
+		--text: #f3f4f6;
+		--muted: #9099b0;
+		--border: rgba(255,255,255,0.1);
+	}
+	* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+	body {
+		background: var(--bg);
+		color: var(--text);
+		min-height: 100vh;
+		padding: 24px;
+		overflow-x: hidden;
+		position: relative;
+	}
+	.bg-glow { position: fixed; width: 400px; height: 400px; border-radius: 50%;
+		background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+		filter: blur(90px); opacity: 0.25; z-index: 0; animation: float 12s infinite alternate ease-in-out; top: -100px; left: -100px; }
+	.bg-glow-2 { bottom: -120px; right: -100px; background: radial-gradient(circle, var(--accent2) 0%, transparent 70%); animation-delay: 2s; }
+	@keyframes float { 0% { transform: translate(0,0) rotate(0deg);} 100% { transform: translate(40px,40px) rotate(12deg);} }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      overflow-x: hidden;
-      perspective: 1000px;
-    }
+	.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; }
+	.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
+	.title { font-size: 1.5rem; font-weight: 800;
+		background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+		-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+		display: flex; align-items: center; gap: 10px; }
 
-    /* 3D Background Glow Objects */
-    .bg-glow {
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-      filter: blur(80px);
-      opacity: 0.3;
-      z-index: 0;
-      animation: float 10s infinite alternate ease-in-out;
-    }
-    .bg-glow-2 {
-      bottom: 10%;
-      right: 10%;
-      background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-    }
+	.btn { background: var(--accent); color: #fff; border: none; padding: 10px 18px; border-radius: 12px;
+		cursor: pointer; font-weight: 600; font-size: .9rem; transition: all .2s ease;
+		box-shadow: 0 4px 15px var(--accent-glow); display: inline-flex; align-items: center; gap: 8px; }
+	.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
+	.btn-danger { background: var(--danger); box-shadow: 0 4px 15px rgba(239,68,68,.3); }
+	.btn-danger:hover { box-shadow: 0 6px 20px rgba(239,68,68,.4); }
+	.btn-secondary { background: rgba(255,255,255,.08); box-shadow: none; }
+	.btn-secondary:hover { background: rgba(255,255,255,.15); }
+	.btn-sm { padding: 6px 12px; font-size: .78rem; border-radius: 9px; }
+	.btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(50px, 50px) rotate(15deg); }
-    }
+	.layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+	@media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
 
-    /* Main Container with 3D Tilt Effect */
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 900px;
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 
-        0 20px 50px rgba(0,0,0,0.5),
-        inset 0 1px 1px rgba(255,255,255,0.2);
-      transform-style: preserve-3d;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+	.panel-card { background: var(--panel-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+		border: 1px solid var(--border); border-radius: 20px; padding: 18px;
+		box-shadow: 0 20px 50px rgba(0,0,0,.5), inset 0 1px 1px rgba(255,255,255,.08); }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 15px;
-    }
+	.file-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+	.file-list-header h3 { font-size: .95rem; color: var(--muted); font-weight: 700; }
+	#search-files { width: 100%; margin-bottom: 10px; background: rgba(15,23,42,.8); border: 1px solid var(--border);
+		color: #fff; padding: 9px 12px; border-radius: 10px; outline: none; font-size: .85rem; }
+	#search-files:focus { border-color: var(--accent); }
 
-    .title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+	.file-list { display: flex; flex-direction: column; gap: 6px; max-height: 560px; overflow-y: auto; }
+	.file-item { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+		padding: 10px 12px; border-radius: 12px; cursor: pointer; border: 1px solid transparent;
+		background: rgba(255,255,255,.03); transition: .15s; }
+	.file-item:hover { background: rgba(255,255,255,.07); }
+	.file-item.active { background: rgba(99,102,241,.18); border-color: rgba(99,102,241,.5); }
+	.file-name { font-family: monospace; font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.file-actions { display: flex; gap: 4px; opacity: 0; transition: .15s; flex-shrink: 0; }
+	.file-item:hover .file-actions { opacity: 1; }
+	.icon-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: .85rem; padding: 2px 5px; border-radius: 6px; }
+	.icon-btn:hover { color: #fff; background: rgba(255,255,255,.1); }
+	.empty-hint { color: var(--muted); font-size: .8rem; text-align: center; padding: 20px 0; }
 
-    .controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+	.editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+	.editor-filename { font-family: monospace; font-size: 1.05rem; font-weight: 700; color: #a5b4fc; }
+	.editor-actions { display: flex; gap: 8px; }
 
-    select, input {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 12px;
-      outline: none;
-      font-size: 0.95rem;
-      transition: 0.2s;
-    }
+	textarea#editor { width: 100%; height: 460px; background: rgba(10,12,20,.85); border: 1px solid var(--border);
+		border-radius: 16px; color: #38bdf8; font-family: monospace; padding: 16px; font-size: .9rem; line-height: 1.6;
+		resize: vertical; outline: none; direction: ltr; box-shadow: inset 0 2px 8px rgba(0,0,0,.5); }
+	textarea#editor:focus { border-color: rgba(99,102,241,.5); }
+	textarea#editor:disabled { opacity: .4; }
 
-    select:focus, input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 15px var(--accent-glow);
-    }
+	.raw-link-box { margin-top: 16px; background: rgba(0,0,0,.3); padding: 10px 14px; border-radius: 12px;
+		display: flex; align-items: center; justify-content: space-between; gap: 10px;
+		border: 1px dashed var(--border); direction: ltr; flex-wrap: wrap; }
+	.raw-link { color: #a5b4fc; text-decoration: none; word-break: break-all; font-family: monospace; font-size: .82rem; }
 
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 15px var(--accent-glow);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+	.no-file-state { display: flex; flex-direction: column; align-items: center; justify-content: center;
+		height: 460px; color: var(--muted); gap: 10px; text-align: center; }
+	.no-file-state .big { font-size: 2.5rem; }
 
-    .btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 20px var(--accent-glow);
-    }
+	/* Modal */
+	.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.65); display: none; align-items: center;
+		justify-content: center; padding: 16px; z-index: 50; backdrop-filter: blur(3px); }
+	.modal-bg.show { display: flex; }
+	.modal-card { background: var(--panel-bg-solid); border: 1px solid var(--border); border-radius: 18px;
+		max-width: 480px; width: 100%; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
+	.modal-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+	.modal-head h3 { font-size: 1rem; font-weight: 700; }
+	.modal-body { padding: 16px 20px; overflow-y: auto; }
+	.modal-foot { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+	.close-x { background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
 
-    .btn-danger {
-      background: var(--danger);
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-    }
-    .btn-danger:hover {
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-    }
+	.batch-row { display: flex; gap: 8px; margin-bottom: 8px; }
+	.batch-row input { flex: 1; background: rgba(15,23,42,.8); border: 1px solid var(--border); color: #fff;
+		padding: 9px 12px; border-radius: 10px; outline: none; font-size: .85rem; font-family: monospace; direction: ltr; }
+	.batch-row input:focus { border-color: var(--accent); }
 
-    .btn-secondary {
-      background: rgba(255,255,255,0.08);
-      box-shadow: none;
-    }
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.15);
-    }
-
-    textarea {
-      width: 100%;
-      height: 380px;
-      background: rgba(10, 12, 20, 0.85);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      color: #38bdf8;
-      font-family: monospace;
-      padding: 16px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      resize: vertical;
-      outline: none;
-      direction: ltr;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
-    }
-
-    textarea:focus {
-      border-color: rgba(99, 102, 241, 0.5);
-    }
-
-    .raw-link-box {
-      margin-top: 20px;
-      background: rgba(0,0,0,0.3);
-      padding: 12px 16px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px dashed rgba(255,255,255,0.15);
-      direction: ltr;
-    }
-
-    .raw-link {
-      color: #a5b4fc;
-      text-decoration: none;
-      word-break: break-all;
-      font-family: monospace;
-      font-size: 0.9rem;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: 0.3s ease;
-      z-index: 100;
-    }
-    .toast.show { opacity: 1; transform: translateY(0); }
-  </style>
+	.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+		background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 12px;
+		box-shadow: 0 10px 25px rgba(0,0,0,.35); opacity: 0; transition: .3s ease; z-index: 100; font-size: .88rem; }
+	.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+	.toast.error { background: var(--danger); }
+</style>
 </head>
 <body>
 
-  <div class="bg-glow"></div>
-  <div class="bg-glow bg-glow-2"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow bg-glow-2"></div>
 
-  <div class="container" id="card">
-    <div class="header">
-      <div class="title">⚡ مدیریت لینک‌های اشتراک</div>
-      <button class="btn btn-secondary" onclick="createNewFile()">+ فایل جدید</button>
-    </div>
+<div class="wrap">
+	<div class="topbar">
+		<div class="title">⚡ Subs Manager</div>
+		<button class="btn" id="new-file-btn">+ ساخت فایل جدید</button>
+	</div>
 
-    <div class="controls">
-      <select id="fileSelector" onchange="loadFile()"></select>
-      <button class="btn btn-secondary" onclick="renameCurrentFile()">✏️ تغییر نام</button>
-      <button class="btn btn-danger" onclick="deleteCurrentFile()">🗑️ حذف</button>
-    </div>
+	<div class="layout">
+		<div class="panel-card">
+			<div class="file-list-header"><h3>📁 فایل‌ها</h3></div>
+			<input type="text" id="search-files" placeholder="جستجوی فایل...">
+			<div class="file-list" id="file-list"></div>
+		</div>
 
-    <textarea id="editor" placeholder="محتوای کانفیگ‌ها / لینک‌ها را اینجا وارد کنید..."></textarea>
+		<div class="panel-card">
+			<div id="editor-area">
+				<div class="no-file-state">
+					<div class="big">📄</div>
+					<div>یک فایل رو از لیست انتخاب کنید یا یکی جدید بسازید</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-      <button class="btn" onclick="saveFile()">💾 ذخیره تغییرات</button>
-    </div>
+<!-- Modal: ساخت فایل جدید (چندتایی) -->
+<div class="modal-bg" id="new-file-modal">
+	<div class="modal-card">
+		<div class="modal-head">
+			<h3>ساخت فایل جدید</h3>
+			<button class="close-x" id="close-new-modal">✕</button>
+		</div>
+		<div class="modal-body">
+			<div id="batch-rows"></div>
+			<button class="btn btn-secondary btn-sm" id="add-batch-row">+ افزودن ردیف دیگر</button>
+		</div>
+		<div class="modal-foot">
+			<button class="btn btn-secondary" id="cancel-new-modal" style="flex:1">انصراف</button>
+			<button class="btn" id="confirm-new-modal" style="flex:1">ایجاد</button>
+		</div>
+	</div>
+</div>
 
-    <div class="raw-link-box">
-      <a id="rawLink" class="raw-link" target="_blank" href="#">-</a>
-      <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="copyRawUrl()">کپی لینک RAW</button>
-    </div>
-  </div>
+<!-- Modal: تغییر نام -->
+<div class="modal-bg" id="rename-modal">
+	<div class="modal-card">
+		<div class="modal-head">
+			<h3>تغییر نام فایل</h3>
+			<button class="close-x" id="close-rename-modal">✕</button>
+		</div>
+		<div class="modal-body">
+			<input type="text" id="rename-input" style="width:100%; background: rgba(15,23,42,.8); border: 1px solid rgba(255,255,255,.15); color:#fff; padding: 10px 12px; border-radius: 10px; outline:none; font-family: monospace; direction: ltr;">
+		</div>
+		<div class="modal-foot">
+			<button class="btn btn-secondary" id="cancel-rename-modal" style="flex:1">انصراف</button>
+			<button class="btn" id="confirm-rename-modal" style="flex:1">ذخیره</button>
+		</div>
+	</div>
+</div>
 
-  <div id="toast" class="toast">پیام سیستم</div>
+<div id="toast" class="toast">پیام سیستم</div>
 
-  <script>
-    const origin = "${origin}";
-    let currentFilename = "subss.txt";
+<script>
+	const origin = "${origin}";
+	let files = [];
+	let currentFilename = null;
+	let renameTarget = null;
 
-    async function fetchFileList() {
-      const res = await fetch("/api/files");
-      let files = await res.json();
-      if (!files.includes("subss.txt")) {
-        files.unshift("subss.txt");
-      }
-      
-      const select = document.getElementById("fileSelector");
-      select.innerHTML = "";
-      files.forEach(f => {
-        const opt = document.createElement("option");
-        opt.value = f;
-        opt.innerText = f;
-        select.appendChild(opt);
-      });
+	function showToast(msg, isError) {
+		const toast = document.getElementById('toast');
+		toast.innerText = msg;
+		toast.className = 'toast show' + (isError ? ' error' : '');
+		setTimeout(() => { toast.className = 'toast'; }, 2600);
+	}
 
-      select.value = currentFilename;
-      loadFile();
-    }
+	async function fetchFileList() {
+		const res = await fetch('/api/files');
+		const data = await res.json();
+		files = data.files || [];
+		renderFileList(document.getElementById('search-files').value);
+	}
 
-    async function loadFile() {
-      currentFilename = document.getElementById("fileSelector").value || "subss.txt";
-      const res = await fetch("/api/get?name=" + encodeURIComponent(currentFilename));
-      const data = await res.json();
-      document.getElementById("editor").value = data.content;
-      
-      const rawUrl = origin + "/raw/" + currentFilename;
-      const rawAnchor = document.getElementById("rawLink");
-      rawAnchor.href = rawUrl;
-      rawAnchor.innerText = rawUrl;
-    }
+	function renderFileList(filterText) {
+		const list = document.getElementById('file-list');
+		const ft = (filterText || '').trim().toLowerCase();
+		const shown = files.filter(f => !ft || f.toLowerCase().includes(ft));
+		if (shown.length === 0) {
+			list.innerHTML = '<div class="empty-hint">فایلی پیدا نشد</div>';
+			return;
+		}
+		list.innerHTML = '';
+		shown.forEach(f => {
+			const item = document.createElement('div');
+			item.className = 'file-item' + (f === currentFilename ? ' active' : '');
+			item.innerHTML =
+				'<span class="file-name">' + f + '</span>' +
+				'<div class="file-actions">' +
+					'<button class="icon-btn rename-btn" title="تغییر نام">✏️</button>' +
+					'<button class="icon-btn copy-btn" title="کپی لینک">🔗</button>' +
+					'<button class="icon-btn delete-btn" title="حذف">🗑️</button>' +
+				'</div>';
+			item.querySelector('.file-name').addEventListener('click', () => openFile(f));
+			item.querySelector('.rename-btn').addEventListener('click', (e) => { e.stopPropagation(); openRenameModal(f); });
+			item.querySelector('.copy-btn').addEventListener('click', (e) => { e.stopPropagation(); copyRawUrl(f); });
+			item.querySelector('.delete-btn').addEventListener('click', (e) => { e.stopPropagation(); deleteFile(f); });
+			list.appendChild(item);
+		});
+	}
+	document.getElementById('search-files').addEventListener('input', (e) => renderFileList(e.target.value));
 
-    async function saveFile() {
-      const content = document.getElementById("editor").value;
-      await fetch("/api/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename: currentFilename, content })
-      });
-      showToast("تغییرات با موفقیت ذخیره شد");
-    }
+	async function openFile(filename) {
+		currentFilename = filename;
+		renderFileList(document.getElementById('search-files').value);
+		const res = await fetch('/api/get?name=' + encodeURIComponent(filename));
+		const data = await res.json();
+		renderEditor(filename, data.content || '');
+	}
 
-    async function createNewFile() {
-      const name = prompt("نام فایل جدید را وارد کنید (مثلا: configs.txt):");
-      if (!name) return;
-      currentFilename = name;
-      await fetch("/api/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename: name, content: "" })
-      });
-      fetchFileList();
-    }
+	function renderEditor(filename, content) {
+		const area = document.getElementById('editor-area');
+		const rawUrl = origin + '/' + filename;
+		area.innerHTML =
+			'<div class="editor-header">' +
+				'<div class="editor-filename">' + filename + '</div>' +
+				'<div class="editor-actions">' +
+					'<button class="btn btn-sm" id="save-btn">💾 ذخیره</button>' +
+				'</div>' +
+			'</div>' +
+			'<textarea id="editor" placeholder="محتوای کانفیگ‌ها / لینک‌ها را اینجا وارد کنید...">' + escapeHtml(content) + '</textarea>' +
+			'<div class="raw-link-box">' +
+				'<a class="raw-link" target="_blank" href="' + rawUrl + '">' + rawUrl + '</a>' +
+				'<button class="btn btn-secondary btn-sm" id="copy-raw-btn">کپی لینک</button>' +
+			'</div>';
+		document.getElementById('save-btn').addEventListener('click', saveCurrentFile);
+		document.getElementById('copy-raw-btn').addEventListener('click', () => copyRawUrl(filename));
+	}
 
-    async function renameCurrentFile() {
-      const newName = prompt("نام جدید فایل را وارد کنید:", currentFilename);
-      if (!newName || newName === currentFilename) return;
-      
-      await fetch("/api/rename", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ oldName: currentFilename, newName })
-      });
-      currentFilename = newName;
-      fetchFileList();
-    }
+	function escapeHtml(str) {
+		return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
 
-    async function deleteCurrentFile() {
-      if (!confirm("آیا از حذف این فایل مطمئن هستید؟")) return;
-      await fetch("/api/delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename: currentFilename })
-      });
-      currentFilename = "subss.txt";
-      fetchFileList();
-    }
+	async function saveCurrentFile() {
+		if (!currentFilename) return;
+		const content = document.getElementById('editor').value;
+		const btn = document.getElementById('save-btn');
+		btn.disabled = true;
+		btn.innerText = 'در حال ذخیره...';
+		try {
+			const res = await fetch('/api/save', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ filename: currentFilename, content })
+			});
+			const data = await res.json();
+			if (data.success) {
+				showToast('✅ ذخیره شد');
+			} else {
+				showToast(data.error || 'خطا در ذخیره', true);
+			}
+		} catch (e) {
+			showToast('خطا در ارتباط با سرور', true);
+		} finally {
+			btn.disabled = false;
+			btn.innerText = '💾 ذخیره';
+		}
+	}
 
-    function copyRawUrl() {
-      const url = document.getElementById("rawLink").href;
-      navigator.clipboard.writeText(url);
-      showToast("لینک Raw کپی شد!");
-    }
+	function copyRawUrl(filename) {
+		const url = origin + '/' + filename;
+		navigator.clipboard.writeText(url);
+		showToast('لینک کپی شد: ' + url);
+	}
 
-    function showToast(msg) {
-      const toast = document.getElementById("toast");
-      toast.innerText = msg;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3000);
-    }
+	async function deleteFile(filename) {
+		if (!confirm('آیا از حذف "' + filename + '" مطمئن هستید؟')) return;
+		await fetch('/api/delete', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ filename })
+		});
+		if (currentFilename === filename) {
+			currentFilename = null;
+			document.getElementById('editor-area').innerHTML = '<div class="no-file-state"><div class="big">📄</div><div>یک فایل رو از لیست انتخاب کنید یا یکی جدید بسازید</div></div>';
+		}
+		showToast('فایل حذف شد');
+		fetchFileList();
+	}
 
-    // 3D Tilt Effect on Mousemove
-    const card = document.getElementById('card');
-    document.addEventListener('mousemove', (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
-      card.style.transform = \`rotateY(\${xAxis}deg) rotateX(\${yAxis}deg)\`;
-    });
+	// ---------- Modal: ساخت چند فایل هم‌زمان ----------
+	function addBatchRow(value) {
+		const container = document.getElementById('batch-rows');
+		const row = document.createElement('div');
+		row.className = 'batch-row';
+		row.innerHTML = '<input type="text" placeholder="مثلاً sub.txt" value="' + (value || '') + '">' +
+			'<button class="icon-btn remove-row-btn" title="حذف ردیف">✕</button>';
+		row.querySelector('.remove-row-btn').addEventListener('click', () => {
+			if (container.children.length > 1) row.remove();
+		});
+		container.appendChild(row);
+	}
+	function openNewFileModal() {
+		document.getElementById('batch-rows').innerHTML = '';
+		addBatchRow('');
+		document.getElementById('new-file-modal').classList.add('show');
+	}
+	function closeNewFileModal() { document.getElementById('new-file-modal').classList.remove('show'); }
+	document.getElementById('new-file-btn').addEventListener('click', openNewFileModal);
+	document.getElementById('close-new-modal').addEventListener('click', closeNewFileModal);
+	document.getElementById('cancel-new-modal').addEventListener('click', closeNewFileModal);
+	document.getElementById('add-batch-row').addEventListener('click', () => addBatchRow(''));
+	document.getElementById('confirm-new-modal').addEventListener('click', async () => {
+		const inputs = document.querySelectorAll('#batch-rows input');
+		const filenames = Array.from(inputs).map(i => i.value.trim()).filter(Boolean);
+		if (filenames.length === 0) { showToast('حداقل یک اسم فایل وارد کنید', true); return; }
+		const res = await fetch('/api/create-batch', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ filenames })
+		});
+		const data = await res.json();
+		closeNewFileModal();
+		if (data.created && data.created.length) showToast(data.created.length + ' فایل ساخته شد');
+		if (data.skipped && data.skipped.length) showToast('این‌ها رد شدن (تکراری/نامعتبر): ' + data.skipped.join(', '), true);
+		await fetchFileList();
+		if (data.created && data.created.length) openFile(data.created[0]);
+	});
 
-    fetchFileList();
-  </script>
+	// ---------- Modal: تغییر نام ----------
+	function openRenameModal(filename) {
+		renameTarget = filename;
+		document.getElementById('rename-input').value = filename;
+		document.getElementById('rename-modal').classList.add('show');
+	}
+	function closeRenameModal() { document.getElementById('rename-modal').classList.remove('show'); }
+	document.getElementById('close-rename-modal').addEventListener('click', closeRenameModal);
+	document.getElementById('cancel-rename-modal').addEventListener('click', closeRenameModal);
+	document.getElementById('confirm-rename-modal').addEventListener('click', async () => {
+		const newName = document.getElementById('rename-input').value.trim();
+		if (!newName || newName === renameTarget) { closeRenameModal(); return; }
+		const res = await fetch('/api/rename', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ oldName: renameTarget, newName })
+		});
+		const data = await res.json();
+		closeRenameModal();
+		if (data.success) {
+			showToast('نام فایل تغییر کرد');
+			if (currentFilename === renameTarget) currentFilename = newName;
+			await fetchFileList();
+			if (currentFilename === newName) openFile(newName);
+		} else {
+			showToast(data.error || 'خطا در تغییر نام', true);
+		}
+	});
+
+	fetchFileList();
+</script>
 </body>
 </html>`;
 }
