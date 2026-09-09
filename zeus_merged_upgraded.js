@@ -1505,6 +1505,9 @@ const SubscriptionService = {
 					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 					links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
+					if (user.trojan_hash) {
+						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?security=" + tlsVal + "&type=ws&host=" + host + "&path=" + currentDynPath + "&sni=" + host + "&fp=" + fp + userFrag + "#" + encodeURIComponent(remark + " (Trojan)"));
+					}
 				});
 			});
 		}
@@ -1911,6 +1914,28 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		}
 		if (!isHeaderParsed) {
 			chunkBuffer = concatBytes(chunkBuffer, chunk);
+			// تشخیص پروتکل بدون هیچ ریسکی برای مسیر VLESS فعلی: کلاینت‌های واقعی VLESS
+			// همیشه بایت اول رو ورژن (۰) می‌فرستن. اگه بایت اول صفر نبود، یا تروجانه
+			// (۵۶ کاراکتر hex پسورد + CRLF) یا یه هدر ناشناخته که قبلاً هم همینجا با
+			// شکست extractUUIDFromvIees یا addrType نامعتبر بسته می‌شد؛ پس این شاخه‌ی
+			// جدید فقط ترافیکی رو می‌گیره که قبلاً هم موفق نمی‌شد.
+			if (chunkBuffer.byteLength > 0 && chunkBuffer[0] !== 0) {
+				if (chunkBuffer.byteLength < 58) return;
+				let isHexHash = true;
+				for (let i = 0; i < 56; i++) {
+					const b = chunkBuffer[i];
+					if (!((b >= 0x30 && b <= 0x39) || (b >= 0x61 && b <= 0x66))) {
+						isHexHash = false;
+						break;
+					}
+				}
+				if (isHexHash && chunkBuffer[56] === 0x0d && chunkBuffer[57] === 0x0a) {
+					await processTrojanMessage();
+					return;
+				}
+				serverSock.close();
+				return;
+			}
 			if (chunkBuffer.byteLength < 24) return;
 			let optLen = chunkBuffer[17];
 			let requiredLen = 18 + optLen + 4;
@@ -2163,6 +2188,183 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			} catch (e) {
 				serverSock.close();
 			}
+		}
+	};
+	// پارسر مستقل تروجان: کاملاً جدا از منطق VLESS بالا نوشته شده تا هیچ ریسکی برای
+	// اون مسیر نداشته باشه. فقط وقتی صدا زده می‌شه که تشخیص پروتکل (بایت اول != ۰)
+	// از قبل توی processWsMessage انجام و تأیید شده.
+	const processTrojanMessage = async () => {
+		if (isHeaderParsing) return;
+		isHeaderParsing = true;
+		const passHash = TEXT_DECODER.decode(chunkBuffer.slice(0, 56));
+		let user = null;
+		try {
+			user = await env.DB.prepare("SELECT * FROM users WHERE trojan_hash = ?").bind(passHash).first();
+		} catch (e) {}
+		if (!user) {
+			serverSock.close();
+			return;
+		}
+		let offset = 58;
+		if (chunkBuffer.byteLength < offset + 2) {
+			isHeaderParsing = false;
+			return;
+		}
+		const cmd = chunkBuffer[offset++];
+		const addrType = chunkBuffer[offset++];
+		let addr = "";
+		if (addrType === 1) {
+			if (chunkBuffer.byteLength < offset + 4) {
+				isHeaderParsing = false;
+				return;
+			}
+			addr = `${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}`;
+		} else if (addrType === 3) {
+			if (chunkBuffer.byteLength < offset + 1) {
+				isHeaderParsing = false;
+				return;
+			}
+			const domainLen = chunkBuffer[offset++];
+			if (chunkBuffer.byteLength < offset + domainLen) {
+				isHeaderParsing = false;
+				return;
+			}
+			addr = TEXT_DECODER.decode(chunkBuffer.slice(offset, offset + domainLen));
+			offset += domainLen;
+		} else if (addrType === 4) {
+			if (chunkBuffer.byteLength < offset + 16) {
+				isHeaderParsing = false;
+				return;
+			}
+			const v6 = [];
+			for (let i = 0; i < 8; i++) {
+				v6.push(((chunkBuffer[offset++] << 8) | chunkBuffer[offset++]).toString(16));
+			}
+			addr = v6.join(":");
+		} else {
+			serverSock.close();
+			return;
+		}
+		if (chunkBuffer.byteLength < offset + 4) {
+			isHeaderParsing = false;
+			return;
+		}
+		const port = (chunkBuffer[offset++] << 8) | chunkBuffer[offset++];
+		if (chunkBuffer[offset] !== 0x0d || chunkBuffer[offset + 1] !== 0x0a) {
+			serverSock.close();
+			return;
+		}
+		offset += 2;
+		const rawData = chunkBuffer.slice(offset);
+		if (user.is_active === 0) {
+			serverSock.close();
+			return;
+		}
+		if (user.limit_gb && user.used_gb >= user.limit_gb) {
+			serverSock.close();
+			return;
+		}
+		if (user.limit_req && user.used_req >= user.limit_req) {
+			serverSock.close();
+			return;
+		}
+		if (user.expiry_days && user.created_at) {
+			const created = new Date(user.created_at);
+			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+			if (new Date() > expiryDate) {
+				try {
+					await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(user.uuid).run();
+				} catch (e) {}
+				serverSock.close();
+				return;
+			}
+		}
+		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+			serverSock.close();
+			return;
+		}
+		username = user.username;
+		validUUID = user.uuid || null;
+		if (user.start_on_first_connect === 1 && !user.first_connection_time && !GLOBAL_WRITE_LOCK.get(user.uuid + "_first_conn")) {
+			GLOBAL_WRITE_LOCK.set(user.uuid + "_first_conn", true);
+			const firstConnectNow = Date.now();
+			const firstConnTask = async () => {
+				try {
+					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
+				} catch (e) {}
+			};
+			if (ctx) ctx.waitUntil(firstConnTask());
+			else firstConnTask();
+		}
+		let currentReqs = USER_REQ_CACHE.get(username) || 0;
+		USER_REQ_CACHE.set(username, currentReqs + 1);
+		if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
+			GLOBAL_TRAFFIC_CACHE.set(username, 0);
+		}
+		isHeaderParsed = true;
+		let activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
+		ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
+		hasCountedAsActive = true;
+		if (activeCount === 0) {
+			const setOnlineTask = async () => {
+				try {
+					const now = Date.now();
+					GLOBAL_LAST_ACTIVE_WRITE.set(username, now);
+					await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(now, username).run();
+				} catch (e) {}
+			};
+			if (ctx) ctx.waitUntil(setOnlineTask());
+			else setOnlineTask();
+		}
+		const trojanConnectTCP = async (dataPayload = null) => {
+			if (remoteConnWrapper.connectingPromise) {
+				await remoteConnWrapper.connectingPromise;
+				return;
+			}
+			const task = (async () => {
+				let s = null;
+				const socks5 = getSelectedUserProxy(user?.user_socks5, request);
+				if (socks5) {
+					try {
+						s = await connectProxy(socks5, addr, port, dataPayload);
+					} catch (proxyErr) {
+						if (user.auto_rotate_user_proxy === 1) {
+							const replaceTask = replaceBrokenProxy(user.username, env, socks5);
+							if (ctx) ctx.waitUntil(replaceTask);
+							else replaceTask.catch(() => {});
+						}
+						throw proxyErr;
+					}
+				} else {
+					try {
+						s = await connectDirect(addr, port, dataPayload, targetDoh);
+					} catch (directErr) {
+						if (proxyIP) {
+							s = await connectDirect(proxyIP, port, dataPayload, targetDoh);
+						} else {
+							throw directErr;
+						}
+					}
+				}
+				remoteConnWrapper.socket = s;
+				s.closed.catch(() => {}).finally(() => closeSocketQuietly(serverSock));
+				// تروجان برخلاف VLESS هیچ هدر پاسخی جلوی دیتا نمی‌ذاره؛ respHeader اینجا null‌ه.
+				connectStreams(s, serverSock, null, null, addBytes);
+			})();
+			remoteConnWrapper.connectingPromise = task;
+			try {
+				await task;
+			} finally {
+				if (remoteConnWrapper.connectingPromise === task) {
+					remoteConnWrapper.connectingPromise = null;
+				}
+			}
+		};
+		remoteConnWrapper.retryConnect = async () => trojanConnectTCP(null);
+		try {
+			await trojanConnectTCP(rawData);
+		} catch (e) {
+			serverSock.close();
 		}
 	};
 	const handleWsError = (err) => {
@@ -3855,7 +4057,8 @@ const HTML_TEMPLATES = {
 					</a>
 				</div>
 			</div>
-			<div class="flex items-center justify-center gap-3 w-full md:w-auto mt-2 md:mt-0">
+			<div class="flex flex-col items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
+			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
 				<button onclick="toggleSupportModal(true)" 
 						class="p-2 rounded-md 
 							   bg-red-50 dark:bg-red-950/30 
@@ -3917,6 +4120,8 @@ const HTML_TEMPLATES = {
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
 					</svg>
 				</button>
+			</div>
+			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
 				<button id="theme-toggle" 
 						class="p-2 rounded-md 
 							   bg-amber-50 dark:bg-amber-950/30 
@@ -3972,6 +4177,7 @@ const HTML_TEMPLATES = {
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
 					</svg>
 				</button>
+			</div>
 			</div>
 		</div>
 	</header>
@@ -4113,6 +4319,14 @@ const HTML_TEMPLATES = {
 		<div class="flex items-center justify-between mb-4">
 			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200">لیست کاربران</h2>
 			<div class="flex items-center gap-5">
+				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</button>
 				<button onclick="quickCreateUser(this)" title="افزودن کاربر سریع (VIP)" class="p-2 rounded-md bg-indigo-50 dark:bg-indigo-950/40 border-2 border-indigo-500 dark:border-indigo-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all duration-300 text-indigo-600 dark:text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] hover:shadow-[0_0_25px_rgba(99,102,241,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
 					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -4183,6 +4397,35 @@ const HTML_TEMPLATES = {
 		<div id="pwa-instructions-list" class="space-y-2.5 text-right text-xs text-gray-700 dark:text-zinc-300 font-medium leading-relaxed select-none mb-5 max-h-48 overflow-y-auto pr-1">
 		</div>
 		<button onclick="togglePwaModal(false)" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-xl text-xs transition shadow-sm cursor-pointer active:scale-95">متوجه شدم</button>
+	</div>
+</div>
+<div id="rocket-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-orange-500/50 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
+		<div class="flex justify-between items-center mb-4">
+			<div class="flex items-center gap-2">
+				<div class="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shadow-sm">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</div>
+				<h3 class="text-sm font-black text-gray-900 dark:text-white">کانفیگ تک لوکیشن</h3>
+			</div>
+			<button onclick="toggleRocketModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm" title="بستن">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<p class="text-[11px] text-gray-600 dark:text-gray-400 mb-5 font-medium leading-relaxed">کشور مورد نظر را انتخاب کنید تا کانفیگ تک لوکیشن پرسرعت ساخته شود.</p>
+		<div class="space-y-4">
+			<div>
+				<select id="rocket-country-select" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-gray-800 dark:text-zinc-100 cursor-pointer shadow-sm transition">
+					<option value="">در حال بارگذاری کشورها...</option>
+				</select>
+			</div>
+			<button id="rocket-submit-btn" onclick="executeRocketCreate()" class="w-full py-2.5 bg-transparent border-2 border-orange-600 text-orange-700 hover:bg-orange-900/20 hover:text-orange-800 dark:border-orange-500 dark:text-orange-500 dark:hover:bg-orange-900/40 dark:hover:text-orange-400 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">شروع اسکن و ساخت</button>
+		</div>
 	</div>
 </div>
 <div id="info-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
@@ -5334,6 +5577,164 @@ ${COMMON_TOAST_HTML}
 			if (show && version) document.getElementById('update-modal-text').innerHTML = 'نسخه جدید (<b>v' + version + '</b>) در دسترس است.<br>اگر آپدیت خودکار عمل نکرد لطفا از ربات استفاده کنید.';
 			setModalState('update-modal', show);
 		}
+		let activeRocketBtn = null;
+		function toggleRocketModal(show) {
+			setModalState('rocket-modal', show);
+		}
+		async function openRocketModal(btn) {
+			activeRocketBtn = btn;
+			toggleRocketModal(true);
+			const select = document.getElementById('rocket-country-select');
+			const submitBtn = document.getElementById('rocket-submit-btn');
+			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
+			submitBtn.disabled = true;
+			try {
+				const resVipList = await fetchWithFallbackUI('vip-list?t=' + Date.now());
+				if (resVipList.ok) {
+					const files = await resVipList.json();
+					const vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
+					if (vipCountries.length > 0) {
+						select.innerHTML = '<option value="">یک کشور انتخاب کنید...</option>';
+						vipCountries.forEach(function(country) {
+							const option = document.createElement('option');
+							option.value = country;
+							const flag = typeof getFlagEmojiText === 'function' ? getFlagEmojiText(country) : '🌐';
+							option.textContent = flag + ' ' + country;
+							select.appendChild(option);
+						});
+						submitBtn.disabled = false;
+					} else {
+						select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
+					}
+				} else {
+					select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
+				}
+			} catch (e) {
+				select.innerHTML = '<option value="">خطا در دریافت لیست کشورها</option>';
+			}
+		}
+		async function executeRocketCreate() {
+			const select = document.getElementById('rocket-country-select');
+			const country = select.value;
+			if (!country) {
+				alert('لطفاً یک کشور انتخاب کنید.');
+				return;
+			}
+			toggleRocketModal(false);
+			const btn = activeRocketBtn;
+			if (btn) btn.disabled = true;
+			const icon = btn ? btn.querySelector('svg') : null;
+			if (icon) {
+				icon.classList.add('animate-spin');
+				icon.classList.remove('group-hover:-translate-y-1', 'group-hover:translate-x-1');
+			}
+			try {
+				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+				let randStr = '';
+				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
+				const username = 'ZEUS-' + randStr;
+
+				const resVip = await fetchWithFallbackUI('proxy_vip/' + country + '.txt?t=' + Date.now());
+				if (!resVip.ok) {
+					alert('هیچ پروکسی در این کشور یافت نشد.');
+					return;
+				}
+				const text = await resVip.text();
+				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+				if (lines.length === 0) {
+					alert('هیچ پروکسی در این کشور یافت نشد.');
+					return;
+				}
+
+				showToast('🚀 در حال اسکن پینگ ' + lines.length + ' پروکسی از کشور ' + country + '...');
+
+				const controller = new AbortController();
+				let successProxies = [];
+				const testPromises = lines.map(async (proxyLine) => {
+					await new Promise(r => setTimeout(r, Math.floor(Math.random() * 200)));
+					try {
+						const res = await fetch('/api/test-proxy', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ proxy: proxyLine, skip_country: true }),
+							signal: controller.signal
+						});
+						const data = await res.json();
+						if (data.success && data.ping) {
+							successProxies.push({ proxy: proxyLine, ping: data.ping });
+						}
+					} catch (e) {}
+				});
+				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 12000));
+				await Promise.race([Promise.all(testPromises), timeoutPromise]);
+				controller.abort();
+
+				if (successProxies.length === 0) {
+					alert('خطا: هیچ پروکسی سالمی با پینگ موفق در این کشور یافت نشد.');
+					return;
+				}
+				successProxies.sort((a, b) => a.ping - b.ping);
+				const bestProxy = successProxies[0].proxy;
+
+				let availableIps = [];
+				if (Object.keys(cachedIpsData).length === 0) {
+					try {
+						const resIps = await fetchWithFallbackUI('ips.txt');
+						if (resIps.ok) {
+							const text2 = await resIps.text();
+							const blocks = text2.split('----------');
+							blocks.forEach(block => {
+								const l = block.trim().split('\\n').map(x => x.trim()).filter(x => x.length > 0);
+								l.forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(cachedIpsData).forEach(ips => { availableIps = availableIps.concat(ips); });
+				}
+				availableIps = [...new Set(availableIps)];
+				let selectedIps = [];
+				if (availableIps.length > 0) {
+					const shuffledIps = availableIps.slice();
+					for (let i = shuffledIps.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[shuffledIps[i], shuffledIps[j]] = [shuffledIps[j], shuffledIps[i]];
+					}
+					selectedIps = shuffledIps.slice(0, 10);
+				}
+				const ipsStr = selectedIps.join('\\n');
+				const finalSocks5 = JSON.stringify([{ proxy: bestProxy, country: country }]);
+
+				const response = await fetch('/api/users', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+						auto_reset_vol_days: 0, auto_reset_req_days: 0, frag_len: "", frag_int: "",
+						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
+						ips: ipsStr, ip_operator: "all", ip_count: 10, auto_rotate_ip: 1, rotate_time: 5,
+						user_socks5: finalSocks5, auto_rotate_user_proxy: 1
+					})
+				});
+				if (response.ok) {
+					showToast('🚀 کاربر تک کشوره با بهترین پینگ با موفقیت ایجاد شد.');
+					await loadUsers(true);
+				} else {
+					const errData = await response.json();
+					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				if (btn) btn.disabled = false;
+				if (icon) {
+					icon.classList.remove('animate-spin');
+					icon.classList.add('group-hover:-translate-y-1', 'group-hover:translate-x-1');
+				}
+			}
+		}
 		async function quickCreateUser(btn) {
 			btn.disabled = true;
 			const icon = btn.querySelector('svg');
@@ -5798,11 +6199,23 @@ ${COMMON_TOAST_HTML}
 				tbody.innerHTML = users.map(user => {
 					let daysRemaining = 'نامحدود';
 					let daysPercent = 100;
+					let isTimerPending = false;
 					if (user.expiry_days) {
-						if (user.created_at) {
+						if (user.start_on_first_connect === 1) {
+							if (!user.first_connection_time) {
+								daysRemaining = user.expiry_days;
+								daysPercent = 100;
+								isTimerPending = true;
+							} else {
+								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
+								const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
+								daysRemaining = diffDays > 0 ? diffDays : 0;
+								daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
+							}
+						} else if (user.created_at) {
 							const created = new Date(user.created_at);
-							const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-							const diffDays = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
+							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
+							const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
 							daysRemaining = diffDays > 0 ? diffDays : 0;
 							daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
 						} else {
@@ -5819,7 +6232,7 @@ ${COMMON_TOAST_HTML}
 						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
 								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none font-bold" dir="ltr">' + user.limit_req.toLocaleString() + '</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
@@ -5830,7 +6243,7 @@ ${COMMON_TOAST_HTML}
 						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
 								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none text-[12px] font-bold">∞</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
@@ -5847,7 +6260,7 @@ ${COMMON_TOAST_HTML}
 						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
 								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none font-bold" dir="ltr">' + formattedLimit + '</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
@@ -5859,7 +6272,7 @@ ${COMMON_TOAST_HTML}
 						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
 								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none text-[12px] font-bold">∞</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
@@ -5870,21 +6283,22 @@ ${COMMON_TOAST_HTML}
 					let expiryHtml = '';
 					if (user.expiry_days) {
 						const expiryHue = daysPercent * 1.2;
+						const remainingLabel = isTimerPending ? '<span class="text-blue-600 dark:text-blue-400 leading-none font-bold text-[8px]" dir="rtl" title="شمارش پس از اولین اتصال آغاز می‌شود">' + daysRemaining + ' روز (اولین اتصال)</span>' : '<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="rtl">' + daysRemaining + ' روز</span>';
 						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="rtl">' + daysRemaining + ' روز</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								remainingLabel +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none font-bold" dir="rtl">' + user.expiry_days + ' روز</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden flex justify-end">' +
-								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + daysPercent + '%; background-color: hsl(' + expiryHue + ', 80%, 45%)"></div>' +
+								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + daysPercent + '%; background-color: ' + (isTimerPending ? '#3b82f6' : 'hsl(' + expiryHue + ', 80%, 45%)') + '"></div>' +
 							'</div>' +
 						'</div>';
 					} else {
 						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
 							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
 								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold text-[12px]">∞</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
 								'<span class="leading-none text-[12px] font-bold">∞</span>' +
 							'</div>' +
 							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
@@ -5921,10 +6335,17 @@ ${COMMON_TOAST_HTML}
 					let isExpired = false;
 					if (user.limit_gb && (user.used_gb || 0) >= user.limit_gb) isExpired = true;
 					if (user.limit_req && (user.used_req || 0) >= user.limit_req) isExpired = true;
-					if (user.expiry_days && user.created_at) {
-						const created = new Date(user.created_at);
-						const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-						if (new Date(serverTime) > expiryDate) isExpired = true;
+					if (user.expiry_days) {
+						if (user.start_on_first_connect === 1) {
+							if (user.first_connection_time) {
+								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
+								if (new Date(serverTime) > expiryDate) isExpired = true;
+							}
+						} else if (user.created_at) {
+							const created = new Date(user.created_at);
+							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
+							if (new Date(serverTime) > expiryDate) isExpired = true;
+						}
 					}
 					const isEffectivelyActive = user.is_active !== 0 && !isExpired;
 					const statusBtnColor = user.is_active === 0 ? 'text-green-700 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/30' : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30';
@@ -5937,7 +6358,7 @@ ${COMMON_TOAST_HTML}
 					if (user.user_proxy_iata) {
 						const iata = user.user_proxy_iata.toUpperCase();
 						const flag = typeof getFlagEmoji === 'function' ? getFlagEmoji(iata) : '🌐';
-						locBadge = '<span title="کشور: ' + iata + '" class="text-base leading-none px-0.5 drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + flag + '</span>';
+						locBadge = '<div class="flex justify-center mt-1"><span title="کشور: ' + iata + '" class="text-base leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + flag + '</span></div>';
 					} else if (user.user_socks5 || user.user_proxy_ip) {
 						let proxyList = [];
 						try {
@@ -5949,20 +6370,59 @@ ${COMMON_TOAST_HTML}
 						} catch(e) {
 							proxyList = [user.user_socks5 || user.user_proxy_ip];
 						}
-						let flagSizeClass = proxyList.length > 4 ? 'text-[10px]' : (proxyList.length > 2 ? 'text-xs' : 'text-base');
-						locBadge = proxyList.map(item => {
+
+						let numFlags = proxyList.length;
+						let layout = [];
+						if (numFlags === 1) layout = [1];
+						else if (numFlags === 2) layout = [2];
+						else if (numFlags === 3) layout = [3];
+						else if (numFlags === 4) layout = [2, 2];
+						else if (numFlags === 5) layout = [3, 2];
+						else if (numFlags === 6) layout = [3, 3];
+						else if (numFlags === 7) layout = [4, 3];
+						else if (numFlags === 8) layout = [4, 4];
+						else if (numFlags === 9) layout = [5, 4];
+						else if (numFlags === 10) layout = [4, 4, 2];
+						else if (numFlags === 11) layout = [4, 4, 3];
+						else if (numFlags === 12) layout = [4, 4, 4];
+						else if (numFlags === 13) layout = [5, 5, 3];
+						else if (numFlags === 14) layout = [5, 5, 4];
+						else {
+							let remaining = numFlags;
+							while (remaining > 0) {
+								layout.push(Math.min(remaining, 5));
+								remaining -= 5;
+							}
+						}
+
+						let flagSizeClass = 'text-base';
+						if (numFlags > 12) flagSizeClass = 'text-[9px]';
+						else if (numFlags >= 9) flagSizeClass = 'text-[10px]';
+						else if (numFlags > 4) flagSizeClass = 'text-xs';
+
+						const flagsHtmlArray = proxyList.map(item => {
 							const targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
 							const targetCountry = typeof item === 'object' && item !== null ? item.country : null;
 							if (targetCountry && typeof getFlagEmoji === 'function') {
-								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none px-0.5 drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + getFlagEmoji(targetCountry) + '</span>';
+								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + getFlagEmoji(targetCountry) + '</span>';
 							}
 							const cachedFlag = proxyFlagCache[targetProxy];
 							if (cachedFlag && typeof cachedFlag === 'string' && /^[a-zA-Z]{2}$/.test(cachedFlag) && typeof getFlagEmoji === 'function') {
-								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none px-0.5 drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + getFlagEmoji(cachedFlag) + '</span>';
+								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + getFlagEmoji(cachedFlag) + '</span>';
 							} else {
-								return '<span data-proxy="' + targetProxy + '" title="پـروکـسـی اختصاصی" class="async-proxy-flag ' + flagSizeClass + ' leading-none px-0.5 drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">⏳</span>';
+								return '<span data-proxy="' + targetProxy + '" title="پـروکـسـی اختصاصی" class="async-proxy-flag ' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">⏳</span>';
 							}
-						}).join('');
+						});
+
+						let rowsHtml = '';
+						let startIndex = 0;
+						for (let r = 0; r < layout.length; r++) {
+							let rowCount = layout[r];
+							let rowItems = flagsHtmlArray.slice(startIndex, startIndex + rowCount).join('');
+							rowsHtml += '<div class="flex justify-center gap-0.5">' + rowItems + '</div>';
+							startIndex += rowCount;
+						}
+						locBadge = '<div class="flex flex-col gap-0.5 justify-center items-center mt-1 w-max mx-auto" dir="ltr">' + rowsHtml + '</div>';
 					}
 					let proxyListConfig = [];
 					try {
@@ -5981,9 +6441,11 @@ ${COMMON_TOAST_HTML}
 					if (!hasDir) proxyListConfig.push(null);
 					let numProxies = proxyListConfig.length;
 					let numIps = user.ips ? user.ips.split('\\n').filter(function(ip) { return ip.trim().length > 0; }).length : 1;
+					if (numIps === 0) numIps = 1;
 					let numPorts = String(user.port || '443').split(',').filter(function(p) { return p.trim().length > 0; }).length;
 					if (numPorts === 0) numPorts = 1;
-					let totalConfigs = numProxies * numIps * numPorts;
+					let protoCount = 1 + (user.trojan_hash ? 1 : 0);
+					let totalConfigs = numProxies * numIps * numPorts * protoCount;
 					let configColorClass = 'text-green-800 dark:text-green-700';
 					if (totalConfigs > 100) configColorClass = 'text-red-600 dark:text-red-500';
 					else if (totalConfigs > 80) configColorClass = 'text-orange-500';
@@ -6004,31 +6466,29 @@ ${COMMON_TOAST_HTML}
 											(user.is_online === 1 ? '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-green-600 text-white rounded animate-pulse" dir="rtl">' + user.online_count + '</span>' : '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-gray-200 text-gray-600 dark:bg-zinc-800 dark:text-zinc-400 rounded">آفلاین</span>') +
 										'</div>' +
 										'<span class="font-bold text-gray-900 dark:text-zinc-100 text-xs truncate max-w-full pt-0.5 leading-normal">' + user.username + '</span>' +
-										'<div class="flex flex-wrap items-center justify-center gap-0.5">' +
-											locBadge +
-										'</div>' +
+										locBadge +
 									'</div>' +
 								'</td>' +
 								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800 text-center">' +
 									'<div class="grid grid-cols-2 gap-1 w-max mx-auto">' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyConfig(this.dataset.user)" title="کپی کـانفـیگ" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="editUser(this.dataset.user)" title="ویرایش" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="deleteUser(this.dataset.user)" title="حذف" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 rounded transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="toggleUserStatus(this.dataset.user)" title="' + statusBtnTitle + '" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 ' + statusBtnColor + ' rounded transition shadow-sm">' + statusBtnIcon + '</button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyConfig(this.dataset.user)" title="کپی کـانفـیگ" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-blue-50 dark:bg-blue-950/40 border border-blue-300 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-600 dark:text-blue-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="editUser(this.dataset.user)" title="ویرایش" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-green-50 dark:bg-green-950/40 border border-green-300 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/60 text-green-600 dark:text-green-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="deleteUser(this.dataset.user)" title="حذف" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="toggleUserStatus(this.dataset.user)" title="' + statusBtnTitle + '" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 ' + statusBtnColor + ' rounded-full transition shadow-sm">' + statusBtnIcon + '</button>' +
 									'</div>' +
 								'</td>' +
 								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' +
-									'<div class="flex flex-col gap-1 w-[90px] mx-auto">' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySubLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded text-[9px] font-bold transition border border-indigo-200 dark:border-indigo-800">' +
+									'<div class="flex flex-col gap-1 w-[100px] mx-auto">' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySubLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-full text-[9px] font-bold transition border border-indigo-200 dark:border-indigo-800">' +
 											'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>' +
 											'ساب متنی' +
 										'</button>' +
 										'<div class="flex flex-row gap-1 w-full h-[24px]">' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyStatusLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyStatusLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-full text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
 												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' +
 												'وضعیت' +
 											'</button>' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSubQr(this.dataset.user)" title="QR ساب" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded transition border border-amber-200 dark:border-amber-800">' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSubQr(this.dataset.user)" title="QR ساب" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full transition border border-amber-200 dark:border-amber-800">' +
 												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>' +
 											'</button>' +
 										'</div>' +
@@ -6692,6 +7152,9 @@ function downloadZeusSource() {
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 						links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
+						if (user.trojan_hash) {
+							links.push('trojan://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
+						}
 					});
 				});
 			}
@@ -7722,6 +8185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (e.target.id === 'ip-selector-modal') toggleIpSelectorModal(false);
 				if (e.target.id === 'ip-scanner-modal') toggleIpScannerModal(false);
 				if (e.target.id === 'settings-modal') toggleSettingsModal(false);
+			if (e.target.id === 'rocket-modal') toggleRocketModal(false);
 				if (e.target.id === 'update-modal') toggleUpdateModal(false);
 				if (e.target.id === 'token-modal') toggleTokenModal(false);
 				if (e.target.id === 'qr-modal') toggleQrModal(false);
@@ -8421,6 +8885,9 @@ ${COMMON_TOAST_HTML}
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
 						links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
+						if (u.trojan_hash) {
+							links.push('trojan://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
+						}
 					});
 				});
 			}
