@@ -5454,9 +5454,9 @@ const HTML_TEMPLATES = {
 													<option value="edge">🌀 Edge</option>
 													<option value="360">🔒 360 Browser</option>
 													<option value="qq">💬 QQ Browser</option>
-													<option value="random">🎲 Random</option>
+													<option value="random" selected>🎲 Random</option>
 													<option value="randomized">🎭 Dynamic</option>
-													<option value="unsafe" selected>🚀 Unsafe (پیشنهادی)</option>
+													<option value="unsafe">🚀 Unsafe (پیشنهادی)</option>
 												</select>
 												<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">
 													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -6641,6 +6641,24 @@ ${COMMON_TOAST_HTML}
 			const nameInput = document.getElementById('input-name');
 			if (nameInput) nameInput.value = adj + '_' + noun + num;
 		};
+		/* مثل پرچمی که از روی کشور ثابت‌شده (IATA) ساخته می‌شه، نام کاربری پیش‌فرض هم از اسم انگلیسی همون کشور ساخته می‌شه */
+		window.autoFillUsernameFromCountry = function() {
+			const nameInput = document.getElementById('input-name');
+			if (!nameInput) return;
+			const cca2 = window._globalActiveCountry || '';
+			let base = '';
+			if (cca2 && typeof getCountryDisplayNameEn === 'function') {
+				const enName = getCountryDisplayNameEn(cca2);
+				base = (enName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+			}
+			if (!base) {
+				const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
+				const nouns = ['falcon','tiger','wolf','phoenix','viper','hawk','dragon','panther','eagle','cobra'];
+				base = adjectives[Math.floor(Math.random() * adjectives.length)] + '_' + nouns[Math.floor(Math.random() * nouns.length)];
+			}
+			const num = Math.floor(100 + Math.random() * 900);
+			nameInput.value = base + num;
+		};
 		window.handleProtocolChange = function(changedInput) {
 			const vlessCb = document.getElementById('input-proto-vless');
 			const trojanCb = document.getElementById('input-proto-trojan');
@@ -6680,13 +6698,13 @@ ${COMMON_TOAST_HTML}
 				const ssCb1 = document.getElementById('input-proto-ss');
 				if (vlessCb1) vlessCb1.checked = true;
 				if (trojanCb1) trojanCb1.checked = false;
-				if (ssCb1) ssCb1.checked = false;
+				if (ssCb1) ssCb1.checked = true;
 				const cb443 = document.querySelector('input[name="ports"][value="443"]');
 				if (cb443) cb443.checked = true;
 				const cb80 = document.querySelector('input[name="ports"][value="80"]');
 				if (cb80) cb80.checked = true;
 				const fpSelect = document.getElementById('fingerprint-select');
-				if (fpSelect) fpSelect.value = 'ios';
+				if (fpSelect) fpSelect.value = 'random';
 				const bpCheck = document.getElementById('input-block-porn');
 				if (bpCheck) bpCheck.checked = false;
 				const baCheck = document.getElementById('input-block-ads');
@@ -7076,13 +7094,15 @@ ${COMMON_TOAST_HTML}
 			const ssCbC = document.getElementById('input-proto-ss');
 			if (vlessCbC) vlessCbC.checked = true;
 			if (trojanCbC) trojanCbC.checked = false;
-			if (ssCbC) ssCbC.checked = false;
+			if (ssCbC) ssCbC.checked = true;
+			if (typeof window.autoFillUsernameFromCountry === 'function') window.autoFillUsernameFromCountry();
+			if (typeof window.autoFillCleanIps === 'function') window.autoFillCleanIps(2);
 			const cb443 = document.querySelector('input[name="ports"][value="443"]');
 			if (cb443) cb443.checked = true;
 			const cb80 = document.querySelector('input[name="ports"][value="80"]');
 			if (cb80) cb80.checked = true;
 			const fpSelect = document.getElementById('fingerprint-select');
-			if (fpSelect) fpSelect.value = 'ios';
+			if (fpSelect) fpSelect.value = 'random';
 			const fragToggle = document.getElementById('input-frag-toggle');
 			if (fragToggle) fragToggle.checked = true;
 			window.toggleFragInputs(true);
@@ -7098,15 +7118,16 @@ ${COMMON_TOAST_HTML}
 			const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
 			if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = false;
 			const userProxyToggle = document.getElementById('user-proxy-mode-toggle');
-			if (userProxyToggle) userProxyToggle.checked = false;
-			if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(false);
+			if (userProxyToggle) userProxyToggle.checked = true;
+			if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
 			window.proxyFieldsData = [""];
 			window.activeProxyIndex = 0;
-			window.userProxyIata = null;
+			const defaultIataCode = window._globalActiveCountry || '';
+			window.userProxyIata = defaultIataCode || null;
 			const iataToggleReset = document.getElementById('input-user-iata-toggle');
-			if (iataToggleReset) iataToggleReset.checked = false;
+			if (iataToggleReset) iataToggleReset.checked = true;
 			const iataInputReset = document.getElementById('input-user-proxy-iata');
-			if (iataInputReset) iataInputReset.disabled = true;
+			if (iataInputReset) { iataInputReset.disabled = false; iataInputReset.value = defaultIataCode; }
 			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
 			if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
 			document.getElementById('hidden-auto-rotate').value = '0';
@@ -9330,6 +9351,39 @@ async function fetchIpsList() {
 		toggleIpSelectorModal(false);
 	}
 }
+/* پر کردن خودکار چند آی‌پی تمیز از همون آدرس (ips.txt) بدون نیاز به باز کردن اسکنر/مخزن آی‌پی */
+window.autoFillCleanIps = async function(count) {
+	const n = count || 2;
+	const ipsInput = document.getElementById('input-ips');
+	if (!ipsInput) return;
+	try {
+		let availableIps = [];
+		if (!cachedIpsData || Object.keys(cachedIpsData).length === 0) {
+			const response = await fetchWithFallbackUI('ips.txt');
+			if (response.ok) {
+				const text = await response.text();
+				const blocks = text.split('----------');
+				blocks.forEach(block => {
+					const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
+					lines.forEach(line => {
+						if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
+					});
+				});
+			}
+		} else {
+			Object.values(cachedIpsData).forEach(ips => { availableIps = availableIps.concat(ips); });
+		}
+		availableIps = [...new Set(availableIps)];
+		if (availableIps.length === 0) return;
+		const shuffled = availableIps.slice();
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		const selected = shuffled.slice(0, n);
+		if (selected.length > 0) ipsInput.value = selected.join('\\n');
+	} catch (e) {}
+};
 function populateIpSelect() {
 	const select = document.getElementById('ip-operator-select');
 	select.innerHTML = '<option value="all">همه (توصیه شده)</option>';
