@@ -1,4 +1,3 @@
-import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const ACTIVE_CONNECTIONS_COUNT = new Map();
 const GLOBAL_LAST_ACTIVE_WRITE = new Map();
@@ -3551,12 +3550,19 @@ function createDownstreamSender(webSocket, headerData = null) {
 }
 async function waitForBackpressure(ws) {
 	if (typeof ws.bufferedAmount === "number") {
-		// قبلاً بعد از ۱.۵ ثانیه انتظار، بدون توجه به پر بودن بافر ارسال ادامه می‌داد و حجم ویدیو توی حافظه انباشته می‌شد.
-		// حالا تا خالی شدن بافر صبر می‌کنیم؛ فقط اگه کلاینت ۶۰ ثانیه هیچ چیزی نگرفت (اتصال مرده) سوکت بسته می‌شه.
-		const stallStart = Date.now();
+		// قبلاً فقط از لحظه‌ی ورود به این تابع ۶۰ ثانیه می‌شمرد و اگه توی کل این ۶۰ ثانیه بافر بالای ۱MB
+		// مونده بود (که توی یه دانلود سنگین و پرسرعت کاملاً عادیه - بافر مدام پر و خالی می‌شه و ممکنه
+		// همیشه بالای ۱MB بمونه چون داده به همون سرعت که خالی می‌شه دوباره پر می‌شه) سوکت رو "مرده" فرض
+		// می‌کرد و می‌بست. همین باعث می‌شد وسط یه دانلود کاملاً سالم، دقیقاً حدود ۱ دقیقه بعد قطع بشه.
+		// حالا فقط وقتی می‌بندیم که بافر واقعاً گیر کرده باشه: یعنی ۶۰ ثانیه پشت‌سرهم هیچ کاهشی توی
+		// bufferedAmount نبینیم (پس واقعاً هیچی به سمت کلاینت نرفته و اتصال مرده‌ست)، نه صرفاً بالای ۱MB بودنش.
+		let lastAmount = ws.bufferedAmount;
+		let lastProgress = Date.now();
 		while (ws.bufferedAmount > 1024 * 1024) {
 			if (ws.readyState !== WebSocket.OPEN) break;
-			if (Date.now() - stallStart > 60000) {
+			if (ws.bufferedAmount < lastAmount) lastProgress = Date.now();
+			lastAmount = ws.bufferedAmount;
+			if (Date.now() - lastProgress > 60000) {
 				closeSocketQuietly(ws);
 				break;
 			}
@@ -9171,7 +9177,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.2';
+const CURRENT_VERSION = '2.2.3';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
