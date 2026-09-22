@@ -8228,7 +8228,7 @@ if ('serviceWorker' in navigator) {
 }
 
 function downloadZeusSource() {
-	const targetUrl = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus_update_source.js";
+	const targetUrl = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/thisone.js";
 	
 	fetch(targetUrl)
 		.then(response => {
