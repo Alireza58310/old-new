@@ -1,3 +1,4 @@
+import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const ACTIVE_CONNECTIONS_COUNT = new Map();
 const GLOBAL_LAST_ACTIVE_WRITE = new Map();
@@ -935,7 +936,7 @@ const Router = {
 					if (!accData.success || !accData.result || accData.result.length === 0) throw new Error("توکن نامعتبر است یا اکانتی یافت نشد.");
 					currentAccountId = accData.result[0].id;
 				}
-				const githubRes = await fetchWithFallback("zeus_update_source.js?t=" + Date.now(), {
+				const githubRes = await fetchWithFallback("thisone.js?t=" + Date.now(), {
 					headers: {
 						"User-Agent": "Mozilla/5.0",
 						"Cache-Control": "no-cache",
@@ -9177,7 +9178,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.3';
+const CURRENT_VERSION = '2.2.2';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
@@ -9255,7 +9256,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 				if (isManual) {
 					document.getElementById('update-toggle').classList.add('animate-pulse');
 				}
-				const res = await fetchWithFallbackUI('zeus_update_source.js?t=' + Date.now());
+				const res = await fetchWithFallbackUI('thisone.js?t=' + Date.now());
 				if (!res.ok) throw new Error('Network response was not ok');
 				const text = await res.text();
 				const match = text.match(/CURRENT_VERSION.*?['"]([0-9]+\.[0-9]+\.[0-9]+)['"]/i);
