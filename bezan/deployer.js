@@ -1410,13 +1410,13 @@ async function fetchPanelVersion(token, scriptName, latestVersion, devSub) {
             buttonsHtml += '<details class="mt-1">' +
                 '<summary class="cursor-pointer text-[11px] text-gray-500 dark:text-zinc-400 font-bold select-none">🌍 Placement این پنل</summary>' +
                 '<div class="mt-2 space-y-1.5">' +
-                    '<select id="panelPlacementMode-' + scriptName + '" onchange="onPanelPlacementModeChange(\'' + scriptName + '\')" class="w-full px-2 py-1.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-[11px] font-mono text-gray-700 dark:text-zinc-300">' +
+                    '<select id="panelPlacementMode-' + scriptName + '" data-name="' + scriptName + '" onchange="onPanelPlacementModeChange(this.dataset.name)" class="w-full px-2 py-1.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-[11px] font-mono text-gray-700 dark:text-zinc-300">' +
                         '<option value="inherit">مطابق تنظیم بالای صفحه</option>' +
                         '<option value="default">Default — پیش‌فرض (نزدیک‌ترین به کاربر)</option>' +
                         '<option value="region">Region — دیتاسنتر مشخص</option>' +
                     '</select>' +
                     '<div id="panelPlacementRegionBox-' + scriptName + '" class="hidden space-y-1.5">' +
-                        '<select id="panelPlacementProvider-' + scriptName + '" onchange="onPanelPlacementProviderChange(\'' + scriptName + '\')" class="w-full px-2 py-1.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-[11px] font-mono text-gray-700 dark:text-zinc-300">' +
+                        '<select id="panelPlacementProvider-' + scriptName + '" data-name="' + scriptName + '" onchange="onPanelPlacementProviderChange(this.dataset.name)" class="w-full px-2 py-1.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-[11px] font-mono text-gray-700 dark:text-zinc-300">' +
                             '<option value="">انتخاب ارائه‌دهنده...</option>' +
                             '<option value="aws">AWS</option>' +
                             '<option value="gcp">GCP</option>' +
