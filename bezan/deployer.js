@@ -6,6 +6,9 @@ const DEFAULT_NETRA_SOURCE_URL = "https://raw.githubusercontent.com/netrair/netr
 // اگه فایل سورس جدای مخصوص نسخه‌ی KV داری، همین یک خط رو به آدرس raw گیت‌هاب همون فایل تغییر بده،
 // یا از همون گزینه‌ی «افزودن سورس» داخل پنل، یه آدرس دلخواه برای حالت «زئوس KV» ثبت کن.
 const DEFAULT_ZEUS_KV_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/old/zeus.js";
+// آدرس سورس خود دپلویر — برای «راه‌اندازی خودکار دیتابیس» استفاده می‌شه: دپلویر با همین آدرس
+// خودش رو (روی همون اسم ورکر فعلی‌ش) دوباره از نو آپلود می‌کنه، این‌بار با بایندینگ D1 به اسم LINKS_DB.
+const DEPLOYER_SELF_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/deployer.js";
 
 // از خود آدرس URL، اسم فایل (zeus.js یا worker.js یا هرچی) رو استخراج می‌کنه
 // تا main_module و اسم پارت فرم‌دیتا همیشه درست باشه، مهم نیست اسم فایل چی باشه.
@@ -618,6 +621,98 @@ if (request.method === "POST" && url.pathname === "/api/reset-password") {
                 });
             }
         }
+        if (request.method === "POST" && url.pathname === "/api/setup-links-db") {
+            // راه‌اندازی خودکار دیتابیس D1 خود دپلویر (LINKS_DB) — دقیقاً همون کاری که موقع دیپلوی
+            // یه پنل زئوس برای D1 اون پنل انجام می‌شه، اینجا برای خود دپلویر انجام می‌شه: یه D1 جدید
+            // می‌سازه، بهش وصل می‌کنه و دپلویر رو (از روی همون سورس خودش) با این بایندینگ جدید دوباره آپلود می‌کنه.
+            // بعدش نیازی به هیچ کار دستی‌ای تو داشبورد کلودفلر نیست.
+            try {
+                if (env.LINKS_DB) {
+                    return new Response(JSON.stringify({ success: true, alreadyConnected: true }), {
+                        headers: { "Content-Type": "application/json" },
+                    });
+                }
+                const { token } = await request.json();
+                if (!token) throw new Error("توکن نمی‌تواند خالی باشد.");
+                // اسم ورکر خود دپلویر رو از روی آدرس فعلی (xxx.yyy.workers.dev) استخراج می‌کنیم.
+                const selfName = url.hostname.split(".")[0];
+                if (!selfName) throw new Error("اسم ورکر دپلویر از روی آدرس قابل تشخیص نیست.");
+                const headers = {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                };
+                const accRes = await fetch("https://api.cloudflare.com/client/v4/accounts", { headers });
+                const accData = await accRes.json();
+                if (!accData.success || !accData.result || accData.result.length === 0) {
+                    throw new Error("فقط با دکمه نارنجی «دریافت توکن» توکن بسازید.");
+                }
+                const accountId = accData.result[0].id;
+                // بایندینگ‌های فعلی خود دپلویر رو می‌خونیم تا چیزی که از قبل هست حفظ بشه (اگه چیزی باشه).
+                const existingBindings = [];
+                try {
+                    const bRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${selfName}/bindings`, { headers });
+                    const bData = await bRes.json();
+                    if (bData.success && Array.isArray(bData.result)) {
+                        for (const b of bData.result) {
+                            if (b.type === "d1" && b.name !== "LINKS_DB") {
+                                existingBindings.push({ type: "d1", name: b.name, id: b.database_id || b.id });
+                            } else if (b.type === "kv_namespace") {
+                                existingBindings.push({ type: "kv_namespace", name: b.name, namespace_id: b.namespace_id || b.id });
+                            } else if (b.type === "plain_text") {
+                                existingBindings.push({ type: "plain_text", name: b.name, text: b.text || "" });
+                            }
+                            // بایندینگ‌های secret_text از API خونده نمی‌شن (کلودفلر مقدارشون رو پس نمی‌ده)، پس نادیده گرفته می‌شن.
+                        }
+                    }
+                } catch (e) { /* اگه اسکریپتی با این اسم پیدا نشه یا خطا بخوره، فقط با بایندینگ جدید ادامه می‌دیم */ }
+                const dbName = `deployer-links-db-${Math.random().toString(36).substring(2, 8)}`;
+                const dbRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database`, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify({ name: dbName }),
+                });
+                const dbData = await dbRes.json();
+                if (!dbData.success) {
+                    const cfError = dbData.errors && dbData.errors.length > 0 ? dbData.errors[0].message : "نامشخص";
+                    throw new Error(`CF_DB_ERROR|${cfError}`);
+                }
+                const dbUuid = dbData.result.uuid;
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                const newBindings = [...existingBindings, { type: "d1", name: "LINKS_DB", id: dbUuid }];
+                const selfRes = await fetch(DEPLOYER_SELF_SOURCE_URL + (DEPLOYER_SELF_SOURCE_URL.includes("?") ? "&" : "?") + "t=" + Date.now());
+                if (!selfRes.ok) throw new Error("خطا در دریافت سورس خود دپلویر از گیت‌هاب.");
+                const selfCode = await selfRes.text();
+                const selfFileName = getScriptFileNameFromUrl(DEPLOYER_SELF_SOURCE_URL);
+                const metadata = {
+                    main_module: selfFileName,
+                    compatibility_date: "2024-02-08",
+                    compatibility_flags: ["allow_eval_during_startup", "nodejs_compat"],
+                    bindings: newBindings,
+                    observability: { enabled: true, head_sampling_rate: 1 },
+                };
+                const formData = new FormData();
+                formData.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+                formData.append(selfFileName, new Blob([selfCode], { type: "application/javascript+module" }), selfFileName);
+                const deployRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${selfName}`, {
+                    method: "PUT",
+                    headers: { Authorization: `Bearer ${token}` },
+                    body: formData,
+                });
+                const deployData = await deployRes.json();
+                if (!deployData.success) {
+                    const cfError = deployData.errors && deployData.errors.length > 0 ? deployData.errors[0].message : "نامشخص";
+                    throw new Error(`CF_DEPLOY_ERROR|${cfError}`);
+                }
+                return new Response(JSON.stringify({ success: true }), {
+                    headers: { "Content-Type": "application/json" },
+                });
+            } catch (error) {
+                return new Response(JSON.stringify({ success: false, error: error.message }), {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" },
+                });
+            }
+        }
         if (request.method === "POST" && url.pathname === "/api/links-list") {
             try {
                 if (!env.LINKS_DB) throw new Error("دیتابیس ذخیره لینک‌ها (LINKS_DB) به این دپلویر متصل نیست.");
@@ -1055,6 +1150,7 @@ window.alert = function(message) {
             btn.disabled = true;
             btn.innerText = 'در حال بارگذاری...';
             document.getElementById('saved-links-status').classList.add('hidden');
+            document.getElementById('links-db-setup-box').classList.add('hidden');
             listEl.innerHTML = '';
             try {
                 const response = await fetch('/api/links-list', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
@@ -1066,10 +1162,37 @@ window.alert = function(message) {
                     result.links.forEach(renderSavedLinkRow);
                 }
             } catch (e) {
-                showSavedLinksStatus('خطا: ' + e.message, true);
+                if (e.message && e.message.includes('LINKS_DB')) {
+                    document.getElementById('links-db-setup-box').classList.remove('hidden');
+                    const mainToken = document.getElementById('apiToken');
+                    if (mainToken && mainToken.value) document.getElementById('linksDbSetupToken').value = mainToken.value;
+                } else {
+                    showSavedLinksStatus('خطا: ' + e.message, true);
+                }
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'بارگذاری لینک‌ها';
+            }
+        }
+        async function setupLinksDb() {
+            const btn = document.getElementById('linksDbSetupBtn');
+            const token = document.getElementById('linksDbSetupToken').value.trim();
+            if (!token) { showSavedLinksStatus('توکن را وارد کنید', true); return; }
+            btn.disabled = true;
+            btn.innerText = 'در حال ساخت دیتابیس...';
+            try {
+                const response = await fetch('/api/setup-links-db', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }) });
+                const result = await response.json();
+                if (!result.success) throw new Error(result.error);
+                showSavedLinksStatus('✅ دیتابیس ساخته و وصل شد؛ در حال بارگذاری...', false);
+                document.getElementById('links-db-setup-box').classList.add('hidden');
+                await sleep(1500);
+                await loadSavedLinks();
+            } catch (e) {
+                const msg = e.message && e.message.includes('|') ? e.message.split('|')[1] : e.message;
+                showSavedLinksStatus('خطا: ' + msg, true);
+                btn.disabled = false;
+                btn.innerText = '🔧 راه‌اندازی خودکار دیتابیس';
             }
         }
         function escAttr(s) {
@@ -1945,6 +2068,14 @@ async function reloadZeusPanel(scriptName) {
             </button>
         </div>
         <p class="text-[11px] text-gray-500 dark:text-zinc-400 mb-3 shrink-0">این لینک‌ها داخل دیتابیس همین دپلویر ذخیره می‌شن؛ لینک‌های ساخته‌شده به‌صورت خودکار اضافه می‌شن و می‌تونید هر کدوم رو ویرایش یا حذف کنید، یا لینک دلخواه خودتون رو دستی اضافه کنید.</p>
+        <div id="links-db-setup-box" class="hidden mb-3 p-3 rounded-xl border border-orange-500/50 bg-orange-50 dark:bg-orange-900/20 space-y-2 shrink-0">
+            <p class="text-xs font-bold text-orange-600 dark:text-orange-400">دیتابیس ذخیره لینک‌ها (LINKS_DB) به این دپلویر وصل نیست.</p>
+            <p class="text-[11px] text-gray-500 dark:text-zinc-400">با زدن دکمه زیر، یه D1 جدید ساخته می‌شه و خودکار به همین دپلویر وصل می‌شه؛ نیازی به هیچ کار دستی تو داشبورد کلودفلر نیست.</p>
+            <input type="password" id="linksDbSetupToken" placeholder="توکن کلودفلر" autocomplete="off" spellcheck="false" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-xs font-mono" dir="ltr">
+            <button type="button" id="linksDbSetupBtn" onclick="setupLinksDb()" class="w-full py-2.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-xs transition">
+                🔧 راه‌اندازی خودکار دیتابیس
+            </button>
+        </div>
         <button type="button" onclick="toggleAddLinkForm()" class="w-full mb-3 py-2.5 flex items-center justify-center gap-1.5 border border-emerald-700 text-emerald-500 bg-emerald-900/20 hover:bg-emerald-900/40 rounded-xl text-xs font-bold transition shrink-0">
             <span class="text-base leading-none">+</span> افزودن لینک دستی
         </button>
