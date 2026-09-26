@@ -1193,7 +1193,7 @@ const Router = {
 						}
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					} else {
-						const { username: new_username, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols } = body;
+						const { username: new_username, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = body;
 						if (new_username && new_username !== username) {
 							if (!/^[a-zA-Z0-9_-]+$/.test(new_username)) {
 								return new Response(JSON.stringify({ error: "نام کاربری جدید غیرمجاز است" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
@@ -1221,8 +1221,8 @@ const Router = {
 						}
 						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
 						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? sha224Pure(existingUserForTrojan.uuid) : null;
-						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
-							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, trojanHashForUpdate, normalizeConnectionType(protocols, connection_type, null), username)
+						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
+							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, normalizeConnectionType(protocols, connection_type, null), username)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					}
@@ -1306,7 +1306,7 @@ const Router = {
 					}
 				}
 				if (request.method === "POST") {
-					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols } = await readJsonBody(request);
+					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await readJsonBody(request);
 					if (!username) {
 						return new Response(JSON.stringify({ error: "نام کاربری اجباری است" }), { status: 400, headers: { "Content-Type": "application/json" } });
 					}
@@ -1339,8 +1339,8 @@ const Router = {
 						const nowTime = Date.now();
 						const trojanHash = sha224Pure(finalUuid);
 						const finalConnType = normalizeConnectionType(protocols, connection_type, "vl" + "e" + "ss");
-						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1)
+						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					} catch (err) {
@@ -1409,6 +1409,7 @@ const DbService = {
 					{ name: "last_rotate_time", def: "INTEGER DEFAULT 0" },
 					{ name: "auto_rotate_user_proxy", def: "INTEGER DEFAULT 0" },
 					{ name: "enable_direct", def: "INTEGER DEFAULT 1" },
+					{ name: "user_ipv6_enabled", def: "INTEGER DEFAULT 0" },
 				];
 				const stmts = [];
 				for (const col of colsToAdd) {
@@ -2459,6 +2460,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					serverSock.close();
 					return;
 				}
+				// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
+				if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
+					serverSock.close();
+					return;
+				}
 				const connectTCP = async (dataPayload = null, useFallback = true) => {
 					if (remoteConnWrapper.connectingPromise) {
 						await remoteConnWrapper.connectingPromise;
@@ -2607,6 +2613,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 		}
 		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+			serverSock.close();
+			return;
+		}
+		// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
+		if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
 			serverSock.close();
 			return;
 		}
@@ -2836,6 +2847,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 		}
 		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+			serverSock.close();
+			return;
+		}
+		// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
+		if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
 			serverSock.close();
 			return;
 		}
@@ -3148,8 +3164,19 @@ async function dohQuery(domain, recordType, targetDoh = DOH_RESOLVER) {
 	if (DNS_CACHE.has(cacheKey)) {
 		const cached = DNS_CACHE.get(cacheKey);
 		if (Date.now() < cached.expires) return cached.data;
+		// کش منقضی شده (بعد از DNS_CACHE_TTL=۵ دقیقه): قبلاً همینجا منتظر یه DoH زنده‌ی جدید می‌موندیم
+		// و همین باعث می‌شد دقیقاً هر ۵ دقیقه یه‌بار (مثلاً وسط پخش ریلز) یه اتصال جدید چند ثانیه گیر کنه.
+		// حالا اگه جواب قبلی (هر چند کهنه) داریم، همونو فوری برمی‌گردونیم و رفرش واقعی رو پس‌زمینه انجام می‌دیم؛
+		// دفعه‌ی بعد جواب تازه از قبل توی کشه.
 		DNS_CACHE.delete(cacheKey);
+		if (cached.data && cached.data.length > 0) {
+			fetchDohFresh(domain, recordType, targetDoh, cacheKey).catch(() => {});
+			return cached.data;
+		}
 	}
+	return await fetchDohFresh(domain, recordType, targetDoh, cacheKey);
+}
+async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 	let dohTimer = null;
 	const cacheNegative = () => {
 		if (DNS_CACHE.size >= DNS_CACHE_MAX_ENTRIES) {
@@ -3638,8 +3665,21 @@ async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, on
 	}
 	if (!hasData && retryFunc) await retryFunc();
 }
+// یه هاست IPv6 خامه یا نه (دامنه/IPv4 => false، آدرس IPv6 با یا بدون [] => true)
+function isIPv6Literal(host) {
+	if (typeof host !== "string" || !host) return false;
+	const bare = host.startsWith("[") && host.endsWith("]") ? host.slice(1, -1) : host;
+	return bare.includes(":");
+}
+// باگ workerd: connect() داخلش hostname و port رو با ":" بهم می‌چسبونه (hostname:port)؛ برای IPv6 باید
+// hostname توی [] باشه وگرنه چندتا ":" با ":" جداکننده‌ی پورت قاطی می‌شه و اتصال fail می‌کنه.
+// (رفرنس: PR شماره‌ی ۵۰۶ ریپوی byJoey/cfnew و ۴۳۷ ریپوی yonggekkk/Cloudflare-vless-trojan)
+function bracketizeHost(host) {
+	if (isIPv6Literal(host) && !host.startsWith("[")) return `[${host}]`;
+	return host;
+}
 async function connectDirect(address, port, initialData = null, targetDoh = "https://cloudflare-dns.com/dns-query") {
-	const socket = connect({ hostname: address, port: port });
+	const socket = connect({ hostname: bracketizeHost(address), port: port });
 	let openTimer = null;
 	try {
 		await Promise.race([socket.opened, new Promise((_, reject) => { openTimer = setTimeout(() => reject(new Error("timeout")), 2500); })]);
@@ -3669,7 +3709,7 @@ async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServ
 		} catch (e) {}
 	}, 10000);
 	try {
-		tcpSocket = connect({ hostname: dnsServer, port: 53 });
+		tcpSocket = connect({ hostname: bracketizeHost(dnsServer), port: 53 });
 		let vIeesHeader = respHeader;
 		const writer = tcpSocket.writable.getWriter();
 		await writer.write(requestData);
@@ -3757,7 +3797,7 @@ async function connectProxy(proxyStr, destAddr, destPort, initialData) {
 }
 async function connectSocks4(proxyStr, destAddr, destPort, initialData) {
 	const { user, pass, host, port, auth } = parseProxyConfig(proxyStr, 1080);
-	const socket = connect({ hostname: host, port: port });
+	const socket = connect({ hostname: bracketizeHost(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	try {
@@ -3845,7 +3885,7 @@ function parseProxyConfig(proxyStr, defaultPort) {
 }
 async function connectSocks5(socksStr, destAddr, destPort, initialData) {
 	const { user, pass, host, port, auth } = parseProxyConfig(socksStr, 1080);
-	const socket = connect({ hostname: host, port: port });
+	const socket = connect({ hostname: bracketizeHost(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	const readWithTimeout = (r, ms) => Promise.race([
@@ -3927,7 +3967,7 @@ async function connectSocks5(socksStr, destAddr, destPort, initialData) {
 }
 async function connectHttp(proxyStr, destAddr, destPort, initialData) {
 	const { user, pass, host, port, auth } = parseProxyConfig(proxyStr, 80);
-	const socket = connect({ hostname: host, port: port });
+	const socket = connect({ hostname: bracketizeHost(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	try {
@@ -5816,6 +5856,16 @@ const HTML_TEMPLATES = {
 											<span class="text-xs font-black text-sky-800 dark:text-sky-400 whitespace-nowrap">ثابت کردن کشور (IATA)</span>
 										</div>
 										<input type="text" id="input-user-proxy-iata" maxlength="2" placeholder="مثلا DE" dir="ltr" disabled oninput="this.value=this.value.toUpperCase(); window.userProxyIata=this.value||null; window.updateUserIataPreview();" class="w-20 px-2 py-1.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-zinc-700 rounded-lg text-xs font-mono text-center uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 text-gray-800 dark:text-zinc-100 disabled:opacity-50 transition">
+									</div>
+									<div class="flex items-center justify-between gap-2 p-3.5 bg-indigo-50/80 dark:bg-amoled-input/30 border border-indigo-500/40 dark:border-amoled-border rounded-xl shadow-sm">
+										<div class="flex items-center gap-2 flex-shrink-0">
+											<label class="relative inline-flex items-center cursor-pointer select-none flex-shrink-0">
+												<input type="checkbox" id="input-user-ipv6-toggle" class="sr-only peer">
+												<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-indigo-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+											</label>
+											<span class="text-xs font-black text-indigo-800 dark:text-indigo-400 whitespace-nowrap">پشتیبانی از IPv6</span>
+										</div>
+										<span class="text-[10px] text-indigo-600 dark:text-indigo-500 font-medium">روشن = هم IPv4 هم IPv6 مجازن (گوشی خودش انتخاب می‌کنه) / خاموش = فقط IPv4</span>
 									</div>
 									<div class="flex items-center justify-between p-3.5 bg-emerald-50/80 dark:bg-amoled-input/30 border border-emerald-500/40 dark:border-amoled-border rounded-xl shadow-sm">
 										<div class="flex items-center gap-2">
@@ -7881,6 +7931,7 @@ ${COMMON_TOAST_HTML}
 					body: JSON.stringify({ 
 						username, limit_gb: limit, expiry_days: expiry, limit_req: reqLimit, tls, port, ips, fingerprint, ip_limit: ipLimit, block_porn: block_porn, block_ads: block_ads, enable_direct: enable_direct, frag_len: frag_len, frag_int: frag_int,
 						user_proxy_iata: (userProxyMode && document.getElementById('input-user-iata-toggle') && document.getElementById('input-user-iata-toggle').checked) ? ((document.getElementById('input-user-proxy-iata') && document.getElementById('input-user-proxy-iata').value.trim().toUpperCase()) || window.userProxyIata || null) : null,
+						user_ipv6_enabled: (document.getElementById('input-user-ipv6-toggle') && document.getElementById('input-user-ipv6-toggle').checked) ? 1 : 0,
 						user_socks5: userSocks5 || null,
 						user_proxy_ip: null,
 						auto_reset_vol_days: auto_reset_vol_days,
@@ -8573,6 +8624,8 @@ function editUser(encodedUsername) {
 		iataInput.disabled = !hasIata;
 	}
 	if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
+	const ipv6Toggle = document.getElementById('input-user-ipv6-toggle');
+	if (ipv6Toggle) ipv6Toggle.checked = (user.user_ipv6_enabled === 1);
 	if (user.user_socks5) {
 		if (userProxyToggle) userProxyToggle.checked = true;
 		if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
