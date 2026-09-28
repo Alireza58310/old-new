@@ -10,37 +10,32 @@ function invalidateHotCaches() {
 	USER_ROW_CACHE.clear();
 	PROXY_IP_CACHE = { t: 0, v: "", p: null };
 }
+// مهم: فقط «نتیجه‌ی آماده» کش می‌شه، نه Promise. توی Workers یه Promise/I-O که تو ریکوئست A ساخته شده رو
+// نمی‌شه توی ریکوئست B await کرد ("Cannot perform I/O on behalf of a different request").
 async function getCachedUserRow(env, sql, key) {
 	const ck = sql.length + "|" + key;
 	const now = Date.now();
 	const hit = USER_ROW_CACHE.get(ck);
-	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.p;
-	const p = env.DB.prepare(sql).bind(key).first();
-	USER_ROW_CACHE.set(ck, { t: now, p });
-	if (USER_ROW_CACHE.size > 500) {
-		for (const [k, v] of USER_ROW_CACHE) { if (now - v.t >= USER_ROW_CACHE_TTL) USER_ROW_CACHE.delete(k); }
-		if (USER_ROW_CACHE.size > 500) USER_ROW_CACHE.clear();
+	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
+	const row = await env.DB.prepare(sql).bind(key).first();
+	if (row) {
+		USER_ROW_CACHE.set(ck, { t: Date.now(), v: row });
+		if (USER_ROW_CACHE.size > 500) {
+			const n2 = Date.now();
+			for (const [k, e] of USER_ROW_CACHE) { if (n2 - e.t >= USER_ROW_CACHE_TTL) USER_ROW_CACHE.delete(k); }
+			if (USER_ROW_CACHE.size > 500) USER_ROW_CACHE.clear();
+		}
 	}
-	try {
-		return await p;
-	} catch (e) {
-		USER_ROW_CACHE.delete(ck);
-		throw e;
-	}
+	return row;
 }
 async function getCachedUserRowsLike(env, sql, key) {
 	const ck = "L|" + sql.length + "|" + key;
 	const now = Date.now();
 	const hit = USER_ROW_CACHE.get(ck);
-	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.p;
-	const p = env.DB.prepare(sql).bind(key).all();
-	USER_ROW_CACHE.set(ck, { t: now, p });
-	try {
-		return await p;
-	} catch (e) {
-		USER_ROW_CACHE.delete(ck);
-		throw e;
-	}
+	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
+	const res = await env.DB.prepare(sql).bind(key).all();
+	if (res && res.results && res.results.length > 0) USER_ROW_CACHE.set(ck, { t: Date.now(), v: res });
+	return res;
 }
 // کش کشور پروکسی‌ها برای ساخت ساب؛ قبلاً هر بار رفرش ساب، برای هر پروکسی بدون کشور یه اتصال به ip-api.com از راه همون پروکسی می‌زد
 const SUB_COUNTRY_CACHE = new Map();
@@ -9512,7 +9507,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.5';
+const CURRENT_VERSION = '2.2.6';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
