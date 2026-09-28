@@ -1,6 +1,62 @@
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
+// کش کوتاه‌مدت ردیف کاربر و تنظیم proxy_ip برای مسیر اتصال (WebSocket).
+// قبلاً هر کانکشن جدید یه SELECT روی users (و یکی روی settings) می‌زد؛ یه تست سرعت با ده‌ها کانکشن موازی
+// همه‌شون رو هم‌زمان می‌ریخت روی D1. حالا کانکشن‌های هم‌زمان یه کوئری مشترک استفاده می‌کنن (TTL کوتاه).
+const USER_ROW_CACHE = new Map();
+const USER_ROW_CACHE_TTL = 8000;
+let PROXY_IP_CACHE = { t: 0, v: "", p: null };
+function invalidateHotCaches() {
+	USER_ROW_CACHE.clear();
+	PROXY_IP_CACHE = { t: 0, v: "", p: null };
+}
+async function getCachedUserRow(env, sql, key) {
+	const ck = sql.length + "|" + key;
+	const now = Date.now();
+	const hit = USER_ROW_CACHE.get(ck);
+	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.p;
+	const p = env.DB.prepare(sql).bind(key).first();
+	USER_ROW_CACHE.set(ck, { t: now, p });
+	if (USER_ROW_CACHE.size > 500) {
+		for (const [k, v] of USER_ROW_CACHE) { if (now - v.t >= USER_ROW_CACHE_TTL) USER_ROW_CACHE.delete(k); }
+		if (USER_ROW_CACHE.size > 500) USER_ROW_CACHE.clear();
+	}
+	try {
+		return await p;
+	} catch (e) {
+		USER_ROW_CACHE.delete(ck);
+		throw e;
+	}
+}
+async function getCachedUserRowsLike(env, sql, key) {
+	const ck = "L|" + sql.length + "|" + key;
+	const now = Date.now();
+	const hit = USER_ROW_CACHE.get(ck);
+	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.p;
+	const p = env.DB.prepare(sql).bind(key).all();
+	USER_ROW_CACHE.set(ck, { t: now, p });
+	try {
+		return await p;
+	} catch (e) {
+		USER_ROW_CACHE.delete(ck);
+		throw e;
+	}
+}
+// کش کشور پروکسی‌ها برای ساخت ساب؛ قبلاً هر بار رفرش ساب، برای هر پروکسی بدون کشور یه اتصال به ip-api.com از راه همون پروکسی می‌زد
+const SUB_COUNTRY_CACHE = new Map();
+const SUB_COUNTRY_TTL_OK = 12 * 3600 * 1000;
+const SUB_COUNTRY_TTL_FAIL = 10 * 60 * 1000;
 const ACTIVE_CONNECTIONS_COUNT = new Map();
+// آی‌پی‌های کلاینتِ کانکشن‌های زنده‌ی هر کاربر، فقط توی حافظه‌ی همین ایزوله: username -> Map(ip -> تعداد کانکشن).
+// قبلاً برای هر بسته شدن کانکشن یه SELECT و UPDATE روی D1 می‌زدیم؛ بعد یه دانلود/تست سرعت سنگین که
+// ده‌ها کانکشن هم‌زمان بسته می‌شن، این‌ها یهو رو D1 می‌ریخت و ورکر با ارور ۱۱۰۱ می‌بست.
+const GLOBAL_ACTIVE_IPS = new Map();
+// زمان آخرین چک هارتبیت هر (کاربر+آی‌پی)؛ جدا از GLOBAL_LAST_ACTIVE_WRITE چون اون توی sweep پاک می‌شه
+const GLOBAL_HB_CHECK = new Map();
+// حذف‌های در انتظارِ آی‌پی از D1 (برای جلوگیری از تکرار)
+const PENDING_IP_REMOVALS = new Set();
+// زمان آخرین نوشتن active_ips/last_active روی D1 برای هر کاربر (جدا از زمان‌بندی نوشتن ترافیک)
+const GLOBAL_IP_WRITE_TS = new Map();
 const GLOBAL_LAST_ACTIVE_WRITE = new Map();
 const GLOBAL_LAST_DB_WRITE = new Map();
 const GLOBAL_WRITE_LOCK = new Map();
@@ -51,8 +107,60 @@ function sweepGlobalTrafficMaps() {
 			ACTIVE_CONNECTIONS_COUNT.delete(uname);
 			GLOBAL_TRAFFIC_CACHE.delete(uname);
 			USER_REQ_CACHE.delete(uname);
+			GLOBAL_ACTIVE_IPS.delete(uname);
+			GLOBAL_IP_WRITE_TS.delete(uname);
 		}
 	}
+	for (const [k, ts] of GLOBAL_HB_CHECK.entries()) {
+		if (now - ts > 600000) GLOBAL_HB_CHECK.delete(k);
+	}
+}
+// ثبت/حذف آی‌پی کلاینت توی حافظه. untrackActiveIp تعداد کانکشن‌های باقی‌مونده‌ی همون آی‌پی رو برمی‌گردونه.
+function trackActiveIp(uname, ip) {
+	if (!uname || !ip) return;
+	let m = GLOBAL_ACTIVE_IPS.get(uname);
+	if (!m) { m = new Map(); GLOBAL_ACTIVE_IPS.set(uname, m); }
+	m.set(ip, (m.get(ip) || 0) + 1);
+}
+function untrackActiveIp(uname, ip) {
+	const m = GLOBAL_ACTIVE_IPS.get(uname);
+	if (!m || !ip) return 0;
+	const left = (m.get(ip) || 0) - 1;
+	if (left <= 0) {
+		m.delete(ip);
+		if (m.size === 0) GLOBAL_ACTIVE_IPS.delete(uname);
+		GLOBAL_HB_CHECK.delete(uname + "_hb_" + ip);
+		return 0;
+	}
+	m.set(ip, left);
+	return left;
+}
+// حذف آی‌پی از active_ips توی D1، با تأخیر ۸ ثانیه‌ای و فقط وقتی همون آی‌پی دیگه هیچ کانکشن زنده‌ای نداره.
+// یعنی به‌جای N بار SELECT+UPDATE (یه بار برای هر کانکشن)، حداکثر یه بار برای هر آی‌پی بعد از آروم شدن اوضاع.
+function scheduleIpRemoval(env, ctx, uname, uuid, ip) {
+	if (!uname || !uuid || !ip || ip === "unknown") return;
+	const key = uname + "|" + ip;
+	if (PENDING_IP_REMOVALS.has(key)) return;
+	PENDING_IP_REMOVALS.add(key);
+	const task = (async () => {
+		try {
+			await new Promise((r) => setTimeout(r, 8000));
+			const live = GLOBAL_ACTIVE_IPS.get(uname);
+			if (live && (live.get(ip) || 0) > 0) return;
+			const row = await env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(uuid).first();
+			if (!row) return;
+			let activeIps = {};
+			try { activeIps = JSON.parse(row.active_ips || "{}"); } catch (e) {}
+			if (!activeIps[ip]) return;
+			delete activeIps[ip];
+			await env.DB.prepare("UPDATE users SET active_ips = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), uuid).run();
+		} catch (e) {
+			console.error("[scheduleIpRemoval] " + (e && e.message));
+		} finally {
+			PENDING_IP_REMOVALS.delete(key);
+		}
+	})();
+	if (ctx) ctx.waitUntil(task);
 }
 function sha224Pure(message) {
 	function rotateRight(n, x) { return (x >>> n) | (x << (32 - n)); }
@@ -603,8 +711,14 @@ const Router = {
 		try {
 			let proxyIP = "";
 			try {
-				const proxyRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
-				if (proxyRow && proxyRow.value) proxyIP = proxyRow.value;
+				const nowPx = Date.now();
+				if (nowPx - PROXY_IP_CACHE.t < 20000) {
+					proxyIP = PROXY_IP_CACHE.v;
+				} else {
+					const proxyRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
+					proxyIP = proxyRow && proxyRow.value ? proxyRow.value : "";
+					PROXY_IP_CACHE = { t: nowPx, v: proxyIP, p: null };
+				}
 			} catch (e) {}
 			const storedData = { proxy_ip: proxyIP };
 			return handlevIees(env, storedData, ctx, request);
@@ -630,11 +744,15 @@ const Router = {
 				return await SubscriptionService.generateSingbox(user, host);
 			}
 			let globalIata = "";
+			let showInfoConfigs = false;
 			try {
-				const countryRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
-				if (countryRow && countryRow.value) globalIata = countryRow.value;
+				const { results: subSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
+				for (const r of subSettings || []) {
+					if (r.key === "proxy_location_country" && r.value) globalIata = r.value;
+					if (r.key === "sub_info_configs") showInfoConfigs = r.value === "1";
+				}
 			} catch (e) {}
-			return await SubscriptionService.generateText(user, host, globalIata);
+			return await SubscriptionService.generateText(user, host, globalIata, showInfoConfigs);
 		} catch (err) {
 			return new Response("Error building config: " + err.message, { status: 500 });
 		}
@@ -672,20 +790,24 @@ const Router = {
 				return new Response("User not found", { status: 404 });
 			}
 			let globalProxyIata = "";
+			let statusInfoConfigs = false;
 			try {
-				const countryRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
-				if (countryRow && countryRow.value) globalProxyIata = countryRow.value;
+				const { results: stSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
+				for (const r of stSettings || []) {
+					if (r.key === "proxy_location_country" && r.value) globalProxyIata = r.value;
+					if (r.key === "sub_info_configs") statusInfoConfigs = r.value === "1";
+				}
 			} catch (e) {}
 			const userJson = JSON.stringify({
 				username: user.username,
 				uuid: user.uuid,
 				limit_gb: user.limit_gb,
 				expiry_days: user.expiry_days,
-				used_gb: user.used_gb,
+				used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
 				limit_req: user.limit_req,
-				used_req: user.used_req,
+				used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
 				is_active: user.is_active,
-				online_count: getActiveIpCount(user.active_ips),
+				online_count: Math.max((GLOBAL_ACTIVE_IPS.get(user.username) || new Map()).size, getActiveIpCount(user.active_ips)),
 				ip_limit: user.ip_limit,
 				created_at: user.created_at,
 				tls: user.tls,
@@ -696,6 +818,7 @@ const Router = {
 				user_socks5: user.user_socks5,
 				user_proxy_ip: user.user_proxy_ip,
 				global_proxy_iata: globalProxyIata,
+				info_configs: statusInfoConfigs,
 				connection_type: user.connection_type,
 			});
 			const html = HTML_TEMPLATES.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
@@ -707,6 +830,7 @@ const Router = {
 		}
 	},
 	async handleApi(request, url, env, ctx) {
+		if (request.method !== "GET" && request.method !== "HEAD") invalidateHotCaches();
 		const hasPassword = await DbService.getPanelPassword(env.DB);
 		if (url.pathname === "/api/setup-password" && request.method === "POST") {
 			if (hasPassword) {
@@ -911,6 +1035,9 @@ const Router = {
 				GLOBAL_WRITE_LOCK.clear();
 				DNS_CACHE.clear();
 				USER_REQ_CACHE.clear();
+				GLOBAL_ACTIVE_IPS.clear();
+				GLOBAL_HB_CHECK.clear();
+				GLOBAL_IP_WRITE_TS.clear();
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			} catch (err) {
 				return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
@@ -1055,11 +1182,12 @@ const Router = {
 		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
-				const { proxy_ip, iata, socks5, country } = await readJsonBody(request);
+				const { proxy_ip, iata, socks5, country, info_configs } = await readJsonBody(request);
 				if (proxy_ip !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_ip', ?)").bind(proxy_ip).run();
 				if (iata !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_iata', ?)").bind(iata).run();
 				if (country !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_country', ?)").bind(country).run();
 				if (socks5 !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('socks5', ?)").bind(socks5).run();
+				if (info_configs !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('sub_info_configs', ?)").bind(info_configs ? "1" : "0").run();
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			}
 			if (request.method === "GET") {
@@ -1067,12 +1195,14 @@ const Router = {
 				const rowIata = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
 				const rowCountry = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
 				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
+				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
 				return new Response(
 					JSON.stringify({
 						proxy_ip: rowIp ? rowIp.value : "",
 						iata: rowIata ? rowIata.value : "",
 						country: rowCountry ? rowCountry.value : "",
 						socks5: rowSocks ? rowSocks.value : "",
+						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
 					}),
 					{ headers: { "Content-Type": "application/json" } },
 				);
@@ -1239,11 +1369,17 @@ const Router = {
 					try {
 						const { results } = await env.DB.prepare("SELECT * FROM users ORDER BY id DESC").all();
 						const now = Date.now();
-						const enrichedUsers = (results || []).map((user) => ({
-							...user,
-							is_online: user.last_active && now - user.last_active < 20000 ? 1 : 0,
-							online_count: getActiveIpCount(user.active_ips),
-						}));
+						const enrichedUsers = (results || []).map((user) => {
+							const liveIpCount = (GLOBAL_ACTIVE_IPS.get(user.username) || new Map()).size;
+							const currentOnlineCount = Math.max(liveIpCount, getActiveIpCount(user.active_ips));
+							return {
+								...user,
+								used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
+								used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
+								is_online: currentOnlineCount > 0 ? 1 : 0,
+								online_count: currentOnlineCount,
+							};
+						});
 						let cfReqs = { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
 						try {
 							const liveCf = await getCfUsage(env);
@@ -1482,7 +1618,7 @@ function getActiveIpCount(activeIpsJson) {
 		let count = 0;
 		for (const [ip, data] of Object.entries(activeIps)) {
 			const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-			if (now - lastSeen <= 20000) {
+			if (now - lastSeen <= 180000) {
 				count++;
 			}
 		}
@@ -1492,7 +1628,7 @@ function getActiveIpCount(activeIpsJson) {
 	}
 }
 const SubscriptionService = {
-	async generateText(user, host, globalIata) {
+	async generateText(user, host, globalIata, showInfo = false) {
 		let ips = [host];
 		if (user.ips) {
 			const parsedIps = user.ips
@@ -1511,8 +1647,8 @@ const SubscriptionService = {
 		const links = [];
 		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
 		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
-		links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m1));
-		links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m2));
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m1));
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m2));
 		let remVol = "Unlimited";
 		if (user.limit_gb) {
 			let rem = user.limit_gb - (user.used_gb || 0);
@@ -1531,7 +1667,7 @@ const SubscriptionService = {
 			remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
 		}
 		const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-		links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
 		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
 		let proxyList = [];
 		try {
@@ -1560,7 +1696,15 @@ const SubscriptionService = {
 			let countryCode = typeof proxyItem === "object" && proxyItem !== null
 				? proxyItem.country
 				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
+			let countryFromCache = false;
 			if (!countryCode && proxyStr) {
+				const cc = SUB_COUNTRY_CACHE.get(proxyStr);
+				if (cc && Date.now() - cc.t < (cc.c ? SUB_COUNTRY_TTL_OK : SUB_COUNTRY_TTL_FAIL)) {
+					countryCode = cc.c;
+					countryFromCache = true;
+				}
+			}
+			if (!countryCode && proxyStr && !countryFromCache) {
 				try {
 					const payload = new TextEncoder().encode("GET /json/?fields=countryCode HTTP/1.1\r\nHost: ip-api.com\r\nConnection: close\r\n\r\n");
 					const s = await connectProxy(proxyStr, "ip-api.com", 80, payload);
@@ -1608,6 +1752,10 @@ const SubscriptionService = {
 						} catch (e) {}
 					}
 				}
+			}
+			if (proxyStr && !countryFromCache && typeof proxyItem !== "object") {
+				if (SUB_COUNTRY_CACHE.size > 300) SUB_COUNTRY_CACHE.clear();
+				SUB_COUNTRY_CACHE.set(proxyStr, { c: countryCode || "", t: Date.now() });
 			}
 			let flagEmoji = "🌐";
 			if (countryCode) {
@@ -1829,7 +1977,7 @@ async function flushExpiredTraffic(env) {
 		}
 		if (GLOBAL_WRITE_LOCK.get(uname)) continue;
 		const lastActive = GLOBAL_LAST_ACTIVE_WRITE.get(uname) || 0;
-		if (activeCount <= 0 || now - lastActive > 20000) {
+		if (activeCount <= 0 || now - lastActive > 60000) {
 			GLOBAL_WRITE_LOCK.set(uname, true);
 			GLOBAL_TRAFFIC_CACHE.set(uname, 0);
 			USER_REQ_CACHE.set(uname, 0);
@@ -1974,41 +2122,23 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		isOfflineSet = true;
 		const uname = username;
 		if (!uname) return;
-		if (clientIP && clientIP !== "unknown" && validUUID) {
-			const removeIpTask = async () => {
-				try {
-					const user = await env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(validUUID).first();
-					if (user) {
-						let activeIps = JSON.parse(user.active_ips || "{}");
-						if (activeIps[clientIP]) {
-							if (typeof activeIps[clientIP] === "object") {
-								activeIps[clientIP].count = (activeIps[clientIP].count || 1) - 1;
-								if (activeIps[clientIP].count <= 0) {
-									delete activeIps[clientIP];
-								}
-							} else {
-								delete activeIps[clientIP];
-							}
-							await env.DB.prepare("UPDATE users SET active_ips = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), validUUID).run();
-						}
-					}
-				} catch (e) {
-					console.error(`[setOffline Task] Error: ${e.message}`);
-				}
-			};
-			if (ctx) ctx.waitUntil(removeIpTask());
-			else removeIpTask();
-		}
 		let activeCount = ACTIVE_CONNECTIONS_COUNT.get(uname) || 0;
 		if (hasCountedAsActive) {
 			activeCount = Math.max(0, activeCount - 1);
+			const ipLeft = untrackActiveIp(uname, clientIP);
+			if (ipLeft <= 0) scheduleIpRemoval(env, ctx, uname, validUUID, clientIP);
 		}
 		if (activeCount <= 0) {
 			ACTIVE_CONNECTIONS_COUNT.delete(uname);
 			let cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
 			let cachedReqs = USER_REQ_CACHE.get(uname) || 0;
-			if ((cachedBytes > 0 || cachedReqs > 0) && !GLOBAL_WRITE_LOCK.get(uname)) {
+			const nowOff = Date.now();
+			const lastTrafficWrite = GLOBAL_LAST_DB_WRITE.get(uname) || 0;
+			// مثل Source.js: با هر آروم شدن کاربر نمی‌نویسیم؛ فقط اگه حجم/ریکوئست کش‌شده به حد رسیده یا مدت زیادی گذشته
+			const shouldCommit = (cachedBytes >= 20 * 1024 * 1024) || (nowOff - lastTrafficWrite > 600000) || (cachedReqs >= 20);
+			if (shouldCommit && (cachedBytes > 0 || cachedReqs > 0) && !GLOBAL_WRITE_LOCK.get(uname)) {
 				GLOBAL_WRITE_LOCK.set(uname, true);
+				GLOBAL_LAST_DB_WRITE.set(uname, nowOff);
 				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) - cachedBytes);
 				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) - cachedReqs);
 				const deltaGb = cachedBytes / (1024 * 1024 * 1024);
@@ -2047,9 +2177,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				}
 				const nowTime = Date.now();
 				const hbKey = username + "_hb_" + (clientIP || "");
-				const lastCheck = GLOBAL_LAST_ACTIVE_WRITE.get(hbKey) || 0;
-				if (nowTime - lastCheck >= 20000) {
-					GLOBAL_LAST_ACTIVE_WRITE.set(hbKey, nowTime);
+				const lastCheck = GLOBAL_HB_CHECK.get(hbKey) || 0;
+				// قبلاً هر ۲۰ ثانیه برای هر آی‌پیِ هر کاربر یه SELECT+UPDATE؛ الان هر ۲ دقیقه (ضربان keep-alive همچنان هر ~۲۰ ثانیه‌ست)
+				if (nowTime - lastCheck >= 120000) {
+					GLOBAL_HB_CHECK.set(hbKey, nowTime);
 					const user = await env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first();
 					let isExpired = false;
 					let isIpLimitExpired = false;
@@ -2057,7 +2188,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					if (!user || user.is_active === 0) {
 						isExpired = true;
 					} else {
-						if (user.limit_gb && user.used_gb >= user.limit_gb) isExpired = true;
+						const liveGbHb = (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(username) || 0) / (1024 * 1024 * 1024));
+						if (user.limit_gb && liveGbHb >= user.limit_gb) isExpired = true;
 						if (user.limit_req && user.used_req + (USER_REQ_CACHE.get(username) || 0) >= user.limit_req) isExpired = true;
 						if (user.expiry_days && user.created_at) {
 							const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 86400000) : new Date(new Date(user.created_at).getTime() + user.expiry_days * 86400000);
@@ -2072,7 +2204,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 							for (const [ip, data] of Object.entries(activeIps)) {
 								const lastSeen = data && typeof data === "object" ? data.timestamp : data;
 							// رکورد آی‌پیِ همین اتصال زنده هیچ‌وقت به‌خاطر کهنگی پاک نمی‌شه (قبلاً بعد ۲۰ ثانیه پاک می‌شد و اتصال بسته می‌شد)
-								if (ip !== clientIP && nowTime - lastSeen > 60000) {
+								if (ip !== clientIP && nowTime - lastSeen > 180000) {
 									delete activeIps[ip];
 									hasChanges = true;
 								}
@@ -2094,13 +2226,17 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 								if (user.ip_limit && user.ip_limit > 0 && sortedIps.indexOf(clientIP) >= user.ip_limit) {
 									isIpLimitExpired = true;
 								} else {
-									// هر ضربان، «آخرین زمان دیده‌شدن» این آی‌پی رو تازه می‌کنیم تا اتصال طولانی (مثل ریلز) قطع نشه
-									if (typeof activeIps[clientIP] === "object") {
-										activeIps[clientIP].timestamp = nowTime;
-									} else {
-										activeIps[clientIP] = { timestamp: nowTime, count: 1 };
+									// «آخرین زمان دیده‌شدن» این آی‌پی رو فقط وقتی داره کهنه می‌شه تازه می‌کنیم (تا اتصال طولانی قطع نشه، ولی بی‌دلیل ننویسیم)
+									const curData = activeIps[clientIP];
+									const curSeen = typeof curData === "object" ? curData.timestamp : curData;
+									if (nowTime - curSeen > 100000) {
+										if (typeof curData === "object") {
+											curData.timestamp = nowTime;
+										} else {
+											activeIps[clientIP] = { timestamp: nowTime, count: 1 };
+										}
+										hasChanges = true;
 									}
-									hasChanges = true;
 								}
 							}
 							if (hasChanges || isIpLimitExpired) updatedActiveIps = JSON.stringify(activeIps);
@@ -2118,8 +2254,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 						return;
 					}
 					if (updatedActiveIps !== null) {
+						GLOBAL_IP_WRITE_TS.set(username, nowTime);
 						await env.DB.prepare("UPDATE users SET last_active = ?, active_ips = ? WHERE username = ?").bind(nowTime, updatedActiveIps, username).run();
-					} else {
+					} else if (nowTime - (GLOBAL_IP_WRITE_TS.get(username) || 0) >= 900000) {
+						GLOBAL_IP_WRITE_TS.set(username, nowTime);
 						await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(nowTime, username).run();
 					}
 				}
@@ -2281,7 +2419,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			let user = null;
 			try {
-				user = await env.DB.prepare("SELECT * FROM users WHERE uuid = ?").bind(reqUUID).first();
+				user = await getCachedUserRow(env, "SELECT * FROM users WHERE uuid = ?", reqUUID);
 			} catch (e) {}
 			if (!user) {
 				serverSock.close();
@@ -2327,7 +2465,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				serverSock.close();
 				return;
 			}
-			if (user.limit_gb && user.used_gb >= user.limit_gb) {
+			if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
 				serverSock.close();
 				return;
 			}
@@ -2364,7 +2502,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				const now = Date.now();
 				for (const [ip, data] of Object.entries(activeIps)) {
 					const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-					if (now - lastSeen > 60000) delete activeIps[ip];
+					if (now - lastSeen > 180000) delete activeIps[ip];
 				}
 				let isNewIp = false;
 				if (!activeIps[clientIP]) {
@@ -2383,9 +2521,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 						activeIps[clientIP] = { timestamp: now, count: 1 };
 					}
 				}
-				const lastWrite = GLOBAL_LAST_ACTIVE_WRITE.get(username) || 0;
-				if (isNewIp || now - lastWrite > 30000) {
+				const lastIpWrite = GLOBAL_IP_WRITE_TS.get(username) || 0;
+				if (isNewIp || now - lastIpWrite > 900000) {
 					GLOBAL_LAST_ACTIVE_WRITE.set(username, now);
+					GLOBAL_IP_WRITE_TS.set(username, now);
 					const updateTask = async () => {
 						try {
 							await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), now, reqUUID).run();
@@ -2399,17 +2538,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			let activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
 			ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
 			hasCountedAsActive = true;
-			if (activeCount === 0) {
-				const setOnlineTask = async () => {
-					try {
-						const now = Date.now();
-						GLOBAL_LAST_ACTIVE_WRITE.set(username, now);
-						await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(now, username).run();
-					} catch (e) {}
-				};
-				if (ctx) ctx.waitUntil(setOnlineTask());
-				else setOnlineTask();
-			}
+			trackActiveIp(username, clientIP);
+			GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
 			try {
 				let offset = 17;
 				const optLen = chunkBuffer[offset++];
@@ -2532,7 +2662,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		const passHash = TEXT_DECODER.decode(chunkBuffer.slice(0, 56));
 		let user = null;
 		try {
-			user = await env.DB.prepare("SELECT * FROM users WHERE trojan_hash = ?").bind(passHash).first();
+			user = await getCachedUserRow(env, "SELECT * FROM users WHERE trojan_hash = ?", passHash);
 		} catch (e) {}
 		if (!user || !getUserProtocols(user).trojan) {
 			serverSock.close();
@@ -2593,7 +2723,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 			return;
 		}
-		if (user.limit_gb && user.used_gb >= user.limit_gb) {
+		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
 			serverSock.close();
 			return;
 		}
@@ -2643,17 +2773,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		let activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
 		ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
 		hasCountedAsActive = true;
-		if (activeCount === 0) {
-			const setOnlineTask = async () => {
-				try {
-					const now = Date.now();
-					GLOBAL_LAST_ACTIVE_WRITE.set(username, now);
-					await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(now, username).run();
-				} catch (e) {}
-			};
-			if (ctx) ctx.waitUntil(setOnlineTask());
-			else setOnlineTask();
-		}
+		trackActiveIp(username, clientIP);
+		GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
 		const trojanConnectTCP = async (dataPayload = null) => {
 			if (remoteConnWrapper.connectingPromise) {
 				await remoteConnWrapper.connectingPromise;
@@ -2753,7 +2874,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		if (!ssUser) {
 			let found = null;
 			try {
-				const { results } = await env.DB.prepare("SELECT * FROM users WHERE uuid LIKE ? LIMIT 8").bind("%-" + ssPathKey).all();
+				const { results } = await getCachedUserRowsLike(env, "SELECT * FROM users WHERE uuid LIKE ? LIMIT 8", "%-" + ssPathKey);
 				found = (results || []).find((r) => String(String(r.uuid || "").split("-")[4] || "").toLowerCase() === ssPathKey) || null;
 			} catch (e) {}
 			if (!found || !getUserProtocols(found).ss) {
@@ -2831,7 +2952,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 			return;
 		}
-		if (user.limit_gb && user.used_gb >= user.limit_gb) {
+		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
 			serverSock.close();
 			return;
 		}
@@ -2900,7 +3021,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			const nowIp = Date.now();
 			for (const [ip, data] of Object.entries(activeIps)) {
 				const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-				if (nowIp - lastSeen > 60000) delete activeIps[ip];
+				if (nowIp - lastSeen > 180000) delete activeIps[ip];
 			}
 			let isNewIp = false;
 			if (!activeIps[clientIP]) {
@@ -2916,9 +3037,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			} else {
 				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
 			}
-			const lastWrite = GLOBAL_LAST_ACTIVE_WRITE.get(username) || 0;
-			if (isNewIp || nowIp - lastWrite > 30000) {
+			const lastIpWrite = GLOBAL_IP_WRITE_TS.get(username) || 0;
+			if (isNewIp || nowIp - lastIpWrite > 900000) {
 				GLOBAL_LAST_ACTIVE_WRITE.set(username, nowIp);
+				GLOBAL_IP_WRITE_TS.set(username, nowIp);
 				const updateTask = async () => {
 					try {
 						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
@@ -2944,17 +3066,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		const activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
 		ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
 		hasCountedAsActive = true;
-		if (activeCount === 0) {
-			const setOnlineTask = async () => {
-				try {
-					const nowOn = Date.now();
-					GLOBAL_LAST_ACTIVE_WRITE.set(username, nowOn);
-					await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(nowOn, username).run();
-				} catch (e) {}
-			};
-			if (ctx) ctx.waitUntil(setOnlineTask());
-			else setOnlineTask();
-		}
+		trackActiveIp(username, clientIP);
+		GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
 		const ssConnectTCP = async (dataPayload = null) => {
 			if (remoteConnWrapper.connectingPromise) {
 				await remoteConnWrapper.connectingPromise;
@@ -5051,10 +5164,23 @@ const HTML_TEMPLATES = {
 					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
 					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
 				</button>
+				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+				</button>
 				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
 					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
 				</button>
 			</div>
+		</div>
+		<div class="flex items-center justify-end gap-2 mb-3 -mt-2">
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
+				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="info-configs-toggle" onchange="toggleInfoConfigs(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-amber-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
 		</div>
 		<div id="users-table-container" class="hidden overflow-x-auto pb-4 px-1">
 			<table class="w-full text-right border-separate" style="border-spacing: 0 8px;">
@@ -6954,6 +7080,106 @@ ${COMMON_TOAST_HTML}
 				}
 			}
 		}
+		window.applyInfoConfigsState = function(on) {
+			window._infoConfigsEnabled = !!on;
+			const cb = document.getElementById('info-configs-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.toggleInfoConfigs = async function(cb) {
+			const want = cb.checked;
+			cb.disabled = true;
+			try {
+				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ info_configs: want }) });
+				if (!r.ok) throw new Error('save failed');
+				window._infoConfigsEnabled = want;
+				if (typeof showToast === 'function') showToast(want ? '✅ کانفیگ‌های اطلاع‌رسانی فعال شد.' : '✅ کانفیگ‌های اطلاع‌رسانی غیرفعال شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
+		window.createDualCountryConfigs = async function(btn) {
+			if (btn.disabled) return;
+			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
+			if (!cca2) {
+				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
+				return;
+			}
+			btn.disabled = true;
+			const icon = btn.querySelector('svg');
+			if (icon) icon.classList.add('animate-spin');
+			try {
+				let base = '';
+				if (typeof getCountryDisplayNameEn === 'function') base = String(getCountryDisplayNameEn(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (!base) base = cca2.toLowerCase();
+				base = base.slice(0, 18);
+				const num = Math.floor(100 + Math.random() * 900);
+				let allIps = [];
+				if (Object.keys(cachedIpsData).length === 0) {
+					try {
+						const resIps = await fetchWithFallbackUI('ips.txt');
+						if (resIps.ok) {
+							const text = await resIps.text();
+							text.split('----------').forEach(block => {
+								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(cachedIpsData).forEach(list => { allIps = allIps.concat(list); });
+				}
+				allIps = [...new Set(allIps)];
+				const pickIps = function() {
+					const arr = allIps.slice();
+					for (let i = arr.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					return arr.slice(0, 2).join('\\n');
+				};
+				const defs = [
+					{ username: base + num, frag_len: '200-3000', frag_int: '1-2' },
+					{ username: 'Hard-' + base + num, frag_len: '50-200', frag_int: '1-3' }
+				];
+				let created = 0;
+				for (const d of defs) {
+					const response = await fetch('/api/users', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
+							fingerprint: 'ios', block_ads: 1, block_porn: 0, port: '443', tls: 'on',
+							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
+							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
+							user_socks5: null, auto_rotate_user_proxy: 0,
+							protocols: ['vl' + 'e' + 'ss']
+						})
+					});
+					if (response.ok) {
+						created++;
+					} else {
+						let msg = 'عملیات ناموفق بود';
+						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
+						alert('خطا در ساخت ' + d.username + ': ' + msg);
+						break;
+					}
+				}
+				if (created > 0) {
+					if (typeof showToast === 'function') showToast('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await loadUsers(true);
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				if (icon) icon.classList.remove('animate-spin');
+			}
+		};
 		async function quickCreateUser(btn) {
 			btn.disabled = true;
 			const icon = btn.querySelector('svg');
@@ -8354,8 +8580,8 @@ function downloadZeusSource() {
 			const links = [];
 		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 		const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
-		links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
-		links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
+		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
+		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
 			let remVol = "Unlimited";
 			if (user.limit_gb) {
 				let rem = user.limit_gb - (user.used_gb || 0);
@@ -8374,7 +8600,7 @@ function downloadZeusSource() {
 				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
 			}
 			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-			links.push('vle' + 'ss://' + (user.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
+			if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
 			const rawPath = "/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default");
 			let proxyList = [];
 			try {
@@ -8748,6 +8974,7 @@ async function loadLocations() {
 			activeIata = statusData.iata || '';
 			window._globalActiveIata = activeIata;
 			window._globalActiveCountry = statusData.country || '';
+			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
 		}
 		const res = await fetch('/locations');
 		if (!res.ok) throw new Error();
@@ -9231,7 +9458,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.5';
+const CURRENT_VERSION = '2.2.6';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
@@ -10255,8 +10482,8 @@ ${COMMON_TOAST_HTML}
 			const links = [];
 			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 			const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
-			links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
-			links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
 			let remVol = "Unlimited";
 			if (u.limit_gb) {
 				let rem = u.limit_gb - (u.used_gb || 0);
@@ -10275,7 +10502,7 @@ ${COMMON_TOAST_HTML}
 				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
 			}
 			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-			links.push('vle' + 'ss://' + (u.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
 			const rawPath = "/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default");
 			let proxyList = [];
 			try {
