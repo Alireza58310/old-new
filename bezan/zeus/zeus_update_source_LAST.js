@@ -319,7 +319,7 @@ async function readJsonBody(request) {
 async function fetchWithFallback(path, options = {}) {
 	// لیست آی‌پی‌ها از مخزن جدید گرفته می‌شه؛ بقیه‌ی فایل‌ها مثل قبل
 	const isIpsList = path === "ips.txt";
-	const primaryUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/ips.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
+	const primaryUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
 	const fallbackUrl = primaryUrl;
 	try {
 		const res = await fetch(primaryUrl, options);
@@ -810,7 +810,7 @@ const Router = {
 				tls: user.tls,
 				port: user.port,
 				ips: user.ips,
-				fingerprint: user.fingerprint || "chrome",
+				fingerprint: user.fingerprint || "unsafe",
 				user_proxy_iata: user.user_proxy_iata,
 				user_socks5: user.user_socks5,
 				user_proxy_ip: user.user_proxy_ip,
@@ -1177,6 +1177,23 @@ const Router = {
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			}
 		}
+		if (url.pathname === "/api/bulk-advanced" && request.method === "POST") {
+			const b = await readJsonBody(request);
+			const sets = [];
+			const vals = [];
+			for (const f of ["advanced_frag", "cipher_suites", "tls_mask"]) {
+				if (b[f] === undefined) continue;
+				const v = b[f] === null ? "" : String(b[f]).trim();
+				if (f === "advanced_frag" && v) {
+					try { JSON.parse(v); } catch (e) { return new Response(JSON.stringify({ error: "Advanced Fragment JSON is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } }); }
+				}
+				sets.push(f + " = ?");
+				vals.push(v || null);
+			}
+			if (sets.length) await env.DB.prepare("UPDATE users SET " + sets.join(", ")).bind(...vals).run();
+			if (b.patterniha !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', ?)").bind(b.patterniha ? "1" : "0").run();
+			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
 				const { proxy_ip, iata, socks5, country, info_configs } = await readJsonBody(request);
@@ -1193,6 +1210,7 @@ const Router = {
 				const rowCountry = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
 				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
 				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
+				const rowPatt = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_all'").first();
 				return new Response(
 					JSON.stringify({
 						proxy_ip: rowIp ? rowIp.value : "",
@@ -1200,6 +1218,7 @@ const Router = {
 						country: rowCountry ? rowCountry.value : "",
 						socks5: rowSocks ? rowSocks.value : "",
 						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
+						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
 					}),
 					{ headers: { "Content-Type": "application/json" } },
 				);
@@ -1349,7 +1368,7 @@ const Router = {
 						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
 						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? sha224Pure(existingUserForTrojan.uuid) : null;
 						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
-							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, normalizeConnectionType(protocols, connection_type, null), username)
+							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, normalizeConnectionType(protocols, connection_type, null), username)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					}
@@ -1473,7 +1492,7 @@ const Router = {
 						const trojanHash = sha224Pure(finalUuid);
 						const finalConnType = normalizeConnectionType(protocols, connection_type, "vl" + "e" + "ss");
 						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "chrome", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
+							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					} catch (err) {
@@ -1638,7 +1657,7 @@ const SubscriptionService = {
 			.split(",")
 			.map((p) => p.trim())
 			.filter((p) => p.length > 0);
-		const fp = user.fingerprint || "chrome";
+		const fp = user.fingerprint || "unsafe";
 		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
 		const protoFlags = getUserProtocols(user);
 		const links = [];
@@ -1813,7 +1832,7 @@ const SubscriptionService = {
 			if (parsedIps.length > 0) ips = parsedIps;
 		}
 		const ports = String(user.port || "443").split(",").map((p) => p.trim()).filter((p) => p.length > 0);
-		const fp = user.fingerprint || "chrome";
+		const fp = user.fingerprint || "unsafe";
 		const safeFp = fp === "unsafe" ? "chrome" : fp;
 		const sni = user.tls_mask || host;
 		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
@@ -5178,7 +5197,16 @@ const HTML_TEMPLATES = {
 				</button>
 			</div>
 		</div>
-		<div class="flex items-center justify-end gap-2 mb-3 -mt-2">
+		<div class="flex flex-wrap items-center justify-end gap-2 mb-3 -mt-2">
+			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20" title="روشن: تنظیمات پیشرفته بهینه‌سازی (مقادیر Patterniha) روی همه کاربران اعمال می‌شود">
+				<span class="text-[11px] font-bold text-purple-800 dark:text-purple-300">بهینه‌سازی Patterniha (همه کاربران)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="patterniha-all-toggle" onchange="togglePatternihaAll(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-purple-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
 			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
 				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
 				<span class="relative inline-flex items-center">
@@ -5633,9 +5661,9 @@ const HTML_TEMPLATES = {
 													<option value="edge">🌀 Edge</option>
 													<option value="360">🔒 360 Browser</option>
 													<option value="qq">💬 QQ Browser</option>
-													<option value="random" selected>🎲 Random</option>
+													<option value="random">🎲 Random</option>
 													<option value="randomized">🎭 Dynamic</option>
-													<option value="unsafe">🚀 Unsafe (پیشنهادی)</option>
+													<option value="unsafe" selected>🚀 Unsafe (پیشنهادی)</option>
 												</select>
 												<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">
 													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -6477,7 +6505,7 @@ ${COMMON_TOAST_HTML}
 </div>
 	<script>
 		async function fetchWithFallbackUI(path, options = {}) {
-			const primaryUrl = (path === 'ips.txt') ? 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/ips.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
+			const primaryUrl = (path === 'ips.txt') ? 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
 			const fallbackUrl = primaryUrl;
 			try {
 				const res = await fetch(primaryUrl, options);
@@ -6893,7 +6921,7 @@ ${COMMON_TOAST_HTML}
 				const cb80 = document.querySelector('input[name="ports"][value="80"]');
 				if (cb80) cb80.checked = true;
 				const fpSelect = document.getElementById('fingerprint-select');
-				if (fpSelect) fpSelect.value = 'random';
+				if (fpSelect) fpSelect.value = 'unsafe';
 				const bpCheck = document.getElementById('input-block-porn');
 				if (bpCheck) bpCheck.checked = false;
 				const baCheck = document.getElementById('input-block-ads');
@@ -7157,6 +7185,97 @@ ${COMMON_TOAST_HTML}
 				cb.disabled = false;
 			}
 		};
+		window.PATTERNIHA_FM = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
+		window.PATTERNIHA_CS = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
+		window.applyPatternihaState = function(on) {
+			const cb = document.getElementById('patterniha-all-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.bulkAdvancedRequest = async function(payload) {
+			const r = await fetch('/api/bulk-advanced', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+			if (!r.ok) throw new Error('bulk failed');
+			if (typeof loadUsers === 'function') { try { await loadUsers(true); } catch (e) {} }
+		};
+		window.togglePatternihaAll = async function(cb) {
+			const want = cb.checked;
+			const msg = want
+				? 'مقادیر بهینه‌ساز Patterniha (Advanced Fragment و Cipher Suites) روی همه کاربران اعمال شود؟ مقادیر فعلی جایگزین می‌شود.'
+				: 'Advanced Fragment و Cipher Suites همه کاربران پاک شود؟ (TLS Mask دست‌نخورده می‌ماند)';
+			if (!confirm(msg)) { cb.checked = !want; return; }
+			cb.disabled = true;
+			try {
+				await window.bulkAdvancedRequest(want
+					? { advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS, patterniha: true }
+					: { advanced_frag: '', cipher_suites: '', patterniha: false });
+				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
+		window.closeBulkAdvancedModal = function() {
+			const m = document.getElementById('bulk-advanced-modal');
+			if (m) m.remove();
+		};
+		window.openBulkAdvancedModal = function() {
+			window.closeBulkAdvancedModal();
+			const inputCls = 'w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg text-xs text-gray-800 dark:text-zinc-100 focus:outline-none';
+			const lblCls = 'block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1';
+			const clsSm = 'text-[10px] text-gray-500 dark:text-zinc-400';
+			const wrap = document.createElement('div');
+			wrap.id = 'bulk-advanced-modal';
+			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
+			wrap.innerHTML =
+				'<div class="w-full max-w-lg rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border p-4 space-y-3" style="max-height:90vh;overflow:auto" dir="rtl">' +
+				'<div class="text-sm font-black text-gray-800 dark:text-zinc-100">⚙️ تنظیم یکجای پیشرفته برای همه کاربران</div>' +
+				'<div class="' + clsSm + '">فیلدی که خالی بماند تغییر نمی‌کند. برای پاک کردن یک مقدار از همه کاربران، تیک «پاک کن» کنارش را بزن.</div>' +
+				'<div><label class="' + lblCls + '">Advanced Fragment (fm JSON)</label><textarea id="bulk-adv-frag" rows="3" dir="ltr" class="' + inputCls + '"></textarea>' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-frag-clear"> پاک کن</label></div>' +
+				'<div><label class="' + lblCls + '">Cipher Suites (cs)</label><input type="text" id="bulk-adv-cs" dir="ltr" class="' + inputCls + '">' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-cs-clear"> پاک کن</label></div>' +
+				'<div><label class="' + lblCls + '">TLS Mask (Custom SNI / Host)</label><input type="text" id="bulk-adv-mask" dir="ltr" class="' + inputCls + '">' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-mask-clear"> پاک کن</label></div>' +
+				'<div class="flex gap-2">' +
+				'<button type="button" id="bulk-adv-apply" class="flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold">اعمال روی همه کاربران</button>' +
+				'<button type="button" id="bulk-adv-fill" class="px-3 py-2 rounded-lg border border-purple-500 text-purple-600 text-xs font-bold">مقادیر Patterniha</button>' +
+				'<button type="button" id="bulk-adv-close" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
+				'</div></div>';
+			document.body.appendChild(wrap);
+			document.getElementById('bulk-adv-close').onclick = window.closeBulkAdvancedModal;
+			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeBulkAdvancedModal(); });
+			document.getElementById('bulk-adv-fill').onclick = function() {
+				document.getElementById('bulk-adv-frag').value = window.PATTERNIHA_FM;
+				document.getElementById('bulk-adv-cs').value = window.PATTERNIHA_CS;
+			};
+			document.getElementById('bulk-adv-apply').onclick = async function() {
+				const btn = this;
+				const payload = {};
+				const pick = function(inputId, clearId, key) {
+					const v = document.getElementById(inputId).value.trim();
+					if (document.getElementById(clearId).checked) payload[key] = '';
+					else if (v) payload[key] = v;
+				};
+				pick('bulk-adv-frag', 'bulk-adv-frag-clear', 'advanced_frag');
+				pick('bulk-adv-cs', 'bulk-adv-cs-clear', 'cipher_suites');
+				pick('bulk-adv-mask', 'bulk-adv-mask-clear', 'tls_mask');
+				if (Object.keys(payload).length === 0) { alert('هیچ مقداری وارد نشده.'); return; }
+				if (payload.advanced_frag) {
+					try { JSON.parse(payload.advanced_frag); } catch (e) { alert('Advanced Fragment باید JSON معتبر باشد.'); return; }
+				}
+				if (!confirm('این مقادیر روی همه کاربران اعمال شود؟')) return;
+				btn.disabled = true;
+				try {
+					await window.bulkAdvancedRequest(payload);
+					if (typeof showToast === 'function') showToast('✅ روی همه کاربران اعمال شد.');
+					window.closeBulkAdvancedModal();
+				} catch (e) {
+					alert('خطا در ذخیره تنظیمات');
+					btn.disabled = false;
+				}
+			};
+		};
 		window.createDualCountryConfigs = async function(btn) {
 			if (btn.disabled) return;
 			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
@@ -7210,7 +7329,7 @@ ${COMMON_TOAST_HTML}
 						body: JSON.stringify({
 							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
 							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
-							fingerprint: 'ios', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
+							fingerprint: 'unsafe', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
 							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
 							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
 							user_socks5: null, auto_rotate_user_proxy: 0,
@@ -7376,7 +7495,7 @@ ${COMMON_TOAST_HTML}
 					body: JSON.stringify({
 						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
 						auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: "200-3000", frag_int: "1-2",
-						fingerprint: "ios", block_ads: 1, block_porn: 0, port: "443", tls: "on",
+						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
 						ips: ipsStr, ip_operator: "all", ip_count: 15, auto_rotate_ip: 1, rotate_time: 1,
 						user_socks5: userSocks5, auto_rotate_user_proxy: 1
 					})
@@ -7442,7 +7561,7 @@ ${COMMON_TOAST_HTML}
 			const cb80 = document.querySelector('input[name="ports"][value="80"]');
 			if (cb80) cb80.checked = true;
 			const fpSelect = document.getElementById('fingerprint-select');
-			if (fpSelect) fpSelect.value = 'random';
+			if (fpSelect) fpSelect.value = 'unsafe';
 			const fragToggle = document.getElementById('input-frag-toggle');
 			if (fragToggle) fragToggle.checked = true;
 			window.toggleFragInputs(true);
@@ -8631,7 +8750,7 @@ function downloadZeusSource() {
 				if (parsedIps.length > 0) ips = parsedIps;
 			}
 			var ports = String(user.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-			var fp = user.fingerprint || 'chrome';
+			var fp = user.fingerprint || 'unsafe';
 			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
 			const pf = getUserProtoFlags(user);
 			const links = [];
@@ -8853,7 +8972,7 @@ function editUser(encodedUsername) {
 	document.getElementById('input-req-limit').value = user.limit_req || '';
 	document.getElementById('input-ip-limit').value = (user.ip_limit !== undefined && user.ip_limit !== null) ? user.ip_limit : (user.max_connections || '');
 	document.getElementById('input-ips').value = user.ips || '';
-	document.getElementById('fingerprint-select').value = user.fingerprint || 'chrome';
+	document.getElementById('fingerprint-select').value = user.fingerprint || 'unsafe';
 	document.getElementById('hidden-auto-rotate').value = user.auto_rotate_ip || '0';
 	document.getElementById('hidden-rotate-time').value = user.rotate_time || '';
 	document.getElementById('hidden-ip-operator').value = user.ip_operator || 'all';
@@ -9032,6 +9151,7 @@ async function loadLocations() {
 			window._globalActiveIata = activeIata;
 			window._globalActiveCountry = statusData.country || '';
 			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
+			if (typeof window.applyPatternihaState === 'function') window.applyPatternihaState(!!statusData.patterniha_all);
 		}
 		const res = await fetch('/locations');
 		if (!res.ok) throw new Error();
@@ -9515,7 +9635,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.8';
+const CURRENT_VERSION = '2.2.6';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
@@ -10533,7 +10653,7 @@ ${COMMON_TOAST_HTML}
 				if (parsedIps.length > 0) ips = parsedIps;
 			}
 			var ports = String(u.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-			var fp = u.fingerprint || 'chrome';
+			var fp = u.fingerprint || 'unsafe';
 			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
 			const pf = getUserProtoFlags(u);
 			const links = [];
