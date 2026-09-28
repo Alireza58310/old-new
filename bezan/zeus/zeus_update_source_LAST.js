@@ -2113,6 +2113,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	let isOfflineSet = false;
 	let hasCountedAsActive = false;
 	const setOffline = () => {
+		// اسلات کانکشن ایزوله حتماً آزاد بشه (اگه event بسته‌شدن نیومد، شمارنده برای همیشه بالا می‌موند و بعد از ۳۰۰ کانکشن همه ۵۰۳ می‌گرفتن)
+		releaseIsolateSlot();
 		if (isOfflineSet) return;
 		isOfflineSet = true;
 		const uname = username;
@@ -2414,7 +2416,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			let user = null;
 			try {
-				user = await getCachedUserRow(env, "SELECT * FROM users WHERE uuid = ?", reqUUID);
+				user = await getCachedUserRow(env, "SELECT * FROM users WHERE uuid = ? COLLATE NOCASE", reqUUID);
 			} catch (e) {}
 			if (!user) {
 				serverSock.close();
@@ -2424,10 +2426,14 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				serverSock.close();
 				return;
 			}
+			reqUUID = user.uuid;
 			if (request) {
 				const reqUrl = new URL(request.url);
-				const expectedPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
-				if (!reqUrl.pathname.startsWith(expectedPath)) {
+				// پیشوند بعد از /stream/ هرچی باشه قبول می‌شه؛ فقط کلید کاربر (بخش آخر uuid) باید تو مسیر باشه.
+				// (قبلاً پیشوند ثابت بود و کانفیگ‌های قدیمی/ساب‌های کش‌شده‌ی کلاینت با پیشوند فرق داشتن → بسته می‌شدن)
+				const pathKey = ((user.uuid || "").split("-")[4] || "default").toLowerCase();
+				const pathOk = /^\/stream\/[^\/]+\//.test(reqUrl.pathname) && reqUrl.pathname.toLowerCase().split("/")[3] === pathKey;
+				if (!pathOk) {
 					serverSock.close();
 					return;
 				}
@@ -3790,7 +3796,7 @@ async function connectDirect(address, port, initialData = null, targetDoh = "htt
 	const socket = connect({ hostname: bracketizeHost(address), port: port });
 	let openTimer = null;
 	try {
-		await Promise.race([socket.opened, new Promise((_, reject) => { openTimer = setTimeout(() => reject(new Error("timeout")), 2500); })]);
+		await Promise.race([socket.opened, new Promise((_, reject) => { openTimer = setTimeout(() => reject(new Error("timeout")), 5000); })]);
 	} catch (e) {
 		// سوکتِ نیمه‌باز رو ببند (قبلاً نشت می‌کرد) و مشخص کن خطا مربوط به مرحله‌ی اتصاله، نه ارسال دیتا
 		try { socket.close(); } catch (_) {}
@@ -7202,7 +7208,7 @@ ${COMMON_TOAST_HTML}
 						body: JSON.stringify({
 							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
 							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
-							fingerprint: 'ios', block_ads: 1, block_porn: 0, port: '443', tls: 'on',
+							fingerprint: 'ios', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
 							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
 							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
 							user_socks5: null, auto_rotate_user_proxy: 0,
