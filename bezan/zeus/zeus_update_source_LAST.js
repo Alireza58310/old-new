@@ -5164,6 +5164,9 @@ const HTML_TEMPLATES = {
 					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
 					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
 				</button>
+				<button onclick="copyAllConfigs(this)" title="کپی همه‌ی کانفیگ‌های همه‌ی کاربران (یکجا)" class="p-2 rounded-md bg-fuchsia-50 dark:bg-fuchsia-950/40 border-2 border-fuchsia-500 dark:border-fuchsia-500 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-900/60 transition-all duration-300 text-fuchsia-600 dark:text-fuchsia-400 shadow-[0_0_15px_rgba(217,70,239,0.6)] hover:shadow-[0_0_25px_rgba(217,70,239,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg class="w-6 h-6 drop-shadow-[0_0_6px_rgba(217,70,239,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path><path d="M12 14.5h5M12 17.5h5"></path></svg>
+				</button>
 				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 				</button>
@@ -7080,6 +7083,57 @@ ${COMMON_TOAST_HTML}
 				}
 			}
 		}
+		window.copyAllConfigs = function(btn) {
+			const users = Array.isArray(window.allUsers) ? window.allUsers : [];
+			if (users.length === 0) {
+				alert('کاربری برای کپی کردن وجود ندارد!');
+				return;
+			}
+			const prevInfo = window._infoConfigsEnabled;
+			window._infoConfigsEnabled = false;
+			const all = [];
+			let usersCount = 0;
+			try {
+				users.forEach(function(u) {
+					let text = '';
+					try { text = getvIeesLink(u.username); } catch (e) { text = ''; }
+					if (!text) return;
+					usersCount++;
+					text.split('\\n').forEach(function(l) { l = l.trim(); if (l) all.push(l); });
+				});
+			} finally {
+				window._infoConfigsEnabled = prevInfo;
+			}
+			if (all.length === 0) {
+				alert('کانفیگی برای کپی کردن پیدا نشد!');
+				return;
+			}
+			const text = all.join('\\n');
+			const done = function() {
+				if (typeof showToast === 'function') showToast('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
+				else alert('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
+			};
+			const fallback = function() {
+				try {
+					const ta = document.createElement('textarea');
+					ta.value = text;
+					ta.style.position = 'fixed';
+					ta.style.opacity = '0';
+					document.body.appendChild(ta);
+					ta.select();
+					const ok = document.execCommand('copy');
+					ta.remove();
+					if (ok) done(); else alert('خطا در کپی کردن کانفیگ‌ها!');
+				} catch (e) {
+					alert('خطا در کپی کردن کانفیگ‌ها!');
+				}
+			};
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(text).then(done).catch(fallback);
+			} else {
+				fallback();
+			}
+		};
 		window.applyInfoConfigsState = function(on) {
 			window._infoConfigsEnabled = !!on;
 			const cb = document.getElementById('info-configs-toggle');
@@ -9458,7 +9512,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.6';
+const CURRENT_VERSION = '2.2.5';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
