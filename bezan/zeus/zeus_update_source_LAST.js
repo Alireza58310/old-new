@@ -12,12 +12,39 @@ function invalidateHotCaches() {
 }
 // مهم: فقط «نتیجه‌ی آماده» کش می‌شه، نه Promise. توی Workers یه Promise/I-O که تو ریکوئست A ساخته شده رو
 // نمی‌شه توی ریکوئست B await کرد ("Cannot perform I/O on behalf of a different request").
+// خطاهای گذرای D1 (شلوغی، قطع لحظه‌ای شبکه، تایم‌اوت) رو یکی-دو بار با تأخیر کوتاه دوباره امتحان می‌کنیم
+// تا یه لحظه شلوغی دیتابیس مستقیم تبدیل به خطای ۱۱۰۱ یا قطع کانکشن نشه.
+function isTransientD1Error(e) {
+	const m = String((e && e.message) || e || "").toLowerCase();
+	return m.includes("overloaded") || m.includes("network connection lost") || m.includes("timeout") || m.includes("timed out") || m.includes("temporarily") || m.includes("too many") || m.includes("reset") || m.includes("internal error") || m.includes("d1_error");
+}
+async function d1Retry(fn, tries = 3) {
+	let lastErr;
+	for (let i = 0; i < tries; i++) {
+		try {
+			return await fn();
+		} catch (e) {
+			lastErr = e;
+			if (i === tries - 1 || !isTransientD1Error(e)) break;
+			await new Promise((r) => setTimeout(r, 120 * (i + 1) + Math.floor(Math.random() * 120)));
+		}
+	}
+	throw lastErr;
+}
+const USER_ROW_STALE_MAX = 10 * 60 * 1000;
 async function getCachedUserRow(env, sql, key) {
 	const ck = sql.length + "|" + key;
 	const now = Date.now();
 	const hit = USER_ROW_CACHE.get(ck);
 	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
-	const row = await env.DB.prepare(sql).bind(key).first();
+	let row;
+	try {
+		row = await d1Retry(() => env.DB.prepare(sql).bind(key).first(), 2);
+	} catch (e) {
+		// اگه D1 موقتاً جواب نداد ولی تا ۱۰ دقیقه پیش همین کاربر رو داشتیم، به‌جای قطع کردن اتصال از نسخه‌ی قبلی استفاده می‌کنیم
+		if (hit && now - hit.t < USER_ROW_STALE_MAX) return hit.v;
+		throw e;
+	}
 	if (row) {
 		USER_ROW_CACHE.set(ck, { t: Date.now(), v: row });
 		if (USER_ROW_CACHE.size > 500) {
@@ -33,7 +60,13 @@ async function getCachedUserRowsLike(env, sql, key) {
 	const now = Date.now();
 	const hit = USER_ROW_CACHE.get(ck);
 	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
-	const res = await env.DB.prepare(sql).bind(key).all();
+	let res;
+	try {
+		res = await d1Retry(() => env.DB.prepare(sql).bind(key).all(), 2);
+	} catch (e) {
+		if (hit && now - hit.t < USER_ROW_STALE_MAX) return hit.v;
+		throw e;
+	}
 	if (res && res.results && res.results.length > 0) USER_ROW_CACHE.set(ck, { t: Date.now(), v: res });
 	return res;
 }
@@ -1509,14 +1542,24 @@ const Router = {
 */
 let schemaEnsured = false;
 let schemaPromise = null;
+let schemaStartedAt = 0;
+const SCHEMA_VERSION = "3";
 let cachedPanelPassword = null;
 const DbService = {
 	async ensureSchema(db) {
 		if (schemaEnsured) return;
-		if (schemaPromise) {
-			await schemaPromise;
-			return;
-		}
+		// Promise ساخته‌شده توی یه ریکوئست رو توی ریکوئست دیگه await نمی‌کنیم (ارور "I/O on behalf of a different request")،
+		// و اگه یه ریکوئست وسط مهاجرت قطع شد، قفل بعد از ۲۰ ثانیه خودش آزاد می‌شه.
+		if (schemaPromise && Date.now() - schemaStartedAt < 20000) return;
+		schemaStartedAt = Date.now();
+		// اگه قبلاً مهاجرت کامل شده، فقط یه SELECT ساده و تمام (به‌جای ده‌ها کوئری/UPDATE کل جدول روی هر کلد‌استارت)
+		try {
+			const flag = await db.prepare("SELECT value FROM settings WHERE key = 'schema_ver'").first();
+			if (flag && flag.value === SCHEMA_VERSION) {
+				schemaEnsured = true;
+				return;
+			}
+		} catch (e) {}
 		schemaPromise = (async () => {
 			try {
 				await db.prepare(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, uuid TEXT, limit_gb REAL, expiry_days INTEGER, ips TEXT, connection_type TEXT, tls TEXT, port INTEGER, used_gb REAL DEFAULT 0, is_active INTEGER DEFAULT 1, last_active INTEGER, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`).run();
@@ -1587,9 +1630,16 @@ const DbService = {
 			try {
 				await db.prepare("UPDATE users SET lifetime_used_gb = used_gb WHERE lifetime_used_gb = 0 OR lifetime_used_gb IS NULL").run();
 			} catch (e) {}
+			try {
+				await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(SCHEMA_VERSION).run();
+			} catch (e) {}
 		})();
-		await schemaPromise;
-		schemaEnsured = true;
+		try {
+			await schemaPromise;
+			schemaEnsured = true;
+		} finally {
+			schemaPromise = null;
+		}
 	},
 	async getPanelPassword(db, forceRefresh = true) {
 		try {
@@ -1999,9 +2049,12 @@ async function flushExpiredTraffic(env) {
 			USER_REQ_CACHE.set(uname, 0);
 			const deltaGb = cachedBytes / (1024 * 1024 * 1024);
 			try {
-				await env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run();
+				await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
 			} catch (e) {
 				console.error(e.message);
+				// نوشتن شکست خورد: حجم/ریکوئست از دست نره، برای دور بعدی برگرده
+				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
+				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
 			} finally {
 				GLOBAL_WRITE_LOCK.delete(uname);
 				if (activeCount <= 0) {
@@ -2118,7 +2171,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			let deltaGb = toCommit / (1024 * 1024 * 1024);
 			let writeTask = async () => {
 				try {
-					await env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ?, last_active = ? WHERE username = ?").bind(deltaGb, deltaGb, toCommitReq, now, username).run();
+					await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ?, last_active = ? WHERE username = ?").bind(deltaGb, deltaGb, toCommitReq, now, username).run());
 				} catch (e) {
 					console.error(e.message);
 					GLOBAL_TRAFFIC_CACHE.set(username, (GLOBAL_TRAFFIC_CACHE.get(username) || 0) + toCommit);
@@ -2162,7 +2215,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				const deltaGb = cachedBytes / (1024 * 1024 * 1024);
 				const writeTask = async () => {
 					try {
-						await env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run();
+						await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
 					} catch (e) {
 						console.error(e.message);
 						GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
