@@ -2252,7 +2252,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				// قبلاً هر ۲۰ ثانیه برای هر آی‌پیِ هر کاربر یه SELECT+UPDATE؛ الان هر ۲ دقیقه (ضربان keep-alive همچنان هر ~۲۰ ثانیه‌ست)
 				if (nowTime - lastCheck >= 120000) {
 					GLOBAL_HB_CHECK.set(hbKey, nowTime);
-					const user = await env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first();
+					const user = await d1Retry(() => env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, first_connection_time, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first(), 2);
 					let isExpired = false;
 					let isIpLimitExpired = false;
 					let updatedActiveIps = null;
@@ -3832,8 +3832,9 @@ async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, on
 			await writePromise;
 		}
 	} catch (e) {
-		let reader = remoteSocket.readable.getReader();
-		try {
+		let reader = null;
+		try { reader = remoteSocket.readable.getReader(); } catch (_) { reader = null; }
+		if (reader) try {
 			while (true) {
 				if (webSocket.bufferedAmount > 1024 * 1024) await waitForBackpressure(webSocket);
 				const { done, value } = await reader.read();
@@ -3889,44 +3890,64 @@ async function connectDirect(address, port, initialData = null, targetDoh = "htt
 }
 async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServer = "8.8.4.4") {
 	const requestData = convertToUint8Array(udpChunk);
+	// هر پیام UDP توی VLESS با پیشوند ۲بایتی طول میاد (دقیقاً فرمت DNS-over-TCP). تعداد کوئری‌های داخل این تکه رو
+	// می‌شماریم تا بدونیم دقیقاً چند تا پاسخ باید برگرده و بعد از دریافت همون‌ها سوکت رو ببندیم.
+	let expected = 0;
+	for (let o = 0; o + 2 <= requestData.byteLength; ) {
+		const l = (requestData[o] << 8) | requestData[o + 1];
+		expected++;
+		o += 2 + l;
+	}
+	if (expected < 1) expected = 1;
 	let tcpSocket = null;
-	const abortCtl = new AbortController();
-	const timeoutId = setTimeout(() => {
-		try {
-			abortCtl.abort();
-		} catch (e) {}
-	}, 10000);
+	let reader = null;
+	let timeoutId = null;
 	try {
 		tcpSocket = connect({ hostname: bracketizeHost(dnsServer), port: 53 });
-		let vIeesHeader = respHeader;
+		// قبلاً تا بسته‌شدن سوکت از سمت سرور DNS (یا ۱۰ ثانیه تایم‌اوت) صبر می‌کرد؛ چون پیام‌های هر وب‌سوکت پشت‌سرهم
+		// پردازش می‌شن، یه DNS کند باعث می‌شد همه‌ی کوئری‌های بعدی (و در نتیجه باز شدن اتصال‌های جدید یوتیوب) گیر کنن.
+		timeoutId = setTimeout(() => {
+			try { tcpSocket.close(); } catch (e) {}
+		}, 4000);
 		const writer = tcpSocket.writable.getWriter();
 		await writer.write(requestData);
 		writer.releaseLock();
-		await tcpSocket.readable.pipeTo(
-			new WritableStream({
-				async write(chunk) {
-					const rawResponse = convertToUint8Array(chunk);
-					if (typeof onBytes === "function") onBytes(rawResponse.byteLength);
-					if (webSocket.readyState !== WebSocket.OPEN) return;
-					if (vIeesHeader) {
-						const merged = new Uint8Array(vIeesHeader.length + rawResponse.byteLength);
-						merged.set(vIeesHeader, 0);
-						merged.set(rawResponse, vIeesHeader.length);
-						webSocket.send(merged.buffer);
-						vIeesHeader = null;
-					} else {
-						webSocket.send(rawResponse);
-					}
-				},
-			}),
-			{ signal: abortCtl.signal },
-		);
+		reader = tcpSocket.readable.getReader();
+		let vIeesHeader = respHeader;
+		let buf = new Uint8Array(0);
+		let got = 0;
+		while (got < expected) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			if (!value || !value.byteLength) continue;
+			buf = buf.byteLength ? concatBytes(buf, value) : value;
+			// فریم‌های کامل (۲ بایت طول + بدنه) رو جدا و ارسال می‌کنیم
+			let off = 0;
+			while (buf.byteLength - off >= 2) {
+				const l = (buf[off] << 8) | buf[off + 1];
+				if (buf.byteLength - off < 2 + l) break;
+				const frame = buf.subarray(off, off + 2 + l);
+				off += 2 + l;
+				got++;
+				if (typeof onBytes === "function") onBytes(frame.byteLength);
+				if (webSocket.readyState !== WebSocket.OPEN) return;
+				if (vIeesHeader) {
+					const merged = new Uint8Array(vIeesHeader.length + frame.byteLength);
+					merged.set(vIeesHeader, 0);
+					merged.set(frame, vIeesHeader.length);
+					webSocket.send(merged.buffer);
+					vIeesHeader = null;
+				} else {
+					webSocket.send(frame);
+				}
+			}
+			if (off > 0) buf = buf.slice(off);
+		}
 	} catch (e) {
 	} finally {
-		clearTimeout(timeoutId);
-		try {
-			if (tcpSocket) tcpSocket.close();
-		} catch (e) {}
+		if (timeoutId) clearTimeout(timeoutId);
+		try { if (reader) reader.releaseLock(); } catch (e) {}
+		try { if (tcpSocket) tcpSocket.close(); } catch (e) {}
 	}
 }
 function extractUUIDFromvIees(data) {
