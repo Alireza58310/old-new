@@ -1214,7 +1214,7 @@ const Router = {
 			const b = await readJsonBody(request);
 			const sets = [];
 			const vals = [];
-			for (const f of ["advanced_frag", "cipher_suites", "tls_mask"]) {
+			for (const f of ["advanced_frag", "cipher_suites", "tls_mask", "ech_config"]) {
 				if (b[f] === undefined) continue;
 				const v = b[f] === null ? "" : String(b[f]).trim();
 				if (f === "advanced_frag" && v) {
@@ -1223,8 +1223,20 @@ const Router = {
 				sets.push(f + " = ?");
 				vals.push(v || null);
 			}
+			if (b.fingerprint !== undefined) {
+				const fpv = String(b.fingerprint || "").trim().toLowerCase();
+				if (!["chrome", "firefox", "safari", "ios", "android", "edge", "360", "qq", "random", "randomized", "unsafe"].includes(fpv)) {
+					return new Response(JSON.stringify({ error: "fingerprint is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } });
+				}
+				sets.push("fingerprint = ?");
+				vals.push(fpv);
+			}
 			if (sets.length) await env.DB.prepare("UPDATE users SET " + sets.join(", ")).bind(...vals).run();
 			if (b.patterniha !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', ?)").bind(b.patterniha ? "1" : "0").run();
+			if (b.patterniha_ech !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', ?)").bind(b.patterniha_ech ? "1" : "0").run();
+			// دو حالت همزمان فعال نیستن: روشن‌شدن هرکدوم، اون یکی رو خاموش می‌کنه
+			if (b.patterniha === true && b.patterniha_ech === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', '0')").run();
+			if (b.patterniha_ech === true && b.patterniha === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', '0')").run();
 			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 		}
 		if (url.pathname === "/api/proxy-ip") {
@@ -1244,6 +1256,7 @@ const Router = {
 				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
 				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
 				const rowPatt = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_all'").first();
+				const rowPattEch = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_ech_all'").first();
 				return new Response(
 					JSON.stringify({
 						proxy_ip: rowIp ? rowIp.value : "",
@@ -1252,6 +1265,7 @@ const Router = {
 						socks5: rowSocks ? rowSocks.value : "",
 						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
 						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
+						patterniha_ech_all: rowPattEch ? rowPattEch.value === "1" : false,
 					}),
 					{ headers: { "Content-Type": "application/json" } },
 				);
@@ -1593,6 +1607,7 @@ const DbService = {
 					{ name: "advanced_frag", def: "TEXT DEFAULT NULL" },
 					{ name: "cipher_suites", def: "TEXT DEFAULT NULL" },
 					{ name: "tls_mask", def: "TEXT DEFAULT NULL" },
+					{ name: "ech_config", def: "TEXT DEFAULT NULL" },
 					{ name: "auto_reset_vol_days", def: "INTEGER DEFAULT 0" },
 					{ name: "auto_reset_req_days", def: "INTEGER DEFAULT 0" },
 					{ name: "last_reset_vol_time", def: "INTEGER DEFAULT 0" },
@@ -1843,6 +1858,7 @@ const SubscriptionService = {
 					if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
 					if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
 					if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
+					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
 					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 					if (protoFlags.vless) links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
@@ -5281,6 +5297,14 @@ const HTML_TEMPLATES = {
 					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
 				</span>
 			</label>
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-fuchsia-300 dark:border-fuchsia-700/60 bg-fuchsia-50/60 dark:bg-fuchsia-950/20" title="روشن: finalmask (fm) خالی، فینگرپرینت Chrome و ECH روی همه کاربران (Cipher Suites و TLS Mask هم خالی می‌شن)">
+				<span class="text-[11px] font-bold text-fuchsia-800 dark:text-fuchsia-300">بهینه‌سازی Chrome + ECH (همه کاربران)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="patterniha-ech-toggle" onchange="togglePatternihaEchAll(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-fuchsia-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
 			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
 				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
 				<span class="relative inline-flex items-center">
@@ -7265,6 +7289,31 @@ ${COMMON_TOAST_HTML}
 			const cb = document.getElementById('patterniha-all-toggle');
 			if (cb) cb.checked = !!on;
 		};
+		window.PATTERNIHA_ECH = 'cloudflare-ech.com+udp://1.1.1.1';
+		window.applyPatternihaEchState = function(on) {
+			const cb = document.getElementById('patterniha-ech-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.togglePatternihaEchAll = async function(cb) {
+			const want = cb.checked;
+			const msg = want
+				? 'بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شود؟ (finalmask خالی، فینگرپرینت Chrome، ECH اضافه؛ Cipher Suites و TLS Mask هم خالی می‌شن و مقادیر فعلی جایگزین می‌شن)'
+				: 'ECH و finalmask و Cipher Suites همه کاربران پاک شود و فینگرپرینت به Unsafe برگردد؟';
+			if (!confirm(msg)) { cb.checked = !want; return; }
+			cb.disabled = true;
+			try {
+				await window.bulkAdvancedRequest(want
+					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.PATTERNIHA_ECH, fingerprint: 'chrome', patterniha_ech: true }
+					: { advanced_frag: '', cipher_suites: '', ech_config: '', fingerprint: 'unsafe', patterniha_ech: false });
+				if (want) window.applyPatternihaState(false);
+				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
 		window.bulkAdvancedRequest = async function(payload) {
 			const r = await fetch('/api/bulk-advanced', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
 			if (!r.ok) throw new Error('bulk failed');
@@ -7281,6 +7330,7 @@ ${COMMON_TOAST_HTML}
 				await window.bulkAdvancedRequest(want
 					? { advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS, patterniha: true }
 					: { advanced_frag: '', cipher_suites: '', patterniha: false });
+				if (want) window.applyPatternihaEchState(false);
 				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
 			} catch (e) {
 				cb.checked = !want;
@@ -8897,6 +8947,7 @@ function downloadZeusSource() {
 						if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
 						if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
 						if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
+					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 						if (pf.vless) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
@@ -9226,6 +9277,7 @@ async function loadLocations() {
 			window._globalActiveCountry = statusData.country || '';
 			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
 			if (typeof window.applyPatternihaState === 'function') window.applyPatternihaState(!!statusData.patterniha_all);
+			if (typeof window.applyPatternihaEchState === 'function') window.applyPatternihaEchState(!!statusData.patterniha_ech_all);
 		}
 		const res = await fetch('/locations');
 		if (!res.ok) throw new Error();
@@ -10800,6 +10852,7 @@ ${COMMON_TOAST_HTML}
 						if (u.advanced_frag) userFrag += "&fm=" + encodeURIComponent(u.advanced_frag);
 						if (u.cipher_suites) userFrag += "&cs=" + encodeURIComponent(u.cipher_suites);
 						if (u.tls_mask) userFrag += "&mask=" + encodeURIComponent(u.tls_mask);
+						if (u.ech_config) userFrag += "&ech=" + encodeURIComponent(u.ech_config);
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
 						if (pf.vless) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
