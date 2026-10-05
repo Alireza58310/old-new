@@ -1241,7 +1241,19 @@ const Router = {
 		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
-				const { proxy_ip, iata, socks5, country, info_configs } = await readJsonBody(request);
+				const { proxy_ip, iata, socks5, country, info_configs, ech_sni, ech_doh, ech_doh_preset, ech_api } = await readJsonBody(request);
+				{
+					const bad = (m) => new Response(JSON.stringify({ error: m }), { status: 400, headers: { "Content-Type": "application/json" } });
+					if (ech_sni !== undefined && !/^[A-Za-z0-9]([A-Za-z0-9.-]{0,251}[A-Za-z0-9])?$/.test(String(ech_sni))) return bad("ECH SNI نامعتبر است");
+					if (ech_doh !== undefined && !/^(udp|tcp|https|tls):\/\/[^\s"'<>\\+]{1,200}$/i.test(String(ech_doh))) return bad("ECH DoH نامعتبر است");
+					if (ech_doh_preset !== undefined && !/^[a-z0-9-]{1,24}$/.test(String(ech_doh_preset))) return bad("preset نامعتبر است");
+					if (ech_api !== undefined && String(ech_api) !== "" && !/^https?:\/\/[^\s"'<>\\]{1,200}$/i.test(String(ech_api))) return bad("آدرس API مرکزی نامعتبر است");
+					const putSetting = (k, v) => env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
+					if (ech_sni !== undefined) await putSetting("ech_sni", ech_sni);
+					if (ech_doh !== undefined) await putSetting("ech_doh", ech_doh);
+					if (ech_doh_preset !== undefined) await putSetting("ech_doh_preset", ech_doh_preset);
+					if (ech_api !== undefined) await putSetting("ech_api", ech_api);
+				}
 				if (proxy_ip !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_ip', ?)").bind(proxy_ip).run();
 				if (iata !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_iata', ?)").bind(iata).run();
 				if (country !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_country', ?)").bind(country).run();
@@ -1257,6 +1269,9 @@ const Router = {
 				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
 				const rowPatt = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_all'").first();
 				const rowPattEch = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_ech_all'").first();
+				const { results: echRows } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('ech_sni', 'ech_doh', 'ech_doh_preset', 'ech_api')").all();
+				const echMap = {};
+				for (const r of (echRows || [])) echMap[r.key] = r.value;
 				return new Response(
 					JSON.stringify({
 						proxy_ip: rowIp ? rowIp.value : "",
@@ -1266,6 +1281,10 @@ const Router = {
 						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
 						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
 						patterniha_ech_all: rowPattEch ? rowPattEch.value === "1" : false,
+						ech_sni: echMap.ech_sni || "cloudflare-ech.com",
+						ech_doh: echMap.ech_doh || "udp://1.1.1.1",
+						ech_doh_preset: echMap.ech_doh_preset || "cf-udp",
+						ech_api: echMap.ech_api || "",
 					}),
 					{ headers: { "Content-Type": "application/json" } },
 				);
@@ -1505,7 +1524,7 @@ const Router = {
 					}
 				}
 				if (request.method === "POST") {
-					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await readJsonBody(request);
+					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await readJsonBody(request);
 					if (!username) {
 						return new Response(JSON.stringify({ error: "نام کاربری اجباری است" }), { status: 400, headers: { "Content-Type": "application/json" } });
 					}
@@ -1538,8 +1557,8 @@ const Router = {
 						const nowTime = Date.now();
 						const trojanHash = sha224Pure(finalUuid);
 						const finalConnType = normalizeConnectionType(protocols, connection_type, "vl" + "e" + "ss");
-						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
+						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, (typeof ech_config === "string" && ech_config.length <= 300 && !/[\s"'<>\\]/.test(ech_config)) ? (ech_config || null) : null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					} catch (err) {
@@ -5282,13 +5301,30 @@ const HTML_TEMPLATES = {
 				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 				</button>
+				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
+					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
+				</button>
 				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
 					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
 				</button>
 			</div>
 		</div>
-		<div class="flex flex-wrap items-center justify-end gap-2 mb-3 -mt-2">
+		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
+		<div class="flex flex-wrap items-center justify-end gap-2">
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
+				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="info-configs-toggle" onchange="toggleInfoConfigs(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-amber-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
 			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
+			<button type="button" onclick="openEchModal()" title="تنظیمات ECH (SNI و DoH) که روی کانفیگ‌ها اعمال می‌شود" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">🔐 تنظیمات ECH</button>
+		</div>
+		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
+		<div class="flex flex-wrap items-center justify-end gap-2 mb-3">
 			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20" title="روشن: تنظیمات پیشرفته بهینه‌سازی (مقادیر Patterniha) روی همه کاربران اعمال می‌شود">
 				<span class="text-[11px] font-bold text-purple-800 dark:text-purple-300">بهینه‌سازی Patterniha (همه کاربران)</span>
 				<span class="relative inline-flex items-center">
@@ -5302,14 +5338,6 @@ const HTML_TEMPLATES = {
 				<span class="relative inline-flex items-center">
 					<input type="checkbox" id="patterniha-ech-toggle" onchange="togglePatternihaEchAll(this)" class="sr-only peer">
 					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-fuchsia-500 transition-colors"></span>
-					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
-				</span>
-			</label>
-			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
-				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
-				<span class="relative inline-flex items-center">
-					<input type="checkbox" id="info-configs-toggle" onchange="toggleInfoConfigs(this)" class="sr-only peer">
-					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-amber-500 transition-colors"></span>
 					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
 				</span>
 			</label>
@@ -7290,6 +7318,108 @@ ${COMMON_TOAST_HTML}
 			if (cb) cb.checked = !!on;
 		};
 		window.PATTERNIHA_ECH = 'cloudflare-ech.com+udp://1.1.1.1';
+		window.ECH_PRESETS = { 'cf-udp': 'udp://1.1.1.1', 'google-udp': 'udp://8.8.8.8', 'quad9-udp': 'udp://9.9.9.9', 'cf-doh': 'https://1.1.1.1/dns-query', 'google-doh': 'https://8.8.8.8/dns-query' };
+		window._ech = { sni: 'cloudflare-ech.com', doh: 'udp://1.1.1.1', preset: 'cf-udp', api: '' };
+		window.getEchString = function() { return window._ech.sni + '+' + window._ech.doh; };
+		window.refreshEchPreview = function() {
+			const el = document.getElementById('ech-preview');
+			const sni = (document.getElementById('ech-sni-input') || {}).value || '';
+			const doh = (document.getElementById('ech-doh-input') || {}).value || '';
+			if (el) el.textContent = 'ech=' + sni.trim() + '+' + doh.trim();
+		};
+		window.applyEchSettings = function(d) {
+			if (!d) return;
+			window._ech = { sni: d.ech_sni || 'cloudflare-ech.com', doh: d.ech_doh || 'udp://1.1.1.1', preset: d.ech_doh_preset || 'cf-udp', api: d.ech_api || '' };
+			const a = document.getElementById('ech-sni-input'); if (a) a.value = window._ech.sni;
+			const b = document.getElementById('ech-doh-input'); if (b) b.value = window._ech.doh;
+			const c = document.getElementById('ech-doh-preset'); if (c) c.value = window._ech.preset;
+			const e = document.getElementById('ech-api-input'); if (e) e.value = window._ech.api;
+			window.refreshEchPreview();
+		};
+		window.onEchPresetChange = function(v) {
+			if (window.ECH_PRESETS[v]) document.getElementById('ech-doh-input').value = window.ECH_PRESETS[v];
+			window.refreshEchPreview();
+		};
+		window.onEchDohInput = function() {
+			const v = document.getElementById('ech-doh-input').value.trim();
+			const hit = Object.keys(window.ECH_PRESETS).find(function(k) { return window.ECH_PRESETS[k] === v; });
+			document.getElementById('ech-doh-preset').value = hit || 'custom';
+			window.refreshEchPreview();
+		};
+		window.closeEchModal = function() {
+			const m = document.getElementById('ech-modal');
+			if (m) m.remove();
+		};
+		window.openEchModal = async function() {
+			window.closeEchModal();
+			try {
+				const r = await fetch('/api/proxy-ip');
+				if (r.ok) window.applyEchSettings(await r.json());
+			} catch (e) {}
+			const inputCls = 'w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-xl text-sm text-gray-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
+			const lblCls = 'block text-[11px] font-bold text-gray-600 dark:text-zinc-400 mb-1.5';
+			const wrap = document.createElement('div');
+			wrap.id = 'ech-modal';
+			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
+			wrap.innerHTML =
+				'<div class="w-full max-w-md rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border overflow-hidden" style="max-height:90vh;overflow:auto" dir="rtl">' +
+				'<div class="px-4 py-3 border-b border-gray-200 dark:border-amoled-border text-sm font-bold text-gray-800 dark:text-zinc-100">ECH و مرکزی</div>' +
+				'<div class="p-4 space-y-3">' +
+				'<div><label class="' + lblCls + '">ECH SNI</label><input type="text" id="ech-sni-input" dir="ltr" placeholder="cloudflare-ech.com" oninput="refreshEchPreview()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH preset</label><select id="ech-doh-preset" onchange="onEchPresetChange(this.value)" class="' + inputCls + ' cursor-pointer">' +
+				'<option value="custom">Custom</option>' +
+				'<option value="cf-udp">Cloudflare (udp://1.1.1.1)</option>' +
+				'<option value="google-udp">Google (udp://8.8.8.8)</option>' +
+				'<option value="quad9-udp">Quad9 (udp://9.9.9.9)</option>' +
+				'<option value="cf-doh">Cloudflare DoH (https://1.1.1.1/dns-query)</option>' +
+				'<option value="google-doh">Google DoH (https://8.8.8.8/dns-query)</option>' +
+				'</select></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="udp://1.1.1.1" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">API مرکزی (اختیاری)</label><input type="text" id="ech-api-input" dir="ltr" placeholder="https://your-central-server" class="' + inputCls + '">' +
+				'<p class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1">فعلاً فقط ذخیره می‌شود و در ساخت کانفیگ استفاده نمی‌شود.</p></div>' +
+				'<p class="text-[10px] text-gray-500 dark:text-zinc-500" dir="ltr" id="ech-preview"></p>' +
+				'<div class="flex gap-2">' +
+				'<button type="button" id="ech-save-btn" class="flex-1 py-2.5 rounded-xl bg-fuchsia-600 text-white text-xs font-bold">ذخیره تنظیمات ECH</button>' +
+				'<button type="button" id="ech-close-btn" class="px-4 py-2.5 rounded-xl border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
+				'</div></div></div>';
+			document.body.appendChild(wrap);
+			document.getElementById('ech-sni-input').value = window._ech.sni;
+			document.getElementById('ech-doh-input').value = window._ech.doh;
+			document.getElementById('ech-doh-preset').value = window._ech.preset;
+			document.getElementById('ech-api-input').value = window._ech.api;
+			window.refreshEchPreview();
+			document.getElementById('ech-close-btn').onclick = window.closeEchModal;
+			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeEchModal(); });
+			document.getElementById('ech-save-btn').onclick = async function() {
+				const ok = await window.saveEchSettings(this);
+				if (ok) window.closeEchModal();
+			};
+		};
+		window.saveEchSettings = async function(btn) {
+			const sni = document.getElementById('ech-sni-input').value.trim();
+			const doh = document.getElementById('ech-doh-input').value.trim();
+			const preset = document.getElementById('ech-doh-preset').value;
+			const api = document.getElementById('ech-api-input').value.trim();
+			if (!sni || !doh) { alert('ECH SNI و ECH DoH نباید خالی باشند.'); return false; }
+			btn.disabled = true;
+			try {
+				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ech_sni: sni, ech_doh: doh, ech_doh_preset: preset, ech_api: api }) });
+				if (!r.ok) {
+					let m = 'خطا در ذخیره تنظیمات ECH';
+					try { const j = await r.json(); if (j && j.error) m = j.error; } catch (e) {}
+					alert(m);
+					return false;
+				}
+				window._ech = { sni: sni, doh: doh, preset: preset, api: api };
+				if (typeof showToast === 'function') showToast('✅ تنظیمات ECH ذخیره شد. برای اعمال روی کاربران، تاگل Chrome + ECH را دوباره بزن.');
+				return true;
+			} catch (e) {
+				alert('خطا در برقراری ارتباط با سرور');
+				return false;
+			} finally {
+				btn.disabled = false;
+			}
+		};
 		window.applyPatternihaEchState = function(on) {
 			const cb = document.getElementById('patterniha-ech-toggle');
 			if (cb) cb.checked = !!on;
@@ -7303,7 +7433,7 @@ ${COMMON_TOAST_HTML}
 			cb.disabled = true;
 			try {
 				await window.bulkAdvancedRequest(want
-					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.PATTERNIHA_ECH, fingerprint: 'chrome', patterniha_ech: true }
+					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.getEchString(), fingerprint: 'chrome', patterniha_ech: true }
 					: { advanced_frag: '', cipher_suites: '', ech_config: '', fingerprint: 'unsafe', patterniha_ech: false });
 				if (want) window.applyPatternihaState(false);
 				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
@@ -7454,6 +7584,91 @@ ${COMMON_TOAST_HTML}
 							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
 							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
 							fingerprint: 'unsafe', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
+							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
+							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
+							user_socks5: null, auto_rotate_user_proxy: 0,
+							protocols: ['vl' + 'e' + 'ss']
+						})
+					});
+					if (response.ok) {
+						created++;
+					} else {
+						let msg = 'عملیات ناموفق بود';
+						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
+						alert('خطا در ساخت ' + d.username + ': ' + msg);
+						break;
+					}
+				}
+				if (created > 0) {
+					if (typeof showToast === 'function') showToast('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await loadUsers(true);
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				if (icon) icon.classList.remove('animate-spin');
+			}
+		};
+		window.createNoFilteringConfigs = async function(btn) {
+			if (btn.disabled) return;
+			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
+			if (!cca2) {
+				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
+				return;
+			}
+			btn.disabled = true;
+			const icon = btn.querySelector('svg');
+			if (icon) icon.classList.add('animate-spin');
+			try {
+				let base = '';
+				if (typeof getCountryDisplayNameEn === 'function') base = String(getCountryDisplayNameEn(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (!base) base = cca2.toLowerCase();
+				base = base.slice(0, 18);
+				const num = Math.floor(100 + Math.random() * 900);
+				let allIps = [];
+				if (Object.keys(cachedIpsData).length === 0) {
+					try {
+						const resIps = await fetchWithFallbackUI('ips.txt');
+						if (resIps.ok) {
+							const text = await resIps.text();
+							text.split('----------').forEach(block => {
+								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(cachedIpsData).forEach(list => { allIps = allIps.concat(list); });
+				}
+				allIps = [...new Set(allIps)];
+				const pickIps = function() {
+					const arr = allIps.slice();
+					for (let i = arr.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					return arr.slice(0, 2).join('\\n');
+				};
+				const echStr = window.getEchString();
+				const FRAG_N = { frag_len: '200-3000', frag_int: '1-2' };
+				const FRAG_H = { frag_len: '50-200', frag_int: '1-3' };
+				const defs = [
+					Object.assign({ username: base + num + '-1', ech_config: echStr, fingerprint: 'chrome' }, FRAG_N),
+					Object.assign({ username: 'Hard-' + base + num + '-2', ech_config: echStr, fingerprint: 'chrome' }, FRAG_H),
+					Object.assign({ username: base + num + '-3', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_N),
+					Object.assign({ username: 'Hard-' + base + num + '-4', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_H)
+				];
+				let created = 0;
+				for (const d of defs) {
+					const response = await fetch('/api/users', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
+							fingerprint: d.fingerprint || 'unsafe', advanced_frag: d.advanced_frag || null, cipher_suites: d.cipher_suites || null, ech_config: d.ech_config || null, block_ads: 0, block_porn: 0, port: '443', tls: 'on',
 							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
 							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
 							user_socks5: null, auto_rotate_user_proxy: 0,
@@ -9278,6 +9493,7 @@ async function loadLocations() {
 			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
 			if (typeof window.applyPatternihaState === 'function') window.applyPatternihaState(!!statusData.patterniha_all);
 			if (typeof window.applyPatternihaEchState === 'function') window.applyPatternihaEchState(!!statusData.patterniha_ech_all);
+			if (typeof window.applyEchSettings === 'function') window.applyEchSettings(statusData);
 		}
 		const res = await fetch('/locations');
 		if (!res.ok) throw new Error();
@@ -9761,7 +9977,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.6';
+const CURRENT_VERSION = '2.3.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
