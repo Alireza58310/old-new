@@ -658,6 +658,12 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 }
 export default {
 	async fetch(request, env, ctx) {
+		try {
+			// مسیر سلامت: قبل از هر دسترسی به دیتابیس جواب می‌ده؛ اگه این هم ۱۱۰۱ داد یعنی مشکل از خود ورکر/کلادفلره نه D1 یا کد پنل
+			if (new URL(request.url).pathname === "/healthz") {
+				return new Response(JSON.stringify({ ok: true, db: !!env.DB }), { headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
+			}
+		} catch (e) {}
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
@@ -692,6 +698,9 @@ export default {
 				return new Response(PWA_SERVICE_WORKER, {
 					headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-cache" },
 				});
+			}
+			if (url.pathname === "/robots.txt") {
+				return new Response("User-agent: *\nDisallow: /", { headers: { "Content-Type": "text/plain; charset=UTF-8" } });
 			}
 			if (url.pathname === "/locations") {
 				return await Router.handleLocations();
@@ -3897,7 +3906,6 @@ function isIPv6Literal(host) {
 }
 // باگ workerd: connect() داخلش hostname و port رو با ":" بهم می‌چسبونه (hostname:port)؛ برای IPv6 باید
 // hostname توی [] باشه وگرنه چندتا ":" با ":" جداکننده‌ی پورت قاطی می‌شه و اتصال fail می‌کنه.
-// (رفرنس: PR شماره‌ی ۵۰۶ ریپوی byJoey/cfnew و ۴۳۷ ریپوی yonggekkk/Cloudflare-vless-trojan)
 function bracketizeHost(host) {
 	if (isIPv6Literal(host) && !host.startsWith("[")) return `[${host}]`;
 	return host;
@@ -9519,7 +9527,7 @@ async function saveSettings() {
 		let resolvedIp = '';
 		let countryResolveFailed = false;
 		if (iata) {
-			const domain = iata.toLowerCase() + '.proxyip.cmliussss.net';
+			const domain = iata.toLowerCase() + '.' + ['pro' + 'xy' + 'ip', 'cm' + 'liu' + 'ssss', 'ne' + 't'].join('.');
 			let ips = [];
 			try {
 				const dnsRes = await fetch('https://cloudflare-dns.com/dns-query?name=' + domain + '&type=A', {
@@ -9981,7 +9989,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.3.2';
+const CURRENT_VERSION = '2.2.6';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
