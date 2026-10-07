@@ -155,9 +155,10 @@ const DEFAULT_SOURCES_BY_PANEL_TYPE = {
 
 // === دیپلوی زئوس روی Cloudflare Pages (Advanced Mode: فقط یک فایل _worker.js) ===
 // مراحل: دریافت سورس -> ساخت D1 -> ساخت پروژه‌ی Pages با بایندینگ DB و متغیرهای محیطی -> آپلود _worker.js به‌عنوان دیپلوی production.
-async function deployZeusPages({ token, accountId, scriptSourceUrl, customName }) {
+async function deployZeusPages({ token, accountId, scriptSourceUrl, customName, placement }) {
     const api = `https://api.cloudflare.com/client/v4/accounts/${accountId}`;
     const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+    let warning = "";
     const cfErr = (d, fallback) => (d && d.errors && d.errors.length > 0 ? d.errors[0].message : fallback);
 
     // 1) سورس رو اول می‌گیریم تا اگه در دسترس نبود، هیچ منبعی (D1/پروژه) بیهوده ساخته نشه.
@@ -212,6 +213,22 @@ async function deployZeusPages({ token, accountId, scriptSourceUrl, customName }
     }
     const subdomain = (projData.result && projData.result.subdomain) || `${projectName}.pages.dev`;
 
+    // 4.5) Runtime Placement (انتخاب سرور/منطقه): مستندات رسمی Pages فقط Smart Placement رو معرفی می‌کنه؛
+    // پس منطقه رو «تلاش می‌کنیم» اعمال کنیم و اگه کلودفلر قبول نکرد، دیپلوی ادامه پیدا می‌کنه و فقط هشدار می‌دیم.
+    if (placement && typeof placement === "string" && placement.includes(":")) {
+        try {
+            const plRes = await fetch(`${api}/pages/projects/${projectName}`, {
+                method: "PATCH",
+                headers,
+                body: JSON.stringify({ deployment_configs: { production: { placement: { region: placement } }, preview: { placement: { region: placement } } } }),
+            });
+            const plData = await plRes.json().catch(() => ({}));
+            if (!plData.success) warning = "کلودفلر انتخاب منطقه (Placement) رو برای Pages قبول نکرد؛ پنل بدون اون ساخته شد. (" + cfErr(plData, "نامشخص") + ")";
+        } catch (e) {
+            warning = "اعمال منطقه (Placement) روی Pages ناموفق بود؛ پنل بدون اون ساخته شد.";
+        }
+    }
+
     // 5) آپلود _worker.js (دیپلوی production) — چند بار تلاش می‌کنیم چون بلافاصله بعد از ساخت پروژه ممکنه لحظه‌ای آماده نباشه
     let lastErr = "نامشخص";
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -225,7 +242,7 @@ async function deployZeusPages({ token, accountId, scriptSourceUrl, customName }
             body: formData,
         });
         const depData = await depRes.json().catch(() => ({}));
-        if (depData.success) return { projectName, finalUrl: `https://${subdomain}/panel` };
+        if (depData.success) return { projectName, finalUrl: `https://${subdomain}/panel`, warning };
         lastErr = cfErr(depData, "نامشخص");
         await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
     }
@@ -270,7 +287,7 @@ export default {
                 const accountId = accData.result[0].id;
                 if (isZeusPages) {
                     // مسیر زئوس Pages: به ساب‌دامین workers.dev نیازی نیست؛ لینک نهایی از خود پروژه‌ی Pages (*.pages.dev) می‌آد.
-                    const { projectName, finalUrl: pagesUrl } = await deployZeusPages({ token, accountId, scriptSourceUrl, customName: cleanCustomName });
+                    const { projectName, finalUrl: pagesUrl, warning: pagesWarning } = await deployZeusPages({ token, accountId, scriptSourceUrl, customName: cleanCustomName, placement });
                     if (env.LINKS_DB && saveLink !== false) {
                         try {
                             await upsertLinkRecord(env.LINKS_DB, {
@@ -278,13 +295,13 @@ export default {
                                 url: pagesUrl,
                                 panelType: "zeus-pages",
                                 sourceUrl: scriptSourceUrl,
-                                placement: "",
+                                placement: placement || "",
                                 label: (label && label.trim()) || projectName,
                                 apiToken: token,
                             });
                         } catch (e) { /* ذخیره لینک اختیاریه */ }
                     }
-                    return new Response(JSON.stringify({ success: true, url: pagesUrl }), {
+                    return new Response(JSON.stringify({ success: true, url: pagesUrl, warning: pagesWarning || "" }), {
                         headers: { "Content-Type": "application/json" },
                     });
                 }
@@ -1744,8 +1761,7 @@ async function reloadZeusPanel(scriptName) {
             const zeusKvBtn = document.getElementById('panelTypeZeusKvBtn');
             const netraBtn = document.getElementById('panelTypeNetraBtn');
             const pagesBtn = document.getElementById('panelTypeZeusPagesBtn');
-            const placementBox = document.getElementById('placementBox');
-            const updateBtn = document.getElementById('openUpdateModalBtn');
+                        const updateBtn = document.getElementById('openUpdateModalBtn');
             const isZeus = currentPanelType === 'zeus';
             const isZeusKv = currentPanelType === 'zeus-kv';
             const isNetra = currentPanelType === 'netra';
@@ -1758,8 +1774,7 @@ async function reloadZeusPanel(scriptName) {
                 netraBtn.className = isNetra ? activeCls + 'text-purple-600 dark:text-purple-400' : idleCls;
             }
             if (pagesBtn) pagesBtn.className = isPages ? activeCls + 'text-sky-600 dark:text-sky-400' : idleCls;
-            // Pages جایگذاری منطقه‌ای (Runtime Placement) نداره
-            if (placementBox) placementBox.style.display = isPages ? 'none' : '';
+
             // مدیریت و آپدیت پنل‌ها (بررسی/ریست پسورد از طریق D1) فقط برای زئوس D1 معنی داره؛
             // Netra و زئوس-KV خودشون تنظیمات (UUID/پسورد/...) رو داخل همون پنل خودشون (روی KV) مدیریت می‌کنن.
             if (updateBtn) updateBtn.style.display = isZeus ? '' : 'none';
@@ -2066,6 +2081,7 @@ async function reloadZeusPanel(scriptName) {
             const errorBox = document.getElementById('error-box');
             const oldText = document.getElementById('successTxt');
             if (oldText) oldText.remove();
+            const oldWarn = document.getElementById('successWarn'); if (oldWarn) oldWarn.remove();
             const oldSuccessLink = document.getElementById('successBtn');
             if (oldSuccessLink) oldSuccessLink.remove();
             if(!token) {
@@ -2094,7 +2110,7 @@ async function reloadZeusPanel(scriptName) {
                 const response = await fetch('/api/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: currentPanelType === 'zeus-pages' ? null : getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim(), saveLink: isAutoSaveLinks() })
+                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim(), saveLink: isAutoSaveLinks() })
                 });
                 statusText.innerText = currentPanelType === 'netra' ? 'در حال دریافت پنل Netra...' : (currentPanelType === 'zeus-kv' ? 'در حال دریافت پنل زئوس (KV)...' : (currentPanelType === 'zeus-pages' ? 'در حال ساخت پروژه‌ی Pages و آپلود پنل...' : 'در حال دریافت پنل زئوس...'));
                 statusPct.innerText = '۷۵٪';
@@ -2116,6 +2132,13 @@ async function reloadZeusPanel(scriptName) {
                     successText.className = 'text-center mt-6 font-bold text-sm text-emerald-600 dark:text-emerald-400 mb-3';
                     successText.innerText = '✅ پنل ساخته شد لطفا 5 دقیقه صبر کنید و سپس وارد شوید';
                     document.getElementById('mainCard').appendChild(successText);
+                    if (result.warning) {
+                        const warnBox = document.createElement('div');
+                        warnBox.id = 'successWarn';
+                        warnBox.className = 'text-center text-[11px] font-bold text-yellow-600 dark:text-yellow-400 mb-3';
+                        warnBox.innerText = '⚠️ ' + result.warning;
+                        document.getElementById('mainCard').appendChild(warnBox);
+                    }
                     const linkBox = document.createElement('div');
                     linkBox.className = 'flex flex-col items-center justify-center p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-500/50 rounded-xl mb-3';
                     const linkDisplay = document.createElement('span');
