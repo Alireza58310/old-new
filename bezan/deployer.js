@@ -8,6 +8,8 @@ const DEFAULT_NETRA_SOURCE_URL = "https://raw.githubusercontent.com/netrair/netr
 const DEFAULT_ZEUS_KV_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/old/zeus.js";
 // آدرس سورس خود دپلویر — برای «راه‌اندازی خودکار دیتابیس» استفاده می‌شه: دپلویر با همین آدرس
 // خودش رو (روی همون اسم ورکر فعلی‌ش) دوباره از نو آپلود می‌کنه، این‌بار با بایندینگ D1 به اسم LINKS_DB.
+// آدرس پیش‌فرض «زئوس Pages» — فایل _worker.js مخصوص Cloudflare Pages (Advanced Mode).
+const DEFAULT_ZEUS_PAGES_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/pages/_worker.js";
 const DEPLOYER_SELF_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/deployer.js";
 
 // از خود آدرس URL، اسم فایل (zeus.js یا worker.js یا هرچی) رو استخراج می‌کنه
@@ -143,10 +145,92 @@ const DEFAULT_SOURCES_BY_PANEL_TYPE = {
     "zeus-kv": [
         { name: "پیش‌فرض (نسخه KV زئوس)", url: DEFAULT_ZEUS_KV_SOURCE_URL },
     ],
+    "zeus-pages": [
+        { name: "اینو پیجر🤯", url: DEFAULT_ZEUS_PAGES_SOURCE_URL },
+    ],
     netra: [
         { name: "پیش‌فرض (netrair/netra-panel)", url: DEFAULT_NETRA_SOURCE_URL },
     ],
 };
+
+// === دیپلوی زئوس روی Cloudflare Pages (Advanced Mode: فقط یک فایل _worker.js) ===
+// مراحل: دریافت سورس -> ساخت D1 -> ساخت پروژه‌ی Pages با بایندینگ DB و متغیرهای محیطی -> آپلود _worker.js به‌عنوان دیپلوی production.
+async function deployZeusPages({ token, accountId, scriptSourceUrl, customName }) {
+    const api = `https://api.cloudflare.com/client/v4/accounts/${accountId}`;
+    const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+    const cfErr = (d, fallback) => (d && d.errors && d.errors.length > 0 ? d.errors[0].message : fallback);
+
+    // 1) سورس رو اول می‌گیریم تا اگه در دسترس نبود، هیچ منبعی (D1/پروژه) بیهوده ساخته نشه.
+    const ghRes = await fetch(scriptSourceUrl + (scriptSourceUrl.includes("?") ? "&" : "?") + "t=" + Date.now());
+    if (!ghRes.ok) throw new Error("خطا در دریافت سورس از گیت‌هاب.");
+    const workerCode = await ghRes.text();
+
+    // 2) اسم پروژه: دلخواه (اگه آزاد باشه) یا رندوم و آزاد
+    let projectName = customName;
+    if (projectName) {
+        const ex = await fetch(`${api}/pages/projects/${projectName}`, { headers });
+        if (ex.status === 200) throw new Error("این نام قبلاً استفاده شده؛ نام دیگری انتخاب کنید.");
+        if (ex.status === 401 || ex.status === 403) throw new Error("Authentication error: توکن دسترسی Cloudflare Pages: Edit ندارد.");
+    } else {
+        for (let attempt = 0; attempt < 8 && !projectName; attempt++) {
+            const candidate = buildRandomWorkerName(6);
+            const r = await fetch(`${api}/pages/projects/${candidate}`, { headers });
+            if (r.status === 401 || r.status === 403) throw new Error("Authentication error: توکن دسترسی Cloudflare Pages: Edit ندارد.");
+            if (r.status !== 200) projectName = candidate;
+        }
+        if (!projectName) projectName = buildRandomWorkerName(8);
+    }
+    if (projectName.length > 58) projectName = projectName.slice(0, 58).replace(/-+$/g, "");
+
+    // 3) دیتابیس D1
+    const dbRes = await fetch(`${api}/d1/database`, { method: "POST", headers, body: JSON.stringify({ name: buildRandomWorkerName(6) }) });
+    const dbData = await dbRes.json();
+    if (!dbData.success) throw new Error(`CF_DB_ERROR|${cfErr(dbData, "نامشخص")}`);
+    const dbUuid = dbData.result.uuid;
+    await new Promise((r) => setTimeout(r, 1000));
+
+    // 4) ساخت پروژه‌ی Pages (بایندینگ D1 به اسم DB + متغیرهای محیطی)
+    const cfg = {
+        compatibility_date: "2024-02-08",
+        compatibility_flags: ["allow_eval_during_startup", "nodejs_compat"],
+        d1_databases: { DB: { id: dbUuid } },
+        env_vars: {
+            CF_API_TOKEN: { type: "secret_text", value: token },
+            CF_ACCOUNT_ID: { type: "plain_text", value: accountId },
+            WORKER_NAME: { type: "plain_text", value: projectName },
+        },
+    };
+    const projRes = await fetch(`${api}/pages/projects`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ name: projectName, production_branch: "main", deployment_configs: { production: cfg, preview: cfg } }),
+    });
+    const projData = await projRes.json().catch(() => ({}));
+    if (!projData.success) {
+        if (projRes.status === 401 || projRes.status === 403) throw new Error("Authentication error: توکن دسترسی Cloudflare Pages: Edit ندارد.");
+        throw new Error(`CF_DEPLOY_ERROR|${cfErr(projData, "خطا در ساخت پروژه‌ی Pages.")}`);
+    }
+    const subdomain = (projData.result && projData.result.subdomain) || `${projectName}.pages.dev`;
+
+    // 5) آپلود _worker.js (دیپلوی production) — چند بار تلاش می‌کنیم چون بلافاصله بعد از ساخت پروژه ممکنه لحظه‌ای آماده نباشه
+    let lastErr = "نامشخص";
+    for (let attempt = 0; attempt < 3; attempt++) {
+        const formData = new FormData();
+        formData.append("manifest", "{}");
+        formData.append("branch", "main");
+        formData.append("_worker.js", new Blob([workerCode], { type: "application/javascript+module" }), "_worker.js");
+        const depRes = await fetch(`${api}/pages/projects/${projectName}/deployments`, {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+        });
+        const depData = await depRes.json().catch(() => ({}));
+        if (depData.success) return { projectName, finalUrl: `https://${subdomain}/panel` };
+        lastErr = cfErr(depData, "نامشخص");
+        await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+    }
+    throw new Error(`CF_DEPLOY_ERROR|${lastErr}`);
+}
 
 export default {
     async fetch(request, env, ctx) {
@@ -163,6 +247,7 @@ export default {
                 // سه نوع پنل: zeus (D1، همون نسخه اصلی) / zeus-kv (سورس زئوس ولی روی KV، مثل نترا) / netra
                 const isNetra = panelType === "netra";
                 const isZeusKv = panelType === "zeus-kv";
+                const isZeusPages = panelType === "zeus-pages";
                 // اگه کاربر اسم دلخواه برای لینک ورکر انتخاب کرده باشه، بعد از پاک‌سازی همینو استفاده می‌کنیم؛
                 // وگرنه مثل قبل، اسم کاملا رندوم ساخته می‌شه.
                 const cleanCustomName = sanitizeWorkerName(customName);
@@ -170,7 +255,7 @@ export default {
                     throw new Error("نام دلخواه نامعتبر است؛ فقط حروف لاتین کوچک، عدد و خط‌تیره مجاز است.");
                 }
                 // آدرس سورس اختیاریه؛ اگه کاربر آدرس دلخواه نداده باشه، از پیش‌فرض همون نوع پنل استفاده می‌شه.
-                const scriptSourceUrl = (sourceUrl && sourceUrl.trim()) || (isNetra ? DEFAULT_NETRA_SOURCE_URL : (isZeusKv ? DEFAULT_ZEUS_KV_SOURCE_URL : DEFAULT_SOURCE_URL));
+                const scriptSourceUrl = (sourceUrl && sourceUrl.trim()) || (isNetra ? DEFAULT_NETRA_SOURCE_URL : (isZeusKv ? DEFAULT_ZEUS_KV_SOURCE_URL : (isZeusPages ? DEFAULT_ZEUS_PAGES_SOURCE_URL : DEFAULT_SOURCE_URL)));
                 // نام فایل رو خودکار از خود آدرس URL استخراج می‌کنیم (zeus.js یا worker.js یا هرچی) تا main_module درست تنظیم بشه.
                 const scriptFileName = getScriptFileNameFromUrl(scriptSourceUrl);
                 const headers = {
@@ -183,6 +268,26 @@ export default {
                     throw new Error("فقط با دکمه نارنجی «دریافت توکن» توکن بسازید.");
                 }
                 const accountId = accData.result[0].id;
+                if (isZeusPages) {
+                    // مسیر زئوس Pages: به ساب‌دامین workers.dev نیازی نیست؛ لینک نهایی از خود پروژه‌ی Pages (*.pages.dev) می‌آد.
+                    const { projectName, finalUrl: pagesUrl } = await deployZeusPages({ token, accountId, scriptSourceUrl, customName: cleanCustomName });
+                    if (env.LINKS_DB && saveLink !== false) {
+                        try {
+                            await upsertLinkRecord(env.LINKS_DB, {
+                                workerName: projectName,
+                                url: pagesUrl,
+                                panelType: "zeus-pages",
+                                sourceUrl: scriptSourceUrl,
+                                placement: "",
+                                label: (label && label.trim()) || projectName,
+                                apiToken: token,
+                            });
+                        } catch (e) { /* ذخیره لینک اختیاریه */ }
+                    }
+                    return new Response(JSON.stringify({ success: true, url: pagesUrl }), {
+                        headers: { "Content-Type": "application/json" },
+                    });
+                }
                 let devSub = null;
                 const subRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/subdomain`, { headers });
                 const subData = await subRes.json();
@@ -923,7 +1028,7 @@ function getHtmlContent() {
             <p class="text-sm font-medium text-gray-500 dark:text-zinc-400">🔥  روزانه 100 گیگ کانفیگ رایگان  🔥</p>
         </div>
         <div class="space-y-5 relative z-10">
-            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-3.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
+            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-3.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
                 دریافت توکن کلودفلر
             </a>
 <div class="mt-2 text-center mb-4">
@@ -935,10 +1040,13 @@ function getHtmlContent() {
         کلیک کنید و توکن بسازید و آن را در کادر زیر وارد کنید.
     </p>
 </div>   
-            <div class="mb-5 p-1 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-100 dark:bg-zinc-900/60 flex gap-1">
+            <div class="mb-2 p-1 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-100 dark:bg-zinc-900/60 flex gap-1">
                 <button type="button" id="panelTypeZeusBtn" onclick="setPanelType('zeus')" class="flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">⚡ زئوس D1</button>
                 <button type="button" id="panelTypeZeusKvBtn" onclick="setPanelType('zeus-kv')" class="flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">🟡 زئوس KV</button>
                 <button type="button" id="panelTypeNetraBtn" onclick="setPanelType('netra')" class="flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">💜 Netra</button>
+            </div>
+            <div class="mb-5 p-1 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-100 dark:bg-zinc-900/60 flex gap-1">
+                <button type="button" id="panelTypeZeusPagesBtn" onclick="setPanelType('zeus-pages')" class="flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">🌐 زئوس Pages</button>
             </div>
             <div class="relative">
                 <input type="password" id="apiToken" placeholder="توکن خود را وارد کنید" autocomplete="off" spellcheck="false" class="w-full pl-12 pr-4 py-3.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono text-right text-gray-900 dark:text-zinc-100 transition token-input" dir="auto">
@@ -958,7 +1066,7 @@ function getHtmlContent() {
                     </button>
                 </div>
             </div>
-            <div class="mt-5 p-4 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-50/70 dark:bg-zinc-900/40">
+            <div id="placementBox" class="mt-5 p-4 rounded-2xl border border-gray-200 dark:border-amoled-border bg-gray-50/70 dark:bg-zinc-900/40">
                 <label class="block text-xs font-bold text-gray-600 dark:text-zinc-300 mb-2">🌍 Runtime Placement (منطقه اجرای ورکر)</label>
                 <select id="placementModeSelect" onchange="onPlacementModeChange()" class="w-full px-3 py-2.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 mb-2.5">
                     <option value="default">Default — پیش‌فرض (نزدیک‌ترین به کاربر)</option>
@@ -1635,10 +1743,13 @@ async function reloadZeusPanel(scriptName) {
             const zeusBtn = document.getElementById('panelTypeZeusBtn');
             const zeusKvBtn = document.getElementById('panelTypeZeusKvBtn');
             const netraBtn = document.getElementById('panelTypeNetraBtn');
+            const pagesBtn = document.getElementById('panelTypeZeusPagesBtn');
+            const placementBox = document.getElementById('placementBox');
             const updateBtn = document.getElementById('openUpdateModalBtn');
             const isZeus = currentPanelType === 'zeus';
             const isZeusKv = currentPanelType === 'zeus-kv';
             const isNetra = currentPanelType === 'netra';
+            const isPages = currentPanelType === 'zeus-pages';
             const activeCls = 'flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-white dark:bg-amoled-card shadow ';
             const idleCls = 'flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition text-gray-500 dark:text-zinc-400';
             if (zeusBtn && zeusKvBtn && netraBtn) {
@@ -1646,6 +1757,9 @@ async function reloadZeusPanel(scriptName) {
                 zeusKvBtn.className = isZeusKv ? activeCls + 'text-yellow-600 dark:text-yellow-400' : idleCls;
                 netraBtn.className = isNetra ? activeCls + 'text-purple-600 dark:text-purple-400' : idleCls;
             }
+            if (pagesBtn) pagesBtn.className = isPages ? activeCls + 'text-sky-600 dark:text-sky-400' : idleCls;
+            // Pages جایگذاری منطقه‌ای (Runtime Placement) نداره
+            if (placementBox) placementBox.style.display = isPages ? 'none' : '';
             // مدیریت و آپدیت پنل‌ها (بررسی/ریست پسورد از طریق D1) فقط برای زئوس D1 معنی داره؛
             // Netra و زئوس-KV خودشون تنظیمات (UUID/پسورد/...) رو داخل همون پنل خودشون (روی KV) مدیریت می‌کنن.
             if (updateBtn) updateBtn.style.display = isZeus ? '' : 'none';
@@ -1980,9 +2094,9 @@ async function reloadZeusPanel(scriptName) {
                 const response = await fetch('/api/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim(), saveLink: isAutoSaveLinks() })
+                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: currentPanelType === 'zeus-pages' ? null : getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim(), saveLink: isAutoSaveLinks() })
                 });
-                statusText.innerText = currentPanelType === 'netra' ? 'در حال دریافت پنل Netra...' : (currentPanelType === 'zeus-kv' ? 'در حال دریافت پنل زئوس (KV)...' : 'در حال دریافت پنل زئوس...');
+                statusText.innerText = currentPanelType === 'netra' ? 'در حال دریافت پنل Netra...' : (currentPanelType === 'zeus-kv' ? 'در حال دریافت پنل زئوس (KV)...' : (currentPanelType === 'zeus-pages' ? 'در حال ساخت پروژه‌ی Pages و آپلود پنل...' : 'در حال دریافت پنل زئوس...'));
                 statusPct.innerText = '۷۵٪';
                 progressBar.style.width = '75%';
                 await sleep(600);
@@ -2081,7 +2195,7 @@ async function reloadZeusPanel(scriptName) {
             </button>
         </div>
         <div class="space-y-4 shrink-0">
-            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-2.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
+            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-2.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
                 دریافت توکن کلودفلر
             </a>
 <div class="mt-2 text-center mb-4">
