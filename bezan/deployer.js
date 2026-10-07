@@ -32,16 +32,23 @@ function randomToken(len) {
     return out;
 }
 
-// اسم ورکر رو کاملا رندوم می‌سازه؛ فقط شامل کلمه‌ی کلیدیه (zessss برای زئوس، netroooo برای نترا)
-// و هر بار جای اون کلمه هم رندومه: یبار اول، یبار وسط، یبار آخر اسم.
-function buildRandomWorkerName(keyword) {
-    const partA = randomToken(4 + Math.floor(Math.random() * 3)); // 4 تا 6 کاراکتر
-    const partB = randomToken(4 + Math.floor(Math.random() * 3));
-    const positions = ["start", "middle", "end"];
-    const pos = positions[Math.floor(Math.random() * positions.length)];
-    if (pos === "start") return `${keyword}-${partA}-${partB}`;
-    if (pos === "end") return `${partA}-${partB}-${keyword}`;
-    return `${partA}-${keyword}-${partB}`;
+// اسم ورکر / ساب‌دامین / دیتابیس رو کاملا رندوم می‌سازه؛ هیچ کلمه‌ی ثابت یا مشخصه‌ای توش نیست.
+// شکلش مثل اسم‌های پیش‌فرض خود کلادفلره (صفت-اسم-چهار کاراکتر هگز) تا بین ورکرهای معمولی گم بشه.
+const NAME_WORDS_A = ["ancient", "autumn", "billowing", "bitter", "black", "blue", "bold", "broad", "broken", "calm", "cold", "cool", "crimson", "damp", "dark", "dawn", "delicate", "divine", "dry", "empty", "falling", "floral", "fragrant", "frosty", "gentle", "green", "hidden", "holy", "icy", "late", "lingering", "little", "lively", "long", "misty", "morning", "muddy", "nameless", "old", "patient", "plain", "polished", "proud", "purple", "quiet", "red", "restless", "rough", "shy", "silent", "small", "snowy", "solitary", "sparkling", "spring", "still", "summer", "twilight", "wandering", "weathered", "white", "wild", "winter", "withered", "wispy", "young"];
+const NAME_WORDS_B = ["bird", "breeze", "brook", "bush", "butterfly", "cherry", "cloud", "darkness", "dawn", "dew", "dream", "dust", "feather", "field", "fire", "firefly", "flower", "fog", "forest", "frog", "frost", "glade", "grass", "hill", "lake", "leaf", "meadow", "moon", "morning", "mountain", "night", "paper", "pine", "pond", "rain", "resonance", "river", "sea", "shadow", "silence", "sky", "smoke", "snow", "snowflake", "sound", "star", "sun", "sunset", "surf", "thunder", "tree", "violet", "voice", "water", "waterfall", "wave", "wildflower", "wind", "wood"];
+function secureRandomInt(max) {
+    const buf = new Uint32Array(1);
+    crypto.getRandomValues(buf);
+    return buf[0] % max;
+}
+function randomHex(len) {
+    const chars = "0123456789abcdef";
+    let out = "";
+    for (let i = 0; i < len; i++) out += chars[secureRandomInt(16)];
+    return out;
+}
+function buildRandomWorkerName(hexLen = 4) {
+    return `${NAME_WORDS_A[secureRandomInt(NAME_WORDS_A.length)]}-${NAME_WORDS_B[secureRandomInt(NAME_WORDS_B.length)]}-${randomHex(hexLen)}`;
 }
 
 // اسم دلخواه کاربر رو برای اسم ورکر (و در نتیجه بخشی از لینک نهایی) پاک‌سازی می‌کنه:
@@ -151,7 +158,7 @@ export default {
         }
         if (request.method === "POST" && url.pathname === "/api/deploy") {
             try {
-                const { token, sourceUrl, placement, panelType, customName, label } = await request.json();
+                const { token, sourceUrl, placement, panelType, customName, label, saveLink } = await request.json();
                 if (!token) throw new Error("توکن نمی‌تواند خالی باشد.");
                 // سه نوع پنل: zeus (D1، همون نسخه اصلی) / zeus-kv (سورس زئوس ولی روی KV، مثل نترا) / netra
                 const isNetra = panelType === "netra";
@@ -182,18 +189,23 @@ export default {
                 if (subData.success && subData.result && subData.result.subdomain) {
                     devSub = subData.result.subdomain;
                 } else {
-                    const newSub = `zeus-${Math.random().toString(36).substring(2, 8)}`;
-                    const createSub = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/subdomain`, {
-                        method: "PUT",
-                        headers,
-                        body: JSON.stringify({ subdomain: newSub }),
-                    });
-                    const createSubData = await createSub.json();
-                    if (!createSubData.success) {
-                        const cfError = createSubData.errors && createSubData.errors.length > 0 ? createSubData.errors[0].message : "نامشخص";
-                        throw new Error(`CF_TOS_ERROR|${cfError}`);
+                    // ساب‌دامین اکانت هم کاملا رندومه (بدون هیچ کلمه‌ی ثابتی)؛ اگه اسم گرفته شده بود تا ۵ بار اسم جدید امتحان می‌کنیم.
+                    let lastSubError = "نامشخص";
+                    for (let attempt = 0; attempt < 5 && !devSub; attempt++) {
+                        const newSub = buildRandomWorkerName(5);
+                        const createSub = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/subdomain`, {
+                            method: "PUT",
+                            headers,
+                            body: JSON.stringify({ subdomain: newSub }),
+                        });
+                        const createSubData = await createSub.json();
+                        if (createSubData.success) {
+                            devSub = newSub;
+                        } else {
+                            lastSubError = createSubData.errors && createSubData.errors.length > 0 ? createSubData.errors[0].message : "نامشخص";
+                        }
                     }
-                    devSub = newSub;
+                    if (!devSub) throw new Error(`CF_TOS_ERROR|${lastSubError}`);
                 }
                 const uniqueSuffix = Math.random().toString(36).substring(2, 8);
 
@@ -206,11 +218,20 @@ export default {
                 }
 
                 let workerName, bindings;
+                // اسم ورکر تصادفی رو قبل از استفاده چک می‌کنیم که از قبل وجود نداشته باشه (دیپلوی روی اسم موجود، اون ورکر رو بازنویسی می‌کنه).
+                const pickFreeWorkerName = async () => {
+                    for (let attempt = 0; attempt < 8; attempt++) {
+                        const candidate = buildRandomWorkerName();
+                        const r = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${candidate}`, { headers });
+                        if (r.status !== 200) return candidate;
+                    }
+                    return buildRandomWorkerName(8);
+                };
                 if (isNetra) {
                     // === مسیر Netra Panel: به‌جای D1، یک KV Namespace با اسم دقیقاً "kv" لازم داره ===
                     // اسم ورکر یا همون چیزیه که کاربر دلخواه انتخاب کرده، یا کاملا رندوم و شامل کلمه‌ی netroooo (یبار اول، یبار وسط، یبار آخر - رندوم).
-                    workerName = cleanCustomName || buildRandomWorkerName("netroooo");
-                    const kvTitle = `netra-kv-${uniqueSuffix}`;
+                    workerName = cleanCustomName || await pickFreeWorkerName();
+                    const kvTitle = buildRandomWorkerName(6);
                     const kvRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/storage/kv/namespaces`, {
                         method: "POST",
                         headers,
@@ -229,8 +250,8 @@ export default {
                     // (این یک نسخه‌ی جدا از زئوس اصلیه که روی D1 کار می‌کنه؛ اگه سورس مخصوص این حالت
                     // اسم بایندینگش چیز دیگه‌ای غیر از "kv" می‌خواد، همین یک خط رو عوض کن).
                     // اسم ورکر یا همون چیزیه که کاربر دلخواه انتخاب کرده، یا کاملا رندوم و شامل کلمه‌ی zessss (یبار اول، یبار وسط، یبار آخر - رندوم).
-                    workerName = cleanCustomName || buildRandomWorkerName("zessss");
-                    const kvTitle = `zeus-kv-${uniqueSuffix}`;
+                    workerName = cleanCustomName || await pickFreeWorkerName();
+                    const kvTitle = buildRandomWorkerName(6);
                     const kvRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/storage/kv/namespaces`, {
                         method: "POST",
                         headers,
@@ -246,8 +267,8 @@ export default {
                 } else {
                     // === مسیر زئوس اصلی (D1): دقیقاً همون منطق قبلی، بدون هیچ تغییری ===
                     // اسم ورکر یا همون چیزیه که کاربر دلخواه انتخاب کرده، یا کاملا رندوم و شامل کلمه‌ی zessss (یبار اول، یبار وسط، یبار آخر - رندوم).
-                    workerName = cleanCustomName || buildRandomWorkerName("zessss");
-                    const dbName = `ze-alis-db-${uniqueSuffix}`;
+                    workerName = cleanCustomName || await pickFreeWorkerName();
+                    const dbName = buildRandomWorkerName(6);
                     const dbRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database`, {
                         method: "POST",
                         headers,
@@ -306,7 +327,8 @@ export default {
                 const finalUrl = `https://${workerName}.${devSub}.workers.dev/panel`;
                 // اگه دیتابیس D1 خود دپلویر (LINKS_DB) وصل باشه، لینک همین الان ساخته‌شده رو ذخیره می‌کنیم
                 // تا بعداً از بخش «لینک‌های ذخیره‌شده» قابل مشاهده و ویرایش باشه. خطای این بخش دیپلوی رو خراب نمی‌کنه.
-                if (env.LINKS_DB) {
+                // اگه کاربر ذخیره‌ی خودکار رو خاموش کرده باشه (saveLink === false) هیچی ذخیره نمی‌شه.
+                if (env.LINKS_DB && saveLink !== false) {
                     try {
                         await upsertLinkRecord(env.LINKS_DB, {
                             workerName,
@@ -351,24 +373,36 @@ export default {
                 if (!scriptsData.success) {
                     throw new Error("Failed to fetch scripts");
                 }
-                // اسم ورکرها الان کاملا رندومن (فقط شامل کلمه‌ی zessss هستن، جاش هم رندومه)،
-                // پس اول با اسم (یا پیشوندهای قدیمی از قبل از این آپدیت) کاندیدها رو پیدا می‌کنیم...
-                const candidateNames = scriptsData.result
-                    .map((s) => s.id)
-                    .filter((id) => id.includes("zessss") || id.startsWith("zeus-panel") || id.startsWith("ez-") || id.startsWith("ze-alis-panel-"));
-                // ...و چون هم زئوس D1 و هم زئوس-KV از همون کلمه‌ی zessss استفاده می‌کنن، با چک بایندینگ واقعی
-                // فقط اونایی که واقعا D1 دارن رو نگه می‌داریم (این بخش مدیریت/بازیابی رمز فقط برای D1 کار می‌کنه).
-                let panels = [];
-                for (const name of candidateNames) {
-                    try {
-                        const bRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${name}/bindings`, { headers });
-                        const bData = await bRes.json();
-                        if (bData.success && Array.isArray(bData.result) && bData.result.some((b) => b.type === "d1")) {
-                            panels.push({ name });
-                        }
-                    } catch (e) { /* اگه چک بایندینگ خطا داد، این اسکریپت رو نادیده می‌گیریم */ }
-                }
-                let latestVersion = "Unknown";
+                // اسم ورکرها کاملا رندومه و هیچ کلمه‌ی ثابتی نداره، پس پنل‌ها رو از روی بایندینگ‌های واقعیشون تشخیص می‌دیم:
+// پنل زئوس (D1) یه دیتابیس با اسم بایندینگ DB و یه CF_ACCOUNT_ID داره (دپلویر خودش LINKS_DB داره و قاطی نمی‌شه).
+// اسم‌های قدیمی (zessss / zeus-panel / ez- / ze-alis-panel-) و اسم‌های ذخیره‌شده توی لینک‌ها هم همچنان قبول می‌شن.
+const legacyNameMatch = (id) => id.includes("zessss") || id.startsWith("zeus-panel") || id.startsWith("ez-") || id.startsWith("ze-alis-panel-");
+const savedNames = new Set();
+if (env.LINKS_DB) {
+    try {
+        await ensureLinksTable(env.LINKS_DB);
+        const { results: savedRows } = await env.LINKS_DB.prepare("SELECT worker_name FROM saved_links").all();
+        for (const r of savedRows || []) savedNames.add(r.worker_name);
+    } catch (e) { /* اختیاریه */ }
+}
+const allNames = scriptsData.result.map((s) => s.id);
+let panels = [];
+for (let i = 0; i < allNames.length; i += 5) {
+    const batch = allNames.slice(i, i + 5);
+    const checked = await Promise.all(batch.map(async (name) => {
+        try {
+            const bRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${name}/bindings`, { headers });
+            const bData = await bRes.json();
+            if (!bData.success || !Array.isArray(bData.result)) return null;
+            const hasDb = bData.result.some((b) => b.type === "d1" && b.name === "DB");
+            const hasAcc = bData.result.some((b) => b.name === "CF_ACCOUNT_ID");
+            if (hasDb && (hasAcc || legacyNameMatch(name) || savedNames.has(name))) return { name };
+        } catch (e) { /* اگه چک بایندینگ خطا داد، این اسکریپت رو نادیده می‌گیریم */ }
+        return null;
+    }));
+    for (const c of checked) if (c) panels.push(c);
+}
+let latestVersion = "Unknown";
                 try {
                     const ghRes = await fetch("https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/old/zeus.js?t=" + Date.now());
                     if (ghRes.ok) {
@@ -416,7 +450,7 @@ export default {
         }
         if (request.method === "POST" && url.pathname === "/api/do-update") {
             try {
-                const { token, scriptName, sourceUrl, placement } = await request.json();
+                const { token, scriptName, sourceUrl, placement, saveLink } = await request.json();
                 if (!token || !scriptName) throw new Error("Token or script name missing");
                 const scriptSourceUrl = (sourceUrl && sourceUrl.trim()) || DEFAULT_SOURCE_URL;
                 const scriptFileName = getScriptFileNameFromUrl(scriptSourceUrl);
@@ -471,7 +505,7 @@ export default {
                     throw new Error(cfError);
                 }
                 // اگه لینک این پنل قبلا ذخیره شده، وضعیت سورس/placement ذخیره‌شده‌ش رو هم به‌روز می‌کنیم.
-                if (env.LINKS_DB) {
+                if (env.LINKS_DB && saveLink !== false) {
                     try {
                         const subRes2 = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/subdomain`, { headers });
                         const subData2 = await subRes2.json();
@@ -1119,8 +1153,18 @@ window.alert = function(message) {
         // ==========================================================
         // مدیریت لینک‌های ذخیره‌شده (ذخیره‌شده در D1 خود دپلویر - LINKS_DB)
         // ==========================================================
+        // ذخیره‌ی خودکار لینک پنل‌ها (روشن/خاموش) — توی همین مرورگر نگه داشته می‌شه؛ پیش‌فرض روشنه.
+        function isAutoSaveLinks() {
+            try { return localStorage.getItem('autoSaveLinks') !== '0'; } catch (e) { return true; }
+        }
+        function setAutoSaveLinks(on) {
+            try { localStorage.setItem('autoSaveLinks', on ? '1' : '0'); } catch (e) {}
+            showSavedLinksStatus(on ? '✅ ذخیره‌ی خودکار لینک‌ها روشن شد' : '⛔ ذخیره‌ی خودکار لینک‌ها خاموش شد', false);
+        }
         function toggleSavedLinksModal(show) {
             const modal = document.getElementById('saved-links-modal');
+            const autoSaveToggle = document.getElementById('autoSaveLinksToggle');
+            if (autoSaveToggle) autoSaveToggle.checked = isAutoSaveLinks();
             const card = document.getElementById('saved-links-modal-card');
             if (show) {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
@@ -1497,7 +1541,7 @@ async function updateZeusPanel(scriptName) {
         const response = await fetch('/api/do-update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token, scriptName, sourceUrl: getSelectedSourceUrl(), placement: getPanelPlacement(scriptName) })
+            body: JSON.stringify({ token, scriptName, sourceUrl: getSelectedSourceUrl(), placement: getPanelPlacement(scriptName), saveLink: isAutoSaveLinks() })
         });
         const result = await response.json();
         if (result.success) {
@@ -1560,7 +1604,7 @@ async function reloadZeusPanel(scriptName) {
         const response = await fetch('/api/do-update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token, scriptName, sourceUrl: getSelectedSourceUrl(), placement: getPanelPlacement(scriptName) })
+            body: JSON.stringify({ token, scriptName, sourceUrl: getSelectedSourceUrl(), placement: getPanelPlacement(scriptName), saveLink: isAutoSaveLinks() })
         });
         const result = await response.json();
         if (result.success) {
@@ -1936,7 +1980,7 @@ async function reloadZeusPanel(scriptName) {
                 const response = await fetch('/api/deploy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim() })
+                    body: JSON.stringify({ token, sourceUrl: getSelectedSourceUrl(), placement: getSelectedPlacement(), panelType: currentPanelType, customName: getCustomWorkerName(), label: document.getElementById('customPanelLabel').value.trim(), saveLink: isAutoSaveLinks() })
                 });
                 statusText.innerText = currentPanelType === 'netra' ? 'در حال دریافت پنل Netra...' : (currentPanelType === 'zeus-kv' ? 'در حال دریافت پنل زئوس (KV)...' : 'در حال دریافت پنل زئوس...');
                 statusPct.innerText = '۷۵٪';
@@ -2068,6 +2112,14 @@ async function reloadZeusPanel(scriptName) {
             </button>
         </div>
         <p class="text-[11px] text-gray-500 dark:text-zinc-400 mb-3 shrink-0">این لینک‌ها داخل دیتابیس همین دپلویر ذخیره می‌شن؛ لینک‌های ساخته‌شده به‌صورت خودکار اضافه می‌شن و می‌تونید هر کدوم رو ویرایش یا حذف کنید، یا لینک دلخواه خودتون رو دستی اضافه کنید.</p>
+        <label class="flex items-center justify-between gap-3 mb-3 p-3 rounded-xl border border-gray-200 dark:border-amoled-border bg-gray-50/70 dark:bg-zinc-900/40 cursor-pointer select-none shrink-0">
+            <span class="text-xs font-bold text-gray-800 dark:text-zinc-200">ذخیره‌ی خودکار لینک پنل‌ها<small class="block text-[10px] font-normal text-gray-500 dark:text-zinc-400 mt-0.5">وقتی خاموشه، دیپلوی و آپدیت چیزی توی این لیست ذخیره نمی‌کنه (افزودن دستی همچنان کار می‌کنه)</small></span>
+            <span class="relative inline-flex items-center shrink-0">
+                <input type="checkbox" id="autoSaveLinksToggle" class="sr-only peer" checked onchange="setAutoSaveLinks(this.checked)">
+                <span class="w-10 h-5 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-emerald-500 transition-colors"></span>
+                <span class="absolute top-[2px] right-[2px] w-4 h-4 bg-white rounded-full transition-transform peer-checked:-translate-x-5"></span>
+            </span>
+        </label>
         <div id="links-db-setup-box" class="hidden mb-3 p-3 rounded-xl border border-orange-500/50 bg-orange-50 dark:bg-orange-900/20 space-y-2 shrink-0">
             <p class="text-xs font-bold text-orange-600 dark:text-orange-400">دیتابیس ذخیره لینک‌ها (LINKS_DB) به این دپلویر وصل نیست.</p>
             <p class="text-[11px] text-gray-500 dark:text-zinc-400">با زدن دکمه زیر، یه D1 جدید ساخته می‌شه و خودکار به همین دپلویر وصل می‌شه؛ نیازی به هیچ کار دستی تو داشبورد کلودفلر نیست.</p>
