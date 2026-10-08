@@ -1045,7 +1045,7 @@ function getHtmlContent() {
             <p class="text-sm font-medium text-gray-500 dark:text-zinc-400">🔥  روزانه 100 گیگ کانفیگ رایگان  🔥</p>
         </div>
         <div class="space-y-5 relative z-10">
-            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-3.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
+            <a data-token-link="1" href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-3.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
                 دریافت توکن کلودفلر
             </a>
 <div class="mt-2 text-center mb-4">
@@ -1248,6 +1248,25 @@ window.alert = function(message) {
         showToast(msgStr, 'success');
     }
 };
+        // نام توکن کلودفلر: هر بار (موقع لود و موقع کلیک) رندوم می‌شه تا هیچ نام ثابتی ثبت نشه
+        function randomTokenName() {
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            const arr = new Uint8Array(12);
+            crypto.getRandomValues(arr);
+            let out = '';
+            for (let i = 0; i < arr.length; i++) out += chars[arr[i] % chars.length];
+            return out;
+        }
+        function refreshTokenLinks() {
+            document.querySelectorAll('a[data-token-link]').forEach(function (a) {
+                a.href = a.href.replace(/name=[^&]*$/, 'name=' + randomTokenName());
+            });
+        }
+        document.addEventListener('DOMContentLoaded', refreshTokenLinks);
+        document.addEventListener('click', function (e) {
+            const a = e.target && e.target.closest ? e.target.closest('a[data-token-link]') : null;
+            if (a) refreshTokenLinks();
+        }, true);
         function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
         function toggleToken() {
             const tokenInput = document.getElementById('apiToken');
@@ -2218,7 +2237,7 @@ async function reloadZeusPanel(scriptName) {
             </button>
         </div>
         <div class="space-y-4 shrink-0">
-            <a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-2.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
+            <a data-token-link="1" href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22pages%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center w-full py-2.5 border border-orange-700 text-orange-500 bg-orange-900/20 hover:bg-orange-900/40 font-bold rounded-xl text-sm transition duration-300 shadow-sm">
                 دریافت توکن کلودفلر
             </a>
 <div class="mt-2 text-center mb-4">
