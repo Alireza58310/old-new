@@ -658,12 +658,6 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 }
 export default {
 	async fetch(request, env, ctx) {
-		try {
-			// مسیر سلامت: قبل از هر دسترسی به دیتابیس جواب می‌ده؛ اگه این هم ۱۱۰۱ داد یعنی مشکل از خود ورکر/کلادفلره نه D1 یا کد پنل
-			if (new URL(request.url).pathname === "/healthz") {
-				return new Response(JSON.stringify({ ok: true, db: !!env.DB }), { headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
-			}
-		} catch (e) {}
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
@@ -698,9 +692,6 @@ export default {
 				return new Response(PWA_SERVICE_WORKER, {
 					headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-cache" },
 				});
-			}
-			if (url.pathname === "/robots.txt") {
-				return new Response("User-agent: *\nDisallow: /", { headers: { "Content-Type": "text/plain; charset=UTF-8" } });
 			}
 			if (url.pathname === "/locations") {
 				return await Router.handleLocations();
@@ -3906,6 +3897,7 @@ function isIPv6Literal(host) {
 }
 // باگ workerd: connect() داخلش hostname و port رو با ":" بهم می‌چسبونه (hostname:port)؛ برای IPv6 باید
 // hostname توی [] باشه وگرنه چندتا ":" با ":" جداکننده‌ی پورت قاطی می‌شه و اتصال fail می‌کنه.
+// (رفرنس: PR شماره‌ی ۵۰۶ ریپوی byJoey/cfnew و ۴۳۷ ریپوی yonggekkk/Cloudflare-vless-trojan)
 function bracketizeHost(host) {
 	if (isIPv6Literal(host) && !host.startsWith("[")) return `[${host}]`;
 	return host;
@@ -5289,9 +5281,16 @@ const HTML_TEMPLATES = {
 			</div>
 		</div>
 		<div class="flex items-center justify-between mb-4">
-			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200 shrink-0 whitespace-nowrap">لیست کاربران</h2>
-			<div class="flex flex-col items-end gap-3">
-				<div class="flex items-center justify-end gap-4">
+			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200">لیست کاربران</h2>
+			<div class="flex items-center gap-5">
+				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</button>
 				<button onclick="quickCreateUser(this)" title="افزودن کاربر سریع (VIP)" class="p-2 rounded-md bg-indigo-50 dark:bg-indigo-950/40 border-2 border-indigo-500 dark:border-indigo-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all duration-300 text-indigo-600 dark:text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] hover:shadow-[0_0_25px_rgba(99,102,241,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
 					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -5302,24 +5301,13 @@ const HTML_TEMPLATES = {
 				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 				</button>
-				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-				</button>
-				</div>
-				<div class="flex items-center justify-end gap-4">
-				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-					</svg>
-				</button>
 				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
 					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
 				</button>
-				</div>
+				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+				</button>
 			</div>
 		</div>
 		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
@@ -9527,7 +9515,7 @@ async function saveSettings() {
 		let resolvedIp = '';
 		let countryResolveFailed = false;
 		if (iata) {
-			const domain = iata.toLowerCase() + '.' + ['pro' + 'xy' + 'ip', 'cm' + 'liu' + 'ssss', 'ne' + 't'].join('.');
+			const domain = iata.toLowerCase() + '.proxyip.cmliussss.net';
 			let ips = [];
 			try {
 				const dnsRes = await fetch('https://cloudflare-dns.com/dns-query?name=' + domain + '&type=A', {
@@ -9989,7 +9977,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.2.6';
+const CURRENT_VERSION = '3.1.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
