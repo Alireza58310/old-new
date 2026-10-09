@@ -162,68 +162,6 @@ function c85kz7x(env, ctx, uname, uuid, ip) {
 	})();
 	if (ctx) ctx.waitUntil(task);
 }
-function mzl8dv2(message) {
-	function x2wdx1j(n, x) { return (x >>> n) | (x << (32 - n)); }
-	function vlz8yee(x, y, z) { return (x & y) ^ (~x & z); }
-	function qdpb8oi(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); }
-	function hhgsaz1(x) { return x2wdx1j(2, x) ^ x2wdx1j(13, x) ^ x2wdx1j(22, x); }
-	function l68cqls(x) { return x2wdx1j(6, x) ^ x2wdx1j(11, x) ^ x2wdx1j(25, x); }
-	function inwzoyn(x) { return x2wdx1j(7, x) ^ x2wdx1j(18, x) ^ (x >>> 3); }
-	function gxwtoj0(x) { return x2wdx1j(17, x) ^ x2wdx1j(19, x) ^ (x >>> 10); }
-	const K = [
-		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-	];
-	let H = [
-		0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
-		0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
-	];
-	const msgBytes = typeof message === 'string' ? new TextEncoder().encode(message) : message;
-	const bitLen = msgBytes.length * 8;
-	const newLen = (((msgBytes.length + 8) >> 6) + 1) << 6;
-	const padded = new Uint8Array(newLen);
-	padded.set(msgBytes);
-	padded[msgBytes.length] = 0x80;
-	const view = new DataView(padded.buffer);
-	view.setUint32(newLen - 4, bitLen, false);
-	const W = new Uint32Array(64);
-	for (let i = 0; i < newLen; i += 64) {
-		for (let t = 0; t < 16; t++) {
-			W[t] = view.getUint32(i + t * 4, false);
-		}
-		for (let t = 16; t < 64; t++) {
-			W[t] = (gxwtoj0(W[t - 2]) + W[t - 7] + inwzoyn(W[t - 15]) + W[t - 16]) >>> 0;
-		}
-		let [a, b, c, d, e, f, g, h] = H;
-		for (let t = 0; t < 64; t++) {
-			const T1 = (h + l68cqls(e) + vlz8yee(e, f, g) + K[t] + W[t]) >>> 0;
-			const T2 = (hhgsaz1(a) + qdpb8oi(a, b, c)) >>> 0;
-			h = g;
-			g = f;
-			f = e;
-			e = (d + T1) >>> 0;
-			d = c;
-			c = b;
-			b = a;
-			a = (T1 + T2) >>> 0;
-		}
-		H[0] = (H[0] + a) >>> 0;
-		H[1] = (H[1] + b) >>> 0;
-		H[2] = (H[2] + c) >>> 0;
-		H[3] = (H[3] + d) >>> 0;
-		H[4] = (H[4] + e) >>> 0;
-		H[5] = (H[5] + f) >>> 0;
-		H[6] = (H[6] + g) >>> 0;
-		H[7] = (H[7] + h) >>> 0;
-	}
-	return H.slice(0, 7).map(w => w.toString(16).padStart(8, '0')).join('');
-}
 function x2xa3du(value) {
 	try {
 		return decodeURIComponent(value);
@@ -232,87 +170,12 @@ function x2xa3du(value) {
 	}
 }
 function le69yqs(user) {
-	const t = String((user && user.connection_type) || "vl" + "e" + "ss").toLowerCase();
-	const trojan = t.includes("trojan");
-	const ss = t.includes("shadowsocks");
-	const vless = t.includes("vl" + "e" + "ss") || (!trojan && !ss);
-	return { vless, trojan, ss };
+	return { vless: true, trojan: false, ss: false };
 }
 function dibojp4(protocols, connectionType, fallback) {
-	let list = [];
-	if (Array.isArray(protocols)) list = protocols;
-	else if (typeof connectionType === "string" && connectionType) list = connectionType.split(",");
-	const allowed = ["vl" + "e" + "ss", "trojan", "shadowsocks"];
-	const out = [];
-	for (const p of list) {
-		const k = String(p || "").trim().toLowerCase();
-		if (allowed.includes(k) && !out.includes(k)) out.push(k);
-	}
-	return out.length > 0 ? out.join(",") : fallback;
+	return fallback;
 }
 const cxr7ma0 = new Map();
-const bp4qnv1 = {
-	async evpBytesToKey(password, keyLen) {
-		const pass = new TextEncoder().encode(password);
-		const key = new Uint8Array(keyLen);
-		let hash = new Uint8Array(0);
-		let offset = 0;
-		while (offset < keyLen) {
-			const data = new Uint8Array(hash.length + pass.length);
-			data.set(hash);
-			data.set(pass, hash.length);
-			hash = new Uint8Array(await crypto.subtle.digest("MD5", data));
-			const len = Math.min(hash.length, keyLen - offset);
-			key.set(hash.subarray(0, len), offset);
-			offset += len;
-		}
-		return key;
-	},
-	async getMasterKey(password) {
-		let mk = cxr7ma0.get(password);
-		if (!mk) {
-			mk = await this.evpBytesToKey(password, 32);
-			if (cxr7ma0.size > 512) cxr7ma0.clear();
-			cxr7ma0.set(password, mk);
-		}
-		return mk;
-	},
-	async deriveSubkey(password, salt) {
-		const masterKey = await this.getMasterKey(password);
-		const keyMaterial = await crypto.subtle.importKey("raw", masterKey, { name: "HKDF" }, false, ["deriveKey"]);
-		return await crypto.subtle.deriveKey(
-			{ name: "HKDF", hash: "SHA-1", salt: salt, info: new TextEncoder().encode("ss-subkey") },
-			keyMaterial,
-			{ name: "AES-GCM", length: 256 },
-			false,
-			["encrypt", "decrypt"],
-		);
-	},
-	incrementNonce(nonce) {
-		for (let i = 0; i < nonce.length; i++) {
-			nonce[i]++;
-			if (nonce[i] !== 0) break;
-		}
-	},
-	async decryptChunk(key, nonce, data) {
-		try {
-			const out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
-			this.incrementNonce(nonce);
-			return new Uint8Array(out);
-		} catch (e) {
-			return null;
-		}
-	},
-	async encryptChunk(key, nonce, data) {
-		try {
-			const out = await crypto.subtle.encrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
-			this.incrementNonce(nonce);
-			return new Uint8Array(out);
-		} catch (e) {
-			return null;
-		}
-	},
-};
 async function aphb6rr(request) {
 	try {
 		const body = await request.json();
@@ -405,7 +268,6 @@ async function d8fsytq() {
 }
 export default {
 	async fetch(request, env, ctx) {
-		return new Response("T1 ok (top of fetch)");
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
@@ -1068,8 +930,7 @@ const cggc6tw = {
 								cchca6z.delete(username);
 							}
 						}
-						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
-						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? mzl8dv2(existingUserForTrojan.uuid) : null;
+						const trojanHashForUpdate = null;
 						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
 							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, dibojp4(protocols, connection_type, null), username)
 							.run();
@@ -1192,7 +1053,7 @@ const cggc6tw = {
 					try {
 						const todayUtc = Math.floor(Date.now() / 86400000) * 86400000;
 						const nowTime = Date.now();
-						const trojanHash = mzl8dv2(finalUuid);
+						const trojanHash = null;
 						const finalConnType = dibojp4(protocols, connection_type, "vl" + "e" + "ss");
 						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, (typeof ech_config === "string" && ech_config.length <= 300 && !/[\s"'<>\\]/.test(ech_config)) ? (ech_config || null) : null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
@@ -1288,7 +1149,6 @@ const gm37elm = {
 						db.prepare("UPDATE users SET lifetime_used_gb = used_gb WHERE lifetime_used_gb = 0 OR lifetime_used_gb IS NULL"),
 					];
 					if (!migRow) {
-						fix.unshift(db.prepare("UPDATE users SET connection_type = 'vl' || 'e' || 'ss,trojan' WHERE trojan_hash IS NOT NULL AND (connection_type IS NULL OR connection_type NOT LIKE '%trojan%')"));
 						fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proto_migrated_v1', '1')"));
 					}
 					fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(a8tmqkm));
@@ -1445,7 +1305,6 @@ const kvkt6ve = {
 				} catch (e) {}
 			}
 			const currentDynPath = encodeURIComponent(rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : ""));
-			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
 			ips.forEach((ip) => {
 				ports.forEach((portStr) => {
 					const isTlsPort = m1fqgtq.has(portStr);
@@ -1458,13 +1317,6 @@ const kvkt6ve = {
 					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 					if (protoFlags.vless) links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
-					if (protoFlags.trojan) {
-						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?security=" + tlsVal + "&type=ws&host=" + host + "&path=" + currentDynPath + "&sni=" + host + "&fp=" + fp + userFrag + "#" + encodeURIComponent(remark + " (Trojan)"));
-					}
-					if (protoFlags.ss) {
-						const ssPlugin = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : "");
-						links.push("ss://" + btoa("aes-256-gcm:" + user.uuid) + "@" + ip + ":" + portStr + "/?plugin=" + encodeURIComponent(ssPlugin) + "#" + encodeURIComponent(remark + " (SS)"));
-					}
 				});
 			});
 		}
@@ -1523,12 +1375,10 @@ const kvkt6ve = {
 
 		const outbounds = [];
 		const protoFlags = le69yqs(user);
-		const enableTrojan = protoFlags.trojan;
 
 		let locIdx = 0;
 		for (let proxyItem of proxyList) {
 			const currentDynPath = rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
-			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
 			ips.forEach((ip) => {
 				ports.forEach((portStr) => {
 					const isTlsPort = m1fqgtq.has(portStr);
@@ -1545,32 +1395,6 @@ const kvkt6ve = {
 						outbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
 					}
 					if (protoFlags.vless) outbounds.push(outbound);
-					if (enableTrojan) {
-						let trojanOutbound = {
-							type: "trojan",
-							tag: `tj-${ip}-${portStr}-loc${locIdx}`,
-							server: ip,
-							server_port: parseInt(portStr),
-							password: user.uuid,
-							transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
-						};
-						if (isTlsPort) {
-							trojanOutbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
-						}
-						outbounds.push(trojanOutbound);
-					}
-					if (protoFlags.ss) {
-						outbounds.push({
-							type: "shadowsocks",
-							tag: `sh-${ip}-${portStr}-loc${locIdx}`,
-							server: ip,
-							server_port: parseInt(portStr),
-							method: "aes-256-gcm",
-							password: user.uuid,
-							plugin: "v2ray-plugin",
-							plugin_opts: "mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : ""),
-						});
-					}
 				});
 			});
 			locIdx++;
@@ -1948,17 +1772,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 	let isDnsQuery = false;
 	let chunkBuffer = new Uint8Array(0);
 	let uncountedBytes = 0;
-	let ssPathKey = null;
-	if (request) {
-		try {
-			const ssMatch = new URL(request.url).pathname.match(/^\/stream\/aaaaaaaaaa\/([0-9A-Za-z]{1,32})\/ss(?:\/|$)/);
-			if (ssMatch) ssPathKey = ssMatch[1].toLowerCase();
-		} catch (e) {}
-	}
-	let ssUser = null;
-	let ssUpCtx = null;
-	let ssUpBuffer = new Uint8Array(0);
-	let ssUpExpectedLen = null;
 	let wsChain = Promise.resolve();
 	let wsStopped = false,
 		wsFailed = false,
@@ -2020,33 +1833,12 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 			if (remoteConnWrapper.connectingPromise) {
 				await remoteConnWrapper.connectingPromise;
 			}
-			if (ssUpCtx) {
-				await processShadowsocksUplink(chunk);
-				return;
-			}
 			await writeToRemote(chunk);
 			return;
 		}
 		if (!isHeaderParsed) {
 			chunkBuffer = o6qjwnj(chunkBuffer, chunk);
-			if (ssPathKey) {
-				await processShadowsocksMessage();
-				return;
-			}
 			if (chunkBuffer.byteLength > 0 && chunkBuffer[0] !== 0) {
-				if (chunkBuffer.byteLength < 58) return;
-				let isHexHash = true;
-				for (let i = 0; i < 56; i++) {
-					const b = chunkBuffer[i];
-					if (!((b >= 0x30 && b <= 0x39) || (b >= 0x61 && b <= 0x66))) {
-						isHexHash = false;
-						break;
-					}
-				}
-				if (isHexHash && chunkBuffer[56] === 0x0d && chunkBuffer[57] === 0x0a) {
-					await processTrojanMessage();
-					return;
-				}
 				serverSock.close();
 				return;
 			}
@@ -2312,470 +2104,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 			} catch (e) {
 				serverSock.close();
 			}
-		}
-	};
-	const processTrojanMessage = async () => {
-		if (isHeaderParsing) return;
-		isHeaderParsing = true;
-		const passHash = b1p8pcx.decode(chunkBuffer.slice(0, 56));
-		let user = null;
-		try {
-			user = await vjcnes5(env, "SELECT * FROM users WHERE trojan_hash = ?", passHash);
-		} catch (e) {}
-		if (!user || !le69yqs(user).trojan) {
-			serverSock.close();
-			return;
-		}
-		let offset = 58;
-		if (chunkBuffer.byteLength < offset + 2) {
-			isHeaderParsing = false;
-			return;
-		}
-		const cmd = chunkBuffer[offset++];
-		const addrType = chunkBuffer[offset++];
-		let addr = "";
-		if (addrType === 1) {
-			if (chunkBuffer.byteLength < offset + 4) {
-				isHeaderParsing = false;
-				return;
-			}
-			addr = `${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}`;
-		} else if (addrType === 3) {
-			if (chunkBuffer.byteLength < offset + 1) {
-				isHeaderParsing = false;
-				return;
-			}
-			const domainLen = chunkBuffer[offset++];
-			if (chunkBuffer.byteLength < offset + domainLen) {
-				isHeaderParsing = false;
-				return;
-			}
-			addr = b1p8pcx.decode(chunkBuffer.slice(offset, offset + domainLen));
-			offset += domainLen;
-		} else if (addrType === 4) {
-			if (chunkBuffer.byteLength < offset + 16) {
-				isHeaderParsing = false;
-				return;
-			}
-			const v6 = [];
-			for (let i = 0; i < 8; i++) {
-				v6.push(((chunkBuffer[offset++] << 8) | chunkBuffer[offset++]).toString(16));
-			}
-			addr = v6.join(":");
-		} else {
-			serverSock.close();
-			return;
-		}
-		if (chunkBuffer.byteLength < offset + 4) {
-			isHeaderParsing = false;
-			return;
-		}
-		const port = (chunkBuffer[offset++] << 8) | chunkBuffer[offset++];
-		if (chunkBuffer[offset] !== 0x0d || chunkBuffer[offset + 1] !== 0x0a) {
-			serverSock.close();
-			return;
-		}
-		offset += 2;
-		const rawData = chunkBuffer.slice(offset);
-		if (user.is_active === 0) {
-			serverSock.close();
-			return;
-		}
-		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
-			serverSock.close();
-			return;
-		}
-		if (user.limit_req && user.used_req >= user.limit_req) {
-			serverSock.close();
-			return;
-		}
-		if (user.expiry_days && user.created_at) {
-			const created = new Date(user.created_at);
-			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-			if (new Date() > expiryDate) {
-				try {
-					await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(user.uuid).run();
-				} catch (e) {}
-				serverSock.close();
-				return;
-			}
-		}
-		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
-			serverSock.close();
-			return;
-		}
-		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
-			serverSock.close();
-			return;
-		}
-		username = user.username;
-		validUUID = user.uuid || null;
-		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
-			r2x0v6w.set(user.uuid + "_first_conn", true);
-			const firstConnectNow = Date.now();
-			const firstConnTask = async () => {
-				try {
-					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
-				} catch (e) {}
-			};
-			if (ctx) ctx.waitUntil(firstConnTask());
-			else firstConnTask();
-		}
-		let currentReqs = USER_REQ_CACHE.get(username) || 0;
-		USER_REQ_CACHE.set(username, currentReqs + 1);
-		if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
-			GLOBAL_TRAFFIC_CACHE.set(username, 0);
-		}
-		isHeaderParsed = true;
-		let activeCount = a40qkal.get(username) || 0;
-		a40qkal.set(username, activeCount + 1);
-		hasCountedAsActive = true;
-		h0pqirm(username, clientIP);
-		cchca6z.set(username, Date.now());
-		const trojanConnectTCP = async (dataPayload = null) => {
-			if (remoteConnWrapper.connectingPromise) {
-				await remoteConnWrapper.connectingPromise;
-				return;
-			}
-			const task = (async () => {
-				let s = null;
-				const socks5 = depvumf(user?.user_socks5, request);
-				if (socks5) {
-					try {
-						s = await zbxph7j(socks5, addr, port, dataPayload);
-					} catch (proxyErr) {
-						if (user.auto_rotate_user_proxy === 1) {
-							const replaceTask = d8fsytq(user.username, env, socks5);
-							if (ctx) ctx.waitUntil(replaceTask);
-							else replaceTask.catch(() => {});
-						}
-						throw proxyErr;
-					}
-				} else {
-					try {
-						s = await ndhpogz(addr, port, dataPayload, targetDoh);
-					} catch (directErr) {
-						if (proxyIP) {
-							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
-						} else {
-							throw directErr;
-						}
-					}
-				}
-				remoteConnWrapper.socket = s;
-				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-				v18gj84(s, serverSock, null, null, s749df7);
-			})();
-			remoteConnWrapper.connectingPromise = task;
-			try {
-				await task;
-			} finally {
-				if (remoteConnWrapper.connectingPromise === task) {
-					remoteConnWrapper.connectingPromise = null;
-				}
-			}
-		};
-		remoteConnWrapper.retryConnect = async () => trojanConnectTCP(null);
-		try {
-			await trojanConnectTCP(rawData);
-		} catch (e) {
-			serverSock.close();
-		}
-	};
-	const SS_SALT_LEN = 32;
-	const SS_MAX_PAYLOAD = 0x3fff;
-	const ssDrainFrames = async () => {
-		const out = [];
-		while (true) {
-			if (ssUpExpectedLen === null) {
-				if (ssUpBuffer.byteLength < 18) break;
-				const decLen = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, 18));
-				if (!decLen) return null;
-				const l = (decLen[0] << 8) | decLen[1];
-				if (l > SS_MAX_PAYLOAD) return null;
-				ssUpExpectedLen = l;
-				ssUpBuffer = ssUpBuffer.slice(18);
-			}
-			if (ssUpBuffer.byteLength < ssUpExpectedLen + 16) break;
-			const dec = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, ssUpExpectedLen + 16));
-			if (!dec) return null;
-			ssUpBuffer = ssUpBuffer.slice(ssUpExpectedLen + 16);
-			ssUpExpectedLen = null;
-			if (dec.byteLength > 0) out.push(dec);
-		}
-		return out;
-	};
-	const processShadowsocksUplink = async (chunk) => {
-		ssUpBuffer = o6qjwnj(ssUpBuffer, chunk);
-		if (ssUpBuffer.byteLength > 2 * 1024 * 1024) {
-			grmlvmk(serverSock);
-			return;
-		}
-		const frames = await ssDrainFrames();
-		if (frames === null) {
-			grmlvmk(serverSock);
-			return;
-		}
-		for (const f of frames) await writeToRemote(f);
-	};
-	const processShadowsocksMessage = async () => {
-		if (chunkBuffer.byteLength < SS_SALT_LEN + 18) return;
-		if (chunkBuffer.byteLength > 128 * 1024) {
-			serverSock.close();
-			return;
-		}
-		if (!ssUser) {
-			let found = null;
-			try {
-				const { results } = await rpsmq65(env, "SELECT * FROM users WHERE uuid LIKE ? LIMIT 8", "%-" + ssPathKey);
-				found = (results || []).find((r) => String(String(r.uuid || "").split("-")[4] || "").toLowerCase() === ssPathKey) || null;
-			} catch (e) {}
-			if (!found || !le69yqs(found).ss) {
-				serverSock.close();
-				return;
-			}
-			ssUser = found;
-		}
-		const user = ssUser;
-		const upSalt = chunkBuffer.slice(0, SS_SALT_LEN);
-		const upKey = await bp4qnv1.deriveSubkey(user.uuid, upSalt);
-		const upCtx = { key: upKey, nonce: new Uint8Array(12) };
-		const decLenBuf = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN, SS_SALT_LEN + 18));
-		if (!decLenBuf) {
-			serverSock.close();
-			return;
-		}
-		const payloadLen = (decLenBuf[0] << 8) | decLenBuf[1];
-		if (payloadLen === 0 || payloadLen > SS_MAX_PAYLOAD) {
-			serverSock.close();
-			return;
-		}
-		const frameEnd = SS_SALT_LEN + 18 + payloadLen + 16;
-		if (chunkBuffer.byteLength < frameEnd) return;
-		const first = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN + 18, frameEnd));
-		if (!first) {
-			serverSock.close();
-			return;
-		}
-		let off = 0;
-		const atyp = first[off++];
-		let addr = "";
-		if (atyp === 1) {
-			if (first.byteLength < off + 4 + 2) {
-				serverSock.close();
-				return;
-			}
-			addr = `${first[off++]}.${first[off++]}.${first[off++]}.${first[off++]}`;
-		} else if (atyp === 3) {
-			const domainLen = first[off++];
-			if (!domainLen || first.byteLength < off + domainLen + 2) {
-				serverSock.close();
-				return;
-			}
-			addr = b1p8pcx.decode(first.subarray(off, off + domainLen));
-			off += domainLen;
-		} else if (atyp === 4) {
-			if (first.byteLength < off + 16 + 2) {
-				serverSock.close();
-				return;
-			}
-			const v6 = [];
-			for (let i = 0; i < 8; i++) v6.push(((first[off++] << 8) | first[off++]).toString(16));
-			addr = v6.join(":");
-		} else {
-			serverSock.close();
-			return;
-		}
-		const port = (first[off++] << 8) | first[off++];
-		let rawData = first.slice(off);
-		ssUpCtx = upCtx;
-		ssUpBuffer = chunkBuffer.slice(frameEnd);
-		ssUpExpectedLen = null;
-		chunkBuffer = new Uint8Array(0);
-		const moreFrames = await ssDrainFrames();
-		if (moreFrames === null) {
-			serverSock.close();
-			return;
-		}
-		if (moreFrames.length > 0) rawData = o6qjwnj(rawData, ...moreFrames);
-		if (isHeaderParsing) return;
-		isHeaderParsing = true;
-		if (user.is_active === 0) {
-			serverSock.close();
-			return;
-		}
-		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
-			serverSock.close();
-			return;
-		}
-		if (user.expiry_days && user.created_at) {
-			const created = new Date(user.created_at);
-			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-			if (new Date() > expiryDate) {
-				try {
-					await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(user.uuid).run();
-				} catch (e) {}
-				serverSock.close();
-				return;
-			}
-		}
-		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
-			serverSock.close();
-			return;
-		}
-		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
-			serverSock.close();
-			return;
-		}
-		username = user.username;
-		validUUID = user.uuid || null;
-		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
-			r2x0v6w.set(user.uuid + "_first_conn", true);
-			const firstConnectNow = Date.now();
-			user.first_connection_time = firstConnectNow;
-			const firstConnTask = async () => {
-				try {
-					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
-				} catch (e) {}
-			};
-			if (ctx) ctx.waitUntil(firstConnTask());
-			else firstConnTask();
-		}
-		const currentReqs = USER_REQ_CACHE.get(username) || 0;
-		USER_REQ_CACHE.set(username, currentReqs + 1);
-		if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
-			GLOBAL_TRAFFIC_CACHE.set(username, 0);
-		}
-		if (isOfflineSet || serverSock.readyState !== WebSocket.OPEN) {
-			return;
-		}
-		if (user.limit_req && user.used_req + (USER_REQ_CACHE.get(username) || 0) > user.limit_req) {
-			serverSock.close();
-			return;
-		}
-		if (user.block_porn === 1 && user.block_ads === 1) {
-			targetDns = "94.140.14.15";
-			targetDoh = "https://family.adguard-dns.com/dns-query";
-		} else if (user.block_porn === 1) {
-			targetDns = "1.1.1.3";
-			targetDoh = "https://family.cloudflare-dns.com/dns-query";
-		} else if (user.block_ads === 1) {
-			targetDns = "94.140.14.14";
-			targetDoh = "https://dns.adguard-dns.com/dns-query";
-		}
-		if (clientIP && clientIP !== "unknown") {
-			let activeIps = {};
-			try {
-				activeIps = JSON.parse(user.active_ips || "{}");
-			} catch (e) {}
-			const nowIp = Date.now();
-			for (const [ip, data] of Object.entries(activeIps)) {
-				const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-				if (nowIp - lastSeen > 180000) delete activeIps[ip];
-			}
-			let isNewIp = false;
-			if (!activeIps[clientIP]) {
-				if (user.ip_limit && user.ip_limit > 0 && Object.keys(activeIps).length >= user.ip_limit) {
-					serverSock.close();
-					return;
-				}
-				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
-				isNewIp = true;
-			} else if (typeof activeIps[clientIP] === "object") {
-				activeIps[clientIP].timestamp = nowIp;
-				activeIps[clientIP].count = (activeIps[clientIP].count || 0) + 1;
-			} else {
-				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
-			}
-			const lastIpWrite = orfpjpg.get(username) || 0;
-			if (isNewIp || nowIp - lastIpWrite > 900000) {
-				cchca6z.set(username, nowIp);
-				orfpjpg.set(username, nowIp);
-				const updateTask = async () => {
-					try {
-						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
-					} catch (e) {}
-				};
-				if (ctx) ctx.waitUntil(updateTask());
-				else updateTask();
-			}
-		}
-		if ((user.block_ads === 1 || user.block_porn === 1) && atyp === 3 && port !== 53) {
-			try {
-				const dnsCheck = await xrts5qo(addr, "A", targetDoh);
-				const isBlocked = dnsCheck.some((r) => r.data === "0.0.0.0" || r.data === "::" || r.data === "176.103.130.130");
-				if (isBlocked) {
-					serverSock.close();
-					return;
-				}
-				const resolvedRecord = dnsCheck.find((r) => r.type === 1 || r.type === 28);
-				if (resolvedRecord && resolvedRecord.data) addr = resolvedRecord.data;
-			} catch (e) {}
-		}
-		isHeaderParsed = true;
-		const activeCount = a40qkal.get(username) || 0;
-		a40qkal.set(username, activeCount + 1);
-		hasCountedAsActive = true;
-		h0pqirm(username, clientIP);
-		cchca6z.set(username, Date.now());
-		const ssConnectTCP = async (dataPayload = null) => {
-			if (remoteConnWrapper.connectingPromise) {
-				await remoteConnWrapper.connectingPromise;
-				return;
-			}
-			const task = (async () => {
-				let s = null;
-				const socks5 = depvumf(user?.user_socks5, request);
-				if (socks5) {
-					try {
-						s = await zbxph7j(socks5, addr, port, dataPayload);
-					} catch (proxyErr) {
-						if (user.auto_rotate_user_proxy === 1) {
-							const replaceTask = d8fsytq(user.username, env, socks5);
-							if (ctx) ctx.waitUntil(replaceTask);
-							else replaceTask.catch(() => {});
-						}
-						throw proxyErr;
-					}
-				} else {
-					try {
-						s = await ndhpogz(addr, port, dataPayload, targetDoh);
-					} catch (directErr) {
-						if (proxyIP) {
-							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
-						} else if (directErr && directErr.connectPhase) {
-							try {
-								s = await ndhpogz(addr, port, dataPayload, targetDoh);
-							} catch (retryErr) {
-								throw directErr;
-							}
-						} else {
-							throw directErr;
-						}
-					}
-				}
-				remoteConnWrapper.socket = s;
-				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
-				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
-				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
-			})();
-			remoteConnWrapper.connectingPromise = task;
-			try {
-				await task;
-			} finally {
-				if (remoteConnWrapper.connectingPromise === task) {
-					remoteConnWrapper.connectingPromise = null;
-				}
-			}
-		};
-		remoteConnWrapper.retryConnect = async () => {
-			throw new Error("shadowsocks: reconnect not supported");
-		};
-		try {
-			await ssConnectTCP(rawData);
-		} catch (e) {
-			serverSock.close();
 		}
 	};
 	const handleWsError = (err) => {
@@ -3302,26 +2630,9 @@ async function au0sjg5(ws) {
 		}
 	}
 }
-async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, aeadCtx = null) {
+async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes) {
 	let header = headerData,
 		hasData = false;
-	if (aeadCtx) {
-		header = header ? o6qjwnj(aeadCtx.salt, header) : aeadCtx.salt;
-	}
-	const sealChunk = async (chunk) => {
-		const parts = [];
-		let offset = 0;
-		while (offset < chunk.byteLength) {
-			const sliceLen = Math.min(chunk.byteLength - offset, 16383);
-			const lenBuf = new Uint8Array([(sliceLen >> 8) & 0xff, sliceLen & 0xff]);
-			const encLen = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, lenBuf);
-			const encPayload = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, chunk.subarray(offset, offset + sliceLen));
-			if (!encLen || !encPayload) throw new Error("ss encrypt failed");
-			parts.push(encLen, encPayload);
-			offset += sliceLen;
-		}
-		return o6qjwnj(...parts);
-	};
 	const downstreamSender = o8p7n6h(webSocket, header);
 	header = null;
 	try {
@@ -3333,7 +2644,7 @@ async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, 
 				async transform(chunk, controller) {
 					hasData = true;
 					if (typeof onBytes === "function") onBytes(chunk.byteLength);
-					controller.enqueue(aeadCtx ? await sealChunk(chunk) : chunk);
+					controller.enqueue(chunk);
 				}
 			}, new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }), new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }));
 			const writePromise = transformStream.readable.pipeTo(new WritableStream({
@@ -3355,7 +2666,7 @@ async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, 
 				if (!value || value.byteLength === 0) continue;
 				hasData = true;
 				if (typeof onBytes === "function") onBytes(value.byteLength);
-				await downstreamSender.send(aeadCtx ? await sealChunk(value) : value);
+				await downstreamSender.send(value);
 			}
 		} finally {
 			try { reader.cancel(); } catch (err) {}
@@ -5044,7 +4355,7 @@ const wa42j92 = {
 										<span>پروتکل‌های اتصال (انتخاب حداقل یک مورد الزامی است)</span>
 									</label>
 								</div>
-								<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+								<div class="grid grid-cols-1 gap-3">
 									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-blue-500 dark:hover:border-blue-500 transition select-none">
 										<div class="flex items-center gap-2.5">
 											<div class="w-8 h-8 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xs">
@@ -5057,34 +4368,6 @@ const wa42j92 = {
 										</div>
 										<input type="checkbox" id="input-proto-vless" checked onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
 									</label>
-									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-purple-500 dark:hover:border-purple-500 transition select-none">
-										<div class="flex items-center gap-2.5">
-											<div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black text-xs">
-												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 11a2 2 0 100-4 2 2 0 000 4z"></path><path d="M12 11v3"></path></svg>
-											</div>
-											<div>
-												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Trojan</span>
-												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امنیتی پیشرفته </span>
-											</div>
-										</div>
-										<input type="checkbox" id="input-proto-trojan" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
-									</label>
-									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-yellow-500 dark:hover:border-yellow-500 transition select-none">
-										<div class="flex items-center gap-2.5">
-											<div class="w-8 h-8 rounded-lg bg-yellow-500/10 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 flex items-center justify-center font-black text-xs">
-												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-											</div>
-											<div>
-												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Shadowsocks</span>
-												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امن سبک</span>
-											</div>
-										</div>
-										<input type="checkbox" id="input-proto-ss" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
-									</label>
-								</div>
-								<div class="mt-2.5 p-2 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
-									<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-									<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed text-justify">هشدار: پروتکل شدوساکس در موبایل فقط روی برنامه <a href="https://www.happ.su/main" target="_blank" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80 transition-opacity">happ</a> پشتیبانی میشود.</span>
 								</div>
 							</div>
 							
@@ -5465,10 +4748,6 @@ const wa42j92 = {
 								</div>
 							</div>
 							
-							<div class="mt-1 p-2.5 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
-								<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-								<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed">هشدار: این تنظیمات روی پروتکل شدوساکس (Shadowsocks) اعمال نمی‌شوند.</span>
-							</div>
 						</div>
 						
 						<div id="tab-proxy-settings" class="user-tab-panel hidden space-y-4">
@@ -6272,9 +5551,7 @@ ${pbfiipq}
 		};
 		window.handleProtocolChange = function(changedInput) {
 			const vlessCb = document.getElementById('input-proto-vless');
-			const trojanCb = document.getElementById('input-proto-trojan');
-			const ssCb = document.getElementById('input-proto-ss');
-			const anyChecked = (vlessCb && vlessCb.checked) || (trojanCb && trojanCb.checked) || (ssCb && ssCb.checked);
+			const anyChecked = !!(vlessCb && vlessCb.checked);
 			if (!anyChecked && changedInput) {
 				changedInput.checked = true;
 				if (typeof bm3pzm2 === 'function') bm3pzm2('⚠️ حداقل یک پروتکل باید فعال باشد.', 'error');
@@ -6305,11 +5582,7 @@ ${pbfiipq}
 				document.getElementById('input-name').disabled = false;
 				document.getElementById('create-user-form').reset();
 				const vlessCb1 = document.getElementById('input-proto-vless');
-				const trojanCb1 = document.getElementById('input-proto-trojan');
-				const ssCb1 = document.getElementById('input-proto-ss');
 				if (vlessCb1) vlessCb1.checked = true;
-				if (trojanCb1) trojanCb1.checked = false;
-				if (ssCb1) ssCb1.checked = true;
 				const cb443 = document.querySelector('input[name="ports"][value="443"]');
 				if (cb443) cb443.checked = true;
 				const cb80 = document.querySelector('input[name="ports"][value="80"]');
@@ -7156,11 +6429,7 @@ ${pbfiipq}
 			document.getElementById('input-name').disabled = false;
 			document.getElementById('create-user-form').reset();
 			const vlessCbC = document.getElementById('input-proto-vless');
-			const trojanCbC = document.getElementById('input-proto-trojan');
-			const ssCbC = document.getElementById('input-proto-ss');
 			if (vlessCbC) vlessCbC.checked = true;
-			if (trojanCbC) trojanCbC.checked = false;
-			if (ssCbC) ssCbC.checked = true;
 			if (typeof window.autoFillUsernameFromCountry === 'function') window.autoFillUsernameFromCountry();
 			if (typeof window.autoFillCleanIps === 'function') window.autoFillCleanIps(2);
 			const cb443 = document.querySelector('input[name="ports"][value="443"]');
@@ -7695,7 +6964,7 @@ ${pbfiipq}
 					let numPorts = String(user.port || '443').split(',').filter(function(p) { return p.trim().length > 0; }).length;
 					if (numPorts === 0) numPorts = 1;
 					let pfCount = wbfdlk4(user);
-					let protoCount = (pfCount.vless ? 1 : 0) + (pfCount.trojan ? 1 : 0) + (pfCount.ss ? 1 : 0);
+					let protoCount = 1;
 					if (protoCount === 0) protoCount = 1;
 					let totalConfigs = numProxies * numIps * numPorts * protoCount;
 					let configColorClass = 'text-green-800 dark:text-green-700';
@@ -7925,11 +7194,7 @@ ${pbfiipq}
 			const fingerprint = document.getElementById('fingerprint-select').value;
 			const selectedProtocols = [];
 			const cbV = document.getElementById('input-proto-vless');
-			const cbT = document.getElementById('input-proto-trojan');
-			const cbS = document.getElementById('input-proto-ss');
 			if (!cbV || cbV.checked) selectedProtocols.push('vl' + 'e' + 'ss');
-			if (cbT && cbT.checked) selectedProtocols.push('trojan');
-			if (cbS && cbS.checked) selectedProtocols.push('shadowsocks');
 			if (selectedProtocols.length === 0) selectedProtocols.push('vl' + 'e' + 'ss');
 			const url = isEditMode ? '/api/users/' + encodeURIComponent(editingUsername) : '/api/users';
 			const method = isEditMode ? 'PUT' : 'POST';
@@ -8303,10 +7568,7 @@ function downloadSrcFile() {
 	}
 		function wbfdlk4(user) {
 			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
-			var trojan = t.indexOf('trojan') !== -1;
-			var ss = t.indexOf('shadowsocks') !== -1;
-			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
-			return { vless: vless, trojan: trojan, ss: ss };
+			return { vless: true, trojan: false, ss: false };
 		}
 		function fv9a4g0(username) {
 			const user = window.allUsers.find(u => u.username === username);
@@ -8382,7 +7644,6 @@ function downloadSrcFile() {
 					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
 				}
 				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
-				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
 				ips.forEach((ip) => {
 					ports.forEach((portStr) => {
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
@@ -8395,13 +7656,6 @@ function downloadSrcFile() {
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
 						if (pf.vless) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
-						if (pf.trojan) {
-							links.push('trojan://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
-						}
-						if (pf.ss) {
-							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
-							links.push('ss://' + btoa('aes-256-gcm:' + (user.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
-						}
 					});
 				});
 			}
@@ -8529,12 +7783,8 @@ function editUser(encodedUsername) {
 	nameInput.value = username;
 	nameInput.disabled = false;
 	const vlessCbE = document.getElementById('input-proto-vless');
-	const trojanCbE = document.getElementById('input-proto-trojan');
-	const ssCbE = document.getElementById('input-proto-ss');
 	const userConnType = String(user.connection_type || 'vless');
-	if (vlessCbE) vlessCbE.checked = userConnType.includes('vless') || userConnType === 'vl' + 'e' + 'ss' || (!userConnType.includes('trojan') && !userConnType.includes('shadowsocks'));
-	if (trojanCbE) trojanCbE.checked = userConnType.includes('trojan');
-	if (ssCbE) ssCbE.checked = userConnType.includes('shadowsocks');
+	if (vlessCbE) vlessCbE.checked = true;
 	document.getElementById('input-limit').value = user.limit_gb || '';
 	document.getElementById('input-expiry').value = user.expiry_days || '';
 	document.getElementById('input-start-on-first-connect').checked = user.start_on_first_connect === 1;
@@ -9983,10 +9233,7 @@ ${pbfiipq}
 		}
 		function wbfdlk4(user) {
 			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
-			var trojan = t.indexOf('trojan') !== -1;
-			var ss = t.indexOf('shadowsocks') !== -1;
-			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
-			return { vless: vless, trojan: trojan, ss: ss };
+			return { vless: true, trojan: false, ss: false };
 		}
 		function fv9a4g0() {
 			const u = window.statusUser;
@@ -10062,7 +9309,6 @@ ${pbfiipq}
 					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
 				}
 				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
-				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
 				ips.forEach((ip) => {
 					ports.forEach((portStr) => {
 						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
@@ -10075,13 +9321,6 @@ ${pbfiipq}
 						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
 						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
 						if (pf.vless) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
-						if (pf.trojan) {
-							links.push('trojan://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
-						}
-						if (pf.ss) {
-							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
-							links.push('ss://' + btoa('aes-256-gcm:' + (u.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
-						}
 					});
 				});
 			}
