@@ -1,30 +1,3 @@
-// مرحله ۱۴: step13 + سقف حافظه صف‌ها پایین: صف هر اتصال 6MB→768KB، تعداد آیتم 3000→400، اتصال هم‌زمان 300→80
-const __t0 = Date.now();
-const __errs = new Map();
-let __wsOpened = 0, __wsPeak = 0;
-function __rec(tag, e) {
-	try {
-		const msg = String((e && e.message) || e || "");
-		const key = tag + " | " + msg.slice(0, 160);
-		const cur = __errs.get(key);
-		if (cur) { cur.n++; cur.last = Date.now(); }
-		else {
-			if (__errs.size >= 60) __errs.delete(__errs.keys().next().value);
-			__errs.set(key, { n: 1, last: Date.now(), stack: String((e && e.stack) || "").slice(0, 600) });
-		}
-	} catch (_) {}
-}
-function __dbgJson() {
-	const o = {
-		isolate_uptime_s: Math.round((Date.now() - __t0) / 1000),
-		active_ws_slots: n7wooiz,
-		ws_opened_total: __wsOpened,
-		ws_peak_active: __wsPeak,
-		heap_maps: { traffic: GLOBAL_TRAFFIC_CACHE.size, d1cache: eroucn4.size, active: a40qkal.size, ips: vcmirtr.size, hb: gbd8v13.size },
-		errors: [...__errs.entries()].map(([k, v]) => ({ k, n: v.n, ago_s: Math.round((Date.now() - v.last) / 1000), stack: v.stack })),
-	};
-	return JSON.stringify(o, null, 1);
-}
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -108,8 +81,8 @@ let jlvmthl = 0;
 const vac5goc = 5 * 60 * 1000;
 const b2llpoh = "https://cloudflare-dns.com/dns-query";
 const j7gzuyc = 64 * 1024;
-const gd4zjw9 = 768 * 1024;
-const sacemxe = 400;
+const gd4zjw9 = 6 * 1024 * 1024;
+const sacemxe = 3000;
 const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
 const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
 const DOWNSTREAM_GRAIN_SILENT_MS = 1;
@@ -117,7 +90,7 @@ const jtnyqj4 = 2048;
 const a5g5pwf = new TextEncoder();
 const b1p8pcx = new TextDecoder();
 const m1fqgtq = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
-const j0z7nx7 = 80;
+const j0z7nx7 = 300;
 let n7wooiz = 0;
 const qaq0llp = 30 * 1000;
 let caxaruo = 0;
@@ -432,19 +405,19 @@ async function d8fsytq() {
 }
 export default {
 	async fetch(request, env, ctx) {
+		return new Response("T1 ok (top of fetch)");
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
 		try {
-			if (new URL(request.url).pathname === "/dbgx9") return new Response(__dbgJson(), { headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
 			try {
 				await gm37elm.ensureSchema(env.DB);
 			} catch (e) {}
 			xn0iw7z(env, ctx);
 			wcjjpz0();
 			if (ogjh4tu) {
-				ctx.waitUntil(e6bb3cy(env, ctx).catch((e) => __rec("e6bb3cy", e)));
-				ctx.waitUntil(e31njoi(env, ctx).catch((e) => __rec("e31njoi", e)));
+				ctx.waitUntil(e6bb3cy(env, ctx));
+				ctx.waitUntil(e31njoi(env, ctx));
 			}
 			const url = new URL(request.url);
 			if (cggc6tw.isWebSocketUpgrade(request)) {
@@ -487,8 +460,7 @@ export default {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
 		} catch (err) {
-			__rec("fetch", err);
-			return new Response("ERR(fetch): " + String((err && err.stack) || err), { status: 500, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+			return new Response("Internal Server Error", { status: 500 });
 		}
 	},
 };
@@ -533,8 +505,7 @@ const cggc6tw = {
 			const storedData = { proxy_ip: proxyIP };
 			return bvj1iaf(env, storedData, ctx, request);
 		} catch (e) {
-			__rec("handleWebSocket", e);
-			return new Response("ERR(ws): " + String((e && e.stack) || e), { status: 500, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+			return new Response("Internal Server Error", { status: 500 });
 		}
 	},
 	async handleSubscription(url, env) {
@@ -1765,8 +1736,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 	serverSock.accept();
 	serverSock.binaryType = "arraybuffer";
 	n7wooiz++;
-	__wsOpened++;
-	if (n7wooiz > __wsPeak) __wsPeak = n7wooiz;
 	let isolateSlotReleased = false;
 	const releaseIsolateSlot = () => {
 		if (isolateSlotReleased) return;
@@ -1819,7 +1788,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					r2x0v6w.set(username, false);
 				}
 			};
-			/* traffic write OFF (bisect) */
+			if (ctx) ctx.waitUntil(writeTask());
+			else writeTask();
 		}
 	}
 	let isOfflineSet = false;
@@ -1834,7 +1804,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		if (hasCountedAsActive) {
 			activeCount = Math.max(0, activeCount - 1);
 			const ipLeft = eojgr6y(uname, clientIP);
-			/* c85kz7x OFF (bisect) */
+			if (ipLeft <= 0) c85kz7x(env, ctx, uname, validUUID, clientIP);
 		}
 		if (activeCount <= 0) {
 			a40qkal.delete(uname);
@@ -1861,7 +1831,11 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						cchca6z.delete(uname);
 					}
 				};
-				/* offline write OFF (bisect) */
+				if (ctx) {
+					ctx.waitUntil(writeTask());
+				} else {
+					writeTask();
+				}
 			} else {
 				cchca6z.delete(uname);
 			}
@@ -1966,7 +1940,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 			clearTimeout(heartbeat);
 		}
 	};
-	/* heartbeat OFF (bisect) */
+	heartbeat = setTimeout(runHeartbeat, Math.floor(Math.random() * 5000) + 20000);
 	let remoteConnWrapper = { socket: null, connectingPromise: null, retryConnect: null };
 	let reqUUID = null;
 	let isHeaderParsed = false;
@@ -2138,7 +2112,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, reqUUID).run();
 					} catch (e) {}
 				};
-				/* D1 write OFF (bisect) */
+				if (ctx) ctx.waitUntil(firstConnTask());
+				else firstConnTask();
 			}
 			let currentReqs = USER_REQ_CACHE.get(username) || 0;
 			USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2217,7 +2192,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 							await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), now, reqUUID).run();
 						} catch (e) {}
 					};
-					/* D1 write OFF (bisect) */
+					if (ctx) ctx.waitUntil(updateTask());
+					else updateTask();
 				}
 			}
 			isHeaderParsed = true;
@@ -2320,7 +2296,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						}
 						remoteConnWrapper.socket = s;
 						s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-						v18gj84(s, serverSock, respHeader, null, s749df7).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
+						v18gj84(s, serverSock, respHeader, null, s749df7);
 					})();
 					remoteConnWrapper.connectingPromise = task;
 					try {
@@ -2334,7 +2310,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				remoteConnWrapper.retryConnect = async () => connectTCP(null, false);
 				await connectTCP(rawData, true);
 			} catch (e) {
-				__rec("connect", e);
 				serverSock.close();
 			}
 		}
@@ -2443,7 +2418,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
 				} catch (e) {}
 			};
-			/* D1 write OFF (bisect) */
+			if (ctx) ctx.waitUntil(firstConnTask());
+			else firstConnTask();
 		}
 		let currentReqs = USER_REQ_CACHE.get(username) || 0;
 		USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2488,7 +2464,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				}
 				remoteConnWrapper.socket = s;
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-				v18gj84(s, serverSock, null, null, s749df7).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
+				v18gj84(s, serverSock, null, null, s749df7);
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2503,7 +2479,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		try {
 			await trojanConnectTCP(rawData);
 		} catch (e) {
-			__rec("connect", e);
 			serverSock.close();
 		}
 	};
@@ -2663,7 +2638,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
 				} catch (e) {}
 			};
-			/* D1 write OFF (bisect) */
+			if (ctx) ctx.waitUntil(firstConnTask());
+			else firstConnTask();
 		}
 		const currentReqs = USER_REQ_CACHE.get(username) || 0;
 		USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2720,7 +2696,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
 					} catch (e) {}
 				};
-				/* D1 write OFF (bisect) */
+				if (ctx) ctx.waitUntil(updateTask());
+				else updateTask();
 			}
 		}
 		if ((user.block_ads === 1 || user.block_porn === 1) && atyp === 3 && port !== 53) {
@@ -2781,7 +2758,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
 				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
 				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
-				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt }).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
+				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2798,12 +2775,10 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		try {
 			await ssConnectTCP(rawData);
 		} catch (e) {
-			__rec("connect", e);
 			serverSock.close();
 		}
 	};
 	const handleWsError = (err) => {
-		__rec("wsError", err);
 		if (wsFailed) return;
 		wsFailed = true;
 		wsStopped = true;
@@ -3282,7 +3257,31 @@ function o8p7n6h(webSocket, headerData = null) {
 			let chunk = zqv9d9o(data);
 			if (!chunk.byteLength) return;
 			chunk = attachResponseHeader(chunk);
-			await sendRawChunk(chunk);
+			let offset = 0;
+			const totalBytes = chunk.byteLength;
+			while (offset < totalBytes) {
+				if (!pendingBytes && totalBytes - offset >= currentPacketCap) {
+					const sendBytes = Math.min(currentPacketCap, totalBytes - offset);
+					const view = offset || sendBytes !== totalBytes ? chunk.subarray(offset, offset + sendBytes) : chunk;
+					await sendRawChunk(view);
+					offset += sendBytes;
+					adjustSmartBuffer();
+					continue;
+				}
+				const copyBytes = Math.min(currentPacketCap - pendingBytes, totalBytes - offset);
+				if (!pendingBuffer) pendingBuffer = new Uint8Array(MAX_CAP);
+				pendingBuffer.set(chunk.subarray(offset, offset + copyBytes), pendingBytes);
+				pendingBytes += copyBytes;
+				offset += copyBytes;
+				if (pendingBytes >= currentPacketCap || currentPacketCap - pendingBytes < tailBytes) {
+					await flush();
+				} else if (!microtaskQueued) {
+					microtaskQueued = true;
+					queueMicrotask(() => {
+						if (pendingBytes) flush().catch(() => grmlvmk(webSocket));
+					});
+				}
+			}
 		},
 		flush,
 	};
@@ -3326,8 +3325,9 @@ async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, 
 	const downstreamSender = o8p7n6h(webSocket, header);
 	header = null;
 	try {
+		let reader = remoteSocket.readable.getReader({ mode: "byob" });
 		let useBYOB = true;
-		throw new Error("bisect: force simple reader");
+		reader.releaseLock();
 		if (useBYOB) {
 			const transformStream = new TransformStream({
 				async transform(chunk, controller) {
