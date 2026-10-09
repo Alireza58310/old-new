@@ -405,6 +405,7 @@ async function d8fsytq() {
 }
 export default {
 	async fetch(request, env, ctx) {
+		return new Response("T1 ok (top of fetch)");
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
@@ -420,7 +421,7 @@ export default {
 			}
 			const url = new URL(request.url);
 			if (cggc6tw.isWebSocketUpgrade(request)) {
-				return new Response("T5 ws disabled",{status:404});
+				return await cggc6tw.handleWebSocket(request, env, ctx);
 			}
 			if (cggc6tw.isSubscriptionPath(url.pathname)) {
 				return await cggc6tw.handleSubscription(url, env);
