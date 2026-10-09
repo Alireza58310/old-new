@@ -1,4 +1,4 @@
-// مرحله ۷: فایل کامل اصلی ولی heartbeat هر اتصال (runHeartbeat) خاموش
+// مرحله ۸: step7 + نوشتن ترافیک/آفلاین/active_ips توی D1 خاموش
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -1788,8 +1788,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					r2x0v6w.set(username, false);
 				}
 			};
-			if (ctx) ctx.waitUntil(writeTask());
-			else writeTask();
+			/* traffic write OFF (bisect) */
 		}
 	}
 	let isOfflineSet = false;
@@ -1804,7 +1803,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		if (hasCountedAsActive) {
 			activeCount = Math.max(0, activeCount - 1);
 			const ipLeft = eojgr6y(uname, clientIP);
-			if (ipLeft <= 0) c85kz7x(env, ctx, uname, validUUID, clientIP);
+			/* c85kz7x OFF (bisect) */
 		}
 		if (activeCount <= 0) {
 			a40qkal.delete(uname);
@@ -1831,11 +1830,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						cchca6z.delete(uname);
 					}
 				};
-				if (ctx) {
-					ctx.waitUntil(writeTask());
-				} else {
-					writeTask();
-				}
+				/* offline write OFF (bisect) */
 			} else {
 				cchca6z.delete(uname);
 			}
