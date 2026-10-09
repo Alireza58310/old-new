@@ -1,4 +1,30 @@
-// مرحله ۱۲: step11 + ارسال به کلاینت بدون بافر ۲۵۶KB و بدون flush با microtask (مستقیم)
+// مرحله ۱۳: step12 + تشخیصی: مسیر /dbgx9 و نمایش متن واقعی خطا به‌جای Internal Server Error (موقت - بعد از عیب‌یابی حذف شود)
+const __t0 = Date.now();
+const __errs = new Map();
+let __wsOpened = 0, __wsPeak = 0;
+function __rec(tag, e) {
+	try {
+		const msg = String((e && e.message) || e || "");
+		const key = tag + " | " + msg.slice(0, 160);
+		const cur = __errs.get(key);
+		if (cur) { cur.n++; cur.last = Date.now(); }
+		else {
+			if (__errs.size >= 60) __errs.delete(__errs.keys().next().value);
+			__errs.set(key, { n: 1, last: Date.now(), stack: String((e && e.stack) || "").slice(0, 600) });
+		}
+	} catch (_) {}
+}
+function __dbgJson() {
+	const o = {
+		isolate_uptime_s: Math.round((Date.now() - __t0) / 1000),
+		active_ws_slots: n7wooiz,
+		ws_opened_total: __wsOpened,
+		ws_peak_active: __wsPeak,
+		heap_maps: { traffic: GLOBAL_TRAFFIC_CACHE.size, d1cache: eroucn4.size, active: a40qkal.size, ips: vcmirtr.size, hb: gbd8v13.size },
+		errors: [...__errs.entries()].map(([k, v]) => ({ k, n: v.n, ago_s: Math.round((Date.now() - v.last) / 1000), stack: v.stack })),
+	};
+	return JSON.stringify(o, null, 1);
+}
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -410,14 +436,15 @@ export default {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
 		try {
+			if (new URL(request.url).pathname === "/dbgx9") return new Response(__dbgJson(), { headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
 			try {
 				await gm37elm.ensureSchema(env.DB);
 			} catch (e) {}
 			xn0iw7z(env, ctx);
 			wcjjpz0();
 			if (ogjh4tu) {
-				ctx.waitUntil(e6bb3cy(env, ctx));
-				ctx.waitUntil(e31njoi(env, ctx));
+				ctx.waitUntil(e6bb3cy(env, ctx).catch((e) => __rec("e6bb3cy", e)));
+				ctx.waitUntil(e31njoi(env, ctx).catch((e) => __rec("e31njoi", e)));
 			}
 			const url = new URL(request.url);
 			if (cggc6tw.isWebSocketUpgrade(request)) {
@@ -460,7 +487,8 @@ export default {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
 		} catch (err) {
-			return new Response("Internal Server Error", { status: 500 });
+			__rec("fetch", err);
+			return new Response("ERR(fetch): " + String((err && err.stack) || err), { status: 500, headers: { "Content-Type": "text/plain; charset=utf-8" } });
 		}
 	},
 };
@@ -505,7 +533,8 @@ const cggc6tw = {
 			const storedData = { proxy_ip: proxyIP };
 			return bvj1iaf(env, storedData, ctx, request);
 		} catch (e) {
-			return new Response("Internal Server Error", { status: 500 });
+			__rec("handleWebSocket", e);
+			return new Response("ERR(ws): " + String((e && e.stack) || e), { status: 500, headers: { "Content-Type": "text/plain; charset=utf-8" } });
 		}
 	},
 	async handleSubscription(url, env) {
@@ -1736,6 +1765,8 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 	serverSock.accept();
 	serverSock.binaryType = "arraybuffer";
 	n7wooiz++;
+	__wsOpened++;
+	if (n7wooiz > __wsPeak) __wsPeak = n7wooiz;
 	let isolateSlotReleased = false;
 	const releaseIsolateSlot = () => {
 		if (isolateSlotReleased) return;
@@ -2289,7 +2320,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						}
 						remoteConnWrapper.socket = s;
 						s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-						v18gj84(s, serverSock, respHeader, null, s749df7).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
+						v18gj84(s, serverSock, respHeader, null, s749df7).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
 					})();
 					remoteConnWrapper.connectingPromise = task;
 					try {
@@ -2303,6 +2334,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				remoteConnWrapper.retryConnect = async () => connectTCP(null, false);
 				await connectTCP(rawData, true);
 			} catch (e) {
+				__rec("connect", e);
 				serverSock.close();
 			}
 		}
@@ -2456,7 +2488,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				}
 				remoteConnWrapper.socket = s;
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-				v18gj84(s, serverSock, null, null, s749df7).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
+				v18gj84(s, serverSock, null, null, s749df7).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2471,6 +2503,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		try {
 			await trojanConnectTCP(rawData);
 		} catch (e) {
+			__rec("connect", e);
 			serverSock.close();
 		}
 	};
@@ -2748,7 +2781,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
 				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
 				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
-				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt }).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
+				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt }).catch((e) => { __rec("pipe(v18gj84)", e); try { grmlvmk(serverSock); } catch (_) {} });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2765,10 +2798,12 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		try {
 			await ssConnectTCP(rawData);
 		} catch (e) {
+			__rec("connect", e);
 			serverSock.close();
 		}
 	};
 	const handleWsError = (err) => {
+		__rec("wsError", err);
 		if (wsFailed) return;
 		wsFailed = true;
 		wsStopped = true;
