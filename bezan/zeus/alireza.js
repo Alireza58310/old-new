@@ -1778,49 +1778,19 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		wsFinished = false;
 	let wsQueueBytes = 0,
 		wsQueueItems = 0;
-	let currentSocketWriter = null,
-		activeRemoteWriter = null;
+	let remoteWriter = null;
 	const releaseRemoteWriter = () => {
-		if (activeRemoteWriter) {
-			try {
-				activeRemoteWriter.releaseLock();
-			} catch (e) {}
-			activeRemoteWriter = null;
+		if (remoteWriter) {
+			try { remoteWriter.releaseLock(); } catch (e) {}
+			remoteWriter = null;
 		}
-		currentSocketWriter = null;
 	};
-	const getRemoteWriter = () => {
-		const s = remoteConnWrapper.socket;
-		if (!s) return null;
-		if (s !== currentSocketWriter) {
-			releaseRemoteWriter();
-			currentSocketWriter = s;
-			activeRemoteWriter = s.writable.getWriter();
-		}
-		return activeRemoteWriter;
-	};
-	const upstreamQueue = tasyh7l({
-		getWriter: getRemoteWriter,
-		releaseWriter: releaseRemoteWriter,
-		retryConnect: async () => {
-			if (typeof remoteConnWrapper.retryConnect === "function") {
-				await remoteConnWrapper.retryConnect();
-			}
-		},
-		closeConnection: () => {
-			try {
-				remoteConnWrapper.socket?.close();
-			} catch (e) {}
-			grmlvmk(serverSock);
-		},
-		name: "vIeesWSQueue",
-	});
-	let hasRemoteWriteSucceeded = false;
-	const writeToRemote = async (chunk, allowRetry = true) => {
-		const effectiveAllowRetry = allowRetry && !hasRemoteWriteSucceeded;
-		const result = await upstreamQueue.write(chunk, effectiveAllowRetry);
-		if (result === true) hasRemoteWriteSucceeded = true;
-		return result;
+	const writeToRemote = async (chunk) => {
+		const sock = remoteConnWrapper.socket;
+		if (!sock) return false;
+		if (!remoteWriter) remoteWriter = sock.writable.getWriter();
+		await remoteWriter.write(chunk);
+		return true;
 	};
 	const processWsMessage = async (chunk) => {
 		const bytes = chunk.byteLength || 0;
@@ -2113,7 +2083,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		clearTimeout(heartbeat);
 		wsQueueBytes = 0;
 		wsQueueItems = 0;
-		upstreamQueue.clear();
 		releaseRemoteWriter();
 		grmlvmk(serverSock);
 		setOffline();
@@ -2149,7 +2118,6 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 		wsStopped = true;
 		pushToChain(async () => {
 			if (wsFailed) return;
-			await upstreamQueue.awaitEmpty();
 			releaseRemoteWriter();
 		});
 	});
@@ -2339,341 +2307,30 @@ async function sskrq5v(domain, recordType, targetDoh, cacheKey) {
 		return [];
 	}
 }
-function tasyh7l({ getWriter, releaseWriter, retryConnect, closeConnection, name = "UpstreamQueue" }) {
-	let chunks = [];
-	let head = 0;
-	let queuedBytes = 0;
-	let draining = false;
-	let closed = false;
-	let bundleBuffer = null;
-	let idleResolvers = [];
-	let activeCompletions = null;
-	const settleCompletions = (completions, err = null) => {
-		if (!completions) return;
-		for (const comp of completions) {
-			if (comp) {
-				if (err) comp.reject(err);
-				else comp.resolve();
-			}
-		}
-	};
-	const rejectQueued = (err) => {
-		for (let i = head; i < chunks.length; i++) {
-			const item = chunks[i];
-			if (item && item.completions) settleCompletions(item.completions, err);
-		}
-	};
-	const compact = () => {
-		if (head > 32 && head * 2 >= chunks.length) {
-			chunks = chunks.slice(head);
-			head = 0;
-		}
-	};
-	const resolveIdle = () => {
-		if (queuedBytes || draining || !idleResolvers.length) return;
-		const resolvers = idleResolvers;
-		idleResolvers = [];
-		for (const resolve of resolvers) resolve();
-	};
-	const clear = (err = null) => {
-		const closeErr = err || (closed ? new Error(`${name}: queue closed`) : null);
-		if (closeErr) {
-			rejectQueued(closeErr);
-			settleCompletions(activeCompletions, closeErr);
-			activeCompletions = null;
-		}
-		chunks = [];
-		head = 0;
-		queuedBytes = 0;
-		resolveIdle();
-	};
-	const shift = () => {
-		if (head >= chunks.length) return null;
-		const item = chunks[head];
-		chunks[head++] = undefined;
-		queuedBytes -= item.chunk.byteLength;
-		compact();
-		return item;
-	};
-	const bundle = () => {
-		const first = shift();
-		if (!first) return null;
-		if (head >= chunks.length || first.chunk.byteLength >= j7gzuyc) return first;
-		let byteLength = first.chunk.byteLength;
-		let end = head;
-		let allowRetry = first.allowRetry;
-		let completions = first.completions || null;
-		while (end < chunks.length) {
-			const next = chunks[end];
-			const nextLength = byteLength + next.chunk.byteLength;
-			if (nextLength > j7gzuyc) break;
-			byteLength = nextLength;
-			allowRetry = allowRetry && next.allowRetry;
-			if (next.completions) completions = completions ? completions.concat(next.completions) : next.completions;
-			end++;
-		}
-		if (end === head) return first;
-		const output = (bundleBuffer ||= new Uint8Array(j7gzuyc));
-		output.set(first.chunk);
-		let offset = first.chunk.byteLength;
-		while (head < end) {
-			const next = chunks[head];
-			chunks[head++] = undefined;
-			queuedBytes -= next.chunk.byteLength;
-			output.set(next.chunk, offset);
-			offset += next.chunk.byteLength;
-		}
-		compact();
-		return { chunk: output.subarray(0, byteLength), allowRetry, completions };
-	};
-	const drain = async () => {
-		if (draining || closed) return;
-		draining = true;
-		try {
-			let batchCount = 0;
-			for (;;) {
-				if (closed) break;
-				const item = bundle();
-				if (!item) break;
-				let writer = getWriter();
-				if (!writer) throw new Error(`${name}: remote writer unavailable`);
-				const completions = item.completions || null;
-				activeCompletions = completions;
-				try {
-					try {
-						await writer.write(item.chunk);
-					} catch (err) {
-						releaseWriter?.();
-						if (!item.allowRetry || typeof retryConnect !== "function") throw err;
-						await retryConnect();
-						writer = getWriter();
-						if (!writer) throw err;
-						await writer.write(item.chunk);
-					}
-					settleCompletions(completions);
-				} catch (err) {
-					settleCompletions(completions, err);
-					throw err;
-				} finally {
-					if (activeCompletions === completions) activeCompletions = null;
-				}
-				batchCount++;
-				if (batchCount >= 16) {
-					await Promise.resolve();
-					batchCount = 0;
-				}
-			}
-		} catch (err) {
-			closed = true;
-			clear(err);
-			try {
-				closeConnection?.(err);
-			} catch (_) {}
-		} finally {
-			draining = false;
-			if (!closed && head < chunks.length) queueMicrotask(drain);
-			else resolveIdle();
-		}
-	};
-	const enqueue = (data, allowRetry = true, waitForFlush = false) => {
-		if (closed) return false;
-		if (!getWriter()) return false;
-		const chunk = zqv9d9o(data);
-		if (!chunk.byteLength) return true;
-		const nextBytes = queuedBytes + chunk.byteLength;
-		const nextItems = chunks.length - head + 1;
-		if (nextBytes > gd4zjw9 || nextItems > sacemxe) {
-			closed = true;
-			const err = Object.assign(new Error(`${name}: upload queue overflow (${nextBytes}B/${nextItems})`), { isQueueOverflow: true });
-			clear(err);
-			try {
-				closeConnection?.(err);
-			} catch (_) {}
-			throw err;
-		}
-		let completionPromise = null;
-		let completions = null;
-		if (waitForFlush) {
-			completions = [];
-			completionPromise = new Promise((resolve, reject) => completions.push({ resolve, reject }));
-		}
-		chunks.push({ chunk, allowRetry, completions });
-		queuedBytes = nextBytes;
-		if (!draining) queueMicrotask(drain);
-		return waitForFlush ? completionPromise.then(() => true) : true;
-	};
-	return {
-		writeAndAwait(data, allowRetry = true) {
-			return enqueue(data, allowRetry, true);
-		},
-		async write(data, allowRetry = true) {
-			const result = enqueue(data, allowRetry, false);
-			if (result === false || result === true) {
-				if (queuedBytes > gd4zjw9 * 0.7) {
-					const softLimit = gd4zjw9 * 0.5;
-					while (!closed && queuedBytes > softLimit) {
-						await new Promise((r) => setTimeout(r, 15));
-					}
-				}
-				return result;
-			}
-			return result;
-		},
-		async awaitEmpty() {
-			if (!queuedBytes && !draining) return;
-			await new Promise((resolve) => idleResolvers.push(resolve));
-		},
-		clear() {
-			closed = true;
-			clear();
-		},
-	};
-}
-function o8p7n6h(webSocket, headerData = null) {
-	const MAX_CAP = 256 * 1024;
-	const MIN_CAP = 16 * 1024;
-	let currentPacketCap = 128 * 1024;
-	const tailBytes = 512;
-	let header = headerData;
-	let pendingBuffer = null;
-	let pendingBytes = 0;
-	let flushPromise = null;
-	let microtaskQueued = false;
-	const adjustSmartBuffer = () => {
-		const buffered = webSocket.bufferedAmount || 0;
-		if (buffered > 256 * 1024) {
-			currentPacketCap = Math.max(MIN_CAP, Math.floor(currentPacketCap / 2));
-		} else if (buffered < 32 * 1024) {
-			currentPacketCap = Math.min(MAX_CAP, currentPacketCap * 2);
-		}
-	};
-	const sendRawChunk = async (chunk) => {
-		if (webSocket.readyState !== 1) throw new Error("ws.readyState is not open");
-		webSocket.send(chunk);
-		if (typeof webSocket.bufferedAmount === "number" && webSocket.bufferedAmount > 1024 * 1024) {
-			await au0sjg5(webSocket);
-		}
-	};
-	const attachResponseHeader = (chunk) => {
-		if (!header) return chunk;
-		const merged = new Uint8Array(header.length + chunk.byteLength);
-		merged.set(header, 0);
-		merged.set(chunk, header.length);
-		header = null;
-		return merged;
-	};
-	const flush = async () => {
-		microtaskQueued = false;
-		while (flushPromise) await flushPromise;
-		if (!pendingBytes) return;
-		const output = pendingBuffer.slice(0, pendingBytes);
-		adjustSmartBuffer();
-		pendingBytes = 0;
-		flushPromise = sendRawChunk(output).finally(() => {
-			flushPromise = null;
-		});
-		return flushPromise;
-	};
-	return {
-		async sendDirect(data) {
-			let chunk = zqv9d9o(data);
-			if (!chunk.byteLength) return;
-			chunk = attachResponseHeader(chunk);
-			await sendRawChunk(chunk);
-		},
-		async send(data) {
-			let chunk = zqv9d9o(data);
-			if (!chunk.byteLength) return;
-			chunk = attachResponseHeader(chunk);
-			let offset = 0;
-			const totalBytes = chunk.byteLength;
-			while (offset < totalBytes) {
-				if (!pendingBytes && totalBytes - offset >= currentPacketCap) {
-					const sendBytes = Math.min(currentPacketCap, totalBytes - offset);
-					const view = offset || sendBytes !== totalBytes ? chunk.subarray(offset, offset + sendBytes) : chunk;
-					await sendRawChunk(view);
-					offset += sendBytes;
-					adjustSmartBuffer();
-					continue;
-				}
-				const copyBytes = Math.min(currentPacketCap - pendingBytes, totalBytes - offset);
-				if (!pendingBuffer) pendingBuffer = new Uint8Array(MAX_CAP);
-				pendingBuffer.set(chunk.subarray(offset, offset + copyBytes), pendingBytes);
-				pendingBytes += copyBytes;
-				offset += copyBytes;
-				if (pendingBytes >= currentPacketCap || currentPacketCap - pendingBytes < tailBytes) {
-					await flush();
-				} else if (!microtaskQueued) {
-					microtaskQueued = true;
-					queueMicrotask(() => {
-						if (pendingBytes) flush().catch(() => grmlvmk(webSocket));
-					});
-				}
-			}
-		},
-		flush,
-	};
-}
-async function au0sjg5(ws) {
-	if (typeof ws.bufferedAmount === "number") {
-		let lastAmount = ws.bufferedAmount;
-		let lastProgress = Date.now();
-		while (ws.bufferedAmount > 1024 * 1024) {
-			if (ws.readyState !== WebSocket.OPEN) break;
-			if (ws.bufferedAmount < lastAmount) lastProgress = Date.now();
-			lastAmount = ws.bufferedAmount;
-			if (Date.now() - lastProgress > 60000) {
-				grmlvmk(ws);
-				break;
-			}
-			await new Promise((r) => setTimeout(r, 5));
-		}
-	}
-}
 async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes) {
-	let header = headerData,
-		hasData = false;
-	const downstreamSender = o8p7n6h(webSocket, header);
-	header = null;
+	let header = headerData;
+	let hasData = false;
+	let sent = 0;
 	try {
-		let reader = remoteSocket.readable.getReader({ mode: "byob" });
-		let useBYOB = true;
-		reader.releaseLock();
-		if (useBYOB) {
-			const transformStream = new TransformStream({
-				async transform(chunk, controller) {
-					hasData = true;
-					if (typeof onBytes === "function") onBytes(chunk.byteLength);
-					controller.enqueue(chunk);
+		await remoteSocket.readable.pipeTo(new WritableStream({
+			async write(chunk, controller) {
+				if (webSocket.readyState !== WebSocket.OPEN) {
+					controller.error(new Error("ws not open"));
+					return;
 				}
-			}, new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }), new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }));
-			const writePromise = transformStream.readable.pipeTo(new WritableStream({
-				async write(chunk) {
-					await downstreamSender.send(chunk);
-				}
-			}));
-			await remoteSocket.readable.pipeTo(transformStream.writable);
-			await writePromise;
-		}
-	} catch (e) {
-		let reader = null;
-		try { reader = remoteSocket.readable.getReader(); } catch (_) { reader = null; }
-		if (reader) try {
-			while (true) {
-				if (webSocket.bufferedAmount > 1024 * 1024) await au0sjg5(webSocket);
-				const { done, value } = await reader.read();
-				if (done) break;
-				if (!value || value.byteLength === 0) continue;
 				hasData = true;
-				if (typeof onBytes === "function") onBytes(value.byteLength);
-				await downstreamSender.send(value);
-			}
-		} finally {
-			try { reader.cancel(); } catch (err) {}
-			try { reader.releaseLock(); } catch (err) {}
-		}
+				if (typeof onBytes === "function") onBytes(chunk.byteLength);
+				if (header) {
+					webSocket.send(o6qjwnj(header, chunk));
+					header = null;
+				} else {
+					if (++sent > 20000) await new Promise((r) => setTimeout(r, 1));
+					webSocket.send(chunk);
+				}
+			},
+		}));
+	} catch (e) {
 	} finally {
-		await downstreamSender.flush();
 		grmlvmk(webSocket);
 	}
 	if (!hasData && retryFunc) await retryFunc();
