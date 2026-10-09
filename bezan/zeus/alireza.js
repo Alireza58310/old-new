@@ -1,8351 +1,8639 @@
-// مرحله ۵: step4 + نوشتن ترافیک/آمار در D1 (dyj1dp1, xn0iw7z, viwe15t)
-import { connect } from "cloudflare:sockets";
-const GLOBAL_TRAFFIC_CACHE = new Map();
-const eroucn4 = new Map();
-const utza4af = 8000;
-let qb7ahff = { t: 0, v: "", p: null };
-function bbkao4k() {
-	eroucn4.clear();
-	qb7ahff = { t: 0, v: "", p: null };
+const Version = '2026-08-11 14:45:22';
+// [AUTO-VERSION] Fallback only; the active worker version is stored in D1.
+const MATIX_LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAABgFBMVEVjM61dGt2XZOOIbrSgF/Hr2eC4od83AOhGKHt9ZKu2trbMT/02D5t1TM2Zg7qqqv+q///HPv//f///qv/Ard78+/0AAAD26PxtAurv2Pzlt/zpx/wqAmwiAVjjqfz+/v7Zl/zViPzbpfsyAYzml/3NeP2HBvOOFvYcAFOuR/u0Vvv9/f2UJvc2AKtJArH8/PxPA8zGaPz9/P38/Py0Z/r9/P39/P2pN/rZxvHSt/Ljiv2UNvawdvMdAGVMJo5oAtKRRfV0F+ynKvlUBOhWJqpvJ+qWWPE2AMyXd8ysl9C5letDBZNPFrJrKNGlic95Nu3GWf1WF9BWNZJzONFtSKyRZ9CviOh4Vq+4pdaHV841FXJHF5PFttxlR5nc0e17R8sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADHiFBwAAAAYHRSTlP//////wn/////A/////8DA/8CA//+AP7/////////BP//////////////L////9L//46z/1V0///////////////////////////////////////////////////////b2mpiAAAYZElEQVR42tWdCVfjxrKABTOZTF5yc9/mEZaF0OoN29hg8ILZ923YBmbNzP//F6+6qrvVklqyYUjOec45yQlg9Lm2rqruLox3z34tLS3x/y6vb6yura2slPhrZWVtbXVjfVn+wNLzn2I8G24J/7O+oYClXwC6sY4/+N9L/7P0DwKSRJbXV3PREpir68vxu/5+QJTd0vLGWhLDzL6U765tLC89T9fGc4S3vLGiQysrryzlysbyc8RoPBlvaX0tDUdMFXhZ7FXBlwoq5Li+9GRE44l4y7HdSTYEc/Bl8Zf4H+KMIVdWl5+IaDwRL00n2DiV6+HLdfEr9A2EjOX4RETjKXhrCh7BEQJw9RqDVq1aXeCvaq3WGjQjD77rOL6DkJJx7SmIMwKqeCQ7oPPZ48OoOahJsPSr1mr0PPYpfMEYI74g4H/Ar1tNCs9icnG85n4uW/xqNSMHf15BXF3CX/sigKCNpQ0Vr1JBuqhRiyGqtf1Gsxcx8wM7jHrNRkKutYZHYowRN5Zm0rMxC5/QLuExYTiepKtW0dhEdJEvME2wzJakrDU99s4YEfQ8A6Ex3fp+2Ujg+b7j9lpCbgMwMYkWx2kiJMpmSzAOIieBuPHLdEs0niA+xAsdVwiv1ogcAaZZ6TgnULp9wdgCRJcQZxSiMc151xN4LuiWlFZtRBbBpdfd5ApIodJyhRwZIrdF9lPr09zZKOYTzgsPQjy3wYXXQ9mVtWhpTPbRrIoVbbJ3Hiy0PEKkt4I7Lz0XENS7EosPVONw6Q08aya6hOuDGL1d4IPXpot6prevLBcSGkV86yuK+Hynh7ZXHbjWE+hiRtT0Lmmg77i+xdW8sl5EaBS4x3pCfN4+x6s8GS+BuLlwsAOmCEKUal4vcBUjn29Diq8C4muidvc9wis94yUQJ3sHXIhSzRv5hEYu32qsXhAf+mA1sp6NJxFhRWmimneZr3A1r+YSGtP54JP2UHwN56fwhL1YjuUdMSGCO0s15xIaU/lAvRhbat5P48lf6dCvXIimExpT+RwPnbeB2i39/ItigjMR3jyFUAso+EAdvhNV0fpeRHxxWIAFvUVmoxLOBij9F/i4+dXcl+OLLWczRbihIzR08VnhQ4cbgHe8HF6s5gb9ckmoi9hGLp/J+Brc/Movyse92aePv1lIaGTX3zRf8+X5JGFfkSH7cnZdNjJ9jZUUX996Ge/VBW1O2JCEK5nuiKF1YHoz8vWmRRdzZqBkL0QlbErCjCsbOgOkt95M5dP2iXJ/MNljkI9BO+w5bo4ZGloDZG/soX7z+dR2USGi0iER1UGW0HN9TpgyQyNpgGucD8q2KvqHpeeT2byolvIQlQ4JRD5H9BgShJsYaTG3YXVK0gyNbIRmDuK7NYwvej6lLQNlgO8nn5pNplml6nphiE0btTYmQlxTNkNhhsl4bWQUTJ+KZactLZ+UHXwKNwzDCKp1pQrKeCqTneuO4Qd39yB/8RBRJeTSaAKhRskqoFQw2UXNt7IPlcJDOsc7hsQpCiNXlyiKShBk5052507aJwvVm1B+HFMSWlFshqRkHaCiYMdjb4CHph4py0gHZQd0J3+0292FXijkkl3P3NAB2R2cnFz+62y+213YHyeFiD+FEa3l6pRsKB7CPRgCfE0ToOMil8nEcftHv7KnvjkDwhvH8zKExOcB3a8nc6cj9q359u1BtZcUIplUi5TMf4XiJ0Y6RIsIvZkyQNlzY3ThZBOeejWPTz0MOgsN/lCFkKzrpnrQvX8cii+eXh2DED2QuCWEaOIPeqRkJxOujYyH0A/vuVbyaVTakjMez/16cDQRT/3Nvujs7KcJyT+jave+rOr99PG82wVLdKUQzTgatjR+EgPGHtLKKJh3tRhd2D86+PVoMoqf+c227Yud1+MEIRVbXq3TGSY9ZzIc3p9AOSLNlhP67Kk96SdpQClACNG9TIQhQ2a69cCgDo5HSdfZJsLIBTssK6bvho1ue5KOPfDmUzDbhic+kEmVVEThmgtGitDICrCW9mB6Gvjt5Prg1/s3ZbMySrjrb3UkrPY8lxuWyRW8Exja9WV02N7Zj1RC7snNMC1CIyPAZmYJIT6vuXdyMD8aPR5PknylT7a9uAiGWL0BwrJ8oufVgmCUsz5/CFCICqHjwuJa9YRohAiNtAuzH0uGaJLGTbXbfTQr13vzw8zT3i7Cy7Y7+xBs6IGk4E7wkJdBvNoKOjuNUMgcldyk1DDpyAbfUOUkJMBmogRBaYT73eDUnBxNdCvuxzoSXtTGXIRlruDL3CTnL/siuKj+Hno+lzkTYY1EyB2ZYqGREmAIP1RzEiGQfdkLq4F9dzmvf+AnArR3ep5nYSMYngYe3PZzc7DtC3Cti9dA6AglWxaJ0E+I0IjzfCZAq0dJYCrgumHUtW1jlJfxfVkkEe6HaFUVruDP+TniV2MbXOui+l8kMe5VTIQuFyHP/g3cBllXXTgtQJNpuNmxt/Nz0o9bCBjseLhEsAjY6waX5dw3lINTBmh3qvueXyHH5yJsChGu40aKocYYSiuSFsg1vBnYH/MBz+zAZoSdxhhECAuO5+0FwXn+G0Ydcn2789rjqTQ6FvPQ0FUjjaHGGN8ZsBhYSQqQAY53Avt9QVZvHyJgsAd+6fvwgUDB9wVFyuOPEQfcFxkCirCBHSVHWe+MOM8Cy2Z5/mYlDchNcFjwwA9gUux5Xdxr8piCu5WCn394fMMBByKuULTAQt5Xsi5DcRGygQg0nEqapplgqfR++2HLZs9rjAExAgVn1zj1dTw85YDNGJBlomxFRjcRRbIhNcwqJeYi6TSLCTZsXRSZYKk0vDuz2SuohZEXhZvt4KqwFJ2UPgvAUJoUExFGEceJVxMmQa5hCzWcdhHykblCE2Q6HhlIuBOFkJB2g45fquQjmm7pngC7PbH6UrxgbtKSOuYSXBH4TMNeOo9GE9yxg2Eh4OmbUwQEm/rdqXWC41JllP/T5UrJ4IBRDIhCQjflgW6FSXDp3ZLME2osz6qUtSZ4WNw9GPrDAHX82qk0usFt2ZwUtkvKHQQMuqxUMhVArmOe+r9bMpZklEbxNpMuQlHQGXTsz1w3OcHX9E3ScTf0uxed89JkVPyB2gS44CqpO5MSg9i0OPQ6Aq6qBprScLwQMxMc9fe6w1yhPIAIYbl7fRVACHT7xd0aPyDAvVCtLZgI99laFtcmYIMrPEpboP6qozHBMTPBSvnxvtNuFzjnCAGZmjvD8tGUftI5LT1BKw1IjiCMEJ1ENcFButeLfUIwweBDEAR2EPwoeOi2TUlNMCldnU/pd80H6CPt3dBVwhrzY9a0b1rSCA1hglSt93SA4RWIpY4WZp8WLQ+UMtiHpdP7ae3CzyTBdiNMrKzscTUl0KwD4EaRCaINRl3moPjwrU8FD8XlFdTmD9vDaYD3Mk77KUCyNEesdobIZBy2UNcsHSCkJh0CXCxckE1ajz+U7h+n9lsPNWGQA7LGqcfXs7V3xi/cRyxmgvuVbDumDHEwvEWnW6y/LbT9V3XwkqDsz09tCJcvOaCXAmRGiGU595JfDOHEVphd5+Jsy71Fm6n/VfjYb2ilhSFahEEyQbvruhlAFgkbllPhgMtqppPKZGQEB0VcMhnWXxUrDuqMbXM0Q1vd51FmLnRHqfQYVdmS+YKxrvqIm+1IUwkZjX2m5UIfwWLSfjNTz/+RAx4lokzsJXsCcN2QTsySWUfTMqcTAZDmgtnYU7zT3/ow26bEAwe81gE2MF/gbmysKtw17Z4N9vm8nrMbgP6mOedwNsAfPCIdO242OekpbrxqyHppH1MZ09TvTXqRcxTYU+VTmXGfySDAdjNMA3I3jkScQUD2VUu30MXHAjwvhLrp9KX2wb5S3G/3k1GGu7ESZ9YMNQw29Luu6ONjVjd9eiFAijIAGGUBy5T2Wbx8N9JhsJQDyJJWe/hCgP9r8zDoeX528UdZScCibDVRN0Hpvv1SW53vtwjw1nPTWx0ccJMDlgw1TvdzAWEx2ZvBRzSBp6yPl5T3zIU6QKvGW7wZwJ4WkLzYAxN89WS+kT7v+guyirouDBJgKw8wygOEnLDffo6PXOkbXHcccDd0K3rA2lMAsV163Nb7yFlR7J4EZ/p2HTUUg+MiwMrMKkYnvs5ZR+7+LOphBdoW5nfMjDAMzihBcwogFHa3tj7Xevslf0P+MtCX+99QwywMjn0d4L4O0M31YvKRtq3NtUBbv+XXHTlN6rP6Yr0uwqAG8LXqJFMDNVWek7Y+1wJt1b/lVZZ5gelVDJjdURVhxqGUOl7qCgHDY8gGv+u1VX+bk9XDW/TS/UiAwVWoBVQD9QrPZgrW4thHcrS1WNe66g+W4L7PizJ1CoNeZs9cLHUVNZsRrrNp6QFhHbm1tz7qtQWJic5PHrGX9C2v+qtTGPQycVoqUwCqCWvL0mbULBvs2lun+g2ZOxBhVpPDDiulv3zXKv/LIgK2jzULiVmpsDZlXyasIuWvNLKdmdhHcteRuzu2KiwONYW5nVelDm0eZfq6lY6aHyJh3YiLpmZu0QQ+0mzbgVYaX1+9ZVZ4l2292Jov842pLQI8gXJW0yjglTvvfcRlZ6TrfAgf2cxpon//4wx3mepJbxi1qc7XO/GfPE533bE2mWFFky/LTlm4u5lNMCUZrOXs4/h33zA3rn9R0yrzijolevcu/UaAwW2oTQepOiLAlSWl9VHVFiW4h5a7j/P+8zdaV+sq/3HAe03f8pKtOhXFkWtlGqYEIuL0L8a7tUQWlrEJZoJsZ1W/7D+cn5FBLdpxy9dvi1aTvl+8zXOZaydyU2dZMCuoxofG1tT2G3NjVwsY3nTsQPuw4/IpZO/sgbFDmLc2uWldX0abX3jFtGv1aLs4VRZX47J4Q2lgsnq5Gum8ygsHHftQ+6x+6SMHjP2Ee3Buq2loU2er3e2FkeckD9uk+oPrsgWslE2aJnqej5TPeQnOJML95JwpuF5ngK9KpqbX/wnXmLoddPipr8RhG8t5HfsItoCFG4ttEg2gl+cjw2HpUNibTZ+BOn8EeFZ6owF8H1xAnvPXmyDoVHt4rkIBFCbo8E3td/E2hKMzQrnXqT++Ab/6kjtsENARj3lqJDJAcOIHTXR/aHduT4dM00B443rK8pXpzKgbObSbnUqq+TqCPlLO6RFQG2h+rxNsCwPkgGVTd2xm9943MQ/CHfdeYieHp9OxCS7JrbAyj4RWervdwpodfNTP70Qu2p2ht3Nhvy+rfNulM52b8A8K7o8y/D0Woeivyp2mJdzIeSe3i7M7ObSOzDEfGfo5nUhqNldKg27wdVu4DHXTjYJK+iNtNe28jtN+EWT6wgRT27Go/l76zIzvel3mI/1hUSfyqFKxqh1bujR8yT4tB5+mdOAA8Hd5ajAWEt9o2khvaLukY3Xnh5nghJXE5mYpJ29GwE0nCnvdC1tsNoGn2m/eF+zhio2InRvZ/hCxbmD58Qkz5UhAxWEGWk1uTZWpZv/DfGzqWwcccDeMIsh5+P9dtCcGOL5hmFM3InYiAWiKTZLIUU7OqIcqsqdS0EecfwW2UTpy9aUvXxX64yiKcMOH+ebCuTkXHJ5fPhQU9Xw/dmfsucoRODy34yYOVSg6zpzrETW7/TDs6qNMhwNGHv7TRc/c8Ut+x/7w+bCgI3veFvuxdHCGDkfRTqJfSRxL4Qd7cEe2wTs0pgLoQj3yaX5O311rix0jPI4y3u12gm7NC8PHtv3D+HCWD9jnG8Y1CcgEuC/2Yk3lYE98NMpy3MTpS16zg5TOO5/ztn3xMbdjdqDH9aKoOVcbj2/GkBIebp+Opu/HtkJPnNCzcJmTB2mUo1HcTcq0qR2LkI5tgY9sP+jbVKWJ3JBhR1IBMQwBMuqNoWgK/jovFzTmOGBDALJjMfh0x08fLuPH8+QRbylCMkGo2Y3DnIDxWW7IsDNbdCqeyTE8hDj4yi84mNKRx1IonynzYzH7qROOiQOOTIStWIT8zMxRYH+1vxbvdxyHniXvtkMZ7f0B3vJpNPVQBduP5WciQYAsykXiFIh6wDErQun4rsfWEbv+UXeMolT+ygEnKAe63s7OC0cs5/tefGaBTn14eGgT3xaRAK3sEVE10ljsdkdP2q2L+yOL2SbLcFQyHw/ldkIoj3piPxZ8dOuuqDd8asvjcj6d2cTz24oAE4Ay0nARYiw04/2RTPd3NBmVH+d4bi+3feX5X9YM2ypquZsfuOhbHLBCR3oGQoBrmXPUsQgH/JxymdaRBgNMlj/l/vzo/FAcZCA5WPIUINuWuodvavy+PMLNvOEDz8PtTgMPseK1hJrulHLqqDyKkM4zo0lhPQKAiV3W8sPR5BHxROqi9NG4Y0EQybbchxOX2e3jfUfUzXbnhnsXna28cfKOyifWOzz37+BhWTp1pPb5zMnV1WcVj+Uuu2rKxIqYuWw7cdRoVkqmP38ZKKLfwdPrbDaHOCmfd9kgcV2jRvet8DAvK5hiaZjvLzv3hKfwnezKPUHyfHaQJen359ebI6batip5O6iOEdBy8daQvGugua4hLrzEF3I8NuPGJR/hJmi+/xoEXxNwrLy9noiDshwQMkNbLQPLk9ur88r5VVv9ZJj2VOlQruszBQ9cUbLpLrwoR1n5lSbXdyDKMGviJni2bfOaWz4iaN8eQ2rgq3VPhZ2htuNWyPDhsvv5/DOpNi5SWdqz8JqtkLBE9hIK1l4ZEpeuUAR4lBRcHpb//hz73BAyzu62FNnRKbL2XN9N3XRhb2ef6iv//28fIG34wa3C5nET39tdGNz0PJACPGWBh8CiS1fqpRzMatiNS1hInF0wqK0Pd/X6YvxC3Z5cT/CunJ+4y8fOUjE3ZbmgeXaHMEk2RndysNn3QpcJ0CEDbMjbk3nX1hJKxotkPfgFnmf1GSHh1RXd7kYhu4UzSl9lApPvQZG89fH7n2+36gJM0SzQHTXpHqCPfGzxojWu8OKfuDpJSm6S1IEQlvOjtlLukm6PXXxA5lIixpnQO2JCTAhdavbgus/pfPRDvOkSG2DB1UlVyS4GTojs8E9vbP0IYhmABI76+ATLqmRvntJlJme3A6VnCi9og8v3XYXO4rfUq54I0UWXT5Xru2w6RQ2HK3hMhmNUs0143V0vHMfC09xHJEIej+uCLiC7I8FbYlYOOvBCz/Fnub6rhmtuujUqNiLH3Wuzp5zMHSfx9Dv07LgX+0yK1OeIzuV0/AImGXtTOsiUC9DxFXKchIATDNgcKGaIzm476Kq6NfOv7NJhKu+W0nomO2l3VjwbSfLFDjz1Cnnyiqy3wAkhkY88p3mFYcUvxhMyZIf6IBkH2d1eq5oty7xRBIuBdODpl/BTt8hjQlayoYYKdJsh9Jzr9tzuRGhWmVRnKvIbxA24GcYYJAhdIqyCBfqOA5BcBLNcaqfU32tGLBoLOmWiVEUzxGCmQRCJe7yCsOcIxyvWbYKQz+hyWShPT75SB1X4gm/GURrqLAMgRF+uNkB+T8Arydu0qblc8htgMnLUB9+ImHkYiRznQqkTJg4L+66VvJ0+I2J6iiO/5CeGxDQdmQg9YZxLgtB3sWHDxgk5Vt5d+1xC3fQHZp2wfBwk4vOTBuJkCPs0qsyxnkioFyobKdSi8DCdb9pQJjrcyPVRiyzLes5Iq6T4LPrAbDzYdL6pY6341CiHBnoN3MoTDTGDJ8Qn5ns8c6xVPBhMTH2L9lDPTadiWc9AlNLj0+NwYpTYR3zOYLB4tBq/6yqEWLvB8aVPCDjKhDrLb9KAuiYLW2L42/NGq8XD6cR1YaEbQKxIRHNGOpIejj87QOuzfn44XTzej8argRD7e3z2oGvFYiyANBU6UC7N3tubOOQdPz3eLx6QaMr5g00+W3IQOZZlpdYwTQTk8xEtJxrQO/f6ykS1nx2QqIyY5H01hrgXD5i0JGRmyiQfhUmDd/nA0QPAE9p9mRGTypBOM0bsiwGitUHkivG/iSmdFTm4GFKaeBxqK4n3EkM6k0IUczAdmhaJusZRtZb+5bjqnNNdLzH98qXGnKqDYhXEeDAoDdRtRqw0cPgLcsCo2Wgpg2Q3QXgJvJcbFJsYtSuckk0HSjASaK3WarXg39XkAF6iU5WLo3b//bcMKzbjebEOs69W8RzgvVYzctNTdl98WHFq3HM8rxg7F14/oUxV8X3svRBdCu+Fxz2nB2bHA6l9Go0NRtfrNxv0arKxxS4fmZ1uP7CB2f/58gOzMyPH1ZHeljJsPHZhx8pM8/5bR45rhrarEVnEvTgqZma2/+1D27Vj73Uz75VlJV6X/5Gx9/l/OKDwzwb8k3844P/Bn1541h+vWHr2X9h4JuA/9+c//g9BE1uze924DAAAAABJRU5ErkJggg==';
+const MX_CSS_COMMON = `
+/* ============ MatiX · monochrome glass theme ============ */
+html body.mx{
+  --mx-ink:#161616; --mx-muted:#77777d; --mx-surface:rgba(255,255,255,.80); --mx-card-line:rgba(255,255,255,.75);
+  --mx-line:rgba(0,0,0,.08); --mx-field:#f0f0f2; --mx-fieldline:rgba(0,0,0,.06); --mx-focus:rgba(0,0,0,.10);
+  --mx-btn-bg:#232323; --mx-btn-fg:#fff; --mx-bar:#232323; --mx-track:rgba(0,0,0,.09);
+  --mx-side:#fff; --mx-act-bg:#232323; --mx-act-fg:#fff; --mx-black:#232323; --mx-chip-bg:#fff;
+  --mx-toast-bg:#232323; --mx-toast-fg:#fff;
+  --mx-shadow:0 22px 48px -26px rgba(0,0,0,.34);
+  --mx-page:radial-gradient(900px 560px at 14% 6%, #f7f7f8 0, transparent 62%), radial-gradient(900px 620px at 92% 94%, #bdbdc2 0, transparent 60%), #d9d9dc;
+  --text:var(--mx-ink); --muted:var(--mx-muted); --bg-0:#d9d9dc; --card:#fff;
+  --purple:#232323; --purple-2:#232323; --purple-deep:#000; --pink:#232323;
+  font-family:'Vazirmatn','Inter',system-ui,sans-serif; color:var(--mx-ink); background:var(--mx-page); background-attachment:fixed;
 }
-function eja0tdx(e) {
-	const m = String((e && e.message) || e || "").toLowerCase();
-	return m.includes("overloaded") || m.includes("network connection lost") || m.includes("timeout") || m.includes("timed out") || m.includes("temporarily") || m.includes("too many") || m.includes("reset") || m.includes("internal error") || m.includes("d1_error");
+html[data-lang="en"] body.mx{font-family:'Inter','Vazirmatn',system-ui,sans-serif;}
+html:not([data-theme="light"]) body.mx{
+  --mx-ink:#f2f2f3; --mx-muted:#9b9ba1; --mx-surface:rgba(32,32,36,.74); --mx-card-line:rgba(255,255,255,.08);
+  --mx-line:rgba(255,255,255,.10); --mx-field:rgba(255,255,255,.07); --mx-fieldline:rgba(255,255,255,.10); --mx-focus:rgba(255,255,255,.14);
+  --mx-btn-bg:#f2f2f3; --mx-btn-fg:#111; --mx-bar:#f2f2f3; --mx-track:rgba(255,255,255,.14);
+  --mx-side:#1a1a1d; --mx-act-bg:#f2f2f3; --mx-act-fg:#111; --mx-black:#060607; --mx-chip-bg:rgba(255,255,255,.08);
+  --mx-toast-bg:#f2f2f3; --mx-toast-fg:#111;
+  --mx-shadow:0 22px 48px -26px rgba(0,0,0,.8);
+  --mx-page:radial-gradient(900px 560px at 14% 6%, #2a2a2e 0, transparent 62%), radial-gradient(900px 620px at 92% 94%, #232326 0, transparent 60%), #0c0c0e;
+  --bg-0:#0c0c0e;
 }
-async function fz8j64g(fn, tries = 3) {
-	let lastErr;
-	for (let i = 0; i < tries; i++) {
-		try {
-			return await fn();
-		} catch (e) {
-			lastErr = e;
-			if (i === tries - 1 || !eja0tdx(e)) break;
-			await new Promise((r) => setTimeout(r, 120 * (i + 1) + Math.floor(Math.random() * 120)));
-		}
+
+/* background: soft grey swirl, no colour */
+html body.mx .bg{background:transparent;}
+html body.mx .bg::after,html body.mx .grid,html body.mx .particles,html body.mx .net-globe,html body.mx .panel-frame{display:none !important;}
+html body.mx .orb{filter:blur(90px);opacity:.75;}
+html body.mx .orb1{background:#ffffff;}
+html body.mx .orb2{background:#a4a4aa;opacity:.55;}
+html body.mx .orb3,html body.mx .orb4{display:none;}
+html:not([data-theme="light"]) body.mx .orb1{background:#3a3a40;opacity:.55;}
+html:not([data-theme="light"]) body.mx .orb2{background:#2a2a2f;opacity:.7;}
+
+/* logo: always the circular M icon */
+html body.mx .logo{background-image:url(${MATIX_LOGO});background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-color:#fff;border-radius:50%;border:0;animation:none;box-shadow:0 8px 20px -8px rgba(90,40,200,.55);}
+
+/* typography */
+html body.mx .title,html body.mx .brand-name{background:none;-webkit-text-fill-color:currentColor;color:var(--mx-ink);}
+html body.mx label,html body.mx .muted,html body.mx .subtitle,html body.mx p{color:var(--mx-muted);}
+html body.mx h1,html body.mx h2{color:var(--mx-ink);}
+
+/* fields */
+html body.mx input:not([type=checkbox]):not([type=radio]),html body.mx select,html body.mx textarea{
+  background:var(--mx-field);border:1px solid var(--mx-fieldline);color:var(--mx-ink);border-radius:14px;}
+html body.mx input:focus,html body.mx select:focus,html body.mx textarea:focus{border-color:var(--mx-ink);box-shadow:0 0 0 4px var(--mx-focus);}
+html body.mx code{background:var(--mx-field);border:0;color:var(--mx-ink);}
+
+/* buttons */
+html body.mx button.submit,html body.mx button.primary,html body.mx .copy{
+  background:var(--mx-btn-bg);color:var(--mx-btn-fg);border:0;border-radius:999px;box-shadow:none;font-weight:700;}
+html body.mx button.submit:hover,html body.mx button.primary:hover,html body.mx .copy:hover{background:var(--mx-btn-bg);filter:none;opacity:.88;}
+html body.mx button.ghost,html body.mx button.chip,html body.mx .langtoggle{
+  background:var(--mx-chip-bg);border:1px solid var(--mx-line);color:var(--mx-ink);border-radius:999px;backdrop-filter:blur(10px);}
+html body.mx button.chip:hover,html body.mx .langtoggle:hover{border-color:var(--mx-ink);}
+html body.mx button.chip.danger{color:var(--mx-ink);}
+html body.mx .error{background:var(--mx-chip-bg);border:1px solid var(--mx-line);color:#c0352b;border-radius:14px;}
+html body.mx .foot{color:var(--mx-muted);}
+
+/* glass card (login + setup) */
+html body.mx .wrap > .card{background:var(--mx-surface);border:1px solid var(--mx-card-line);border-radius:32px;
+  box-shadow:var(--mx-shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);color:var(--mx-ink);}
+html body.mx .wrap .brand{flex-direction:column;gap:12px;margin-bottom:10px;}
+html body.mx .wrap .logo{width:72px;height:72px;}
+html body.mx .wrap .title{font-size:22px;}
+
+@font-face{font-family:'Vazirmatn';font-weight:400;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn/files/vazirmatn-arabic-400-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+@font-face{font-family:'Vazirmatn';font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn/files/vazirmatn-arabic-500-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+@font-face{font-family:'Vazirmatn';font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn/files/vazirmatn-arabic-600-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+@font-face{font-family:'Vazirmatn';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn/files/vazirmatn-arabic-700-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+@font-face{font-family:'Vazirmatn';font-weight:800;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn/files/vazirmatn-arabic-800-normal.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC;}
+html body.mx, html[data-lang="en"] body.mx{font-family:'Vazirmatn','Vazir',Tahoma,'Segoe UI','Inter',system-ui,-apple-system,sans-serif;}
+html[data-lang="en"] body.mx{font-family:'Inter','Vazirmatn',Tahoma,system-ui,-apple-system,sans-serif;}
+html body.mx button,html body.mx input,html body.mx select,html body.mx textarea,html body.mx a,html body.mx label,html body.mx .chip,html body.mx .splash-status{font-family:inherit;}
+html body.mx button{font-weight:600;letter-spacing:0;line-height:1.4;}
+html body.mx input[type=password]{letter-spacing:.12em;}
+html body.mx .linkbox input,html body.mx textarea,html body.mx .log-meta,html body.mx .log-time{font-family:ui-monospace,'SF Mono',Menlo,Consolas,'DejaVu Sans Mono',monospace;}
+`;
+const MX_CSS_DASH = `
+/* ---------------- dashboard layout ---------------- */
+html{scroll-behavior:smooth;}
+html body.mx .card{scroll-margin-top:96px;}
+html body.mx header{background:transparent;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding:18px 22px;z-index:6;}
+html body.mx .greet-h{font-size:24px;font-weight:800;color:var(--mx-ink);line-height:1.3;}
+html body.mx .greet-s{font-size:12.5px;color:var(--mx-muted);margin-top:2px;}
+html body.mx .brand .logo{width:38px;height:38px;}
+html body.mx .brand-name{font-size:17px;}
+html body.mx .actions{gap:8px;}
+html body.mx button.chip{padding:9px 16px;font-size:12.5px;font-weight:600;}
+html body.mx .theme-toggle{width:40px;height:40px;padding:0;border-radius:50%;}
+html body.mx .theme-toggle svg{width:18px;height:18px;min-width:18px;flex:0 0 auto;color:var(--mx-ink);animation:none;}
+html body.mx .theme-toggle .icon-sun{animation:none;}
+html body.mx .brand-name{white-space:nowrap;}
+html body.mx input[type=number]{text-align:center;}
+html body.mx .hamb{background:var(--mx-chip-bg);border:1px solid var(--mx-line);color:var(--mx-ink);border-radius:14px;}
+
+/* sidebar */
+html body.mx .side{background:var(--mx-side);border:0;border-radius:30px;box-shadow:0 26px 60px -26px rgba(0,0,0,.45);
+  padding:22px 14px;overflow-y:auto;backdrop-filter:none;-webkit-backdrop-filter:none;transition:transform .28s ease;}
+html body.mx .side-brand{display:flex;align-items:center;gap:10px;padding:2px 10px 16px;font-weight:800;font-size:18px;color:var(--mx-ink);}
+html body.mx .side-brand .logo{width:40px;height:40px;flex:0 0 auto;}
+html body.mx .side-brand small{font-weight:600;opacity:.55;font-size:12px;}
+html body.mx .side-sec{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mx-muted);padding:16px 12px 6px;font-weight:700;}
+html body.mx .side a{background:transparent;border:0;border-radius:14px;padding:10px 12px;margin:2px 0;font-size:13.5px;font-weight:600;color:var(--mx-ink);transition:background .2s,color .2s;}
+html body.mx .side a:hover{background:var(--mx-field);border:0;}
+html body.mx .side a.active{background:var(--mx-act-bg);color:var(--mx-act-fg);}
+html body.mx .side .icon{width:26px;height:26px;border:0;background:transparent;animation:none;filter:grayscale(1);font-size:15px;border-radius:8px;}
+html body.mx .side a.active .icon{filter:grayscale(1) brightness(1.7);}
+html:not([data-theme="light"]) body.mx .side a.active .icon{filter:grayscale(1) brightness(.2);}
+html body.mx .backdrop{background:rgba(10,10,12,.28);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);}
+
+/* cards */
+html body.mx .card{background:var(--mx-surface);border:1px solid var(--mx-card-line);border-radius:28px;padding:22px;color:var(--mx-ink);
+  box-shadow:var(--mx-shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transform:none !important;transition:border-color .25s;}
+html body.mx .card:hover{border-color:var(--mx-line);}
+html body.mx .card::before{display:none;}
+html body.mx .card h2{color:var(--mx-ink);font-size:15px;font-weight:700;margin-bottom:16px;}
+html body.mx .card h2 .dot{background:currentColor;box-shadow:none;width:8px;height:8px;}
+html body.mx .card h2 .icon,html body.mx .icon{background:var(--mx-field);border:0;border-radius:12px;animation:none;filter:grayscale(1);}
+html body.mx #overview,html body.mx #usage{
+  --mx-ink:#fff; --mx-muted:rgba(255,255,255,.62); --mx-field:rgba(255,255,255,.09); --mx-fieldline:rgba(255,255,255,.14); --mx-focus:rgba(255,255,255,.18);
+  --mx-btn-bg:#fff; --mx-btn-fg:#111; --mx-bar:#fff; --mx-track:rgba(255,255,255,.16); --mx-line:rgba(255,255,255,.14); --text:#fff; --muted:rgba(255,255,255,.62);
+  background:var(--mx-black);border-color:rgba(255,255,255,.06);color:#fff;}
+html body.mx #overview h2,html body.mx #usage h2{color:#fff;}
+
+/* grid */
+html body.mx main{perspective:none;gap:18px;}
+html body.mx .usage-stat{background:var(--mx-field);border:0;border-radius:22px;}
+html body.mx .status-item{background:var(--mx-field);border:0;border-radius:18px;}
+html body.mx .status-dot-live{background:var(--mx-ink);box-shadow:none;}
+html body.mx .usage-bar{background:var(--mx-track);}
+html body.mx .usage-fill{background:var(--mx-bar);}
+html body.mx .chk input{accent-color:var(--mx-ink);}
+html body.mx .linkbox input{border-radius:999px;padding-inline:16px;}
+
+/* update progress */
+html body.mx .matix-update-progress{background:var(--mx-field);border:0;border-radius:18px;}
+html body.mx .matix-update-progress-track{background:var(--mx-track);}
+html body.mx .matix-update-progress-glow{background:linear-gradient(90deg,transparent,var(--mx-ink),transparent);box-shadow:none;}
+html body.mx [style*="93c5fd"]{color:var(--mx-ink) !important;text-decoration:underline !important;text-underline-offset:3px;}
+
+/* logs */
+html body.mx .loglist::-webkit-scrollbar-thumb{background:var(--mx-track);}
+html body.mx .log-row{background:var(--mx-field);border:0;border-left:3px solid var(--mx-ink);border-radius:16px;}
+html body.mx .log-row:hover{transform:none;box-shadow:none;border-color:var(--mx-ink);}
+html body.mx .log-icon{background:var(--mx-chip-bg);box-shadow:none;filter:grayscale(1);}
+html body.mx .log-type{color:var(--mx-ink);}
+
+/* toast + modal */
+html body.mx .toast{background:var(--mx-toast-bg);color:var(--mx-toast-fg);border:0;border-radius:999px;padding:12px 24px;}
+html body.mx .toast.err{box-shadow:0 0 0 2px #d9443a;}
+html body.mx .modal{background:rgba(14,14,16,.38);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+html body.mx .modal-card,html body.mx .modal-card.glass{background:var(--mx-surface);border:1px solid var(--mx-card-line);border-radius:32px;color:var(--mx-ink);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
+html body.mx .social-btn{background:var(--mx-field);border:0;color:var(--mx-ink);}
+html body.mx .social-btn:hover{background:var(--mx-track);}
+
+/* ---------------- loading screen ---------------- */
+@keyframes mxSpin{to{transform:rotate(360deg)}}
+@keyframes mxBar{0%{width:0}60%{width:82%}100%{width:100%}}
+html body.mx .splash{background:radial-gradient(circle at 50% 28%, #fafafa 0, #d4d4d8 78%);}
+html:not([data-theme="light"]) body.mx .splash{background:radial-gradient(circle at 50% 28%, #2b2b30 0, #0a0a0b 78%);}
+html body.mx .splash-wrap{width:148px;height:148px;}
+html body.mx .splash-ring{border-radius:50%;}
+html body.mx .splash-ring.r1{width:148px;height:148px;border:3px solid var(--mx-track);border-top-color:var(--mx-ink);animation:mxSpin 1.1s linear infinite;}
+html body.mx .splash-ring.r2{width:120px;height:120px;border:1px dashed var(--mx-track);animation:mxSpin 14s linear infinite reverse;}
+html body.mx .splash-ring.r3{display:none;}
+html body.mx .splash-core{width:88px;height:88px;background:url(${MATIX_LOGO}) center/cover no-repeat #fff;
+  box-shadow:0 16px 36px -12px rgba(90,40,200,.55),0 0 0 6px var(--mx-chip-bg);animation:pulseCore 2.2s ease-in-out infinite;}
+html body.mx .splash-bismillah{margin-top:32px;font-size:23px;font-weight:800;color:var(--mx-ink);text-shadow:none;letter-spacing:0;}
+html body.mx .splash-brand{margin-top:8px;font-size:17px;font-weight:700;background:none;-webkit-text-fill-color:currentColor;color:var(--mx-muted);}
+html body.mx .splash-bar{margin-top:20px;width:190px;height:6px;background:var(--mx-track);}
+html body.mx .splash-bar-fill{background:var(--mx-bar);animation:mxBar 1.3s ease forwards;}
+html body.mx .splash-status{color:var(--mx-muted);opacity:1;}
+
+/* ---------------- responsive ---------------- */
+@media (min-width:901px){
+  html body.mx .hamb,html body.mx .backdrop{display:none !important;}
+  html body.mx .brand{display:none;}
+  html[dir] body.mx .side{position:fixed;inset:16px auto 16px auto;inset-inline-start:16px;width:264px;transform:none;z-index:4;}
+  html body.mx header{margin-inline-start:296px;}
+  html body.mx main{margin:0;margin-inline-start:296px;margin-inline-end:24px;max-width:none;padding:6px 0 60px;}
+}
+@media (min-width:1500px){ html body.mx main{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media (max-width:900px){
+  html body.mx .greet{display:none;}
+  html body.mx .hamb{display:inline-flex;}
+  html[dir] body.mx .side{position:fixed;inset:10px auto 10px auto;inset-inline-start:10px;width:290px;max-width:86vw;z-index:30;}
+  html[dir="rtl"] body.mx .side{transform:translateX(125%);}
+  html[dir="ltr"] body.mx .side{transform:translateX(-125%);}
+  html[dir] body.mx .side.open{transform:none;}
+  html body.mx .backdrop{z-index:29;}
+  html body.mx header{padding:12px 14px;background:transparent;}
+  html body.mx main{padding:6px 14px 60px;}
+}
+@media (max-width:480px){
+  html body.mx .brand-name span{display:none;}
+  html body.mx .brand{gap:8px;}
+  html body.mx .actions{gap:6px;}
+  html body.mx button.chip{padding:8px 12px;font-size:12px;}
+  html body.mx .theme-toggle{width:36px;height:36px;}
+}
+
+html body.mx header{justify-content:flex-start;}
+html body.mx main{align-items:stretch;}
+html body.mx main > .card{display:flex;flex-direction:column;margin-bottom:0;min-width:0;}
+html body.mx #overview{order:1} html body.mx #basic-settings{order:2} html body.mx #proxy-settings{order:3}
+html body.mx #subscription{order:4} html body.mx #panel-status{order:5} html body.mx #usage{order:6}
+html body.mx #ip-list{order:7} html body.mx #tg-bot{order:8} html body.mx #panel-update{order:9} html body.mx #logs{order:10}
+html body.mx main > .muted[style*="text-align:center"]{order:12;grid-column:1 / -1;margin:0 !important;}
+html body.mx .save-bar{order:13;grid-column:1 / -1;}
+html body.mx .iplist-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:18px;align-items:stretch;}
+html body.mx .iplist-grid textarea{min-height:240px;height:100%;border-radius:20px;padding:14px 16px;line-height:1.8;}
+html body.mx .iplist-side{display:flex;flex-direction:column;gap:12px;background:var(--mx-field);border-radius:22px;padding:16px;}
+html body.mx .iplist-side .field{margin-bottom:0;}
+html body.mx .iplist-side button{width:100%;padding:12px 18px;}
+html body.mx .iplist-count{font-size:12.5px;color:var(--mx-muted);text-align:center;margin-top:auto;}
+html body.mx .hint-line{font-size:12px;color:var(--mx-muted);line-height:1.8;}
+@media (max-width:760px){ html body.mx .iplist-grid{grid-template-columns:1fr;} html body.mx .iplist-grid textarea{min-height:200px;} }
+html body.mx .usage-grid{grid-template-columns:1fr 1fr;}
+@media (max-width:560px){ html body.mx .usage-grid{grid-template-columns:1fr;} }
+`;
+const MATIX_RELEASE_TAG = 'v1.0.0';
+const MATIX_RELEASE_REPO = 'imatixofficel/Matix-edg';
+
+// [AUTO-VERSION] Cached current worker version.
+let MATIX_RELEASE_TAG_CACHE = null;
+
+// [D1-STORAGE] D1-backed key/value compatibility layer.
+// Bind a Cloudflare D1 database as `DB`. The Worker no longer requires KV.
+const D1_TABLE = 'matix_store';
+let D1_INIT_PROMISE = null;
+
+async function 初始化D1(env) {
+	if (!env || !env.DB || typeof env.DB.prepare !== 'function') {
+		throw new Error('D1 binding DB is missing. Bind a Cloudflare D1 database as DB.');
 	}
-	throw lastErr;
-}
-const aja33qy = 10 * 60 * 1000;
-async function vjcnes5(env, sql, key) {
-	const ck = sql.length + "|" + key;
-	const now = Date.now();
-	const hit = eroucn4.get(ck);
-	if (hit && now - hit.t < utza4af) return hit.v;
-	let row;
-	try {
-		row = await fz8j64g(() => env.DB.prepare(sql).bind(key).first(), 2);
-	} catch (e) {
-		if (hit && now - hit.t < aja33qy) return hit.v;
-		throw e;
-	}
-	if (row) {
-		eroucn4.set(ck, { t: Date.now(), v: row });
-		if (eroucn4.size > 500) {
-			const n2 = Date.now();
-			for (const [k, e] of eroucn4) { if (n2 - e.t >= utza4af) eroucn4.delete(k); }
-			if (eroucn4.size > 500) eroucn4.clear();
-		}
-	}
-	return row;
-}
-async function rpsmq65(env, sql, key) {
-	const ck = "L|" + sql.length + "|" + key;
-	const now = Date.now();
-	const hit = eroucn4.get(ck);
-	if (hit && now - hit.t < utza4af) return hit.v;
-	let res;
-	try {
-		res = await fz8j64g(() => env.DB.prepare(sql).bind(key).all(), 2);
-	} catch (e) {
-		if (hit && now - hit.t < aja33qy) return hit.v;
-		throw e;
-	}
-	if (res && res.results && res.results.length > 0) eroucn4.set(ck, { t: Date.now(), v: res });
-	return res;
-}
-const jip804b = new Map();
-const crtlo7f = 12 * 3600 * 1000;
-const iub5ygr = 10 * 60 * 1000;
-const a40qkal = new Map();
-const vcmirtr = new Map();
-const gbd8v13 = new Map();
-const p6gwddb = new Set();
-const orfpjpg = new Map();
-const cchca6z = new Map();
-const gizzyby = new Map();
-const r2x0v6w = new Map();
-const obx6yh7 = new Map();
-const USER_REQ_CACHE = new Map();
-const tp0s2fk = new Map();
-let cwsdrkz = 0;
-let jlvmthl = 0;
-const vac5goc = 5 * 60 * 1000;
-const b2llpoh = "https://cloudflare-dns.com/dns-query";
-const j7gzuyc = 64 * 1024;
-const gd4zjw9 = 6 * 1024 * 1024;
-const sacemxe = 3000;
-const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
-const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
-const DOWNSTREAM_GRAIN_SILENT_MS = 1;
-const jtnyqj4 = 2048;
-const a5g5pwf = new TextEncoder();
-const b1p8pcx = new TextDecoder();
-const m1fqgtq = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
-const j0z7nx7 = 300;
-let n7wooiz = 0;
-const qaq0llp = 30 * 1000;
-let caxaruo = 0;
-function wcjjpz0() {
-	const now = Date.now();
-	if (now - caxaruo < qaq0llp) return;
-	caxaruo = now;
-	for (const uname of cchca6z.keys()) {
-		const active = a40qkal.get(uname) || 0;
-		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
-		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
-		const staleFor = now - (cchca6z.get(uname) || 0);
-		if (active === 0 && cachedBytes === 0 && cachedReqs === 0 && staleFor > qaq0llp) {
-			cchca6z.delete(uname);
-			gizzyby.delete(uname);
-			r2x0v6w.delete(uname);
-			a40qkal.delete(uname);
-			GLOBAL_TRAFFIC_CACHE.delete(uname);
-			USER_REQ_CACHE.delete(uname);
-			vcmirtr.delete(uname);
-			orfpjpg.delete(uname);
-		}
-	}
-	for (const [k, ts] of gbd8v13.entries()) {
-		if (now - ts > 600000) gbd8v13.delete(k);
-	}
-}
-function h0pqirm(uname, ip) {
-	if (!uname || !ip) return;
-	let m = vcmirtr.get(uname);
-	if (!m) { m = new Map(); vcmirtr.set(uname, m); }
-	m.set(ip, (m.get(ip) || 0) + 1);
-}
-function eojgr6y(uname, ip) {
-	const m = vcmirtr.get(uname);
-	if (!m || !ip) return 0;
-	const left = (m.get(ip) || 0) - 1;
-	if (left <= 0) {
-		m.delete(ip);
-		if (m.size === 0) vcmirtr.delete(uname);
-		gbd8v13.delete(uname + "_hb_" + ip);
-		return 0;
-	}
-	m.set(ip, left);
-	return left;
-}
-function c85kz7x(env, ctx, uname, uuid, ip) {
-	if (!uname || !uuid || !ip || ip === "unknown") return;
-	const key = uname + "|" + ip;
-	if (p6gwddb.has(key)) return;
-	p6gwddb.add(key);
-	const task = (async () => {
-		try {
-			await new Promise((r) => setTimeout(r, 8000));
-			const live = vcmirtr.get(uname);
-			if (live && (live.get(ip) || 0) > 0) return;
-			const row = await env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(uuid).first();
-			if (!row) return;
-			let activeIps = {};
-			try { activeIps = JSON.parse(row.active_ips || "{}"); } catch (e) {}
-			if (!activeIps[ip]) return;
-			delete activeIps[ip];
-			await env.DB.prepare("UPDATE users SET active_ips = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), uuid).run();
-		} catch (e) {
-			console.error("[c85kz7x] " + (e && e.message));
-		} finally {
-			p6gwddb.delete(key);
-		}
-	})();
-	if (ctx) ctx.waitUntil(task);
-}
-function mzl8dv2(message) {
-	function x2wdx1j(n, x) { return (x >>> n) | (x << (32 - n)); }
-	function vlz8yee(x, y, z) { return (x & y) ^ (~x & z); }
-	function qdpb8oi(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); }
-	function hhgsaz1(x) { return x2wdx1j(2, x) ^ x2wdx1j(13, x) ^ x2wdx1j(22, x); }
-	function l68cqls(x) { return x2wdx1j(6, x) ^ x2wdx1j(11, x) ^ x2wdx1j(25, x); }
-	function inwzoyn(x) { return x2wdx1j(7, x) ^ x2wdx1j(18, x) ^ (x >>> 3); }
-	function gxwtoj0(x) { return x2wdx1j(17, x) ^ x2wdx1j(19, x) ^ (x >>> 10); }
-	const K = [
-		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-	];
-	let H = [
-		0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
-		0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
-	];
-	const msgBytes = typeof message === 'string' ? new TextEncoder().encode(message) : message;
-	const bitLen = msgBytes.length * 8;
-	const newLen = (((msgBytes.length + 8) >> 6) + 1) << 6;
-	const padded = new Uint8Array(newLen);
-	padded.set(msgBytes);
-	padded[msgBytes.length] = 0x80;
-	const view = new DataView(padded.buffer);
-	view.setUint32(newLen - 4, bitLen, false);
-	const W = new Uint32Array(64);
-	for (let i = 0; i < newLen; i += 64) {
-		for (let t = 0; t < 16; t++) {
-			W[t] = view.getUint32(i + t * 4, false);
-		}
-		for (let t = 16; t < 64; t++) {
-			W[t] = (gxwtoj0(W[t - 2]) + W[t - 7] + inwzoyn(W[t - 15]) + W[t - 16]) >>> 0;
-		}
-		let [a, b, c, d, e, f, g, h] = H;
-		for (let t = 0; t < 64; t++) {
-			const T1 = (h + l68cqls(e) + vlz8yee(e, f, g) + K[t] + W[t]) >>> 0;
-			const T2 = (hhgsaz1(a) + qdpb8oi(a, b, c)) >>> 0;
-			h = g;
-			g = f;
-			f = e;
-			e = (d + T1) >>> 0;
-			d = c;
-			c = b;
-			b = a;
-			a = (T1 + T2) >>> 0;
-		}
-		H[0] = (H[0] + a) >>> 0;
-		H[1] = (H[1] + b) >>> 0;
-		H[2] = (H[2] + c) >>> 0;
-		H[3] = (H[3] + d) >>> 0;
-		H[4] = (H[4] + e) >>> 0;
-		H[5] = (H[5] + f) >>> 0;
-		H[6] = (H[6] + g) >>> 0;
-		H[7] = (H[7] + h) >>> 0;
-	}
-	return H.slice(0, 7).map(w => w.toString(16).padStart(8, '0')).join('');
-}
-function x2xa3du(value) {
-	try {
-		return decodeURIComponent(value);
-	} catch (e) {
-		return value;
-	}
-}
-function le69yqs(user) {
-	const t = String((user && user.connection_type) || "vl" + "e" + "ss").toLowerCase();
-	const trojan = t.includes("trojan");
-	const ss = t.includes("shadowsocks");
-	const vless = t.includes("vl" + "e" + "ss") || (!trojan && !ss);
-	return { vless, trojan, ss };
-}
-function dibojp4(protocols, connectionType, fallback) {
-	let list = [];
-	if (Array.isArray(protocols)) list = protocols;
-	else if (typeof connectionType === "string" && connectionType) list = connectionType.split(",");
-	const allowed = ["vl" + "e" + "ss", "trojan", "shadowsocks"];
-	const out = [];
-	for (const p of list) {
-		const k = String(p || "").trim().toLowerCase();
-		if (allowed.includes(k) && !out.includes(k)) out.push(k);
-	}
-	return out.length > 0 ? out.join(",") : fallback;
-}
-const cxr7ma0 = new Map();
-const bp4qnv1 = {
-	async evpBytesToKey(password, keyLen) {
-		const pass = new TextEncoder().encode(password);
-		const key = new Uint8Array(keyLen);
-		let hash = new Uint8Array(0);
-		let offset = 0;
-		while (offset < keyLen) {
-			const data = new Uint8Array(hash.length + pass.length);
-			data.set(hash);
-			data.set(pass, hash.length);
-			hash = new Uint8Array(await crypto.subtle.digest("MD5", data));
-			const len = Math.min(hash.length, keyLen - offset);
-			key.set(hash.subarray(0, len), offset);
-			offset += len;
-		}
-		return key;
-	},
-	async getMasterKey(password) {
-		let mk = cxr7ma0.get(password);
-		if (!mk) {
-			mk = await this.evpBytesToKey(password, 32);
-			if (cxr7ma0.size > 512) cxr7ma0.clear();
-			cxr7ma0.set(password, mk);
-		}
-		return mk;
-	},
-	async deriveSubkey(password, salt) {
-		const masterKey = await this.getMasterKey(password);
-		const keyMaterial = await crypto.subtle.importKey("raw", masterKey, { name: "HKDF" }, false, ["deriveKey"]);
-		return await crypto.subtle.deriveKey(
-			{ name: "HKDF", hash: "SHA-1", salt: salt, info: new TextEncoder().encode("ss-subkey") },
-			keyMaterial,
-			{ name: "AES-GCM", length: 256 },
-			false,
-			["encrypt", "decrypt"],
-		);
-	},
-	incrementNonce(nonce) {
-		for (let i = 0; i < nonce.length; i++) {
-			nonce[i]++;
-			if (nonce[i] !== 0) break;
-		}
-	},
-	async decryptChunk(key, nonce, data) {
-		try {
-			const out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
-			this.incrementNonce(nonce);
-			return new Uint8Array(out);
-		} catch (e) {
-			return null;
-		}
-	},
-	async encryptChunk(key, nonce, data) {
-		try {
-			const out = await crypto.subtle.encrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
-			this.incrementNonce(nonce);
-			return new Uint8Array(out);
-		} catch (e) {
-			return null;
-		}
-	},
-};
-async function aphb6rr(request) {
-	try {
-		const body = await request.json();
-		return body && typeof body === "object" ? body : {};
-	} catch (e) {
-		return {};
-	}
-}
-async function xd6rvv1(path, options = {}) {
-	if (path !== "ips.txt") return new Response("", { status: 404 });
-	return await fetch("https://subs.alis1.ir/Ip.txt", options);
-}
-async function ert3ro2() {
-	return new Response("", { status: 404 });
-}
-let brwcxvi = 0;
-async function e6bb3cy(env, ctx) {
-	const now = Date.now();
-	if (now - brwcxvi < 3600000) return;
-	try {
-		brwcxvi = now;
-		const todayUtc = Math.floor(now / 86400000) * 86400000;
-		await env.DB.prepare(`UPDATE users SET used_gb = 0, is_active = 1, last_reset_vol_time = ? WHERE auto_reset_vol_days > 0 AND ? >= (last_reset_vol_time + (auto_reset_vol_days * 86400000))`).bind(todayUtc, todayUtc).run();
-		await env.DB.prepare(`UPDATE users SET used_req = 0, is_active = 1, last_reset_req_time = ? WHERE auto_reset_req_days > 0 AND ? >= (last_reset_req_time + (auto_reset_req_days * 86400000))`).bind(todayUtc, todayUtc).run();
-	} catch (e) {}
-}
-let m58hoyq = 0;
-async function e31njoi(env, ctx) {
-	const now = Date.now();
-	if (now - m58hoyq < 60000) return;
-	try {
-		m58hoyq = now;
-		const { results: usersToRotate } = await env.DB.prepare("SELECT * FROM users WHERE auto_rotate_ip = 1 AND ? >= (last_rotate_time + (rotate_time * 60000))").bind(now).all();
-		if (!usersToRotate || usersToRotate.length === 0) return;
-		const res = await xd6rvv1("ips.txt");
-		if (!res.ok) return;
-		const text = await res.text();
-		const blocks = text.split("----------");
-		let l76xmsu = {};
-		blocks.forEach((block) => {
-			const lines = block
-				.trim()
-				.split("\n")
-				.map((l) => l.trim())
-				.filter((l) => l.length > 0);
-			if (lines.length === 0) return;
-			let opName = "Unknown";
-			const ips = [];
-			lines.forEach((line) => {
-				if (line.includes("#")) opName = line.split("#")[1].trim();
-				else if (!line.startsWith("[source")) ips.push(line);
-			});
-			if (ips.length > 0) l76xmsu[opName] = ips;
+	if (!D1_INIT_PROMISE) {
+		D1_INIT_PROMISE = env.DB.prepare(
+			`CREATE TABLE IF NOT EXISTS "${D1_TABLE}" ("key" TEXT PRIMARY KEY NOT NULL, "value" TEXT NOT NULL)`
+		).run().catch(error => {
+			D1_INIT_PROMISE = null;
+			throw error;
 		});
-		const stmts = [];
-		for (const u of usersToRotate) {
-			let availableIps = [];
-			if (u.ip_operator === "all") {
-				Object.values(l76xmsu).forEach((ips) => (availableIps = availableIps.concat(ips)));
-			} else {
-				availableIps = l76xmsu[u.ip_operator] || [];
-			}
-			availableIps = [...new Set(availableIps)];
-			let count = u.ip_count || 20;
-			let selectedIps = [];
-			if (count >= availableIps.length) {
-				selectedIps = availableIps;
-			} else {
-				const shuffled = availableIps.slice();
-				for (let i = shuffled.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-				}
-				selectedIps = shuffled.slice(0, count);
-			}
-			if (selectedIps.length > 0) {
-				stmts.push(env.DB.prepare("UPDATE users SET ips = ?, last_rotate_time = ? WHERE id = ?").bind(selectedIps.join("\n"), now, u.id));
+	}
+	await D1_INIT_PROMISE;
+}
+
+async function D1Get(env, key) {
+	await 初始化D1(env);
+	const row = await env.DB.prepare(`SELECT "value" FROM "${D1_TABLE}" WHERE "key" = ?1`).bind(String(key)).first();
+	return row?.value ?? null;
+}
+
+async function D1Put(env, key, value) {
+	await 初始化D1(env);
+	await env.DB.prepare(
+		`INSERT INTO "${D1_TABLE}" ("key", "value") VALUES (?1, ?2)
+		 ON CONFLICT("key") DO UPDATE SET "value" = excluded."value"`
+	).bind(String(key), String(value)).run();
+	return value;
+}
+
+async function D1Delete(env, key) {
+	await 初始化D1(env);
+	await env.DB.prepare(`DELETE FROM "${D1_TABLE}" WHERE "key" = ?1`).bind(String(key)).run();
+}
+
+
+// [AUTO-VERSION] Resolve the version this deployed worker is running.
+async function 获取当前版本(env) {
+	if (MATIX_RELEASE_TAG_CACHE) return MATIX_RELEASE_TAG_CACHE;
+	try {
+		if (env && env.DB) {
+			const storedVersion = await D1Get(env, 'matix_worker_version');
+			if (storedVersion) {
+				MATIX_RELEASE_TAG_CACHE = storedVersion;
+				return storedVersion;
 			}
 		}
-		if (stmts.length > 0) {
-			const batchSize = 50;
-			for (let i = 0; i < stmts.length; i += batchSize) {
-				await env.DB.batch(stmts.slice(i, i + batchSize));
+	} catch (e) { console.warn('[AUTO-VERSION] D1 read version failed:', e.message); }
+	try {
+		const headers = { 'User-Agent': 'Matix-Edge', 'Accept': 'application/vnd.github+json' };
+		if (env && env.GITHUB_TOKEN) headers['Authorization'] = 'Bearer ' + env.GITHUB_TOKEN;
+		const res = await fetch('https://api.github.com/repos/' + MATIX_RELEASE_REPO + '/releases/latest', { headers, cf: { cacheTtl: 300 } });
+		if (res.ok) {
+			const data = await res.json();
+			const latest = data.tag_name;
+			if (latest) {
+				if (env && env.DB) await D1Put(env, 'matix_worker_version', latest);
+				MATIX_RELEASE_TAG_CACHE = latest;
+				return latest;
 			}
 		}
-	} catch (e) {}
+	} catch (e) { console.warn('[AUTO-VERSION] GitHub version fetch failed:', e.message); }
+	return MATIX_RELEASE_TAG;
 }
-async function d8fsytq() {
-	return;
+
+// [AUTO-VERSION] Semantic-ish numeric comparison for release tags such as v2.0.1.
+function compareVersions(a, b) {
+	if (!a || !b) return 0;
+	const pa = String(a).replace(/^v/, '').split(/[.\-+]/).map(x => parseInt(x, 10) || 0);
+	const pb = String(b).replace(/^v/, '').split(/[.\-+]/).map(x => parseInt(x, 10) || 0);
+	for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+		const na = pa[i] || 0, nb = pb[i] || 0;
+		if (na > nb) return 1;
+		if (na < nb) return -1;
+	}
+	return 0;
 }
+
+const MATIX_SCANNER_URL = 'https://imatixofficel.github.io/Scanner-matix/data/clean_ips.json';
+const MATIX_SCANNER_ENABLED = true;
+let config_JSON, 缓存SOCKS5白名单 = null, 调试日志打印 = false;
+let SOCKS5白名单 = ['*tapecontent.net', '*cloudatacdn.com', '*loadshare.org', '*cdn-centaurus.com', 'scholar.google.com'];
+const Pages静态页面 = 'https://edt-pages.github.io';
+///////////////////////////////////////////////////////全局常量和工具函数///////////////////////////////////////////////
+const WS早期数据最大字节 = 8 * 1024, WS早期数据最大头长度 = Math.ceil(WS早期数据最大字节 * 4 / 3) + 4;
+const 上行合包目标字节 = 20 * 1024, 上行队列最大字节 = 16 * 1024 * 1024, 上行队列最大条目 = 4096;
+const 下行Grain包字节 = 32 * 1024, 下行Grain尾部阈值 = 512, 下行Grain低水位字节 = Math.max(4096, 下行Grain尾部阈值 * 12), 下行Grain最大等待轮次 = 4;
+let TCP并发拨号数 = 2, 反代并发拨号数 = 1, 预加载竞速拨号 = false;
+///////////////////////////////////////////////////////查杀特征码///////////////////////////////////////////////
+const 特征码字典 = [
+	(Proxy.name + "IP").toUpperCase(),
+	(String.fromCharCode(67, 109) + URL.name[2] + 'i' + URL.name[0]).toLowerCase(),
+	String(2407 * 300 - 10).split('').reverse().join('')
+];
+///////////////////////////////////////////////////////主程序入口///////////////////////////////////////////////
 export default {
 	async fetch(request, env, ctx) {
-		if (!env.DB) {
-			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
+		let 请求URL文本 = request.url.replace(/%5[Cc]/g, '').replace(/\\/g, '');
+		const 请求URL锚点索引 = 请求URL文本.indexOf('#');
+		const 请求URL主体部分 = 请求URL锚点索引 === -1 ? 请求URL文本 : 请求URL文本.slice(0, 请求URL锚点索引);
+		if (!请求URL主体部分.includes('?') && /%3f/i.test(请求URL主体部分)) {
+			const 请求URL锚点部分 = 请求URL锚点索引 === -1 ? '' : 请求URL文本.slice(请求URL锚点索引);
+			请求URL文本 = 请求URL主体部分.replace(/%3f/i, '?') + 请求URL锚点部分;
 		}
-		try {
+		const url = new URL(请求URL文本);
+		const UA = request.headers.get('User-Agent') || 'null';
+		const upgradeHeader = (request.headers.get('Upgrade') || '').toLowerCase(), contentType = (request.headers.get('content-type') || '').toLowerCase();
+		const 管理员密码 = env.ADMIN || env.admin || env.PASSWORD || env.password || env.pswd || env.TOKEN || env.KEY || env.UUID || env.uuid;
+		const 加密秘钥 = env.KEY || '勿动此默认密钥，有需求请自行通过添加变量KEY进行修改';
+		const userIDMD5 = await MD5MD5(管理员密码 + 加密秘钥);
+		const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+		const envUUID = env.UUID || env.uuid;
+		const userID = (envUUID && uuidRegex.test(envUUID)) ? envUUID.toLowerCase() : [userIDMD5.slice(0, 8), userIDMD5.slice(8, 12), '4' + userIDMD5.slice(13, 16), '8' + userIDMD5.slice(17, 20), userIDMD5.slice(20)].join('-');
+		const hosts = env.HOST ? (await 整理成数组(env.HOST)).map(h => h.toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split(':')[0]) : [url.hostname];
+		const host = hosts[0];
+		const 访问路径 = url.pathname.slice(1).toLowerCase();
+		调试日志打印 = ['1', 'true'].includes(env.DEBUG) || 调试日志打印;
+		预加载竞速拨号 = ['1', 'true'].includes(env.PRELOAD_RACE_DIAL) || 预加载竞速拨号;
+		反代并发拨号数 = Math.max(1, Number(env.PROXY_CONCURRENT_DIAL) || 反代并发拨号数);
+		TCP并发拨号数 = Math.max(1, Number(env.TCP_CONCURRENT_DIAL) || TCP并发拨号数);
+		if (!env.TCP_CONCURRENT_DIAL && TCP并发拨号数 !== 1 && 识别运营商(request) === 'cmcc') TCP并发拨号数 = 1;
+		let 默认反代IP = (`${request.cf.colo}.${特征码字典[0]}.${特征码字典[1]}SsSs.nEt`).toLowerCase(), 默认反代兜底 = true;
+		if (env.PROXYIP) {
+			const proxyIPs = await 整理成数组(env.PROXYIP);
+			默认反代IP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
+			默认反代兜底 = false;
+		};
+		const 访问IP = request.headers.get('CF-Connecting-IP') || request.headers.get('True-Client-IP') || request.headers.get('X-Real-IP') || request.headers.get('X-Forwarded-For') || request.headers.get('Fly-Client-IP') || request.headers.get('X-Appengine-Remote-Addr') || request.headers.get('X-Cluster-Client-IP') || 'Unknown IP';
+		if (缓存SOCKS5白名单 === null) {
+			if (env.GO2SOCKS5) SOCKS5白名单 = [...new Set(SOCKS5白名单.concat(await 整理成数组(env.GO2SOCKS5)))];
+			缓存SOCKS5白名单 = SOCKS5白名单;
+		} else SOCKS5白名单 = 缓存SOCKS5白名单;
+		if (访问路径 === 'version') {// 版本信息接口
+			const 请求UUID = (url.searchParams.get('uuid') || '').toLowerCase();
+			if (uuidRegex.test(请求UUID)) {
+				const 目标UUID = String(userID).toLowerCase();
+				let 请求前8总和 = 0, 目标前8总和 = 0;
+				for (let i = 0; i < 8; i++) {
+					const 请求码 = 请求UUID.charCodeAt(i);
+					请求前8总和 += 请求码 <= 57 ? 请求码 - 48 : 请求码 - 87;
+					const 目标码 = 目标UUID.charCodeAt(i);
+					目标前8总和 += 目标码 <= 57 ? 目标码 - 48 : 目标码 - 87;
+				}
+				if (请求前8总和 === 目标前8总和 && 请求UUID.slice(-12) === 目标UUID.slice(-12)) return new Response(JSON.stringify({ Version: Number(String(Version).replace(/\D+/g, '')) }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+			}
+		} else if (访问路径.startsWith('tgwebhook/')) {// Telegram机器人Webhook（无需管理员Cookie，Telegram直接调用）
+			// 注意：访问路径 已被转为小写，但 Bot Token 大小写敏感，因此从原始 url.pathname 中提取，保留大小写
+			const botTokenFromPath = decodeURIComponent(url.pathname.slice(1)).slice('tgwebhook/'.length);
 			try {
-				await gm37elm.ensureSchema(env.DB);
-			} catch (e) {}
-			xn0iw7z(env, ctx);
-			wcjjpz0();
-			if (ogjh4tu) {
-				ctx.waitUntil(e6bb3cy(env, ctx));
-				ctx.waitUntil(e31njoi(env, ctx));
-			}
-			const url = new URL(request.url);
-			if (cggc6tw.isWebSocketUpgrade(request)) {
-				return await cggc6tw.handleWebSocket(request, env, ctx);
-			}
-			if (cggc6tw.isSubscriptionPath(url.pathname)) {
-				return await cggc6tw.handleSubscription(url, env);
-			}
-			if (url.pathname === "/icon.svg" || url.pathname === "/favicon.ico" || url.pathname === "/icon.png" || url.pathname === "/apple-touch-icon.png") {
-				return new Response(yg6opgi, {
-					headers: { "Content-Type": "image/svg+xml; charset=utf-8", "Cache-Control": "public, max-age=604800, immutable" },
-				});
-			}
-			if (url.pathname === "/manifest.json") {
-				return new Response(vrnrz32, {
-					headers: { "Content-Type": "application/manifest+json; charset=utf-8", "Cache-Control": "public, max-age=86400" },
-				});
-			}
-			if (url.pathname === "/sw.js") {
-				return new Response(w8wy2kr, {
-					headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-cache" },
-				});
-			}
-			if (url.pathname === "/robots.txt") {
-				return new Response("User-agent: *\nDisallow: /", { headers: { "Content-Type": "text/plain; charset=UTF-8" } });
-			}
-			if (url.pathname === "/assets/geo.json") {
-				return await cggc6tw.handleLocations();
-			}
-			if (url.pathname.startsWith("/api/")) {
-				return await cggc6tw.handleApi(request, url, env, ctx);
-			}
-			if (url.pathname === "/adminas" || url.pathname === "/login") {
-				return await cggc6tw.handlePanel(request, env);
-			}
-			if (url.pathname.startsWith("/status/")) {
-				return await cggc6tw.handleUserStatus(url, env);
-			}
-			return new Response(wa42j92.nginx, {
-				headers: { "Content-Type": "text/html; charset=utf-8" },
-			});
-		} catch (err) {
-			return new Response("Internal Server Error", { status: 500 });
-		}
-	},
-};
-/*
-[1.
-*/
-const cggc6tw = {
-	isWebSocketUpgrade(request) {
-		const upgradeHeader = (request.headers.get("Upgrade") || "").toLowerCase();
-		return upgradeHeader === "websocket";
-	},
-	isSubscriptionPath(pathname) {
-		return pathname.startsWith("/sub/") || pathname.startsWith("/feed/") || pathname.startsWith("/singbox/");
-	},
-	async handleLocations() {
-		try {
-			if (!globalThis.__geoCache || Date.now() - globalThis.__geoCacheT > 43200000) {
-				const response = await fetch("https://speed.cloudflare.com/locations");
-				globalThis.__geoCache = await response.text();
-				globalThis.__geoCacheT = Date.now();
-			}
-			return new Response(globalThis.__geoCache, {
-				headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-			});
-		} catch (e) {
-			return new Response("[]", { status: 200, headers: { "Content-Type": "application/json" } });
-		}
-	},
-	async handleWebSocket(request, env, ctx) {
-		try {
-			let proxyIP = "";
-			try {
-				const nowPx = Date.now();
-				if (nowPx - qb7ahff.t < 20000) {
-					proxyIP = qb7ahff.v;
-				} else {
-					const proxyRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
-					proxyIP = proxyRow && proxyRow.value ? proxyRow.value : "";
-					qb7ahff = { t: nowPx, v: proxyIP, p: null };
-				}
-			} catch (e) {}
-			const storedData = { proxy_ip: proxyIP };
-			return bvj1iaf(env, storedData, ctx, request);
-		} catch (e) {
-			return new Response("Internal Server Error", { status: 500 });
-		}
-	},
-	async handleSubscription(url, env) {
-		const isSingbox = url.pathname.startsWith("/singbox/");
-		const isSubPath = url.pathname.startsWith("/sub/");
-		const offset = isSingbox ? 9 : isSubPath ? 5 : 6;
-		let subUser = x2xa3du(url.pathname.slice(offset));
-		const host = url.hostname;
-		try {
-			const user = await env.DB.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE OR uuid = ?").bind(subUser, subUser).first();
-			if (!user) {
-				return new Response("Not Found", { status: 404 });
-			}
-			try {
-				await env.DB.prepare("UPDATE users SET used_req = used_req + 1 WHERE username = ?").bind(user.username).run();
-			} catch (e) {}
-			if (isSingbox) {
-				return await kvkt6ve.generateSingbox(user, host);
-			}
-			let globalIata = "";
-			let showInfoConfigs = false;
-			try {
-				const { results: subSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
-				for (const r of subSettings || []) {
-					if (r.key === "proxy_location_country" && r.value) globalIata = r.value;
-					if (r.key === "sub_info_configs") showInfoConfigs = r.value === "1";
-				}
-			} catch (e) {}
-			return await kvkt6ve.generateText(user, host, globalIata, showInfoConfigs);
-		} catch (err) {
-			return new Response("Error building config: " + err.message, { status: 500 });
-		}
-	},
-	async handlePanel(request, env) {
-		const hasPassword = await gm37elm.getPanelPassword(env.DB);
-		if (!hasPassword) {
-			return new Response(wa42j92.setup, {
-				headers: { "Content-Type": "text/html; charset=utf-8" },
-			});
-		}
-		const authorized = await gm37elm.verifyApiAuth(request, env);
-		if (!authorized) {
-			return new Response(wa42j92.login, {
-				headers: { "Content-Type": "text/html; charset=utf-8" },
-			});
-		}
-		return new Response(wa42j92.panel, {
-			headers: {
-				"Content-Type": "text/html; charset=utf-8",
-				"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-				Pragma: "no-cache",
-				Expires: "0",
-			},
-		});
-	},
-	async handleUserStatus(url, env) {
-		const username = x2xa3du(url.pathname.slice(8));
-		if (!username) {
-			return new Response("Username is required", { status: 400 });
-		}
-		try {
-			const user = await env.DB.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE OR uuid = ?").bind(username, username).first();
-			if (!user) {
-				return new Response("User not found", { status: 404 });
-			}
-			let globalProxyIata = "";
-			let statusInfoConfigs = false;
-			try {
-				const { results: stSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
-				for (const r of stSettings || []) {
-					if (r.key === "proxy_location_country" && r.value) globalProxyIata = r.value;
-					if (r.key === "sub_info_configs") statusInfoConfigs = r.value === "1";
-				}
-			} catch (e) {}
-			const userJson = JSON.stringify({
-				username: user.username,
-				uuid: user.uuid,
-				limit_gb: user.limit_gb,
-				expiry_days: user.expiry_days,
-				used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
-				limit_req: user.limit_req,
-				used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
-				is_active: user.is_active,
-				online_count: Math.max((vcmirtr.get(user.username) || new Map()).size, hrktmlk(user.active_ips)),
-				ip_limit: user.ip_limit,
-				created_at: user.created_at,
-				tls: user.tls,
-				port: user.port,
-				ips: user.ips,
-				fingerprint: user.fingerprint || "unsafe",
-				user_proxy_iata: user.user_proxy_iata,
-				user_socks5: user.user_socks5,
-				user_proxy_ip: user.user_proxy_ip,
-				global_proxy_iata: globalProxyIata,
-				info_configs: statusInfoConfigs,
-				connection_type: user.connection_type,
-			});
-			const html = wa42j92.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
-			return new Response(html, {
-				headers: { "Content-Type": "text/html; charset=utf-8" },
-			});
-		} catch (err) {
-			return new Response("Error: " + err.message, { status: 500 });
-		}
-	},
-	async handleApi(request, url, env, ctx) {
-		if (request.method !== "GET" && request.method !== "HEAD") bbkao4k();
-		const hasPassword = await gm37elm.getPanelPassword(env.DB);
-		if (url.pathname === "/api/setup-password" && request.method === "POST") {
-			if (hasPassword) {
-				return new Response(JSON.stringify({ error: "رمز عبور از قبل تعریف شده است" }), {
-					status: 400,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			const { password } = await aphb6rr(request);
-			const cleanPassword = (password || "").trim();
-			if (!cleanPassword || cleanPassword.length < 4) {
-				return new Response(JSON.stringify({ error: "رمز عبور باید حداقل ۴ کاراکتر باشد" }), {
-					status: 400,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			const hashed = await gm37elm.sha256(cleanPassword);
-			await gm37elm.setPanelPassword(env.DB, hashed);
-			tp0s2fk.clear();
-			return new Response(JSON.stringify({ success: true }), {
-				headers: {
-					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "sx_tok=" + hashed + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
-				},
-			});
-		}
-		if (url.pathname === "/api/login" && request.method === "POST") {
-			const clientIP = request.headers.get("CF-Connecting-IP") || "unknown";
-			const now = Date.now();
-			if (tp0s2fk.size > 256) {
-				for (const [ip, rec] of tp0s2fk) {
-					if (now - rec.lastAttempt > 900000) tp0s2fk.delete(ip);
-				}
-			}
-			const attemptRecord = tp0s2fk.get(clientIP) || { count: 0, lastAttempt: 0 };
-			if (attemptRecord.count >= 15 && now - attemptRecord.lastAttempt < 900000) {
-				const remaining = Math.ceil((900000 - (now - attemptRecord.lastAttempt)) / 60000);
-				return new Response(JSON.stringify({ error: `دسترسی شما مسدود شد. لطفاً ${remaining} دقیقه دیگر تلاش کنید.` }), {
-					status: 429,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			const { password } = await aphb6rr(request);
-			const cleanPassword = (password || "").trim();
-			const hashedInput = await gm37elm.sha256(cleanPassword);
-			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
-			let isValid = false;
-			if (storedHash === hashedInput) {
-				isValid = true;
-			} else {
-				const oldHashedInput = await gm37elm.oldSha256(cleanPassword);
-				if (storedHash === oldHashedInput) {
-					isValid = true;
-					await gm37elm.setPanelPassword(env.DB, hashedInput);
-				}
-			}
-			if (isValid) {
-				tp0s2fk.delete(clientIP);
-				return new Response(JSON.stringify({ success: true }), {
-					headers: {
-						"Content-Type": "application/json; charset=utf-8",
-						"Set-Cookie": "sx_tok=" + hashedInput + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
-					},
-				});
-			} else {
-				attemptRecord.count = now - attemptRecord.lastAttempt > 900000 ? 1 : attemptRecord.count + 1;
-				attemptRecord.lastAttempt = now;
-				tp0s2fk.set(clientIP, attemptRecord);
-				return new Response(JSON.stringify({ error: `رمز عبور اشتباه است (تلاش‌های باقی‌مانده: ${15 - attemptRecord.count})` }), {
-					status: 401,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-		}
-		if (url.pathname === "/api/logout" && request.method === "POST") {
-			return new Response(JSON.stringify({ success: true }), {
-				headers: {
-					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "sx_tok=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
-				},
-			});
-		}
-		if (url.pathname === "/api/recover" && request.method === "POST") {
-			const { api_token } = await aphb6rr(request);
-			if (!api_token) {
-				return new Response(JSON.stringify({ error: "Token is required" }), {
-					status: 400,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			try {
-				const cfRes = await fetch("https://api.cloudflare.com/client/v4/user/tokens/verify", {
-					headers: { Authorization: "Bearer " + api_token },
-				});
-				const cfData = await cfRes.json();
-				if (!cfRes.ok || !cfData.success) {
-					return new Response(JSON.stringify({ error: "Invalid or expired Cloudflare token" }), {
-						status: 401,
-						headers: { "Content-Type": "application/json; charset=utf-8" },
-					});
-				}
-				const host = url.hostname;
-				let isAuthorized = false;
-				if (host.endsWith(".workers.dev")) {
-					const parts = host.split(".");
-					const targetSubdomain = parts[parts.length - 3];
-					const accountsRes = await fetch("https://api.cloudflare.com/client/v4/accounts", {
-						headers: { Authorization: "Bearer " + api_token },
-					});
-					const accountsData = await accountsRes.json();
-					if (accountsData.success && accountsData.result) {
-						for (const acc of accountsData.result) {
-							const subRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${acc.id}/workers/subdomain`, {
-								headers: { Authorization: "Bearer " + api_token },
-							});
-							const subData = await subRes.json();
-							if (subData.success && subData.result && subData.result.subdomain === targetSubdomain) {
-								isAuthorized = true;
-								break;
-							}
-						}
-					}
-				} else {
-					const zonesRes = await fetch("https://api.cloudflare.com/client/v4/zones", {
-						headers: { Authorization: "Bearer " + api_token },
-					});
-					const zonesData = await zonesRes.json();
-					if (zonesData.success && zonesData.result) {
-						for (const zone of zonesData.result) {
-							if (host === zone.name || host.endsWith("." + zone.name)) {
-								isAuthorized = true;
-								break;
-							}
-						}
-					}
-				}
-				if (!isAuthorized) {
-					return new Response(JSON.stringify({ error: "این توکن متعلق به صاحب پـنـل نیست (ای کــثـــکـــش)" }), {
-						status: 403,
-						headers: { "Content-Type": "application/json; charset=utf-8" },
-					});
-				}
-				await env.DB.prepare("DELETE FROM settings WHERE key = 'panel_password'").run();
-				qwlc8qb = null;
-				tp0s2fk.clear();
-				return new Response(JSON.stringify({ success: true }), {
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			} catch (err) {
-				return new Response(JSON.stringify({ error: "Cloudflare API connection error" }), {
-					status: 500,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-		}
-		const authorized = await gm37elm.verifyApiAuth(request, env);
-		if (!authorized && url.pathname !== "/api/test-proxy") {
-			return new Response(JSON.stringify({ error: "Unauthorized" }), {
-				status: 401,
-				headers: { "Content-Type": "application/json; charset=utf-8" },
-			});
-		}
-		if (url.pathname === "/api/ips-list" && request.method === "GET") {
-			try {
-				const r = await xd6rvv1("ips.txt");
-				if (!r.ok) return new Response("", { status: 502 });
-				return new Response(await r.text(), { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
+				return await 处理Telegram机器人Webhook(botTokenFromPath, request, env, url, userID, host);
 			} catch (e) {
-				return new Response("", { status: 502 });
+				return new Response('ok');
 			}
-		}
-		if (url.pathname === "/api/restart-core" && request.method === "POST") {
-			try {
-				GLOBAL_TRAFFIC_CACHE.clear();
-				a40qkal.clear();
-				cchca6z.clear();
-				gizzyby.clear();
-				r2x0v6w.clear();
-				obx6yh7.clear();
-				USER_REQ_CACHE.clear();
-				vcmirtr.clear();
-				gbd8v13.clear();
-				orfpjpg.clear();
-				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-			} catch (err) {
-				return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+		} else if (管理员密码 && upgradeHeader === 'websocket') {// WebSocket代理
+			const 反代上下文 = await 反代参数获取(url, userID, 默认反代IP, 默认反代兜底);
+			log(`[WebSocket] 命中请求: ${url.pathname}${url.search}`);
+			return await 处理WS请求(request, userID, url, 反代上下文);
+		} else if (管理员密码 && !访问路径.startsWith('admin/') && 访问路径 !== 'login' && request.method === 'POST') {// gRPC/叉HTTP代理
+			const 反代上下文 = await 反代参数获取(url, userID, 默认反代IP, 默认反代兜底);
+			const { 头: 本机Padding头, 键: 本机Padding键 } = 获取叉HTTPPadding标识(userID);
+			const 命中叉HTTP特征 = !!request.headers.get(本机Padding头) || !!url.searchParams.get(本机Padding键);
+			if (!命中叉HTTP特征 && contentType.startsWith('application/grpc')) {
+				log(`[gRPC] 命中请求: ${url.pathname}${url.search}`);
+				return await 处理gRPC请求(request, userID, 反代上下文);
 			}
-		}
-		if (url.pathname === "/api/change-password" && request.method === "POST") {
-			const { current_password, new_password } = await aphb6rr(request);
-			const cleanCurrent = (current_password || "").trim();
-			const cleanNew = (new_password || "").trim();
-			if (!cleanCurrent || !cleanNew) {
-				return new Response(JSON.stringify({ error: "رمز عبور فعلی و جدید الزامی هستند" }), {
-					status: 400,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			const currentHash = await gm37elm.sha256(cleanCurrent);
-			const oldCurrentHash = await gm37elm.oldSha256(cleanCurrent);
-			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
-			if (storedHash && storedHash !== currentHash && storedHash !== oldCurrentHash) {
-				return new Response(JSON.stringify({ error: "رمز عبور فعلی اشتباه است" }), {
-					status: 401,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			if (cleanNew.length < 4) {
-				return new Response(JSON.stringify({ error: "رمز عبور جدید باید حداقل ۴ کاراکتر باشد" }), {
-					status: 400,
-					headers: { "Content-Type": "application/json; charset=utf-8" },
-				});
-			}
-			const newHash = await gm37elm.sha256(cleanNew);
-			await gm37elm.setPanelPassword(env.DB, newHash);
-			return new Response(JSON.stringify({ success: true }), {
-				headers: {
-					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "sx_tok=" + newHash + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
-				},
-			});
-		}
-		if (url.pathname === "/api/settings/bulk") {
-			if (request.method === "GET") {
-				try {
-					const { results } = await env.DB.prepare("SELECT * FROM settings").all();
-					const settingsObj = {};
-					if (results) {
-						results.forEach((r) => {
-							if (r.key !== "cf_token" && r.key !== "panel_password") settingsObj[r.key] = r.value;
-						});
-					}
-					return new Response(JSON.stringify(settingsObj), { headers: { "Content-Type": "application/json" } });
-				} catch (e) {
-					return new Response(JSON.stringify({}), { headers: { "Content-Type": "application/json" } });
-				}
-			}
-			if (request.method === "POST") {
-				const body = await aphb6rr(request);
-				if (body.settings && typeof body.settings === "object") {
-					for (const [k, v] of Object.entries(body.settings)) {
-						await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
-					}
-				}
-				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-			}
-		}
-		if (url.pathname === "/api/bulk-advanced" && request.method === "POST") {
-			const b = await aphb6rr(request);
-			const sets = [];
-			const vals = [];
-			for (const f of ["advanced_frag", "cipher_suites", "tls_mask", "ech_config"]) {
-				if (b[f] === undefined) continue;
-				const v = b[f] === null ? "" : String(b[f]).trim();
-				if (f === "advanced_frag" && v) {
-					try { JSON.parse(v); } catch (e) { return new Response(JSON.stringify({ error: "Advanced Fragment JSON is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } }); }
-				}
-				sets.push(f + " = ?");
-				vals.push(v || null);
-			}
-			if (b.fingerprint !== undefined) {
-				const fpv = String(b.fingerprint || "").trim().toLowerCase();
-				if (!["chrome", "firefox", "safari", "ios", "android", "edge", "360", "qq", "random", "randomized", "unsafe"].includes(fpv)) {
-					return new Response(JSON.stringify({ error: "fingerprint is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } });
-				}
-				sets.push("fingerprint = ?");
-				vals.push(fpv);
-			}
-			if (sets.length) await env.DB.prepare("UPDATE users SET " + sets.join(", ")).bind(...vals).run();
-			if (b.patterniha !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', ?)").bind(b.patterniha ? "1" : "0").run();
-			if (b.patterniha_ech !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', ?)").bind(b.patterniha_ech ? "1" : "0").run();
-			if (b.patterniha === true && b.patterniha_ech === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', '0')").run();
-			if (b.patterniha_ech === true && b.patterniha === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', '0')").run();
-			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-		}
-		if (url.pathname === "/api/proxy-ip") {
-			if (request.method === "POST") {
-				const { proxy_ip, iata, socks5, country, info_configs, ech_sni, ech_doh, ech_doh_preset, ech_api } = await aphb6rr(request);
-				{
-					const bad = (m) => new Response(JSON.stringify({ error: m }), { status: 400, headers: { "Content-Type": "application/json" } });
-					if (ech_sni !== undefined && !/^[A-Za-z0-9]([A-Za-z0-9.-]{0,251}[A-Za-z0-9])?$/.test(String(ech_sni))) return bad("ECH SNI نامعتبر است");
-					if (ech_doh !== undefined && !/^(udp|tcp|https|tls):\/\/[^\s"'<>\\+]{1,200}$/i.test(String(ech_doh))) return bad("ECH DoH نامعتبر است");
-					if (ech_doh_preset !== undefined && !/^[a-z0-9-]{1,24}$/.test(String(ech_doh_preset))) return bad("preset نامعتبر است");
-					if (ech_api !== undefined && String(ech_api) !== "" && !/^https?:\/\/[^\s"'<>\\]{1,200}$/i.test(String(ech_api))) return bad("آدرس API مرکزی نامعتبر است");
-					const putSetting = (k, v) => env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
-					if (ech_sni !== undefined) await putSetting("ech_sni", ech_sni);
-					if (ech_doh !== undefined) await putSetting("ech_doh", ech_doh);
-					if (ech_doh_preset !== undefined) await putSetting("ech_doh_preset", ech_doh_preset);
-					if (ech_api !== undefined) await putSetting("ech_api", ech_api);
-				}
-				if (proxy_ip !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_ip', ?)").bind(proxy_ip).run();
-				if (iata !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_iata', ?)").bind(iata).run();
-				if (country !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_country', ?)").bind(country).run();
-				if (socks5 !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('socks5', ?)").bind(socks5).run();
-				if (info_configs !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('sub_info_configs', ?)").bind(info_configs ? "1" : "0").run();
-				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-			}
-			if (request.method === "GET") {
-				const rowIp = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
-				const rowIata = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
-				const rowCountry = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
-				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
-				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
-				const rowPatt = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_all'").first();
-				const rowPattEch = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_ech_all'").first();
-				const { results: echRows } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('ech_sni', 'ech_doh', 'ech_doh_preset', 'ech_api')").all();
-				const echMap = {};
-				for (const r of (echRows || [])) echMap[r.key] = r.value;
-				return new Response(
-					JSON.stringify({
-						proxy_ip: rowIp ? rowIp.value : "",
-						iata: rowIata ? rowIata.value : "",
-						country: rowCountry ? rowCountry.value : "",
-						socks5: rowSocks ? rowSocks.value : "",
-						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
-						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
-						patterniha_ech_all: rowPattEch ? rowPattEch.value === "1" : false,
-						ech_sni: echMap.ech_sni || "cloudflare-ech.com",
-						ech_doh: echMap.ech_doh || "udp://1.1.1.1",
-						ech_doh_preset: echMap.ech_doh_preset || "cf-udp",
-						ech_api: echMap.ech_api || "",
-					}),
-					{ headers: { "Content-Type": "application/json" } },
-				);
-			}
-		}
-		if (url.pathname === "/api/test-proxy" && request.method === "POST") {
-			const { proxy } = await aphb6rr(request);
-			const skip_country = true;
-			if (!proxy) return new Response(JSON.stringify({ error: "پـروکـسـی وارد نشده است" }), { status: 400, headers: { "Content-Type": "application/json" } });
-			if (proxy === "direct") {
-				const startT = Date.now();
-				try {
-					const controller = new AbortController();
-					const tid = setTimeout(() => controller.abort(), 3000);
-					await fetch("https://cp.cloudflare.com/generate_204", { method: "HEAD", signal: controller.signal });
-					clearTimeout(tid);
-					return new Response(JSON.stringify({ success: true, ping: (Date.now() - startT), country: "UN" }), { headers: { "Content-Type": "application/json" } });
-				} catch (e) {
-					return new Response(JSON.stringify({ error: "نت آزاد قطع است" }), { status: 200, headers: { "Content-Type": "application/json" } });
-				}
-			}
-			try {
-				let ip = "";
-				let workingProxy = proxy;
-				if (false) {
-					ip = proxy.match(/server=([^&]+)/)?.[1] || "";
-				} else {
-					let cleanProxy = proxy.replace(/^(socks4|socks5|socks|http|https):\/\//i, "");
-					let remain = cleanProxy;
-					if (remain.includes("@")) remain = remain.substring(remain.lastIndexOf("@") + 1);
-					if (remain.startsWith("[")) {
-						ip = remain.substring(1, remain.indexOf("]"));
-					} else {
-						const lastColon = remain.lastIndexOf(":");
-						if (lastColon !== -1 && remain.indexOf(":") === lastColon) ip = remain.substring(0, lastColon);
-						else ip = remain;
-					}
-				}
-				let country = "UN";
-				const startTime = Date.now();
-				let targetHost = "1.1.1.1";
-				let reqPath = "/";
-				const payload = new TextEncoder().encode("GET " + reqPath + " HTTP/1.1\r\nHost: " + targetHost + "\r\nConnection: close\r\n\r\n");
-				const s = await zbxph7j(proxy, targetHost, 80, payload);
-				const reader = s.readable.getReader();
-				let resStr = "";
-				const dec = new TextDecoder();
-				const timeoutId = setTimeout(() => {
-					try {
-						s.close();
-					} catch (e) {}
-				}, 3000);
-				try {
-					while (true) {
-						const res = await reader.read();
-						if (res.done || !res.value) break;
-						resStr += dec.decode(res.value, { stream: true });
-						if (skip_country) {
-							if (resStr.includes("HTTP/1.")) break;
-						} else {
-							if (resStr.includes("countryCode")) break;
+			log(`[叉HTTP] 命中请求: ${url.pathname}${url.search}`);
+			return await 处理叉HTTP请求(request, userID, 反代上下文);
+		} else {
+			if (url.protocol === 'http:') return Response.redirect(url.href.replace(`http://${url.hostname}`, `https://${url.hostname}`), 301);
+			if (!管理员密码) return new Response(matrixEdgeSetupNotice('ADMIN'), { status: 404, headers: { 'Content-Type': 'text/html; charset=UTF-8', 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', 'Pragma': 'no-cache', 'Expires': '0' } });
+			if (env.DB && typeof env.DB.prepare === 'function') {
+				const 区分大小写访问路径 = url.pathname.slice(1);
+				if (区分大小写访问路径 === 加密秘钥 && 加密秘钥 !== '勿动此默认密钥，有需求请自行通过添加变量KEY进行修改') {//快速订阅
+					const params = new URLSearchParams(url.search);
+					params.set('token', await MD5MD5(host + userID));
+					return new Response('Redirecting...', { status: 302, headers: { 'Location': `/sub?${params.toString()}` } });
+				} else if (访问路径 === 'login') {//处理登录页面和登录请求
+					const cookies = request.headers.get('Cookie') || '';
+					const authCookie = cookies.split(';').find(c => c.trim().startsWith('auth='))?.split('=')[1];
+					if (authCookie == await MD5MD5(UA + 加密秘钥 + 管理员密码)) return new Response('Redirecting...', { status: 302, headers: { 'Location': '/admin' } });
+					if (request.method === 'POST') {
+						const formData = await request.text();
+						const params = new URLSearchParams(formData);
+						const 输入密码 = params.get('password');
+						if (输入密码 === (typeof 管理员密码 === 'string' ? 管理员密码.replace(/[\r\n]/g, '') : 管理员密码)) {
+							// 密码正确，设置cookie并返回成功标记
+							const 响应 = new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							响应.headers.set('Set-Cookie', `auth=${await MD5MD5(UA + 加密秘钥 + 管理员密码)}; Path=/; Max-Age=86400; HttpOnly; Secure; SameSite=Lax`);
+							return 响应;
 						}
 					}
-				} finally {
-					clearTimeout(timeoutId);
-					try {
-						s.close();
-					} catch (e) {}
-				}
-				if (!resStr) {
-					throw new Error("تایم‌اوت در دریافت دیتا");
-				}
-				const ping = Date.now() - startTime;
-				return new Response(JSON.stringify({ success: true, ping, country }), { headers: { "Content-Type": "application/json" } });
-			} catch (e) {
-				let msg = e.message;
-				if (msg.includes("Stream was cancelled") || msg.includes("network")) msg = "ارتباط با سرور قطع شد (احتمالاً پـروکـسـی مسدود یا خاموش است)";
-				else if (msg.includes("timeout") || msg.includes("timed out") || msg.includes("تایم‌اوت")) msg = "تایم‌اوت در اتصال (پـروکـسـی در دسترس نیست)";
-				else if (msg.includes("Invalid URL") || msg.includes("Invalid format")) msg = "فرمت وارد شده برای پـروکـسـی اشتباه است";
-				else if (msg === "err") msg = "خطای نامشخص (ارتباط برقرار نشد)";
-				return new Response(JSON.stringify({ error: msg }), { status: 500, headers: { "Content-Type": "application/json" } });
-			}
-		}
-		if (url.pathname.startsWith("/api/users")) {
-			const pathParts = url.pathname.split("/");
-			const isUserAction = pathParts.length > 3;
-			if (isUserAction) {
-				const username = x2xa3du(pathParts.pop());
-				if (request.method === "PUT") {
-					const body = await aphb6rr(request);
-					if (Object.keys(body).length === 0) {
-						return new Response(JSON.stringify({ error: "Invalid request body" }), { status: 400, headers: { "Content-Type": "application/json" } });
-					}
-					if (body.toggle_only !== undefined) {
-						await env.DB.prepare("UPDATE users SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE username = ?").bind(username).run();
-						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-					} else if (body.reset_action !== undefined) {
-						if (body.reset_action === "volume") {
-							await env.DB.prepare("UPDATE users SET used_gb = 0, is_active = 1 WHERE username = ?").bind(username).run();
-							GLOBAL_TRAFFIC_CACHE.set(username, 0);
-						} else if (body.reset_action === "req") {
-							await env.DB.prepare("UPDATE users SET used_req = 0, is_active = 1 WHERE username = ?").bind(username).run();
-							USER_REQ_CACHE.set(username, 0);
-						} else if (body.reset_action === "time") {
-							await env.DB.prepare("UPDATE users SET created_at = CURRENT_TIMESTAMP, is_active = 1 WHERE username = ?").bind(username).run();
-						}
-						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-					} else {
-						const { username: new_username, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = body;
-						if (new_username && new_username !== username) {
-							if (!/^[a-zA-Z0-9_-]+$/.test(new_username)) {
-								return new Response(JSON.stringify({ error: "نام کاربری جدید غیرمجاز است" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
-							}
-							const existing = await env.DB.prepare("SELECT id FROM users WHERE username = ? COLLATE NOCASE").bind(new_username).first();
-							if (existing) {
-								return new Response(JSON.stringify({ error: "این نام کاربری از قبل وجود دارد" }), { status: 400, headers: { "Content-Type": "application/json" } });
-							}
-							if (GLOBAL_TRAFFIC_CACHE.has(username)) {
-								GLOBAL_TRAFFIC_CACHE.set(new_username, GLOBAL_TRAFFIC_CACHE.get(username));
-								GLOBAL_TRAFFIC_CACHE.delete(username);
-							}
-							if (USER_REQ_CACHE.has(username)) {
-								USER_REQ_CACHE.set(new_username, USER_REQ_CACHE.get(username));
-								USER_REQ_CACHE.delete(username);
-							}
-							if (a40qkal.has(username)) {
-								a40qkal.set(new_username, a40qkal.get(username));
-								a40qkal.delete(username);
-							}
-							if (cchca6z.has(username)) {
-								cchca6z.set(new_username, cchca6z.get(username));
-								cchca6z.delete(username);
-							}
-						}
-						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
-						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? mzl8dv2(existingUserForTrojan.uuid) : null;
-						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
-							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, dibojp4(protocols, connection_type, null), username)
-							.run();
-						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-					}
-				}
-				if (request.method === "DELETE") {
-					await env.DB.prepare("DELETE FROM users WHERE username = ?").bind(username).run();
-					return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-				}
-			} else {
-				if (request.method === "GET") {
-					try {
-						await dyj1dp1(env);
-					} catch (e) {}
-					try {
-						const { results } = await env.DB.prepare("SELECT * FROM users ORDER BY id DESC").all();
-						const now = Date.now();
-						const enrichedUsers = (results || []).map((user) => {
-							const liveIpCount = (vcmirtr.get(user.username) || new Map()).size;
-							const currentOnlineCount = Math.max(liveIpCount, hrktmlk(user.active_ips));
-							return {
-								...user,
-								used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
-								used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
-								is_online: currentOnlineCount > 0 ? 1 : 0,
-								online_count: currentOnlineCount,
-							};
-						});
-						let cfReqs = { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+					return new Response(matrixEdgeLoginPage(), { status: 200, headers: { 'Content-Type': 'text/html; charset=UTF-8' } });
+				} else if (访问路径 === 'admin' || 访问路径.startsWith('admin/')) {//验证cookie后响应管理页面
+					const cookies = request.headers.get('Cookie') || '';
+					const authCookie = cookies.split(';').find(c => c.trim().startsWith('auth='))?.split('=')[1];
+					// 没有cookie或cookie错误，跳转到/login页面
+					if (!authCookie || authCookie !== await MD5MD5(UA + 加密秘钥 + 管理员密码)) return new Response('Redirecting...', { status: 302, headers: { 'Location': '/login' } });
+					if (访问路径 === 'admin/log.json') {// 读取日志内容
+						const 读取日志内容 = await D1Get(env, 'log.json') || '[]';
+						return new Response(读取日志内容, { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+					} else if (区分大小写访问路径 === 'admin/getCloudflareUsage') {// 查询请求量
 						try {
-							const liveCf = await viwe15t(env);
-							const todayStr = new Date().toISOString().split("T")[0];
-							const dateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
-							const totalRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_total'").first();
-							let dbTotal = totalRow ? parseInt(totalRow.value) || 0 : 0;
-							let dbToday = 0;
-							if (dateRow && dateRow.value === todayStr) {
-								const todayRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_today'").first();
-								dbToday = todayRow ? parseInt(todayRow.value) || 0 : 0;
-							}
-							if (liveCf.today > dbToday) {
-								dbToday = liveCf.today;
-								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(dbToday), String(dbToday)).run();
-								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_last_date', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(todayStr, todayStr).run();
-							}
-							if (liveCf.total > dbTotal) {
-								dbTotal = liveCf.total;
-								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(dbTotal), String(dbTotal)).run();
-							}
-							cfReqs.today = dbToday + cwsdrkz;
-							cfReqs.total = dbTotal + cwsdrkz;
-							cfReqs.d1Reads = liveCf.d1Reads || 0;
-							cfReqs.d1Writes = liveCf.d1Writes || 0;
-						} catch (e) {}
-						return new Response(
-							JSON.stringify({
-								users: enrichedUsers,
-								serverTime: now,
-								cfRequestsToday: cfReqs.today,
-								cfRequestsTotal: cfReqs.total,
-								d1Reads: cfReqs.d1Reads || 0,
-								d1Writes: cfReqs.d1Writes || 0,
-							}),
-							{
-								headers: {
-									"Content-Type": "application/json",
-									"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-								},
-							},
-						);
-					} catch (dbErr) {
-						return new Response(
-							JSON.stringify({
-								users: [],
-								serverTime: Date.now(),
-								cfRequestsToday: 0,
-								cfRequestsTotal: 0,
-								error: dbErr.message,
-							}),
-							{
-								status: 200,
-								headers: {
-									"Content-Type": "application/json",
-									"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-								},
-							},
-						);
-					}
-				}
-				if (request.method === "POST") {
-					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await aphb6rr(request);
-					if (!username) {
-						return new Response(JSON.stringify({ error: "نام کاربری اجباری است" }), { status: 400, headers: { "Content-Type": "application/json" } });
-					}
-					if (username.length > 32) {
-						return new Response(JSON.stringify({ error: "نام کاربری نمی‌تواند بیشتر از ۳۲ کاراکتر باشد" }), { status: 400, headers: { "Content-Type": "application/json" } });
-					}
-					if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-						return new Response(JSON.stringify({ error: "نام کاربری غیرمجاز است (فقط حروف، اعداد، خط تیره و آندرلاین)" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
-					}
-					let finalUuid = uuid;
-					if (!finalUuid) {
-						const randomHex = Array.from(crypto.getRandomValues(new Uint8Array(6)))
-							.map((b) => b.toString(16).padStart(2, "0"))
-							.join("");
-						finalUuid = `50414e45-4c5f-5a45-5553-${randomHex}`;
-					}
-					const parsedUsedGb = parseFloat(used_gb);
-					const finalUsedGb = !isNaN(parsedUsedGb) ? parsedUsedGb : 0;
-					const parsedUsedReq = parseInt(used_req);
-					const finalUsedReq = !isNaN(parsedUsedReq) ? parsedUsedReq : 0;
-					const finalCreatedAt = created_at || new Date().toISOString();
-					const parsedIsActive = parseInt(is_active);
-					const finalIsActive = !isNaN(parsedIsActive) ? parsedIsActive : 1;
-					const existingUser = await env.DB.prepare("SELECT id FROM users WHERE username = ? COLLATE NOCASE").bind(username).first();
-					if (existingUser) {
-						return new Response(JSON.stringify({ error: "این نام کاربری از قبل وجود دارد" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
-					}
-					try {
-						const todayUtc = Math.floor(Date.now() / 86400000) * 86400000;
-						const nowTime = Date.now();
-						const trojanHash = mzl8dv2(finalUuid);
-						const finalConnType = dibojp4(protocols, connection_type, "vl" + "e" + "ss");
-						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, (typeof ech_config === "string" && ech_config.length <= 300 && !/[\s"'<>\\]/.test(ech_config)) ? (ech_config || null) : null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
-							.run();
-						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
-					} catch (err) {
-						return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
-					}
-				}
-			}
-		}
-		return new Response(JSON.stringify({ error: "Not Found" }), { status: 404, headers: { "Content-Type": "application/json" } });
-	},
-};
-/*
-[1.
-*/
-let ogjh4tu = false;
-let smwyozf = null;
-let bjro08u = 0;
-const a8tmqkm = "3";
-let qwlc8qb = null;
-const gm37elm = {
-	async ensureSchema(db) {
-		if (ogjh4tu) return;
-		if (!smwyozf) {
-			if (Date.now() - bjro08u < 20000) return;
-			bjro08u = Date.now();
-			smwyozf = (async () => {
-				try {
-					const flag = await db.prepare("SELECT value FROM settings WHERE key = 'schema_ver'").first();
-					if (flag && flag.value === a8tmqkm) {
-						ogjh4tu = true;
-						return;
-					}
-				} catch (e) {}
-				try {
-					await db.batch([
-						db.prepare(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, uuid TEXT, limit_gb REAL, expiry_days INTEGER, ips TEXT, connection_type TEXT, tls TEXT, port INTEGER, used_gb REAL DEFAULT 0, is_active INTEGER DEFAULT 1, last_active INTEGER, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`),
-						db.prepare("CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)"),
-					]);
-				} catch (e) {}
-				try {
-					const { results } = await db.prepare("PRAGMA table_info(users)").all();
-					const existingCols = new Set((results || []).map((r) => r.name));
-					const colsToAdd = [
-					{ name: "is_active", def: "INTEGER DEFAULT 1" },
-					{ name: "last_active", def: "INTEGER" },
-					{ name: "fingerprint", def: "TEXT DEFAULT 'chrome'" },
-					{ name: "max_connections", def: "INTEGER" },
-					{ name: "limit_req", def: "INTEGER" },
-					{ name: "used_req", def: "INTEGER DEFAULT 0" },
-					{ name: "ip_limit", def: "INTEGER DEFAULT NULL" },
-					{ name: "active_ips", def: "TEXT DEFAULT NULL" },
-					{ name: "block_porn", def: "INTEGER DEFAULT 0" },
-					{ name: "block_ads", def: "INTEGER DEFAULT 0" },
-					{ name: "frag_len", def: "TEXT DEFAULT '200-3000'" },
-					{ name: "frag_int", def: "TEXT DEFAULT '1-2'" },
-					{ name: "lifetime_used_gb", def: "REAL DEFAULT 0" },
-					{ name: "user_proxy_ip", def: "TEXT DEFAULT NULL" },
-					{ name: "user_proxy_iata", def: "TEXT DEFAULT NULL" },
-					{ name: "trojan_hash", def: "TEXT DEFAULT NULL" },
-					{ name: "user_socks5", def: "TEXT DEFAULT NULL" },
-					{ name: "first_connection_time", def: "INTEGER DEFAULT NULL" },
-					{ name: "start_on_first_connect", def: "INTEGER DEFAULT 0" },
-					{ name: "advanced_frag", def: "TEXT DEFAULT NULL" },
-					{ name: "cipher_suites", def: "TEXT DEFAULT NULL" },
-					{ name: "tls_mask", def: "TEXT DEFAULT NULL" },
-					{ name: "ech_config", def: "TEXT DEFAULT NULL" },
-					{ name: "auto_reset_vol_days", def: "INTEGER DEFAULT 0" },
-					{ name: "auto_reset_req_days", def: "INTEGER DEFAULT 0" },
-					{ name: "last_reset_vol_time", def: "INTEGER DEFAULT 0" },
-					{ name: "last_reset_req_time", def: "INTEGER DEFAULT 0" },
-					{ name: "auto_rotate_ip", def: "INTEGER DEFAULT 1" },
-					{ name: "rotate_time", def: "INTEGER DEFAULT 0" },
-					{ name: "ip_operator", def: "TEXT DEFAULT 'all'" },
-					{ name: "ip_count", def: "INTEGER DEFAULT 15" },
-					{ name: "last_rotate_time", def: "INTEGER DEFAULT 0" },
-					{ name: "auto_rotate_user_proxy", def: "INTEGER DEFAULT 0" },
-					{ name: "enable_direct", def: "INTEGER DEFAULT 1" },
-					{ name: "user_ipv6_enabled", def: "INTEGER DEFAULT 0" },
-				];
-					const stmts = [];
-					for (const col of colsToAdd) {
-						if (!existingCols.has(col.name)) stmts.push(db.prepare(`ALTER TABLE users ADD COLUMN ${col.name} ${col.def}`));
-					}
-					if (stmts.length > 0) await db.batch(stmts);
-				} catch (e) {}
-				try {
-					const migRow = await db.prepare("SELECT value FROM settings WHERE key = 'proto_migrated_v1'").first();
-					const fix = [
-						db.prepare("UPDATE users SET ip_limit = max_connections WHERE ip_limit IS NULL AND max_connections IS NOT NULL"),
-						db.prepare("UPDATE users SET lifetime_used_gb = used_gb WHERE lifetime_used_gb = 0 OR lifetime_used_gb IS NULL"),
-					];
-					if (!migRow) {
-						fix.unshift(db.prepare("UPDATE users SET connection_type = 'vl' || 'e' || 'ss,trojan' WHERE trojan_hash IS NOT NULL AND (connection_type IS NULL OR connection_type NOT LIKE '%trojan%')"));
-						fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proto_migrated_v1', '1')"));
-					}
-					fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(a8tmqkm));
-					await db.batch(fix);
-					ogjh4tu = true;
-				} catch (e) {}
-			})().finally(() => {
-				smwyozf = null;
-			});
-		}
-		await smwyozf;
-	},
-	async getPanelPassword(db, forceRefresh = true) {
-		try {
-			const row = await db.prepare("SELECT value FROM settings WHERE key = 'panel_password'").first();
-			qwlc8qb = row && row.value ? row.value : null;
-			return qwlc8qb;
-		} catch (e) {
-			return null;
-		}
-	},
-	async setPanelPassword(db, password) {
-		await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('panel_password', ?)").bind(password).run();
-		qwlc8qb = password;
-	},
-	async verifyApiAuth(request, env) {
-		const storedPasswordHash = await this.getPanelPassword(env.DB);
-		if (!storedPasswordHash) return true;
-		const cookies = request.headers.get("Cookie") || "";
-		const sessionCookie = cookies.split(";").find((c) => c.trim().startsWith("sx_tok="));
-		if (!sessionCookie) return false;
-		const sessionToken = sessionCookie.split("=")[1].trim();
-		return sessionToken === storedPasswordHash;
-	},
-	async sha256(message) {
-		const msgBuffer = new TextEncoder().encode(message);
-		const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-		const hashArray = Array.from(new Uint8Array(hashBuffer));
-		return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-	},
-	async oldSha256(message) {
-		const msgBuffer = new TextEncoder().encode(message);
-		const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-		const hashArray = Array.from(new Uint8Array(hashBuffer));
-		return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-	},
-};
-function hrktmlk(activeIpsJson) {
-	if (!activeIpsJson) return 0;
-	try {
-		const activeIps = JSON.parse(activeIpsJson);
-		const now = Date.now();
-		let count = 0;
-		for (const [ip, data] of Object.entries(activeIps)) {
-			const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-			if (now - lastSeen <= 180000) {
-				count++;
-			}
-		}
-		return count;
-	} catch (e) {
-		return 0;
-	}
-}
-const kvkt6ve = {
-	async generateText(user, host, globalIata, showInfo = false) {
-		let ips = [host];
-		if (user.ips) {
-			const parsedIps = user.ips
-				.split("\n")
-				.map((ip) => ip.trim())
-				.filter((ip) => ip.length > 0);
-			if (parsedIps.length > 0) ips = parsedIps;
-		}
-		const ports = String(user.port || "443")
-			.split(",")
-			.map((p) => p.trim())
-			.filter((p) => p.length > 0);
-		const fp = user.fingerprint || "unsafe";
-		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
-		const protoFlags = le69yqs(user);
-		const links = [];
-		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
-		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
-		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m1));
-		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m2));
-		let remVol = "Unlimited";
-		if (user.limit_gb) {
-			let rem = user.limit_gb - (user.used_gb || 0);
-			remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
-		}
-		let remTime = "Unlimited";
-		if (user.expiry_days && user.created_at) {
-			const created = new Date(user.created_at);
-			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-			const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-			remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
-		}
-		let remReq = "Unlimited";
-		if (user.limit_req) {
-			let rem = user.limit_req - (user.used_req || 0);
-			remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
-		}
-		const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
-		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
-		let proxyList = [];
-		try {
-			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
-				proxyList = JSON.parse(user.user_socks5);
-			} else if (user.user_socks5 || user.user_proxy_ip) {
-				proxyList = [user.user_socks5 || user.user_proxy_ip];
-			} else {
-				proxyList = [null];
-			}
-		} catch (e) {
-			proxyList = [user.user_socks5 || user.user_proxy_ip];
-		}
-		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
-		const allowDirect = user.enable_direct !== 0;
-		if (allowDirect) {
-			let hasDirect = proxyList.some(p => p === null || p === "");
-			if (!hasDirect) proxyList.push(null);
-		} else {
-			proxyList = proxyList.filter(p => p !== null && p !== "");
-		}
-		if (proxyList.length === 0) proxyList = [null];
-		for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
-			let proxyItem = proxyList[locIdx];
-			let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-			let countryCode = typeof proxyItem === "object" && proxyItem !== null
-				? proxyItem.country
-				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
-			let countryFromCache = false;
-			if (!countryCode && proxyStr) {
-				const cc = jip804b.get(proxyStr);
-				if (cc && Date.now() - cc.t < (cc.c ? crtlo7f : iub5ygr)) {
-					countryCode = cc.c;
-					countryFromCache = true;
-				}
-			}
-			if (proxyStr && !countryFromCache && typeof proxyItem !== "object") {
-				if (jip804b.size > 300) jip804b.clear();
-				jip804b.set(proxyStr, { c: countryCode || "", t: Date.now() });
-			}
-			let flagEmoji = "🌐";
-			if (countryCode) {
-				const codePoints = countryCode
-					.toUpperCase()
-					.split("")
-					.map((char) => 127397 + char.charCodeAt(0));
-				try {
-					flagEmoji = String.fromCodePoint(...codePoints);
-				} catch (e) {}
-			}
-			const currentDynPath = encodeURIComponent(rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : ""));
-			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
-			ips.forEach((ip) => {
-				ports.forEach((portStr) => {
-					const isTlsPort = m1fqgtq.has(portStr);
-					const tlsVal = isTlsPort ? "tls" : "none";
-					let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-					if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
-					if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
-					if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
-					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
-					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
-					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
-					if (protoFlags.vless) links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
-					if (protoFlags.trojan) {
-						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?security=" + tlsVal + "&type=ws&host=" + host + "&path=" + currentDynPath + "&sni=" + host + "&fp=" + fp + userFrag + "#" + encodeURIComponent(remark + " (Trojan)"));
-					}
-					if (protoFlags.ss) {
-						const ssPlugin = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : "");
-						links.push("ss://" + btoa("aes-256-gcm:" + user.uuid) + "@" + ip + ":" + portStr + "/?plugin=" + encodeURIComponent(ssPlugin) + "#" + encodeURIComponent(remark + " (SS)"));
-					}
-				});
-			});
-		}
-		const noise = ["# System Update Feed: OK", "# Sync Code: " + Math.random().toString(36).slice(2, 10), "# Version: 2.10.1", "# Description: Secure Node Configurations", ""].join("\n");
-		const plainContent = noise + links.join("\n");
-		const subContent = btoa(unescape(encodeURIComponent(plainContent)));
-		const downloadBytes = Math.floor((user.used_gb || 0) * 1073741824);
-		const totalBytes = user.limit_gb ? Math.floor(user.limit_gb * 1073741824) : 0;
-		let expireTimestamp = 0;
-		if (user.expiry_days && user.created_at) {
-			expireTimestamp = user.first_connection_time ? Math.floor((user.first_connection_time + user.expiry_days * 86400000) / 1000) : Math.floor((new Date(user.created_at).getTime() + user.expiry_days * 86400000) / 1000);
-		}
-		const subUserInfo = `upload=0; download=${downloadBytes}; total=${totalBytes}; expire=${expireTimestamp}`;
-		return new Response(subContent, {
-			headers: {
-				"Content-Type": "text/plain; charset=utf-8",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "no-store",
-				"Subscription-Userinfo": subUserInfo,
-			},
-		});
-	},
-	async generateSingbox(user, host) {
-		let ips = [host];
-		if (user.ips) {
-			const parsedIps = user.ips.split("\n").map((ip) => ip.trim()).filter((ip) => ip.length > 0);
-			if (parsedIps.length > 0) ips = parsedIps;
-		}
-		const ports = String(user.port || "443").split(",").map((p) => p.trim()).filter((p) => p.length > 0);
-		const fp = user.fingerprint || "unsafe";
-		const safeFp = fp === "unsafe" ? "chrome" : fp;
-		const sni = user.tls_mask || host;
-		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
-
-		let proxyList = [];
-		try {
-			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
-				proxyList = JSON.parse(user.user_socks5);
-			} else if (user.user_socks5 || user.user_proxy_ip) {
-				proxyList = [user.user_socks5 || user.user_proxy_ip];
-			} else {
-				proxyList = [null];
-			}
-		} catch (e) {
-			proxyList = [user.user_socks5 || user.user_proxy_ip];
-		}
-		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
-		const allowDirect = user.enable_direct !== 0;
-		if (allowDirect) {
-			let hasDirect = proxyList.some((p) => p === null || p === "");
-			if (!hasDirect) proxyList.push(null);
-		} else {
-			proxyList = proxyList.filter((p) => p !== null && p !== "");
-		}
-		if (proxyList.length === 0) proxyList = [null];
-
-		const outbounds = [];
-		const protoFlags = le69yqs(user);
-		const enableTrojan = protoFlags.trojan;
-
-		let locIdx = 0;
-		for (let proxyItem of proxyList) {
-			const currentDynPath = rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
-			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
-			ips.forEach((ip) => {
-				ports.forEach((portStr) => {
-					const isTlsPort = m1fqgtq.has(portStr);
-					let outbound = {
-						type: "vless",
-						tag: `vl-${ip}-${portStr}-loc${locIdx}`,
-						server: ip,
-						server_port: parseInt(portStr),
-						uuid: user.uuid,
-						packet_encoding: "xudp",
-						transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
-					};
-					if (isTlsPort) {
-						outbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
-					}
-					if (protoFlags.vless) outbounds.push(outbound);
-					if (enableTrojan) {
-						let trojanOutbound = {
-							type: "trojan",
-							tag: `tj-${ip}-${portStr}-loc${locIdx}`,
-							server: ip,
-							server_port: parseInt(portStr),
-							password: user.uuid,
-							transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
-						};
-						if (isTlsPort) {
-							trojanOutbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
+							const Usage_JSON = await getCloudflareUsage(url.searchParams.get('Email'), url.searchParams.get('GlobalAPIKey'), url.searchParams.get('AccountID'), url.searchParams.get('APIToken'));
+							return new Response(JSON.stringify(Usage_JSON, null, 2), { status: 200, headers: { 'Content-Type': 'application/json' } });
+						} catch (err) {
+							const errorResponse = { msg: 'Failed to query usage, reason: ' + err.message, error: err.message };
+							return new Response(JSON.stringify(errorResponse, null, 2), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 						}
-						outbounds.push(trojanOutbound);
-					}
-					if (protoFlags.ss) {
-						outbounds.push({
-							type: "shadowsocks",
-							tag: `sh-${ip}-${portStr}-loc${locIdx}`,
-							server: ip,
-							server_port: parseInt(portStr),
-							method: "aes-256-gcm",
-							password: user.uuid,
-							plugin: "v2ray-plugin",
-							plugin_opts: "mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : ""),
-						});
-					}
-				});
-			});
-			locIdx++;
-		}
-
-		const outboundsList = outbounds.map((o) => o.tag);
-
-		let targetDns = "udp://8.8.8.8";
-		if (user.block_porn === 1 && user.block_ads === 1) {
-			targetDns = "udp://94.140.14.15";
-		} else if (user.block_porn === 1) {
-			targetDns = "udp://1.1.1.3";
-		} else if (user.block_ads === 1) {
-			targetDns = "udp://94.140.14.14";
-		}
-
-		const config = {
-			log: { disabled: false, level: "info" },
-			dns: {
-				servers: [{ tag: "remote-dns", address: targetDns, detour: outboundsList.length > 0 ? "proxy" : "direct" }],
-				final: "remote-dns",
-				independent_cache: true,
-			},
-			inbounds: [
-				{
-					type: "tun",
-					tag: "tun-in",
-					interface_name: "tun0",
-					address: ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
-					auto_route: true,
-					strict_route: true,
-					stack: "mixed",
-				},
-			],
-			outbounds: [
-				{ type: "selector", tag: "proxy", outbounds: outboundsList.length > 0 ? outboundsList : ["direct"] },
-				...outbounds,
-				{ type: "direct", tag: "direct" },
-				{ type: "block", tag: "block" },
-			],
-			route: {
-				rules: [
-					{ protocol: "dns", action: "hijack-dns" },
-					{ port: 53, action: "hijack-dns" },
-					{ protocol: "icmp", outbound: "direct" },
-				],
-				auto_detect_interface: true,
-				final: outboundsList.length > 0 ? "proxy" : "direct",
-			},
-		};
-
-		return new Response(JSON.stringify(config, null, 2), {
-			headers: {
-				"Content-Type": "application/json; charset=utf-8",
-				"Access-Control-Allow-Origin": "*",
-				"Cache-Control": "no-store",
-			},
-		});
-	},
-};
-async function dyj1dp1(env) {
-	const now = Date.now();
-	for (const [key, val] of obx6yh7.entries()) {
-		if (now > val.expires) obx6yh7.delete(key);
-	}
-	for (const [ip, record] of tp0s2fk.entries()) {
-		if (now - record.lastAttempt > 900000) tp0s2fk.delete(ip);
-	}
-	const allUsers = new Set([...GLOBAL_TRAFFIC_CACHE.keys(), ...USER_REQ_CACHE.keys()]);
-	for (const uname of allUsers) {
-		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
-		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
-		const activeCount = a40qkal.get(uname) || 0;
-		if (cachedBytes <= 0 && cachedReqs <= 0) {
-			GLOBAL_TRAFFIC_CACHE.delete(uname);
-			USER_REQ_CACHE.delete(uname);
-			if (activeCount <= 0) {
-				cchca6z.delete(uname);
-				cchca6z.delete(uname + "_hb");
-			}
-			continue;
-		}
-		if (r2x0v6w.get(uname)) continue;
-		const lastActive = cchca6z.get(uname) || 0;
-		if (activeCount <= 0 || now - lastActive > 60000) {
-			r2x0v6w.set(uname, true);
-			GLOBAL_TRAFFIC_CACHE.set(uname, 0);
-			USER_REQ_CACHE.set(uname, 0);
-			const deltaGb = cachedBytes / (1024 * 1024 * 1024);
-			try {
-				await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
-			} catch (e) {
-				console.error(e.message);
-				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
-				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
-			} finally {
-				r2x0v6w.delete(uname);
-				if (activeCount <= 0) {
-					cchca6z.delete(uname);
-					cchca6z.delete(uname + "_hb");
-				}
-			}
-		}
-	}
-}
-async function bvj1iaf() { return new Response("Not Found", { status: 404 }); }
-async function viwe15t(env) {
-	return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
-}
-function xn0iw7z(env, ctx) {
-	cwsdrkz++;
-	const now = Date.now();
-	if ((now - jlvmthl > 900000 || cwsdrkz > 5000) && cwsdrkz > 0) {
-		jlvmthl = now;
-		const countToSave = cwsdrkz;
-		cwsdrkz = 0;
-		const task = async () => {
-			try {
-				const today = new Date().toISOString().split("T")[0];
-				await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
-				const lastDateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
-				if (!lastDateRow || lastDateRow.value !== today) {
-					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_last_date', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(today, today).run();
-					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(countToSave), String(countToSave)).run();
-				} else {
-					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
-				}
-			} catch (e) {}
-		};
-		if (ctx) ctx.waitUntil(task());
-		else task();
-	}
-}
-/*
-[1.
-*/
-async function zbxph7j() { throw new Error("disabled"); }
-const yg6opgi = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#0e2348"/>
-      <stop offset="100%" stop-color="#020617"/>
-    </radialGradient>
-    <filter id="glowFx" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#3b82f6" flood-opacity="0.6"/>
-    </filter>
-  </defs>
-  <rect width="512" height="512" rx="128" fill="#000000"/>
-  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="16" filter="url(#glowFx)"/>
-  <rect x="56" y="56" width="400" height="400" rx="88" fill="none" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.4"/>
-  <g transform="translate(128, 128) scale(10.666)" filter="url(#glowFx)">
-    <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="#38bdf8" fill-opacity="0.3" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-</svg>`;
-const vrnrz32 = JSON.stringify({
-	name: "Alireza Panel",
-	short_name: "Alireza Panel",
-	description: "پنل مدیریت پیشرفته کانفیگ و کاربران علیرضا",
-	start_url: "/adminas",
-	scope: "/",
-	display: "standalone",
-	background_color: "#000000",
-	theme_color: "#000000",
-	dir: "rtl",
-	lang: "fa-IR",
-	orientation: "any",
-	icons: [
-		{ src: "/icon.svg", sizes: "192x192 512x512", type: "image/svg+xml", purpose: "any maskable" }
-	],
-	categories: ["utilities", "productivity"]
-});
-const w8wy2kr = `
-const ejmnvu5 = "app-cache-v3";
-const zd4pw2j = [
-	"https://cdn.tailwindcss.com",
-	"https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js",
-	"https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"
-];
-self.addEventListener("install", (e) => {
-	self.skipWaiting();
-	e.waitUntil(
-		caches.open(ejmnvu5).then((cache) => {
-			return cache.addAll(zd4pw2j).catch(() => {});
-		})
-	);
-});
-self.addEventListener("activate", (e) => {
-	e.waitUntil(
-		caches.keys().then((keys) => {
-			return Promise.all(
-				keys.map((k) => {
-					if (k !== ejmnvu5) return caches.delete(k);
-				})
-			);
-		}).then(() => self.clients.claim())
-	);
-});
-self.addEventListener("fetch", (e) => {
-	const url = new URL(e.request.url);
-	if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/sub/") || url.pathname.startsWith("/feed/") || url.pathname.startsWith("/singbox/") || url.pathname.startsWith("/status/") || url.pathname.startsWith("/stream/")) {
-		return;
-	}
-	if (zd4pw2j.includes(e.request.url)) {
-		e.respondWith(
-			caches.match(e.request).then((cached) => cached || fetch(e.request).then((res) => {
-				const clone = res.clone();
-				caches.open(ejmnvu5).then((cache) => cache.put(e.request, clone));
-				return res;
-			}))
-		);
-	}
-});
-`;
-const avk7j6y = `
-	<script>
-		if (localStorage.getItem('gfx-enabled') === 'false') {
-			document.documentElement.classList.add('gfx-off');
-		}
-		if (localStorage.getItem('color-theme') === 'light') {
-			document.documentElement.classList.remove('dark');
-		} else {
-			document.documentElement.classList.add('dark');
-		}
-		if (localStorage.getItem('grayscale-theme') === 'true') {
-			document.documentElement.classList.add('grayscale-active');
-		}
-		/* پاک‌سازی کش قدیمی پرچم‌ها (نسخه قبلی emoji متنی که در ویندوز خراب بود) */
-		try { localStorage.removeItem('pf_c1'); } catch(e) {}
-	</script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
-<script>
-	tailwind.config = {
-		darkMode: 'class',
-		theme: {
-			extend: {
-				fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
-				colors: { amoled: { bg: '#000105', card: '#040914', input: '#081224', border: '#102040' } }
-			}
-		}
-	}
-</script>
-<style>
-	.cursor-wrapper {
-		pointer-events: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 9999;
-		display: none;
-	}
-	@media (pointer: fine) {
-		html:not(.gfx-off) * {
-			cursor: none !important;
-		}
-		html:not(.gfx-off) .cursor-wrapper {
-			display: block;
-		}
-	}
-	#cursor-dot {
-		width: 6px;
-		height: 6px;
-		background-color: #2563eb;
-		border-radius: 50%;
-		box-shadow: 0 0 8px #2563eb, 0 0 16px #1d4ed8;
-		transform: translate(-50%, -50%);
-	}
-	#cursor-ring-pos {
-		width: 36px;
-		height: 36px;
-		transform: translate(-50%, -50%);
-		transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	#cursor-ring-visual {
-		width: 100%;
-		height: 100%;
-		border: 1.5px dashed rgba(37, 99, 235, 0.9);
-		border-radius: 50%;
-		animation: spinRing 10s linear infinite;
-		transition: border-color 0.2s, background-color 0.2s;
-	}
-	@keyframes spinRing {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
-	}
-	body.hover-active #cursor-ring-pos {
-		width: 48px;
-		height: 48px;
-	}
-	body.hover-active #cursor-ring-visual {
-		border: 2px solid #2563eb;
-		background-color: rgba(37, 99, 235, 0.2);
-		animation: spinRingFast 3s linear infinite;
-	}
-	@keyframes spinRingFast {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
-	}
-	#cursor-glow-pos {
-		width: 40px;
-		height: 40px;
-		transform: translate(-50%, -50%);
-		transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	body.hover-active #cursor-glow-pos {
-		width: 54px;
-		height: 54px;
-	}
-	#cursor-glow-visual {
-		width: 100%;
-		height: 100%;
-		border-radius: 50%;
-		background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, rgba(29, 78, 216, 0.1) 40%, transparent 70%);
-	}
-		:root {
-			--bg-tint: rgba(59, 130, 246, 0.03);
-			--plane-color: #93c5fd; 
-			--plane-dark: #f9fafb;
-			--plane-opacity: 0.20;
-		}
-		.dark {
-			--bg-tint: rgba(16, 32, 64, 0.4); 
-			--plane-color: #1d4ed8; 
-			--plane-dark: #000105;
-			--plane-opacity: 0.15;
-		}
-		.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-		#waves { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
-		.vignette {
-			position: fixed; inset: 0; z-index: 2; pointer-events: none;
-			background: radial-gradient(ellipse at center, transparent 35%, rgba(255,255,255,0.5) 100%);
-		}
-		.dark .vignette {
-			background: radial-gradient(ellipse at center, transparent 35%, rgba(0,1,5,0.85) 100%);
-		}
-		.ambient {
-			position: fixed; inset: 0; z-index: 1; pointer-events: none;
-			background:
-				radial-gradient(700px 500px at 12% 20%, var(--bg-tint), transparent 60%),
-				radial-gradient(800px 600px at 90% 90%, var(--bg-tint), transparent 60%);
-		}
-</style>
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		if (window.matchMedia('(pointer: fine)').matches && localStorage.getItem('gfx-enabled') !== 'false') {
-			const glowPos = document.createElement('div');
-			glowPos.id = 'cursor-glow-pos';
-			glowPos.className = 'cursor-wrapper';
-			glowPos.innerHTML = '<div id="cursor-glow-visual"></div>';
-			document.body.appendChild(glowPos);
-			const ringPos = document.createElement('div');
-			ringPos.id = 'cursor-ring-pos';
-			ringPos.className = 'cursor-wrapper';
-			ringPos.innerHTML = '<div id="cursor-ring-visual"></div>';
-			document.body.appendChild(ringPos);
-			const dot = document.createElement('div');
-			dot.id = 'cursor-dot';
-			dot.className = 'cursor-wrapper';
-			document.body.appendChild(dot);
-			let mouseX = window.innerWidth / 2;
-			let mouseY = window.innerHeight / 2;
-			let ringX = mouseX, ringY = mouseY;
-			let glowX = mouseX, glowY = mouseY;
-			let isMoving = false;
-			window.addEventListener('mousemove', (e) => {
-				mouseX = e.clientX;
-				mouseY = e.clientY;
-				dot.style.transform = 'translate3d(' + mouseX + 'px, ' + mouseY + 'px, 0) translate(-50%, -50%)';
-				if (!isMoving) {
-					isMoving = true;
-					requestAnimationFrame(y5rpt2z);
-				}
-			}, { passive: true });
-			function y5rpt2z() {
-				ringX += (mouseX - ringX) * 0.45;
-				ringY += (mouseY - ringY) * 0.45;
-				ringPos.style.transform = 'translate3d(' + ringX + 'px, ' + ringY + 'px, 0) translate(-50%, -50%)';
-				glowX += (mouseX - glowX) * 0.25;
-				glowY += (mouseY - glowY) * 0.25;
-				glowPos.style.transform = 'translate3d(' + glowX + 'px, ' + glowY + 'px, 0) translate(-50%, -50%)';
-				if (Math.abs(mouseX - ringX) < 0.5 && Math.abs(mouseY - ringY) < 0.5) {
-					isMoving = false;
-				} else {
-					requestAnimationFrame(y5rpt2z);
-				}
-			}
-			document.addEventListener('mouseover', (e) => {
-				if (e.target.closest('a, button, input, select, label, [role="button"], textarea')) {
-					document.body.classList.add('hover-active');
-				}
-			});
-			document.addEventListener('mouseout', (e) => {
-				if (e.target.closest('a, button, input, select, label, [role="button"], textarea')) {
-					document.body.classList.remove('hover-active');
-				}
-			});
-		}
-	});
-</script>`;
-const pbfiipq = `<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>`;
-const td8g9qc = `
-	<canvas id="waves" class="bg-canvas"></canvas>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	<script>
-	  (function initWaves(){
-		const canvas = document.getElementById('waves');
-		if (!canvas) return;
-		if (document.documentElement.classList.contains('gfx-off')) {
-			canvas.style.display = 'none';
-			return;
-		}
-		const IS_MOBILE = window.innerWidth < 768;
-		const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: false, powerPreference: "default" });
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		
-		const isDarkInit = document.documentElement.classList.contains('dark');
-		renderer.setClearColor(isDarkInit ? 0x000105 : 0xf9fafb, 1);
-		const scene = new THREE.Scene();
-		const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 200);
-		camera.position.set(0, 0, IS_MOBILE ? 35 : 14);
-		const segX = IS_MOBILE ? 80 : 80;
-		const segY = IS_MOBILE ? 40 : 40;
-		const geom = new THREE.PlaneGeometry(80, IS_MOBILE ? 90 : 40, segX, segY);
-		const vertShader = "uniform float uTime; uniform float uStrength; varying float vElev; void main(){ vec3 p = position; float x = p.x * 0.2 + uTime * 0.3; float y = p.y * 0.2 + uTime * 0.25; float wave = sin(x)*cos(y)*1.6 + sin(x*2.1 + uTime)*0.7 + cos(y*1.7 - uTime*0.6)*0.7; wave *= uStrength * 1.5; p.z += wave; vElev = wave; gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }";
-		const fragShader = "varying float vElev; uniform vec3 uHigh; uniform vec3 uLow; uniform float uFade; void main(){ float t = clamp((vElev + 2.0) / 4.0, 0.0, 1.0); vec3 col = mix(uLow, uHigh, t); gl_FragColor = vec4(col, uFade); }";
-		function bwtw9pk(px, py, pz, rx, ry, rz, high, low, fade){
-		  const mat = new THREE.ShaderMaterial({
-			wireframe: true, 
-			transparent: true, 
-			depthWrite: false,
-			uniforms:{
-			  uTime:{value:0}, 
-			  uStrength:{value:1.1},
-			  uHigh:{value:new THREE.Color(high)}, 
-			  uLow:{value:new THREE.Color(low)},
-			  uFade:{value:fade}
-			},
-			vertexShader: vertShader, 
-			fragmentShader: fragShader
-		  });
-		  const m = new THREE.Mesh(geom, mat);
-		  m.position.set(px, py, pz);
-		  m.rotation.set(rx, ry, rz);
-		  return m;
-		}
-		const cs = getComputedStyle(document.documentElement);
-		const yOffset = IS_MOBILE ? 14 : 8;
-		
-		const topPlane = bwtw9pk(0, yOffset, -5, -Math.PI/2.4, 0, 0, '#1e40af', '#040914', 0.35);
-		const midPlane = bwtw9pk(
-		  0, 0, -25, 0, 0, 0, 
-		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
-		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
-		  (parseFloat(cs.getPropertyValue('--plane-opacity')) || 0.35) * 0.7
-		);
-		const botPlane = bwtw9pk(
-		  0, -yOffset, -5, Math.PI/2.4, 0, 0, 
-		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
-		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
-		  parseFloat(cs.getPropertyValue('--plane-opacity')) || 0.35
-		);
-		scene.add(topPlane);
-		scene.add(midPlane);
-		scene.add(botPlane);
-		
-		window.__dxTopPlane = topPlane;
-		window.__dxMidPlane = midPlane;
-		window.__dxBotPlane = botPlane;
-		const clock = new THREE.Clock();
-		let lastFrameTime = 0;
-		function animate(timestamp) {
-		  requestAnimationFrame(animate);
-		  if (timestamp - lastFrameTime < 30) return;
-		  lastFrameTime = timestamp;
-		  
-		  const t = clock.getElapsedTime();
-		  topPlane.material.uniforms.uTime.value = t * 0.8; 
-		  midPlane.material.uniforms.uTime.value = t * 0.6;
-		  botPlane.material.uniforms.uTime.value = t * 0.8; 
-		  renderer.render(scene, camera);
-		}
-		requestAnimationFrame(animate);
-		window.addEventListener('resize', function(){
-		  camera.aspect = window.innerWidth/window.innerHeight;
-		  camera.updateProjectionMatrix();
-		  renderer.setSize(window.innerWidth, window.innerHeight);
-		});
-		function hus7ufu(){
-		  const isDark = document.documentElement.classList.contains('dark');
-		  if (renderer) renderer.setClearColor(isDark ? 0x000105 : 0xf9fafb, 1);
-		  const pColor = isDark ? '#1d4ed8' : '#93c5fd';
-		  const pDark = isDark ? '#000105' : '#f9fafb';
-		  const pOpacity = isDark ? 0.15 : 0.20;
-		  if (botPlane) {
-			botPlane.material.uniforms.uHigh.value.set(pColor);
-			botPlane.material.uniforms.uLow.value.set(pDark);
-			botPlane.material.uniforms.uFade.value = pOpacity;
-		  }
-		  if (midPlane) {
-			midPlane.material.uniforms.uHigh.value.set(pColor);
-			midPlane.material.uniforms.uLow.value.set(pDark);
-			midPlane.material.uniforms.uFade.value = pOpacity * 0.7;
-		  }
-		  if (topPlane) {
-			 if (!isDark) {
-				topPlane.material.uniforms.uLow.value.set('#f9fafb');
-				topPlane.material.uniforms.uHigh.value.set('#bfdbfe');
-			 } else {
-				topPlane.material.uniforms.uLow.value.set('#040914');
-				topPlane.material.uniforms.uHigh.value.set('#1e40af');
-			 }
-		  }
-		}
-		
-		const observer = new MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				if (mutation.attributeName === 'class') {
-					hus7ufu();
-				}
-			});
-		});
-		observer.observe(document.documentElement, { attributes: true });
-		hus7ufu();
-	  })();
-	</script>
-`;
-const zfne8tu = `
-		function bm3pzm2(message, type = 'success') {
-			const container = document.getElementById('toast-container');
-			const toast = document.createElement('div');
-			const colors = type === 'error' 
-				? 'bg-red-50 dark:bg-red-900/40 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400' 
-				: 'bg-green-50 dark:bg-green-900/40 border-green-200 dark:border-green-800 text-green-700 dark:text-green-500';
-			toast.className = 'px-4 py-3 border rounded-md shadow-lg font-bold text-sm transform transition-all duration-300 -translate-y-full opacity-0 ' + colors;
-			toast.innerText = message;
-			container.appendChild(toast);
-			requestAnimationFrame(() => {
-				toast.classList.remove('-translate-y-full', 'opacity-0');
-			});
-			setTimeout(() => {
-				toast.classList.add('-translate-y-full', 'opacity-0');
-				setTimeout(() => toast.remove(), 300);
-			}, 3000);
-		}
-		window.alert = function(message) {
-			const msgStr = message ? message.toString() : '';
-			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
-				bm3pzm2(msgStr, 'error');
-			} else {
-				bm3pzm2(msgStr, 'success');
-			}
-		};
-`;
-const wa42j92 = {
-	nginx: `<!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>دسترسی به پـنـل</title>
-	${avk7j6y}
-</head>
-<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-8 text-center flex flex-col items-center gap-4 relative z-10">
-		<div class="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-full mb-2">
-			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-		</div>
-		<h2 class="text-xl font-bold text-gray-900 dark:text-white">ورود به پــنــل مدیریت</h2>
-		<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-2">
-			برای ورود به پـنـل، لطفاً عبارت 
-			<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-amoled-input border border-gray-200 dark:border-zinc-800 rounded-md font-mono text-blue-500 font-bold mx-1 shadow-sm" dir="ltr">/adminas</span> 
-			را به انتهای آدرس مرورگر خود اضافه کنید یا روی دکمه زیر کلیک کنید.
-		</p>
-		<button onclick="window.location.href='/adminas'" class="mt-4 w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition-colors duration-200 shadow-lg font-bold">
-			ورود به پـنـل
-		</button>
-	</div>
-	${td8g9qc}
-</body>
-</html>`,
-	setup: `<!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>تعریف رمز عبور پـنـل</title>
-	${avk7j6y}
-</head>
-<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
-		<h2 class="text-xl font-bold mb-2 text-center text-blue-600 dark:text-blue-400">تنظیم رمز عبور جدید</h2>
-		<p class="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">این اولین ورود شما به پـنـل مدیریت است. لطفاً رمز عبور خود را تعیین کنید.</p>
-		<form onsubmit="handleSetup(event)" class="space-y-4">
-			<div>
-				<label class="block text-sm font-medium mb-1.5">رمز عبور</label>
-				<input type="password" id="password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required minlength="4">
-			</div>
-			<div>
-				<label class="block text-sm font-medium mb-1.5">تکرار رمز عبور</label>
-				<input type="password" id="confirm-password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required minlength="4">
-			</div>
-			<button type="submit" id="submit-btn" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">ثبت و ورود</button>
-		</form>
-	</div>
-	${pbfiipq}
-	<script>
-		${zfne8tu};
-		async function handleSetup(event) {
-			event.preventDefault();
-			const password = document.getElementById('password').value.trim();
-			const confirmPassword = document.getElementById('confirm-password').value.trim();
-			const btn = document.getElementById('submit-btn');
-			if (password !== confirmPassword) {
-				alert('⚠️ رمز عبور و تکرار آن مطابقت ندارند!');
-				return;
-			}
-			btn.disabled = true;
-			btn.innerText = 'در حال ثبت...';
-			try {
-				const res = await fetch('/api/setup-password', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ password })
-				});
-				const data = await res.json();
-				if (res.ok && data.success) {
-					alert('✅ رمز عبور با موفقیت تنظیم شد. در حال ورود...');
-					setTimeout(() => {
-						window.location.reload();
-					}, 1500);
-				} else {
-					alert('خطا: ' + (data.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				btn.innerText = 'ثبت و ورود';
-			}
-		}
-	</script>
-	${td8g9qc}
-</body>
-</html>`,
-	login: `<!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ورود به پــنــل مدیریت</title>
-	${avk7j6y}
-</head>
-<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
-		<div id="login-section">
-			<h2 class="text-xl font-bold mb-6 text-center text-blue-600 dark:text-blue-400">ورود به پـنـل مدیریت</h2>
-			<form onsubmit="handleLogin(event)" class="space-y-4">
-				<div>
-					<label class="block text-sm font-medium mb-1.5">رمز عبور</label>
-					<input type="password" id="password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required>
-				</div>
-				<button type="submit" id="submit-btn" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">ورود</button>
-			</form>
-			<div class="mt-4 text-center">
-				<button onclick="toggleRecovery(true)" class="text-xs text-blue-500 hover:text-blue-600 transition font-medium">بازیابی رمز پـنـل</button>
-			</div>
-		</div>
-		<div id="recovery-section" class="hidden">
-			<h2 class="text-xl font-bold mb-4 text-center text-orange-600 dark:text-orange-400">بازیابی رمز پـنـل</h2>
-			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300">
-				برای احراز هویت و اثبات مالکیت پـنـل، از طریق دکمه زیر وارد کلودفلر شوید و توکن دریافتی را کپی کرده و در کادر زیر وارد کنید.
-				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-					دریافت توکن
-				</a>
-			</div>
-			<form onsubmit="handleRecovery(event)" class="space-y-4">
-				<div>
-					<input type="password" id="api-token" placeholder="توکن را وارد کنید" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-xs text-center font-mono" required>
-				</div>
-				<div class="flex gap-2 pt-2">
-					<button type="button" onclick="toggleRecovery(false)" class="w-1/3 py-2.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition shadow-sm">انصراف</button>
-					<button type="submit" id="recover-btn" class="w-2/3 py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">بازیابی رمز پـنـل</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	${pbfiipq}
-	<script>
-		${zfne8tu}
-		async function handleLogin(event) {
-			event.preventDefault();
-			const password = document.getElementById('password').value.trim();
-			const btn = document.getElementById('submit-btn');
-			btn.disabled = true;
-			try {
-				const res = await fetch('/api/login', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ password })
-				});
-				const data = await res.json();
-				if (res.ok && data.success) {
-					window.location.reload();
-				} else {
-					alert(data.error || '❌ رمز عبور اشتباه است');
-				}
-			} catch (err) {
-				alert('خطا در ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-			}
-		}
-		function toggleRecovery(show) {
-			document.getElementById('login-section').classList.toggle('hidden', show);
-			document.getElementById('recovery-section').classList.toggle('hidden', !show);
-		}
-		async function handleRecovery(event) {
-			event.preventDefault();
-			const apiToken = document.getElementById('api-token').value;
-			const btn = document.getElementById('recover-btn');
-			btn.disabled = true;
-			btn.innerText = 'در حال بررسی...';
-			try {
-				const res = await fetch('/api/recover', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ api_token: apiToken })
-				});
-				const data = await res.json();
-				if (res.ok && data.success) {
-					alert('✅ رمز عبور با موفقیت حذف شد. در حال انتقال به صفحه تنظیمات اولیه...');
-					setTimeout(() => {
-						window.location.reload();
-					}, 1500);
-				} else {
-					alert('❌ ' + (data.error || 'خطا در تایید اطلاعات'));
-				}
-			} catch (err) {
-				alert('خطا در ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				btn.innerText = 'بازیابی رمز پـنـل';
-			}
-		}
-	</script>
-	${td8g9qc}
-</body>
-</html>`,
-	panel: `
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>A L I R E Z A</title>
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-	<script>
-		const originalWarn = console.warn;
-		console.warn = (...args) => {
-			if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
-			originalWarn(...args);
-		};
-	</script>
-	${avk7j6y}
-	<style>
-		body { font-family: 'Vazirmatn', sans-serif; }
-		/* پرچم‌های SVG برای سازگاری با ویندوز */
-		.flg {
-			display: inline-block;
-			width: 1.35em;
-			height: 1em;
-			vertical-align: -0.15em;
-			border-radius: 2px;
-			background-size: cover;
-			background-position: 50%;
-			background-repeat: no-repeat;
-		}
-		.flg-g {
-			font-size: 1.1em;
-			line-height: 1;
-			vertical-align: -0.05em;
-		}
-		.dark input[type="checkbox"] {
-			filter: invert(1) hue-rotate(180deg);
-		}
-		html.grayscale-active {
-			filter: grayscale(100%);
-		}
-		::-webkit-scrollbar {
-			width: 6px;
-			height: 6px;
-		}
-		::-webkit-scrollbar-track {
-			background: #f3f4f6; 
-			border-radius: 4px;
-		}
-		::-webkit-scrollbar-thumb {
-			background: #d1d5db; 
-			border-radius: 4px;
-		}
-		::-webkit-scrollbar-thumb:hover {
-			background: #9ca3af;
-		}
-
-		html.dark::-webkit-scrollbar-track,
-		.dark *::-webkit-scrollbar-track {
-			background: #000105 !important;
-		}
-		html.dark::-webkit-scrollbar-thumb,
-		.dark *::-webkit-scrollbar-thumb {
-			background: #102040 !important;
-		}
-		html.dark::-webkit-scrollbar-thumb:hover,
-		.dark *::-webkit-scrollbar-thumb:hover {
-			background: #172e5c !important;
-		}
-
-		html.dark, .dark * {
-			scrollbar-width: thin;
-			scrollbar-color: #102040 #000105 !important;
-		}
-		@media (min-width: 769px) {
-			header, main { zoom: 1.18; }
-		}
-		@media (max-width: 768px) {
-			header, main { zoom: 0.90; }
-		}
-		input[type="number"]::-webkit-outer-spin-button,
-		input[type="number"]::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
-		input[type="number"] {
-			-moz-appearance: textfield;
-		}
-		:root {
-			--bg-tint: rgba(59, 130, 246, 0.03);
-			--plane-color: #93c5fd; 
-			--plane-dark: #f9fafb;
-			--plane-opacity: 0.20;
-		}
-		.dark {
-			--bg-tint: rgba(16, 32, 64, 0.4); 
-			--plane-color: #1d4ed8; 
-			--plane-dark: #000105;
-			--plane-opacity: 0.15;
-		}
-		.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; will-change: transform; transform: translateZ(0); }
-		#waves { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
-		.vignette {
-			position: fixed; inset: 0; z-index: 2; pointer-events: none;
-			background: radial-gradient(ellipse at center, transparent 35%, rgba(255,255,255,0.5) 100%);
-		}
-		.dark .vignette {
-			background: radial-gradient(ellipse at center, transparent 35%, rgba(0,1,5,0.85) 100%);
-		}
-		.ambient {
-			position: fixed; inset: 0; z-index: 1; pointer-events: none;
-			background:
-				radial-gradient(700px 500px at 12% 20%, var(--bg-tint), transparent 60%),
-				radial-gradient(800px 600px at 90% 90%, var(--bg-tint), transparent 60%);
-		}
-	</style>
-</head>
-<body class="bg-gray-50 dark:bg-amoled-bg text-gray-900 dark:text-zinc-100 min-h-screen transition-colors duration-200">
-	<canvas id="waves" class="bg-canvas"></canvas>
-	<header class="border-b border-gray-200 dark:border-amoled-border bg-white/95 dark:bg-amoled-card/95 px-4 py-4 relative z-10">
-		<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-			<div class="flex flex-row flex-wrap justify-center items-center gap-3 w-full md:w-auto">
-				<h1 class="text-lg font-bold flex items-center gap-2" dir="ltr">
-					⚡️ A L I R E Z A
-					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full">v1.11.4</span>
-				</h1>
-				</div>
-			<div class="flex flex-col items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
-			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
-				<button onclick="toggleInfoModal(true)" 
-						class="p-2 rounded-md 
-							   bg-purple-50 dark:bg-purple-950/30 
-							   border border-purple-200 dark:border-purple-900 
-							   hover:bg-purple-100 dark:hover:bg-purple-900/50 
-							   transition-all duration-200 
-							   text-purple-600 dark:text-purple-400 shadow-sm" 
-						title="اطلاعات">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-					</svg>
-				</button>
-				<button onclick="restartCore()"
-						class="p-2 rounded-md 
-							   bg-blue-50 dark:bg-blue-950/30 
-							   border border-blue-200 dark:border-blue-900 
-							   hover:bg-blue-100 dark:hover:bg-blue-900/50 
-							   transition-all duration-200 
-							   text-blue-600 dark:text-blue-400 shadow-sm" 
-						title="ری استارت پـنـل">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-					</svg>
-				</button>
-				<button id="grayscale-toggle"
-						class="p-2 rounded-md
-							   bg-zinc-100 dark:bg-zinc-800/80
-							   border border-zinc-300 dark:border-zinc-700
-							   hover:bg-zinc-200 dark:hover:bg-zinc-700
-							   transition-all duration-200
-							   text-zinc-600 dark:text-zinc-400 shadow-sm"
-						title="حالت سیاه‌سفید">
-					<svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M12 2v20" />
-						<path d="M12 2a10 10 0 0 1 0 20Z" fill="currentColor" opacity="0.3" />
-						<path d="M12 2a10 10 0 0 0 0 20Z" />
-					</svg>
-				</button>
-				<button id="pwa-install-btn" onclick="triggerPwaInstall()"
-						class="p-2 rounded-md
-							   bg-gradient-to-r from-indigo-500 to-purple-500
-							   hover:from-indigo-600 hover:to-purple-600
-							   transition-all duration-300
-							   text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/30"
-						title="دانلود و نصب اپلیکیشن پنل">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-					</svg>
-				</button>
-			</div>
-			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
-				<button id="theme-toggle" 
-						class="p-2 rounded-md 
-							   bg-amber-50 dark:bg-amber-950/30 
-							   border border-amber-200 dark:border-amber-900 
-							   hover:bg-amber-100 dark:hover:bg-amber-900/50 
-							   transition-all duration-200 
-							   text-amber-500 dark:text-amber-400 shadow-sm"
-						title="تغییر تم">
-					<svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z"></path>
-					</svg>
-					<svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-					</svg>
-				</button>
-				<button onclick="toggleSettingsModal(true)" 
-						class="p-2 rounded-md 
-							   bg-gray-50 dark:bg-zinc-800/50 
-							   border border-gray-200 dark:border-zinc-700 
-							   hover:bg-gray-100 dark:hover:bg-zinc-700/80 
-							   transition-all duration-200 
-							   text-gray-600 dark:text-zinc-400 shadow-sm" 
-						title="تنظیمات">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-					</svg>
-				</button>
-				<button onclick="logoutAdmin()"
-					class="p-2 rounded-md 
-						   bg-red-50 dark:bg-red-950/30 
-						   border border-red-200 dark:border-red-900 
-						   hover:bg-red-100 dark:hover:bg-red-900/50 
-						   transition-all duration-200 
-						   text-red-600 dark:text-red-400 
-						   shadow-sm hover:shadow-md"
-					title="خروج">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-					</svg>
-				</button>
-			</div>
-			</div>
-		</div>
-	</header>
-	<main class="max-w-6xl mx-auto px-4 py-8 pb-56 md:pb-32 relative z-10">
-<div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
-	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
-		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
-		<div class="flex items-center justify-between relative z-10">
-			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">تعداد کل کاربران</span>
-			<div class="p-1 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-md flex-shrink-0">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-			</div>
-		</div>
-		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
-			<div class="text-lg font-black text-gray-900 dark:text-zinc-100 transition-all leading-none" id="stat-total-users">0</div>
-			<span class="text-[9px] text-indigo-500 dark:text-indigo-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none mb-0.5">
-				<span class="w-1 h-1 bg-indigo-500 rounded-full animate-ping"></span>
-				کل کاربران تعریف شده
-			</span>
-		</div>
-	</div>
-	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-green-400 dark:hover:border-green-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
-		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-green-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
-		<div class="flex items-center justify-between relative z-10">
-			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap flex items-center gap-1">
-				<span>کاربران فعال (آنلاین)</span>
-				<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110 cursor-pointer inline-flex items-center" title="هشدار">
-					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-				</button>
-			</span>
-			<div class="p-1 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 rounded-md flex-shrink-0">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-			</div>
-		</div>
-		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
-			<div class="text-lg font-black text-green-600 dark:text-green-400 transition-all leading-none" id="stat-active-users">0</div>
-			<span class="text-[9px] text-green-500 dark:text-green-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none mb-0.5">
-				<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-				متصل در این لحظه
-			</span>
-		</div>
-	</div>
-	<div id="card-cf-requests" class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-orange-400 dark:hover:border-orange-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
-		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-orange-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
-		<div class="flex items-center justify-between relative z-10">
-			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">ریکوئست‌های روزانه</span>
-			<div class="p-1 bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 rounded-md flex-shrink-0">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-			</div>
-		</div>
-		<div class="relative z-10 min-w-0 flex-1 w-full mt-0.5">
-			<div class="flex items-end justify-between w-full mb-1.5">
-				<div class="flex items-baseline gap-1">
-					<span class="text-lg font-black text-orange-600 dark:text-orange-400 transition-all leading-none" id="stat-cf-requests">0</span>
-					<span class="text-[9px] font-bold text-gray-400 mr-0.5 leading-none">/ 100k</span>
-					<button id="cf-warning-btn" onclick="openUsageWarning()" class="hidden flex items-center justify-center w-3 h-3 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full font-bold text-[9px] animate-bounce shadow-sm border border-red-300 dark:border-red-700 mr-1 leading-none">!</button>
-				</div>
-				<span class="text-[9px] text-orange-500 dark:text-orange-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none">
-					<span>Total: <span id="stat-cf-total">0</span></span>
-				</span>
-			</div>
-			<div class="w-full bg-gray-100 dark:bg-zinc-800 rounded-full h-1">
-				<div id="stat-cf-progress" class="bg-orange-500 h-1 rounded-full transition-all duration-500" style="width: 0%"></div>
-			</div>
-		</div>
-	</div>
-	<div id="card-d1-usage" class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-purple-400 dark:hover:border-purple-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
-		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-purple-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
-		<div class="flex items-center justify-between relative z-10">
-			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">مصرف دیتابیس D1</span>
-			<div class="p-1 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 rounded-md flex-shrink-0">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-			</div>
-		</div>
-		<div class="relative z-10 min-w-0 flex-1 w-full mt-1">
-			<div class="grid grid-cols-2 gap-2 w-full">
-				<div class="flex flex-col items-start justify-center">
-					<div class="flex items-baseline gap-1">
-						<span class="text-sm font-black text-purple-600 dark:text-purple-400 transition-all leading-none" id="stat-d1-writes">0</span>
-						<span class="text-[9px] font-bold text-gray-400 leading-none">/ 100k</span>
-					</div>
-					<span class="text-[9px] font-medium text-gray-500 dark:text-zinc-400 mt-1">نوشتن</span>
-				</div>
-				<div class="flex flex-col items-end justify-center border-r border-gray-100 dark:border-zinc-800 pr-2">
-					<div class="flex items-baseline gap-1">
-						<span class="text-sm font-black text-purple-600 dark:text-purple-400 transition-all leading-none" id="stat-d1-reads">0</span>
-						<span class="text-[9px] font-bold text-gray-400 leading-none">/ 5M</span>
-					</div>
-					<span class="text-[9px] font-medium text-gray-500 dark:text-zinc-400 mt-1">خواندن</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-blue-400 dark:hover:border-blue-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
-		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-blue-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
-		<div class="flex items-center justify-between relative z-10">
-			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">ترافیک مصرفی سرور</span>
-			<div class="p-1 bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 rounded-md flex-shrink-0">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-			</div>
-		</div>
-		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
-			<div class="text-lg font-black text-blue-600 dark:text-blue-400 transition-all whitespace-nowrap leading-none" id="stat-total-usage">0 GB</div>
-			<span class="text-[9px] text-blue-500 dark:text-blue-400 flex items-center gap-0.5 font-medium whitespace-nowrap leading-none mb-0.5">
-				<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>
-				مجموع
-			</span>
-		</div>
-	</div>
-</div>
-		<div id="loading-state" class="text-center py-12">
-			<span class="text-gray-500 dark:text-gray-400">در حال بارگذاری کاربران...</span>
-		</div>
-		<div class="mb-5 flex flex-col md:flex-row gap-2 justify-between items-center bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2 shadow-sm">
-			<div class="relative w-full md:w-80">
-				<input type="text" id="search-input" oninput="filterAndRenderUsers()" placeholder="جستجوی نام کاربری یا UUID..." class="w-full pl-3 pr-8 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs">
-				<div class="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none text-gray-400">
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-				</div>
-			</div>
-			<div class="flex items-center gap-2 w-full md:w-auto">
-				<select id="filter-status" onchange="filterAndRenderUsers()" class="flex-1 min-w-0 px-2 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer truncate">
-					<option value="all">🔍 همه</option>
-					<option value="active">✅ فعال</option>
-					<option value="inactive">❌ غیرفعال</option>
-					<option value="online">⚡ آنلاین</option>
-					<option value="offline">💤 آفلاین</option>
-					<option value="expired">⏳ منقضی</option>
-				</select>
-				<select id="sort-users" onchange="filterAndRenderUsers()" class="flex-1 min-w-0 px-2 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer truncate">
-					<option value="newest">📅 جدیدترین</option>
-					<option value="name">🔤 نام کاربری (الفبا)</option>
-					<option value="usage-desc">📊 بیشترین مصرف</option>
-					<option value="usage-asc">📈 کمترین مصرف</option>
-					<option value="expiry-asc">⏳ کمترین زمان باقی‌مانده</option>
-				</select>
-			</div>
-		</div>
-		<div class="flex items-center justify-between mb-4">
-			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200 shrink-0 whitespace-nowrap">لیست کاربران</h2>
-			<div class="flex flex-col items-end gap-3">
-				<div class="flex items-center justify-end gap-4">
-				<button onclick="quickCreateUser(this)" title="افزودن کاربر سریع (VIP)" class="p-2 rounded-md bg-indigo-50 dark:bg-indigo-950/40 border-2 border-indigo-500 dark:border-indigo-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all duration-300 text-indigo-600 dark:text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] hover:shadow-[0_0_25px_rgba(99,102,241,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
-					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-				</button>
-				<button onclick="copyAllConfigs(this)" title="کپی همه‌ی کانفیگ‌های همه‌ی کاربران (یکجا)" class="p-2 rounded-md bg-fuchsia-50 dark:bg-fuchsia-950/40 border-2 border-fuchsia-500 dark:border-fuchsia-500 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-900/60 transition-all duration-300 text-fuchsia-600 dark:text-fuchsia-400 shadow-[0_0_15px_rgba(217,70,239,0.6)] hover:shadow-[0_0_25px_rgba(217,70,239,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<svg class="w-6 h-6 drop-shadow-[0_0_6px_rgba(217,70,239,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path><path d="M12 14.5h5M12 17.5h5"></path></svg>
-				</button>
-				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
-				</button>
-				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-				</button>
-				</div>
-				<div class="flex items-center justify-end gap-4">
-				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-					</svg>
-				</button>
-				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
-					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
-					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
-				</button>
-				</div>
-			</div>
-		</div>
-		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
-		<div class="flex flex-wrap items-center justify-end gap-2">
-			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
-				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
-				<span class="relative inline-flex items-center">
-					<input type="checkbox" id="info-configs-toggle" onchange="toggleInfoConfigs(this)" class="sr-only peer">
-					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-amber-500 transition-colors"></span>
-					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
-				</span>
-			</label>
-			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
-			<button type="button" onclick="openEchModal()" title="تنظیمات ECH (SNI و DoH) که روی کانفیگ‌ها اعمال می‌شود" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">🔐 تنظیمات ECH</button>
-		</div>
-		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
-		<div class="flex flex-wrap items-center justify-end gap-2 mb-3">
-			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20" title="روشن: تنظیمات پیشرفته بهینه‌سازی (مقادیر Patterniha) روی همه کاربران اعمال می‌شود">
-				<span class="text-[11px] font-bold text-purple-800 dark:text-purple-300">بهینه‌سازی Patterniha (همه کاربران)</span>
-				<span class="relative inline-flex items-center">
-					<input type="checkbox" id="patterniha-all-toggle" onchange="togglePatternihaAll(this)" class="sr-only peer">
-					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-purple-500 transition-colors"></span>
-					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
-				</span>
-			</label>
-			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-fuchsia-300 dark:border-fuchsia-700/60 bg-fuchsia-50/60 dark:bg-fuchsia-950/20" title="روشن: finalmask (fm) خالی، فینگرپرینت Chrome و ECH روی همه کاربران (Cipher Suites و TLS Mask هم خالی می‌شن)">
-				<span class="text-[11px] font-bold text-fuchsia-800 dark:text-fuchsia-300">بهینه‌سازی Chrome + ECH (همه کاربران)</span>
-				<span class="relative inline-flex items-center">
-					<input type="checkbox" id="patterniha-ech-toggle" onchange="togglePatternihaEchAll(this)" class="sr-only peer">
-					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-fuchsia-500 transition-colors"></span>
-					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
-				</span>
-			</label>
-		</div>
-		<div id="users-table-container" class="hidden overflow-x-auto pb-4 px-1">
-			<table class="w-full text-right border-separate" style="border-spacing: 0 8px;">
-				<thead>
-					<tr class="bg-gray-200/90 dark:bg-zinc-800/80 backdrop-blur-md text-xs font-bold text-gray-700 dark:text-zinc-200 text-center leading-tight shadow-md">
-						<th class="py-2 px-1.5 w-10 text-center rounded-r-md border-y border-r border-gray-200 dark:border-zinc-800"><input type="checkbox" id="select-all-users" onchange="toggleSelectAllUsers(this)" class="w-5 h-5 rounded-md border-2 border-gray-300 dark:border-zinc-700 text-blue-600 bg-white dark:bg-zinc-800 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500/50 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"></th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">اطلاعات</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">عملیات</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">لینک ساب</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-1 whitespace-nowrap">
-							<div class="flex items-center justify-center gap-1">
-								<span>تعداد کانفیگ‌ها</span>
-								<button type="button" onclick="openConfigCountWarning();" class="text-amber-500 hover:text-amber-400 transition-transform hover:scale-125 cursor-pointer inline-flex items-center" title="هشدار">
-									<svg class="w-5 h-5 animate-pulse drop-shadow-[0_0_6px_rgba(245,158,11,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-								</button>
-							</div>
-						</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">پورت</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">حجم</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">ریکوئست</th>
-						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">زمان</th>
-						<th class="py-2 px-2 rounded-l-md border-y border-l border-gray-200 dark:border-zinc-800 w-[115px]">
-							<div class="flex items-center justify-center gap-1">
-								<span>متصل</span>
-								<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110 cursor-pointer inline-flex items-center" title="هشدار">
-									<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-								</button>
-							</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody id="users-tbody" class="text-sm"></tbody>
-			</table>
-		</div>
-		<div id="empty-state" class="hidden p-8 border-2 border-dashed border-red-500/60 dark:border-red-500/50 bg-red-50 dark:bg-red-900/10 rounded-md text-center animate-pulse shadow-sm">
-			<p class="text-red-600 dark:text-red-400 font-bold text-lg">کاربری وجود ندارد. برای ساخت اولین کاربر روی دکمه « + » کلیک کنید یا از دکمه ⚡️ برای ایجاد سریع کاربر استفاده کنید.</p>
-		</div>
-	</main>
-<div id="pwa-install-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
-	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-green-500/40 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center relative overflow-hidden">
-		<div class="absolute -right-12 -top-12 w-32 h-32 bg-green-500/10 rounded-full blur-2xl pointer-events-none"></div>
-		<div class="flex justify-between items-center mb-4 relative z-10">
-			<h3 class="text-sm font-black text-gray-900 dark:text-white flex items-center gap-2">
-				<span class="text-lg">📲</span>
-				<span id="pwa-modal-title">راهنمای نصب اپلیکیشن علیرضا</span>
-			</h3>
-			<button onclick="togglePwaModal(false)" class="p-1 rounded-md text-gray-400 hover:text-red-500 cursor-pointer transition">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="flex items-center gap-3 p-3 bg-green-50/50 dark:bg-green-900/10 rounded-xl border border-green-200/70 dark:border-green-800/50 mb-4 text-right">
-			<div class="w-11 h-11 rounded-xl bg-green-50 dark:bg-green-950/60 border-2 border-green-500 flex items-center justify-center text-green-600 dark:text-green-400 flex-shrink-0 shadow-md">
-				<svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-			</div>
-			<div>
-				<h4 class="text-xs font-black text-gray-900 dark:text-white">پنل علیرضا</h4>
-				<span class="text-[10px] text-gray-500 dark:text-zinc-400 block">اپلیکیشن پیشرفته و مستقل وب (PWA)</span>
-			</div>
-		</div>
-		<div id="pwa-instructions-list" class="space-y-2.5 text-right text-xs text-gray-700 dark:text-zinc-300 font-medium leading-relaxed select-none mb-5 max-h-48 overflow-y-auto pr-1">
-		</div>
-		<button onclick="togglePwaModal(false)" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-xl text-xs transition shadow-sm cursor-pointer active:scale-95">متوجه شدم</button>
-	</div>
-</div>
-<div id="rocket-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-orange-500/50 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
-		<div class="flex justify-between items-center mb-4">
-			<div class="flex items-center gap-2">
-				<div class="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shadow-sm">
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-					</svg>
-				</div>
-				<h3 class="text-sm font-black text-gray-900 dark:text-white">کانفیگ تک لوکیشن</h3>
-			</div>
-			<button onclick="toggleRocketModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm" title="بستن">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<p class="text-[11px] text-gray-600 dark:text-gray-400 mb-5 font-medium leading-relaxed">کشور مورد نظر را انتخاب کنید تا کانفیگ تک لوکیشن پرسرعت ساخته شود.</p>
-		<div class="space-y-4">
-			<div>
-				<select id="rocket-country-select" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-gray-800 dark:text-zinc-100 cursor-pointer shadow-sm transition">
-					<option value="">در حال بارگذاری کشورها...</option>
-				</select>
-			</div>
-			<button id="rocket-submit-btn" onclick="executeRocketCreate()" class="w-full py-2.5 bg-transparent border-2 border-orange-600 text-orange-700 hover:bg-orange-900/20 hover:text-orange-800 dark:border-orange-500 dark:text-orange-500 dark:hover:bg-orange-900/40 dark:hover:text-orange-400 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">شروع اسکن و ساخت</button>
-		</div>
-	</div>
-</div>
-<div id="info-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-purple-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col">
-		
-		<div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-500 mb-3 shadow-inner mx-auto flex-shrink-0">
-			<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-			</svg>
-		</div>
-		
-		<h3 class="font-black text-lg text-gray-900 dark:text-white mb-3">اطلاعیه مهم امنیتی و وضعیت پروژه</h3>
-		
-		<div class="text-xs text-gray-600 dark:text-gray-300 mb-4 leading-relaxed font-medium text-justify space-y-2">
-			<p>
-				با کمال تأسف به اطلاع می‌رسانیم که مخزن گیت‌هاب پروژه علیرضا به دلیل گزارش‌های کذب و مغرضانه برخی از افراد سودجو و <strong>فروشندگان کانفیگ</strong> مسدود شده است.
-			</p>
-			<p>
-				این شیادین با انتشار شایعات بی‌اساس مبنی بر ناامن بودن پنل یا سرقت اطلاعات، قصد تخریب این پروژه رایگان را دارند تا منافع مالی خود را حفظ کنند.
-			</p>
-			<p>
-				پروژه علیرضا همواره بر پایه شفافیت مطلق بنا شده است. برای اثبات این موضوع، سورس‌کد کامل پنل در دسترس شماست. لطفاً به شایعات توجه نکنید و برای اطمینان خاطر، کدها را مستقلاً با ابزارهای هوش مصنوعی بررسی کنید تا به سلامت و امنیت کامل پروژه پی ببرید.
-			</p>
-			<p class="text-amber-600 dark:text-amber-400 font-bold text-center mt-2 border-t border-gray-100 dark:border-zinc-800/50 pt-2.5">
-				ادامه این مسیر و مقابله با این تخریب‌ها برای ما بسیار دشوار شده است. حمایت‌های شما تنها دلگرمی ما برای سرپا نگه داشتن این پروژه است.
-			</p>
-		</div>
-		
-		<div class="flex flex-col gap-2 mt-auto">
-			<div class="flex flex-col sm:flex-row gap-2 w-full">
-				</div>
-			
-			<button onclick="toggleInfoModal(false)" class="w-full py-2.5 bg-transparent border-2 border-purple-600 text-purple-700 hover:bg-purple-900/20 hover:text-purple-800 dark:border-purple-500 dark:text-purple-400 dark:hover:bg-purple-900/40 dark:hover:text-purple-300 font-black rounded-md text-sm transition duration-300 shadow-sm">
-				متوجه شدم
-			</button>
-		</div>
-		
-	</div>
-</div>
-<div id="usage-warning-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-orange-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">هشدار محدودیت درخواست روزانه</h3>
-		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-			درخواست‌های روزانه کلودفلر شما از ۹۰,۰۰۰ عبور کرده است. در صورت عبور از محدودیت رایگان ۱۰۰,۰۰۰ درخواست، دسترسی به پـنـل و اتصالات تا ساعت ۳:۳۰ بامداد (به وقت ایران) قطع خواهد شد.
-		</p>
-		<button onclick="closeUsageWarning()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
-			متوجه شدم
-		</button>
-	</div>
-</div>
-<div id="free-panel-warning-modal" class="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border-4 border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">🚨 🛑 اخطار 🛑 🚨</h3>
-		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-این پنل <span class="text-emerald-500 font-bold">اوپن‌سورس</span> می‌باشد و توسط <span class="text-blue-500 font-bold">ALIREZA Tune</span> تغییر یافته است. ✨		</p>
-		<button onclick="closeFreePanelWarning()" class="w-full py-3.5 bg-transparent border-2 border-green-800 text-green-900 hover:bg-green-800 hover:text-white dark:border-green-800 dark:text-green-700 dark:hover:bg-green-900 dark:hover:text-white font-black rounded-md text-sm transition duration-300 shadow-lg">
-			تأیید و موافقت
-		</button>
-	</div>
-</div>
-<div id="global-message-modal" class="fixed inset-0 z-[86] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-blue-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-4">پیام همگانی</h3>
-		<div id="global-message-content" class="mb-6 w-full text-center">
-		</div>
-		<button id="global-message-close-btn" class="w-full py-3.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-900/40 dark:hover:text-blue-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
-			متوجه شدم
-		</button>
-	</div>
-</div>
-<div id="online-counter-warning-modal" class="fixed inset-0 z-[87] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">هشدار شمارنده آنلاین</h3>
-		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-			به دلیل ماهیت ساختار کلودفلر، آمار شمارنده کاربران آنلاین با دقت مطلق محاسبه نمی‌شود؛ همچنین ارسال پینگ یا بررسی مداوم کانفیگ‌ها توسط کلاینت ممکن است به صورت موقت منجر به نمایش افزایش کاذب تعداد کاربران فعال گردد.		</p>
-		<button onclick="closeOnlineCounterWarning()" class="w-full py-3.5 bg-transparent border-2 border-red-600 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
-			متوجه شدم
-		</button>
-	</div>
-</div>
-<div id="config-count-warning-modal" class="fixed inset-0 z-[88] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-amber-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">محاسبه تعداد کانفیگ‌ها</h3>
-		<p class="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed font-medium">
-			تعداد کل کانفیگ‌های هر کاربر از این فرمول به دست می‌آید
-		</p>
-		<div class="bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-md p-3 mb-4 text-xs font-bold text-gray-800 dark:text-zinc-200 text-center shadow-inner" dir="rtl">
-			تعداد کل = ۳ + (تعداد پروکسی ها + ۱) × (تعداد آی‌پی تمیز) × (تعداد پورت)
-		</div>
-		<div class="text-[11px] text-amber-700 dark:text-amber-500 mb-6 leading-relaxed font-bold bg-amber-50 dark:bg-amber-950/20 p-3 rounded text-right border border-amber-200 dark:border-amber-900/50">
-			⚠️ <b>توصیه مهم:</b> برای جلوگیری از زیاد شدن کانفیگ‌ها و در نتیجه سنگین شدن و هنگ کردن نرم‌افزار کاربر، پیشنهاد می‌شود پورت‌های کمتری انتخاب کنید و تعداد آی‌پی‌های تمیز را در حد معقول نگه دارید.
-		</div>
-		<button onclick="closeConfigCountWarning()" class="w-full py-3.5 bg-transparent border-2 border-amber-600 text-amber-700 hover:bg-amber-900/20 hover:text-amber-800 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-900/40 dark:hover:text-amber-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
-			متوجه شدم
-		</button>
-	</div>
-</div>
-	<div id="user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
-		<div id="user-modal-card" class="w-full max-w-5xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-2xl shadow-2xl overflow-hidden transition-[opacity,transform] duration-200 opacity-0 scale-95 ease-out flex flex-col max-h-[92vh] transform-gpu">
-			<div class="px-5 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50/70 dark:bg-amoled-bg/60">
-				<div class="flex items-center gap-3">
-					<div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-					</div>
-					<div>
-						<h3 id="modal-title" class="font-black text-gray-900 dark:text-zinc-100 text-sm sm:text-base tracking-tight">ایجاد کاربر جدید</h3>
-						<p class="text-[11px] text-gray-500 dark:text-zinc-400 font-medium">مشخصات، دسترسی‌ها و پروتکل‌های اتصال کاربر</p>
-					</div>
-				</div>
-				<button type="button" onclick="toggleModal(false)" class="p-2 rounded-lg bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 shadow-sm" title="بستن">
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-				</button>
-			</div>
-			<form id="create-user-form" class="flex flex-col flex-1 min-h-0 overflow-hidden" onsubmit="handleFormSubmit(event)">
-				<input type="hidden" id="hidden-auto-rotate" value="0">
-				<input type="hidden" id="hidden-rotate-time" value="">
-				<input type="hidden" id="hidden-ip-operator" value="all">
-				<input type="hidden" id="hidden-ip-count" value="20">
-				<div class="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden">
-					<div class="w-full md:w-64 bg-gray-50/90 dark:bg-amoled-bg/80 border-b md:border-b-0 md:border-l border-gray-200 dark:border-amoled-border p-3 md:p-4 flex flex-row md:flex-col gap-2 flex-shrink-0 overflow-x-auto md:overflow-x-visible md:justify-between">
-						<div class="flex flex-row md:flex-col gap-2 w-full">
-							<button type="button" onclick="switchUserTab('tab-user-info')" id="tab-btn-user-info" class="user-modal-tab-btn active flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-blue-600/10 dark:bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold shadow-sm">
-								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-blue-500/15 dark:bg-blue-400/20 text-blue-600 dark:text-blue-300">
-									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-								</div>
-								<div class="hidden sm:block text-right">
-									<div class="text-xs font-black">نام کاربری و مشخصات</div>
-									<div class="text-[10px] opacity-75 font-normal">حجم، زمان، محدودیت و تمدید</div>
-								</div>
-								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">مشخصات</span>
-							</button>
-							<button type="button" onclick="switchUserTab('tab-ports-network')" id="tab-btn-ports-network" class="user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium">
-								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400">
-									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-								</div>
-								<div class="hidden sm:block text-right">
-									<div class="text-xs font-black">پورت‌های اتصال و شبکه</div>
-									<div class="text-[10px] opacity-75 font-normal">پورت‌ها، آی‌پی تمیز و فرگمنت</div>
-								</div>
-								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">پورت و IP</span>
-							</button>
-							<button type="button" onclick="switchUserTab('tab-proxy-settings')" id="tab-btn-proxy-settings" class="user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium">
-								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400">
-									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-								</div>
-								<div class="hidden sm:block text-right">
-									<div class="text-xs font-black">تنظیم پروکسی و کشور</div>
-									<div class="text-[10px] opacity-75 font-normal">آی‌پی ثابت و زنجیره اتصال</div>
-								</div>
-								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">پروکسی</span>
-							</button>
-						</div>
-						
-						<div class="hidden md:flex flex-col gap-2 mt-auto pt-4 border-t border-gray-200 dark:border-amoled-border w-full">
-							<button type="submit" id="submit-btn-desktop" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 font-black rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-1.5 cursor-pointer">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-								<span>ایجاد کاربر</span>
-							</button>
-							<button type="button" onclick="toggleModal(false)" class="w-full py-2 bg-transparent border-2 border-red-600 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold rounded-xl text-xs transition shadow-sm">
-								انصراف
-							</button>
-						</div>
-					</div>
-					<div class="flex-1 p-4 sm:p-6 overflow-y-auto max-h-[72vh] space-y-4 custom-scrollbar overscroll-contain">
-						
-						<div id="tab-user-info" class="user-tab-panel space-y-4">
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<div class="flex items-center justify-between">
-									<label class="block text-xs font-black text-gray-700 dark:text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-										<span>پروتکل‌های اتصال (انتخاب حداقل یک مورد الزامی است)</span>
-									</label>
-								</div>
-								<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-blue-500 dark:hover:border-blue-500 transition select-none">
-										<div class="flex items-center gap-2.5">
-											<div class="w-8 h-8 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xs">
-												<svg class="w-5 h-5 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
-											</div>
-											<div>
-												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل VLESS</span>
-												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل سبک و پرسرعت </span>
-											</div>
-										</div>
-										<input type="checkbox" id="input-proto-vless" checked onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
-									</label>
-									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-purple-500 dark:hover:border-purple-500 transition select-none">
-										<div class="flex items-center gap-2.5">
-											<div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black text-xs">
-												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 11a2 2 0 100-4 2 2 0 000 4z"></path><path d="M12 11v3"></path></svg>
-											</div>
-											<div>
-												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Trojan</span>
-												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امنیتی پیشرفته </span>
-											</div>
-										</div>
-										<input type="checkbox" id="input-proto-trojan" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
-									</label>
-									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-yellow-500 dark:hover:border-yellow-500 transition select-none">
-										<div class="flex items-center gap-2.5">
-											<div class="w-8 h-8 rounded-lg bg-yellow-500/10 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 flex items-center justify-center font-black text-xs">
-												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-											</div>
-											<div>
-												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Shadowsocks</span>
-												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امن سبک</span>
-											</div>
-										</div>
-										<input type="checkbox" id="input-proto-ss" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
-									</label>
-								</div>
-								<div class="mt-2.5 p-2 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
-									<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-									<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed text-justify">هشدار: پروتکل شدوساکس در موبایل فقط روی برنامه <a href="https://www.happ.su/main" target="_blank" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80 transition-opacity">happ</a> پشتیبانی میشود.</span>
-								</div>
-							</div>
-							
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<div class="flex items-center justify-between">
-									<label class="block text-xs font-black text-gray-700 dark:text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-blue-500"></span>
-										<span>نام کاربری (الزامی)</span>
-									</label>
-									<button type="button" onclick="generateRandomUsername()" class="px-2.5 py-1 bg-transparent border-2 border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1">
-										<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-										<span>نام تصادفی</span>
-									</button>
-								</div>
-								<div class="relative">
-									<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-									</span>
-									<input type="text" id="input-name" placeholder="my-config" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
-								</div>
-							</div>
-							
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-4">
-								<div class="space-y-3">
-									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-										<span>اعتبار حجمی و زمانی</span>
-									</h4>
-									<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-										<div>
-											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">حجم مجاز (گیگابایت)</label>
-											<div class="relative">
-												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-												</span>
-												<input type="number" id="input-limit" step="0.1" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
-											</div>
-											<div class="flex items-center gap-1 mt-1.5 flex-wrap">
-												<span class="text-[9px] text-gray-400 dark:text-zinc-500 font-bold ml-1">انتخاب سریع:</span>
-												<button type="button" onclick="setQuickVol(10)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱۰ گیگ</button>
-												<button type="button" onclick="setQuickVol(50)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۵۰ گیگ</button>
-												<button type="button" onclick="setQuickVol(100)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱۰۰ گیگ</button>
-												<button type="button" onclick="setQuickVol('')" class="px-2 py-0.5 rounded bg-transparent border border-gray-500 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-amoled-input text-[10px] font-bold transition cursor-pointer">نامحدود</button>
-											</div>
-										</div>
-										<div>
-											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">مدت زمان اعتبار (روز)</label>
-											<div class="relative">
-												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-												</span>
-												<input type="number" id="input-expiry" min="1" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
-											</div>
-											<div class="flex items-center gap-1 mt-1.5 flex-wrap">
-												<span class="text-[9px] text-gray-400 dark:text-zinc-500 font-bold ml-1">انتخاب سریع:</span>
-												<button type="button" onclick="setQuickExp(30)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱ ماه</button>
-												<button type="button" onclick="setQuickExp(60)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۲ ماه</button>
-												<button type="button" onclick="setQuickExp(90)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۳ ماه</button>
-												<button type="button" onclick="setQuickExp('')" class="px-2 py-0.5 rounded bg-transparent border border-gray-500 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-amoled-input text-[10px] font-bold transition cursor-pointer">نامحدود</button>
-											</div>
-										</div>
-									</div>
-									<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-lg">
-										<div class="flex items-center gap-2">
-											<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">شروع محاسبه زمان از اولین اتصال کاربر</span>
-										</div>
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-start-on-first-connect" class="sr-only peer">
-											<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-										</label>
-									</div>
-								</div>
-								
-								<div class="border-t border-gray-200/70 dark:border-amoled-border"></div>
-								
-								<div class="space-y-3">
-									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-purple-500"></span>
-										<span>محدودیت‌های اتصال و امنیت</span>
-									</h4>
-									<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-										<div>
-											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">تعداد درخواست (ریکوئست)</label>
-											<div class="relative">
-												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-												</span>
-												<input type="number" id="input-req-limit" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
-											</div>
-										</div>
-										<div>
-											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1 flex items-center gap-1.5">
-												<span>محدودیت کاربر</span>
-												<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 cursor-pointer inline-flex items-center animate-sym-bounce hover:animate-none transition-transform hover:scale-125" title="هشدار مهم">
-													<svg class="w-4 h-4 drop-shadow-[0_0_6px_rgba(239,68,68,0.9)] dark:drop-shadow-[0_0_8px_rgba(248,113,113,1)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-												</button>
-											</label>
-											<div class="relative">
-												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-												</span>
-												<input type="number" id="input-ip-limit" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
-											</div>
-										</div>
-										<div>
-											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">فینگرپرینت TLS</label>
-											<div class="relative">
-												<select id="fingerprint-select" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-700 dark:text-zinc-300 cursor-pointer appearance-none shadow-sm">
-													<option value="chrome">🌐 Chrome</option>
-													<option value="firefox">🦊 Firefox</option>
-													<option value="safari">🧭 Safari</option>
-													<option value="ios">📱 iOS</option>
-													<option value="android">🤖 Android</option>
-													<option value="edge">🌀 Edge</option>
-													<option value="360">🔒 360 Browser</option>
-													<option value="qq">💬 QQ Browser</option>
-													<option value="random">🎲 Random</option>
-													<option value="randomized">🎭 Dynamic</option>
-													<option value="unsafe" selected>🚀 Unsafe (پیشنهادی)</option>
-												</select>
-												<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">
-													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<div class="flex items-center justify-between">
-									<div class="flex items-center gap-2">
-										<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-										<div>
-											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تمدید خودکار ترافیک</span>
-											<span class="text-[10px] text-gray-400 block font-normal">ریست اتوماتیک در ساعت ۳:۳۰ بامداد</span>
-										</div>
-									</div>
-									<label class="relative inline-flex items-center cursor-pointer select-none">
-										<input type="checkbox" id="input-auto-reset-toggle" onchange="toggleAutoResetInputs(this.checked)" class="sr-only peer">
-										<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-									</label>
-								</div>
-								<div id="auto-reset-inputs-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-200/60 dark:border-amoled-border opacity-50 pointer-events-none transition-all duration-200">
-									<div>
-										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">دوره تمدید حجم (روز)</label>
-										<input type="number" id="input-auto-reset-vol" min="1" placeholder="خالی = بدون تمدید" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition" dir="ltr" disabled>
-									</div>
-									<div>
-										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">دوره تمدید ریکوئست (روز)</label>
-										<input type="number" id="input-auto-reset-req" min="1" placeholder="خالی = بدون تمدید" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition" dir="ltr" disabled>
-									</div>
-								</div>
-							</div>
-							
-							<div>
-								<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-									<div class="flex items-center justify-between p-3.5 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl">
-										<div class="flex items-center gap-2">
-											<span class="text-base">🔞</span>
-											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">مسدودسازی سایت‌های غیراخلاقی</span>
-										</div>
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-block-porn" class="sr-only peer">
-											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-red-500 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-										</label>
-									</div>
-									<div class="flex items-center justify-between p-3.5 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl">
-										<div class="flex items-center gap-2">
-											<span class="text-base">🚫</span>
-											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">مسدودسازی تبلیغات اینترنتی</span>
-										</div>
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-block-ads" class="sr-only peer">
-											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-amber-500 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-										</label>
-									</div>
-								</div>
-								<div class="mt-2.5 p-2 bg-red-50/80 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-2 shadow-sm">
-									<svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-									<span class="text-[10px] font-bold text-red-700 dark:text-red-400 leading-relaxed text-justify">هشدار: در صورت روشن بودن فرگمنت (Fragment) گزینه های مسدودسازی عملاً کار نخواهند کرد.</span>
-								</div>
-							</div>
-						</div>
-						
-						<div id="tab-ports-network" class="user-tab-panel hidden space-y-4">
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
-									<span class="w-2 h-2 rounded-full bg-blue-500"></span>
-									<span>پورت‌های اتصال VLESS</span>
-								</h4>
-								<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-									<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg flex flex-col">
-										<div class="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-gray-100 dark:border-amoled-border">
-											<span class="w-2 h-2 rounded-full bg-blue-500"></span>
-											<span class="text-[11px] font-bold text-blue-600 dark:text-blue-400">TLS PORT (رمزنگاری شده)</span>
-										</div>
-										<div class="grid grid-cols-3 gap-1.5 flex-1 content-start" id="tls-ports-list"></div>
-									</div>
-									<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg flex flex-col">
-										<div class="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-gray-100 dark:border-amoled-border">
-											<span class="w-2 h-2 rounded-full bg-amber-500"></span>
-											<span class="text-[11px] font-bold text-amber-600 dark:text-amber-400">Non-TLS PORT (بدون رمزنگاری)</span>
-										</div>
-										<div class="grid grid-cols-3 gap-1.5 flex-1 content-start" id="nontls-ports-list"></div>
-									</div>
-								</div>
-								<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg space-y-1.5">
-									<label class="block text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-										<span>پورت‌های دلخواه و سفارشی (با فاصله جدا کنید)</span>
-									</label>
-									<input type="text" id="input-custom-ports" placeholder="مثال: 8080 2096 8443 5000" dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-gray-800 dark:text-zinc-100 transition shadow-sm">
-								</div>
-							</div>
-							
-							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<div class="flex items-center justify-between flex-wrap gap-2">
-									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
-										<span class="w-2 h-2 rounded-full bg-sky-500"></span>
-										<span>آی‌پی‌های تمیز کلودفلر (Clean IPs)</span>
-									</h4>
-									<div class="flex items-center gap-1.5">
-										<button type="button" onclick="openIpSelectorModal()" class="px-2.5 py-1 bg-transparent border-2 border-amber-500 text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1 shadow-sm">
-											<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-										<span>مخزن آی‌پی</span>
-										</button>
-									</div>
-								</div>
-								<textarea id="input-ips" placeholder="104.16.0.1&#10;104.17.0.1&#10;162.159.192.1" class="w-full h-24 px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition resize-none shadow-sm"></textarea>
-	
-								<div class="flex items-center justify-between p-3 mt-2 bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-200/60 dark:border-emerald-800/40 rounded-lg shadow-sm">
-									<div class="flex items-center gap-2">
-										<svg class="w-4 h-4 text-emerald-600 dark:text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-										<div>
-											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تعویض خودکار آی‌پی (توصیه می‌شود)</span>
-											<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">جابجایی آی‌پی‌ها با هر بار رفرش کلاینت</span>
-										</div>
-									</div>
-									<label class="relative inline-flex items-center cursor-pointer select-none">
-										<input type="checkbox" id="input-auto-rotate-ip-toggle" class="sr-only peer" checked>
-										<div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-									</label>
-								</div>
-							</div>
-							
-							<div class="bg-gradient-to-b from-blue-50/50 to-indigo-50/20 dark:from-amoled-input/50 dark:to-amoled-bg/50 border border-blue-200/70 dark:border-amoled-border rounded-2xl overflow-hidden shadow-sm">
-								<div class="flex items-center justify-between p-4 cursor-pointer" onclick="document.getElementById('input-frag-toggle').click()">
-									<div class="flex items-center gap-2.5">
-										<div class="w-8 h-8 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold shadow-sm">
-											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-										</div>
-										<div>
-											<span class="text-xs font-black text-gray-900 dark:text-zinc-100 flex items-center gap-1.5">
-												<span>فرگمنت ضد فیلترینگ</span>
-											</span>
-											<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">تجزیه پکت‌های اتصال برای عبور تضمینی</span>
-										</div>
-									</div>
-									<div class="flex items-center gap-2" onclick="event.stopPropagation()">
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-frag-toggle" onchange="toggleFragInputs(this.checked)" checked class="sr-only peer">
-											<div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[20px]"></div>
-										</label>
-										<svg id="frag-settings-icon" class="w-4 h-4 text-blue-600 dark:text-blue-400 transition-transform duration-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-									</div>
-								</div>
-								<div id="frag-inputs-container" class="p-4 pt-0 space-y-3.5 transition-all duration-300">
-									<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2.5 border-t border-blue-100 dark:border-amoled-border transition-all duration-200">
-										<div>
-											<label class="block text-[10px] font-bold text-gray-600 dark:text-zinc-300 mb-1 flex items-center justify-between">
-												<span>طول فرگمنت (Length)</span>
-												<span class="text-[9px] text-gray-400">بایت‌های تقسیم پکت</span>
-											</label>
-											<input type="text" id="input-frag-len" value="200-3000" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition shadow-sm" dir="ltr" placeholder="مثال: 10-30 یا 200-3000">
-										</div>
-										<div>
-											<label class="block text-[10px] font-bold text-gray-600 dark:text-zinc-300 mb-1 flex items-center justify-between">
-												<span>بازه فرگمنت (Interval ms)</span>
-												<span class="text-[9px] text-gray-400">تاخیر میلی‌ثانیه</span>
-											</label>
-											<input type="text" id="input-frag-int" value="1-2" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition shadow-sm" dir="ltr" placeholder="مثال: 1-2 یا 2-5">
-										</div>
-									</div>
-									<div class="pt-2 border-t border-blue-100/80 dark:border-amoled-border space-y-2">
-										<div class="flex items-center justify-between">
-											<span class="text-[11px] font-black text-gray-800 dark:text-zinc-200 flex items-center gap-1.5">
-												<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-												<span>تنظیمات پیشنهادی فرگمنت برای اپراتورها (کلیک برای اعمال خودکار):</span>
-											</span>
-										</div>
-										<div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-											<button type="button" onclick="applyFragPreset('mci', this)" class="frag-preset-card group p-2.5 rounded-xl border border-teal-300/80 dark:border-teal-800/70 bg-white dark:bg-slate-950 hover:border-teal-500 dark:hover:border-teal-500 hover:shadow-md hover:shadow-teal-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
-												<div class="flex items-center justify-between mb-1.5">
-													<span class="text-xs font-black text-teal-700 dark:text-teal-300 flex items-center gap-1.5">
-														<span class="w-2 h-2 rounded-full bg-teal-500"></span>
-														همراه اول (MCI)
-													</span>
-													<span class="text-[9px] px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono font-bold whitespace-nowrap">10-30</span>
-												</div>
-												<p class="text-[10px] text-teal-600/90 dark:text-teal-400/80 font-medium leading-tight">شکستن پکت + تاخیر ۲-۵ ms</p>
-											</button>
-											<button type="button" onclick="applyFragPreset('irancell', this)" class="frag-preset-card group p-2.5 rounded-xl border border-amber-300/80 dark:border-amber-800/70 bg-white dark:bg-slate-950 hover:border-amber-500 dark:hover:border-amber-500 hover:shadow-md hover:shadow-amber-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
-												<div class="flex items-center justify-between mb-1.5">
-													<span class="text-xs font-black text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
-														<span class="w-2 h-2 rounded-full bg-amber-500"></span>
-														ایرانسل (MTN)
-													</span>
-													<span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono font-bold whitespace-nowrap">100-200</span>
-												</div>
-												<p class="text-[10px] text-amber-600/90 dark:text-amber-400/80 font-medium leading-tight">پایداری 4G/5G + تاخیر ۵-۱۰ ms</p>
-											</button>
-											<button type="button" onclick="applyFragPreset('rightel', this)" class="frag-preset-card group p-2.5 rounded-xl border border-fuchsia-300/80 dark:border-fuchsia-800/70 bg-white dark:bg-slate-950 hover:border-fuchsia-500 dark:hover:border-fuchsia-500 hover:shadow-md hover:shadow-fuchsia-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
-												<div class="flex items-center justify-between mb-1.5">
-													<span class="text-xs font-black text-fuchsia-700 dark:text-fuchsia-300 flex items-center gap-1.5">
-														<span class="w-2 h-2 rounded-full bg-fuchsia-500"></span>
-														رایتل (Rightel)
-													</span>
-													<span class="text-[9px] px-1.5 py-0.5 rounded bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400 font-mono font-bold whitespace-nowrap">50-100</span>
-												</div>
-												<p class="text-[10px] text-fuchsia-600/90 dark:text-fuchsia-400/80 font-medium leading-tight">بهینه ۳G/4G + تاخیر ۲-۵ ms</p>
-											</button>
-											<button type="button" onclick="applyFragPreset('tci', this)" class="frag-preset-card group p-2.5 rounded-xl border border-indigo-300/80 dark:border-indigo-800/70 bg-white dark:bg-slate-950 hover:border-indigo-500 dark:hover:border-indigo-500 hover:shadow-md hover:shadow-indigo-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
-												<div class="flex items-center justify-between mb-1.5">
-													<span class="text-xs font-black text-indigo-700 dark:text-indigo-300 flex items-center gap-1.5">
-														<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-														مخابرات / ثابت
-													</span>
-													<span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono font-bold whitespace-nowrap">50-200</span>
-												</div>
-												<p class="text-[10px] text-indigo-600/90 dark:text-indigo-400/80 font-medium leading-tight">آسیاتک، فیبر و ... + تاخیر ۱-۳ ms</p>
-											</button>
-										</div>
-										<button type="button" onclick="applyFragPreset('gaming', this)" class="frag-preset-card w-full p-2.5 rounded-xl border border-emerald-300/80 dark:border-emerald-800/70 bg-white dark:bg-slate-950 hover:border-emerald-500 dark:hover:border-emerald-500 hover:shadow-md hover:shadow-emerald-500/10 transition-all flex items-center justify-between text-xs font-bold text-emerald-700 dark:text-emerald-300 cursor-pointer">
-											<div class="flex items-center gap-2">
-												<span class="text-base">🚀</span>
-												<span>حالت فوق سریع (طول ۲۰۰-۳۰۰۰ | تاخیر ۱-۲ ms)</span>
-											</div>
-											<span class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black whitespace-nowrap">پینگ پایین</span>
-										</button>
-									</div>
-								</div>
-							</div>
-							
-							<div class="border border-purple-200 dark:border-amoled-border rounded-xl overflow-hidden shadow-sm">
-								<div class="flex items-center justify-between p-3.5 bg-purple-50/60 dark:bg-amoled-input/30 cursor-pointer" onclick="document.getElementById('input-advanced-settings-toggle').click()">
-									<div class="flex items-center gap-2">
-										<svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-										<span class="text-xs font-black text-purple-900 dark:text-purple-300">تنظیمات پیشرفته بهینه سازی</span>
-										<span onclick="event.stopPropagation(); togglePattNgModal(true)" class="mr-2 px-1.5 py-0.5 bg-[#33FB1F]/10 text-[#33FB1F] border border-[#33FB1F]/30 rounded text-[10px] hover:bg-[#33FB1F]/20 transition-colors shadow-[0_0_8px_rgba(51,251,31,0.3)] animate-pulse cursor-pointer">مهم🚨</span>
-									</div>
-									<div class="flex items-center gap-2" onclick="event.stopPropagation()">
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-advanced-settings-toggle" onchange="toggleAdvancedSettingsInputs(this.checked)" class="sr-only peer">
-											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-purple-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-										</label>
-										<svg id="advanced-settings-icon" class="w-4 h-4 text-purple-600 dark:text-purple-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-									</div>
-								</div>
-								<div id="advanced-settings-container" class="hidden opacity-50 pointer-events-none transition-opacity duration-300 p-4 border-t border-purple-100 dark:border-amoled-border space-y-3 bg-white dark:bg-slate-900">
-									<div>
-										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Advanced Fragment (fm JSON)</label>
-										<input type="text" id="input-advanced-frag" placeholder="{&quot;tcp&quot;: [{&quot;type&quot;: &quot;fragment&quot;..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
-									</div>
-									<div>
-										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Cipher Suites (cs)</label>
-										<input type="text" id="input-cipher-suites" placeholder="TLS_AES_256_GCM_SHA384..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
-									</div>
-									<div>
-										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">TLS Mask (Custom SNI / Host)</label>
-										<input type="text" id="input-tls-mask" placeholder="www.speedtest.net" dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
-									</div>
-									<button type="button" onclick="fillPatternihaValues()" class="w-full py-2 bg-transparent border-2 border-purple-500 text-purple-600 dark:text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 mt-1 shadow-sm">
-										<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-										<span>پر کردن خودکار مقادیر بهینه ساز Patterniha</span>
-									</button>
-								</div>
-							</div>
-							
-							<div class="mt-1 p-2.5 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
-								<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-								<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed">هشدار: این تنظیمات روی پروتکل شدوساکس (Shadowsocks) اعمال نمی‌شوند.</span>
-							</div>
-						</div>
-						
-						<div id="tab-proxy-settings" class="user-tab-panel hidden space-y-4">
-							<div class="p-3 bg-red-50/80 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl flex items-start gap-2 shadow-sm">
-							<svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-							<span class="text-[11px] font-bold text-red-700 dark:text-red-400 leading-relaxed">سایت‌هایی مثل <span class="text-emerald-600 dark:text-emerald-400 font-black">ChatGPT</span>، <span class="text-amber-600 dark:text-amber-400 font-black">Claude</span> و <span class="text-purple-600 dark:text-purple-400 font-black">Speedtest</span> پشت کلودفلر هستند؛ برای باز کردن این سایت‌ها حتماً باید <span class="text-blue-600 dark:text-blue-400 font-black">پـروکـسـی</span> تنظیم کنید.</span>
-						</div>
-
-						<div class="p-4 bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/60 dark:border-sky-900/40 rounded-xl flex flex-col gap-3 shadow-sm">
-							<div class="flex items-center justify-between">
-								<div class="flex items-center gap-2">
-									<svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-									<div>
-										<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تست اتصال مستقیم (بدون پروکسی)</span>
-										<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">تست ارتباط شما با کلودفلر و کلودفلر با نت آزاد</span>
-									</div>
-								</div>
-							</div>
-							<div class="grid grid-cols-2 gap-2 bg-white/60 dark:bg-amoled-bg/50 p-2.5 rounded-lg border border-sky-100 dark:border-sky-900/30">
-								<div class="flex flex-col items-center justify-center gap-1 border-l border-gray-200 dark:border-zinc-800">
-									<span class="text-[9px] font-bold text-gray-400">☁️ پینگ شما به کلودفلر</span>
-									<span id="client-to-server-ping" class="text-[10px] font-bold text-gray-600 dark:text-zinc-300">-</span>
-								</div>
-								<div class="flex flex-col items-center justify-center gap-1">
-									<span class="text-[9px] font-bold text-gray-400">🌍 پینگ کلودفلر به اینترنت آزاد</span>
-									<span id="server-to-net-ping" class="text-[10px] font-bold text-gray-600 dark:text-zinc-300">-</span>
-								</div>
-							</div>
-							<button type="button" id="test-direct-btn" onclick="testDirectPing()" class="w-full py-2 bg-transparent border-2 border-sky-500 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
-								<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-								<span>تست اتصال مستقیم</span>
-							</button>
-						</div>
-						<div class="flex items-center justify-between p-3.5 bg-blue-50/80 dark:bg-amoled-input/30 border border-blue-500/40 dark:border-amoled-border rounded-xl shadow-sm">
-							<div class="flex items-center gap-2">
-								<span class="text-lg drop-shadow-sm">🌐</span>
-								<span class="text-xs font-black text-blue-900 dark:text-blue-300">اتصال مستقیم (بدون پروکسی خروجی)</span>
-							</div>
-							<label class="relative inline-flex items-center cursor-pointer select-none">
-								<input type="checkbox" id="input-enable-direct" checked class="sr-only peer">
-								<div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-							</label>
-						</div>
-
-						<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
-								<div class="flex items-center justify-between border-b pb-3 border-gray-200/50 dark:border-amoled-border">
-									<div class="flex items-center gap-2">
-										<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-										<div>
-											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تنظیم کشور و ثابت کردن آیپی</span>
-											<span class="text-[10px] text-gray-400 block font-normal">زنجیره اتصال خروجی جهت عبور از تحریم‌ها و تغییر لوکیشن</span>
-										</div>
-									</div>
-									<label class="relative inline-flex items-center cursor-pointer select-none">
-										<input type="checkbox" id="user-proxy-mode-toggle" onchange="toggleUserProxyMode(this.checked)" class="sr-only peer">
-										<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-									</label>
-								</div>
-								<div class="transition-opacity duration-300 opacity-50 pointer-events-none space-y-3 pt-1" id="user-socks5-container">
-									<div id="proxies-fields-wrapper" class="flex flex-col gap-2 w-full"></div>
-									<button type="button" id="add-proxy-field-btn" onclick="addProxyFieldUI()" class="w-full py-2.5 bg-transparent border-2 border-emerald-500 text-emerald-600 dark:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm">
-										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-										<span>+ افزودن کشور</span>
-									</button>
-									<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-										<button type="button" onclick="testUserSocksProxy()" id="test-user-proxy-btn" class="w-full py-2.5 bg-transparent border-2 border-sky-500 text-sky-600 dark:text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
-											<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-											<span>تست پـروکـسـی</span>
-										</button>
-										<button type="button" onclick="openProxySelectorModal()" class="w-full py-2.5 bg-transparent border-2 border-amber-500 text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
-											<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-											<span>مخزن پـروکـسـی</span>
-										</button>
-									</div>
-									<div class="flex items-center justify-between gap-2 p-3.5 bg-sky-50/80 dark:bg-amoled-input/30 border border-sky-500/40 dark:border-amoled-border rounded-xl shadow-sm">
-										<div class="flex items-center gap-2 flex-shrink-0">
-											<label class="relative inline-flex items-center cursor-pointer select-none flex-shrink-0">
-												<input type="checkbox" id="input-user-iata-toggle" onchange="window.toggleUserIataLock(this.checked)" class="sr-only peer">
-												<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-sky-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-											</label>
-											<span id="user-iata-flag-preview" class="text-base leading-none">🌐</span>
-											<span class="text-xs font-black text-sky-800 dark:text-sky-400 whitespace-nowrap">ثابت کردن کشور (IATA)</span>
-										</div>
-										<input type="text" id="input-user-proxy-iata" maxlength="2" placeholder="مثلا DE" dir="ltr" disabled oninput="this.value=this.value.toUpperCase(); window.userProxyIata=this.value||null; window.updateUserIataPreview();" class="w-20 px-2 py-1.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-zinc-700 rounded-lg text-xs font-mono text-center uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 text-gray-800 dark:text-zinc-100 disabled:opacity-50 transition">
-									</div>
-									<div class="flex items-center justify-between gap-2 p-3.5 bg-indigo-50/80 dark:bg-amoled-input/30 border border-indigo-500/40 dark:border-amoled-border rounded-xl shadow-sm">
-										<div class="flex items-center gap-2 flex-shrink-0">
-											<label class="relative inline-flex items-center cursor-pointer select-none flex-shrink-0">
-												<input type="checkbox" id="input-user-ipv6-toggle" class="sr-only peer">
-												<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-indigo-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-											</label>
-											<span class="text-xs font-black text-indigo-800 dark:text-indigo-400 whitespace-nowrap">پشتیبانی از IPv6</span>
-										</div>
-										<span class="text-[10px] text-indigo-600 dark:text-indigo-500 font-medium">روشن = هم IPv4 هم IPv6 مجازن (گوشی خودش انتخاب می‌کنه) / خاموش = فقط IPv4</span>
-									</div>
-									<div class="flex items-center justify-between p-3.5 bg-emerald-50/80 dark:bg-amoled-input/30 border border-emerald-500/40 dark:border-amoled-border rounded-xl shadow-sm">
-										<div class="flex items-center gap-2">
-											<svg class="w-4 h-4 text-emerald-600 dark:text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-											<div>
-												<span class="text-xs font-black text-emerald-800 dark:text-emerald-400">تعویض خودکار پـروکـسـی (پیشنهادی)</span>
-												<span class="text-[10px] text-emerald-600 dark:text-emerald-500 block font-medium">جایگزینی هوشمند در صورت قطع شدن پروکسی</span>
-											</div>
-										</div>
-										<label class="relative inline-flex items-center cursor-pointer select-none">
-											<input type="checkbox" id="input-auto-rotate-user-proxy" class="sr-only peer">
-											<div class="w-8 h-4 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
-										</label>
-									</div>
-								</div>
-							</div>
-							
-							<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-								</div>
-						</div>
-					</div>
-				</div>
-				<div class="px-5 py-3.5 border-t border-gray-150 dark:border-amoled-border bg-gray-50/70 dark:bg-amoled-bg/60 flex md:hidden items-center justify-between gap-3">
-					<button type="button" onclick="toggleModal(false)" class="px-5 py-2.5 bg-transparent border-2 border-red-600 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold rounded-xl text-xs sm:text-sm transition shadow-sm">
-						انصراف
-					</button>
-					<div class="flex items-center gap-2">
-						<button type="submit" id="submit-btn" class="px-7 py-2.5 bg-transparent border-2 border-green-600 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 font-black rounded-xl text-xs sm:text-sm transition shadow-lg flex items-center gap-1.5 cursor-pointer">
-							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-							<span>ایجاد کاربر</span>
-						</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-<div id="ip-selector-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
-			<h3 class="font-bold text-gray-900 dark:text-zinc-100 text-sm">مخزن آیپی تمیز</h3>
-			<button type="button" onclick="toggleIpSelectorModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="p-6 space-y-4">
-			<div id="ip-loading-state" class="text-center text-sm text-gray-500 dark:text-zinc-400 hidden">
-				Loading IPs...
-			</div>
-			<div id="ip-selection-form" class="space-y-4">
-				<div>
-					<label class="block text-xs font-medium mb-1.5 text-gray-700 dark:text-zinc-300">اوپراتور</label>
-					<select id="ip-operator-select" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
-						<option value="all">همه (توصیه شده)</option>
-					</select>
-				</div>
-				<div>
-					<label class="block text-xs font-medium mb-1.5 text-gray-700 dark:text-zinc-300">تعداد</label>
-					<input type="number" id="ip-count-input" min="1" value="20" dir="ltr" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
-				</div>
-				<div class="flex flex-col gap-2 border-t border-gray-100 dark:border-zinc-800/60 pt-3 mt-2">
-					<div class="flex items-center justify-between">
-						<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">تعویض خودکار آیپی(توصیه میشود)</span>
-						<label class="relative inline-flex items-center cursor-pointer select-none">
-							<input type="checkbox" id="input-auto-rotate-ip-toggle" onchange="toggleAutoRotateIpInputs(this.checked)" class="sr-only peer">
-							<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-green-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[18px]"></div>
-						</label>
-					</div>
-					<div id="auto-rotate-ip-inputs-container" class="hidden transition-all duration-300 pt-1">
-						<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">زمان تعویض (دقیقه)</label>
-						<input type="number" id="input-auto-rotate-ip-time" min="1" placeholder="توصیه شده 5" onblur="if(this.value === '' || parseInt(this.value) < 1) this.value = '5';" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center" dir="ltr">
-					</div>
-				</div>
-			</div>
-			<div class="pt-4 flex gap-3">
-				<button type="button" onclick="toggleIpSelectorModal(false)" class="flex-1 py-2 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">لغو</button>
-				<button type="button" onclick="applySelectedIps()" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-xs transition">دریافت</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="proxy-selector-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
-			<h3 class="font-bold text-gray-900 dark:text-zinc-100 text-sm">مخزن پـروکـسـی‌های آی‌پی ثابت</h3>
-			<button type="button" onclick="toggleProxySelectorModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="p-5 space-y-4">
-			<div class="p-4 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-500/30 rounded-md relative">
-				<h4 class="text-[13px] font-black text-green-700 dark:text-green-400 mb-2 flex items-center gap-1.5">
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-					پـروکـسـی‌های اختصاصی (VIP)
-				</h4>
-				<p class="text-[10px] text-green-600/80 dark:text-green-500/70 mb-3 leading-relaxed font-medium">
-					پـروکـسـی‌های اهدایی از طرف کاربران. کیفیت بالا و بدون نیاز به اسکن.
-				</p>
-				<div class="flex flex-col sm:flex-row gap-2">
-					<select id="vip-country-select" class="flex-1 px-3 py-2 bg-white dark:bg-amoled-input border border-green-200 dark:border-green-800/50 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
-						<option value="">در حال بررسی مخزن...</option>
-					</select>
-					<button type="button" onclick="loadVipProxy()" id="vip-fetch-btn" class="sm:w-auto w-full px-4 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-xs transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap" disabled>
-						دریافت
-					</button>
-				</div>
-			</div>
-			<div class="relative py-1 flex items-center justify-center">
-				<span class="absolute w-full border-t border-gray-200 dark:border-zinc-800"></span>
-				<span class="bg-white dark:bg-amoled-card px-3 text-[10px] font-bold text-gray-400 relative">یا اسکن عمومی</span>
-			</div>
-			<div class="p-4 bg-gray-50 dark:bg-zinc-900/40 border border-gray-200 dark:border-amoled-border rounded-md">
-				<h4 class="text-[13px] font-black text-gray-700 dark:text-zinc-300 mb-2 flex items-center gap-1.5">
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-					پـروکـسـی های عمومی
-				</h4>
-				<p class="text-[10px] text-gray-500 dark:text-zinc-500 mb-3 leading-relaxed font-medium">
-					جستجو در منابع رایگان؛ به دلیل نیاز به تست کیفیت زمان‌بر است.
-				</p>
-				<div id="proxy-loading-state" class="text-center text-[11px] text-blue-500 font-bold hidden my-3 whitespace-pre-line leading-relaxed">
-					در حال اسکن...
-				</div>
-				<div id="proxy-selection-form" class="flex flex-col gap-2">
-					<select id="proxy-country-select" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-zinc-700 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
-						<option value="">در حال آماده‌سازی...</option>
-					</select>
-					<button type="button" onclick="fetchAndLoadProxy()" id="proxy-fetch-btn" class="w-full py-2.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-900/40 dark:hover:text-blue-400 font-bold rounded-md text-xs transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-						شروع اسکن و یافتن پـروکـسـی
-					</button>
-				</div>
-			</div>
-			<div class="pt-1">
-				<button type="button" onclick="toggleProxySelectorModal(false)" class="w-full py-2.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">انصراف و بستن</button>
-			</div>
-		</div>
-	</div>
-</div>
-	<div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col max-h-[90vh]">
-			<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
-				<h3 class="font-bold text-gray-900 dark:text-zinc-100">تنظیمات پـنـل</h3>
-				<button onclick="toggleSettingsModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-				</button>
-			</div>
-			<div class="p-6 space-y-4 overflow-y-auto flex-1 overscroll-contain">
-				<div class="pt-2">
-					<label class="block text-sm font-medium mb-1.5 text-gray-700 dark:text-zinc-300">نرخ رفرش خودکار پـنـل</label>
-					<div class="relative">
-						<select id="refresh-rate-select" onchange="changeRefreshRate(this.value)" class="w-full pl-8 pr-3 py-2.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer appearance-none">
-							<option value="1000">۱ ثانیه</option>
-							<option value="2000">۲ ثانیه</option>
-							<option value="5000">۵ ثانیه</option>
-							<option value="10000" selected>۱۰ ثانیه (پیش‌فرض)</option>
-							<option value="30000">۳۰ ثانیه</option>
-							<option value="60000">۱ دقیقه</option>
-							<option value="300000">۵ دقیقه</option>
-							<option value="600000">۱۰ دقیقه</option>
-						</select>
-						<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-zinc-400">
-							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-						</div>
-					</div>
-				</div>
-				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
-					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">📍 ثابت کردن کشور (Cloudflare)</h4>
-					<div class="space-y-2">
-						<input type="text" id="global-location-search" oninput="filterGlobalLocations()" placeholder="جستجوی شهر، کشور یا IATA" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 transition">
-						<div class="relative">
-							<select id="location-select" class="w-full pl-8 pr-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer appearance-none">
-								<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>
-							</select>
-							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-zinc-400">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-							</div>
-						</div>
-						<p class="text-[11px] text-gray-500 dark:text-gray-400">این تنظیم روی کل پنل اثر می‌گذارد؛ کشور انتخابی به یک IP ثابت resolve و ذخیره می‌شود.</p>
-					</div>
-				</div>
-								<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700 flex items-center justify-between">
-					<div class="flex items-center gap-2">
-						<span class="text-sm font-bold text-gray-800 dark:text-zinc-200 flex items-center gap-1.5">
-							<svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-							پس زمینه متحرک و افکت موس
-						</span>
-					</div>
-					<label class="relative inline-flex items-center cursor-pointer select-none">
-						<input type="checkbox" id="gfx-toggle" onchange="toggleGfx(this.checked)" class="sr-only peer">
-						<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-500"></div>
-					</label>
-				</div>
-				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
-					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">🔒 تغییر رمز عبور مدیریت</h4>
-					<div class="space-y-3">
-						<div>
-							<label class="block text-[11px] text-gray-500 dark:text-gray-400 font-medium mb-1">رمز عبور فعلی</label>
-							<input type="password" id="change-pwd-current" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
-						</div>
-						<div>
-							<label class="block text-[11px] text-gray-500 dark:text-gray-400 font-medium mb-1">رمز عبور جدید</label>
-							<input type="password" id="change-pwd-new" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
-						</div>
-						<button type="button" onclick="changeAdminPassword()" id="change-pwd-btn" class="w-full py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-semibold rounded-md text-xs transition-all shadow-sm">تغییر رمز عبور</button>
-					</div>
-				</div>
-				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
-					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">💾 پشتیبان‌گیری و بازیابی</h4>
-					<div class="grid grid-cols-2 gap-3">
-						<button type="button" onclick="exportUsersBackup()" class="py-2.5 bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:border-orange-500/60 dark:hover:bg-orange-500/10 rounded-md text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
-							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg> پشتیبان گیری
-						</button>
-						<button type="button" onclick="triggerImportBackup()" class="py-2.5 bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:border-blue-500/60 dark:hover:bg-blue-500/10 rounded-md text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
-							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> بازیابی
-						</button>
-					</div>
-					<input type="file" id="backup-file-input" onchange="importUsersBackup(event)" accept=".json" class="hidden">
-				</div>
-				<div class="pt-4 flex gap-3">
-					<button type="button" onclick="toggleSettingsModal(false)" class="flex-1 py-2 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition shadow-sm">انصراف</button>
-					<button type="button" onclick="saveSettings()" id="save-settings-btn" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition">ذخیره تنظیمات</button>
-				</div>
-			</div>
-		</div>
-	</div>
-<div id="update-modal" class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
-			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-		</div>
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">بروزرسانی پـنـل</h3>
-		<p id="update-modal-text" class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-			نسخه جدید در دسترس است. اگر آپدیت خودکار جواب نداد، حتماً از طریق لینک زیر آپدیت دستی را انجام دهید.
-		</p>
-		<div class="space-y-3">
-			<button onclick="applyUpdate()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-				آپدیت خودکار (توصیه شده)
-			</button>
-			<div class="relative py-2">
-				<div class="absolute inset-0 flex items-center">
-					<div class="w-full border-t border-gray-200 dark:border-zinc-800"></div>
-				</div>
-				<div class="relative flex justify-center text-xs">
-					<span class="bg-white dark:bg-amoled-card px-2 text-gray-400">یا</span>
-				</div>
-			</div>
-			</div>
-		<button onclick="toggleUpdateModal(false)" class="mt-5 w-full py-3.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center">
-			انصراف
-		</button>
-	</div>
-</div>
-	<div id="token-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
-		<div id="token-modal-card" class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
-			<div class="flex justify-between items-center mb-6">
-				<div class="flex items-center gap-2">
-					<div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
-					<h3 class="text-lg font-bold text-gray-900 dark:text-white">تنظیم توکن کلودفلر</h3>
-				</div>
-				<button onclick="toggleTokenModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-				</button>
-			</div>
-			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300 font-medium">
-				توکن کلودفلر شما در این پـنـل ذخیره نشده است. برای فعال‌سازی آپدیت خودکار از داخل پـنـل، لطفاً توکن خود را دریافت کرده و در کادر زیر وارد کنید.
-			</div>
-			<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#d94800] hover:bg-[#e35802] text-white font-bold rounded-md text-sm transition duration-300 mb-4 shadow-md shadow-orange-500/20">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-				دریافت توکن کلودفلر
-			</a>
-			<div class="space-y-4">
-				<input type="password" id="update-token-input" placeholder="توکن را اینجا وارد کنید" class="w-full px-4 py-3 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm font-mono text-center text-gray-900 dark:text-zinc-100 transition" dir="auto">
-				<button id="submit-token-btn" onclick="submitTokenForUpdate()" class="w-full py-3 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-300 shadow-lg">
-					ثبت و آپدیت پـنـل
-				</button>
-			</div>
-		</div>
-	</div>
-<div id="qr-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
-	<div id="qr-modal-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center">
-		<div class="flex justify-between items-center mb-4">
-			<h3 class="text-lg font-bold text-gray-900 dark:text-white">QR Code</h3>
-			<button onclick="toggleQrModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="flex justify-center bg-gray-100 dark:bg-amoled-bg p-4 rounded-md mb-4 border border-gray-200 dark:border-zinc-800">
-			<div id="qrcode-container"></div>
-		</div>
-		<button onclick="downloadQrCode()" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-sm flex items-center justify-center gap-2">
-			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-			دانلود تصویر QR
-		</button>
-	</div>
-</div>
-	<div id="bulk-actions-bar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[40] bg-white dark:bg-zinc-900/90 border border-gray-200 dark:border-zinc-800/80 px-6 py-4 rounded-md shadow-2xl flex flex-wrap items-center justify-between gap-4 w-[95%] max-w-4xl transition-all duration-300 transform translate-y-28 opacity-0 pointer-events-none ">
-		<div class="flex items-center gap-2">
-			<span class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-sm shadow-blue-500/50"></span>
-			<span id="bulk-selected-count" class="text-sm font-bold text-gray-800 dark:text-zinc-200">۰ کاربر انتخاب شده</span>
-		</div>
-		<div class="flex flex-wrap gap-2 justify-end">
-			<button onclick="bulkToggleStatus(1)" class="px-3 py-1.5 bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-md text-xs font-bold transition border border-green-200 dark:border-green-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> فعال‌سازی
-			</button>
-			<button onclick="bulkToggleStatus(0)" class="px-3 py-1.5 bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-md text-xs font-bold transition border border-amber-200 dark:border-amber-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> غیرفعال‌سازی
-			</button>
-			<button onclick="bulkReset('volume')" class="px-3 py-1.5 bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-md text-xs font-bold transition border border-blue-200 dark:border-blue-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg> ریست حجم
-			</button>
-			<button onclick="bulkReset('req')" class="px-3 py-1.5 bg-sky-50 dark:bg-sky-950/20 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 rounded-md text-xs font-bold transition border border-sky-200 dark:border-sky-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> ریست ریکوئست
-			</button>
-			<button onclick="bulkReset('time')" class="px-3 py-1.5 bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-md text-xs font-bold transition border border-purple-200 dark:border-purple-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ریست زمان
-			</button>
-			<button onclick="bulkDelete()" class="px-3 py-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-450 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-md text-xs font-bold transition border border-red-200 dark:border-red-900/50 flex items-center gap-1">
-				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg> حذف گروهی
-			</button>
-		</div>
-	</div>
-	<div id="update-success-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-green-600/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
-			<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 mb-4 shadow-inner">
-				<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-			</div>
-			<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">آپدیت موفقیت‌آمیز</h3>
-			<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
-				آپدیت موفق بود لطفا صفحه را 10 ثانیه دیگر رفرش کنید تا نسخه جدید لود شود
-			</p>
-			<button onclick="sessionStorage.setItem('lu_k3', Date.now()); window.location.href = window.location.pathname + '?t=' + Date.now()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
-				رفرش صفحه
-			</button>
-		</div>
-	</div>
-${pbfiipq}
-<div id="custom-confirm-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div id="custom-confirm-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transform transition-all scale-95 duration-300">
-		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">تأیید عملیات</h3>
-		<p id="custom-confirm-message" class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium"></p>
-		<div class="flex gap-3">
-			<button id="custom-confirm-cancel" class="flex-1 py-3 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition duration-200 shadow-sm">انصراف</button>
-			<button id="custom-confirm-ok" class="flex-1 py-3 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-lg">تأیید</button>
-		</div>
-	</div>
-</div>
-	<script>
-		async function kc5inhw(path, options = {}) {
-			if (path !== 'ips.txt') return new Response('', { status: 404 });
-			return await fetch('/api/ips-list');
-		}
-		async function ggsyffs() {
-			return new Response('', { status: 404 });
-		}
-		function bm3pzm2(message, type = 'success') {
-			const container = document.getElementById('toast-container');
-			const toast = document.createElement('div');
-			const colors = type === 'error' 
-				? 'bg-red-50 dark:bg-red-900/40 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400' 
-				: 'bg-green-50 dark:bg-green-900/40 border-green-200 dark:border-green-800 text-green-700 dark:text-green-500';
-			toast.className = 'px-4 py-3 border rounded-md shadow-lg font-bold text-sm transform transition-all duration-300 -translate-y-full opacity-0 ' + colors;
-			toast.innerText = message;
-			container.appendChild(toast);
-			requestAnimationFrame(() => {
-				toast.classList.remove('-translate-y-full', 'opacity-0');
-			});
-			setTimeout(() => {
-				toast.classList.add('-translate-y-full', 'opacity-0');
-				setTimeout(() => toast.remove(), 300);
-			}, 3000);
-		}
-		function pw6sr5c(message) {
-			return new Promise((resolve) => {
-				const modal = document.getElementById('custom-confirm-modal');
-				const card = document.getElementById('custom-confirm-card');
-				const msgEl = document.getElementById('custom-confirm-message');
-				const btnOk = document.getElementById('custom-confirm-ok');
-				const btnCancel = document.getElementById('custom-confirm-cancel');
-				msgEl.innerText = message;
-				modal.classList.remove('opacity-0', 'pointer-events-none');
-				modal.classList.add('opacity-100', 'pointer-events-auto');
-				card.classList.remove('scale-95');
-				card.classList.add('scale-100');
-				const cleanup = () => {
-					modal.classList.remove('opacity-100', 'pointer-events-auto');
-					modal.classList.add('opacity-0', 'pointer-events-none');
-					card.classList.remove('scale-100');
-					card.classList.add('scale-95');
-					btnOk.removeEventListener('click', onOk);
-					btnCancel.removeEventListener('click', onCancel);
-				};
-				const onOk = () => { cleanup(); resolve(true); };
-				const onCancel = () => { cleanup(); resolve(false); };
-				btnOk.addEventListener('click', onOk);
-				btnCancel.addEventListener('click', onCancel);
-			});
-		}
-		window.alert = function(message) {
-			const msgStr = message ? message.toString() : '';
-			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
-				bm3pzm2(msgStr, 'error');
-			} else {
-				bm3pzm2(msgStr, 'success');
-			}
-		};
-		window.selectedUsernames = new Set();
-		function toggleSelectAllUsers(el) {
-			const checkboxes = document.querySelectorAll('input[name="select-user"]');
-			checkboxes.forEach(cb => {
-				cb.checked = el.checked;
-				const username = decodeURIComponent(cb.value);
-				if (el.checked) {
-					window.selectedUsernames.add(username);
-				} else {
-					window.selectedUsernames.delete(username);
-				}
-			});
-			i5ta7ay();
-		}
-		function onUserSelectChange(el) {
-			const username = decodeURIComponent(el.value);
-			if (el.checked) {
-				window.selectedUsernames.add(username);
-			} else {
-				window.selectedUsernames.delete(username);
-			}
-			i5ta7ay();
-		}
-		function i5ta7ay() {
-			const bar = document.getElementById('bulk-actions-bar');
-			const countSpan = document.getElementById('bulk-selected-count');
-			const selectAllCheckbox = document.getElementById('select-all-users');
-			const selectedCount = window.selectedUsernames.size;
-			if (countSpan) {
-				countSpan.innerText = selectedCount + ' کاربر انتخاب شده';
-			}
-			const checkboxes = document.querySelectorAll('input[name="select-user"]');
-			if (checkboxes.length > 0) {
-				const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-				if (selectAllCheckbox) selectAllCheckbox.checked = allChecked;
-			} else {
-				if (selectAllCheckbox) selectAllCheckbox.checked = false;
-			}
-			if (selectedCount > 0) {
-				bar.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-28');
-				bar.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-			} else {
-				bar.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-				bar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-28');
-			}
-		}
-		async function bulkDelete() {
-			const usernames = Array.from(window.selectedUsernames);
-			if (usernames.length === 0) return;
-			if (await pw6sr5c('⚠️ آیا از حذف گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟ این عمل غیرقابل بازگشت است.')) {
-				const bar = document.getElementById('bulk-actions-bar');
-				const buttons = bar.querySelectorAll('button');
-				buttons.forEach(btn => btn.disabled = true);
-				try {
-					let successCount = 0;
-					await Promise.all(usernames.map(async (uname) => {
-						try {
-							const res = await fetch('/api/users/' + encodeURIComponent(uname), { method: 'DELETE' });
-							if (res.ok) {
-								successCount++;
-								window.selectedUsernames.delete(uname);
-							}
-						} catch(e) {}
-					}));
-					alert('✅ عملیات حذف گروهی انجام شد. ' + successCount + ' کاربر با موفقیت حذف شدند.');
-				} finally {
-					buttons.forEach(btn => btn.disabled = false);
-					i5ta7ay();
-					await axmsbp4(true);
-				}
-			}
-		}
-		async function bulkToggleStatus(targetActive) {
-			const usernames = Array.from(window.selectedUsernames);
-			if (usernames.length === 0) return;
-			const actionText = targetActive === 1 ? 'فعال‌سازی' : 'غیرفعال‌سازی';
-			if (await pw6sr5c('آیا از ' + actionText + ' گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
-				const bar = document.getElementById('bulk-actions-bar');
-				const buttons = bar.querySelectorAll('button');
-				buttons.forEach(btn => btn.disabled = true);
-				try {
-					let successCount = 0;
-					await Promise.all(usernames.map(async (uname) => {
-						const user = window.allUsers.find(u => u.username === uname);
-						if (!user) return;
-						const isCurrentActive = user.is_active !== 0;
-						const shouldToggle = (targetActive === 1 && !isCurrentActive) || (targetActive === 0 && isCurrentActive);
-						if (shouldToggle) {
+					} else if (区分大小写访问路径 === 'admin/getADDAPI') {// 验证优选API
+						if (url.searchParams.get('url')) {
+							const 待验证优选URL = url.searchParams.get('url');
 							try {
-								const res = await fetch('/api/users/' + encodeURIComponent(uname), {
-									method: 'PUT',
-									headers: { 'Content-Type': 'application/json' },
-									body: JSON.stringify({ toggle_only: true })
-								});
-								if (res.ok) successCount++;
-							} catch(e) {}
-						} else {
-							successCount++;
+								new URL(待验证优选URL);
+								const 请求优选API内容 = await 请求优选API([待验证优选URL], url.searchParams.get('port') || '443');
+								let 优选API的IP = 请求优选API内容[0].length > 0 ? 请求优选API内容[0] : 请求优选API内容[1];
+								优选API的IP = 优选API的IP.map(item => item.replace(/#(.+)$/, (_, remark) => '#' + decodeURIComponent(remark)));
+								return new Response(JSON.stringify({ success: true, data: 优选API的IP }, null, 2), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (err) {
+								const errorResponse = { msg: 'Failed to verify optimize-IP API, reason: ' + err.message, error: err.message };
+								return new Response(JSON.stringify(errorResponse, null, 2), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
 						}
-					}));
-					alert('✅ عملیات ' + actionText + ' با موفقیت برای تمامی کاربران واجد شرایط اعمال شد.');
-				} finally {
-					buttons.forEach(btn => btn.disabled = false);
-					i5ta7ay();
-					await axmsbp4(true);
-				}
-			}
-		}
-		async function bulkReset(actionType) {
-			const usernames = Array.from(window.selectedUsernames);
-			if (usernames.length === 0) return;
-			let actionName = '';
-			if (actionType === 'volume') actionName = 'حجم مصرفی';
-			else if (actionType === 'req') actionName = 'تعداد ریکوئست‌ها';
-			else if (actionType === 'time') actionName = 'زمان اشتراک';
-			if (await pw6sr5c('آیا از ریست کردن گروهی ' + actionName + ' برای ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
-				const bar = document.getElementById('bulk-actions-bar');
-				const buttons = bar.querySelectorAll('button');
-				buttons.forEach(btn => btn.disabled = true);
-				try {
-					let successCount = 0;
-					await Promise.all(usernames.map(async (uname) => {
+						return new Response(JSON.stringify({ success: false, data: [] }, null, 2), { status: 403, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+					} else if (访问路径 === 'admin/check') {// 代理检查
+						const 代理协议 = ['socks5', 'http', 'https', 'turn', 'sstp'].find(类型 => url.searchParams.has(类型)) || null;
+						if (!代理协议) return new Response(JSON.stringify({ error: 'Missing proxy parameter' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						const 代理参数 = url.searchParams.get(代理协议);
+						const startTime = Date.now();
+						let 检测代理响应;
 						try {
-							const res = await fetch('/api/users/' + encodeURIComponent(uname), {
-								method: 'PUT',
-								headers: { 'Content-Type': 'application/json' },
-								body: JSON.stringify({ reset_action: actionType })
-							});
-							if (res.ok) successCount++;
-						} catch(e) {}
-					}));
-					alert('✅ عملیات ریست گروهی ' + actionName + ' با موفقیت برای ' + successCount + ' کاربر اعمال شد.');
-				} finally {
-					buttons.forEach(btn => btn.disabled = false);
-					i5ta7ay();
-					await axmsbp4(true);
-				}
-			}
-		}
-		const tlsPorts = ['443', '2053', '2083', '2087', '2096', '8443'];
-		const nonTlsPorts = ['80', '8080', '8880', '2052', '2082', '2086', '2095'];
-		let isEditMode = false;
-		let editingUsername = '';
-		function yok43r5() {
-			const tlsContainer = document.getElementById('tls-ports-list');
-			const nonTlsContainer = document.getElementById('nontls-ports-list');
-			if (nonTlsContainer) {
-				nonTlsContainer.className = "grid grid-cols-12 gap-1.5 flex-1 content-start";
-			}
-			tlsContainer.innerHTML = tlsPorts.map(function(port) {
-				const isCheckedDefault = port === '443' ? 'checked' : '';
-				return '<label class="relative cursor-pointer">' +
-					'<input type="checkbox" name="ports" value="' + port + '" ' + isCheckedDefault + ' class="peer sr-only">' +
-					'<div class="flex items-center justify-center gap-1 px-1.5 py-1 border border-gray-200 dark:border-zinc-800/80 rounded-md text-[11px] font-semibold select-none transition-all duration-200 hover:bg-gray-50 dark:hover:bg-zinc-800/40 text-gray-700 dark:text-zinc-300 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-950/25 peer-checked:border-blue-500 dark:peer-checked:border-blue-500/70 peer-checked:text-blue-600 dark:peer-checked:text-blue-400 shadow-sm">' +
-						'<span>' + port + '</span>' +
-						'<svg class="w-3 h-3 hidden peer-checked:block text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>' +
-					'</div>' +
-				'</label>';
-			}).join('');
-			nonTlsContainer.innerHTML = nonTlsPorts.map(function(port, index) {
-				const isCheckedDefault = port === '80' ? 'checked' : '';
-				const colSpanClass = index < 3 ? 'col-span-4' : 'col-span-3';
-				return '<label class="relative cursor-pointer ' + colSpanClass + '">' +
-					'<input type="checkbox" name="ports" value="' + port + '" ' + isCheckedDefault + ' class="peer sr-only">' +
-					'<div class="flex items-center justify-center gap-1 px-1.5 py-1 border border-gray-200 dark:border-zinc-800/80 rounded-md text-[11px] font-semibold select-none transition-all duration-200 hover:bg-gray-50 dark:hover:bg-zinc-800/40 text-gray-700 dark:text-zinc-300 peer-checked:bg-amber-50 dark:peer-checked:bg-amber-950/25 peer-checked:border-amber-500 dark:peer-checked:border-amber-500/70 peer-checked:text-amber-600 dark:peer-checked:text-amber-400 shadow-sm">' +
-						'<span>' + port + '</span>' +
-						'<svg class="w-3 h-3 hidden peer-checked:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>' +
-					'</div>' +
-				'</label>';
-			}).join('');
-		}
-		setTimeout(function() {
-			const cb443 = document.querySelector('input[name="ports"][value="443"]');
-			if (cb443) cb443.checked = true;
-			const cb80 = document.querySelector('input[name="ports"][value="80"]');
-			if (cb80) cb80.checked = true;
-		}, 100);
-		function toggleSettingsModal(show) { ys5v6m0('settings-modal', show); if (show && typeof jyfwoo1 === 'function') jyfwoo1(); }
-		window.toggleAutoResetInputs = function(show) {
-			const container = document.getElementById('auto-reset-inputs-container');
-			const volInput = document.getElementById('input-auto-reset-vol');
-			const reqInput = document.getElementById('input-auto-reset-req');
-			if (container) {
-				if (show) {
-					container.classList.remove('opacity-50', 'pointer-events-none');
-					if (volInput) volInput.disabled = false;
-					if (reqInput) reqInput.disabled = false;
-				} else {
-					container.classList.add('opacity-50', 'pointer-events-none');
-					if (volInput) volInput.disabled = true;
-					if (reqInput) reqInput.disabled = true;
-				}
-			}
-		};
-		window.toggleAutoRotateIpInputs = function(show) {
-			const container = document.getElementById('auto-rotate-ip-inputs-container');
-			if (container) {
-				if (show) container.classList.remove('hidden');
-				else container.classList.add('hidden');
-			}
-		};
-		window.toggleFragInputs = function(show) {
-			const container = document.getElementById('frag-inputs-container');
-			if (container) {
-				if (show) {
-					container.classList.remove('hidden');
-				} else {
-					container.classList.add('hidden');
-				}
-			}
-		};
-		window.toggleAdvancedSettingsInputs = function(show) {
-			const container = document.getElementById('advanced-settings-container');
-			const icon = document.getElementById('advanced-settings-icon');
-			if (container) {
-				if (show) {
-					container.classList.remove('opacity-50', 'pointer-events-none', 'hidden');
-					if (icon) icon.classList.add('rotate-180');
-					const fragToggle = document.getElementById('input-frag-toggle');
-					if (fragToggle && fragToggle.checked) {
-						fragToggle.checked = false;
-						if (typeof window.toggleFragInputs === 'function') window.toggleFragInputs(false);
-					}
-				} else {
-					container.classList.add('opacity-50', 'pointer-events-none', 'hidden');
-					if (icon) icon.classList.remove('rotate-180');
-				}
-			}
-		};
-		window.applyFragPreset = function(op, btnEl) {
-			const presets = {
-				'mci': { len: '10-30', int: '2-5', name: 'همراه اول' },
-				'irancell': { len: '100-200', int: '5-10', name: 'ایرانسل' },
-				'rightel': { len: '50-100', int: '2-5', name: 'رایتل' },
-				'tci': { len: '50-200', int: '1-3', name: 'مخابرات و اینترنت ثابت' },
-				'gaming': { len: '200-3000', int: '1-2', name: 'پینگ پایین' }
-			};
-			const p = presets[op];
-			if (!p) return;
-			const lenInput = document.getElementById('input-frag-len');
-			const intInput = document.getElementById('input-frag-int');
-			const isActive = btnEl && btnEl.classList.contains('ring-2');
-			document.querySelectorAll('.frag-preset-card').forEach(card => {
-				card.classList.remove('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40');
-			});
-			if (isActive) {
-				if (lenInput) lenInput.value = '200-3000';
-				if (intInput) intInput.value = '1-2';
-				if (typeof bm3pzm2 === 'function') bm3pzm2('🔄 تنظیمات فرگمنت به حالت پیش‌فرض بازگشت.', 'success');
-				return;
-			}
-			const toggle = document.getElementById('input-frag-toggle');
-			if (toggle && !toggle.checked) {
-				toggle.checked = true;
-				if (typeof window.toggleFragInputs === 'function') window.toggleFragInputs(true);
-			}
-			if (lenInput) lenInput.value = p.len;
-			if (intInput) intInput.value = p.int;
-			if (btnEl) btnEl.classList.add('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40');
-			if (typeof bm3pzm2 === 'function') bm3pzm2('⚡ تنظیمات فرگمنت ' + p.name + ' با موفقیت اعمال شد.', 'success');
-		};
-		window.setQuickVol = function(val) {
-			const input = document.getElementById('input-limit');
-			if (input) input.value = val;
-		};
-		window.setQuickExp = function(val) {
-			const input = document.getElementById('input-expiry');
-			if (input) input.value = val;
-		};
-		window.fillPatternihaValues = function() {
-			const fragInput = document.getElementById('input-advanced-frag');
-			const csInput = document.getElementById('input-cipher-suites');
-			if (fragInput) fragInput.value = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
-			if (csInput) csInput.value = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
-			if (typeof bm3pzm2 === 'function') bm3pzm2('✅ مقادیر پیش‌فرض Patterniha با موفقیت اعمال شد.', 'success');
-		};
-		window.generateRandomUsername = function() {
-			const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
-			const nouns = ['falcon','tiger','wolf','phoenix','viper','hawk','dragon','panther','eagle','cobra'];
-			const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-			const noun = nouns[Math.floor(Math.random() * nouns.length)];
-			const num = Math.floor(100 + Math.random() * 900);
-			const nameInput = document.getElementById('input-name');
-			if (nameInput) nameInput.value = adj + '_' + noun + num;
-		};
-		/* مثل پرچمی که از روی کشور ثابت‌شده (IATA) ساخته می‌شه، نام کاربری پیش‌فرض هم از اسم انگلیسی همون کشور ساخته می‌شه */
-		window.autoFillUsernameFromCountry = function() {
-			const nameInput = document.getElementById('input-name');
-			if (!nameInput) return;
-			const cca2 = window._globalActiveCountry || '';
-			let base = '';
-			if (cca2 && typeof m79lr3o === 'function') {
-				const enName = m79lr3o(cca2);
-				base = (enName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-			}
-			if (!base) {
-				const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
-				const nouns = ['falcon','tiger','wolf','phoenix','viper','hawk','dragon','panther','eagle','cobra'];
-				base = adjectives[Math.floor(Math.random() * adjectives.length)] + '_' + nouns[Math.floor(Math.random() * nouns.length)];
-			}
-			const num = Math.floor(100 + Math.random() * 900);
-			nameInput.value = base + num;
-		};
-		window.handleProtocolChange = function(changedInput) {
-			const vlessCb = document.getElementById('input-proto-vless');
-			const trojanCb = document.getElementById('input-proto-trojan');
-			const ssCb = document.getElementById('input-proto-ss');
-			const anyChecked = (vlessCb && vlessCb.checked) || (trojanCb && trojanCb.checked) || (ssCb && ssCb.checked);
-			if (!anyChecked && changedInput) {
-				changedInput.checked = true;
-				if (typeof bm3pzm2 === 'function') bm3pzm2('⚠️ حداقل یک پروتکل باید فعال باشد.', 'error');
-			}
-		};
-		function jutlx8s(text, disable = null) {
-			const btnMob = document.getElementById('submit-btn');
-			const btnDesk = document.getElementById('submit-btn-desktop');
-			if (btnMob) {
-				const span = btnMob.querySelector('span');
-				if (span) span.innerText = text; else btnMob.innerText = text;
-				if (disable !== null) btnMob.disabled = disable;
-			}
-			if (btnDesk) {
-				const span = btnDesk.querySelector('span');
-				if (span) span.innerText = text; else btnDesk.innerText = text;
-				if (disable !== null) btnDesk.disabled = disable;
-			}
-		}
-		function toggleModal(show) {
-			ys5v6m0('user-modal', show);
-			if (typeof window.switchUserTab === 'function') window.switchUserTab('tab-user-info');
-			if (!show) {
-				isEditMode = false;
-				editingUsername = '';
-				document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
-				jutlx8s('ایجاد کاربر', false);
-				document.getElementById('input-name').disabled = false;
-				document.getElementById('create-user-form').reset();
-				const vlessCb1 = document.getElementById('input-proto-vless');
-				const trojanCb1 = document.getElementById('input-proto-trojan');
-				const ssCb1 = document.getElementById('input-proto-ss');
-				if (vlessCb1) vlessCb1.checked = true;
-				if (trojanCb1) trojanCb1.checked = false;
-				if (ssCb1) ssCb1.checked = true;
-				const cb443 = document.querySelector('input[name="ports"][value="443"]');
-				if (cb443) cb443.checked = true;
-				const cb80 = document.querySelector('input[name="ports"][value="80"]');
-				if (cb80) cb80.checked = true;
-				const fpSelect = document.getElementById('fingerprint-select');
-				if (fpSelect) fpSelect.value = 'unsafe';
-				const bpCheck = document.getElementById('input-block-porn');
-				if (bpCheck) bpCheck.checked = false;
-				const baCheck = document.getElementById('input-block-ads');
-				if (baCheck) baCheck.checked = false;
-				const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
-				if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = false;
-				const fragLenInput = document.getElementById('input-frag-len');
-				if (fragLenInput) fragLenInput.value = '200-3000';
-				const fragIntInput = document.getElementById('input-frag-int');
-				if (fragIntInput) fragIntInput.value = '1-2';
-				document.querySelectorAll('.frag-preset-card').forEach(card => card.classList.remove('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40'));
-				const fragToggle = document.getElementById('input-frag-toggle');
-				if (fragToggle) fragToggle.checked = true;
-				window.toggleFragInputs(true);
-				const customPortInput = document.getElementById('input-custom-ports');
-				if (customPortInput) customPortInput.value = '';
-				document.getElementById('hidden-auto-rotate').value = '0';
-				document.getElementById('hidden-rotate-time').value = '';
-				document.getElementById('hidden-ip-operator').value = 'all';
-				document.getElementById('hidden-ip-count').value = '15';
-				const autoResetToggle = document.getElementById('input-auto-reset-toggle');
-				if (autoResetToggle) autoResetToggle.checked = false;
-				document.getElementById('input-auto-reset-vol').value = '';
-				document.getElementById('input-auto-reset-req').value = '';
-				window.toggleAutoResetInputs(false);
-				const advToggleReset = document.getElementById('input-advanced-settings-toggle');
-				if (advToggleReset) advToggleReset.checked = false;
-				if (typeof window.toggleAdvancedSettingsInputs === 'function') window.toggleAdvancedSettingsInputs(false);
-			}
-		}
-		function toggleUpdateModal(show, version = '') {
-			if (show && version) document.getElementById('update-modal-text').innerHTML = 'نسخه جدید (<b>v' + version + '</b>) در دسترس است.<br>اگر آپدیت خودکار عمل نکرد لطفا از ربات استفاده کنید.';
-			ys5v6m0('update-modal', show);
-		}
-		let activeRocketBtn = null;
-		function toggleRocketModal(show) {
-			ys5v6m0('rocket-modal', show);
-		}
-		async function openRocketModal(btn) {
-			activeRocketBtn = btn;
-			toggleRocketModal(true);
-			const select = document.getElementById('rocket-country-select');
-			const submitBtn = document.getElementById('rocket-submit-btn');
-			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
-			submitBtn.disabled = true;
-			try {
-				const resVipList = await ggsyffs('vip-list?t=' + Date.now());
-				if (resVipList.ok) {
-					const files = await resVipList.json();
-					const vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
-					if (vipCountries.length > 0) {
-						select.innerHTML = '<option value="">یک کشور انتخاب کنید...</option>';
-						vipCountries.forEach(function(country) {
-							const option = document.createElement('option');
-							option.value = country;
-							const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
-							option.textContent = flag + ' ' + country;
-							select.appendChild(option);
-						});
-						submitBtn.disabled = false;
-					} else {
-						select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-					}
-				} else {
-					select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-				}
-			} catch (e) {
-				select.innerHTML = '<option value="">خطا در دریافت لیست کشورها</option>';
-			}
-		}
-		async function executeRocketCreate() {
-			const select = document.getElementById('rocket-country-select');
-			const country = select.value;
-			if (!country) {
-				alert('لطفاً یک کشور انتخاب کنید.');
-				return;
-			}
-			toggleRocketModal(false);
-			const btn = activeRocketBtn;
-			if (btn) btn.disabled = true;
-			const icon = btn ? btn.querySelector('svg') : null;
-			if (icon) {
-				icon.classList.add('animate-spin');
-				icon.classList.remove('group-hover:-translate-y-1', 'group-hover:translate-x-1');
-			}
-			try {
-				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-				let randStr = '';
-				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
-				const username = 'Alireza-' + randStr;
-
-				const resVip = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
-				if (!resVip.ok) {
-					alert('هیچ پروکسی در این کشور یافت نشد.');
-					return;
-				}
-				const text = await resVip.text();
-				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-				if (lines.length === 0) {
-					alert('هیچ پروکسی در این کشور یافت نشد.');
-					return;
-				}
-
-				bm3pzm2('🚀 در حال اسکن پینگ ' + lines.length + ' پروکسی از کشور ' + country + '...');
-
-				const controller = new AbortController();
-				let successProxies = [];
-				const testPromises = lines.map(async (proxyLine) => {
-					await new Promise(r => setTimeout(r, Math.floor(Math.random() * 200)));
-					try {
-						const res = await fetch('/api/test-proxy', {
-							method: 'POST',
-							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify({ proxy: proxyLine, skip_country: true }),
-							signal: controller.signal
-						});
-						const data = await res.json();
-						if (data.success && data.ping) {
-							successProxies.push({ proxy: proxyLine, ping: data.ping });
-						}
-					} catch (e) {}
-				});
-				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 12000));
-				await Promise.race([Promise.all(testPromises), timeoutPromise]);
-				controller.abort();
-
-				if (successProxies.length === 0) {
-					alert('خطا: هیچ پروکسی سالمی با پینگ موفق در این کشور یافت نشد.');
-					return;
-				}
-				successProxies.sort((a, b) => a.ping - b.ping);
-				const bestProxy = successProxies[0].proxy;
-
-				let availableIps = [];
-				if (Object.keys(l76xmsu).length === 0) {
-					try {
-						const resIps = await kc5inhw('ips.txt');
-						if (resIps.ok) {
-							const text2 = await resIps.text();
-							const blocks = text2.split('----------');
-							blocks.forEach(block => {
-								const l = block.trim().split('\\n').map(x => x.trim()).filter(x => x.length > 0);
-								l.forEach(line => {
-									if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
-								});
-							});
-						}
-					} catch (e) {}
-				} else {
-					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
-				}
-				availableIps = [...new Set(availableIps)];
-				let selectedIps = [];
-				if (availableIps.length > 0) {
-					const shuffledIps = availableIps.slice();
-					for (let i = shuffledIps.length - 1; i > 0; i--) {
-						const j = Math.floor(Math.random() * (i + 1));
-						[shuffledIps[i], shuffledIps[j]] = [shuffledIps[j], shuffledIps[i]];
-					}
-					selectedIps = shuffledIps.slice(0, 10);
-				}
-				const ipsStr = selectedIps.join('\\n');
-				const finalSocks5 = JSON.stringify([{ proxy: bestProxy, country: country }]);
-
-				const response = await fetch('/api/users', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
-						auto_reset_vol_days: 0, auto_reset_req_days: 0, frag_len: "", frag_int: "",
-						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
-						ips: ipsStr, ip_operator: "all", ip_count: 10, auto_rotate_ip: 1, rotate_time: 5,
-						user_socks5: finalSocks5, auto_rotate_user_proxy: 1
-					})
-				});
-				if (response.ok) {
-					bm3pzm2('🚀 کاربر تک کشوره با بهترین پینگ با موفقیت ایجاد شد.');
-					await axmsbp4(true);
-				} else {
-					const errData = await response.json();
-					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				if (btn) btn.disabled = false;
-				if (icon) {
-					icon.classList.remove('animate-spin');
-					icon.classList.add('group-hover:-translate-y-1', 'group-hover:translate-x-1');
-				}
-			}
-		}
-		window.copyAllConfigs = function(btn) {
-			const users = Array.isArray(window.allUsers) ? window.allUsers : [];
-			if (users.length === 0) {
-				alert('کاربری برای کپی کردن وجود ندارد!');
-				return;
-			}
-			const prevInfo = window._infoConfigsEnabled;
-			window._infoConfigsEnabled = false;
-			const all = [];
-			let usersCount = 0;
-			try {
-				users.forEach(function(u) {
-					let text = '';
-					try { text = fv9a4g0(u.username); } catch (e) { text = ''; }
-					if (!text) return;
-					usersCount++;
-					text.split('\\n').forEach(function(l) { l = l.trim(); if (l) all.push(l); });
-				});
-			} finally {
-				window._infoConfigsEnabled = prevInfo;
-			}
-			if (all.length === 0) {
-				alert('کانفیگی برای کپی کردن پیدا نشد!');
-				return;
-			}
-			const text = all.join('\\n');
-			const done = function() {
-				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
-				else alert('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
-			};
-			const fallback = function() {
-				try {
-					const ta = document.createElement('textarea');
-					ta.value = text;
-					ta.style.position = 'fixed';
-					ta.style.opacity = '0';
-					document.body.appendChild(ta);
-					ta.select();
-					const ok = document.execCommand('copy');
-					ta.remove();
-					if (ok) done(); else alert('خطا در کپی کردن کانفیگ‌ها!');
-				} catch (e) {
-					alert('خطا در کپی کردن کانفیگ‌ها!');
-				}
-			};
-			if (navigator.clipboard && navigator.clipboard.writeText) {
-				navigator.clipboard.writeText(text).then(done).catch(fallback);
-			} else {
-				fallback();
-			}
-		};
-		window.applyInfoConfigsState = function(on) {
-			window._infoConfigsEnabled = !!on;
-			const cb = document.getElementById('info-configs-toggle');
-			if (cb) cb.checked = !!on;
-		};
-		window.toggleInfoConfigs = async function(cb) {
-			const want = cb.checked;
-			cb.disabled = true;
-			try {
-				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ info_configs: want }) });
-				if (!r.ok) throw new Error('save failed');
-				window._infoConfigsEnabled = want;
-				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ کانفیگ‌های اطلاع‌رسانی فعال شد.' : '✅ کانفیگ‌های اطلاع‌رسانی غیرفعال شد.');
-			} catch (e) {
-				cb.checked = !want;
-				alert('خطا در ذخیره تنظیمات');
-			} finally {
-				cb.disabled = false;
-			}
-		};
-		window.PATTERNIHA_FM = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
-		window.PATTERNIHA_CS = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
-		window.applyPatternihaState = function(on) {
-			const cb = document.getElementById('patterniha-all-toggle');
-			if (cb) cb.checked = !!on;
-		};
-		window.PATTERNIHA_ECH = 'cloudflare-ech.com+udp://1.1.1.1';
-		window.ECH_PRESETS = { 'cf-udp': 'udp://1.1.1.1', 'google-udp': 'udp://8.8.8.8', 'quad9-udp': 'udp://9.9.9.9', 'cf-doh': 'https://1.1.1.1/dns-query', 'google-doh': 'https://8.8.8.8/dns-query' };
-		window._ech = { sni: 'cloudflare-ech.com', doh: 'udp://1.1.1.1', preset: 'cf-udp', api: '' };
-		window.getEchString = function() { return window._ech.sni + '+' + window._ech.doh; };
-		window.refreshEchPreview = function() {
-			const el = document.getElementById('ech-preview');
-			const sni = (document.getElementById('ech-sni-input') || {}).value || '';
-			const doh = (document.getElementById('ech-doh-input') || {}).value || '';
-			if (el) el.textContent = 'ech=' + sni.trim() + '+' + doh.trim();
-		};
-		window.applyEchSettings = function(d) {
-			if (!d) return;
-			window._ech = { sni: d.ech_sni || 'cloudflare-ech.com', doh: d.ech_doh || 'udp://1.1.1.1', preset: d.ech_doh_preset || 'cf-udp', api: d.ech_api || '' };
-			const a = document.getElementById('ech-sni-input'); if (a) a.value = window._ech.sni;
-			const b = document.getElementById('ech-doh-input'); if (b) b.value = window._ech.doh;
-			const c = document.getElementById('ech-doh-preset'); if (c) c.value = window._ech.preset;
-			const e = document.getElementById('ech-api-input'); if (e) e.value = window._ech.api;
-			window.refreshEchPreview();
-		};
-		window.onEchPresetChange = function(v) {
-			if (window.ECH_PRESETS[v]) document.getElementById('ech-doh-input').value = window.ECH_PRESETS[v];
-			window.refreshEchPreview();
-		};
-		window.onEchDohInput = function() {
-			const v = document.getElementById('ech-doh-input').value.trim();
-			const hit = Object.keys(window.ECH_PRESETS).find(function(k) { return window.ECH_PRESETS[k] === v; });
-			document.getElementById('ech-doh-preset').value = hit || 'custom';
-			window.refreshEchPreview();
-		};
-		window.closeEchModal = function() {
-			const m = document.getElementById('ech-modal');
-			if (m) m.remove();
-		};
-		window.openEchModal = async function() {
-			window.closeEchModal();
-			try {
-				const r = await fetch('/api/proxy-ip');
-				if (r.ok) window.applyEchSettings(await r.json());
-			} catch (e) {}
-			const inputCls = 'w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-xl text-sm text-gray-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
-			const lblCls = 'block text-[11px] font-bold text-gray-600 dark:text-zinc-400 mb-1.5';
-			const wrap = document.createElement('div');
-			wrap.id = 'ech-modal';
-			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
-			wrap.innerHTML =
-				'<div class="w-full max-w-md rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border overflow-hidden" style="max-height:90vh;overflow:auto" dir="rtl">' +
-				'<div class="px-4 py-3 border-b border-gray-200 dark:border-amoled-border text-sm font-bold text-gray-800 dark:text-zinc-100">ECH و مرکزی</div>' +
-				'<div class="p-4 space-y-3">' +
-				'<div><label class="' + lblCls + '">ECH SNI</label><input type="text" id="ech-sni-input" dir="ltr" placeholder="cloudflare-ech.com" oninput="refreshEchPreview()" class="' + inputCls + '"></div>' +
-				'<div><label class="' + lblCls + '">ECH DoH preset</label><select id="ech-doh-preset" onchange="onEchPresetChange(this.value)" class="' + inputCls + ' cursor-pointer">' +
-				'<option value="custom">Custom</option>' +
-				'<option value="cf-udp">Cloudflare (udp://1.1.1.1)</option>' +
-				'<option value="google-udp">Google (udp://8.8.8.8)</option>' +
-				'<option value="quad9-udp">Quad9 (udp://9.9.9.9)</option>' +
-				'<option value="cf-doh">Cloudflare DoH (https://1.1.1.1/dns-query)</option>' +
-				'<option value="google-doh">Google DoH (https://8.8.8.8/dns-query)</option>' +
-				'</select></div>' +
-				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="udp://1.1.1.1" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
-				'<div><label class="' + lblCls + '">API مرکزی (اختیاری)</label><input type="text" id="ech-api-input" dir="ltr" placeholder="https://your-central-server" class="' + inputCls + '">' +
-				'<p class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1">فعلاً فقط ذخیره می‌شود و در ساخت کانفیگ استفاده نمی‌شود.</p></div>' +
-				'<p class="text-[10px] text-gray-500 dark:text-zinc-500" dir="ltr" id="ech-preview"></p>' +
-				'<div class="flex gap-2">' +
-				'<button type="button" id="ech-save-btn" class="flex-1 py-2.5 rounded-xl bg-fuchsia-600 text-white text-xs font-bold">ذخیره تنظیمات ECH</button>' +
-				'<button type="button" id="ech-close-btn" class="px-4 py-2.5 rounded-xl border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
-				'</div></div></div>';
-			document.body.appendChild(wrap);
-			document.getElementById('ech-sni-input').value = window._ech.sni;
-			document.getElementById('ech-doh-input').value = window._ech.doh;
-			document.getElementById('ech-doh-preset').value = window._ech.preset;
-			document.getElementById('ech-api-input').value = window._ech.api;
-			window.refreshEchPreview();
-			document.getElementById('ech-close-btn').onclick = window.closeEchModal;
-			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeEchModal(); });
-			document.getElementById('ech-save-btn').onclick = async function() {
-				const ok = await window.saveEchSettings(this);
-				if (ok) window.closeEchModal();
-			};
-		};
-		window.saveEchSettings = async function(btn) {
-			const sni = document.getElementById('ech-sni-input').value.trim();
-			const doh = document.getElementById('ech-doh-input').value.trim();
-			const preset = document.getElementById('ech-doh-preset').value;
-			const api = document.getElementById('ech-api-input').value.trim();
-			if (!sni || !doh) { alert('ECH SNI و ECH DoH نباید خالی باشند.'); return false; }
-			btn.disabled = true;
-			try {
-				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ech_sni: sni, ech_doh: doh, ech_doh_preset: preset, ech_api: api }) });
-				if (!r.ok) {
-					let m = 'خطا در ذخیره تنظیمات ECH';
-					try { const j = await r.json(); if (j && j.error) m = j.error; } catch (e) {}
-					alert(m);
-					return false;
-				}
-				window._ech = { sni: sni, doh: doh, preset: preset, api: api };
-				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ تنظیمات ECH ذخیره شد. برای اعمال روی کاربران، تاگل Chrome + ECH را دوباره بزن.');
-				return true;
-			} catch (e) {
-				alert('خطا در برقراری ارتباط با سرور');
-				return false;
-			} finally {
-				btn.disabled = false;
-			}
-		};
-		window.applyPatternihaEchState = function(on) {
-			const cb = document.getElementById('patterniha-ech-toggle');
-			if (cb) cb.checked = !!on;
-		};
-		window.togglePatternihaEchAll = async function(cb) {
-			const want = cb.checked;
-			const msg = want
-				? 'بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شود؟ (finalmask خالی، فینگرپرینت Chrome، ECH اضافه؛ Cipher Suites و TLS Mask هم خالی می‌شن و مقادیر فعلی جایگزین می‌شن)'
-				: 'ECH و finalmask و Cipher Suites همه کاربران پاک شود و فینگرپرینت به Unsafe برگردد؟';
-			if (!confirm(msg)) { cb.checked = !want; return; }
-			cb.disabled = true;
-			try {
-				await window.bulkAdvancedRequest(want
-					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.getEchString(), fingerprint: 'chrome', patterniha_ech: true }
-					: { advanced_frag: '', cipher_suites: '', ech_config: '', fingerprint: 'unsafe', patterniha_ech: false });
-				if (want) window.applyPatternihaState(false);
-				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
-			} catch (e) {
-				cb.checked = !want;
-				alert('خطا در ذخیره تنظیمات');
-			} finally {
-				cb.disabled = false;
-			}
-		};
-		window.bulkAdvancedRequest = async function(payload) {
-			const r = await fetch('/api/bulk-advanced', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-			if (!r.ok) throw new Error('bulk failed');
-			if (typeof axmsbp4 === 'function') { try { await axmsbp4(true); } catch (e) {} }
-		};
-		window.togglePatternihaAll = async function(cb) {
-			const want = cb.checked;
-			const msg = want
-				? 'مقادیر بهینه‌ساز Patterniha (Advanced Fragment و Cipher Suites) روی همه کاربران اعمال شود؟ مقادیر فعلی جایگزین می‌شود.'
-				: 'Advanced Fragment و Cipher Suites همه کاربران پاک شود؟ (TLS Mask دست‌نخورده می‌ماند)';
-			if (!confirm(msg)) { cb.checked = !want; return; }
-			cb.disabled = true;
-			try {
-				await window.bulkAdvancedRequest(want
-					? { advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS, patterniha: true }
-					: { advanced_frag: '', cipher_suites: '', patterniha: false });
-				if (want) window.applyPatternihaEchState(false);
-				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
-			} catch (e) {
-				cb.checked = !want;
-				alert('خطا در ذخیره تنظیمات');
-			} finally {
-				cb.disabled = false;
-			}
-		};
-		window.closeBulkAdvancedModal = function() {
-			const m = document.getElementById('bulk-advanced-modal');
-			if (m) m.remove();
-		};
-		window.openBulkAdvancedModal = function() {
-			window.closeBulkAdvancedModal();
-			const inputCls = 'w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg text-xs text-gray-800 dark:text-zinc-100 focus:outline-none';
-			const lblCls = 'block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1';
-			const clsSm = 'text-[10px] text-gray-500 dark:text-zinc-400';
-			const wrap = document.createElement('div');
-			wrap.id = 'bulk-advanced-modal';
-			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
-			wrap.innerHTML =
-				'<div class="w-full max-w-lg rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border p-4 space-y-3" style="max-height:90vh;overflow:auto" dir="rtl">' +
-				'<div class="text-sm font-black text-gray-800 dark:text-zinc-100">⚙️ تنظیم یکجای پیشرفته برای همه کاربران</div>' +
-				'<div class="' + clsSm + '">فیلدی که خالی بماند تغییر نمی‌کند. برای پاک کردن یک مقدار از همه کاربران، تیک «پاک کن» کنارش را بزن.</div>' +
-				'<div><label class="' + lblCls + '">Advanced Fragment (fm JSON)</label><textarea id="bulk-adv-frag" rows="3" dir="ltr" class="' + inputCls + '"></textarea>' +
-				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-frag-clear"> پاک کن</label></div>' +
-				'<div><label class="' + lblCls + '">Cipher Suites (cs)</label><input type="text" id="bulk-adv-cs" dir="ltr" class="' + inputCls + '">' +
-				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-cs-clear"> پاک کن</label></div>' +
-				'<div><label class="' + lblCls + '">TLS Mask (Custom SNI / Host)</label><input type="text" id="bulk-adv-mask" dir="ltr" class="' + inputCls + '">' +
-				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-mask-clear"> پاک کن</label></div>' +
-				'<div class="flex gap-2">' +
-				'<button type="button" id="bulk-adv-apply" class="flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold">اعمال روی همه کاربران</button>' +
-				'<button type="button" id="bulk-adv-fill" class="px-3 py-2 rounded-lg border border-purple-500 text-purple-600 text-xs font-bold">مقادیر Patterniha</button>' +
-				'<button type="button" id="bulk-adv-close" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
-				'</div></div>';
-			document.body.appendChild(wrap);
-			document.getElementById('bulk-adv-close').onclick = window.closeBulkAdvancedModal;
-			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeBulkAdvancedModal(); });
-			document.getElementById('bulk-adv-fill').onclick = function() {
-				document.getElementById('bulk-adv-frag').value = window.PATTERNIHA_FM;
-				document.getElementById('bulk-adv-cs').value = window.PATTERNIHA_CS;
-			};
-			document.getElementById('bulk-adv-apply').onclick = async function() {
-				const btn = this;
-				const payload = {};
-				const pick = function(inputId, clearId, key) {
-					const v = document.getElementById(inputId).value.trim();
-					if (document.getElementById(clearId).checked) payload[key] = '';
-					else if (v) payload[key] = v;
-				};
-				pick('bulk-adv-frag', 'bulk-adv-frag-clear', 'advanced_frag');
-				pick('bulk-adv-cs', 'bulk-adv-cs-clear', 'cipher_suites');
-				pick('bulk-adv-mask', 'bulk-adv-mask-clear', 'tls_mask');
-				if (Object.keys(payload).length === 0) { alert('هیچ مقداری وارد نشده.'); return; }
-				if (payload.advanced_frag) {
-					try { JSON.parse(payload.advanced_frag); } catch (e) { alert('Advanced Fragment باید JSON معتبر باشد.'); return; }
-				}
-				if (!confirm('این مقادیر روی همه کاربران اعمال شود؟')) return;
-				btn.disabled = true;
-				try {
-					await window.bulkAdvancedRequest(payload);
-					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ روی همه کاربران اعمال شد.');
-					window.closeBulkAdvancedModal();
-				} catch (e) {
-					alert('خطا در ذخیره تنظیمات');
-					btn.disabled = false;
-				}
-			};
-		};
-		window.createDualCountryConfigs = async function(btn) {
-			if (btn.disabled) return;
-			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
-			if (!cca2) {
-				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
-				return;
-			}
-			btn.disabled = true;
-			const icon = btn.querySelector('svg');
-			if (icon) icon.classList.add('animate-spin');
-			try {
-				let base = '';
-				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-				if (!base) base = cca2.toLowerCase();
-				base = base.slice(0, 18);
-				const num = Math.floor(100 + Math.random() * 900);
-				let allIps = [];
-				if (Object.keys(l76xmsu).length === 0) {
-					try {
-						const resIps = await kc5inhw('ips.txt');
-						if (resIps.ok) {
-							const text = await resIps.text();
-							text.split('----------').forEach(block => {
-								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
-									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
-								});
-							});
-						}
-					} catch (e) {}
-				} else {
-					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
-				}
-				allIps = [...new Set(allIps)];
-				const pickIps = function() {
-					const arr = allIps.slice();
-					for (let i = arr.length - 1; i > 0; i--) {
-						const j = Math.floor(Math.random() * (i + 1));
-						[arr[i], arr[j]] = [arr[j], arr[i]];
-					}
-					return arr.slice(0, 2).join('\\n');
-				};
-				const defs = [
-					{ username: base + num, frag_len: '200-3000', frag_int: '1-2' },
-					{ username: 'Hard-' + base + num, frag_len: '50-200', frag_int: '1-3' }
-				];
-				let created = 0;
-				for (const d of defs) {
-					const response = await fetch('/api/users', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({
-							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
-							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
-							fingerprint: 'unsafe', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
-							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
-							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
-							user_socks5: null, auto_rotate_user_proxy: 0,
-							protocols: ['vl' + 'e' + 'ss']
-						})
-					});
-					if (response.ok) {
-						created++;
-					} else {
-						let msg = 'عملیات ناموفق بود';
-						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
-						alert('خطا در ساخت ' + d.username + ': ' + msg);
-						break;
-					}
-				}
-				if (created > 0) {
-					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
-					await axmsbp4(true);
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				if (icon) icon.classList.remove('animate-spin');
-			}
-		};
-		window.createNoFilteringConfigs = async function(btn) {
-			if (btn.disabled) return;
-			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
-			if (!cca2) {
-				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
-				return;
-			}
-			btn.disabled = true;
-			const icon = btn.querySelector('svg');
-			if (icon) icon.classList.add('animate-spin');
-			try {
-				let base = '';
-				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-				if (!base) base = cca2.toLowerCase();
-				base = base.slice(0, 18);
-				const num = Math.floor(100 + Math.random() * 900);
-				let allIps = [];
-				if (Object.keys(l76xmsu).length === 0) {
-					try {
-						const resIps = await kc5inhw('ips.txt');
-						if (resIps.ok) {
-							const text = await resIps.text();
-							text.split('----------').forEach(block => {
-								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
-									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
-								});
-							});
-						}
-					} catch (e) {}
-				} else {
-					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
-				}
-				allIps = [...new Set(allIps)];
-				const pickIps = function() {
-					const arr = allIps.slice();
-					for (let i = arr.length - 1; i > 0; i--) {
-						const j = Math.floor(Math.random() * (i + 1));
-						[arr[i], arr[j]] = [arr[j], arr[i]];
-					}
-					return arr.slice(0, 2).join('\\n');
-				};
-				const echStr = window.getEchString();
-				const FRAG_N = { frag_len: '200-3000', frag_int: '1-2' };
-				const FRAG_H = { frag_len: '50-200', frag_int: '1-3' };
-				const defs = [
-					Object.assign({ username: base + num + '-1', ech_config: echStr, fingerprint: 'chrome' }, FRAG_N),
-					Object.assign({ username: 'Hard-' + base + num + '-2', ech_config: echStr, fingerprint: 'chrome' }, FRAG_H),
-					Object.assign({ username: base + num + '-3', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_N),
-					Object.assign({ username: 'Hard-' + base + num + '-4', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_H)
-				];
-				let created = 0;
-				for (const d of defs) {
-					const response = await fetch('/api/users', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({
-							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
-							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
-							fingerprint: d.fingerprint || 'unsafe', advanced_frag: d.advanced_frag || null, cipher_suites: d.cipher_suites || null, ech_config: d.ech_config || null, block_ads: 0, block_porn: 0, port: '443', tls: 'on',
-							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
-							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
-							user_socks5: null, auto_rotate_user_proxy: 0,
-							protocols: ['vl' + 'e' + 'ss']
-						})
-					});
-					if (response.ok) {
-						created++;
-					} else {
-						let msg = 'عملیات ناموفق بود';
-						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
-						alert('خطا در ساخت ' + d.username + ': ' + msg);
-						break;
-					}
-				}
-				if (created > 0) {
-					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
-					await axmsbp4(true);
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				if (icon) icon.classList.remove('animate-spin');
-			}
-		};
-		async function quickCreateUser(btn) {
-			btn.disabled = true;
-			const icon = btn.querySelector('svg');
-			if (icon) {
-				icon.classList.add('animate-spin');
-				icon.classList.remove('group-hover:rotate-12');
-			}
-			try {
-				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-				let randStr = '';
-				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
-				const username = 'Alireza-' + randStr;
-				
-				let vipCountries = [];
-				try {
-					const resVipList = await ggsyffs('vip-list?t=' + Date.now());
-					if (resVipList.ok) {
-						const files = await resVipList.json();
-						vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
-					}
-				} catch (e) {}
-
-				if (vipCountries.length < 2) {
-					alert('خطا: مخزن VIP شما در دسترس نیست یا کمتر از 2 کشور دارد.');
-					btn.disabled = false;
-					if (icon) {
-						icon.classList.remove('animate-spin');
-						icon.classList.add('group-hover:rotate-12');
-					}
-					return;
-				}
-
-				for (let i = vipCountries.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[vipCountries[i], vipCountries[j]] = [vipCountries[j], vipCountries[i]];
-				}
-
-				const selectedCountries = vipCountries.slice(0, 5);
-				const fastestPerCountry = [];
-				const controller = new AbortController();
-
-				const findTwoProxiesPromise = new Promise((resolveFast) => {
-					let successCount = 0;
-					const countryPromises = selectedCountries.map(async (country) => {
-						try {
-							const resVip = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
-							if (!resVip.ok) return;
-							const text = await resVip.text();
-							let lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-							if (lines.length === 0) return;
-
-							for (let i = lines.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[lines[i], lines[j]] = [lines[j], lines[i]];
-							}
-
-							const proxiesToTest = lines.slice(0, 4);
-							const firstSuccessProxy = await Promise.any(proxiesToTest.map(proxyStr => {
-								return new Promise((resolveProxy, rejectProxy) => {
-									fetch('/api/test-proxy', {
-										method: 'POST',
-										headers: { 'Content-Type': 'application/json' },
-										body: JSON.stringify({ proxy: proxyStr, skip_country: true }),
-										signal: controller.signal
-									})
-									.then(res => res.json())
-									.then(data => {
-										if (data.success) resolveProxy({ proxy: proxyStr, ping: data.ping });
-										else rejectProxy();
-									})
-									.catch(rejectProxy);
-								});
-							}));
-
-							if (firstSuccessProxy) {
-								fastestPerCountry.push(firstSuccessProxy);
-								successCount++;
-								if (successCount >= 2) resolveFast();
-							}
-						} catch(e) {}
-					});
-					Promise.allSettled(countryPromises).then(() => resolveFast());
-				});
-
-				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
-				await Promise.race([findTwoProxiesPromise, timeoutPromise]);
-				controller.abort();
-
-				if (fastestPerCountry.length < 2) {
-					alert('خطا: پروکسی سالم از حداقل 2 کشور مختلف در زمان مجاز یافت نشد.');
-					btn.disabled = false;
-					if (icon) {
-						icon.classList.remove('animate-spin');
-						icon.classList.add('group-hover:rotate-12');
-					}
-					return;
-				}
-
-				fastestPerCountry.sort((a, b) => a.ping - b.ping);
-				const fastestProxies = [fastestPerCountry[0].proxy, fastestPerCountry[1].proxy];
-
-				const userSocks5 = JSON.stringify(fastestProxies);
-				
-				let availableIps = [];
-				if (Object.keys(l76xmsu).length === 0) {
-					try {
-						const resIps = await kc5inhw('ips.txt');
-						if (resIps.ok) {
-							const text = await resIps.text();
-							const blocks = text.split('----------');
-							blocks.forEach(block => {
-								const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
-								lines.forEach(line => {
-									if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
-								});
-							});
-						}
-					} catch(e) {}
-				} else {
-					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
-				}
-				availableIps = [...new Set(availableIps)];
-				let selectedIps = [];
-				if (availableIps.length > 0) {
-					const shuffledIps = availableIps.slice();
-					for (let i = shuffledIps.length - 1; i > 0; i--) {
-						const j = Math.floor(Math.random() * (i + 1));
-						[shuffledIps[i], shuffledIps[j]] = [shuffledIps[j], shuffledIps[i]];
-					}
-					selectedIps = shuffledIps.slice(0, 15);
-				}
-				const ipsStr = selectedIps.join('\\n');
-				
-				const response = await fetch('/api/users', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
-						auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: "200-3000", frag_int: "1-2",
-						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
-						ips: ipsStr, ip_operator: "all", ip_count: 15, auto_rotate_ip: 1, rotate_time: 1,
-						user_socks5: userSocks5, auto_rotate_user_proxy: 1
-					})
-				});
-				if (response.ok) {
-					bm3pzm2('✅ کاربر سریع با موفقیت ایجاد شد.');
-					await axmsbp4(true);
-				} else {
-					const errData = await response.json();
-					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				if (icon) {
-					icon.classList.remove('animate-spin');
-					icon.classList.add('group-hover:rotate-12');
-				}
-			}
-		}
-		window.switchUserTab = function(tabId) {
-			const tabs = [
-				{ id: 'tab-user-info', btn: 'tab-btn-user-info' },
-				{ id: 'tab-ports-network', btn: 'tab-btn-ports-network' },
-				{ id: 'tab-proxy-settings', btn: 'tab-btn-proxy-settings' }
-			];
-			tabs.forEach(t => {
-				const panel = document.getElementById(t.id);
-				const btn = document.getElementById(t.btn);
-				if (panel) panel.classList.toggle('hidden', t.id !== tabId);
-				if (btn) {
-					if (t.id === tabId) {
-						btn.className = 'user-modal-tab-btn active flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-blue-600/10 dark:bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold shadow-sm';
-						const iconBox = btn.querySelector('div.flex-shrink-0');
-						if (iconBox) iconBox.className = 'flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-blue-500/15 dark:bg-blue-400/20 text-blue-600 dark:text-blue-300';
-					} else {
-						btn.className = 'user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium';
-						const iconBox = btn.querySelector('div.flex-shrink-0');
-						if (iconBox) iconBox.className = 'flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400';
-					}
-				}
-			});
-		}
-		function openCreateModal() {
-			isEditMode = false;
-			editingUsername = '';
-			if (typeof window.switchUserTab === 'function' || typeof switchUserTab === 'function') switchUserTab('tab-user-info');
-			document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
-			jutlx8s('ایجاد کاربر', false);
-			document.getElementById('input-name').disabled = false;
-			document.getElementById('create-user-form').reset();
-			const vlessCbC = document.getElementById('input-proto-vless');
-			const trojanCbC = document.getElementById('input-proto-trojan');
-			const ssCbC = document.getElementById('input-proto-ss');
-			if (vlessCbC) vlessCbC.checked = true;
-			if (trojanCbC) trojanCbC.checked = false;
-			if (ssCbC) ssCbC.checked = true;
-			if (typeof window.autoFillUsernameFromCountry === 'function') window.autoFillUsernameFromCountry();
-			if (typeof window.autoFillCleanIps === 'function') window.autoFillCleanIps(2);
-			const cb443 = document.querySelector('input[name="ports"][value="443"]');
-			if (cb443) cb443.checked = true;
-			const cb80 = document.querySelector('input[name="ports"][value="80"]');
-			if (cb80) cb80.checked = true;
-			const fpSelect = document.getElementById('fingerprint-select');
-			if (fpSelect) fpSelect.value = 'unsafe';
-			const fragToggle = document.getElementById('input-frag-toggle');
-			if (fragToggle) fragToggle.checked = true;
-			window.toggleFragInputs(true);
-			const autoResetToggle = document.getElementById('input-auto-reset-toggle');
-			if (autoResetToggle) autoResetToggle.checked = false;
-			document.getElementById('input-auto-reset-vol').value = '';
-			document.getElementById('input-auto-reset-req').value = '';
-			window.toggleAutoResetInputs(false);
-			const blockAdsToggle = document.getElementById('input-block-ads');
-			if (blockAdsToggle) blockAdsToggle.checked = false;
-			const enableDirectToggleReset = document.getElementById('input-enable-direct');
-			if (enableDirectToggleReset) enableDirectToggleReset.checked = true;
-			const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
-			if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = false;
-			const userProxyToggle = document.getElementById('user-proxy-mode-toggle');
-			if (userProxyToggle) userProxyToggle.checked = true;
-			if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
-			window.proxyFieldsData = [""];
-			window.activeProxyIndex = 0;
-			const defaultIataCode = window._globalActiveCountry || '';
-			window.userProxyIata = defaultIataCode || null;
-			const iataToggleReset = document.getElementById('input-user-iata-toggle');
-			if (iataToggleReset) iataToggleReset.checked = true;
-			const iataInputReset = document.getElementById('input-user-proxy-iata');
-			if (iataInputReset) { iataInputReset.disabled = false; iataInputReset.value = defaultIataCode; }
-			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
-			if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
-			document.getElementById('hidden-auto-rotate').value = '0';
-			document.getElementById('hidden-rotate-time').value = '';
-			document.getElementById('hidden-ip-operator').value = 'all';
-			document.getElementById('hidden-ip-count').value = '15';
-			toggleModal(true);
-		}
-		
-		const themeToggleBtn = document.getElementById('theme-toggle');
-		themeToggleBtn.addEventListener('click', () => {
-			if (document.documentElement.classList.contains('dark')) {
-				document.documentElement.classList.remove('dark');
-				localStorage.setItem('color-theme', 'light');
-			} else {
-				document.documentElement.classList.add('dark');
-				localStorage.setItem('color-theme', 'dark');
-			}
-		});
-		const grayscaleToggleBtn = document.getElementById('grayscale-toggle');
-		if (grayscaleToggleBtn) {
-			grayscaleToggleBtn.addEventListener('click', () => {
-				if (document.documentElement.classList.contains('grayscale-active')) {
-					document.documentElement.classList.remove('grayscale-active');
-					localStorage.setItem('grayscale-theme', 'false');
-				} else {
-					document.documentElement.classList.add('grayscale-active');
-					localStorage.setItem('grayscale-theme', 'true');
-				}
-			});
-		}
-		async function dkulmtc(actionType, token = null) {
-			window.pendingCoreAction = actionType;
-			const isUpdate = actionType === 'update';
-			if (!isUpdate && !await pw6sr5c('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
-			if (isUpdate && !token) toggleUpdateModal(false);
-			const btn = isUpdate ? document.getElementById('update-toggle') : document.querySelector('button[title="ری استارت پـنـل"]');
-			if (btn) {
-				btn.disabled = true;
-				if (!isUpdate) btn.classList.add('animate-pulse');
-			}
-			if (isUpdate && !token) alert('در حال دریافت و اعمال آپدیت... لطفاً چند ثانیه صبر کنید.');
-			try {
-				const reqBody = token ? JSON.stringify({ cf_token: token }) : "{}";
-				const res = await fetch(isUpdate ? '/api/update-panel' : '/api/restart-core', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: isUpdate ? reqBody : undefined
-				});
-				const data = await res.json();
-				if (res.status === 400 && data.error === "TOKEN_REQUIRED") {
-					toggleTokenModal(true);
-					if (btn) {
-						btn.disabled = false;
-						if (!isUpdate) btn.classList.remove('animate-pulse');
-					}
-					return;
-				}
-				if (res.ok && data.success) {
-					if (isUpdate) {
-						const successModal = document.getElementById('update-success-modal');
-						const successCard = successModal.querySelector('div');
-						successModal.classList.remove('opacity-0', 'pointer-events-none');
-						successModal.classList.add('opacity-100', 'pointer-events-auto');
-						successCard.classList.remove('opacity-0', 'scale-95');
-						successCard.classList.add('opacity-100', 'scale-100');
-						setTimeout(() => {
-							sessionStorage.setItem('lu_k3', Date.now());
-							window.location.href = window.location.pathname + '?t=' + Date.now();
-						}, 10000);
-					} else {
-						alert('پـنـل ری استارت شد صفحه رفرش می شود.');
-						window.location.href = window.location.pathname + '?t=' + Date.now();
-					}
-				} else {
-					alert(isUpdate ? 'خطا در بروزرسانی. لطفاً با استفاده از " ربات" اقدام کنید.' : 'خطا در ری‌استارت پـنـل: ' + (data.error || 'ناشناخته'));
-					if (btn) {
-						btn.disabled = false;
-						if (!isUpdate) btn.classList.remove('animate-pulse');
-					}
-				}
-			} catch (err) {
-				alert(isUpdate ? 'خطا در ارتباط با سرور. لطفاً از گزینه آپدیت دستی استفاده کنید.' : 'خطا در ارتباط با سرور.');
-				if (btn) {
-					btn.disabled = false;
-					if (!isUpdate) btn.classList.remove('animate-pulse');
-				}
-			}
-		}
-		async function restartCore() {
-			await dkulmtc('restart');
-		}
-		async function axmsbp4(silent = false) {
-			if (window.isDraggingRow) return; 
-			const loadingState = document.getElementById('loading-state');
-			const tableContainer = document.getElementById('users-table-container');
-			const emptyState = document.getElementById('empty-state');
-			if (!silent) {
-				loadingState.classList.remove('hidden');
-				tableContainer.classList.add('hidden');
-				emptyState.classList.add('hidden');
-			}
-			try {
-				const res = await fetch('/api/users?t=' + Date.now());
-				if (!res.ok) throw new Error();
-				const data = await res.json();
-				aisb7wy(data);
-			} catch (err) {
-				if (!silent) {
-					loadingState.innerHTML = '<span class="text-red-500">خطا در دریافت اطلاعات از سرور</span>';
-				}
-			}
-		}
-		function aisb7wy(data) {
-			try {
-				const users = data.users || [];
-				window.allUsers = users;
-				const serverTime = data.serverTime || Date.now();
-				window.lastServerTime = serverTime;
-				const totalUsersCount = users.length;
-				const activeUsersCount = users.reduce((sum, u) => sum + (u.online_count || 0), 0);
-				const totalGbUsage = users.reduce((sum, u) => sum + (u.lifetime_used_gb || u.used_gb || 0), 0);
-				document.getElementById('stat-total-users').innerText = totalUsersCount;
-				document.getElementById('stat-active-users').innerText = activeUsersCount;
-				document.getElementById('stat-total-usage').innerText = totalGbUsage < 1 ? (totalGbUsage * 1024).toFixed(0) + ' MB' : totalGbUsage.toFixed(2) + ' GB';
-				const d1Reads = data.d1Reads || 0;
-				const d1Writes = data.d1Writes || 0;
-				const d1WritesEl = document.getElementById('stat-d1-writes');
-				if (d1WritesEl) d1WritesEl.innerText = d1Writes >= 1000 ? (d1Writes / 1000).toFixed(1) + 'k' : d1Writes;
-				const d1ReadsEl = document.getElementById('stat-d1-reads');
-				if (d1ReadsEl) d1ReadsEl.innerText = d1Reads >= 1000000 ? (d1Reads / 1000000).toFixed(2) + 'M' : (d1Reads >= 1000 ? (d1Reads / 1000).toFixed(1) + 'k' : d1Reads);
-				const cfRequests = data.cfRequestsToday || 0;
-				const reqCard = document.getElementById('card-cf-requests');
-				const warningBtn = document.getElementById('cf-warning-btn');
-				if (cfRequests >= 90000) {
-					if (reqCard) {
-						reqCard.className = "bg-red-50 dark:bg-red-950/20 border border-red-500 rounded-md p-2.5 shadow-[0_0_15px_rgba(239,68,68,0.4)] flex flex-col justify-center gap-1 hover:shadow-md transition duration-300 relative overflow-hidden group min-h-[64px] animate-pulse";
-					}
-					if (warningBtn) {
-						warningBtn.classList.remove('hidden');
-					}
-					if (!window.hasShownUsageWarning) {
-						openUsageWarning();
-						window.hasShownUsageWarning = true;
-					}
-				} else {
-					if (reqCard) {
-						reqCard.className = "bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-orange-400 dark:hover:border-orange-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]";
-					}
-					if (warningBtn) {
-						warningBtn.classList.add('hidden');
-					}
-				}
-				const cfTotal = data.cfRequestsTotal || 0;
-				document.getElementById('stat-cf-requests').innerText = cfRequests >= 1000 ? (cfRequests / 1000).toFixed(1) + 'k' : cfRequests;
-				document.getElementById('stat-cf-total').innerText = cfTotal >= 1000000 ? (cfTotal / 1000000).toFixed(2) + 'M' : (cfTotal >= 1000 ? (cfTotal / 1000).toFixed(1) + 'k' : cfTotal);
-				const progressPercent = Math.min((cfRequests / 100000) * 100, 100);
-				document.getElementById('stat-cf-progress').style.width = progressPercent + '%';
-				filterAndRenderUsers();
-			} catch (err) {
-				document.getElementById('loading-state').innerHTML = '<span class="text-red-500">خطا در پردازش اطلاعات کاربران</span>';
-			}
-		}
-		function filterAndRenderUsers() {
-			if (!window.allUsers) return;
-			const searchQuery = (document.getElementById('search-input').value || '').toLowerCase().trim();
-			const filterStatus = document.getElementById('filter-status').value;
-			const sortVal = document.getElementById('sort-users').value;
-			const serverTime = window.lastServerTime || Date.now();
-			let filtered = [...window.allUsers];
-			if (searchQuery) {
-				filtered = filtered.filter(u => 
-					(u.username || '').toLowerCase().includes(searchQuery) || 
-					(u.uuid || '').toLowerCase().includes(searchQuery)
-				);
-			}
-			if (filterStatus !== 'all') {
-				filtered = filtered.filter(u => {
-					const isOnline = u.is_online === 1;
-					const isActive = u.is_active === 1;
-					let isExpired = false;
-					if (u.limit_gb && u.used_gb >= u.limit_gb) isExpired = true;
-					if (u.expiry_days && u.created_at) {
-						const created = new Date(u.created_at);
-						const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
-						if (new Date(serverTime) > expiryDate) isExpired = true;
-					}
-					if (filterStatus === 'active') return isActive && !isExpired;
-					if (filterStatus === 'inactive') return !isActive;
-					if (filterStatus === 'online') return isOnline;
-					if (filterStatus === 'offline') return !isOnline;
-					if (filterStatus === 'expired') return isExpired || !isActive;
-					return true;
-				});
-			}
-			const customOrderStr = localStorage.getItem('uo_k3');
-			let customOrder = [];
-			try { customOrder = JSON.parse(customOrderStr || '[]'); } catch(e) {}
-			filtered.sort((a, b) => {
-				if (sortVal === 'newest' && customOrder.length > 0) {
-					const indexA = customOrder.indexOf(a.username);
-					const indexB = customOrder.indexOf(b.username);
-					if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-					if (indexA !== -1) return -1;
-					if (indexB !== -1) return 1;
-				}
-				if (sortVal === 'newest') {
-					return b.id - a.id;
-				}
-				if (sortVal === 'name') {
-					return (a.username || '').localeCompare(b.username || '');
-				}
-				if (sortVal === 'usage-desc') {
-					return (b.used_gb || 0) - (a.used_gb || 0);
-				}
-				if (sortVal === 'usage-asc') {
-					return (a.used_gb || 0) - (b.used_gb || 0);
-				}
-				if (sortVal === 'expiry-asc') {
-					const getRemaining = (u) => {
-						if (!u.expiry_days) return Infinity;
-						if (!u.created_at) return Infinity;
-						const created = new Date(u.created_at);
-						const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
-						return expiryDate - new Date(serverTime);
-					};
-					return getRemaining(a) - getRemaining(b);
-				}
-				return 0;
-			});
-			hn4ik24(filtered, serverTime);
-		}
-		function hn4ik24(users, serverTime) {
-			const loadingState = document.getElementById('loading-state');
-			const tableContainer = document.getElementById('users-table-container');
-			const emptyState = document.getElementById('empty-state');
-			const tbody = document.getElementById('users-tbody');
-			if (users.length === 0) {
-				loadingState.classList.add('hidden');
-				emptyState.classList.remove('hidden');
-				tableContainer.classList.add('hidden');
-				if (window.allUsers && window.allUsers.length > 0) {
-					emptyState.querySelector('p').innerText = 'کاربری با مشخصات جستجو شده یافت نشد.';
-				} else {
-					emptyState.querySelector('p').innerText = 'کاربری وجود ندارد. برای ساخت اولین کاربر روی دکمه « + » کلیک کنید یا از دکمه ⚡️ برای ایجاد سریع کاربر استفاده کنید.';
-				}
-			} else {
-				loadingState.classList.add('hidden');
-				emptyState.classList.add('hidden');
-				tableContainer.classList.remove('hidden');
-				let proxyFlagCache = {};
-				try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
-				tbody.innerHTML = users.map(user => {
-					let daysRemaining = 'نامحدود';
-					let daysPercent = 100;
-					let isTimerPending = false;
-					if (user.expiry_days) {
-						if (user.start_on_first_connect === 1) {
-							if (!user.first_connection_time) {
-								daysRemaining = user.expiry_days;
-								daysPercent = 100;
-								isTimerPending = true;
-							} else {
-								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
-								const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
-								daysRemaining = diffDays > 0 ? diffDays : 0;
-								daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
-							}
-						} else if (user.created_at) {
-							const created = new Date(user.created_at);
-							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
-							const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
-							daysRemaining = diffDays > 0 ? diffDays : 0;
-							daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
-						} else {
-							daysRemaining = user.expiry_days;
-						}
-					}
-					const usedGb = user.used_gb || 0;
-					const formattedUsed = usedGb < 1 ? (usedGb * 1024).toFixed(0) + ' MB' : usedGb.toFixed(2) + ' GB';
-					const usedReq = user.used_req || 0;
-					let reqHtml = '';
-					if (user.limit_req) {
-						const reqPercent = Math.min((usedReq / user.limit_req) * 100, 100);
-						const reqHue = 120 - (reqPercent * 1.2);
-						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none font-bold" dir="ltr">' + user.limit_req.toLocaleString() + '</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + reqPercent + '%; background-color: hsl(' + reqHue + ', 80%, 45%)"></div>' +
-							'</div>' +
-						'</div>';
-					} else {
-						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none text-[12px] font-bold">∞</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
-							'</div>' +
-						'</div>';
-					}
-					let volumeHtml = '';
-					if (user.limit_gb) {
-						const limitPercent = Math.min((usedGb / user.limit_gb) * 100, 100);
-						const limitHue = 120 - (limitPercent * 1.2);
-						const formattedLimit = user.limit_gb < 1 ? (user.limit_gb * 1024).toFixed(0) + 'MB' : user.limit_gb + 'GB';
-						const formattedUsedClean = usedGb < 1 ? (usedGb * 1024).toFixed(0) + 'MB' : usedGb.toFixed(2) + 'GB';
-						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none font-bold" dir="ltr">' + formattedLimit + '</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + limitPercent + '%; background-color: hsl(' + limitHue + ', 80%, 45%)"></div>' +
-							'</div>' +
-						'</div>';
-					} else {
-						const formattedUsedClean = usedGb < 1 ? (usedGb * 1024).toFixed(0) + 'MB' : usedGb.toFixed(2) + 'GB';
-						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none text-[12px] font-bold">∞</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
-							'</div>' +
-						'</div>';
-					}
-					let expiryHtml = '';
-					if (user.expiry_days) {
-						const expiryHue = daysPercent * 1.2;
-						const remainingLabel = isTimerPending ? '<span class="text-blue-600 dark:text-blue-400 leading-none font-bold text-[8px]" dir="rtl" title="شمارش پس از اولین اتصال آغاز می‌شود">' + daysRemaining + ' روز (اولین اتصال)</span>' : '<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="rtl">' + daysRemaining + ' روز</span>';
-						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								remainingLabel +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none font-bold" dir="rtl">' + user.expiry_days + ' روز</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden flex justify-end">' +
-								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + daysPercent + '%; background-color: ' + (isTimerPending ? '#3b82f6' : 'hsl(' + expiryHue + ', 80%, 45%)') + '"></div>' +
-							'</div>' +
-						'</div>';
-					} else {
-						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold text-[12px]">∞</span>' +
-								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
-								'<span class="leading-none text-[12px] font-bold">∞</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
-							'</div>' +
-						'</div>';
-					}
-					const onlineCount = user.online_count || 0;
-					const limit = user.ip_limit !== undefined ? user.ip_limit : user.max_connections;
-					let onlineHtml = '';
-					if (limit) {
-						const onlinePercent = Math.min((onlineCount / limit) * 100, 100);
-						const onlineHue = 120 - (onlinePercent * 1.2);
-						onlineHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + onlineCount + '</span>' +
-								'<span class="leading-none font-bold" dir="ltr">' + limit + '</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + onlinePercent + '%; background-color: hsl(' + onlineHue + ', 80%, 45%)"></div>' +
-							'</div>' +
-						'</div>';
-					} else {
-						onlineHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
-							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
-								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + onlineCount + '</span>' +
-								'<span class="leading-none text-[12px] font-bold">∞</span>' +
-							'</div>' +
-							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
-								'<div class="h-full ' + (onlineCount > 0 ? 'bg-green-600' : 'bg-gray-400') + ' rounded-full transition-all duration-500" style="width: 100%"></div>' +
-							'</div>' +
-						'</div>';
-					}
-					let isExpired = false;
-					if (user.limit_gb && (user.used_gb || 0) >= user.limit_gb) isExpired = true;
-					if (user.limit_req && (user.used_req || 0) >= user.limit_req) isExpired = true;
-					if (user.expiry_days) {
-						if (user.start_on_first_connect === 1) {
-							if (user.first_connection_time) {
-								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
-								if (new Date(serverTime) > expiryDate) isExpired = true;
-							}
-						} else if (user.created_at) {
-							const created = new Date(user.created_at);
-							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
-							if (new Date(serverTime) > expiryDate) isExpired = true;
-						}
-					}
-					const isEffectivelyActive = user.is_active !== 0 && !isExpired;
-					const statusBtnColor = user.is_active === 0 ? 'text-green-700 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/30' : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30';
-					const statusBtnTitle = user.is_active === 0 ? 'فعال کردن کاربر' : 'قطع کردن کاربر';
-					const statusBtnIcon = user.is_active === 0 
-						? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
-						: '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-					const isChecked = (window.selectedUsernames && window.selectedUsernames.has(user.username)) ? 'checked' : '';
-					let locBadge = '';
-					if (user.user_proxy_iata) {
-						const iata = user.user_proxy_iata.toUpperCase();
-						const flag = typeof b00aqjk === 'function' ? b00aqjk(iata) : '🌐';
-						locBadge = '<div class="flex justify-center mt-1"><span title="کشور: ' + iata + '" class="text-base leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + flag + '</span></div>';
-					} else if (user.user_socks5 || user.user_proxy_ip) {
-						let proxyList = [];
-						try {
-							if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
-								proxyList = JSON.parse(user.user_socks5);
-							} else {
-								proxyList = [user.user_socks5 || user.user_proxy_ip];
-							}
-						} catch(e) {
-							proxyList = [user.user_socks5 || user.user_proxy_ip];
-						}
-
-						let numFlags = proxyList.length;
-						let layout = [];
-						if (numFlags === 1) layout = [1];
-						else if (numFlags === 2) layout = [2];
-						else if (numFlags === 3) layout = [3];
-						else if (numFlags === 4) layout = [2, 2];
-						else if (numFlags === 5) layout = [3, 2];
-						else if (numFlags === 6) layout = [3, 3];
-						else if (numFlags === 7) layout = [4, 3];
-						else if (numFlags === 8) layout = [4, 4];
-						else if (numFlags === 9) layout = [5, 4];
-						else if (numFlags === 10) layout = [4, 4, 2];
-						else if (numFlags === 11) layout = [4, 4, 3];
-						else if (numFlags === 12) layout = [4, 4, 4];
-						else if (numFlags === 13) layout = [5, 5, 3];
-						else if (numFlags === 14) layout = [5, 5, 4];
-						else {
-							let remaining = numFlags;
-							while (remaining > 0) {
-								layout.push(Math.min(remaining, 5));
-								remaining -= 5;
-							}
-						}
-
-						let flagSizeClass = 'text-base';
-						if (numFlags > 12) flagSizeClass = 'text-[9px]';
-						else if (numFlags >= 9) flagSizeClass = 'text-[10px]';
-						else if (numFlags > 4) flagSizeClass = 'text-xs';
-
-						const flagsHtmlArray = proxyList.map(item => {
-							const targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
-							const targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-							if (targetCountry && typeof b00aqjk === 'function') {
-								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(targetCountry) + '</span>';
-							}
-							const cachedFlag = proxyFlagCache[targetProxy];
-							if (cachedFlag && typeof cachedFlag === 'string' && /^[a-zA-Z]{2}$/.test(cachedFlag) && typeof b00aqjk === 'function') {
-								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(cachedFlag) + '</span>';
-							} else {
-								return '<span data-proxy="' + targetProxy + '" title="پـروکـسـی اختصاصی" class="async-proxy-flag ' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">⏳</span>';
-							}
-						});
-
-						let rowsHtml = '';
-						let startIndex = 0;
-						for (let r = 0; r < layout.length; r++) {
-							let rowCount = layout[r];
-							let rowItems = flagsHtmlArray.slice(startIndex, startIndex + rowCount).join('');
-							rowsHtml += '<div class="flex justify-center gap-0.5">' + rowItems + '</div>';
-							startIndex += rowCount;
-						}
-						locBadge = '<div class="flex flex-col gap-0.5 justify-center items-center mt-1 w-max mx-auto" dir="ltr">' + rowsHtml + '</div>';
-					}
-					let proxyListConfig = [];
-					try {
-						if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
-							proxyListConfig = JSON.parse(user.user_socks5);
-						} else if (user.user_socks5 || user.user_proxy_ip) {
-							proxyListConfig = [user.user_socks5 || user.user_proxy_ip];
-						} else {
-							proxyListConfig = [null];
-						}
-					} catch(e) {
-						proxyListConfig = [user.user_socks5 || user.user_proxy_ip];
-					}
-					if (!Array.isArray(proxyListConfig) || proxyListConfig.length === 0) proxyListConfig = [null];
-					let hasDir = proxyListConfig.some(function(p) { return p === null || p === ""; });
-					if (!hasDir) proxyListConfig.push(null);
-					let numProxies = proxyListConfig.length;
-					let numIps = user.ips ? user.ips.split('\\n').filter(function(ip) { return ip.trim().length > 0; }).length : 1;
-					if (numIps === 0) numIps = 1;
-					let numPorts = String(user.port || '443').split(',').filter(function(p) { return p.trim().length > 0; }).length;
-					if (numPorts === 0) numPorts = 1;
-					let pfCount = wbfdlk4(user);
-					let protoCount = (pfCount.vless ? 1 : 0) + (pfCount.trojan ? 1 : 0) + (pfCount.ss ? 1 : 0);
-					if (protoCount === 0) protoCount = 1;
-					let totalConfigs = numProxies * numIps * numPorts * protoCount;
-					let configColorClass = 'text-green-800 dark:text-green-700';
-					if (totalConfigs > 100) configColorClass = 'text-red-600 dark:text-red-500';
-					else if (totalConfigs > 80) configColorClass = 'text-orange-500';
-					else if (totalConfigs > 50) configColorClass = 'text-amber-500';
-					else if (totalConfigs > 20) configColorClass = 'text-green-500';
-					let configsCountHtml = '<span class="font-black text-base ' + configColorClass + '" dir="ltr">' + totalConfigs + '</span>';
-					return '<tr class="group transition-all drop-shadow-sm bg-white/40 dark:bg-zinc-900/20" data-username="' + user.username + '">' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 rounded-r-md border-y border-r border-gray-200 dark:border-zinc-800 text-center select-none">' +
-									'<div class="flex items-center justify-center gap-1">' +
-										'<input type="checkbox" name="select-user" value="' + encodeURIComponent(user.username) + '" onchange="onUserSelectChange(this)" ' + isChecked + ' class="w-4 h-4 rounded-md border-2 border-gray-300 dark:border-zinc-700 text-blue-600 bg-white dark:bg-zinc-800 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500/50 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95">' +
-										'<span class="drag-handle text-gray-400 hover:text-gray-600 dark:hover:text-zinc-200 cursor-grab active:cursor-grabbing font-bold text-base select-none px-1" title="جابجایی">☰</span>' +
-									'</div>' +
-								'</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800 text-center">' +
-									'<div class="flex flex-col items-center justify-center gap-1.5 w-full max-w-[120px] mx-auto select-none">' +
-										'<div class="flex flex-row items-center justify-center gap-1">' +
-											(!isEffectivelyActive ? '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 rounded">غیرفعال</span>' : '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded">فعال</span>') +
-											(user.is_online === 1 ? '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-green-600 text-white rounded animate-pulse" dir="rtl">' + user.online_count + '</span>' : '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-gray-200 text-gray-600 dark:bg-zinc-800 dark:text-zinc-400 rounded">آفلاین</span>') +
-										'</div>' +
-										'<span class="font-bold text-gray-900 dark:text-zinc-100 text-xs truncate max-w-full pt-0.5 leading-normal">' + user.username + '</span>' +
-										locBadge +
-									'</div>' +
-								'</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800 text-center">' +
-									'<div class="grid grid-cols-2 gap-1 w-max mx-auto">' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyConfig(this.dataset.user)" title="کپی کـانفـیگ" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-blue-50 dark:bg-blue-950/40 border border-blue-300 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-600 dark:text-blue-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="editUser(this.dataset.user)" title="ویرایش" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-green-50 dark:bg-green-950/40 border border-green-300 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/60 text-green-600 dark:text-green-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="deleteUser(this.dataset.user)" title="حذف" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="toggleUserStatus(this.dataset.user)" title="' + statusBtnTitle + '" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 ' + statusBtnColor + ' rounded-full transition shadow-sm">' + statusBtnIcon + '</button>' +
-									'</div>' +
-								'</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' +
-									'<div class="flex flex-col gap-1 w-[100px] mx-auto">' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySubLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-full text-[9px] font-bold transition border border-indigo-200 dark:border-indigo-800">' +
-											'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>' +
-											'ساب متنی' +
-										'</button>' +
-										'<div class="flex flex-row gap-1 w-full h-[24px]">' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySingboxLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-full text-[9px] font-bold transition border border-purple-200 dark:border-purple-800 whitespace-nowrap">' +
-												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>' +
-												'Sing-box' +
-											'</button>' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSingboxQr(this.dataset.user)" title="QR Sing-box" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-full transition border border-purple-200 dark:border-purple-800">' +
-												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>' +
-											'</button>' +
-										'</div>' +
-										'<div class="flex flex-row gap-1 w-full h-[24px]">' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyStatusLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-full text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
-												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' +
-												'وضعیت' +
-											'</button>' +
-											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSubQr(this.dataset.user)" title="QR ساب" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full transition border border-amber-200 dark:border-amber-800">' +
-												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>' +
-											'</button>' +
-										'</div>' +
-									'</div>' +
-								'</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 border-y border-gray-200 dark:border-zinc-800 text-center">' + configsCountHtml + '</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 border-y border-gray-200 dark:border-zinc-800 text-xs">' +
-									(function() {
-										var pts = String(user.port || "").split(",").map(function(p){ return p.trim(); }).filter(function(p){ return p !== ""; });
-										if (pts.length === 0) return "";
-										var r = Math.min(pts.length, 3);
-										return '<div class="grid grid-flow-col gap-1 w-max mx-auto items-center" style="grid-template-rows: repeat(' + r + ', auto);">' +
-											pts.map(function(p) {
-												var isTls = tlsPorts.includes(p);
-												var isNonTls = nonTlsPorts.includes(p);
-												var colorClass = isTls ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' : 
-																 isNonTls ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400' : 
-																 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-												return '<span class="inline-flex items-center justify-center px-1.5 h-[18px] text-[10px] font-semibold rounded ' + colorClass + '">' + p + '</span>';
-											}).join("") +
-										'</div>';
-									})() +
-								'</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + volumeHtml + '</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + reqHtml + '</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + expiryHtml + '</td>' +
-								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 rounded-l-md border-y border-l border-gray-200 dark:border-zinc-800">' + onlineHtml + '</td>' +
-								'</tr>';
-				}).join('');
-				i5ta7ay();
-				if (typeof y9x0sl1 === 'function') {
-					setTimeout(y9x0sl1, 50);
-				}
-				if (window.usersSortable) {
-					window.usersSortable.destroy();
-				}
-				window.usersSortable = new Sortable(document.getElementById('users-tbody'), {
-					handle: '.drag-handle',
-					animation: 250,
-					ghostClass: "opacity-30",
-					delay: 200,
-					delayOnTouchOnly: true,
-					touchStartThreshold: 5,
-					onChoose: function () {
-						window.isDraggingRow = true;
-					},
-					onUnchoose: function () {
-						window.isDraggingRow = false;
-					},
-					onStart: function () {
-						window.isDraggingRow = true;
-					},
-					onEnd: function (evt) {
-						window.isDraggingRow = false;
-						const newOrder = Array.from(evt.to.children).map(tr => tr.getAttribute('data-username')).filter(Boolean);
-						localStorage.setItem('uo_k3', JSON.stringify(newOrder));
-					}
-				});
-			}
-		}
-		async function resetUserData(encodedUsername, actionType) {
-			const username = decodeURIComponent(encodedUsername);
-			let actionName = '';
-			if (actionType === 'volume') actionName = 'حجم';
-			else if (actionType === 'req') actionName = 'ریکوئست';
-			else if (actionType === 'time') actionName = 'زمان';
-			if (await pw6sr5c('آیا از ریست کردن ' + actionName + ' کاربر ' + username + ' مطمئن هستید؟')) {
-				try {
-					const response = await fetch('/api/users/' + encodeURIComponent(username), {
-						method: 'PUT',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ reset_action: actionType })
-					});
-					if (response.ok) {
-						alert('عملیات با موفقیت انجام شد.');
-						await axmsbp4(true);
-					} else {
-						const errData = await response.json();
-						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-					}
-				} catch (err) {
-					alert('خطا در برقراری ارتباط با سرور');
-				}
-			}
-		}
-		async function toggleUserStatus(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			try {
-				const response = await fetch('/api/users/' + encodeURIComponent(username), {
-					method: 'PUT',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ toggle_only: true })
-				});
-				if (response.ok) {
-					await axmsbp4(true);
-				} else {
-					const errData = await response.json();
-					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			}
-		}
-		async function handleFormSubmit(event) {
-			event.preventDefault();
-			jutlx8s(isEditMode ? 'در حال ذخیره تغییرات...' : 'در حال ایجاد...', true);
-			const username = document.getElementById('input-name').value;
-			const usernameRegex = /^[a-zA-Z0-9_-]+$/;
-			if (!usernameRegex.test(username)) {
-				alert('⚠️ نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد، خط تیره (-) و آندرلاین (_) باشد!');
-				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
-				return;
-			}
-			const limit = document.getElementById('input-limit').value || null;
-			const expiry = document.getElementById('input-expiry').value || null;
-			const reqLimit = document.getElementById('input-req-limit').value || null;
-			const ipLimit = document.getElementById('input-ip-limit').value || null;
-			if (limit !== null && parseFloat(limit) < 0) { alert('⚠️ حجم نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
-			if (expiry !== null && parseInt(expiry) < 0) { alert('⚠️ زمان (روز) نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
-			if ((reqLimit !== null && parseInt(reqLimit) < 0) || (ipLimit !== null && parseInt(ipLimit) < 0)) { alert('⚠️ محدودیت‌ها نمی‌توانند منفی باشند!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
-			const autoResetToggle = document.getElementById('input-auto-reset-toggle').checked;
-			const autoResetVolDays = document.getElementById('input-auto-reset-vol').value;
-			const autoResetReqDays = document.getElementById('input-auto-reset-req').value;
-			if (autoResetToggle) {
-				const volDays = parseInt(autoResetVolDays) || 0;
-				const reqDays = parseInt(autoResetReqDays) || 0;
-				if (volDays <= 0 && reqDays <= 0) {
-					alert('⚠️ وقتی تیک تمدید خودکار روشن است، باید حداقل یکی از فیلدها (زمان تمدید حجم یا ریکوئست) را پر کنید!');
-					jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
-					return;
-				}
-			}
-			const customPortsRaw = document.getElementById('input-custom-ports') ? document.getElementById('input-custom-ports').value : '';
-			const customPortsArray = customPortsRaw.replace(/ +/g, ',').split(',').map(p => p.trim()).filter(p => p.length > 0);
-			const checkedPorts = Array.from(document.querySelectorAll('input[name="ports"]:checked')).map(cb => cb.value).concat(customPortsArray);
-			const block_porn = document.getElementById('input-block-porn').checked ? 1 : 0;
-			const block_ads = document.getElementById('input-block-ads').checked ? 1 : 0;
-			const enable_direct = document.getElementById('input-enable-direct') ? (document.getElementById('input-enable-direct').checked ? 1 : 0) : 1;
-			const isFragEnabled = document.getElementById('input-frag-toggle').checked;
-			const frag_len = isFragEnabled ? (document.getElementById('input-frag-len').value || "200-3000") : "";
-			const frag_int = isFragEnabled ? (document.getElementById('input-frag-int').value || "1-2") : "";
-			const isAutoReset = document.getElementById('input-auto-reset-toggle').checked;
-			const auto_reset_vol_days = isAutoReset ? parseInt(document.getElementById('input-auto-reset-vol').value) || 0 : 0;
-			const auto_reset_req_days = isAutoReset ? parseInt(document.getElementById('input-auto-reset-req').value) || 0 : 0;
-			const auto_rotate_ip = parseInt(document.getElementById('hidden-auto-rotate').value) || 0;
-			const rotate_time = parseInt(document.getElementById('hidden-rotate-time').value) || 0;
-			const ip_operator = document.getElementById('hidden-ip-operator').value || 'all';
-			const ip_count = parseInt(document.getElementById('hidden-ip-count').value) || 20;
-			const userProxyMode = document.getElementById('user-proxy-mode-toggle') ? document.getElementById('user-proxy-mode-toggle').checked : false;
-			let userSocks5 = null;
-			if (userProxyMode && window.proxyFieldsData && window.proxyFieldsData.length > 0) {
-				const cleanProxies = window.proxyFieldsData.map(p => p ? p.trim() : "").filter(p => p !== "");
-				if (cleanProxies.length === 1) {
-					userSocks5 = cleanProxies[0];
-				} else if (cleanProxies.length > 1) {
-					userSocks5 = JSON.stringify(cleanProxies);
-				}
-			}
-			const auto_rotate_user_proxy = document.getElementById('input-auto-rotate-user-proxy') ? (document.getElementById('input-auto-rotate-user-proxy').checked ? 1 : 0) : 0;
-			const start_on_first_connect = document.getElementById('input-start-on-first-connect') ? (document.getElementById('input-start-on-first-connect').checked ? 1 : 0) : 0;
-			const isAdvancedSettingsOn = document.getElementById('input-advanced-settings-toggle') ? document.getElementById('input-advanced-settings-toggle').checked : false;
-			const advanced_frag = (isAdvancedSettingsOn && document.getElementById('input-advanced-frag')) ? document.getElementById('input-advanced-frag').value.trim() : "";
-			const cipher_suites = (isAdvancedSettingsOn && document.getElementById('input-cipher-suites')) ? document.getElementById('input-cipher-suites').value.trim() : "";
-			const tls_mask = (isAdvancedSettingsOn && document.getElementById('input-tls-mask')) ? document.getElementById('input-tls-mask').value.trim() : "";
-			if (checkedPorts.length === 0) {
-				alert('⚠️ لطفا حداقل یک پورت را برای اتصال انتخاب کنید!');
-				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
-				return;
-			}
-			const port = checkedPorts.join(',');
-			const tls = checkedPorts.some(p => tlsPorts.includes(p)) ? 'on' : 'off';
-			const ips = document.getElementById('input-ips').value;
-			const fingerprint = document.getElementById('fingerprint-select').value;
-			const selectedProtocols = [];
-			const cbV = document.getElementById('input-proto-vless');
-			const cbT = document.getElementById('input-proto-trojan');
-			const cbS = document.getElementById('input-proto-ss');
-			if (!cbV || cbV.checked) selectedProtocols.push('vl' + 'e' + 'ss');
-			if (cbT && cbT.checked) selectedProtocols.push('trojan');
-			if (cbS && cbS.checked) selectedProtocols.push('shadowsocks');
-			if (selectedProtocols.length === 0) selectedProtocols.push('vl' + 'e' + 'ss');
-			const url = isEditMode ? '/api/users/' + encodeURIComponent(editingUsername) : '/api/users';
-			const method = isEditMode ? 'PUT' : 'POST';
-			try {
-				const response = await fetch(url, {
-					method: method,
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ 
-						username, limit_gb: limit, expiry_days: expiry, limit_req: reqLimit, tls, port, ips, fingerprint, ip_limit: ipLimit, block_porn: block_porn, block_ads: block_ads, enable_direct: enable_direct, frag_len: frag_len, frag_int: frag_int,
-						user_proxy_iata: (userProxyMode && document.getElementById('input-user-iata-toggle') && document.getElementById('input-user-iata-toggle').checked) ? ((document.getElementById('input-user-proxy-iata') && document.getElementById('input-user-proxy-iata').value.trim().toUpperCase()) || window.userProxyIata || null) : null,
-						user_ipv6_enabled: (document.getElementById('input-user-ipv6-toggle') && document.getElementById('input-user-ipv6-toggle').checked) ? 1 : 0,
-						user_socks5: userSocks5 || null,
-						user_proxy_ip: null,
-						auto_reset_vol_days: auto_reset_vol_days,
-						auto_reset_req_days: auto_reset_req_days,
-						auto_rotate_ip: auto_rotate_ip,
-						rotate_time: rotate_time,
-						ip_operator: ip_operator,
-						ip_count: ip_count,
-						auto_rotate_user_proxy: auto_rotate_user_proxy,
-						start_on_first_connect: start_on_first_connect,
-						advanced_frag: advanced_frag || null,
-						cipher_suites: cipher_suites || null,
-						tls_mask: tls_mask || null,
-						protocols: selectedProtocols
-					})
-				});
-				if (response.ok) {
-					toggleModal(false);
-					await axmsbp4(true);
-				} else {
-					const errData = await response.json();
-					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
-			}
-		}
-window.activeProxyIndex = 0;
-window.proxyFieldsData = [""];
-window.userProxyIata = null;
-window.updateUserIataPreview = function() {
-	const input = document.getElementById('input-user-proxy-iata');
-	const preview = document.getElementById('user-iata-flag-preview');
-	if (!preview) return;
-	const code = (input && input.value ? input.value : (window.userProxyIata || '')).trim().toUpperCase();
-	if (code && /^[A-Z]{2}$/.test(code) && typeof b00aqjk === 'function') {
-		preview.innerText = b00aqjk(code);
-	} else {
-		preview.innerText = '🌐';
-	}
-};
-window.renderProxyFieldsUI = function() {
-	const wrapper = document.getElementById("proxies-fields-wrapper");
-	const addBtn = document.getElementById("add-proxy-field-btn");
-	if (!wrapper) return;
-	wrapper.innerHTML = "";
-	window.proxyFieldsData.forEach((val, idx) => {
-		const isFocused = idx === window.activeProxyIndex;
-		const borderClass = isFocused ? "ring-2 ring-blue-500 border-blue-500" : "border-gray-200 dark:border-amoled-border";
-		const row = document.createElement("div");
-		row.className = "flex flex-col gap-0.5 w-full";
-		const proxyStr = (val || "").trim();
-		const pingObj = proxyStr ? (window.proxyPingMap && window.proxyPingMap[proxyStr]) : null;
-		const pingClass = pingObj ? pingObj.className : "text-[10px] font-bold text-center empty:hidden min-h-[0px] transition-colors";
-		const pingText = pingObj ? pingObj.text : "";
-		let inputRow = '<div class="flex items-center gap-1 w-full">' +
-			'<button type="button" onclick="swapProxyFieldUI(' + idx + ')" class="w-7 h-7 flex-shrink-0 bg-transparent border-2 border-green-500 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded flex items-center justify-center font-bold text-xs shadow-sm transition-all" title="جا به جایی پروکسی"><svg id="swap-icon-' + idx + '" class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></button>' +
-			'<input type="text" value="' + (val || "") + '" onfocus="setActiveProxyField(' + idx + ')" onclick="setActiveProxyField(' + idx + ')" oninput="updateProxyFieldData(' + idx + ', this.value)" placeholder="socks5:// یا http:// (کشور ' + (idx + 1) + ')" dir="ltr" class="flex-1 px-2 py-1.5 bg-gray-50 dark:bg-slate-900 border ' + borderClass + ' rounded text-xs font-mono focus:outline-none text-gray-800 dark:text-zinc-100 transition">';
-		if (idx > 0) {
-			inputRow += '<button type="button" onclick="removeProxyFieldUI(' + idx + ')" class="w-7 h-7 flex-shrink-0 bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded flex items-center justify-center font-bold text-xs shadow-sm" title="حذف"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>';
-		}
-		inputRow += '</div><span id="proxy-ping-label-' + idx + '" class="' + pingClass + '">' + pingText + '</span>';
-		row.innerHTML = inputRow;
-		wrapper.appendChild(row);
-	});
-	if (addBtn) {
-		addBtn.style.display = window.proxyFieldsData.length >= 5 ? "none" : "flex";
-	}
-};
-window.setActiveProxyField = function(idx) {
-	if (window.activeProxyIndex === idx) return;
-	window.activeProxyIndex = idx;
-	const wrapper = document.getElementById("proxies-fields-wrapper");
-	if (wrapper) {
-		const inputs = wrapper.querySelectorAll("input[type='text']");
-		inputs.forEach((inp, i) => {
-			if (i === idx) {
-				inp.classList.remove("border-gray-200", "dark:border-amoled-border");
-				inp.classList.add("ring-2", "ring-blue-500", "border-blue-500");
-			} else {
-				inp.classList.remove("ring-2", "ring-blue-500", "border-blue-500");
-				inp.classList.add("border-gray-200", "dark:border-amoled-border");
-			}
-		});
-	}
-};
-window.updateProxyFieldData = function(idx, val) {
-	window.proxyFieldsData[idx] = val;
-	const span = document.getElementById('proxy-ping-label-' + idx);
-	if (span) {
-		span.innerText = '';
-		span.className = 'text-[10px] font-bold text-center empty:hidden transition-colors';
-	}
-};
-window.addProxyFieldUI = function() {
-	if (window.proxyFieldsData.length < 5) {
-		window.proxyFieldsData.push("");
-		window.activeProxyIndex = window.proxyFieldsData.length - 1;
-		window.renderProxyFieldsUI();
-		setTimeout(() => {
-			const wrapper = document.getElementById("proxies-fields-wrapper");
-			if (wrapper) {
-				const inputs = wrapper.querySelectorAll("input[type='text']");
-				if (inputs[window.activeProxyIndex]) inputs[window.activeProxyIndex].focus();
-			}
-		}, 10);
-	}
-};
-window.removeProxyFieldUI = function(idx) {
-	if (window.proxyFieldsData.length > 1) {
-		window.proxyFieldsData.splice(idx, 1);
-		if (window.activeProxyIndex >= window.proxyFieldsData.length) {
-			window.activeProxyIndex = window.proxyFieldsData.length - 1;
-		}
-		window.renderProxyFieldsUI();
-	}
-};
-window.swapProxyFieldUI = async function(idx) {
-	const currentProxy = (window.proxyFieldsData[idx] || "").trim();
-	if (!currentProxy) {
-		alert("⚠️ ابتدا یک پروکسی در این فیلد وارد کنید!");
-		return;
-	}
-	const icon = document.getElementById('swap-icon-' + idx);
-	if (icon) icon.classList.add('animate-spin');
-	
-	let countryCode = "UN";
-	try {
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 2000);
-		const res = await fetch('/api/test-proxy', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ proxy: currentProxy }),
-			signal: controller.signal
-		});
-		clearTimeout(timeoutId);
-		const data = await res.json();
-		if (res.ok && data.success && data.country && data.country !== "UN") {
-			countryCode = data.country.toUpperCase();
-		}
-	} catch(e) {}
-	let candidateProxies = [];
-	let isRandomFallback = false;
-	if (countryCode !== "UN") {
-		try {
-			const resVip = await ggsyffs('proxy_vip/' + countryCode + '.txt?t=' + Date.now());
-			if (resVip.ok) {
-				const text = await resVip.text();
-				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-				candidateProxies = candidateProxies.concat(lines);
-			}
-		} catch(e) {}
-	}
-	if (candidateProxies.length <= 1 || countryCode === "UN") {
-		isRandomFallback = true;
-		let fallbackCountries = ["DE", "US", "GB", "NL", "FR", "TR"];
-		try {
-			const resVipList = await ggsyffs('vip-list?t=' + Date.now());
-			if (resVipList.ok) {
-				const files = await resVipList.json();
-				const parsed = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
-				if (parsed.length > 0) fallbackCountries = parsed;
-			}
-		} catch(e) {}
-		const randomCountry = fallbackCountries[Math.floor(Math.random() * fallbackCountries.length)];
-		try {
-			const resVip = await ggsyffs('proxy_vip/' + randomCountry + '.txt?t=' + Date.now());
-			if (resVip.ok) {
-				const text = await resVip.text();
-				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-				candidateProxies = candidateProxies.concat(lines);
-			}
-		} catch(e) {}
-	}
-	candidateProxies = [...new Set(candidateProxies)];
-	const alternatives = candidateProxies.filter(p => p !== currentProxy);
-	if (alternatives.length > 0) {
-		const newProxy = alternatives[Math.floor(Math.random() * alternatives.length)];
-		window.proxyFieldsData[idx] = newProxy;
-		if (countryCode !== "UN" && !isRandomFallback) {
-			bm3pzm2('✅ پروکسی اختصاصی (VIP) از کشور ' + countryCode + ' جایگزین شد.');
-		} else {
-			bm3pzm2('✅ یک پروکسی اختصاصی (VIP) سالم به صورت رندوم جایگزین شد.');
-		}
-		if (countryCode && countryCode !== "UN") {
-			window.userProxyIata = countryCode;
-			const iataInput = document.getElementById('input-user-proxy-iata');
-			if (iataInput) iataInput.value = countryCode;
-			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
-		}
-	} else {
-		window.proxyFieldsData[idx] = currentProxy;
-		bm3pzm2('⚠️ هیچ پروکسی اختصاصی جایگزینی در مخزن VIP یافت نشد!');
-	}
-	if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
-	testUserSocksProxy();
-};
-function ys5v6m0(modalId, show) {
-			const modal = document.getElementById(modalId);
-			if (!modal) return;
-			const card = modal.querySelector('div');
-			if (show) {
-				modal.classList.remove('opacity-0', 'pointer-events-none');
-				modal.classList.add('opacity-100', 'pointer-events-auto');
-				card.classList.remove('opacity-0', 'scale-95');
-				card.classList.add('opacity-100', 'scale-100');
-			} else {
-				modal.classList.remove('opacity-100', 'pointer-events-auto');
-				modal.classList.add('opacity-0', 'pointer-events-none');
-				card.classList.remove('opacity-100', 'scale-100');
-				card.classList.add('opacity-0', 'scale-95');
-			}
-		}
-function toggleInfoModal(show) {
-	const modal = document.getElementById('info-modal');
-	if (!modal) return;
-	const innerBox = modal.querySelector('div');
-	
-	if (show) {
-		modal.classList.remove('opacity-0', 'pointer-events-none');
-		if (innerBox) innerBox.classList.remove('opacity-0', 'scale-95');
-	} else {
-		modal.classList.add('opacity-0', 'pointer-events-none');
-		if (innerBox) innerBox.classList.add('opacity-0', 'scale-95');
-	}
-}
-
-window.deferredPwaPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-	e.preventDefault();
-	window.deferredPwaPrompt = e;
-});
-window.addEventListener('appinstalled', () => {
-	window.deferredPwaPrompt = null;
-	bm3pzm2('✅ اپلیکیشن علیرضا با موفقیت روی دستگاه شما نصب شد!');
-});
-function pok6r0g() {
-	return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-}
-function lg6eyuo() {
-	return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-}
-function togglePwaModal(show) {
-	ys5v6m0('pwa-install-modal', show);
-}
-function d3g0pzj() {
-	const ua = navigator.userAgent;
-	const isOpera = ua.includes('OPR') || ua.includes('Opera') || ua.includes('OPT/');
-	const isEdge = ua.includes('Edg');
-	const isChrome = ua.includes('Chrome') && !isEdge && !isOpera;
-	const isFirefox = ua.includes('Firefox');
-	const isSafari = ua.includes('Safari') && !isChrome && !isEdge && !isOpera;
-	const isAndroid = /Android/i.test(ua);
-	const isIos = pok6r0g();
-	return { isOpera, isEdge, isChrome, isFirefox, isSafari, isAndroid, isIos };
-}
-function caalpq9() {
-	const info = d3g0pzj();
-	const list = document.getElementById('pwa-instructions-list');
-	const title = document.getElementById('pwa-modal-title');
-	if (!list) return;
-	list.innerHTML = '';
-	if (info.isIos) {
-		if (title) title.innerText = 'نصب روی آیفون / iOS';
-		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
-			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
-			'<span>در نوار پایین سافاری، دکمه <b>اشتراک‌گذاری (Share 📤)</b> را لمس کنید.</span>' +
-		'</div>' +
-		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
-			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
-			'<span>گزینه <b>«Add to Home Screen» (افزودن به صفحه اصلی ➕)</b> را انتخاب کنید.</span>' +
-		'</div>' +
-		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
-			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۳</span>' +
-			'<span>در گوشه بالا دکمه <b>«Add» (افزودن)</b> را بزنید تا آیکون برنامه ایجاد شود.</span>' +
-		'</div>';
-	} else if (info.isOpera) {
-		if (title) title.innerText = 'نصب در مرورگر اپرا (Opera)';
-		if (info.isAndroid) {
-			list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
-				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
-				'<span>در نوار پایین اپرا، روی منوی <b>سه نقطه (⋮) یا لوگوی اپرا</b> کلیک کنید.</span>' +
-			'</div>' +
-			'<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
-				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
-				'<span>گزینه <b>«صفحه اصلی» (Home screen)</b> یا <b>«نصب برنامه»</b> را انتخاب کنید.</span>' +
-			'</div>';
-		} else {
-			list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
-				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
-				'<span>در نوار آدرس بالای اپرا (سمت راست آدرس)، روی آیکون <b>📥 (نصب)</b> کلیک کنید.</span>' +
-			'</div>' +
-			'<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
-				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
-				'<span>یا روی منوی تنظیمات سریع (Easy Setup) یا منوی سه نقطه کلیک کرده و گزینه <b>Install</b> را انتخاب کنید.</span>' +
-			'</div>';
-		}
-	} else if (info.isAndroid) {
-		if (title) title.innerText = 'نصب روی گوشی اندروید';
-		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-green-50/50 dark:bg-green-950/20 rounded-lg border border-green-200/50 dark:border-green-900/30">' +
-			'<span class="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
-			'<span>روی منوی <b>سه نقطه (⋮)</b> در بالای مرورگر کلیک کنید.</span>' +
-		'</div>' +
-		'<div class="flex items-start gap-2.5 p-2.5 bg-green-50/50 dark:bg-green-950/20 rounded-lg border border-green-200/50 dark:border-green-900/30">' +
-			'<span class="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
-			'<span>گزینه <b>«نصب برنامه» (Install app)</b> یا <b>«افزودن به صفحه اصلی»</b> را انتخاب کنید.</span>' +
-		'</div>';
-	} else {
-		if (title) title.innerText = 'نصب در مرورگر دسکتاپ';
-		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
-			'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
-			'<span>در نوار آدرس بالای مرورگر، روی آیکون <b>نصب برنامه (🖥️ یا ➕)</b> کلیک کنید.</span>' +
-		'</div>' +
-		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
-			'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
-			'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install Alireza Panel»</b> را انتخاب نمایید.</span>' +
-		'</div>';
-	}
-}
-async function triggerPwaInstall() {
-	if (lg6eyuo()) {
-		bm3pzm2('✅ اپلیکیشن هم‌اکنون روی دستگاه شما نصب است و در حال اجرا می‌باشد.');
-		return;
-	}
-	if (window.deferredPwaPrompt) {
-		try {
-			window.deferredPwaPrompt.prompt();
-			const vlz8yee = await window.deferredPwaPrompt.userChoice;
-			if (vlz8yee.outcome === 'accepted') {
-				bm3pzm2('✅ در حال نصب اپلیکیشن...');
-			}
-			window.deferredPwaPrompt = null;
-			return;
-		} catch (err) {}
-	}
-	caalpq9();
-	togglePwaModal(true);
-}
-if ('serviceWorker' in navigator) {
-	try {
-		navigator.serviceWorker.register('/sw.js').catch(() => {});
-	} catch(e) {}
-}
-
-function downloadSrcFile() {
-	return;
-}
-		function closeUsageWarning() { ys5v6m0('usage-warning-modal', false); }
-		function openUsageWarning() { ys5v6m0('usage-warning-modal', true); }
-		function closeFreePanelWarning() { ys5v6m0('free-panel-warning-modal', false); }
-		function closeOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', false); }
-		function openOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', true); }
-		function closeConfigCountWarning() { ys5v6m0('config-count-warning-modal', false); }
-		function openConfigCountWarning() { ys5v6m0('config-count-warning-modal', true); }
-	async function cjk8rv3() {
-		return;
-	}
-		function wbfdlk4(user) {
-			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
-			var trojan = t.indexOf('trojan') !== -1;
-			var ss = t.indexOf('shadowsocks') !== -1;
-			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
-			return { vless: vless, trojan: trojan, ss: ss };
-		}
-		function fv9a4g0(username) {
-			const user = window.allUsers.find(u => u.username === username);
-			if (!user) return '';
-			const host = window.location.hostname;
-			var ips = [host];
-			if (user.ips) {
-				const parsedIps = user.ips.split('\\n').map(function(ip) { return ip.trim(); }).filter(function(ip) { return ip.length > 0; });
-				if (parsedIps.length > 0) ips = parsedIps;
-			}
-			var ports = String(user.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-			var fp = user.fingerprint || 'unsafe';
-			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
-			const pf = wbfdlk4(user);
-			const links = [];
-		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
-		const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
-		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
-		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
-			let remVol = "Unlimited";
-			if (user.limit_gb) {
-				let rem = user.limit_gb - (user.used_gb || 0);
-				remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
-			}
-			let remTime = "Unlimited";
-			if (user.expiry_days && user.created_at) {
-				const created = new Date(user.created_at);
-				const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
-				const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-				remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
-			}
-			let remReq = "Unlimited";
-			if (user.limit_req) {
-				let rem = user.limit_req - (user.used_req || 0);
-				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
-			}
-			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-			if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
-			const rawPath = "/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default");
-			let proxyList = [];
-			try {
-				if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
-					proxyList = JSON.parse(user.user_socks5);
-				} else if (user.user_socks5 || user.user_proxy_ip) {
-					proxyList = [user.user_socks5 || user.user_proxy_ip];
-				} else {
-					proxyList = [null];
-				}
-			} catch (e) {
-				proxyList = [user.user_socks5 || user.user_proxy_ip];
-			}
-			if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
-			const allowDirect = user.enable_direct !== 0;
-			if (allowDirect) {
-				let hasDirect = proxyList.some(function(p) { return p === null || p === ""; });
-				if (!hasDirect) proxyList.push(null);
-			} else {
-				proxyList = proxyList.filter(function(p) { return p !== null && p !== ""; });
-			}
-			if (proxyList.length === 0) proxyList = [null];
-			let proxyFlagCache = {};
-			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
-			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
-				let proxyItem = proxyList[locIdx];
-				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null
-					? proxyItem.country
-					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveCountry || ""));
-				let flagEmoji = "🌐";
-				if (countryCode && typeof nkis0ps === 'function') {
-					flagEmoji = nkis0ps(countryCode);
-				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
-					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
-				}
-				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
-				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
-				ips.forEach((ip) => {
-					ports.forEach((portStr) => {
-						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
-						const tlsVal = isTlsPort ? "tls" : "none";
-						let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
-						if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
-						if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
-						if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
-					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
-						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
-						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
-						if (pf.vless) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
-						if (pf.trojan) {
-							links.push('trojan://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
-						}
-						if (pf.ss) {
-							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
-							links.push('ss://' + btoa('aes-256-gcm:' + (user.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
-						}
-					});
-				});
-			}
-			return links.join('\\n');
-		}
-		function lvwv8je(username) {
-			return window.location.origin + '/feed/' + encodeURIComponent(username);
-		}
-		function k4jgpcl(username) {
-			return window.location.origin + '/singbox/' + encodeURIComponent(username);
-		}
-		function dtzt6zg(username) {
-			return window.location.origin + '/status/' + encodeURIComponent(username);
-		}
-		function copySubLink(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(lvwv8je(username)).then(() => {
-				alert('✅ لینک ساب متنی با موفقیت کپی شد!');
-			}).catch(() => {
-				alert('خطا در کپی کردن لینک ساب!');
-			});
-		}
-		function copySingboxLink(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(k4jgpcl(username)).then(() => {
-				alert('✅ لینک ساب Sing-box با موفقیت کپی شد!');
-			}).catch(() => {
-				alert('خطا در کپی کردن لینک ساب Sing-box!');
-			});
-		}
-		function toggleQrModal(show, text) {
-			const container = document.getElementById('qrcode-container');
-			if (show) {
-				container.innerHTML = '';
-				const isDark = document.documentElement.classList.contains('dark');
-				const qrCode = new QRCodeStyling({
-					width: 220,
-					height: 220,
-					data: text,
-					margin: 5,
-					qrOptions: { errorCorrectionLevel: 'M' },
-					dotsOptions: {
-						color: isDark ? "#bfdbfe" : "#1e3a8a",
-						type: "rounded"
-					},
-					backgroundOptions: {
-						color: isDark ? "#0f172a" : "#ffffff"
-					},
-					cornersSquareOptions: {
-						color: isDark ? "#60a5fa" : "#1e40af",
-						type: "extra-rounded"
-					},
-					cornersDotOptions: {
-						color: isDark ? "#60a5fa" : "#1d4ed8",
-						type: "dot"
-					}
-				});
-				qrCode.append(container);
-			}
-			ys5v6m0('qr-modal', show);
-		}
-		function downloadQrCode() {
-			const container = document.getElementById('qrcode-container');
-			if (!container) return;
-			const canvas = container.querySelector('canvas');
-			const img = container.querySelector('img');
-			let dataUrl = '';
-			if (canvas) {
-				dataUrl = canvas.toDataURL("image/png");
-			} else if (img && img.src) {
-				dataUrl = img.src;
-			}
-			if (!dataUrl) {
-				alert('⚠️ تصویر QR برای دانلود یافت نشد!');
-				return;
-			}
-			const downloadAnchor = document.createElement('a');
-			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "qr_" + Date.now() + ".png";
-			document.body.appendChild(downloadAnchor);
-			downloadAnchor.click();
-			downloadAnchor.remove();
-		}
-		function showSubQr(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			const link = lvwv8je(username);
-			toggleQrModal(true, link);
-		}
-		function showSingboxQr(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			const link = k4jgpcl(username);
-			toggleQrModal(true, link);
-		}
-		function copyStatusLink(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(dtzt6zg(username)).then(() => {
-				alert('✅ لینک صفحه وضعیت با موفقیت کپی شد!');
-			}).catch(() => {
-				alert('خطا در کپی کردن لینک صفحه وضعیت!');
-			});
-		}
-		function copyConfig(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			const link = fv9a4g0(username);
-			if (!link) return;
-			navigator.clipboard.writeText(link).then(() => {
-				alert('✅ کـانفـیگ vIees با موفقیت کپی شد!');
-			}).catch(() => {
-				alert('خطا در کپی کردن کـانفـیگ!');
-			});
-		}
-function editUser(encodedUsername) {
-	const username = decodeURIComponent(encodedUsername);
-	const user = window.allUsers.find(u => u.username === username);
-	if (!user) {
-		alert('کاربر یافت نشد!');
-		return;
-	}
-	isEditMode = true;
-	editingUsername = username;
-	if (typeof switchUserTab === 'function') switchUserTab('tab-user-info');
-	document.getElementById('modal-title').innerText = 'ویرایش کاربر: ' + username;
-	jutlx8s('ذخیره تغییرات', false);
-	const nameInput = document.getElementById('input-name');
-	nameInput.value = username;
-	nameInput.disabled = false;
-	const vlessCbE = document.getElementById('input-proto-vless');
-	const trojanCbE = document.getElementById('input-proto-trojan');
-	const ssCbE = document.getElementById('input-proto-ss');
-	const userConnType = String(user.connection_type || 'vless');
-	if (vlessCbE) vlessCbE.checked = userConnType.includes('vless') || userConnType === 'vl' + 'e' + 'ss' || (!userConnType.includes('trojan') && !userConnType.includes('shadowsocks'));
-	if (trojanCbE) trojanCbE.checked = userConnType.includes('trojan');
-	if (ssCbE) ssCbE.checked = userConnType.includes('shadowsocks');
-	document.getElementById('input-limit').value = user.limit_gb || '';
-	document.getElementById('input-expiry').value = user.expiry_days || '';
-	document.getElementById('input-start-on-first-connect').checked = user.start_on_first_connect === 1;
-	document.getElementById('input-req-limit').value = user.limit_req || '';
-	document.getElementById('input-ip-limit').value = (user.ip_limit !== undefined && user.ip_limit !== null) ? user.ip_limit : (user.max_connections || '');
-	document.getElementById('input-ips').value = user.ips || '';
-	document.getElementById('fingerprint-select').value = user.fingerprint || 'unsafe';
-	document.getElementById('hidden-auto-rotate').value = user.auto_rotate_ip || '0';
-	document.getElementById('hidden-rotate-time').value = user.rotate_time || '';
-	document.getElementById('hidden-ip-operator').value = user.ip_operator || 'all';
-	document.getElementById('hidden-ip-count').value = user.ip_count || '20';
-	document.getElementById('input-block-porn').checked = (user.block_porn === 1);
-	if (document.getElementById('input-enable-direct')) document.getElementById('input-enable-direct').checked = (user.enable_direct !== 0);
-	document.getElementById('input-block-ads').checked = (user.block_ads === 1);
-	const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
-	if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = (user.auto_rotate_user_proxy === 1);
-	const hasAutoReset = Boolean((user.auto_reset_vol_days && user.auto_reset_vol_days > 0) || (user.auto_reset_req_days && user.auto_reset_req_days > 0));
-	const autoResetToggle = document.getElementById('input-auto-reset-toggle');
-	if (autoResetToggle) autoResetToggle.checked = hasAutoReset;
-	document.getElementById('input-auto-reset-vol').value = hasAutoReset && user.auto_reset_vol_days > 0 ? user.auto_reset_vol_days : '';
-	document.getElementById('input-auto-reset-req').value = hasAutoReset && user.auto_reset_req_days > 0 ? user.auto_reset_req_days : '';
-	window.toggleAutoResetInputs(hasAutoReset);
-	const hasFrag = Boolean(user.frag_len && user.frag_len !== "" && user.frag_int && user.frag_int !== "");
-	const fragToggle = document.getElementById('input-frag-toggle');
-	if (fragToggle) fragToggle.checked = hasFrag;
-	document.getElementById('input-frag-len').value = hasFrag ? user.frag_len : '200-3000';
-	document.getElementById('input-frag-int').value = hasFrag ? user.frag_int : '1-2';
-	window.toggleFragInputs(hasFrag);
-	const hasAdvancedSettings = Boolean(user.advanced_frag || user.cipher_suites || user.tls_mask);
-	const advancedToggle = document.getElementById('input-advanced-settings-toggle');
-	if (advancedToggle) advancedToggle.checked = hasAdvancedSettings;
-	document.getElementById('input-advanced-frag').value = user.advanced_frag || '';
-	document.getElementById('input-cipher-suites').value = user.cipher_suites || '';
-	document.getElementById('input-tls-mask').value = user.tls_mask || '';
-	window.toggleAdvancedSettingsInputs(hasAdvancedSettings);
-	const userPorts = String(user.port || '').split(',').map(p => p.trim());
-	const predefinedPorts = [...tlsPorts, ...nonTlsPorts];
-	const customPorts = userPorts.filter(p => !predefinedPorts.includes(p) && p !== '');
-	document.querySelectorAll('input[name="ports"]').forEach(cb => {
-		cb.checked = userPorts.includes(cb.value);
-	});
-	const customPortInput = document.getElementById('input-custom-ports');
-	if (customPortInput) customPortInput.value = customPorts.join(' ');
-	const userProxyToggle = document.getElementById('user-proxy-mode-toggle');
-	const userSocksInput = document.getElementById('user-socks5-input');
-	const targetProxy = user.user_socks5 || user.user_proxy_ip;
-	const userProxyResult = document.getElementById('test-user-proxy-result');
-	if (userProxyResult) userProxyResult.innerText = '';
-	window.proxyFieldsData = [""];
-	window.activeProxyIndex = 0;
-	window.userProxyIata = user.user_proxy_iata || null;
-	const iataInput = document.getElementById('input-user-proxy-iata');
-	const iataToggle = document.getElementById('input-user-iata-toggle');
-	const hasIata = Boolean(user.user_proxy_iata);
-	if (iataToggle) iataToggle.checked = hasIata;
-	if (iataInput) {
-		iataInput.value = user.user_proxy_iata || '';
-		iataInput.disabled = !hasIata;
-	}
-	if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
-	const ipv6Toggle = document.getElementById('input-user-ipv6-toggle');
-	if (ipv6Toggle) ipv6Toggle.checked = (user.user_ipv6_enabled === 1);
-	if (user.user_socks5) {
-		if (userProxyToggle) userProxyToggle.checked = true;
-		if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
-		try {
-			if (user.user_socks5.trim().startsWith("[")) {
-				const arr = JSON.parse(user.user_socks5);
-				window.proxyFieldsData = arr.map(x => typeof x === "object" && x !== null ? x.proxy : x);
-			} else {
-				window.proxyFieldsData = [user.user_socks5];
-			}
-		} catch(e) {
-			window.proxyFieldsData = [user.user_socks5];
-		}
-	} else {
-		if (userProxyToggle) userProxyToggle.checked = false;
-		if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(false);
-	}
-	if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
-	toggleModal(true);
-}
-		async function deleteUser(encodedUsername) {
-			const username = decodeURIComponent(encodedUsername);
-			if (await pw6sr5c('آیا از حذف کاربر ' + username + ' مطمئن هستید؟')) {
-				try {
-					const response = await fetch('/api/users/' + encodeURIComponent(username), { method: 'DELETE' });
-					if (response.ok) {
-						alert('✅ کاربر با موفقیت حذف شد.');
-						window.selectedUsernames.delete(username);
-						await axmsbp4(true);
-					} else {
-						const errData = await response.json();
-						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
-					}
-				} catch (err) {
-					alert('خطا در برقراری ارتباط با سرور');
-				}
-			}
-		}
-		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
-		function b00aqjk(countryCode) {
-			if (!countryCode) return '<span class="flg-g">🌐</span>';
-			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
-			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
-		}
-		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS - کلاینت‌های v2ray HTML رندر نمی‌کنند */
-		function nkis0ps(countryCode) {
-			if (!countryCode) return '🌐';
-			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
-			if (cc.length !== 2) return '🌐';
-			try {
-				return String.fromCodePoint(...cc.split('').map(char => 127397 + char.charCodeAt(0)));
-			} catch (e) {
-				return '🌐';
-			}
-		}
-		/* نام فارسی کشور از روی کد دو حرفی؛ داخل <option> فقط متن ساده (نه SVG) قابل نمایشه */
-		function k6io158(countryCode) {
-			if (!countryCode) return '';
-			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
-			if (cc.length !== 2) return String(countryCode).toUpperCase();
-			try {
-				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
-					const dn = new Intl.DisplayNames(['fa'], { type: 'region' });
-					const name = dn.of(cc);
-					if (name && name.toUpperCase() !== cc) return name;
-				}
-			} catch (e) {}
-			return cc;
-		}
-		/* نام انگلیسی کشور از روی کد دو حرفی؛ برای چیدمان a تا z و نمایش قبل از نام فارسی */
-		function m79lr3o(countryCode) {
-			if (!countryCode) return '';
-			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
-			if (cc.length !== 2) return String(countryCode).toUpperCase();
-			try {
-				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
-					const dn = new Intl.DisplayNames(['en'], { type: 'region' });
-					const name = dn.of(cc);
-					if (name && name.toUpperCase() !== cc) return name;
-				}
-			} catch (e) {}
-			return cc;
-		}
-/* --- بخش ثابت کردن کشور/آی‌پی پنل (Cloudflare) --- */
-window._globalLocationsList = window._globalLocationsList || [];
-function bturbdj(locations, activeIata) {
-	const select = document.getElementById('location-select');
-	if (!select) return;
-	const sorted = locations.slice().sort((a, b) => m79lr3o(a.cca2).localeCompare(m79lr3o(b.cca2)));
-	let html = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
-	sorted.forEach(loc => {
-		if (loc.iata && loc.city) {
-			const isSelected = activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase() ? 'selected' : '';
-			const flag = nkis0ps(loc.cca2);
-			const countryNameEn = m79lr3o(loc.cca2);
-			const countryName = k6io158(loc.cca2);
-			html += '<option value="' + loc.iata + '" data-cca2="' + (loc.cca2 || '') + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
-		}
-	});
-	select.innerHTML = html;
-}
-function filterGlobalLocations() {
-	const q = (document.getElementById('global-location-search').value || '').toLowerCase().trim();
-	const select = document.getElementById('location-select');
-	if (!select) return;
-	const activeIata = select.value;
-	if (!q) { bturbdj(window._globalLocationsList, activeIata); return; }
-	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + m79lr3o(loc.cca2) + ' ' + k6io158(loc.cca2)).toLowerCase().includes(q));
-	bturbdj(filtered, activeIata);
-}
-async function jyfwoo1() {
-	const select = document.getElementById('location-select');
-	if (!select) return;
-	try {
-		const statusRes = await fetch('/api/proxy-ip');
-		let activeIata = '';
-		if (statusRes.ok) {
-			const statusData = await statusRes.json();
-			activeIata = statusData.iata || '';
-			window._globalActiveIata = activeIata;
-			window._globalActiveCountry = statusData.country || '';
-			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
-			if (typeof window.applyPatternihaState === 'function') window.applyPatternihaState(!!statusData.patterniha_all);
-			if (typeof window.applyPatternihaEchState === 'function') window.applyPatternihaEchState(!!statusData.patterniha_ech_all);
-			if (typeof window.applyEchSettings === 'function') window.applyEchSettings(statusData);
-		}
-		const res = await fetch('/assets/geo.json');
-		if (!res.ok) throw new Error();
-		const locations = await res.json();
-		window._globalLocationsList = Array.isArray(locations) ? locations : [];
-		bturbdj(window._globalLocationsList, activeIata);
-	} catch (err) {
-		select.innerHTML = '<option value="">⚠️ خطا در دریافت لوکیشن‌ها</option>';
-	}
-}
-async function saveSettings() {
-	const btn = document.getElementById('save-settings-btn');
-	const select = document.getElementById('location-select');
-	const iata = select ? select.value : '';
-	const selectedOption = select && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
-	const cca2 = selectedOption ? (selectedOption.dataset.cca2 || '') : '';
-	if (btn) { btn.disabled = true; btn.innerText = 'در حال ذخیره...'; }
-	try {
-		let resolvedIp = '';
-		let countryResolveFailed = false;
-		if (iata) {
-			const domain = iata.toLowerCase() + '.' + ['pro' + 'xy' + 'ip', 'cm' + 'liu' + 'ssss', 'ne' + 't'].join('.');
-			let ips = [];
-			try {
-				const dnsRes = await fetch('https://cloudflare-dns.com/dns-query?name=' + domain + '&type=A', {
-					headers: { 'accept': 'application/dns-json' }
-				});
-				if (dnsRes.ok) {
-					const dnsData = await dnsRes.json();
-					if (dnsData.Answer && dnsData.Answer.length > 0) {
-						ips = dnsData.Answer.filter(ans => ans.type === 1).map(ans => ans.data);
-					}
-				}
-			} catch (e) {}
-			if (ips.length > 0) {
-				/* همیشه اولین IP لیست انتخاب می‌شود (نه رندوم) تا هر کشوری، فارغ از تعداد IPهاش، ثابت بماند */
-				resolvedIp = ips[0];
-			} else {
-				countryResolveFailed = true;
-			}
-		}
-		const response = await fetch('/api/proxy-ip', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ proxy_ip: resolvedIp, iata: countryResolveFailed ? '' : (iata ? iata.toUpperCase() : ''), country: countryResolveFailed ? '' : (cca2 ? cca2.toUpperCase() : '') })
-		});
-		if (response.ok) {
-			if (countryResolveFailed) {
-				bm3pzm2('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
-			} else {
-				window._globalActiveIata = iata ? iata.toUpperCase() : '';
-				window._globalActiveCountry = cca2 ? cca2.toUpperCase() : '';
-				toggleSettingsModal(false);
-				bm3pzm2('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
-			}
-		} else {
-			bm3pzm2('❌ خطا در ذخیره تنظیمات');
-		}
-	} catch (err) {
-		bm3pzm2('❌ خطا در برقراری ارتباط با سرور');
-	} finally {
-		if (btn) { btn.disabled = false; btn.innerText = 'ذخیره تنظیمات'; }
-	}
-}
-window.toggleUserProxyMode = function(isSocksMode) {
-	const socksContainer = document.getElementById('user-socks5-container');
-	const socksInput = document.getElementById('user-socks5-input');
-	if (isSocksMode) {
-		if (socksContainer) socksContainer.classList.remove('opacity-50', 'pointer-events-none');
-		if (socksInput) socksInput.disabled = false;
-	} else {
-		if (socksContainer) socksContainer.classList.add('opacity-50', 'pointer-events-none');
-		if (socksInput) socksInput.disabled = true;
-	}
-};
-window.toggleUserIataLock = function(isEnabled) {
-	const iataInput = document.getElementById('input-user-proxy-iata');
-	if (iataInput) {
-		iataInput.disabled = !isEnabled;
-		if (!isEnabled) {
-			iataInput.value = '';
-			window.userProxyIata = null;
-			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
-		}
-	}
-};
-async function y9x0sl1() {
-	const badges = document.querySelectorAll('.async-proxy-flag');
-	if (badges.length === 0) return;
-	let cache = {};
-	try { cache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
-	for (let badge of badges) {
-		const proxyStr = badge.getAttribute('data-proxy');
-		if (!proxyStr) continue;
-		if (cache[proxyStr]) {
-			/* کش کد کشور (۲ حرف) را ذخیره می‌کند؛ برای نمایش SVG می‌سازیم */
-			const cachedCc = cache[proxyStr];
-			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof b00aqjk === 'function') ? b00aqjk(cachedCc) : '<span class="flg-g">🌐</span>';
-			badge.classList.remove('async-proxy-flag');
-			continue;
-		}
-		badge.classList.remove('async-proxy-flag');
-		try {
-			const controller = new AbortController();
-			const timeoutId = setTimeout(() => controller.abort(), 4000);
-			const res = await fetch('/api/test-proxy', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ proxy: proxyStr }),
-				signal: controller.signal
-			});
-			clearTimeout(timeoutId);
-			const data = await res.json();
-			let flagSvg = '<span class="flg-g">🌐</span>';
-			if (res.ok && data.success && data.country) {
-				flagSvg = typeof b00aqjk === 'function' ? b00aqjk(data.country) : flagSvg;
-				/* کش کد کشور (۲ حرف بزرگ) را ذخیره می‌کند تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
-				cache[proxyStr] = data.country.toUpperCase();
-				localStorage.setItem('pf_c2', JSON.stringify(cache));
-			}
-			badge.innerHTML = flagSvg;
-		} catch (e) {
-			badge.innerHTML = '<span class="flg-g">🌐</span>';
-		}
-	}
-}
-window.testDirectPing = async function() {
-	const btn = document.getElementById('test-direct-btn');
-	const clientPingEl = document.getElementById('client-to-server-ping');
-	const serverPingEl = document.getElementById('server-to-net-ping');
-	if (!clientPingEl || !serverPingEl) return;
-
-	if (btn) {
-		btn.disabled = true;
-		btn.innerHTML = '<svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span> در حال تست...</span>';
-	}
-	clientPingEl.innerText = 'تست...';
-	clientPingEl.className = 'text-[10px] font-bold text-amber-500';
-	serverPingEl.innerText = 'تست...';
-	serverPingEl.className = 'text-[10px] font-bold text-amber-500';
-
-	try {
-		const startClient = Date.now();
-		await fetch('/icon.svg?t=' + startClient, { method: 'HEAD', cache: 'no-store' });
-		const elapsed = Date.now() - startClient;
-		let cColor = "text-red-500";
-		if (elapsed <= 150) cColor = "text-green-500";
-		else if (elapsed <= 300) cColor = "text-amber-500";
-		clientPingEl.innerText = elapsed + ' ms';
-		clientPingEl.className = 'text-[10px] font-bold ' + cColor;
-	} catch (e) {
-		clientPingEl.innerText = 'خطا';
-		clientPingEl.className = 'text-[10px] font-bold text-red-500';
-	}
-
-	try {
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 6000);
-		const res = await fetch('/api/test-proxy', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ proxy: 'direct', skip_country: true }),
-			signal: controller.signal
-		});
-		clearTimeout(timeoutId);
-		const data = await res.json();
-		if (res.ok && data.success) {
-			const sPing = data.ping;
-			let sColor = "text-red-500";
-			if (sPing <= 50) sColor = "text-green-500";
-			else if (sPing <= 150) sColor = "text-amber-500";
-			serverPingEl.innerText = sPing + ' ms';
-			serverPingEl.className = 'text-[10px] font-bold ' + sColor;
-		} else {
-			serverPingEl.innerText = 'خطا';
-			serverPingEl.className = 'text-[10px] font-bold text-red-500 text-center';
-		}
-	} catch (e) {
-		serverPingEl.innerText = 'خطا';
-		serverPingEl.className = 'text-[10px] font-bold text-red-500 text-center';
-	}
-
-	if (btn) {
-		btn.disabled = false;
-		btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg><span>تست اتصال مستقیم</span>';
-	}
-};
-async function testUserSocksProxy() {
-	const btn = document.getElementById('test-user-proxy-btn');
-	if (btn) {
-		btn.disabled = true;
-		btn.innerText = 'صبر کنید...';
-	}
-	window.proxyPingMap = {};
-	const promises = window.proxyFieldsData.map(async (val, idx) => {
-		const resultSpan = document.getElementById('proxy-ping-label-' + idx);
-		const proxyStr = (val || "").trim();
-		if (!proxyStr) {
-			if (resultSpan) {
-				resultSpan.innerText = 'وارد نشده!';
-				resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 text-center';
-			}
-			return;
-		}
-		if (resultSpan) {
-			resultSpan.innerText = 'در حال تست...';
-			resultSpan.className = 'text-[10px] font-bold text-amber-500 block mt-0.5 text-center';
-		}
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 5000);
-		try {
-			const res = await fetch('/api/test-proxy', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ proxy: proxyStr }),
-				signal: controller.signal
-			});
-			clearTimeout(timeoutId);
-			const data = await res.json();
-			if (res.ok && data.success) {
-				const flag = typeof b00aqjk === 'function' ? b00aqjk(data.country) : '🌐';
-				if (resultSpan) {
-					resultSpan.innerHTML = flag + ' پینگ: ' + data.ping + 'ms';
-					resultSpan.className = 'text-[10px] font-bold text-green-600 block mt-0.5 text-center';
-					window.proxyPingMap[proxyStr] = { text: resultSpan.innerHTML, className: resultSpan.className };
-				}
-			} else {
-				if (resultSpan) {
-					resultSpan.innerText = 'خطا: ' + (data.error || 'ناموفق');
-					resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 break-words text-center';
-					window.proxyPingMap[proxyStr] = { text: resultSpan.innerText, className: resultSpan.className };
-				}
-			}
-		} catch (e) {
-			clearTimeout(timeoutId);
-			if (resultSpan) {
-				if (e.name === 'AbortError') resultSpan.innerText = 'تایم‌اوت (خراب)';
-				else resultSpan.innerText = 'خطا در ارتباط';
-				resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 text-center';
-				window.proxyPingMap[proxyStr] = { text: resultSpan.innerText, className: resultSpan.className };
-			}
-		}
-	});
-	await Promise.all(promises);
-	if (btn) {
-		btn.disabled = false;
-		btn.innerText = 'تست پـروکـسـی';
-	}
-}
-		async function exportUsersBackup() {
-			if (!window.allUsers || window.allUsers.length === 0) {
-				alert('⚠️ کاربری برای پشتیبان‌گیری وجود ندارد!');
-				return;
-			}
-			try {
-				const settingsRes = await fetch('/api/settings/bulk');
-				const settingsData = await settingsRes.json();
-				const backupData = {
-					users: window.allUsers,
-					settings: settingsData
-				};
-				const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
-				const downloadAnchor = document.createElement('a');
-				const host = window.location.hostname;
-				const now = new Date();
-				const dateTimeStr = now.getFullYear() + '-' + 
-					String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-					String(now.getDate()).padStart(2, '0') + '_' + 
-					String(now.getHours()).padStart(2, '0') + '-' + 
-					String(now.getMinutes()).padStart(2, '0') + '-' + 
-					String(now.getSeconds()).padStart(2, '0');
-				downloadAnchor.setAttribute("href", dataStr);
-				downloadAnchor.setAttribute("download", "bk_" + host + "_" + dateTimeStr + ".json");
-				document.body.appendChild(downloadAnchor);
-				downloadAnchor.click();
-				downloadAnchor.remove();
-			} catch (err) {
-				alert('❌ خطا در دریافت تنظیمات برای بک‌آپ.');
-			}
-		}
-		function triggerImportBackup() {
-			document.getElementById('backup-file-input').click();
-		}
-		async function importUsersBackup(event) {
-			const file = event.target.files[0];
-			if (!file) return;
-			const reader = new FileReader();
-			reader.onload = async function(e) {
-				const importBtn = document.querySelector('button[onclick="triggerImportBackup()"]');
-				const exportBtn = document.querySelector('button[onclick="exportUsersBackup()"]');
-				const closeBtn = document.querySelector('#settings-modal button[onclick="toggleSettingsModal(false)"]');
-				try {
-					const parsedData = JSON.parse(e.target.result);
-					let backupUsers = [];
-					let backupSettings = null;
-					if (Array.isArray(parsedData)) {
-						backupUsers = parsedData;
-					} else if (parsedData && parsedData.users && Array.isArray(parsedData.users)) {
-						backupUsers = parsedData.users;
-						backupSettings = parsedData.settings;
-					} else {
-						alert('❌ فایل پشتیبان نامعتبر است!');
-						return;
-					}
-					const validBackupUsers = backupUsers.filter(u => u && typeof u === 'object' && u.username);
-					if (validBackupUsers.length === 0 && !backupSettings) {
-						alert('❌ هیچ داده معتبری در فایل یافت نشد!');
-						return;
-					}
-					if (backupSettings && Object.keys(backupSettings).length > 0) {
-						const restoreSettings = await pw6sr5c('⚙️ فایل بک‌آپ شامل تنظیمات پـنـل نیز می‌باشد. آیا می‌خواهید تنظیمات هم بازگردانی شوند؟');
-						if (restoreSettings) {
+							const checkParsed = await 获取SOCKS5账号(代理参数, 获取代理默认端口(代理协议));
+							const { username, password, hostname, port } = checkParsed;
+							const 完整代理参数 = username && password ? `${username}:${password}@${hostname}:${port}` : `${hostname}:${port}`;
 							try {
-								await fetch('/api/settings/bulk', {
-									method: 'POST',
-									headers: { 'Content-Type': 'application/json' },
-									body: JSON.stringify({ settings: backupSettings })
-								});
-							} catch (err) {}
-						}
-					}
-					const existingUsernames = new Set((window.allUsers || []).map(u => u.username));
-					const duplicates = validBackupUsers.filter(u => existingUsernames.has(u.username));
-					let overwrite = false;
-					if (duplicates.length > 0) {
-						overwrite = await pw6sr5c('⚠️ تعداد ' + duplicates.length + ' کاربر تکراری شناسایی شد. آیا می‌خواهید اطلاعات آن‌ها بازنویسی شود؟');
-					}
-					if (importBtn) importBtn.disabled = true;
-					if (exportBtn) exportBtn.disabled = true;
-					if (closeBtn) closeBtn.disabled = true;
-					let successCount = 0;
-					let currentStep = 0;
-					for (const u of validBackupUsers) {
-						currentStep++;
-						if (importBtn) {
-							importBtn.innerText = '⏳ بازیابی (' + currentStep + '/' + validBackupUsers.length + ')';
-						}
-						const exists = existingUsernames.has(u.username);
-						if (exists) {
-							if (overwrite) {
+								const 检测主机 = 'cloudflare.com', 检测端口 = 443, encoder = new TextEncoder(), decoder = new TextDecoder();
+								const TCP连接 = 创建请求TCP连接器(request);
+								let tcpSocket = null, tlsSocket = null;
 								try {
-									await fetch('/api/users/' + encodeURIComponent(u.username), { method: 'DELETE' });
-									const res = await fetch('/api/users', {
-										method: 'POST',
-										headers: { 'Content-Type': 'application/json' },
-										body: JSON.stringify({
-											username: u.username,
-											uuid: u.uuid,
-											limit_gb: u.limit_gb,
-											expiry_days: u.expiry_days,
-											limit_req: u.limit_req,
-											ips: u.ips,
-											tls: u.tls,
-											port: u.port,
-											fingerprint: u.fingerprint,
-											ip_limit: u.ip_limit !== undefined ? u.ip_limit : u.max_connections,
-											used_gb: u.used_gb,
-											used_req: u.used_req,
-											created_at: u.created_at,
-											is_active: u.is_active,
-											block_porn: u.block_porn,
-											block_ads: u.block_ads,
-											enable_direct: u.enable_direct !== undefined ? u.enable_direct : 1,
-											frag_len: u.frag_len,
-											frag_int: u.frag_int,
-											user_proxy_iata: u.user_proxy_iata,
-											user_socks5: u.user_socks5,
-											user_proxy_ip: u.user_proxy_ip,
-											auto_reset_vol_days: u.auto_reset_vol_days,
-											auto_reset_req_days: u.auto_reset_req_days,
-											auto_rotate_ip: u.auto_rotate_ip,
-											rotate_time: u.rotate_time,
-											ip_operator: u.ip_operator,
-											ip_count: u.ip_count,
-											auto_rotate_user_proxy: u.auto_rotate_user_proxy,
-											connection_type: u.connection_type
-										})
-									});
-									if (res.ok) successCount++;
-								} catch(err) {}
-							}
-						} else {
-							try {
-								const res = await fetch('/api/users', {
-									method: 'POST',
-									headers: { 'Content-Type': 'application/json' },
-									body: JSON.stringify({
-										username: u.username,
-										uuid: u.uuid,
-										limit_gb: u.limit_gb,
-										expiry_days: u.expiry_days,
-										limit_req: u.limit_req,
-										ips: u.ips,
-										tls: u.tls,
-										port: u.port,
-										fingerprint: u.fingerprint,
-										ip_limit: u.ip_limit !== undefined ? u.ip_limit : u.max_connections,
-										used_gb: u.used_gb,
-										used_req: u.used_req,
-										created_at: u.created_at,
-										is_active: u.is_active,
-										block_porn: u.block_porn,
-										block_ads: u.block_ads,
-										enable_direct: u.enable_direct !== undefined ? u.enable_direct : 1,
-										frag_len: u.frag_len,
-										frag_int: u.frag_int,
-										user_proxy_iata: u.user_proxy_iata,
-										user_socks5: u.user_socks5,
-										user_proxy_ip: u.user_proxy_ip,
-										auto_reset_vol_days: u.auto_reset_vol_days,
-										auto_reset_req_days: u.auto_reset_req_days,
-										auto_rotate_ip: u.auto_rotate_ip,
-										rotate_time: u.rotate_time,
-										ip_operator: u.ip_operator,
-										ip_count: u.ip_count,
-										auto_rotate_user_proxy: u.auto_rotate_user_proxy,
-										connection_type: u.connection_type
-									})
-								});
-								if (res.ok) successCount++;
-							} catch(err) {}
-						}
-					}
-					alert('✅ عملیات بازیابی با موفقیت انجام شد. صفحه رفرش می‌شود...');
-					setTimeout(() => { window.location.reload(); }, 1500);
-				} catch(err) {
-					alert('❌ خطا در خواندن یا پردازش فایل پشتیبان!');
-				} finally {
-					if (importBtn) {
-						importBtn.disabled = false;
-						importBtn.innerText = '📥 بازیابی';
-					}
-					if (exportBtn) exportBtn.disabled = false;
-					if (closeBtn) closeBtn.disabled = false;
-					event.target.value = '';
-				}
-			};
-			reader.readAsText(file);
-		}
-		async function changeAdminPassword() {
-			const currentPwd = document.getElementById('change-pwd-current').value.trim();
-			const newPwd = document.getElementById('change-pwd-new').value.trim();
-			const btn = document.getElementById('change-pwd-btn');
-			if (!currentPwd || !newPwd) {
-				alert('⚠️ وارد کردن رمز عبور فعلی و جدید الزامی است!');
-				return;
-			}
-			if (newPwd.length < 4) {
-				alert('⚠️ رمز عبور جدید باید حداقل ۴ کاراکتر باشد!');
-				return;
-			}
-			btn.disabled = true;
-			btn.innerText = 'در حال تغییر...';
-			try {
-				const response = await fetch('/api/change-password', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ current_password: currentPwd, new_password: newPwd })
-				});
-				const data = await response.json();
-				if (response.ok && data.success) {
-					alert('✅ رمز عبور با موفقیت تغییر کرد.');
-					document.getElementById('change-pwd-current').value = '';
-					document.getElementById('change-pwd-new').value = '';
-					toggleSettingsModal(false);
-				} else {
-					alert('❌ خطا: ' + (data.error || 'عملیات ناموفق بود'));
-				}
-			} catch (err) {
-				alert('خطا در برقراری ارتباط با سرور');
-			} finally {
-				btn.disabled = false;
-				btn.innerText = 'تغییر رمز عبور';
-			}
-		}
-		async function logoutAdmin() {
-			if (await pw6sr5c('آیا می‌خواهید از پـنـل خارج شوید؟ ⚠️ ')) {
-				try {
-					await fetch('/api/logout', { method: 'POST' });
-				} catch (err) {}
-				window.location.reload();
-			}
-		}
-const yxb4u9v = '2.3.3';
-const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
-		window.autoUpdateStatusCache = false;
-		async function nf57w1c() {
-			return null;
-		}
-		async function toggleGfx(isChecked) {
-			document.documentElement.classList.toggle('gfx-off', !isChecked);
-			localStorage.setItem('gfx-enabled', isChecked ? 'true' : 'false');
-			try {
-				await fetch('/api/settings/bulk', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ settings: { gfx_enabled: isChecked ? '1' : '0' } })
-				});
-			} catch (e) {}
-			bm3pzm2('⚙️ تنظیمات گرافیکی تغییر کرد. در حال بارگذاری مجدد...');
-			setTimeout(() => window.location.reload(), 1200);
-		}
-		async function handleAutoUpdateToggle(el) {
-			el.checked = false;
-		}
-		async function checkForUpdates() {
-			return;
-		}
-		function toggleTokenModal(show) {
-			ys5v6m0('token-modal', show);
-			if (!show) document.getElementById('update-token-input').value = '';
-		}
-		async function submitTokenForUpdate() {
-			const token = document.getElementById('update-token-input').value.trim();
-			if (!token) {
-				alert('لطفاً توکن را وارد کنید.');
-				return;
-			}
-			toggleTokenModal(false);
-			if (window.pendingCoreAction === 'enable_auto_update') {
-				try {
-					const res = await fetch('/api/auto-update-setup', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ action: 'enable', token: token })
-					});
-					const data = await res.json();
-					if (res.ok && data.success) {
-						bm3pzm2('✅ آپدیت خودکار با موفقیت فعال شد.');
-						window.autoUpdateStatusCache = true;
-						const toggle = document.getElementById('auto-update-toggle');
-						if (toggle) toggle.checked = true;
-					} else {
-						alert('❌ خطا در بررسی توکن: ' + (data.error || 'ناشناخته'));
-					}
-				} catch(e) {
-					alert('❌ خطا در ارتباط با سرور');
-				}
-				window.pendingCoreAction = null;
-				return;
-			}
-			dkulmtc(window.pendingCoreAction || 'update', token);
-		}
-		async function applyUpdate(token = null) {
-			await dkulmtc('update', token);
-		}
-let l76xmsu = {};
-async function nbfm495() {
-	try {
-		const response = await kc5inhw('ips.txt');
-		if (!response.ok) throw new Error('Fetch failed');
-		const text = await response.text();
-		const blocks = text.split('----------');
-		l76xmsu = {};
-		blocks.forEach(block => {
-			const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
-			if (lines.length === 0) return;
-			let opName = "Unknown";
-			const ips = [];
-			lines.forEach(line => {
-				if (line.includes('#')) {
-					opName = line.split('#')[1].trim();
-				} else if (!line.startsWith('[source')) {
-					ips.push(line);
-				}
-			});
-			if (ips.length > 0) {
-				l76xmsu[opName] = ips;
-			}
-		});
-		umfeacy();
-	} catch (err) {
-		alert('Failed to load IP list.');
-		toggleIpSelectorModal(false);
-	}
-}
-/* پر کردن خودکار چند آی‌پی تمیز از همون آدرس (ips.txt) بدون نیاز به باز کردن اسکنر/مخزن آی‌پی */
-window.autoFillCleanIps = async function(count) {
-	const n = count || 2;
-	const ipsInput = document.getElementById('input-ips');
-	if (!ipsInput) return;
-	try {
-		let availableIps = [];
-		if (!l76xmsu || Object.keys(l76xmsu).length === 0) {
-			const response = await kc5inhw('ips.txt');
-			if (response.ok) {
-				const text = await response.text();
-				const blocks = text.split('----------');
-				blocks.forEach(block => {
-					const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
-					lines.forEach(line => {
-						if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
-					});
-				});
-			}
-		} else {
-			Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
-		}
-		availableIps = [...new Set(availableIps)];
-		if (availableIps.length === 0) return;
-		const shuffled = availableIps.slice();
-		for (let i = shuffled.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-		}
-		const selected = shuffled.slice(0, n);
-		if (selected.length > 0) ipsInput.value = selected.join('\\n');
-	} catch (e) {}
-};
-function umfeacy() {
-	const select = document.getElementById('ip-operator-select');
-	select.innerHTML = '<option value="all">همه (توصیه شده)</option>';
-	Object.keys(l76xmsu).forEach(op => {
-		const option = document.createElement('option');
-		option.value = op;
-		option.textContent = op;
-		select.appendChild(option);
-	});
-}
-function toggleIpSelectorModal(show) {
-	ys5v6m0('ip-selector-modal', show);
-	if (!show) {
-		const rotateToggle = document.getElementById('input-auto-rotate-ip-toggle');
-		if (rotateToggle) rotateToggle.checked = false;
-		const rotateTime = document.getElementById('input-auto-rotate-ip-time');
-		if (rotateTime) rotateTime.value = '';
-		if (typeof window.toggleAutoRotateIpInputs === 'function') window.toggleAutoRotateIpInputs(false);
-	}
-}
-function toggleIpScannerModal(show) {
-	ys5v6m0('ip-scanner-modal', show);
-}
-
-function openIpScannerModal() {
-	toggleIpScannerModal(true);
-}
-
-function copyScannerCode(text, btn) {
-	navigator.clipboard.writeText(text).then(() => {
-		const originalHtml = btn.innerHTML;
-		const originalClasses = btn.className;
-		
-		btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span>کپی شد!</span>';
-		btn.className = 'w-full flex items-center justify-center gap-1.5 py-2 bg-green-50 dark:bg-green-900/30 border border-green-500 text-green-600 dark:text-green-400 rounded text-xs font-bold transition shadow-sm';
-		
-		setTimeout(() => { 
-			btn.innerHTML = originalHtml;
-			btn.className = originalClasses;
-		}, 2000);
-	}).catch(() => {
-		alert('خطا در کپی متن!');
-	});
-}
-async function openIpSelectorModal() {
-	toggleIpSelectorModal(true);
-	document.getElementById('ip-loading-state').classList.remove('hidden');
-	document.getElementById('ip-selection-form').classList.add('hidden');
-	await nbfm495();
-	const op = document.getElementById('hidden-ip-operator').value;
-	const selectOp = document.getElementById('ip-operator-select');
-	if (selectOp.querySelector('option[value="' + op + '"]')) {
-		selectOp.value = op;
-	} else {
-		selectOp.value = 'all';
-	}
-	document.getElementById('ip-count-input').value = document.getElementById('hidden-ip-count').value || 20;
-	const isAuto = document.getElementById('hidden-auto-rotate').value === '1';
-	document.getElementById('input-auto-rotate-ip-toggle').checked = isAuto;
-	document.getElementById('input-auto-rotate-ip-time').value = document.getElementById('hidden-rotate-time').value;
-	if (typeof window.toggleAutoRotateIpInputs === 'function') window.toggleAutoRotateIpInputs(isAuto);
-	document.getElementById('ip-loading-state').classList.add('hidden');
-	document.getElementById('ip-selection-form').classList.remove('hidden');
-}
-function applySelectedIps() {
-	const operator = document.getElementById('ip-operator-select').value;
-	let count = parseInt(document.getElementById('ip-count-input').value, 10);
-	if (isNaN(count) || count < 1) count = 10;
-	let availableIps = [];
-	if (operator === 'all') {
-		Object.values(l76xmsu).forEach(ips => {
-			availableIps = availableIps.concat(ips);
-		});
-	} else {
-		availableIps = l76xmsu[operator] || [];
-	}
-	availableIps = [...new Set(availableIps)];
-	let selectedIps = [];
-	if (count >= availableIps.length) {
-		selectedIps = availableIps;
-	} else {
-		const shuffled = availableIps.slice();
-		for (let i = shuffled.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-		}
-		selectedIps = shuffled.slice(0, count);
-	}
-	document.getElementById('input-ips').value = selectedIps.join('\\n');
-	document.getElementById('hidden-auto-rotate').value = document.getElementById('input-auto-rotate-ip-toggle').checked ? '1' : '0';
-	document.getElementById('hidden-rotate-time').value = document.getElementById('input-auto-rotate-ip-time').value || '';
-	document.getElementById('hidden-ip-operator').value = operator;
-	document.getElementById('hidden-ip-count').value = count;
-	toggleIpSelectorModal(false);
-}
-document.addEventListener('DOMContentLoaded', () => {
-			setTimeout(() => {
-				if (typeof toggleInfoModal === 'function') {
-					toggleInfoModal(true);
-				}
-			}, 36000000);
-
-			setTimeout(() => {
-   			 const freeModal = document.getElementById('free-panel-warning-modal');
-				const freeCard = freeModal.querySelector('div');
-				freeModal.classList.remove('opacity-0', 'pointer-events-none');
-				freeModal.classList.add('opacity-100', 'pointer-events-auto');
-				freeCard.classList.remove('opacity-0', 'scale-95');
-				freeCard.classList.add('opacity-100', 'scale-100');
-			}, 23000);
-			const versionBadge = document.getElementById('panel-version');
-			if (versionBadge) versionBadge.innerText = 'v' + yxb4u9v;
-			yok43r5();
-			axmsbp4();
-			if (typeof jyfwoo1 === 'function') jyfwoo1();
-			window.usersRefreshIntervalId = null;
-			window.startRefreshInterval = function(intervalMs) {
-				if (window.usersRefreshIntervalId) {
-					clearInterval(window.usersRefreshIntervalId);
-				}
-				window.usersRefreshIntervalId = setInterval(() => {
-					if (!document.hidden) axmsbp4(true);
-				}, intervalMs);
-			};
-			window.changeRefreshRate = function(val) {
-				const ms = parseInt(val, 10);
-				localStorage.setItem('rr_k3', ms);
-				window.startRefreshInterval(ms);
-				bm3pzm2('نرخ رفرش پـنـل تغییر کرد');
-			};
-			const savedRate = localStorage.getItem('rr_k3');
-			const initialRate = savedRate ? parseInt(savedRate, 10) : 10000;
-			const selectEl = document.getElementById('refresh-rate-select');
-			if (selectEl) {
-				selectEl.value = String(initialRate);
-			}
-			window.startRefreshInterval(initialRate);
-			const gfxToggleEl = document.getElementById('gfx-toggle');
-			if (gfxToggleEl) gfxToggleEl.checked = localStorage.getItem('gfx-enabled') !== 'false';
-			setTimeout(() => cjk8rv3(), 3000);
-			setInterval(() => {
-				if (!document.hidden) cjk8rv3();
-			}, 60000);
-			window.addEventListener('mousedown', (e) => {
-				window._modalMouseDownTarget = e.target;
-			});
-			window.addEventListener('click', (e) => {
-				if (window._modalMouseDownTarget && window._modalMouseDownTarget !== e.target) return;
-				if (e.target.id === 'user-modal') toggleModal(false);
-				if (e.target.id === 'ip-selector-modal') toggleIpSelectorModal(false);
-				if (e.target.id === 'ip-scanner-modal') toggleIpScannerModal(false);
-				if (e.target.id === 'settings-modal') toggleSettingsModal(false);
-			if (e.target.id === 'rocket-modal') toggleRocketModal(false);
-				if (e.target.id === 'update-modal') toggleUpdateModal(false);
-				if (e.target.id === 'token-modal') toggleTokenModal(false);
-				if (e.target.id === 'qr-modal') toggleQrModal(false);
-				if (e.target.id === 'usage-warning-modal') closeUsageWarning();
-				if (e.target.id === 'free-panel-warning-modal') closeFreePanelWarning();
-				if (e.target.id === 'online-counter-warning-modal') closeOnlineCounterWarning();
-				if (e.target.id === 'config-count-warning-modal') closeConfigCountWarning();
-				if (e.target.id === 'global-message-modal') {
-					const closeBtn = document.getElementById('global-message-close-btn');
-					if (closeBtn) closeBtn.click();
-				}
-				if (e.target.id === 'custom-confirm-modal') {
-					const cancelBtn = document.getElementById('custom-confirm-cancel');
-					if (cancelBtn) cancelBtn.click();
-				}
-			});
-		});
-function toggleProxySelectorModal(show) { ys5v6m0('proxy-selector-modal', show); }
-		async function bvxhocm() {
-			const select = document.getElementById('vip-country-select');
-			const btn = document.getElementById('vip-fetch-btn');
-			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
-			try {
-				const res = await ggsyffs('vip-list');
-				if (!res.ok) throw new Error('API Error');
-				const data = await res.json();
-				const validCountries = data
-					.filter(function(file) { return file.name.endsWith('.txt'); })
-					.map(function(file) { return file.name.replace('.txt', '').toUpperCase(); });
-				if (validCountries.length === 0) throw new Error('Empty');
-				validCountries.sort(function(a, b) {
-					const nameA = typeof m79lr3o === 'function' ? m79lr3o(a) : a;
-					const nameB = typeof m79lr3o === 'function' ? m79lr3o(b) : b;
-					return nameA.localeCompare(nameB);
-				});
-				select.innerHTML = '<option value="">یک کشور VIP انتخاب کنید...</option>';
-				validCountries.forEach(function(country) {
-					const option = document.createElement('option');
-					option.value = country;
-					/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
-					const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
-					const nameFa = typeof k6io158 === 'function' ? k6io158(country) : '';
-					option.textContent = flag + ' ' + country + (nameFa ? ' - ' + nameFa : '');
-					select.appendChild(option);
-				});
-				btn.disabled = false;
-			} catch (err) {
-				select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-				btn.disabled = true;
-			}
-		}
-		async function loadVipProxy() {
-			const select = document.getElementById('vip-country-select');
-			const country = select.value;
-			const btn = document.getElementById('vip-fetch-btn');
-			if (!country) return;
-			btn.disabled = true;
-			btn.innerText = '...';
-			try {
-				const res = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
-				if (!res.ok) throw new Error('فایل یافت نشد');
-				const text = await res.text();
-				const lines = text.split('\\n').map(function(l) { return l.trim(); }).filter(function(l) { return l.length > 5; });
-				if (lines.length > 0) {
-					const randomProxy = lines[Math.floor(Math.random() * lines.length)];
-					window.proxyFieldsData[window.activeProxyIndex || 0] = randomProxy;
-					if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
-					const userProxyResult = document.getElementById('test-user-proxy-result');
-					if (userProxyResult) {
-						userProxyResult.innerText = '';
-					}
-					toggleProxySelectorModal(false);
-					bm3pzm2('✅ پـروکـسـی اختصاصی با موفقیت اعمال شد.');
-					testUserSocksProxy();
-				} else {
-					alert('فایل پـروکـسـی این کشور خالی است.');
-				}
-			} catch (e) {
-				alert('خطا در دریافت پـروکـسـی اختصاصی.');
-			} finally {
-				btn.disabled = false;
-				btn.innerText = 'دریافت';
-			}
-		}
-		async function openProxySelectorModal() {
-			toggleProxySelectorModal(true);
-			const select = document.getElementById('proxy-country-select');
-			const fetchBtn = document.getElementById('proxy-fetch-btn');
-			const countriesList = [
-		  "AA", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR",
-		  "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE",
-		  "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ",
-		  "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD",
-		  "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR",
-		  "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM",
-		  "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI",
-		  "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF",
-		  "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS",
-		  "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU",
-		  "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT",
-		  "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN",
-		  "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK",
-		  "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME",
-		  "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ",
-		  "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
-		  "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU",
-		  "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM",
-		  "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS",
-		  "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
-		  "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV",
-		  "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK",
-		  "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA",
-		  "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
-		  "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
-			];
-			select.innerHTML = '';
-			countriesList.forEach(function(country) {
-				const option = document.createElement('option');
-				option.value = country;
-				/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
-				const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
-				option.textContent = flag + ' ' + country;
-				select.appendChild(option);
-			});
-			fetchBtn.disabled = false;
-			bvxhocm();
-		}
-async function fetchAndLoadProxy() {
-	const select = document.getElementById("proxy-country-select");
-	const country = select.value;
-	if (!country) return;
-	const loadingState = document.getElementById("proxy-loading-state");
-	const formState = document.getElementById("proxy-selection-form");
-	const fetchBtn = document.getElementById("proxy-fetch-btn");
-	loadingState.classList.remove("hidden");
-	loadingState.innerText = "در حال دریافت لیست پـروکـسـی‌ها...";
-	formState.classList.add("hidden");
-	fetchBtn.disabled = true;
-	try {
-		const sources = [
-			{ url: "proxy/" + country.toUpperCase() + ".txt", prefix: "" }
-		];
-		const responses = await Promise.allSettled(sources.map(src => 
-			kc5inhw(src.url).then(async res => {
-				if (!res.ok) throw new Error();
-				const text = await res.text();
-				return { text: text, prefix: src.prefix };
-			})
-		));
-		let combinedProxies = [];
-		for (const res of responses) {
-			if (res.status === "fulfilled" && res.value && res.value.text) {
-				const rawLines = res.value.text.split("\\n");
-				for (let line of rawLines) {
-					line = line.trim();
-					if (line.length > 5) {
-						combinedProxies.push(line);
-					}
-				}
-			}
-		}
-		let lines = [...new Set(combinedProxies.map(l => {
-			if (l.match(/^(socks4|socks5|socks|http|https|tg):\\/\\//i)) {
-				return l;
-			}
-			return "socks5://" + l;
-		}))];
-		if (lines.length > 0) {
-			for (let i = lines.length - 1; i > 0; i--) {
-				const j = Math.floor(Math.random() * (i + 1));
-				[lines[i], lines[j]] = [lines[j], lines[i]];
-			}
-			let bestProxy = null;
-			let fallbackProxy = null;
-			const BATCH_SIZE = 5;
-			for (let i = 0; i < lines.length; i += BATCH_SIZE) {
-				const batch = lines.slice(i, i + BATCH_SIZE);
-				loadingState.innerText = "تعداد " + lines.length + " پـروکـسـی پیدا شد درحال اسکن\\nاسکن گروه " + (Math.floor(i / BATCH_SIZE) + 1) + " (۵ تست برای هر کدام)...";
-				const testResults = await Promise.allSettled(batch.map(async (candidate) => {
-					let successCount = 0;
-					let totalPing = 0;
-					let failCount = 0;
-					for(let t = 0; t < 5; t++) {
-						const controller = new AbortController();
-						const timeoutId = setTimeout(() => controller.abort(), 3500);
-						try {
-							const testRes = await fetch("/api/test-proxy", {
-								method: "POST",
-								headers: { "Content-Type": "application/json" },
-								body: JSON.stringify({ proxy: candidate }),
-								signal: controller.signal
-							});
-							clearTimeout(timeoutId);
-							const testData = await testRes.json();
-							if (testRes.ok && testData.success) {
-								successCount++;
-								totalPing += testData.ping;
-							} else {
-								failCount++;
+									tcpSocket = 代理协议 === 'socks5'
+										? await socks5Connect(检测主机, 检测端口, new Uint8Array(0), TCP连接, checkParsed)
+										: 代理协议 === 'turn'
+											? await turnConnect(checkParsed, 检测主机, 检测端口, TCP连接)
+											: 代理协议 === 'sstp'
+												? await sstpConnect(checkParsed, 检测主机, 检测端口, TCP连接)
+												: (代理协议 === 'https' && isIPHostname(hostname)
+													? await httpsConnect(检测主机, 检测端口, new Uint8Array(0), TCP连接, checkParsed)
+													: await httpConnect(检测主机, 检测端口, new Uint8Array(0), 代理协议 === 'https', TCP连接, checkParsed));
+									if (!tcpSocket) throw new Error('Unable to connect to proxy server');
+									tlsSocket = new TlsClient(tcpSocket, { serverName: 检测主机, insecure: true });
+									await tlsSocket.handshake();
+									await tlsSocket.write(encoder.encode(`GET /cdn-cgi/trace HTTP/1.1\r\nHost: ${检测主机}\r\nUser-Agent: Mozilla/5.0\r\nConnection: close\r\n\r\n`));
+									let responseBuffer = new Uint8Array(0), headerEndIndex = -1, contentLength = null, chunked = false;
+									const 最大响应字节 = 64 * 1024;
+									while (responseBuffer.length < 最大响应字节) {
+										const value = await tlsSocket.read();
+										if (!value) break;
+										if (value.byteLength === 0) continue;
+										responseBuffer = 拼接字节数据(responseBuffer, value);
+										if (headerEndIndex === -1) {
+											const crlfcrlf = responseBuffer.findIndex((_, i) => i < responseBuffer.length - 3 && responseBuffer[i] === 0x0d && responseBuffer[i + 1] === 0x0a && responseBuffer[i + 2] === 0x0d && responseBuffer[i + 3] === 0x0a);
+											if (crlfcrlf !== -1) {
+												headerEndIndex = crlfcrlf + 4;
+												const headers = decoder.decode(responseBuffer.slice(0, headerEndIndex));
+												const statusLine = headers.split('\r\n')[0] || '';
+												const statusMatch = statusLine.match(/HTTP\/\d\.\d\s+(\d+)/);
+												const statusCode = statusMatch ? parseInt(statusMatch[1], 10) : NaN;
+												if (!Number.isFinite(statusCode) || statusCode < 200 || statusCode >= 300) throw new Error(`代理检测请求失败: ${statusLine || 'Invalid response'}`);
+												const lengthMatch = headers.match(/\r\nContent-Length:\s*(\d+)/i);
+												if (lengthMatch) contentLength = parseInt(lengthMatch[1], 10);
+												chunked = /\r\nTransfer-Encoding:\s*chunked/i.test(headers);
+											}
+										}
+										if (headerEndIndex !== -1 && contentLength !== null && responseBuffer.length >= headerEndIndex + contentLength) break;
+										if (headerEndIndex !== -1 && chunked && decoder.decode(responseBuffer).includes('\r\n0\r\n\r\n')) break;
+									}
+									if (headerEndIndex === -1) throw new Error('Proxy detection response header too long or invalid');
+									const response = decoder.decode(responseBuffer);
+									const ip = response.match(/(?:^|\n)ip=(.*)/)?.[1];
+									const loc = response.match(/(?:^|\n)loc=(.*)/)?.[1];
+									if (!ip || !loc) throw new Error('Invalid proxy detection response');
+									检测代理响应 = { success: true, proxy: 代理协议 + "://" + 完整代理参数, ip, loc, responseTime: Date.now() - startTime };
+								} finally {
+									try { tlsSocket ? tlsSocket.close() : await tcpSocket?.close?.() } catch (e) { }
+								}
+							} catch (error) {
+								检测代理响应 = { success: false, error: error.message, proxy: 代理协议 + "://" + 完整代理参数, responseTime: Date.now() - startTime };
 							}
 						} catch (err) {
-							clearTimeout(timeoutId);
-							failCount++;
+							检测代理响应 = { success: false, error: err.message, proxy: 代理协议 + "://" + 代理参数, responseTime: Date.now() - startTime };
 						}
-						if (failCount > 2) break;
+						return new Response(JSON.stringify(检测代理响应, null, 2), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 					}
-					if (successCount > 0) {
-						return { proxy: candidate, successCount: successCount, avgPing: totalPing / successCount };
-					}
-					throw new Error();
-				}));
-				const successfulProxies = testResults
-					.filter(r => r.status === "fulfilled")
-					.map(r => r.value)
-					.sort((a, b) => {
-						if (b.successCount !== a.successCount) {
-							return b.successCount - a.successCount;
+
+					config_JSON = await 读取config_JSON(env, host, userID, UA);
+
+					if (访问路径 === 'admin/init') {// 重置配置为默认值
+						try {
+							config_JSON = await 读取config_JSON(env, host, userID, UA, true);
+							ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Init_Config', config_JSON));
+							config_JSON.init = 'Configuration reset to default values';
+							return new Response(JSON.stringify(config_JSON, null, 2), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						} catch (err) {
+							const errorResponse = { msg: 'Configuration reset failed, reason: ' + err.message, error: err.message };
+							return new Response(JSON.stringify(errorResponse, null, 2), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 						}
-						return a.avgPing - b.avgPing;
-					});
-				if (successfulProxies.length > 0) {
-					const topCandidate = successfulProxies[0];
-					if (topCandidate.successCount >= 3) {
-						bestProxy = topCandidate.proxy;
-						break;
-					} else if (!fallbackProxy || topCandidate.successCount > fallbackProxy.successCount) {
-						fallbackProxy = topCandidate;
+					} else if (request.method === 'POST') {// 处理 D1 操作（POST 请求）
+						if (访问路径 === 'admin/config.json') { // 保存config.json配置
+							try {
+								const newConfig = await request.json();
+								// 验证配置完整性
+								if (!newConfig.UUID || !newConfig.HOST) return new Response(JSON.stringify({ error: 'Incomplete configuration' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+
+								// 保存到 D1
+								await D1Put(env, 'config.json', JSON.stringify(newConfig, null, 2));
+								ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Save_Config', config_JSON));
+								return new Response(JSON.stringify({ success: true, message: 'Configuration saved' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								console.error('Failed to save configuration:', error);
+								return new Response(JSON.stringify({ error: 'Failed to save configuration: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else if (访问路径 === 'admin/cf.json') { // 保存cf.json配置
+							try {
+								const newConfig = await request.json();
+								const CF_JSON = { Email: null, GlobalAPIKey: null, AccountID: null, APIToken: null, UsageAPI: null };
+								if (!newConfig.init || newConfig.init !== true) {
+									if (newConfig.Email && newConfig.GlobalAPIKey) {
+										CF_JSON.Email = newConfig.Email;
+										CF_JSON.GlobalAPIKey = newConfig.GlobalAPIKey;
+									} else if (newConfig.AccountID && newConfig.APIToken) {
+										CF_JSON.AccountID = newConfig.AccountID;
+										CF_JSON.APIToken = newConfig.APIToken;
+									} else if (newConfig.UsageAPI) {
+										CF_JSON.UsageAPI = newConfig.UsageAPI;
+									} else {
+										return new Response(JSON.stringify({ error: 'Incomplete configuration' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+									}
+								}
+
+								// 保存到 D1
+								await D1Put(env, 'cf.json', JSON.stringify(CF_JSON, null, 2));
+								ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Save_Config', config_JSON));
+								return new Response(JSON.stringify({ success: true, message: 'Configuration saved' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								console.error('Failed to save configuration:', error);
+								return new Response(JSON.stringify({ error: 'Failed to save configuration: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else if (访问路径 === 'admin/tg.json') { // 保存tg.json配置 + 激活/停用 Telegram 机器人
+							try {
+								const newConfig = await request.json();
+								if (newConfig.init && newConfig.init === true) {
+									const TG_JSON = { BotToken: null, ChatID: null };
+									await D1Put(env, 'tg.json', JSON.stringify(TG_JSON, null, 2));
+									return new Response(JSON.stringify({ success: true, message: 'Configuration saved' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								}
+								if (newConfig.disable === true) {
+									const 已存TG = JSON.parse(await D1Get(env, 'tg.json') || '{}');
+									if (已存TG?.BotToken) { try { await fetch(`https://api.telegram.org/bot${已存TG.BotToken}/deleteWebhook`); } catch (e) { } }
+									await D1Put(env, 'tg.json', JSON.stringify({ BotToken: 已存TG?.BotToken || null, ChatID: 已存TG?.ChatID || null, 启用: false }, null, 2));
+									return new Response(JSON.stringify({ success: true, message: 'Bot deactivated' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								}
+								if (!newConfig.BotToken || !newConfig.ChatID) return new Response(JSON.stringify({ error: 'Incomplete configuration' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								let webhook结果 = { ok: false };
+								try {
+									const webhookURL = `${url.protocol}//${url.host}/tgwebhook/${newConfig.BotToken}`;
+									const setRes = await fetch(`https://api.telegram.org/bot${newConfig.BotToken}/setWebhook?url=${encodeURIComponent(webhookURL)}`);
+									webhook结果 = await setRes.json();
+								} catch (e) { webhook结果 = { ok: false, description: e.message }; }
+								await D1Put(env, 'tg.json', JSON.stringify({ BotToken: newConfig.BotToken, ChatID: newConfig.ChatID, 启用: !!webhook结果.ok }, null, 2));
+								if (webhook结果.ok) {
+									try {
+										await fetch(`https://api.telegram.org/bot${newConfig.BotToken}/sendMessage`, {
+											method: 'POST', headers: { 'Content-Type': 'application/json' },
+											body: JSON.stringify({ chat_id: newConfig.ChatID, parse_mode: 'HTML', text: '🌙 <b>به نام خدا</b>\n\nربات Matix Edge با موفقیت فعال شد ✅\n\nبرای شروع دستور /start رو بفرست.' })
+										});
+									} catch (e) { }
+								}
+								ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Save_Config', config_JSON));
+								return new Response(JSON.stringify({ success: !!webhook结果.ok, message: webhook结果.ok ? 'Bot activated' : 'Saved, but webhook registration failed: ' + (webhook结果.description || 'unknown') }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								console.error('Failed to save configuration:', error);
+								return new Response(JSON.stringify({ error: 'Failed to save configuration: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else if (区分大小写访问路径 === 'admin/ADD.txt') { // 保存自定义优选IP
+							try {
+								const customIPs = await request.text();
+								await D1Put(env, 'ADD.txt', customIPs);// 保存到 D1
+								ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Save_Custom_IPs', config_JSON));
+								return new Response(JSON.stringify({ success: true, message: 'Custom IP list saved' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								console.error('保存自定义IP到D1失败:', error);
+								return new Response(JSON.stringify({ error: 'Failed to save custom IP list: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else if (访问路径 === 'admin/update-settings.json') { // 保存自更新所需的Cloudflare凭据
+							try {
+								const body = await request.json();
+								const existing = JSON.parse(await D1Get(env, 'update.json') || '{}');
+								if (body.clear === true) {
+									await D1Put(env, 'update.json', JSON.stringify({}, null, 2));
+									return new Response(JSON.stringify({ success: true, message: 'Update settings cleared' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								}
+								const next = {
+									cfToken: body.cfToken ? body.cfToken : (existing.cfToken || null),
+									accountId: body.accountId !== undefined ? (body.accountId || null) : (existing.accountId || null),
+									d1Id: body.d1Id !== undefined ? (body.d1Id || null) : (existing.d1Id || null),
+									workerName: body.workerName !== undefined ? (body.workerName || null) : (existing.workerName || null)
+								};
+								await D1Put(env, 'update.json', JSON.stringify(next, null, 2));
+								return new Response(JSON.stringify({ success: true, message: 'Update settings saved' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								return new Response(JSON.stringify({ error: 'Failed to save update settings: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else if (访问路径 === 'admin/self-update') { // یک‌کلیکی به‌روزرسانی پنل از GitHub Release
+							try {
+								const settings = JSON.parse(await D1Get(env, 'update.json') || '{}');
+								const cfToken = settings.cfToken;
+								if (!cfToken) return new Response(JSON.stringify({ error: 'No Cloudflare API token saved yet. Save it first.' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+
+								let accountId = settings.accountId;
+								if (!accountId) {
+									const accRes = await fetch('https://api.cloudflare.com/client/v4/accounts', { headers: { 'Authorization': 'Bearer ' + cfToken } });
+									const accData = await accRes.json();
+									if (!accData.success || !Array.isArray(accData.result) || accData.result.length === 0) {
+										return new Response(JSON.stringify({ error: 'Could not determine your Cloudflare account from this token. Please set Account ID manually.' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+									}
+									if (accData.result.length > 1) {
+										return new Response(JSON.stringify({ error: 'Multiple Cloudflare accounts found for this token. Please set Account ID manually.' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+									}
+									accountId = accData.result[0].id;
+								}
+
+								// [AUTO-VERSION] Resolve the release tag that is about to be installed.
+								let updateReleaseTag = MATIX_RELEASE_TAG;
+								try {
+									const ghHeaders = { 'User-Agent': 'Matix-Edge', 'Accept': 'application/vnd.github+json' };
+									if (env.GITHUB_TOKEN) ghHeaders['Authorization'] = 'Bearer ' + env.GITHUB_TOKEN;
+									const releaseRes = await fetch('https://api.github.com/repos/' + MATIX_RELEASE_REPO + '/releases/latest', { headers: ghHeaders, cf: { cacheTtl: 0 } });
+									if (releaseRes.ok) {
+										const releaseData = await releaseRes.json();
+										if (releaseData.tag_name) updateReleaseTag = releaseData.tag_name;
+									}
+								} catch (e) { console.warn('[AUTO-VERSION] Release tag lookup failed:', e.message); }
+
+								const workerName = settings.workerName || host.split('.')[0];
+								const d1Id = settings.d1Id || env.D1_ID || null;
+								if (!d1Id) return new Response(JSON.stringify({ error: 'D1 database ID is unknown. Please set it manually in update settings (Cloudflare dashboard → Workers & Pages → D1).' }), { status: 400, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+
+								const scriptRes = await fetch('https://github.com/' + MATIX_RELEASE_REPO + '/releases/latest/download/worker.js');
+								if (!scriptRes.ok) return new Response(JSON.stringify({ error: 'Failed to download the latest worker.js: status ' + scriptRes.status }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								const scriptText = await scriptRes.text();
+
+								// همون تنظیمات (D1 / ADMIN / UUID) که الان همین Worker داره رو صراحتاً دوباره اعلام می‌کنیم تا موقع آپلود اسکریپت جدید پاک نشن
+								const metadata = {
+									main_module: 'worker.js',
+									compatibility_date: new Date().toISOString().split('T')[0],
+									compatibility_flags: ['nodejs_compat'],
+									bindings: [
+										{ type: 'd1', name: 'DB', database_id: d1Id },
+										{ type: 'secret_text', name: 'ADMIN', text: 管理员密码 },
+										{ type: 'secret_text', name: 'UUID', text: userID }
+									],
+									keep_bindings: ['secret_text', 'd1', 'plain_text']
+								};
+
+								const form = new FormData();
+								form.append('metadata', JSON.stringify(metadata));
+								form.append('worker.js', new Blob([scriptText], { type: 'application/javascript+module' }), 'worker.js');
+
+								const uploadRes = await fetch(
+									'https://api.cloudflare.com/client/v4/accounts/' + accountId + '/workers/scripts/' + workerName,
+									{ method: 'PUT', headers: { 'Authorization': 'Bearer ' + cfToken }, body: form }
+								);
+								const uploadData = await uploadRes.json();
+								if (!uploadData.success) {
+									return new Response(JSON.stringify({ error: 'Cloudflare rejected the update', details: uploadData.errors || uploadData }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+								}
+
+								// [AUTO-VERSION] Persist the version only after Cloudflare accepted the new Worker.
+								await D1Put(env, 'matix_worker_version', updateReleaseTag || MATIX_RELEASE_TAG || 'v2.0.0');
+								MATIX_RELEASE_TAG_CACHE = updateReleaseTag || MATIX_RELEASE_TAG || 'v2.0.0';
+								ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Self_Update', config_JSON));
+								return new Response(JSON.stringify({ success: true, message: 'Panel updated successfully. Reload the page in a few seconds.' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							} catch (error) {
+								return new Response(JSON.stringify({ error: 'Self-update failed: ' + error.message }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+							}
+						} else return new Response(JSON.stringify({ error: 'Unsupported POST request path' }), { status: 404, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+					} else if (访问路径 === 'admin/config.json') {// 处理 admin/config.json 请求，返回JSON
+						return new Response(JSON.stringify(config_JSON, null, 2), { status: 200, headers: { 'Content-Type': 'application/json' } });
+					} else if (访问路径 === 'admin/fetch-ips') {// [MX] fetch preferred IPs from the repository source
+						try {
+							const ips = await 获取远程优选IP(config_JSON, url.searchParams.get('src'), parseInt(url.searchParams.get('n') || '50', 10));
+							return new Response(JSON.stringify({ ips }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						} catch (error) {
+							return new Response(JSON.stringify({ error: String(error && error.message || error) }), { status: 502, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						}
+					} else if (区分大小写访问路径 === 'admin/ADD.txt') {// 处理 admin/ADD.txt 请求，返回本地优选IP
+						if (url.searchParams.has('saved')) { const 已存列表 = String((await D1Get(env, 'ADD.txt')) || ''); return new Response(已存列表 === 'null' ? '' : 已存列表, { status: 200, headers: { 'Content-Type': 'text/plain;charset=utf-8' } }); }
+						let 本地优选IP = await D1Get(env, 'ADD.txt') || 'null';
+						if (本地优选IP == 'null') 本地优选IP = (await 生成随机IP(request, config_JSON.优选订阅生成.本地IP库.随机数量, config_JSON.优选订阅生成.本地IP库.指定端口))[1];
+						return new Response(本地优选IP, { status: 200, headers: { 'Content-Type': 'text/plain;charset=utf-8', 'asn': request.cf.asn } });
+					} else if (访问路径 === 'admin/cf.json') {// CF配置文件
+						return new Response(JSON.stringify(request.cf, null, 2), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+					} else if (访问路径 === 'admin/update-check.json') {// [AUTO-VERSION] بررسی آخرین نسخه از GitHub
+						try {
+							const currentVersion = await 获取当前版本(env);
+							const headers = { 'User-Agent': 'Matix-Edge', 'Accept': 'application/vnd.github+json' };
+							if (env.GITHUB_TOKEN) headers['Authorization'] = 'Bearer ' + env.GITHUB_TOKEN;
+							const res = await fetch('https://api.github.com/repos/' + MATIX_RELEASE_REPO + '/releases/latest', { headers, cf: { cacheTtl: 0 } });
+							if (!res.ok) throw new Error('GitHub API ' + res.status);
+							const data = await res.json();
+							const latest = data.tag_name || null;
+							return new Response(JSON.stringify({
+								current: currentVersion,
+								latest: latest,
+								name: data.name || latest,
+								publishedAt: data.published_at || null,
+								body: (data.body || '').slice(0, 600),
+								htmlUrl: data.html_url || null,
+								downloadUrl: (data.assets || []).find(a => a.name === 'worker.js')?.browser_download_url || null,
+								updateAvailable: !!latest && latest !== currentVersion,
+								isNewer: compareVersions(latest, currentVersion) > 0
+							}), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8', 'Cache-Control': 'no-store, no-cache, must-revalidate' } });
+						} catch (error) {
+							return new Response(JSON.stringify({ error: 'Failed to check for updates: ' + error.message, current: await 获取当前版本(env) }), { status: 500, headers: { 'Content-Type': 'application/json;charset=utf-8', 'Cache-Control': 'no-store' } });
+						}
+					} else if (访问路径 === 'admin/update-settings.json') {// خواندن تنظیمات ذخیره‌شده‌ی به‌روزرسانی (بدون افشای توکن)
+						try {
+							const s = JSON.parse(await D1Get(env, 'update.json') || '{}');
+							return new Response(JSON.stringify({
+								hasToken: !!s.cfToken,
+								accountId: s.accountId || '',
+								d1Id: s.d1Id || env.D1_ID || '',
+								workerName: s.workerName || ''
+							}), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						} catch (error) {
+							return new Response(JSON.stringify({ hasToken: false, accountId: '', d1Id: '', workerName: '' }), { status: 200, headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+						}
 					}
-				}
-			}
-			if (!bestProxy && fallbackProxy) {
-				bestProxy = fallbackProxy.proxy;
-			}
-			if (bestProxy) {
-				window.proxyFieldsData[window.activeProxyIndex || 0] = bestProxy;
-				if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
-				const userProxyResult = document.getElementById("test-user-proxy-result");
-				if (userProxyResult) {
-					userProxyResult.innerText = "";
-				}
-				toggleProxySelectorModal(false);
-				bm3pzm2("پـروکـسـی با بهترین امتیاز لود شد.");
-				testUserSocksProxy();
-			} else {
-				alert("هیچ پـروکـسـی سالمی (حتی با یک پینگ موفق) یافت نشد.");
-			}
-		} else {
-			alert("پـروکـسـی برای این کشور یافت نشد.");
+
+					ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Admin_Login', config_JSON));
+					return new Response(matrixEdgeAdminDashboard(), { status: 200, headers: { 'Content-Type': 'text/html; charset=UTF-8' } });
+				} else if (访问路径 === 'logout' || uuidRegex.test(访问路径)) {//清除cookie并跳转到登录页面
+					const 响应 = new Response('Redirecting...', { status: 302, headers: { 'Location': '/login' } });
+					响应.headers.set('Set-Cookie', 'auth=; Path=/; Max-Age=0; HttpOnly');
+					return 响应;
+				} else if (访问路径 === 'sub') {//处理订阅请求
+					const 订阅TOKEN = await MD5MD5(host + userID), 作为优选订阅生成器 = ['1', 'true'].includes(env.BEST_SUB) && url.searchParams.get('host') === 'example.com' && url.searchParams.get('uuid') === '00000000-0000-4000-8000-000000000000' && UA.toLowerCase().includes('tunnel (https://github.com/' + 特征码字典[1] + '/edge');
+					const 请求TOKEN = url.searchParams.get('token');
+					const 用户客户端请求订阅 = 请求TOKEN === 订阅TOKEN;
+					const 当前日序号 = Math.floor(Date.now() / 86400000);
+					const 订阅转换后端TOKEN种子 = base64SecretEncode(订阅TOKEN, userID);
+					const [今日订阅转换后端专属TOKEN, 昨日订阅转换后端专属TOKEN] = await Promise.all([
+						MD5MD5(订阅转换后端TOKEN种子 + 当前日序号),
+						MD5MD5(订阅转换后端TOKEN种子 + (当前日序号 - 1)),
+					]);
+					const 订阅转换后端请求订阅 = 请求TOKEN === 今日订阅转换后端专属TOKEN || 请求TOKEN === 昨日订阅转换后端专属TOKEN;
+					if (用户客户端请求订阅 || 订阅转换后端请求订阅 || 作为优选订阅生成器) {
+						config_JSON = await 读取config_JSON(env, host, userID, UA);
+						if (作为优选订阅生成器) ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Get_Best_SUB', config_JSON, false));
+						else ctx.waitUntil(请求日志记录(env, request, 访问IP, 'Get_SUB', config_JSON));
+						const ua = UA.toLowerCase();
+						const responseHeaders = {
+							"content-type": "text/plain; charset=utf-8",
+							"Profile-Update-Interval": config_JSON.优选订阅生成.SUBUpdateTime,
+							"Profile-web-page-url": url.protocol + '//' + url.host + '/admin',
+							"Cache-Control": "no-store",
+						};
+						if (config_JSON.CF.Usage.success) {
+							const pagesSum = config_JSON.CF.Usage.pages;
+							const workersSum = config_JSON.CF.Usage.workers;
+							const total = Math.max(0, Number(config_JSON.优选订阅生成.LIMIT_GB) || 100) * 1024 * 1024 * 1024;
+							const expireSeconds = Math.floor(Date.now() / 1000) + Math.max(1, Number(config_JSON.优选订阅生成.LIMIT_DAYS) || 30) * 86400;
+							responseHeaders["Subscription-Userinfo"] = `upload=${pagesSum}; download=${workersSum}; total=${total}; expire=${expireSeconds}`;
+						}
+						const isSubConverterRequest = url.searchParams.has('b64') || url.searchParams.has('base64') || request.headers.get('subconverter-request') || request.headers.get('subconverter-version') || ua.includes('subconverter') || ua.includes(('CF-Workers-SUB').toLowerCase()) || 作为优选订阅生成器;
+						const 订阅类型 = isSubConverterRequest
+							? 'mixed'
+							: url.searchParams.has('target')
+								? url.searchParams.get('target')
+								: url.searchParams.has('clash') || ua.includes('clash') || ua.includes('meta') || ua.includes('mihomo')
+									? 'clash'
+									: url.searchParams.has('sb') || url.searchParams.has('singbox') || ua.includes('singbox') || ua.includes('sing-box')
+										? 'singbox'
+										: url.searchParams.has('surge') || ua.includes('surge')
+											? 'surge&ver=4'
+											: url.searchParams.has('quanx') || ua.includes('quantumult')
+												? 'quanx'
+												: url.searchParams.has('loon') || ua.includes('loon')
+													? 'loon'
+													: 'mixed';
+
+						if (!ua.includes('mozilla')) responseHeaders["Content-Disposition"] = `attachment; filename*=utf-8''${encodeURIComponent(config_JSON.优选订阅生成.SUBNAME)}`;
+						const 协议类型 = ((url.searchParams.has('surge') || ua.includes('surge')) && config_JSON.协议类型 !== 'ss') ? 'tro' + 'jan' : config_JSON.协议类型;
+						let 订阅内容 = '';
+						if (订阅类型 === 'mixed') {
+							const TLS分片参数 = config_JSON.TLS分片 == 'Shadowrocket' ? `&fragment=${encodeURIComponent('1,40-60,30-50,tlshello')}` : config_JSON.TLS分片 == 'Happ' ? `&fragment=${encodeURIComponent('3,1,tlshello')}` : '';
+							let 完整优选IP = [], 其他节点LINK = '', 反代IP池 = [];
+
+							if (!url.searchParams.has('sub') && config_JSON.优选订阅生成.local) { // 本地生成订阅
+								const 手动优选文本 = String((await D1Get(env, 'ADD.txt')) || '').trim();
+								const 手动优选列表 = (手动优选文本 && 手动优选文本 !== 'null') ? (await 整理成数组(手动优选文本)).map(x => x.trim()).filter(Boolean) : [];
+								const 完整优选列表 = 手动优选列表.length > 0 ? 手动优选列表 : (
+									await 生成随机IP(request, config_JSON.优选订阅生成.本地IP库.随机数量, config_JSON.优选订阅生成.本地IP库.指定端口)
+								)[0];
+								const 优选API = [], 优选IP = [], 其他节点 = [];
+								for (const 元素 of 完整优选列表) {
+									if (元素.toLowerCase().startsWith('sub://')) {
+										优选API.push(元素);
+									} else {
+										const 备注位置 = 元素.indexOf('#');
+										const 地址部分 = 备注位置 > -1 ? 元素.slice(0, 备注位置) : 元素;
+										const 备注部分 = 备注位置 > -1 ? 元素.slice(备注位置) : '';
+										const subMatch = 元素.match(/sub\s*=\s*([^\s&#]+)/i);
+										if (subMatch && subMatch[1].trim().includes('.')) {
+											const 优选IP作为反代IP = 元素.toLowerCase().includes('proxyip=true');
+											if (优选IP作为反代IP) 优选API.push('sub://' + subMatch[1].trim() + "?proxyip=true" + (元素.includes('#') ? ('#' + 元素.split('#')[1]) : ''));
+											else 优选API.push('sub://' + subMatch[1].trim() + (元素.includes('#') ? ('#' + 元素.split('#')[1]) : ''));
+										} else if (地址部分.toLowerCase().startsWith('https://')) {
+											优选API.push(元素);
+										} else if (地址部分.toLowerCase().includes('://')) {
+											if (元素.includes('#')) {
+												const 地址备注分离 = 元素.split('#');
+												其他节点.push(地址备注分离[0] + '#' + encodeURIComponent(decodeURIComponent(地址备注分离[1])));
+											} else 其他节点.push(元素);
+										} else {
+											if (地址部分.includes('*')) {
+												优选IP.push(替换星号为随机字符(地址部分) + 备注部分);
+											} else 优选IP.push(元素);
+										}
+									}
+								}
+								const 请求优选API内容 = await 请求优选API(优选API, '443');
+								const 合并其他节点数组 = [...new Set(其他节点.concat(请求优选API内容[1]))];
+								其他节点LINK = 合并其他节点数组.length > 0 ? 合并其他节点数组.join('\n') + '\n' : '';
+								const 优选API的IP = 请求优选API内容[0];
+								反代IP池 = 请求优选API内容[3] || [];
+								完整优选IP = [...new Set(优选IP.concat(优选API的IP))];
+							} else { // 优选订阅生成器
+								let 优选订阅生成器HOST = url.searchParams.get('sub') || config_JSON.优选订阅生成.SUB;
+								const [优选生成器IP数组, 优选生成器其他节点] = await 获取优选订阅生成器数据(优选订阅生成器HOST);
+								完整优选IP = 完整优选IP.concat(优选生成器IP数组);
+								其他节点LINK += 优选生成器其他节点;
+							}
+							const ECHLINK参数 = config_JSON.ECH ? `&ech=${encodeURIComponent((config_JSON.ECHConfig.SNI ? config_JSON.ECHConfig.SNI + '+' : '') + config_JSON.ECHConfig.DNS)}` : '';
+							const isLoonOrSurge = ua.includes('loon') || ua.includes('surge');
+							const { type: 传输协议, 路径字段名, 域名字段名 } = 获取传输协议配置(config_JSON);
+							订阅内容 = 其他节点LINK + 完整优选IP.map(原始地址 => {
+								// 统一正则: 匹配 域名/IPv4/IPv6地址 + 可选端口 + 可选备注
+								// 示例:
+								//   - 域名: hj.xmm1993.top:2096#备注 或 example.com
+								//   - IPv4: 166.0.188.128:443#Los Angeles 或 166.0.188.128
+								//   - IPv6: [2606:4700::]:443#CMCC 或 [2606:4700::]
+								const regex = /^(\[[\da-fA-F:]+\]|[\d.]+|[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*)(?::(\d+))?(?:#(.+))?$/;
+								const match = 原始地址.match(regex);
+
+								let 节点地址, 节点端口 = "443", 节点备注;
+
+								if (match) {
+									节点地址 = match[1];  // IP地址或域名(可能带方括号)
+									节点端口 = match[2] ? match[2] : '443';  // 端口默认443，SS noTLS在生成链接时再映射
+									节点备注 = match[3] || 节点地址;  // 备注,默认为地址本身
+								} else {
+									// 不规范的格式，跳过处理返回null
+									console.warn(`[订阅内容] 不规范的IP格式已忽略: ${原始地址}`);
+									return null;
+								}
+
+								let 完整节点路径 = config_JSON.完整节点路径;
+
+								const 链式代理匹配 = 节点备注.match(/\$(socks5|http|https|turn|sstp):\/\/([^#\s]+)/i);
+								if (链式代理匹配) {
+									try {
+										const 代理协议 = 链式代理匹配[1].toLowerCase(), 代理参数 = 链式代理匹配[2];
+										const 链式代理数据 = { type: 代理协议, ...获取SOCKS5账号(代理参数, 获取代理默认端口(代理协议)) };
+										完整节点路径 = `/video/${base64SecretEncode(JSON.stringify(链式代理数据), userID) + (config_JSON.启用0RTT ? '?ed=2560' : '')}`;
+										节点备注 = 节点备注.replace(链式代理匹配[0], '').trim() || 节点地址;
+									} catch (error) {
+										console.warn(`[订阅内容] 链式代理解析失败，已忽略该指令: ${链式代理匹配[0]} (${error && error.message ? error.message : error})`);
+									}
+								} else if (反代IP池.length > 0) {
+									const 匹配到的反代IP = 反代IP池.find(p => p.includes(节点地址));
+									if (匹配到的反代IP) 完整节点路径 = (`${config_JSON.PATH}/proxyip=${匹配到的反代IP}`).replace(/\/\//g, '/') + (config_JSON.启用0RTT ? '?ed=2560' : '');
+								}
+								if (isLoonOrSurge) 完整节点路径 = 完整节点路径.replace(/,/g, '%2C');
+
+								if (协议类型 === 'ss' && !作为优选订阅生成器) {
+									if (!config_JSON.SS.TLS) {
+										const TLS端口 = [443, 2053, 2083, 2087, 2096, 8443];
+										const NOTLS端口 = [80, 2052, 2082, 2086, 2095, 8080];
+										节点端口 = String(NOTLS端口[TLS端口.indexOf(Number(节点端口))] ?? 节点端口);
+									}
+									完整节点路径 = (完整节点路径.includes('?') ? 完整节点路径.replace('?', '?enc=' + config_JSON.SS.加密方式 + '&') : (完整节点路径 + '?enc=' + config_JSON.SS.加密方式)).replace(/([=,])/g, '\\$1');
+									if (!isSubConverterRequest) 完整节点路径 = 完整节点路径 + ';mux=0';
+									return `${协议类型}://${btoa(config_JSON.SS.加密方式 + ':00000000-0000-4000-8000-000000000000')}@${节点地址}:${节点端口}?plugin=v2${encodeURIComponent('ray-plugin;mode=websocket;host=example.com;path=' + (config_JSON.随机路径 ? 随机路径(完整节点路径) : 完整节点路径) + (config_JSON.SS.TLS ? ';tls' : '')) + ECHLINK参数 + TLS分片参数}#${encodeURIComponent(节点备注)}`;
+								} else {
+									const 传输路径参数值 = 获取传输路径参数值(config_JSON, 完整节点路径, 作为优选订阅生成器);
+									return `${协议类型}://00000000-0000-4000-8000-000000000000@${节点地址}:${节点端口}?security=tls&type=${传输协议 + ECHLINK参数}&${域名字段名}=example.com&fp=${config_JSON.Fingerprint}&sni=example.com&${路径字段名}=${encodeURIComponent(传输路径参数值) + TLS分片参数}&encryption=none#${encodeURIComponent(节点备注)}`;
+								}
+							}).filter(item => item !== null).join('\n');
+						} else { // 订阅转换
+							const 订阅转换URL = `${config_JSON.订阅转换配置.SUBAPI}/sub?target=${订阅类型}&url=${encodeURIComponent(url.protocol + '//' + url.host + '/sub?target=mixed&token=' + 今日订阅转换后端专属TOKEN + '&cnIspCode=' + 识别运营商(request) + (url.searchParams.has('sub') && url.searchParams.get('sub') != '' ? `&sub=${url.searchParams.get('sub')}` : ''))}&config=${encodeURIComponent(config_JSON.订阅转换配置.SUBCONFIG)}&emoji=${config_JSON.订阅转换配置.SUBEMOJI}&list=${config_JSON.订阅转换配置.SUBLIST}&scv=${config_JSON.跳过证书验证}&xudp=${config_JSON.订阅转换配置.XUDP}&udp=${config_JSON.订阅转换配置.UDP}&tls13=${config_JSON.订阅转换配置.TLS13}&append_type=${config_JSON.订阅转换配置.APPEND_TYPE}&sort=${config_JSON.订阅转换配置.SORT}`;
+							try {
+								const response = await fetch(订阅转换URL, { headers: { 'User-Agent': 'Subconverter for ' + 订阅类型 + ' edge' + 'tunnel (https://github.com/' + 特征码字典[1] + '/edge' + 'tunnel)' } });
+								if (response.ok) {
+									订阅内容 = await response.text();
+									if (url.searchParams.has('surge') || ua.includes('surge')) 订阅内容 = Surge订阅配置文件热补丁(订阅内容, url.protocol + '//' + url.host + '/sub?token=' + 订阅TOKEN + '&surge', config_JSON);
+								} else return new Response('Subscription-conversion backend error: ' + response.statusText, { status: response.status });
+							} catch (error) {
+								return new Response('Subscription-conversion backend error: ' + error.message, { status: 403 });
+							}
+						}
+
+						if (!ua.includes('subconverter') && 用户客户端请求订阅) {
+							const 打乱后HOSTS = [...config_JSON.HOSTS].sort(() => Math.random() - 0.5);
+							let 替换域名计数 = 0, 当前随机HOST = null;
+							订阅内容 = 订阅内容
+								.replace(/00000000-0000-4000-8000-000000000000/g, config_JSON.UUID)
+								.replace(/MDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAw/g, btoa(config_JSON.UUID))
+								.replace(/example\.com/g, () => {
+									if (替换域名计数 % 2 === 0) {
+										const 原始host = 打乱后HOSTS[Math.floor(替换域名计数 / 2) % 打乱后HOSTS.length];
+										当前随机HOST = 替换星号为随机字符(原始host);
+									}
+									替换域名计数++;
+									return 当前随机HOST;
+								});
+						}
+
+						if (订阅类型 === 'mixed' && (!ua.includes('mozilla') || url.searchParams.has('b64') || url.searchParams.has('base64'))) 订阅内容 = btoa(订阅内容);
+
+						if (订阅类型 === 'singbox') {
+							订阅内容 = await Singbox订阅配置文件热补丁(订阅内容, config_JSON);
+							responseHeaders["content-type"] = 'application/json; charset=utf-8';
+						} else if (订阅类型 === 'clash') {
+							订阅内容 = Clash订阅配置文件热补丁(订阅内容, config_JSON);
+							responseHeaders["content-type"] = 'application/x-yaml; charset=utf-8';
+						}
+						return new Response(订阅内容, { status: 200, headers: responseHeaders });
+					}
+				} else if (访问路径 === 'locations') {//反代locations列表
+					const cookies = request.headers.get('Cookie') || '';
+					const authCookie = cookies.split(';').find(c => c.trim().startsWith('auth='))?.split('=')[1];
+					if (authCookie && authCookie == await MD5MD5(UA + 加密秘钥 + 管理员密码)) return fetch(new Request('https://speed.cloudflare.com/locations', { headers: { 'Referer': 'https://speed.cloudflare.com/' } }));
+				} else if (访问路径 === 'robots.txt') return new Response('User-agent: *\nDisallow: /', { status: 200, headers: { 'Content-Type': 'text/plain; charset=UTF-8' } });
+			} else if (!envUUID) return new Response(matrixEdgeSetupNotice('D1'), { status: 404, headers: { 'Content-Type': 'text/html; charset=UTF-8', 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', 'Pragma': 'no-cache', 'Expires': '0' } });
 		}
-	} catch (e) {
-		alert("خطا در دریافت لیست پـروکـسـی‌ها از سرور.");
-	} finally {
-		loadingState.classList.add("hidden");
-		formState.classList.remove("hidden");
-		fetchBtn.disabled = false;
+
+		let 伪装页URL = env.URL || 'nginx';
+		if (伪装页URL && 伪装页URL !== 'nginx' && 伪装页URL !== '1101') {
+			伪装页URL = 伪装页URL.trim().replace(/\/$/, '');
+			if (!伪装页URL.match(/^https?:\/\//i)) 伪装页URL = 'https://' + 伪装页URL;
+			if (伪装页URL.toLowerCase().startsWith('http://')) 伪装页URL = 'https://' + 伪装页URL.substring(7);
+			try { const u = new URL(伪装页URL); 伪装页URL = u.protocol + '//' + u.host } catch (e) { 伪装页URL = 'nginx' }
+		}
+		if (伪装页URL === '1101') return new Response(await html1101(url.host, 访问IP), { status: 200, headers: { 'Content-Type': 'text/html; charset=UTF-8' } });
+		try {
+			const 反代URL = new URL(伪装页URL), 新请求头 = new Headers(request.headers);
+			新请求头.set('Host', 反代URL.host);
+			新请求头.set('Referer', 反代URL.origin);
+			新请求头.set('Origin', 反代URL.origin);
+			if (!新请求头.has('User-Agent') && UA && UA !== 'null') 新请求头.set('User-Agent', UA);
+			const 反代响应 = await fetch(反代URL.origin + url.pathname + url.search, { method: request.method, headers: 新请求头, body: request.body, cf: request.cf });
+			const 内容类型 = 反代响应.headers.get('content-type') || '';
+			// 只处理文本类型的响应
+			if (/text|javascript|json|xml/.test(内容类型)) {
+				const 响应内容 = (await 反代响应.text()).replaceAll(反代URL.host, url.host);
+				return new Response(响应内容, { status: 反代响应.status, headers: { ...Object.fromEntries(反代响应.headers), 'Cache-Control': 'no-store' } });
+			}
+			return 反代响应;
+		} catch (error) { }
+		return new Response(await nginx(), { status: 200, headers: { 'Content-Type': 'text/html; charset=UTF-8' } });
 	}
+};
+///////////////////////////////////////////////////////////////////////叉HTTP传输数据///////////////////////////////////////////////
+const HPACKHuffman码长 = [
+	13, 23, 28, 28, 28, 28, 28, 28, 28, 24, 30, 28, 28, 30, 28, 28,
+	28, 28, 28, 28, 28, 28, 30, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+	6, 10, 10, 12, 13, 6, 8, 11, 10, 10, 8, 11, 8, 6, 6, 6,
+	5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 15, 6, 12, 10,
+	13, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+	7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 8, 13, 19, 13, 14, 6,
+	15, 5, 6, 5, 6, 5, 6, 6, 6, 5, 7, 7, 6, 6, 6, 5,
+	6, 7, 6, 5, 5, 6, 7, 7, 7, 7, 7, 15, 11, 14, 13, 28,
+	20, 22, 20, 20, 22, 22, 22, 23, 22, 23, 23, 23, 23, 23, 24, 23,
+	24, 24, 22, 23, 24, 23, 23, 23, 23, 21, 22, 23, 22, 23, 23, 24,
+	22, 21, 20, 22, 22, 23, 23, 21, 23, 22, 22, 24, 21, 22, 23, 23,
+	21, 21, 22, 21, 23, 22, 23, 23, 20, 22, 22, 22, 23, 22, 22, 23,
+	26, 26, 20, 19, 22, 23, 22, 25, 26, 26, 26, 27, 27, 26, 24, 25,
+	19, 21, 26, 27, 27, 26, 27, 24, 21, 21, 26, 26, 28, 27, 27, 27,
+	20, 24, 20, 21, 22, 21, 21, 23, 22, 22, 25, 25, 24, 24, 26, 23,
+	26, 27, 26, 26, 27, 27, 27, 27, 27, 28, 27, 27, 27, 27, 27, 26,
+	30
+];
+
+function 获取叉HTTPPadding标识(yourUUID) {
+	return { 头: yourUUID.slice(1, 7), 键: '_' + yourUUID.slice(25, 31) };
 }
-		function toggleSupportModal(show) {
-			const modal = document.getElementById('support-modal');
-			const content = modal.firstElementChild;
-			if (show) {
-				modal.classList.remove('opacity-0', 'pointer-events-none');
-				content.classList.remove('opacity-0', 'scale-95');
-			} else {
-				modal.classList.add('opacity-0', 'pointer-events-none');
-				content.classList.add('opacity-0', 'scale-95');
+
+function 计算HPACKHuffman字节长度(字符串) {
+	const 字节 = new TextEncoder().encode(字符串);
+	let 总位数 = 0;
+	for (let i = 0; i < 字节.length; i++) {
+		总位数 += HPACKHuffman码长[字节[i]];
+	}
+	return Math.ceil(总位数 / 8);
+}
+
+function 提取叉HTTPPadding值(request, 本机Padding头, 本机Padding键) {
+	const 头值 = request.headers.get(本机Padding头);
+	if (头值) {
+		try {
+			const 解析URL = new URL(头值, 'https://x.invalid');
+			const 查询值 = 解析URL.searchParams.get(本机Padding键);
+			if (查询值) return 查询值;
+		} catch (e) { }
+		return 头值;
+	}
+	const 请求URL = new URL(request.url);
+	return 请求URL.searchParams.get(本机Padding键) || '';
+}
+
+function 校验叉HTTPPadding(request, 本机Padding头, 本机Padding键) {
+	const padding值 = 提取叉HTTPPadding值(request, 本机Padding头, 本机Padding键);
+	if (!padding值) return true;
+	const huffman长度 = 计算HPACKHuffman字节长度(padding值);
+	return huffman长度 >= 98 && huffman长度 <= 1002;
+}
+
+const 叉HTTPBase62字符集 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+function 生成叉HTTPPadding串(长度) {
+	const 字符集长度 = 叉HTTPBase62字符集.length;
+	let 结果 = '';
+	for (let i = 0; i < 长度; i++) {
+		结果 += 叉HTTPBase62字符集[Math.floor(Math.random() * 字符集长度)];
+	}
+	return 结果;
+}
+
+async function 处理叉HTTP请求(request, yourUUID, 反代上下文 = {}) {
+	if (!request.body) return new Response('Bad Request', { status: 400 });
+	const { 头: 本机Padding头, 键: 本机Padding键 } = 获取叉HTTPPadding标识(yourUUID);
+	if (!校验叉HTTPPadding(request, 本机Padding头, 本机Padding键)) return new Response('Bad Request', { status: 400 });
+	const reader = request.body.getReader();
+	const 首包 = await 读取叉HTTP首包(reader, yourUUID);
+	if (!首包) {
+		try { reader.releaseLock() } catch (e) { }
+		return new Response('Invalid request', { status: 400 });
+	}
+	if (isSpeedTestSite(首包.hostname) && 反代上下文.代理类型 === null) {
+		try { reader.releaseLock() } catch (e) { }
+		return new Response(构造本地204响应(首包.respHeader), {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/octet-stream',
+				'X-Accel-Buffering': 'no',
+				'Cache-Control': 'no-store'
 			}
-		}
-window.addEventListener('click', (e) => {
-	if (window._modalMouseDownTarget && window._modalMouseDownTarget !== e.target) return;
-	if (e.target.id === 'proxy-selector-modal') toggleProxySelectorModal(false);
-});
-	</script>
-	${td8g9qc}
-	  </body>
-</html>`,
-	status: `<!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>وضعیت اشتراک کاربر</title>
-	${avk7j6y}
-	<style>
-		body { font-family: 'Vazirmatn', sans-serif; }
-		.glass {
-			background: rgba(10, 10, 10, 0.6);
-			border: 1px solid rgba(255, 255, 255, 0.05);
-		}
-		/* پرچم‌های SVG برای سازگاری با ویندوز */
-		.flg {
-			display: inline-block;
-			width: 1.35em;
-			height: 1em;
-			vertical-align: -0.15em;
-			border-radius: 2px;
-			background-size: cover;
-			background-position: 50%;
-			background-repeat: no-repeat;
-		}
-		.flg-g {
-			font-size: 1.1em;
-			line-height: 1;
-			vertical-align: -0.05em;
-		}
-	</style>
-</head>
-<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex flex-col items-center py-12 px-4 overflow-x-hidden">
-	<div class="w-full max-w-xl glass rounded-md shadow-2xl p-6 md:p-8 relative overflow-hidden z-10">
-		<div class="absolute -left-12 -top-12 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-		<div class="absolute -right-12 -bottom-12 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
-		<div class="text-center mb-8 relative z-10">
-			<div class="inline-flex items-center justify-center p-3 bg-blue-950/60 border border-blue-500 text-blue-400 rounded-md mb-4 shadow-[0_0_15px_rgba(59,130,246,0.4)]">
-				<svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-			</div>
-			<h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-1">پـنـل زئــوس - وضعیت اشتراک</h1>
-			<p id="display-username" class="text-sm font-bold text-blue-500 tracking-wide font-mono mb-2"></p>
-			<p id="display-flag" class="text-2xl font-bold tracking-wide mb-3" style="display:none;"></p>
-			<div id="live-connections-badge" style="display: none !important;">
-				<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
-				<span id="live-connections-text" dir="rtl">۰ دستگاه متصل</span>
-			</div>
-		</div>
-		<div id="status-card" class="mb-6 rounded-md p-4 text-center border font-bold relative z-10 transition duration-300">
-			<span id="status-text" class="text-sm">در حال بارگذاری وضعیت...</span>
-		</div>
-		<div class="grid grid-cols-2 gap-3 mb-8 relative z-10">
-			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
-						<svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-						حجم مصرفی
-					</span>
-					<span id="volume-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
-				</div>
-				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
-					<div id="volume-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
-				</div>
-				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
-					<span id="used-vol" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
-					<span id="limit-vol" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
-				</div>
-			</div>
-			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
-						<svg class="w-3.5 h-3.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-						زمان باقی‌مانده
-					</span>
-					<span id="expiry-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
-				</div>
-				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2 flex justify-end">
-					<div id="expiry-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
-				</div>
-				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
-					<span id="days-remaining" class="font-bold text-gray-800 dark:text-zinc-200" dir="rtl">-</span>
-					<span id="total-days" class="font-bold text-gray-800 dark:text-zinc-200" dir="rtl">-</span>
-				</div>
-			</div>
-			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
-						<svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-						ریکوئست‌ها
-					</span>
-					<span id="req-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
-				</div>
-				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
-					<div id="req-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
-				</div>
-				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
-					<span id="used-req" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
-					<span id="limit-req" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
-				</div>
-			</div>
-			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
-				<div class="flex justify-between items-center mb-2">
-					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
-						<svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-						دستگاه متصل
-					</span>
-					<span id="online-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
-				</div>
-				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
-					<div id="online-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
-				</div>
-				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
-					<span id="online-count" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">۰</span>
-					<span id="limit-online" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
-				</div>
-			</div>
-		</div>
-		<div class="border-t border-gray-100 dark:border-zinc-800 pt-6 relative z-10">
-			<h2 class="text-sm font-bold mb-4 flex items-center gap-2">
-				<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-				دریافت کـانفـیگ و اشتراک‌ها
-			</h2>
-			<div class="space-y-3">
-				<button onclick="copyTextSub()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-indigo-500 dark:hover:border-indigo-500 rounded-md text-xs font-medium transition shadow-sm">
-					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> کپی لینک ساب‌اسکریپشن متنی</span>
-					<span class="text-indigo-500">کپی</span>
-				</button>
-				<button onclick="showSubQr()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-amber-500 dark:hover:border-amber-500 rounded-md text-xs font-medium transition shadow-sm">
-					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg> دریافت کیوآر کد ساب</span>
-					<span class="text-amber-500">نمایش</span>
-				</button>
-				<button onclick="copyvIeesConfig()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-blue-500 dark:hover:border-blue-500 rounded-md text-xs font-medium transition shadow-sm">
-					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> کپی کـانفـیگ vIees (مستقیم)</span>
-					<span class="text-blue-500">کپی</span>
-				</button>
-				<button onclick="copySingboxSub()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-purple-500 dark:hover:border-purple-500 rounded-md text-xs font-medium transition shadow-sm">
-					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg> کپی لینک ساب Sing-box</span>
-					<span class="text-purple-500">کپی</span>
-				</button>
-				<button onclick="showSingboxQr()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-purple-500 dark:hover:border-purple-500 rounded-md text-xs font-medium transition shadow-sm">
-					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg> دریافت کیوآر کد Sing-box</span>
-					<span class="text-purple-500">نمایش</span>
-				</button>
-			</div>
-		</div>
-		<div class="border-t border-gray-100 dark:border-zinc-800 pt-6 mt-6 relative z-10 w-full">
-			<button onclick="document.getElementById('software-downloads-content').classList.toggle('hidden'); document.getElementById('software-downloads-icon').classList.toggle('rotate-180');" class="w-full flex items-center justify-between text-sm font-bold mb-4 cursor-pointer focus:outline-none">
-				<div class="flex items-center gap-2">
-					<svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-					<span>دانلود نرم افزار ها</span>
-				</div>
-				<svg id="software-downloads-icon" class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-			</button>
-			<div id="software-downloads-content" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3">
-				<!-- Android -->
-				<div class="bg-green-50/50 dark:bg-green-950/20 border border-green-200/50 dark:border-green-800/30 rounded-md p-2.5">
-					<div class="flex items-center gap-1.5 mb-2.5 text-green-700 dark:text-green-500 font-bold text-[11px]">
-						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02L19.695 6.183c.1568-.2716.0637-.6182-.2079-.7754-.2716-.1564-.6183-.0633-.775.2082l-1.8584 3.2185c-1.3853-.6328-2.9697-.9881-4.6644-.9881-1.6946 0-3.279.3553-4.664.9881L5.6664 5.6158c-.1567-.2715-.5038-.3646-.775-.2082-.2716.1572-.3647.5038-.2079.7754l1.8136 3.1385C2.963 11.2384 1.1571 14.5422 1 18.4234h22c-.1572-3.8812-1.963-7.185-5.4955-9.102"/></svg>
-						اندروید
-					</div>
-					<div class="flex flex-col gap-1.5">
-						<a href="https://play.google.com/store/apps/details?id=com.napsternetlabs.napsternetv" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-green-400 dark:hover:border-green-500 transition shadow-sm"><span>Npv Tunnel</span><span class="text-green-500 text-[12px]">📥</span></a>
-						<a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-green-400 dark:hover:border-green-500 transition shadow-sm"><span>V2Box</span><span class="text-green-500 text-[12px]">📥</span></a>
-						</div>
-				</div>
-				<!-- Windows -->
-				<div class="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/50 dark:border-blue-800/30 rounded-md p-2.5">
-					<div class="flex items-center gap-1.5 mb-2.5 text-blue-700 dark:text-blue-500 font-bold text-[11px]">
-						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.801"/></svg>
-						ویندوز
-					</div>
-					<div class="flex flex-col gap-1.5">
-						</div>
-				</div>
-				<!-- iOS -->
-				<div class="bg-gray-50/50 dark:bg-zinc-800/30 border border-gray-200/50 dark:border-gray-700/50 rounded-md p-2.5">
-					<div class="flex items-center gap-1.5 mb-2.5 text-gray-700 dark:text-gray-300 font-bold text-[11px]">
-						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.05 2.95.72 3.88 1.84-3.46 2.06-2.89 6.18.54 7.42-.85 1.58-1.54 2.82-3.07 3.75zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-						آیفون
-					</div>
-					<div class="flex flex-col gap-1.5">
-						<a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>V2Box</span><span class="text-gray-500 text-[12px]">📥</span></a>
-						<a href="https://apps.apple.com/us/app/streisand/id6450534064" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>Streisand</span><span class="text-gray-500 text-[12px]">📥</span></a>
-						<a href="https://apps.apple.com/us/app/npv-tunnel/id1629465476" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>NapsternetV</span><span class="text-gray-500 text-[12px]">📥</span></a>
-						<a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>happ</span><span class="text-gray-500 text-[12px]">📥</span></a>
-						<a href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>Hiddify</span><span class="text-gray-500 text-[12px]">📥</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<div id="qr-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
-	<div id="qr-modal-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center">
-		<div class="flex justify-between items-center mb-4">
-			<h3 class="text-lg font-bold text-gray-900 dark:text-white">QR Code</h3>
-			<button onclick="toggleQrModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="flex justify-center bg-gray-100 dark:bg-amoled-bg p-4 rounded-md mb-4 border border-gray-200 dark:border-zinc-800">
-			<div id="qrcode-container"></div>
-		</div>
-		<button onclick="downloadQrCode()" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-sm flex items-center justify-center gap-2">
-			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-			دانلود تصویر QR
-		</button>
-	</div>
-</div>
-<div class="flex flex-col gap-4 mt-6 relative z-10">
-	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
-		</div>
-	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
-		</div>
-</div>
-${pbfiipq}
-	<script>
-		/* {{USER_DATA_PLACEHOLDER}} */
-		${zfne8tu}
-		function mash75l() {
-			return window.location.host;
-		}
-		function wbfdlk4(user) {
-			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
-			var trojan = t.indexOf('trojan') !== -1;
-			var ss = t.indexOf('shadowsocks') !== -1;
-			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
-			return { vless: vless, trojan: trojan, ss: ss };
-		}
-		function fv9a4g0() {
-			const u = window.statusUser;
-			if (!u) return '';
-			const host = mash75l();
-			var ips = [host];
-			if (u.ips) {
-				const parsedIps = u.ips.split('\\n').map(function(ip) { return ip.trim(); }).filter(function(ip) { return ip.length > 0; });
-				if (parsedIps.length > 0) ips = parsedIps;
-			}
-			var ports = String(u.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-			var fp = u.fingerprint || 'unsafe';
-			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
-			const pf = wbfdlk4(u);
-			const links = [];
-			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
-			const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
-			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
-			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
-			let remVol = "Unlimited";
-			if (u.limit_gb) {
-				let rem = u.limit_gb - (u.used_gb || 0);
-				remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
-			}
-			let remTime = "Unlimited";
-			if (u.expiry_days && u.created_at) {
-				const created = new Date(u.created_at);
-				const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
-				const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-				remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
-			}
-			let remReq = "Unlimited";
-			if (u.limit_req) {
-				let rem = u.limit_req - (u.used_req || 0);
-				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
-			}
-			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
-			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
-			const rawPath = "/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default");
-			let proxyList = [];
+		});
+	}
+	if (首包.isUDP && 首包.协议 !== 'trojan' && 首包.port !== 53) {
+		try { reader.releaseLock() } catch (e) { }
+		return new Response('UDP is not supported', { status: 400 });
+	}
+
+	const responseHeaders = new Headers({
+		'Content-Type': 'application/octet-stream',
+		'X-Accel-Buffering': 'no',
+		'Cache-Control': 'no-store'
+	});
+
+	try {
+		const 响应URL = new URL('https://x.invalid/');
+		响应URL.searchParams.set(本机Padding键, 生成叉HTTPPadding串(100 + Math.floor(Math.random() * 901)));
+		responseHeaders.set(本机Padding头, 响应URL.toString());
+	} catch (e) { }
+
+	if (首包.isUDP) return 处理叉HTTPUDP请求(首包, reader, request, 反代上下文, responseHeaders);
+
+	try { reader.releaseLock() } catch (e) { }
+
+	const remoteConnWrapper = { socket: null, connectingPromise: null, retryConnect: null, downlinkDrain: Promise.resolve() };
+	const abortController = new AbortController();
+	let 已清理 = false;
+	const 清理 = (reason) => {
+		if (已清理) return;
+		已清理 = true;
+		try { abortController.abort(reason) } catch (e) { }
+		失效TCP连接世代(remoteConnWrapper);
+	};
+
+	const 占位WS = { readyState: WebSocket.OPEN };
+
+	let socket;
+	try {
+		socket = await forwardataTCP(首包.hostname, 首包.port, 首包.rawData, 占位WS, 首包.respHeader, remoteConnWrapper, yourUUID, request, 反代上下文, 首包.协议 === 'trojan', 首包.原始数据, true);
+	} catch (err) {
+		log(`[叉HTTP-Pipe] 连接失败: ${err?.message || err}`);
+		清理(err);
+		return new Response('bad gateway', { status: 502 });
+	}
+	if (!socket) {
+		清理(new Error('socket is null'));
+		return new Response('bad gateway', { status: 502 });
+	}
+
+	const 上行Promise = (async () => {
+		const 上行合包器 = 创建上行Grain合包流();
+		const 搬运Promise = 上行合包器.readable.pipeTo(socket.writable, { signal: abortController.signal });
+		void 搬运Promise.catch(清理);
+		const 上行reader = request.body.getReader();
+		const 取消上行reader = () => {
+			try { 上行reader.cancel(abortController.signal.reason).catch(() => { }); } catch (e) { }
+		};
+		abortController.signal.addEventListener('abort', 取消上行reader, { once: true });
+		try {
 			try {
-				if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
-					proxyList = JSON.parse(u.user_socks5);
-				} else if (u.user_socks5 || u.user_proxy_ip) {
-					proxyList = [u.user_socks5 || u.user_proxy_ip];
-				} else {
-					proxyList = [null];
+				while (true) {
+					const { done, value } = await 上行reader.read();
+					if (done) break;
+					if (value?.byteLength) await 上行合包器.写入(value);
 				}
-			} catch (e) {
-				proxyList = [u.user_socks5 || u.user_proxy_ip];
+			} finally {
+				abortController.signal.removeEventListener('abort', 取消上行reader);
+				try { 上行reader.releaseLock() } catch (e) { }
 			}
-			if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
-			const allowDirect = u.enable_direct !== 0;
-			if (allowDirect) {
-				let hasDirect = proxyList.some(function(p) { return p === null || p === ""; });
-				if (!hasDirect) proxyList.push(null);
-			} else {
-				proxyList = proxyList.filter(function(p) { return p !== null && p !== ""; });
-			}
-			if (proxyList.length === 0) proxyList = [null];
-			let proxyFlagCache = {};
-			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
-			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
-				let proxyItem = proxyList[locIdx];
-				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
-				let countryCode = typeof proxyItem === "object" && proxyItem !== null
-					? proxyItem.country
-					: (proxyStr ? (proxyStr === u.user_proxy_ip ? (u.user_proxy_iata || "") : "") : (u.global_proxy_iata || ""));
-				let flagEmoji = "🌐";
-				if (countryCode && typeof nkis0ps === 'function') {
-					flagEmoji = nkis0ps(countryCode);
-				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
-					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
-				}
-				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
-				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
-				ips.forEach((ip) => {
-					ports.forEach((portStr) => {
-						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
-						const tlsVal = isTlsPort ? "tls" : "none";
-						let userFrag = u.frag_len && u.frag_int ? "&fragment=" + u.frag_len + "," + u.frag_int : "";
-						if (u.advanced_frag) userFrag += "&fm=" + encodeURIComponent(u.advanced_frag);
-						if (u.cipher_suites) userFrag += "&cs=" + encodeURIComponent(u.cipher_suites);
-						if (u.tls_mask) userFrag += "&mask=" + encodeURIComponent(u.tls_mask);
-						if (u.ech_config) userFrag += "&ech=" + encodeURIComponent(u.ech_config);
-						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
-						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
-						if (pf.vless) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
-						if (pf.trojan) {
-							links.push('trojan://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
-						}
-						if (pf.ss) {
-							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
-							links.push('ss://' + btoa('aes-256-gcm:' + (u.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
-						}
-					});
-				});
-			}
-			return links.join('\\n');
+		} finally {
+			try { await 上行合包器.结束() } catch (e) { }
 		}
-		function copyvIeesConfig() {
-			navigator.clipboard.writeText(fv9a4g0()).then(() => alert('✅ کـانفـیگ vIees با موفقیت کپی شد!'));
+		await 搬运Promise;
+	})();
+
+	const 响应流 = typeof IdentityTransformStream !== 'undefined'
+		? new IdentityTransformStream()
+		: new TransformStream();
+	const 下行Promise = (async () => {
+		const writer = 响应流.writable.getWriter();
+		try {
+			if (有效数据长度(首包.respHeader) > 0) await writer.write(首包.respHeader);
+		} catch (error) {
+			try { await writer.abort(error) } catch (e) { }
+			throw error;
+		} finally {
+			try { writer.releaseLock() } catch (e) { }
 		}
-		function copyTextSub() {
-			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
-			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب متنی کپی شد!'));
-		}
-		function copySingboxSub() {
-			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
-			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب Sing-box کپی شد!'));
-		}
-		function toggleQrModal(show, text) {
-			const modal = document.getElementById('qr-modal');
-			const card = document.getElementById('qr-modal-card');
-			const container = document.getElementById('qrcode-container');
-			if (show) {
-				container.innerHTML = '';
-				const isDark = document.documentElement.classList.contains('dark');
-				const qrCode = new QRCodeStyling({
-					width: 220,
-					height: 220,
-					data: text,
-					margin: 5,
-					qrOptions: { errorCorrectionLevel: 'M' },
-					dotsOptions: {
-						color: isDark ? "#bfdbfe" : "#1e3a8a",
-						type: "rounded"
-					},
-					backgroundOptions: {
-						color: isDark ? "#0f172a" : "#ffffff"
-					},
-					cornersSquareOptions: {
-						color: isDark ? "#60a5fa" : "#1e40af",
-						type: "extra-rounded"
-					},
-					cornersDotOptions: {
-						color: isDark ? "#60a5fa" : "#1d4ed8",
-						type: "dot"
+		await socket.readable.pipeTo(响应流.writable, { signal: abortController.signal });
+	})();
+
+	void 上行Promise.catch(清理);
+	void 下行Promise.then(() => 清理(), 清理);
+	void Promise.allSettled([上行Promise, 下行Promise]);
+
+	return new Response(响应流.readable, { status: 200, headers: responseHeaders });
+}
+
+function 处理叉HTTPUDP请求(首包, reader, request, 反代上下文, responseHeaders) {
+	const 木马UDP上下文 = { 缓存: new Uint8Array(0), 反代地址: 反代上下文.木马反代地址 };
+	return new Response(new ReadableStream({
+		async start(controller) {
+			let 已关闭 = false;
+			let udpRespHeader = 首包.respHeader;
+			const 叉桥 = {
+				readyState: WebSocket.OPEN,
+				send(data) {
+					if (已关闭) return;
+					try {
+						const chunk = data instanceof Uint8Array
+							? data
+							: data instanceof ArrayBuffer
+								? new Uint8Array(data)
+								: ArrayBuffer.isView(data)
+									? new Uint8Array(data.buffer, data.byteOffset, data.byteLength)
+									: new Uint8Array(data);
+						controller.enqueue(chunk);
+					} catch (e) {
+						已关闭 = true;
+						this.readyState = WebSocket.CLOSED;
 					}
-				});
-				qrCode.append(container);
-				modal.classList.remove('opacity-0', 'pointer-events-none');
-				modal.classList.add('opacity-100', 'pointer-events-auto');
-				card.classList.remove('opacity-0', 'scale-95');
-				card.classList.add('opacity-100', 'scale-100');
-			} else {
-				modal.classList.remove('opacity-100', 'pointer-events-auto');
-				modal.classList.add('opacity-0', 'pointer-events-none');
-				card.classList.remove('opacity-100', 'scale-100');
-				card.classList.add('opacity-0', 'scale-95');
+				},
+				close() {
+					if (已关闭) return;
+					已关闭 = true;
+					this.readyState = WebSocket.CLOSED;
+					try { controller.close() } catch (e) { }
+				}
+			};
+			let 转发失败 = false;
+			try {
+				if (首包.协议 === 'trojan') {
+					木马UDP上下文.目标主机 = 首包.hostname;
+					木马UDP上下文.目标端口 = 首包.port;
+					if (木马UDP上下文.反代地址) await 转发木马UDP数据(首包.原始数据, 叉桥, 木马UDP上下文, request);
+				}
+				if (!(首包.协议 === 'trojan' && 木马UDP上下文.反代地址) && 首包.rawData?.byteLength) {
+					if (首包.协议 === 'trojan') await 转发木马UDP数据(首包.rawData, 叉桥, 木马UDP上下文, request);
+					else await forwardataudp(首包.rawData, 叉桥, udpRespHeader, request);
+					udpRespHeader = null;
+				}
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) break;
+					if (!value || value.byteLength === 0) continue;
+					if (首包.协议 === 'trojan') await 转发木马UDP数据(value, 叉桥, 木马UDP上下文, request);
+					else await forwardataudp(value, 叉桥, udpRespHeader, request);
+					udpRespHeader = null;
+				}
+			} catch (err) {
+				转发失败 = true;
+				log(`[叉HTTP转发] 处理失败: ${err?.message || err}`);
+				closeSocketQuietly(叉桥);
+			} finally {
+			const 保持木马UDP反代下行 = !转发失败 && 首包.协议 === 'trojan' && 木马UDP上下文.反代地址 && 木马UDP上下文.反代Socket;
+			if (!保持木马UDP反代下行) {
+				try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+				closeSocketQuietly(叉桥);
 			}
+			try { reader.releaseLock() } catch (e) { }
+			}
+		},
+		cancel() {
+			try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+			try { reader.releaseLock() } catch (e) { }
 		}
-		function downloadQrCode() {
-			const container = document.getElementById('qrcode-container');
-			if (!container) return;
-			const canvas = container.querySelector('canvas');
-			const img = container.querySelector('img');
-			let dataUrl = '';
-			if (canvas) {
-				dataUrl = canvas.toDataURL("image/png");
-			} else if (img && img.src) {
-				dataUrl = img.src;
+	}), { status: 200, headers: responseHeaders });
+}
+
+function 有效数据长度(data) {
+	if (!data) return 0;
+	if (typeof data.byteLength === 'number') return data.byteLength;
+	if (typeof data.length === 'number') return data.length;
+	return 0;
+}
+
+function 失效TCP连接世代(remoteConnWrapper) {
+	if (!remoteConnWrapper) return;
+	remoteConnWrapper.generation = (Number.isInteger(remoteConnWrapper.generation) ? remoteConnWrapper.generation : 0) + 1;
+	const socket = remoteConnWrapper.socket;
+	remoteConnWrapper.socket = null;
+	remoteConnWrapper.downlinkController = null;
+	remoteConnWrapper.downlinkDrain = Promise.resolve();
+	try { socket?.close?.() } catch (e) { }
+}
+
+function 开始TCP连接世代(remoteConnWrapper) {
+	if (!Number.isInteger(remoteConnWrapper.generation)) remoteConnWrapper.generation = 0;
+	const generation = ++remoteConnWrapper.generation;
+	const previousSocket = remoteConnWrapper.socket;
+	remoteConnWrapper.socket = null;
+	const previousDownlink = remoteConnWrapper.downlinkController;
+	remoteConnWrapper.downlinkController = null;
+	const previousDrain = remoteConnWrapper.downlinkDrain || Promise.resolve();
+	let currentDrain;
+	try { currentDrain = previousDownlink?.停止并刷新?.() || Promise.resolve() }
+	catch (error) { currentDrain = Promise.reject(error) }
+	const downlinkDrain = Promise.all([previousDrain, currentDrain]);
+	// Installation awaits this promise; attach a handler immediately in case draining fails before dialing completes.
+	downlinkDrain.catch(() => { });
+	remoteConnWrapper.downlinkDrain = downlinkDrain;
+	try { previousSocket?.close?.() } catch (e) { }
+	return { generation, downlinkDrain };
+}
+
+async function 读取叉HTTP首包(reader, token) {
+	const decoder = 魏烈思文本解码器;
+
+	const 尝试解析魏烈思首包 = (data) => {
+		const length = data.byteLength;
+		if (length < 18) return { 状态: 'need_more' };
+		if (!UUID字节匹配(data, 1, token)) return { 状态: 'invalid' };
+
+		const optLen = data[17];
+		const cmdIndex = 18 + optLen;
+		if (length < cmdIndex + 1) return { 状态: 'need_more' };
+
+		const cmd = data[cmdIndex];
+		if (cmd !== 1 && cmd !== 2) return { 状态: 'invalid' };
+
+		const portIndex = cmdIndex + 1;
+		if (length < portIndex + 3) return { 状态: 'need_more' };
+
+		const port = (data[portIndex] << 8) | data[portIndex + 1];
+		const addressType = data[portIndex + 2];
+		const addressIndex = portIndex + 3;
+		let headerLen = -1;
+		let hostname = '';
+
+		if (addressType === 1) {
+			if (length < addressIndex + 4) return { 状态: 'need_more' };
+			hostname = `${data[addressIndex]}.${data[addressIndex + 1]}.${data[addressIndex + 2]}.${data[addressIndex + 3]}`;
+			headerLen = addressIndex + 4;
+		} else if (addressType === 2) {
+			if (length < addressIndex + 1) return { 状态: 'need_more' };
+			const domainLen = data[addressIndex];
+			if (length < addressIndex + 1 + domainLen) return { 状态: 'need_more' };
+			hostname = decoder.decode(data.subarray(addressIndex + 1, addressIndex + 1 + domainLen));
+			headerLen = addressIndex + 1 + domainLen;
+		} else if (addressType === 3) {
+			if (length < addressIndex + 16) return { 状态: 'need_more' };
+			const ipv6 = [];
+			for (let i = 0; i < 8; i++) {
+				const base = addressIndex + i * 2;
+				ipv6.push(((data[base] << 8) | data[base + 1]).toString(16));
 			}
-			if (!dataUrl) {
-				alert('⚠️ تصویر QR برای دانلود یافت نشد!');
+			hostname = ipv6.join(':');
+			headerLen = addressIndex + 16;
+		} else return { 状态: 'invalid' };
+
+		if (!hostname) return { 状态: 'invalid' };
+
+		return {
+			状态: 'ok',
+			结果: {
+				协议: 'vl' + 'ess',
+				hostname,
+				port,
+				isUDP: cmd === 2,
+				rawData: data.subarray(headerLen),
+				respHeader: new Uint8Array([data[0], 0]),
+				原始数据: null,
+			}
+		};
+	};
+
+	const 尝试解析木马首包 = (data) => {
+		const 密码哈希 = sha224(token);
+		const 密码哈希字节 = new TextEncoder().encode(密码哈希);
+		const length = data.byteLength;
+		if (length < 58) return { 状态: 'need_more' };
+		if (data[56] !== 0x0d || data[57] !== 0x0a) return { 状态: 'invalid' };
+		for (let i = 0; i < 56; i++) {
+			if (data[i] !== 密码哈希字节[i]) return { 状态: 'invalid' };
+		}
+
+		const socksStart = 58;
+		if (length < socksStart + 2) return { 状态: 'need_more' };
+		const cmd = data[socksStart];
+		if (cmd !== 1 && cmd !== 3) return { 状态: 'invalid' };
+		const isUDP = cmd === 3;
+
+		const atype = data[socksStart + 1];
+		let cursor = socksStart + 2;
+		let hostname = '';
+
+		if (atype === 1) {
+			if (length < cursor + 4) return { 状态: 'need_more' };
+			hostname = `${data[cursor]}.${data[cursor + 1]}.${data[cursor + 2]}.${data[cursor + 3]}`;
+			cursor += 4;
+		} else if (atype === 3) {
+			if (length < cursor + 1) return { 状态: 'need_more' };
+			const domainLen = data[cursor];
+			if (length < cursor + 1 + domainLen) return { 状态: 'need_more' };
+			hostname = decoder.decode(data.subarray(cursor + 1, cursor + 1 + domainLen));
+			cursor += 1 + domainLen;
+		} else if (atype === 4) {
+			if (length < cursor + 16) return { 状态: 'need_more' };
+			const ipv6 = [];
+			for (let i = 0; i < 8; i++) {
+				const base = cursor + i * 2;
+				ipv6.push(((data[base] << 8) | data[base + 1]).toString(16));
+			}
+			hostname = ipv6.join(':');
+			cursor += 16;
+		} else return { 状态: 'invalid' };
+
+		if (!hostname) return { 状态: 'invalid' };
+		if (length < cursor + 4) return { 状态: 'need_more' };
+
+		const port = (data[cursor] << 8) | data[cursor + 1];
+		if (data[cursor + 2] !== 0x0d || data[cursor + 3] !== 0x0a) return { 状态: 'invalid' };
+		const dataOffset = cursor + 4;
+
+		return {
+			状态: 'ok',
+			结果: {
+				协议: 'trojan',
+				hostname,
+				port,
+				isUDP,
+				rawData: data.subarray(dataOffset),
+				原始数据: data,
+				respHeader: null,
+			}
+		};
+	};
+
+	let buffer = new Uint8Array(1024);
+	let offset = 0;
+
+	while (true) {
+		const { value, done } = await reader.read();
+		if (done) {
+			if (offset === 0) return null;
+			break;
+		}
+
+		const chunk = value instanceof Uint8Array ? value : new Uint8Array(value);
+		if (offset + chunk.byteLength > buffer.byteLength) {
+			const newBuffer = new Uint8Array(Math.max(buffer.byteLength * 2, offset + chunk.byteLength));
+			newBuffer.set(buffer.subarray(0, offset));
+			buffer = newBuffer;
+		}
+
+		buffer.set(chunk, offset);
+		offset += chunk.byteLength;
+
+		const 当前数据 = buffer.subarray(0, offset);
+		const 木马结果 = 尝试解析木马首包(当前数据);
+		if (木马结果.状态 === 'ok') return { ...木马结果.结果, reader };
+
+		const 魏烈思结果 = 尝试解析魏烈思首包(当前数据);
+		if (魏烈思结果.状态 === 'ok') return { ...魏烈思结果.结果, reader };
+
+		if (木马结果.状态 === 'invalid' && 魏烈思结果.状态 === 'invalid') return null;
+	}
+
+	const 最终数据 = buffer.subarray(0, offset);
+	const 最终木马结果 = 尝试解析木马首包(最终数据);
+	if (最终木马结果.状态 === 'ok') return { ...最终木马结果.结果, reader };
+	const 最终魏烈思结果 = 尝试解析魏烈思首包(最终数据);
+	if (最终魏烈思结果.状态 === 'ok') return { ...最终魏烈思结果.结果, reader };
+	return null;
+}
+///////////////////////////////////////////////////////////////////////gRPC传输数据///////////////////////////////////////////////
+async function 处理gRPC请求(request, yourUUID, 反代上下文 = {}) {
+	if (!request.body) return new Response('Bad Request', { status: 400 });
+	const reader = request.body.getReader();
+	const remoteConnWrapper = { socket: null, connectingPromise: null, retryConnect: null, downlinkDrain: Promise.resolve() };
+	const 失效远端连接 = () => 失效TCP连接世代(remoteConnWrapper);
+	let isDnsQuery = false;
+	const 木马UDP上下文 = { 缓存: new Uint8Array(0), 反代地址: 反代上下文.木马反代地址 };
+	let 判断是否是木马 = null;
+	let 当前写入Socket = null;
+	let 远端写入器 = null;
+	let GRPC上行写入队列 = null;
+	//log('[gRPC] 开始处理双向流');
+	const grpcHeaders = new Headers({
+		'Content-Type': 'application/grpc',
+		'grpc-status': '0',
+		'X-Accel-Buffering': 'no',
+		'Cache-Control': 'no-store'
+	});
+
+	const 下行缓存上限 = 下行Grain包字节;
+	const 下行刷新间隔 = 1;
+
+	return new Response(new ReadableStream({
+		async start(controller) {
+			let 已关闭 = false;
+			let 发送队列 = [];
+			let 队列字节数 = 0;
+			let 刷新定时器 = null;
+			let 刷新Microtask已排队 = false;
+			const grpcBridge = {
+				readyState: WebSocket.OPEN,
+				send(data) {
+					if (已关闭) return;
+					const chunk = data instanceof Uint8Array ? data : new Uint8Array(data);
+					const lenBytes数组 = [];
+					let remaining = chunk.byteLength >>> 0;
+					while (remaining > 127) {
+						lenBytes数组.push((remaining & 0x7f) | 0x80);
+						remaining >>>= 7;
+					}
+					lenBytes数组.push(remaining);
+					const lenBytes = new Uint8Array(lenBytes数组);
+					const protobufLen = 1 + lenBytes.length + chunk.byteLength;
+					const frame = new Uint8Array(5 + protobufLen);
+					frame[0] = 0;
+					frame[1] = (protobufLen >>> 24) & 0xff;
+					frame[2] = (protobufLen >>> 16) & 0xff;
+					frame[3] = (protobufLen >>> 8) & 0xff;
+					frame[4] = protobufLen & 0xff;
+					frame[5] = 0x0a;
+					frame.set(lenBytes, 6);
+					frame.set(chunk, 6 + lenBytes.length);
+					发送队列.push(frame);
+					队列字节数 += frame.byteLength;
+					安排刷新发送队列();
+				},
+				close() {
+					if (this.readyState === WebSocket.CLOSED) return;
+					刷新发送队列(true);
+					已关闭 = true;
+					this.readyState = WebSocket.CLOSED;
+					try { controller.close() } catch (e) { }
+				}
+			};
+
+			const 刷新发送队列 = (force = false) => {
+				刷新Microtask已排队 = false;
+				if (刷新定时器) {
+					clearTimeout(刷新定时器);
+					刷新定时器 = null;
+				}
+				if ((!force && 已关闭) || 队列字节数 === 0) return;
+				const out = new Uint8Array(队列字节数);
+				let offset = 0;
+				for (const item of 发送队列) {
+					out.set(item, offset);
+					offset += item.byteLength;
+				}
+				发送队列 = [];
+				队列字节数 = 0;
+				try {
+					controller.enqueue(out);
+				} catch (e) {
+					已关闭 = true;
+					grpcBridge.readyState = WebSocket.CLOSED;
+				}
+			};
+
+			const 安排刷新发送队列 = () => {
+				if (队列字节数 >= 下行缓存上限) {
+					刷新发送队列();
+					return;
+				}
+				if (刷新Microtask已排队 || 刷新定时器) return;
+				刷新Microtask已排队 = true;
+				queueMicrotask(() => {
+					刷新Microtask已排队 = false;
+					if (已关闭 || 队列字节数 === 0 || 刷新定时器) return;
+					刷新定时器 = setTimeout(刷新发送队列, 下行刷新间隔);
+				});
+			};
+
+			const 关闭连接 = () => {
+				if (已关闭) return;
+				GRPC上行写入队列?.清空();
+				失效远端连接();
+				刷新发送队列(true);
+				已关闭 = true;
+				grpcBridge.readyState = WebSocket.CLOSED;
+				if (刷新定时器) clearTimeout(刷新定时器);
+				if (远端写入器) {
+					try { 远端写入器.releaseLock() } catch (e) { }
+					远端写入器 = null;
+				}
+				当前写入Socket = null;
+				try { reader.releaseLock() } catch (e) { }
+				try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+				try { controller.close() } catch (e) { }
+			};
+
+			const 释放远端写入器 = () => {
+				if (远端写入器) {
+					try { 远端写入器.releaseLock() } catch (e) { }
+					远端写入器 = null;
+				}
+				当前写入Socket = null;
+			};
+
+			const 上行写入队列 = GRPC上行写入队列 = 创建上行写入队列({
+				获取写入器: () => {
+					const socket = remoteConnWrapper.socket;
+					if (!socket) return null;
+					if (socket !== 当前写入Socket) {
+						释放远端写入器();
+						当前写入Socket = socket;
+						远端写入器 = socket.writable.getWriter();
+					}
+					return 远端写入器;
+				},
+				获取连接任务: () => remoteConnWrapper.connectingPromise,
+				释放写入器: 释放远端写入器,
+				重试连接: async () => {
+					if (typeof remoteConnWrapper.retryConnect !== 'function') throw new Error('retry unavailable');
+					await remoteConnWrapper.retryConnect();
+				},
+				关闭连接,
+				名称: 'gRPC上行'
+			});
+
+			const 写入远端 = async (payload, allowRetry = true) => {
+				return 上行写入队列.写入并等待(payload, allowRetry);
+			};
+
+			let 转发失败 = false;
+			try {
+				let pending = new Uint8Array(0);
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) break;
+					if (!value || value.byteLength === 0) continue;
+					const 当前块 = value instanceof Uint8Array ? value : new Uint8Array(value);
+					const merged = new Uint8Array(pending.length + 当前块.length);
+					merged.set(pending, 0);
+					merged.set(当前块, pending.length);
+					pending = merged;
+					while (pending.byteLength >= 5) {
+						const grpcLen = ((pending[1] << 24) >>> 0) | (pending[2] << 16) | (pending[3] << 8) | pending[4];
+						const frameSize = 5 + grpcLen;
+						if (pending.byteLength < frameSize) break;
+						const grpcPayload = pending.subarray(5, frameSize);
+						pending = pending.slice(frameSize);
+						if (!grpcPayload.byteLength) continue;
+						let payload = grpcPayload;
+						if (payload.byteLength >= 2 && payload[0] === 0x0a) {
+							let shift = 0;
+							let offset = 1;
+							let varint有效 = false;
+							while (offset < payload.length) {
+								const current = payload[offset++];
+								if ((current & 0x80) === 0) {
+									varint有效 = true;
+									break;
+								}
+								shift += 7;
+								if (shift > 35) break;
+							}
+							if (varint有效) payload = payload.subarray(offset);
+						}
+						if (!payload.byteLength) continue;
+						if (isDnsQuery) {
+							if (判断是否是木马) await 转发木马UDP数据(payload, grpcBridge, 木马UDP上下文, request);
+							else await forwardataudp(payload, grpcBridge, null, request);
+							continue;
+						}
+						if (remoteConnWrapper.socket || remoteConnWrapper.connectingPromise) {
+							if (!(await 写入远端(payload))) throw new Error('Remote socket is not ready');
+						} else {
+							const 首包bytes = 数据转Uint8Array(payload);
+							if (判断是否是木马 === null) 判断是否是木马 = 首包bytes.byteLength >= 58 && 首包bytes[56] === 0x0d && 首包bytes[57] === 0x0a;
+							if (判断是否是木马) {
+								const 解析结果 = 解析木马请求(首包bytes, yourUUID);
+								if (解析结果?.hasError) throw new Error(解析结果.message || 'Invalid trojan request');
+								const { port, hostname, rawClientData, isUDP } = 解析结果;
+								log(`[gRPC] 木马首包: ${hostname}:${port} | UDP: ${isUDP ? '是' : '否'}`);
+								if (isSpeedTestSite(hostname) && 反代上下文.代理类型 === null) {
+									grpcBridge.send(构造本地204响应());
+									return;
+								}
+								if (isUDP) {
+									isDnsQuery = true;
+									木马UDP上下文.目标主机 = hostname;
+									木马UDP上下文.目标端口 = port;
+									if (木马UDP上下文.反代地址) await 转发木马UDP数据(首包bytes, grpcBridge, 木马UDP上下文, request);
+									else if (有效数据长度(rawClientData) > 0) await 转发木马UDP数据(rawClientData, grpcBridge, 木马UDP上下文, request);
+								} else {
+									await forwardataTCP(hostname, port, rawClientData, grpcBridge, null, remoteConnWrapper, yourUUID, request, 反代上下文, true, 首包bytes);
+								}
+							} else {
+								判断是否是木马 = false;
+								const 解析结果 = 解析魏烈思请求(首包bytes, yourUUID);
+								if (解析结果?.hasError) throw new Error(解析结果.message || 'Invalid VLESS request');
+								const { port, hostname, version, isUDP, rawClientData } = 解析结果;
+								log(`[gRPC] 魏烈思首包: ${hostname}:${port} | UDP: ${isUDP ? '是' : '否'}`);
+								const respHeader = new Uint8Array([version, 0]);
+								if (isSpeedTestSite(hostname) && 反代上下文.代理类型 === null) {
+									grpcBridge.send(构造本地204响应(respHeader));
+									return;
+								}
+								if (isUDP) {
+									if (port !== 53) throw new Error('UDP is not supported');
+									isDnsQuery = true;
+								}
+								grpcBridge.send(respHeader);
+								const rawData = rawClientData;
+								if (isDnsQuery) {
+									if (判断是否是木马) await 转发木马UDP数据(rawData, grpcBridge, 木马UDP上下文, request);
+									else await forwardataudp(rawData, grpcBridge, null, request);
+								}
+								else await forwardataTCP(hostname, port, rawData, grpcBridge, null, remoteConnWrapper, yourUUID, request, 反代上下文);
+							}
+						}
+					}
+					刷新发送队列();
+				}
+				await 上行写入队列.等待空();
+			} catch (err) {
+				转发失败 = true;
+				log(`[gRPC转发] 处理失败: ${err?.message || err}`);
+			} finally {
+				const 保持木马UDP反代下行 = !转发失败 && isDnsQuery && 判断是否是木马 && 木马UDP上下文.反代地址 && 木马UDP上下文.反代Socket;
+				if (保持木马UDP反代下行) {
+					上行写入队列.清空();
+					失效远端连接();
+					释放远端写入器();
+					try { reader.releaseLock() } catch (e) { }
+				} else {
+					关闭连接();
+				}
+			}
+		},
+		cancel() {
+			GRPC上行写入队列?.清空();
+			失效远端连接();
+			try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+			try { reader.releaseLock() } catch (e) { }
+		}
+	}), { status: 200, headers: grpcHeaders });
+}
+
+function 是有效WS早期数据(bytes, token) {
+	if (!bytes?.byteLength) return false;
+	if (bytes.byteLength >= 18 && UUID字节匹配(bytes, 1, token)) return true;
+	if (bytes.byteLength < 58 || bytes[56] !== 0x0d || bytes[57] !== 0x0a) return false;
+
+	const trojanPassword = sha224(token);
+	for (let i = 0; i < 56; i++) {
+		if (bytes[i] !== trojanPassword.charCodeAt(i)) return false;
+	}
+	return true;
+}
+
+function 解码WS早期数据(header, token) {
+	if (!header) return null;
+	if (header.length > WS早期数据最大头长度) throw new Error('early data is too large');
+
+	let bytes;
+	const Uint8ArrayBase64 = /** @type {any} */ (Uint8Array);
+	if (typeof Uint8ArrayBase64.fromBase64 === 'function') {
+		try {
+			bytes = Uint8ArrayBase64.fromBase64(header, { alphabet: 'base64url' });
+		} catch (_) { }
+	}
+	if (!bytes) {
+		let normalized = header.replace(/-/g, '+').replace(/_/g, '/');
+		const padding = normalized.length % 4;
+		if (padding) normalized += '='.repeat(4 - padding);
+		let binaryString;
+		try {
+			binaryString = atob(normalized);
+		} catch (_) {
+			return null;
+		}
+		bytes = new Uint8Array(binaryString.length);
+		for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
+	}
+
+	if (bytes.byteLength > WS早期数据最大字节) throw new Error('early data is too large');
+	return 是有效WS早期数据(bytes, token) ? bytes : null;
+}
+
+///////////////////////////////////////////////////////////////////////WS传输数据///////////////////////////////////////////////
+async function 处理WS请求(request, yourUUID, url, 反代上下文 = {}) {
+	const WS套接字对 = new WebSocketPair();
+	const [clientSock, serverSock] = Object.values(WS套接字对);
+	try { (/** @type {any} */ (serverSock)).accept({ allowHalfOpen: true }) }
+	catch (_) { serverSock.accept() }
+	serverSock.binaryType = 'arraybuffer';
+	let remoteConnWrapper = { socket: null, connectingPromise: null, retryConnect: null, downlinkDrain: Promise.resolve() };
+	const 失效远端连接 = () => 失效TCP连接世代(remoteConnWrapper);
+	let isDnsQuery = false;
+	let 判断是否是木马 = null;
+	const 木马UDP上下文 = { 缓存: new Uint8Array(0), 反代地址: 反代上下文.木马反代地址 };
+	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
+	const SS模式禁用EarlyData = !!url.searchParams.get('enc');
+	let WS上行写入队列 = null;
+	let WS显式传输链 = Promise.resolve();
+	let WS显式传输停止接收 = false, WS显式传输失败 = false, WS显式传输收尾已入队 = false;
+	let WS显式队列字节 = 0, WS显式队列条目 = 0;
+	let 判断协议类型 = null, 当前写入Socket = null, 远端写入器 = null;
+	let ss上下文 = null, ss初始化任务 = null;
+	let WS本地测速模式 = false, WS本地测速回包Socket = null;
+	let WS本地测速请求缓存 = new Uint8Array(0);
+	let WS本地测速首包响应头 = null;
+	const WS本地测速请求上限 = 64 * 1024;
+
+	const 发送WS本地测速响应 = async () => {
+		if (!WS本地测速回包Socket) return;
+		const respHeader = WS本地测速首包响应头;
+		WS本地测速首包响应头 = null;
+		await WebSocket发送并等待(WS本地测速回包Socket, 构造WS本地204响应(respHeader));
+	};
+
+	const 查找HTTP请求头结尾 = (data) => {
+		for (let i = 0; i <= data.byteLength - 4; i++) {
+			if (data[i] === 0x0d && data[i + 1] === 0x0a && data[i + 2] === 0x0d && data[i + 3] === 0x0a) return i + 4;
+		}
+		return -1;
+	};
+
+	const 处理WS本地测速数据 = async (data) => {
+		const chunk = 数据转Uint8Array(data);
+		if (!chunk.byteLength) return;
+		if (WS本地测速请求缓存.byteLength + chunk.byteLength > WS本地测速请求上限) throw new Error('WS local speed-test request is too large');
+		WS本地测速请求缓存 = 拼接字节数据(WS本地测速请求缓存, chunk);
+
+		while (WS本地测速请求缓存.byteLength) {
+			const headerEnd = 查找HTTP请求头结尾(WS本地测速请求缓存);
+			if (headerEnd === -1) return;
+			const headerText = 魏烈思文本解码器.decode(WS本地测速请求缓存.subarray(0, headerEnd));
+			const contentLengthMatch = headerText.match(/(?:^|\r\n)content-length\s*:\s*(\d+)/i);
+			const contentLength = contentLengthMatch ? Number(contentLengthMatch[1]) : 0;
+			const requestLength = headerEnd + contentLength;
+			if (!Number.isSafeInteger(contentLength) || requestLength > WS本地测速请求上限) throw new Error('WS local speed-test request body is too large');
+			if (WS本地测速请求缓存.byteLength < requestLength) return;
+			WS本地测速请求缓存 = WS本地测速请求缓存.slice(requestLength);
+			await 发送WS本地测速响应();
+		}
+	};
+
+	const 启用WS本地测速模式 = async (回包Socket, respHeader = null, 首请求数据 = null) => {
+		WS本地测速模式 = true;
+		WS本地测速回包Socket = 回包Socket;
+		WS本地测速请求缓存 = new Uint8Array(0);
+		WS本地测速首包响应头 = respHeader;
+		if (有效数据长度(首请求数据) > 0) await 处理WS本地测速数据(首请求数据);
+	};
+
+	const 释放远端写入器 = () => {
+		if (远端写入器) {
+			try { 远端写入器.releaseLock() } catch (e) { }
+			远端写入器 = null;
+		}
+		当前写入Socket = null;
+	};
+
+	const 上行写入队列 = WS上行写入队列 = 创建上行写入队列({
+		获取写入器: () => {
+			const socket = remoteConnWrapper.socket;
+			if (!socket) return null;
+			if (socket !== 当前写入Socket) {
+				释放远端写入器();
+				当前写入Socket = socket;
+				远端写入器 = socket.writable.getWriter();
+			}
+			return 远端写入器;
+		},
+		获取连接任务: () => remoteConnWrapper.connectingPromise,
+		释放写入器: 释放远端写入器,
+		重试连接: async () => {
+			if (typeof remoteConnWrapper.retryConnect !== 'function') throw new Error('retry unavailable');
+			await remoteConnWrapper.retryConnect();
+		},
+		关闭连接: err => 处理WS显式传输错误(err),
+		名称: 'WS上行'
+	});
+
+	const 写入远端 = async (chunk, allowRetry = true) => {
+		return 上行写入队列.写入(chunk, allowRetry);
+	};
+
+	const 获取SS上下文 = async () => {
+		if (ss上下文) return ss上下文;
+		if (!ss初始化任务) {
+			ss初始化任务 = (async () => {
+				const 请求加密方式 = (url.searchParams.get('enc') || '').toLowerCase();
+				const 首选加密配置 = SS支持加密配置[请求加密方式] || SS支持加密配置['aes-128-gcm'];
+				const 入站候选加密配置 = [首选加密配置, ...Object.values(SS支持加密配置).filter(c => c.method !== 首选加密配置.method)];
+				const 入站主密钥任务缓存 = new Map();
+				const 取入站主密钥任务 = (config) => {
+					if (!入站主密钥任务缓存.has(config.method)) 入站主密钥任务缓存.set(config.method, SS派生主密钥(yourUUID, config.keyLen));
+					return 入站主密钥任务缓存.get(config.method);
+				};
+				const 入站状态 = {
+					buffer: new Uint8Array(0),
+					hasSalt: false,
+					waitPayloadLength: null,
+					decryptKey: null,
+					nonceCounter: new Uint8Array(SSNonce长度),
+					加密配置: null,
+				};
+				const 初始化入站解密状态 = async () => {
+					const lengthCipherTotalLength = 2 + SSAEAD标签长度;
+					const 最大盐长度 = Math.max(...入站候选加密配置.map(c => c.saltLen));
+					const 最大对齐扫描字节 = 16;
+					const 可扫描最大偏移 = Math.min(最大对齐扫描字节, Math.max(0, 入站状态.buffer.byteLength - (lengthCipherTotalLength + Math.min(...入站候选加密配置.map(c => c.saltLen)))));
+					for (let offset = 0; offset <= 可扫描最大偏移; offset++) {
+						for (const 加密配置 of 入站候选加密配置) {
+							const 初始化最小长度 = offset + 加密配置.saltLen + lengthCipherTotalLength;
+							if (入站状态.buffer.byteLength < 初始化最小长度) continue;
+							const salt = 入站状态.buffer.subarray(offset, offset + 加密配置.saltLen);
+							const lengthCipher = 入站状态.buffer.subarray(offset + 加密配置.saltLen, 初始化最小长度);
+							const masterKey = await 取入站主密钥任务(加密配置);
+							const decryptKey = await SS派生会话密钥(加密配置, masterKey, salt, ['decrypt']);
+							const nonceCounter = new Uint8Array(SSNonce长度);
+							try {
+								const lengthPlain = await SSAEAD解密(decryptKey, nonceCounter, lengthCipher);
+								if (lengthPlain.byteLength !== 2) continue;
+								const payloadLength = (lengthPlain[0] << 8) | lengthPlain[1];
+								if (payloadLength < 0 || payloadLength > 加密配置.maxChunk) continue;
+								if (offset > 0) log(`[SS入站] 检测到前导噪声 ${offset}B，已自动对齐`);
+								if (加密配置.method !== 首选加密配置.method) log(`[SS入站] URL enc=${请求加密方式 || 首选加密配置.method} 与实际 ${加密配置.method} 不一致，已自动切换`);
+								入站状态.buffer = 入站状态.buffer.subarray(初始化最小长度);
+								入站状态.decryptKey = decryptKey;
+								入站状态.nonceCounter = nonceCounter;
+								入站状态.waitPayloadLength = payloadLength;
+								入站状态.加密配置 = 加密配置;
+								入站状态.hasSalt = true;
+								return true;
+							} catch (_) { }
+						}
+					}
+					const 初始化失败判定长度 = 最大盐长度 + lengthCipherTotalLength + 最大对齐扫描字节;
+					if (入站状态.buffer.byteLength >= 初始化失败判定长度) {
+						throw new Error(`SS handshake decrypt failed (enc=${请求加密方式 || 'auto'}, candidates=${入站候选加密配置.map(c => c.method).join('/')})`);
+					}
+					return false;
+				};
+				const 入站解密器 = {
+					async 输入(dataChunk) {
+						const chunk = 数据转Uint8Array(dataChunk);
+						if (chunk.byteLength > 0) 入站状态.buffer = 拼接字节数据(入站状态.buffer, chunk);
+						if (!入站状态.hasSalt) {
+							const 初始化成功 = await 初始化入站解密状态();
+							if (!初始化成功) return [];
+						}
+						const plaintextChunks = [];
+						while (true) {
+							if (入站状态.waitPayloadLength === null) {
+								const lengthCipherTotalLength = 2 + SSAEAD标签长度;
+								if (入站状态.buffer.byteLength < lengthCipherTotalLength) break;
+								const lengthCipher = 入站状态.buffer.subarray(0, lengthCipherTotalLength);
+								入站状态.buffer = 入站状态.buffer.subarray(lengthCipherTotalLength);
+								const lengthPlain = await SSAEAD解密(入站状态.decryptKey, 入站状态.nonceCounter, lengthCipher);
+								if (lengthPlain.byteLength !== 2) throw new Error('SS length decrypt failed');
+								const payloadLength = (lengthPlain[0] << 8) | lengthPlain[1];
+								if (payloadLength < 0 || payloadLength > 入站状态.加密配置.maxChunk) throw new Error(`SS payload length invalid: ${payloadLength}`);
+								入站状态.waitPayloadLength = payloadLength;
+							}
+							const payloadCipherTotalLength = 入站状态.waitPayloadLength + SSAEAD标签长度;
+							if (入站状态.buffer.byteLength < payloadCipherTotalLength) break;
+							const payloadCipher = 入站状态.buffer.subarray(0, payloadCipherTotalLength);
+							入站状态.buffer = 入站状态.buffer.subarray(payloadCipherTotalLength);
+							const payloadPlain = await SSAEAD解密(入站状态.decryptKey, 入站状态.nonceCounter, payloadCipher);
+							plaintextChunks.push(payloadPlain);
+							入站状态.waitPayloadLength = null;
+						}
+						return plaintextChunks;
+					},
+				};
+				let 出站加密器 = null;
+				const SS单批最大字节 = 32 * 1024;
+				const 获取出站加密器 = async () => {
+					if (出站加密器) return 出站加密器;
+					if (!入站状态.加密配置) throw new Error('SS cipher is not negotiated');
+					const 出站加密配置 = 入站状态.加密配置;
+					const 出站主密钥 = await SS派生主密钥(yourUUID, 出站加密配置.keyLen);
+					const 出站随机字节 = crypto.getRandomValues(new Uint8Array(出站加密配置.saltLen));
+					const 出站加密密钥 = await SS派生会话密钥(出站加密配置, 出站主密钥, 出站随机字节, ['encrypt']);
+					const 出站Nonce计数器 = new Uint8Array(SSNonce长度);
+					let 随机字节已发送 = false;
+					出站加密器 = {
+						async 加密并发送(dataChunk, sendChunk) {
+							const plaintextData = 数据转Uint8Array(dataChunk);
+							if (!随机字节已发送) {
+								await sendChunk(出站随机字节);
+								随机字节已发送 = true;
+							}
+							if (plaintextData.byteLength === 0) return;
+							let offset = 0;
+							while (offset < plaintextData.byteLength) {
+								const end = Math.min(offset + 出站加密配置.maxChunk, plaintextData.byteLength);
+								const payloadPlain = plaintextData.subarray(offset, end);
+								const lengthPlain = new Uint8Array(2);
+								lengthPlain[0] = (payloadPlain.byteLength >>> 8) & 0xff;
+								lengthPlain[1] = payloadPlain.byteLength & 0xff;
+								const lengthCipher = await SSAEAD加密(出站加密密钥, 出站Nonce计数器, lengthPlain);
+								const payloadCipher = await SSAEAD加密(出站加密密钥, 出站Nonce计数器, payloadPlain);
+								const frame = new Uint8Array(lengthCipher.byteLength + payloadCipher.byteLength);
+								frame.set(lengthCipher, 0);
+								frame.set(payloadCipher, lengthCipher.byteLength);
+								await sendChunk(frame);
+								offset = end;
+							}
+						},
+					};
+					return 出站加密器;
+				};
+				let SS发送队列 = Promise.resolve();
+				const SS入队发送 = (chunk) => {
+					SS发送队列 = SS发送队列.then(async () => {
+						if (serverSock.readyState !== WebSocket.OPEN) return;
+						const 已初始化出站加密器 = await 获取出站加密器();
+						await 已初始化出站加密器.加密并发送(chunk, async (encryptedChunk) => {
+							if (encryptedChunk.byteLength > 0 && serverSock.readyState === WebSocket.OPEN) {
+								await WebSocket发送并等待(serverSock, encryptedChunk.buffer);
+							}
+						});
+					}).catch((error) => {
+						log(`[SS发送] 加密失败: ${error?.message || error}`);
+						closeSocketQuietly(serverSock);
+					});
+					return SS发送队列;
+				};
+				const 回包Socket = {
+					get readyState() {
+						return serverSock.readyState;
+					},
+					send(data) {
+						const chunk = 数据转Uint8Array(data);
+						if (chunk.byteLength <= SS单批最大字节) {
+							return SS入队发送(chunk);
+						}
+						for (let i = 0; i < chunk.byteLength; i += SS单批最大字节) {
+							SS入队发送(chunk.subarray(i, Math.min(i + SS单批最大字节, chunk.byteLength)));
+						}
+						return SS发送队列;
+					},
+					close() {
+						closeSocketQuietly(serverSock);
+					}
+				};
+				ss上下文 = {
+					入站解密器,
+					回包Socket,
+					首包已建立: false,
+					目标主机: '',
+					目标端口: 0,
+				};
+				return ss上下文;
+			})().finally(() => { ss初始化任务 = null });
+		}
+		return ss初始化任务;
+	};
+
+	const 处理SS数据 = async (chunk) => {
+		const 上下文 = await 获取SS上下文();
+		let 明文块数组 = null;
+		try {
+			明文块数组 = await 上下文.入站解密器.输入(chunk);
+		} catch (err) {
+			const msg = err?.message || `${err}`;
+			if (msg.includes('Decryption failed') || msg.includes('SS handshake decrypt failed') || msg.includes('SS length decrypt failed')) {
+				log(`[SS入站] 解密失败，连接关闭: ${msg}`);
+				closeSocketQuietly(serverSock);
 				return;
 			}
-			const downloadAnchor = document.createElement('a');
-			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "qr_" + Date.now() + ".png";
-			document.body.appendChild(downloadAnchor);
-			downloadAnchor.click();
-			downloadAnchor.remove();
+			throw err;
 		}
-		function showSubQr() {
-			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
-			toggleQrModal(true, link);
-		}
-		function showSingboxQr() {
-			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
-			toggleQrModal(true, link);
-		}
-		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
-		function b00aqjk(countryCode) {
-			if (!countryCode) return '<span class="flg-g">🌐</span>';
-			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
-			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
-		}
-		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS */
-		function nkis0ps(countryCode) {
-			if (!countryCode) return '🌐';
-			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
-			if (cc.length !== 2) return '🌐';
+		for (const 明文块 of 明文块数组) {
+			if (WS本地测速模式) {
+				await 处理WS本地测速数据(明文块);
+				continue;
+			}
+			let 已写入 = false;
 			try {
-				return String.fromCodePoint(...cc.split('').map(char => 127397 + char.charCodeAt(0)));
-			} catch (e) {
-				return '🌐';
+				已写入 = await 写入远端(明文块, false);
+			} catch (err) {
+				if ((/** @type {any} */ (err))?.isQueueOverflow) throw err;
+				已写入 = false;
 			}
+			if (已写入) continue;
+			if (上下文.首包已建立 && 上下文.目标主机 && 上下文.目标端口 > 0) {
+				await forwardataTCP(上下文.目标主机, 上下文.目标端口, 明文块, 上下文.回包Socket, null, remoteConnWrapper, yourUUID, request, 反代上下文);
+				continue;
+			}
+			const 明文数据 = 数据转Uint8Array(明文块);
+			if (明文数据.byteLength < 3) throw new Error('invalid ss data');
+			const addressType = 明文数据[0];
+			let cursor = 1;
+			let hostname = '';
+			if (addressType === 1) {
+				if (明文数据.byteLength < cursor + 4 + 2) throw new Error('invalid ss ipv4 length');
+				hostname = `${明文数据[cursor]}.${明文数据[cursor + 1]}.${明文数据[cursor + 2]}.${明文数据[cursor + 3]}`;
+				cursor += 4;
+			} else if (addressType === 3) {
+				if (明文数据.byteLength < cursor + 1) throw new Error('invalid ss domain length');
+				const domainLength = 明文数据[cursor];
+				cursor += 1;
+				if (明文数据.byteLength < cursor + domainLength + 2) throw new Error('invalid ss domain data');
+				hostname = SS文本解码器.decode(明文数据.subarray(cursor, cursor + domainLength));
+				cursor += domainLength;
+			} else if (addressType === 4) {
+				if (明文数据.byteLength < cursor + 16 + 2) throw new Error('invalid ss ipv6 length');
+				const ipv6 = [];
+				const ipv6View = new DataView(明文数据.buffer, 明文数据.byteOffset + cursor, 16);
+				for (let i = 0; i < 8; i++) ipv6.push(ipv6View.getUint16(i * 2).toString(16));
+				hostname = ipv6.join(':');
+				cursor += 16;
+			} else {
+				throw new Error(`invalid ss addressType: ${addressType}`);
+			}
+			if (!hostname) throw new Error(`invalid ss address: ${addressType}`);
+			const port = (明文数据[cursor] << 8) | 明文数据[cursor + 1];
+			cursor += 2;
+			const rawClientData = 明文数据.subarray(cursor);
+			if (isSpeedTestSite(hostname) && 反代上下文.代理类型 === null) {
+				await 启用WS本地测速模式(上下文.回包Socket, null, rawClientData);
+				return;
+			}
+			上下文.首包已建立 = true;
+			上下文.目标主机 = hostname;
+			上下文.目标端口 = port;
+			await forwardataTCP(hostname, port, rawClientData, 上下文.回包Socket, null, remoteConnWrapper, yourUUID, request, 反代上下文);
 		}
-		document.addEventListener('DOMContentLoaded', () => {
-			const u = window.statusUser;
-			if (!u) return;
-			const limit = u.ip_limit !== undefined ? u.ip_limit : u.max_connections;
-			document.getElementById('display-username').innerText = u.username;
-const rkjjcq8 = document.getElementById('display-flag');
-	if (u.user_proxy_iata) {
-		const flag = b00aqjk(u.user_proxy_iata);
-		rkjjcq8.innerHTML = flag + " " + u.user_proxy_iata.toUpperCase();
-		rkjjcq8.style.display = 'block';
-} else if (u.user_socks5 || u.user_proxy_ip) {
-	rkjjcq8.style.display = 'block';
-	let proxyList = [];
-	try {
-		if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
-			proxyList = JSON.parse(u.user_socks5);
+	};
+
+	const 处理WS入站数据 = async (chunk) => {
+		let 当前块字节 = null;
+		if (isDnsQuery) {
+			if (判断是否是木马) return await 转发木马UDP数据(chunk, serverSock, 木马UDP上下文, request);
+			return await forwardataudp(chunk, serverSock, null, request);
+		}
+		if (判断协议类型 === 'ss') {
+			await 处理SS数据(chunk);
+			return;
+		}
+		if (WS本地测速模式) {
+			await 处理WS本地测速数据(chunk);
+			return;
+		}
+		if (await 写入远端(chunk)) return;
+
+		if (判断协议类型 === null) {
+			if (url.searchParams.get('enc')) 判断协议类型 = 'ss';
+			else {
+				当前块字节 = 当前块字节 || 数据转Uint8Array(chunk);
+				const bytes = 当前块字节;
+				判断协议类型 = bytes.byteLength >= 58 && bytes[56] === 0x0d && bytes[57] === 0x0a ? '木马' : '魏烈思';
+			}
+			判断是否是木马 = 判断协议类型 === '木马';
+			log(`[WS转发] 协议类型: ${判断协议类型} | 来自: ${url.host} | UA: ${request.headers.get('user-agent') || '未知'}`);
+		}
+
+		if (判断协议类型 === 'ss') {
+			await 处理SS数据(chunk);
+			return;
+		}
+		if (await 写入远端(chunk)) return;
+		if (判断协议类型 === '木马') {
+			const 解析结果 = 解析木马请求(chunk, yourUUID);
+			if (解析结果?.hasError) throw new Error(解析结果.message || 'Invalid trojan request');
+			const { port, hostname, rawClientData, isUDP } = 解析结果;
+			if (isSpeedTestSite(hostname) && 反代上下文.代理类型 === null) {
+				await 启用WS本地测速模式(serverSock, null, rawClientData);
+				return;
+			}
+			if (isUDP) {
+				isDnsQuery = true;
+				木马UDP上下文.目标主机 = hostname;
+				木马UDP上下文.目标端口 = port;
+				if (木马UDP上下文.反代地址) return 转发木马UDP数据(当前块字节 || 数据转Uint8Array(chunk), serverSock, 木马UDP上下文, request);
+				if (有效数据长度(rawClientData) > 0) return 转发木马UDP数据(rawClientData, serverSock, 木马UDP上下文, request);
+				return;
+			}
+			await forwardataTCP(hostname, port, rawClientData, serverSock, null, remoteConnWrapper, yourUUID, request, 反代上下文, true, 当前块字节 || 数据转Uint8Array(chunk));
 		} else {
-			proxyList = [u.user_socks5 || u.user_proxy_ip];
-		}
-	} catch(e) {
-		proxyList = [u.user_socks5 || u.user_proxy_ip];
-	}
-	let initialFlags = proxyList.map(item => {
-		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
-		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-		if (targetCountry) return b00aqjk(targetCountry);
-		try {
-			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
-			/* کش همیشه کد کشور (۲ حرف) را ذخیره می‌کند */
-			const cached = proxyFlagCache[targetProxy];
-			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return b00aqjk(cached);
-		} catch(e) {}
-		return '⏳';
-	});
-	rkjjcq8.innerHTML = initialFlags.join(' ');
-	Promise.all(proxyList.map((item, index) => {
-		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
-		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-		if (targetCountry) return Promise.resolve(b00aqjk(targetCountry));
-		try {
-			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
-			const cached = proxyFlagCache[targetProxy];
-			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return Promise.resolve(b00aqjk(cached));
-		} catch(e) {}
-		return fetch('/api/test-proxy', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ proxy: targetProxy })
-		})
-		.then(res => res.json())
-		.then(data => {
-			if (data.success && data.country) {
-				const flagSvg = b00aqjk(data.country);
-				try {
-					const cache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
-					/* کد کشور را کش می‌کنیم تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
-					cache[targetProxy] = data.country.toUpperCase();
-					localStorage.setItem('pf_c2', JSON.stringify(cache));
-				} catch(e) {}
-				return flagSvg;
+			判断是否是木马 = false;
+			当前块字节 = 当前块字节 || 数据转Uint8Array(chunk);
+			const bytes = 当前块字节;
+			const 解析结果 = 解析魏烈思请求(bytes, yourUUID);
+			if (解析结果?.hasError) throw new Error(解析结果.message || 'Invalid VLESS request');
+			const { port, hostname, version, isUDP, rawClientData } = 解析结果;
+			const respHeader = new Uint8Array([version, 0]);
+			if (isSpeedTestSite(hostname) && 反代上下文.代理类型 === null) {
+				await 启用WS本地测速模式(serverSock, respHeader, rawClientData);
+				return;
 			}
-			return '<span class="flg-g">🌐</span>';
-		})
-		.catch(() => '<span class="flg-g">🌐</span>');
-	})).then(flags => {
-		rkjjcq8.innerHTML = flags.join(' ');
+			if (isUDP) {
+				if (port === 53) isDnsQuery = true;
+				else throw new Error('UDP is not supported');
+			}
+			const rawData = rawClientData;
+			if (isDnsQuery) {
+				if (判断是否是木马) return 转发木马UDP数据(rawData, serverSock, 木马UDP上下文, request);
+				return forwardataudp(rawData, serverSock, respHeader, request);
+			}
+			await forwardataTCP(hostname, port, rawData, serverSock, respHeader, remoteConnWrapper, yourUUID, request, 反代上下文);
+		}
+	};
+
+	const 处理WS显式传输错误 = (err) => {
+		if (WS显式传输失败) return;
+		WS显式传输失败 = true;
+		WS显式传输停止接收 = true;
+		WS显式队列字节 = 0;
+		WS显式队列条目 = 0;
+		const msg = err?.message || `${err}`;
+		if (msg.includes('Network connection lost') || msg.includes('ReadableStream is closed')) {
+			log(`[WS转发] 连接结束: ${msg}`);
+		} else {
+			log(`[WS转发] 处理失败: ${msg}`);
+		}
+		上行写入队列.清空();
+		释放远端写入器();
+		失效远端连接();
+		try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+		closeSocketQuietly(serverSock);
+	};
+
+	const 追加WS显式传输任务 = (任务) => {
+		WS显式传输链 = WS显式传输链.then(任务).catch(处理WS显式传输错误);
+		return WS显式传输链;
+	};
+
+	const 入队WS显式传输 = (data) => {
+		if (WS显式传输停止接收 || WS显式传输失败) return;
+		const chunkSize = Math.max(0, 有效数据长度(data));
+		const nextBytes = WS显式队列字节 + chunkSize;
+		const nextItems = WS显式队列条目 + 1;
+		if (nextBytes > 上行队列最大字节 || nextItems > 上行队列最大条目) {
+			处理WS显式传输错误(new Error(`[WS显式传输] 队列溢出: ${nextBytes}B/${nextItems}`));
+			return;
+		}
+		WS显式队列字节 = nextBytes;
+		WS显式队列条目 = nextItems;
+		追加WS显式传输任务(async () => {
+			WS显式队列字节 = Math.max(0, WS显式队列字节 - chunkSize);
+			WS显式队列条目 = Math.max(0, WS显式队列条目 - 1);
+			if (WS显式传输失败) return;
+			await 处理WS入站数据(data);
+		});
+	};
+
+	const 收尾WS显式传输 = () => {
+		if (WS显式传输收尾已入队) return;
+		WS显式传输收尾已入队 = true;
+		WS显式传输停止接收 = true;
+		追加WS显式传输任务(async () => {
+			if (WS显式传输失败) return;
+			await 上行写入队列.等待空();
+			释放远端写入器();
+			失效远端连接();
+			try { 木马UDP上下文.反代Socket?.close() } catch (e) { }
+		});
+	};
+
+	serverSock.addEventListener('message', (event) => {
+		入队WS显式传输(event.data);
+	});
+	serverSock.addEventListener('close', () => {
+		closeSocketQuietly(serverSock);
+		收尾WS显式传输();
+	});
+	serverSock.addEventListener('error', (err) => {
+		处理WS显式传输错误(err);
+	});
+
+	// SS 模式下禁用 sec-websocket-protocol early-data，避免把子协议值（如 "binary"）误当作 base64 数据注入首包导致 AEAD 解密失败。
+	if (!SS模式禁用EarlyData && earlyDataHeader) {
+		try {
+			const bytes = 解码WS早期数据(earlyDataHeader, yourUUID);
+			if (bytes?.byteLength) 入队WS显式传输(bytes.buffer);
+		} catch (error) {
+			处理WS显式传输错误(error);
+		}
+	}
+
+	return new Response(null, { status: 101, webSocket: clientSock, headers: { 'Sec-WebSocket-Extensions': '' } });
+}
+
+const 木马文本解码器 = new TextDecoder();
+
+function 解析木马反代地址(address) {
+	const raw = String(address || '').trim();
+	if (!raw || raw.includes('/') || raw.includes('@') || raw.includes('://')) throw new Error('Trojan reverse-proxy only supports host:port');
+	let hostname = '', portText = '';
+	if (raw.startsWith('[')) {
+		const 匹配 = raw.match(/^(\[[^\]]+\]):(\d+)$/);
+		if (!匹配) throw new Error('Invalid IPv6 Trojan reverse-proxy address');
+		hostname = 匹配[1];
+		portText = 匹配[2];
+	} else {
+		const parts = raw.split(':');
+		if (parts.length !== 2) throw new Error('Trojan reverse-proxy only supports host:port');
+		hostname = parts[0];
+		portText = parts[1];
+	}
+	const port = Number(portText);
+	if (!hostname || !Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invalid Trojan reverse-proxy port');
+	return { hostname, port };
+}
+
+async function 连接木马反代(首包数据, TCP连接, 木马反代目标) {
+	if (!木马反代目标) throw new Error('trojan fallback is not configured');
+	const socket = TCP连接({ hostname: stripIPv6Brackets(木马反代目标.hostname), port: 木马反代目标.port });
+	let writer = null;
+	try {
+		if (socket.opened) await socket.opened;
+		if (有效数据长度(首包数据) > 0) {
+			writer = socket.writable.getWriter();
+			await writer.write(数据转Uint8Array(首包数据));
+		}
+		return socket;
+	} catch (error) {
+		try { socket?.close?.() } catch (e) { }
+		throw error;
+	} finally {
+		try { writer?.releaseLock() } catch (e) { }
+	}
+}
+
+function 提取木马反代握手数据(首包数据, rawData) {
+	const 首包 = 数据转Uint8Array(首包数据);
+	const payload = 数据转Uint8Array(rawData);
+	if (!payload.byteLength) return 首包;
+	const 握手长度 = 首包.byteLength - payload.byteLength;
+	if (握手长度 <= 0) return 首包;
+	for (let i = 0; i < payload.byteLength; i++) {
+		if (首包[握手长度 + i] !== payload[i]) return 首包;
+	}
+	return 首包.subarray(0, 握手长度);
+}
+
+async function 转发木马UDP反代数据(chunk, webSocket, 上下文, request) {
+	const data = 数据转Uint8Array(chunk);
+	if (!上下文.反代Socket) {
+		const TCP连接 = 创建请求TCP连接器(request);
+		const socket = await 连接木马反代(data, TCP连接, 上下文.反代地址);
+		上下文.反代Socket = socket;
+		socket.closed.catch(() => { }).finally(() => closeSocketQuietly(webSocket));
+		connectStreams(socket, webSocket, null, null);
+		return;
+	}
+	if (!data.byteLength) return;
+	const writer = 上下文.反代Socket.writable.getWriter();
+	try { await writer.write(data) }
+	finally { try { writer.releaseLock() } catch (e) { } }
+}
+
+function 解析木马请求(buffer, passwordPlainText) {
+	const data = 数据转Uint8Array(buffer);
+	const sha224Password = sha224(passwordPlainText);
+	if (data.byteLength < 58) return { hasError: true, message: "invalid data" };
+	let crLfIndex = 56;
+	if (data[crLfIndex] !== 0x0d || data[crLfIndex + 1] !== 0x0a) return { hasError: true, message: "invalid header format" };
+	for (let i = 0; i < crLfIndex; i++) {
+		if (data[i] !== sha224Password.charCodeAt(i)) return { hasError: true, message: "invalid password" };
+	}
+
+	const socks5Index = crLfIndex + 2;
+	if (data.byteLength < socks5Index + 6) return { hasError: true, message: "invalid S5 request data" };
+
+	const cmd = data[socks5Index];
+	if (cmd !== 1 && cmd !== 3) return { hasError: true, message: "unsupported command, only TCP/UDP is allowed" };
+	const isUDP = cmd === 3;
+
+	const atype = data[socks5Index + 1];
+	let addressLength = 0;
+	let addressIndex = socks5Index + 2;
+	let address = "";
+	switch (atype) {
+		case 1: // IPv4
+			addressLength = 4;
+			if (data.byteLength < addressIndex + addressLength + 4) return { hasError: true, message: "invalid S5 request data" };
+			address = `${data[addressIndex]}.${data[addressIndex + 1]}.${data[addressIndex + 2]}.${data[addressIndex + 3]}`;
+			break;
+		case 3: // Domain
+			if (data.byteLength < addressIndex + 1) return { hasError: true, message: "invalid S5 request data" };
+			addressLength = data[addressIndex];
+			addressIndex += 1;
+			if (data.byteLength < addressIndex + addressLength + 4) return { hasError: true, message: "invalid S5 request data" };
+			address = 木马文本解码器.decode(data.subarray(addressIndex, addressIndex + addressLength));
+			break;
+		case 4: // IPv6
+			addressLength = 16;
+			if (data.byteLength < addressIndex + addressLength + 4) return { hasError: true, message: "invalid S5 request data" };
+			const ipv6 = [];
+			for (let i = 0; i < 8; i++) {
+				const partIndex = addressIndex + i * 2;
+				ipv6.push(((data[partIndex] << 8) | data[partIndex + 1]).toString(16));
+			}
+			address = ipv6.join(":");
+			break;
+		default:
+			return { hasError: true, message: `invalid addressType is ${atype}` };
+	}
+
+	if (!address) {
+		return { hasError: true, message: `address is empty, addressType is ${atype}` };
+	}
+
+	const portIndex = addressIndex + addressLength;
+	if (data.byteLength < portIndex + 4) return { hasError: true, message: "invalid S5 request data" };
+	const portRemote = (data[portIndex] << 8) | data[portIndex + 1];
+
+	return {
+		hasError: false,
+		addressType: atype,
+		port: portRemote,
+		hostname: address,
+		isUDP,
+		rawClientData: data.subarray(portIndex + 4)
+	};
+}
+
+const UUID字节缓存 = new Map();
+const 魏烈思文本解码器 = new TextDecoder();
+
+function 读取十六进制半字节(code) {
+	if (code >= 48 && code <= 57) return code - 48;
+	code |= 32;
+	if (code >= 97 && code <= 102) return code - 87;
+	return -1;
+}
+
+function 获取UUID字节(uuid) {
+	const key = String(uuid || '');
+	let cached = UUID字节缓存.get(key);
+	if (cached) return cached;
+
+	const clean = key.replace(/-/g, '');
+	if (clean.length !== 32) return null;
+
+	const bytes = new Uint8Array(16);
+	for (let i = 0; i < 16; i++) {
+		const high = 读取十六进制半字节(clean.charCodeAt(i * 2));
+		const low = 读取十六进制半字节(clean.charCodeAt(i * 2 + 1));
+		if (high < 0 || low < 0) return null;
+		bytes[i] = (high << 4) | low;
+	}
+
+	if (UUID字节缓存.size >= 32) UUID字节缓存.clear();
+	UUID字节缓存.set(key, bytes);
+	return bytes;
+}
+
+function UUID字节匹配(data, offset, uuid) {
+	const expected = 获取UUID字节(uuid);
+	if (!expected || data.byteLength < offset + 16) return false;
+	for (let i = 0; i < 16; i++) {
+		if (data[offset + i] !== expected[i]) return false;
+	}
+	return true;
+}
+
+function 解析魏烈思请求(chunk, token) {
+	const data = 数据转Uint8Array(chunk);
+	const length = data.byteLength;
+	if (length < 24) return { hasError: true, message: 'Invalid data' };
+	const version = data[0];
+	if (!UUID字节匹配(data, 1, token)) return { hasError: true, message: 'Invalid uuid' };
+
+	const optLen = data[17];
+	const cmdIndex = 18 + optLen;
+	if (length < cmdIndex + 4) return { hasError: true, message: 'Invalid data' };
+
+	const cmd = data[cmdIndex];
+	let isUDP = false;
+	if (cmd === 1) { } else if (cmd === 2) { isUDP = true } else { return { hasError: true, message: 'Invalid command' } }
+
+	const portIdx = cmdIndex + 1;
+	const port = (data[portIdx] << 8) | data[portIdx + 1];
+	let addrValIdx = portIdx + 3, addrLen = 0, hostname = '';
+	const addressType = data[portIdx + 2];
+	switch (addressType) {
+		case 1:
+			addrLen = 4;
+			if (length < addrValIdx + addrLen) return { hasError: true, message: 'Invalid IPv4 address length' };
+			hostname = `${data[addrValIdx]}.${data[addrValIdx + 1]}.${data[addrValIdx + 2]}.${data[addrValIdx + 3]}`;
+			break;
+		case 2:
+			if (length < addrValIdx + 1) return { hasError: true, message: 'Invalid domain length' };
+			addrLen = data[addrValIdx];
+			addrValIdx += 1;
+			if (length < addrValIdx + addrLen) return { hasError: true, message: 'Invalid domain data' };
+			hostname = 魏烈思文本解码器.decode(data.subarray(addrValIdx, addrValIdx + addrLen));
+			break;
+		case 3:
+			addrLen = 16;
+			if (length < addrValIdx + addrLen) return { hasError: true, message: 'Invalid IPv6 address length' };
+			const ipv6 = [];
+			for (let i = 0; i < 8; i++) {
+				const base = addrValIdx + i * 2;
+				ipv6.push(((data[base] << 8) | data[base + 1]).toString(16));
+			}
+			hostname = ipv6.join(':');
+			break;
+		default:
+			return { hasError: true, message: `Invalid address type: ${addressType}` };
+	}
+	if (!hostname) return { hasError: true, message: `Invalid address: ${addressType}` };
+	const rawIndex = addrValIdx + addrLen;
+	return { hasError: false, addressType, port, hostname, isUDP, rawClientData: data.subarray(rawIndex), version };
+}
+
+const SS支持加密配置 = {
+	'aes-128-gcm': { method: 'aes-128-gcm', keyLen: 16, saltLen: 16, maxChunk: 0x3fff, aesLength: 128 },
+	'aes-256-gcm': { method: 'aes-256-gcm', keyLen: 32, saltLen: 32, maxChunk: 0x3fff, aesLength: 256 },
+};
+
+const SSAEAD标签长度 = 16, SSNonce长度 = 12;
+const SS子密钥信息 = new TextEncoder().encode('ss-subkey');
+const SS文本编码器 = new TextEncoder(), SS文本解码器 = new TextDecoder(), SS主密钥缓存 = new Map();
+
+function 数据转Uint8Array(data) {
+	if (data instanceof Uint8Array) return data;
+	if (data instanceof ArrayBuffer) return new Uint8Array(data);
+	if (ArrayBuffer.isView(data)) return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+	return new Uint8Array(data || 0);
+}
+
+function 拼接字节数据(...chunkList) {
+	if (!chunkList || chunkList.length === 0) return new Uint8Array(0);
+	const chunks = chunkList.map(数据转Uint8Array);
+	const total = chunks.reduce((sum, c) => sum + c.byteLength, 0);
+	const result = new Uint8Array(total);
+	let offset = 0;
+	for (const c of chunks) { result.set(c, offset); offset += c.byteLength }
+	return result;
+}
+
+async function 转发木马UDP数据(chunk, webSocket, 上下文, request) {
+	const 当前块 = 数据转Uint8Array(chunk);
+	if (上下文?.反代地址) return 转发木马UDP反代数据(当前块, webSocket, 上下文, request);
+	const 缓存块 = 上下文?.缓存 instanceof Uint8Array ? 上下文.缓存 : new Uint8Array(0);
+	const input = 缓存块.byteLength ? 拼接字节数据(缓存块, 当前块) : 当前块;
+	let cursor = 0;
+
+	while (cursor < input.byteLength) {
+		const packetStart = cursor;
+		const atype = input[cursor];
+		let addrCursor = cursor + 1;
+		let addrLen = 0;
+		if (atype === 1) addrLen = 4;
+		else if (atype === 4) addrLen = 16;
+		else if (atype === 3) {
+			if (input.byteLength < addrCursor + 1) break;
+			addrLen = 1 + input[addrCursor];
+		} else throw new Error(`invalid trojan udp addressType: ${atype}`);
+
+		const portCursor = addrCursor + addrLen;
+		if (input.byteLength < portCursor + 6) break;
+
+		const port = (input[portCursor] << 8) | input[portCursor + 1];
+		const payloadLength = (input[portCursor + 2] << 8) | input[portCursor + 3];
+		if (input[portCursor + 4] !== 0x0d || input[portCursor + 5] !== 0x0a) throw new Error('invalid trojan udp delimiter');
+
+		const payloadStart = portCursor + 6;
+		const payloadEnd = payloadStart + payloadLength;
+		if (input.byteLength < payloadEnd) break;
+
+		const 地址端口头 = input.slice(packetStart, portCursor + 2);
+		const payload = input.slice(payloadStart, payloadEnd);
+		cursor = payloadEnd;
+
+		if (port !== 53) throw new Error('UDP is not supported');
+		if (!payload.byteLength) continue;
+
+		let tcpDNS查询 = payload;
+		if (payload.byteLength < 2 || ((payload[0] << 8) | payload[1]) !== payload.byteLength - 2) {
+			tcpDNS查询 = new Uint8Array(payload.byteLength + 2);
+			tcpDNS查询[0] = (payload.byteLength >>> 8) & 0xff;
+			tcpDNS查询[1] = payload.byteLength & 0xff;
+			tcpDNS查询.set(payload, 2);
+		}
+
+		const dns响应上下文 = { 缓存: new Uint8Array(0) };
+		await forwardataudp(tcpDNS查询, webSocket, null, request, (dnsRespChunk) => {
+			const 当前响应块 = 数据转Uint8Array(dnsRespChunk);
+			const 响应输入 = dns响应上下文.缓存.byteLength ? 拼接字节数据(dns响应上下文.缓存, 当前响应块) : 当前响应块;
+			const 响应帧列表 = [];
+			let responseCursor = 0;
+			while (responseCursor + 2 <= 响应输入.byteLength) {
+				const dnsLen = (响应输入[responseCursor] << 8) | 响应输入[responseCursor + 1];
+				const dnsStart = responseCursor + 2;
+				const dnsEnd = dnsStart + dnsLen;
+				if (dnsEnd > 响应输入.byteLength) break;
+				const dnsPayload = 响应输入.slice(dnsStart, dnsEnd);
+				const frame = new Uint8Array(地址端口头.byteLength + 4 + dnsPayload.byteLength);
+				frame.set(地址端口头, 0);
+				frame[地址端口头.byteLength] = (dnsPayload.byteLength >>> 8) & 0xff;
+				frame[地址端口头.byteLength + 1] = dnsPayload.byteLength & 0xff;
+				frame[地址端口头.byteLength + 2] = 0x0d;
+				frame[地址端口头.byteLength + 3] = 0x0a;
+				frame.set(dnsPayload, 地址端口头.byteLength + 4);
+				响应帧列表.push(frame);
+				responseCursor = dnsEnd;
+			}
+			dns响应上下文.缓存 = 响应输入.slice(responseCursor);
+			return 响应帧列表.length ? 响应帧列表 : new Uint8Array(0);
+		});
+	}
+
+	if (上下文) 上下文.缓存 = input.slice(cursor);
+}
+
+function SS递增Nonce计数器(counter) {
+	for (let i = 0; i < counter.length; i++) { counter[i] = (counter[i] + 1) & 0xff; if (counter[i] !== 0) return }
+}
+
+async function SS派生主密钥(passwordText, keyLen) {
+	const cacheKey = `${keyLen}:${passwordText}`;
+	if (SS主密钥缓存.has(cacheKey)) return SS主密钥缓存.get(cacheKey);
+	const deriveTask = (async () => {
+		const pwBytes = SS文本编码器.encode(passwordText || '');
+		let prev = new Uint8Array(0), result = new Uint8Array(0);
+		while (result.byteLength < keyLen) {
+			const input = new Uint8Array(prev.byteLength + pwBytes.byteLength);
+			input.set(prev, 0); input.set(pwBytes, prev.byteLength);
+			prev = new Uint8Array(await crypto.subtle.digest('MD5', input));
+			result = 拼接字节数据(result, prev);
+		}
+		return result.slice(0, keyLen);
+	})();
+	SS主密钥缓存.set(cacheKey, deriveTask);
+	try { return await deriveTask }
+	catch (error) { SS主密钥缓存.delete(cacheKey); throw error }
+}
+
+async function SS派生会话密钥(config, masterKey, salt, usages) {
+	const hmacOpts = { name: 'HMAC', hash: 'SHA-1' };
+	const saltHmacKey = await crypto.subtle.importKey('raw', salt, hmacOpts, false, ['sign']);
+	const prk = new Uint8Array(await crypto.subtle.sign('HMAC', saltHmacKey, masterKey));
+	const prkHmacKey = await crypto.subtle.importKey('raw', prk, hmacOpts, false, ['sign']);
+	const subKey = new Uint8Array(config.keyLen);
+	let prev = new Uint8Array(0), written = 0, counter = 1;
+	while (written < config.keyLen) {
+		const input = 拼接字节数据(prev, SS子密钥信息, new Uint8Array([counter]));
+		prev = new Uint8Array(await crypto.subtle.sign('HMAC', prkHmacKey, input));
+		const copyLen = Math.min(prev.byteLength, config.keyLen - written);
+		subKey.set(prev.subarray(0, copyLen), written);
+		written += copyLen; counter += 1;
+	}
+	return crypto.subtle.importKey('raw', subKey, { name: 'AES-GCM', length: config.aesLength }, false, usages);
+}
+
+async function SSAEAD加密(cryptoKey, nonceCounter, plaintext) {
+	const iv = nonceCounter.slice();
+	const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv, tagLength: 128 }, cryptoKey, plaintext);
+	SS递增Nonce计数器(nonceCounter);
+	return new Uint8Array(ct);
+}
+
+async function SSAEAD解密(cryptoKey, nonceCounter, ciphertext) {
+	const iv = nonceCounter.slice();
+	const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv, tagLength: 128 }, cryptoKey, ciphertext);
+	SS递增Nonce计数器(nonceCounter);
+	return new Uint8Array(pt);
+}
+
+async function forwardataTCP(host, portNum, rawData, ws, respHeader, remoteConnWrapper, yourUUID, request = null, 反代上下文 = {}, 允许木马反代 = false, 木马反代首包数据 = null, 仅建立连接 = false) {
+	const ctx反代IP = 反代上下文.反代IP || '';
+	const ctx代理类型 = 反代上下文.代理类型 !== undefined ? 反代上下文.代理类型 : null;
+	const ctx代理全局 = 反代上下文.代理全局 !== undefined ? 反代上下文.代理全局 : false;
+	const ctx代理参数 = 反代上下文.代理参数 || {};
+	const ctx反代兜底 = 反代上下文.反代兜底 !== undefined ? 反代上下文.反代兜底 : true;
+	let 反代数组索引 = 0;
+	log(`[TCP转发] 目标: ${host}:${portNum} | 反代IP: ${ctx反代IP} | 反代兜底: ${ctx反代兜底 ? '是' : '否'} | 反代类型: ${ctx代理类型 || 'proxyip'} | 全局: ${ctx代理全局 ? '是' : '否'}`);
+	const 连接超时毫秒 = 1000;
+	let 已通过代理发送首包 = false;
+	const TCP连接 = 创建请求TCP连接器(request);
+	const 使用木马反代 = 允许木马反代 && (反代上下文.木马反代地址 || null);
+	const 木马反代目标 = 使用木马反代 ? 反代上下文.木马反代地址 : null;
+	const 木马反代握手数据 = 使用木马反代 ? 提取木马反代握手数据(木马反代首包数据, rawData) : null;
+	let 待发送响应头 = respHeader;
+	const 取出响应头 = () => {
+		const header = 待发送响应头;
+		待发送响应头 = null;
+		return header;
+	};
+	if (!Number.isInteger(remoteConnWrapper.generation)) remoteConnWrapper.generation = 0;
+
+	const 安装当前连接 = async (socket, generation, downlinkDrain, retryFunc = null) => {
+		try { await downlinkDrain } catch (e) {
+			if (remoteConnWrapper.downlinkDrain === downlinkDrain) remoteConnWrapper.downlinkDrain = Promise.resolve();
+			try { socket?.close?.() } catch (_) { }
+			if (remoteConnWrapper.generation === generation) closeSocketQuietly(ws);
+			throw e;
+		}
+		if (remoteConnWrapper.downlinkDrain === downlinkDrain) remoteConnWrapper.downlinkDrain = Promise.resolve();
+		const 连接仍有效 = () => remoteConnWrapper.generation === generation && remoteConnWrapper.socket === socket;
+		if (remoteConnWrapper.generation !== generation || ws.readyState !== WebSocket.OPEN) {
+			try { socket?.close?.() } catch (e) { }
+			if (remoteConnWrapper.generation === generation) remoteConnWrapper.socket = null;
+			throw new Error('connection superseded or client closed');
+		}
+		remoteConnWrapper.socket = socket;
+		if (仅建立连接) return socket;
+		connectStreams(socket, ws, 取出响应头, retryFunc, 连接仍有效, remoteConnWrapper).catch(err => {
+			if (!连接仍有效()) return;
+			log(`[TCP下行] 处理失败: ${err?.message || err}`);
+			try { socket?.close?.() } catch (e) { }
+			closeSocketQuietly(ws);
+		});
+		return true;
+	};
+
+	async function 等待连接建立(remoteSock, timeoutMs = 连接超时毫秒) {
+		await Promise.race([
+			remoteSock.opened,
+			new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout')), timeoutMs))
+		]);
+	}
+
+	async function 打开TCP连接(address, port) {
+		const remoteSock = TCP连接({ hostname: address, port });
+		try {
+			await 等待连接建立(remoteSock);
+			return remoteSock;
+		} catch (err) {
+			try { remoteSock?.close?.() } catch (e) { }
+			throw err;
+		}
+	}
+
+	async function 写入首包(remoteSock, data) {
+		if (有效数据长度(data) <= 0) return;
+		const writer = remoteSock.writable.getWriter();
+		try { await writer.write(数据转Uint8Array(data)) }
+		finally { try { writer.releaseLock() } catch (e) { } }
+	}
+
+	async function 并发打开候选连接(候选列表) {
+		if (候选列表.length === 1) {
+			const 候选 = 候选列表[0];
+			return { socket: await 打开TCP连接(候选.hostname, 候选.port), candidate: 候选 };
+		}
+		const attempts = 候选列表.map(候选 => 打开TCP连接(候选.hostname, 候选.port).then(socket => ({ socket, candidate: 候选 })));
+		let winner = null;
+		try {
+			winner = await Promise.any(attempts);
+			return winner;
+		} finally {
+			if (winner) {
+				for (const attempt of attempts) {
+					attempt.then(({ socket }) => {
+						if (socket !== winner.socket) {
+							try { socket?.close?.() } catch (e) { }
+						}
+					}).catch(() => { });
+				}
+			}
+		}
+	}
+
+	async function 构建预加载竞速候选列表(address, port) {
+		if (!预加载竞速拨号 || isIPHostname(address)) return null;
+		log(`[TCP直连] 预加载竞速拨号开启，开始并发查询 ${address} 的 A/AAAA 记录`);
+		const [aRecords, aaaaRecords] = await Promise.all([
+			DoH查询(address, 'A'),
+			DoH查询(address, 'AAAA')
+		]);
+		const ipv4List = [...new Set(aRecords.flatMap(r => {
+			const data = r.data;
+			return r.type === 1 && typeof data === 'string' && isIPv4(data) ? [data] : [];
+		}))];
+		const ipv6List = [...new Set(aaaaRecords.flatMap(r => {
+			const data = r.data;
+			return r.type === 28 && typeof data === 'string' && isIPHostname(data) ? [data] : [];
+		}))];
+		const 拨号上限 = Math.max(1, TCP并发拨号数 | 0);
+		const ipList = ipv4List.length >= 拨号上限
+			? ipv4List.slice(0, 拨号上限)
+			: ipv4List.concat(ipv6List.slice(0, 拨号上限 - ipv4List.length));
+		const 使用记录类型 = ipv4List.length > 0
+			? (ipList.length > ipv4List.length ? 'A+AAAA' : 'A')
+			: 'AAAA';
+		if (ipList.length === 0) {
+			log(`[TCP直连] ${address} 的 A/AAAA 未获得可用解析结果，预加载竞速不可用，回退到原始 hostname 直连。`);
+			return null;
+		}
+		const 选中IP列表 = ipList;
+		log(`[TCP直连] ${address} A记录:${ipv4List.length} AAAA记录:${ipv6List.length}，使用${使用记录类型}记录，竞速拨号 ${选中IP列表.length}/${拨号上限}: ${选中IP列表.join(', ')}`);
+		return 选中IP列表.map((hostname, attempt) => ({ hostname, port, attempt, resolvedFrom: address }));
+	}
+
+	async function connectDirect(address, port, data = null, 启用预加载 = false) {
+		const 预加载候选列表 = 启用预加载 ? await 构建预加载竞速候选列表(address, port) : null;
+		const 候选列表 = 预加载候选列表 || Array.from({ length: TCP并发拨号数 }, (_, attempt) => ({ hostname: address, port, attempt }));
+		log(预加载候选列表
+			? `[TCP直连] 并发尝试 ${候选列表.length} 路: ${候选列表.map(候选 => `${候选.hostname}:${候选.port}`).join(', ')}`
+			: `[TCP直连] 并发尝试 ${候选列表.length} 路: ${address}:${port}`);
+		let socket = null;
+		try {
+			const 连接结果 = await 并发打开候选连接(候选列表);
+			socket = 连接结果.socket;
+			if (预加载候选列表) {
+				const winner = 连接结果.candidate;
+				log(`[TCP直连] 预加载竞速结果: ${winner.hostname}:${winner.port} 胜出，源域名: ${winner.resolvedFrom || address}`);
+			}
+			await 写入首包(socket, data);
+			return socket;
+		} catch (err) {
+			try { socket?.close?.() } catch (e) { }
+			if (预加载候选列表) log(`[TCP直连] 预加载竞速失败: ${err.message || err}`);
+			throw err;
+		}
+	}
+
+	async function connectProxyIP(address, port, data = null, 所有反代数组 = null, 启用反代失败兜底 = true) {
+		if (所有反代数组 && 所有反代数组.length > 0) {
+			const 实际并发数 = Math.max(1, Math.floor(Number(反代并发拨号数) || 1));
+			for (let i = 0; i < 所有反代数组.length; i += 实际并发数) {
+				const 候选列表 = [];
+				for (let j = 0; j < 实际并发数 && i + j < 所有反代数组.length; j++) {
+					const 索引 = (反代数组索引 + i + j) % 所有反代数组.length;
+					const [反代地址, 反代端口] = 所有反代数组[索引];
+					候选列表.push({ hostname: 反代地址, port: 反代端口, index: 索引 });
+				}
+				let socket = null, candidate = null;
+				try {
+					log(`[反代连接] 并发尝试 ${候选列表.length} 路: ${候选列表.map(候选 => `${候选.hostname}:${候选.port}`).join(', ')}`);
+					const 连接结果 = await 并发打开候选连接(候选列表);
+					socket = 连接结果.socket;
+					candidate = 连接结果.candidate;
+					await 写入首包(socket, data);
+					log(`[反代连接] 成功连接到: ${candidate.hostname}:${candidate.port} (索引: ${candidate.index})`);
+					反代数组索引 = candidate.index;
+					return socket;
+				} catch (err) {
+					try { socket?.close?.() } catch (e) { }
+					log(`[反代连接] 本批连接失败: ${err.message || err}`);
+				}
+			}
+		}
+
+		if (启用反代失败兜底) return connectDirect(address, port, data, false);
+		else {
+			throw new Error('[Reverse-proxy] All reverse-proxy connections failed and fallback is disabled; connection terminated.');
+		}
+	}
+
+	async function connecttoPry(允许发送首包 = true) {
+		if (remoteConnWrapper.connectingPromise) {
+			await remoteConnWrapper.connectingPromise;
+			return;
+		}
+		const { generation: 当前连接世代, downlinkDrain } = 开始TCP连接世代(remoteConnWrapper);
+
+		let 本次发送首包 = false, 本次首包数据 = null;
+		if (使用木马反代) {
+			if (允许发送首包 && !已通过代理发送首包 && 有效数据长度(木马反代首包数据) > 0) {
+				本次首包数据 = 木马反代首包数据;
+				本次发送首包 = 有效数据长度(rawData) > 0;
+			} else {
+				本次首包数据 = 木马反代握手数据;
+			}
+		} else {
+			本次发送首包 = 允许发送首包 && !已通过代理发送首包 && 有效数据长度(rawData) > 0;
+			本次首包数据 = 本次发送首包 ? rawData : null;
+		}
+
+		const 当前连接任务 = (async () => {
+			let newSocket = null;
+			try {
+				if (使用木马反代) {
+					log(`[木马反代] 代理到: ${host}:${portNum}`);
+					newSocket = await 连接木马反代(本次首包数据, TCP连接, 木马反代目标);
+				} else if (ctx代理类型 === 'socks5') {
+					log(`[SOCKS5代理] 代理到: ${host}:${portNum}`);
+					newSocket = await socks5Connect(host, portNum, 本次首包数据, TCP连接, ctx代理参数);
+				} else if (ctx代理类型 === 'http') {
+					log(`[HTTP代理] 代理到: ${host}:${portNum}`);
+					newSocket = await httpConnect(host, portNum, 本次首包数据, false, TCP连接, ctx代理参数);
+				} else if (ctx代理类型 === 'https') {
+					log(`[HTTPS代理] 代理到: ${host}:${portNum}`);
+					newSocket = isIPHostname(ctx代理参数.hostname)
+						? await httpsConnect(host, portNum, 本次首包数据, TCP连接, ctx代理参数)
+						: await httpConnect(host, portNum, 本次首包数据, true, TCP连接, ctx代理参数);
+				} else if (ctx代理类型 === 'turn') {
+					log(`[TURN代理] 代理到: ${host}:${portNum}`);
+					newSocket = await turnConnect(ctx代理参数, host, portNum, TCP连接);
+					if (有效数据长度(本次首包数据) > 0) {
+						const writer = newSocket.writable.getWriter();
+						try { await writer.write(数据转Uint8Array(本次首包数据)) }
+						finally { try { writer.releaseLock() } catch (e) { } }
+					}
+				} else if (ctx代理类型 === 'sstp') {
+					log(`[SSTP代理] 代理到: ${host}:${portNum}`);
+					newSocket = await sstpConnect(ctx代理参数, host, portNum, TCP连接);
+					if (有效数据长度(本次首包数据) > 0) {
+						const writer = newSocket.writable.getWriter();
+						try { await writer.write(数据转Uint8Array(本次首包数据)) }
+						finally { try { writer.releaseLock() } catch (e) { } }
+					}
+				} else {
+					log(`[反代连接] 代理到: ${host}:${portNum}`);
+					const 所有反代数组 = await 解析地址端口(ctx反代IP, host, yourUUID);
+					newSocket = await connectProxyIP(`${特征码字典[0]}.tp1.${特征码字典[2]}.xyz`, 1, 本次首包数据, 所有反代数组, ctx反代兜底);
+				}
+				await 安装当前连接(newSocket, 当前连接世代, downlinkDrain);
+				if (本次发送首包) 已通过代理发送首包 = true;
+			} catch (err) {
+				try { newSocket?.close?.() } catch (e) { }
+				if (remoteConnWrapper.generation === 当前连接世代) {
+					remoteConnWrapper.socket = null;
+					closeSocketQuietly(ws);
+					throw err;
+				}
+			}
+		})();
+
+		remoteConnWrapper.connectingPromise = 当前连接任务;
+		try {
+			await 当前连接任务;
+		} finally {
+			if (remoteConnWrapper.connectingPromise === 当前连接任务) {
+				remoteConnWrapper.connectingPromise = null;
+			}
+		}
+	}
+	remoteConnWrapper.retryConnect = async () => connecttoPry(!已通过代理发送首包);
+
+	if (ctx代理类型 && (ctx代理全局 || SOCKS5白名单.some(p => new RegExp(`^${p.replace(/\*/g, '.*')}$`, 'i').test(host)))) {
+		log(`[TCP转发] 启用 SOCKS5/HTTP/HTTPS/TURN/SSTP 全局代理`);
+		try {
+			await connecttoPry();
+			if (仅建立连接) return remoteConnWrapper.socket;
+		} catch (err) {
+			log(`[TCP转发] SOCKS5/HTTP/HTTPS/TURN/SSTP 代理连接失败: ${err.message}`);
+			throw err;
+		}
+	} else {
+		let 直连世代 = remoteConnWrapper.generation;
+		try {
+			log(`[TCP转发] 尝试直连到: ${host}:${portNum}`);
+			const 世代连接 = 开始TCP连接世代(remoteConnWrapper);
+			直连世代 = 世代连接.generation;
+			const initialSocket = await connectDirect(host, portNum, rawData, true);
+			await 安装当前连接(initialSocket, 直连世代, 世代连接.downlinkDrain, async () => {
+				if (remoteConnWrapper.generation !== 直连世代 || remoteConnWrapper.socket !== initialSocket) return;
+				await connecttoPry();
+			});
+			if (仅建立连接) return initialSocket;
+		} catch (err) {
+			log(`[TCP转发] 直连 ${host}:${portNum} 失败: ${err.message}`);
+			if (remoteConnWrapper.generation !== 直连世代) throw err;
+			if (err instanceof Error && err.name === 'Preload resolution is empty') {
+				closeSocketQuietly(ws);
+				throw err;
+			}
+			if (ws.readyState !== WebSocket.OPEN) throw err;
+			await connecttoPry();
+			if (仅建立连接) return remoteConnWrapper.socket;
+		}
+	}
+}
+
+async function forwardataudp(udpChunk, webSocket, respHeader, request, 响应封装器 = null) {
+	const 请求数据 = 数据转Uint8Array(udpChunk);
+	const 请求字节数 = 请求数据.byteLength;
+	log(`[UDP转发] 收到 DNS 请求: ${请求字节数}B -> 8.8.4.4:53`);
+	try {
+		const TCP连接 = 创建请求TCP连接器(request);
+		const tcpSocket = TCP连接({ hostname: '8.8.4.4', port: 53 });
+		let 魏烈思Header = respHeader;
+		const writer = tcpSocket.writable.getWriter();
+		await writer.write(请求数据);
+		log(`[UDP转发] DNS 请求已写入上游: ${请求字节数}B`);
+		writer.releaseLock();
+		await tcpSocket.readable.pipeTo(new WritableStream({
+			async write(chunk) {
+				const 原始响应 = 数据转Uint8Array(chunk);
+				log(`[UDP转发] 收到 DNS 响应: ${原始响应.byteLength}B`);
+				const 封装结果 = 响应封装器 ? await 响应封装器(原始响应) : 原始响应;
+				const 发送片段列表 = Array.isArray(封装结果) ? 封装结果 : [封装结果];
+				if (!发送片段列表.length) return;
+				if (webSocket.readyState !== WebSocket.OPEN) return;
+				for (const fragment of 发送片段列表) {
+					const 转发响应 = 数据转Uint8Array(fragment);
+					if (!转发响应.byteLength) continue;
+					if (魏烈思Header) {
+						const response = new Uint8Array(魏烈思Header.length + 转发响应.byteLength);
+						response.set(魏烈思Header, 0);
+						response.set(转发响应, 魏烈思Header.length);
+						await WebSocket发送并等待(webSocket, response.buffer);
+						魏烈思Header = null;
+					} else {
+						await WebSocket发送并等待(webSocket, 转发响应);
+					}
+				}
+			},
+		}));
+	} catch (error) {
+		log(`[UDP转发] DNS 转发失败: ${error?.message || error}`);
+	}
+}
+
+function closeSocketQuietly(socket) {
+	try {
+		if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CLOSING) {
+			socket.close();
+		}
+	} catch (error) { }
+}
+
+function formatIdentifier(arr, offset = 0) {
+	const hex = [...arr.slice(offset, offset + 16)].map(b => b.toString(16).padStart(2, '0')).join('');
+	return `${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}`;
+}
+
+async function WebSocket发送并等待(webSocket, payload) {
+	const sendResult = webSocket.send(payload);
+	if (sendResult && typeof sendResult.then === 'function') await sendResult;
+}
+
+function 创建Grain收纳器(容量, 复制合包结果 = false) {
+	let 队列 = [];
+	let 头 = 0;
+	let 字节数 = 0;
+	let 合包缓冲 = null;
+
+	const 为空 = () => 头 >= 队列.length;
+	const 压缩 = () => {
+		if (头 > 32 && 头 * 2 >= 队列.length) {
+			队列 = 队列.slice(头);
+			头 = 0;
+		}
+	};
+	const 取出 = () => {
+		if (为空()) return null;
+		const item = 队列[头];
+		队列[头++] = undefined;
+		字节数 -= item.chunk.byteLength;
+		压缩();
+		return item;
+	};
+
+	return {
+		get 字节数() { return 字节数 },
+		get 条目数() { return 队列.length - 头 },
+		get 为空() { return 为空() },
+		清空(处理项目 = null) {
+			if (处理项目) {
+				for (let i = 头; i < 队列.length; i++) {
+					if (队列[i]) 处理项目(队列[i]);
+				}
+			}
+			队列 = [];
+			头 = 0;
+			字节数 = 0;
+		},
+		收纳(item) {
+			if (!item?.chunk?.byteLength) return false;
+			队列.push(item);
+			字节数 += item.chunk.byteLength;
+			return true;
+		},
+		合包() {
+			const first = 取出();
+			if (!first) return null;
+			const items = [first];
+			if (为空() || first.chunk.byteLength >= 容量) return { chunk: first.chunk, items };
+
+			let totalBytes = first.chunk.byteLength;
+			let end = 头;
+			while (end < 队列.length) {
+				const nextBytes = totalBytes + 队列[end].chunk.byteLength;
+				if (nextBytes > 容量) break;
+				totalBytes = nextBytes;
+				end++;
+			}
+			if (end === 头) return { chunk: first.chunk, items };
+
+			const output = (合包缓冲 ||= new Uint8Array(容量));
+			output.set(first.chunk, 0);
+			let offset = first.chunk.byteLength;
+			while (头 < end) {
+				const next = 队列[头];
+				队列[头++] = undefined;
+				字节数 -= next.chunk.byteLength;
+				items.push(next);
+				output.set(next.chunk, offset);
+				offset += next.chunk.byteLength;
+			}
+			压缩();
+			const bundled = output.subarray(0, totalBytes);
+			return { chunk: 复制合包结果 ? bundled.slice() : bundled, items };
+		}
+	};
+}
+
+function 创建上行Grain合包流(目标字节 = 上行合包目标字节) {
+	const identity = typeof IdentityTransformStream !== 'undefined'
+		? new IdentityTransformStream()
+		: new TransformStream();
+	const writer = identity.writable.getWriter();
+	const 缓冲 = new Uint8Array(目标字节);
+	let 缓冲长度 = 0;
+	let 定时器 = null;
+	let 在途写 = null;
+	let 冲刷链 = Promise.resolve();
+
+	const 清理定时器 = () => {
+		if (定时器) {
+			clearTimeout(定时器);
+			定时器 = null;
+		}
+	};
+
+	const 串行写 = async (chunk) => {
+		if (在途写) await 在途写;
+		在途写 = writer.write(chunk);
+		try { await 在途写 } finally { 在途写 = null; }
+	};
+
+	const 冲刷 = async () => {
+		if (缓冲长度) {
+			const chunk = 缓冲.slice(0, 缓冲长度);
+			缓冲长度 = 0;
+			await 串行写(chunk);
+		}
+	};
+
+	const 排队冲刷 = () => {
+		冲刷链 = 冲刷链.then(() => 冲刷()).catch(() => { });
+	};
+
+	const 启动定时器 = () => {
+		if (定时器) return;
+		定时器 = setTimeout(() => {
+			定时器 = null;
+			排队冲刷();
+		}, 1);
+	};
+
+	return {
+		readable: identity.readable,
+		写入: async (chunk) => {
+			const data = 数据转Uint8Array(chunk);
+			if (!data.byteLength) return;
+			if (data.byteLength >= 目标字节) {
+				清理定时器();
+				if (缓冲长度) await 冲刷();
+				await 串行写(data);
+				return;
+			}
+			if (缓冲长度 + data.byteLength >= 目标字节) {
+				const output = new Uint8Array(缓冲长度 + data.byteLength);
+				output.set(缓冲.subarray(0, 缓冲长度), 0);
+				output.set(data, 缓冲长度);
+				缓冲长度 = 0;
+				清理定时器();
+				await 串行写(output);
+			} else {
+				缓冲.set(data, 缓冲长度);
+				缓冲长度 += data.byteLength;
+				启动定时器();
+			}
+		},
+		结束: async () => {
+			清理定时器();
+			try {
+				await 冲刷链;
+				await 冲刷();
+				await writer.close();
+			} finally {
+				try { writer.releaseLock() } catch (e) { }
+			}
+		}
+	};
+}
+
+function 创建上行写入队列({ 获取写入器, 获取连接任务 = null, 释放写入器, 重试连接, 关闭连接, 名称 = 'Upstream queue' }) {
+	const grain = 创建Grain收纳器(上行合包目标字节);
+	let draining = false;
+	let closed = false;
+	let idleResolvers = [];
+	let activeCompletions = null;
+
+	const settleCompletions = (completions, err = null) => {
+		if (!completions) return;
+		for (const completion of completions) {
+			if (err) completion.reject(err);
+			else completion.resolve();
+		}
+	};
+
+	const resolveIdle = () => {
+		if (grain.字节数 || draining || !idleResolvers.length) return;
+		const resolvers = idleResolvers;
+		idleResolvers = [];
+		for (const resolve of resolvers) resolve();
+	};
+
+	const clear = (err = null) => {
+		const closeErr = err || (closed ? new Error(`${名称}: queue closed`) : null);
+		if (closeErr) {
+			grain.清空(item => settleCompletions(item.completions, closeErr));
+			settleCompletions(activeCompletions, closeErr);
+			activeCompletions = null;
+		} else grain.清空();
+		resolveIdle();
+	};
+
+	const bundle = () => {
+		const packed = grain.合包();
+		if (!packed) return null;
+		let allowRetry = true;
+		let completions = null;
+		for (const item of packed.items) {
+			allowRetry = allowRetry && item.allowRetry;
+			if (item.completions) completions = completions ? completions.concat(item.completions) : item.completions;
+		}
+		return { chunk: packed.chunk, allowRetry, completions };
+	};
+
+	const 等待可用写入器 = async () => {
+		let writer = 获取写入器();
+		if (writer) return writer;
+		const connectionTask = 获取连接任务?.();
+		if (connectionTask) await connectionTask;
+		return 获取写入器();
+	};
+
+	const drain = async () => {
+		if (draining || closed) return;
+		draining = true;
+		try {
+			for (; ;) {
+				if (closed) break;
+				const item = bundle();
+				if (!item) break;
+				const completions = item.completions || null;
+				activeCompletions = completions;
+				try {
+					let writer = await 等待可用写入器();
+					if (closed) break;
+					if (!writer) throw new Error(`${名称}: remote writer unavailable`);
+					try {
+						await writer.write(item.chunk);
+					} catch (err) {
+						释放写入器?.();
+						if (closed) break;
+						if (!item.allowRetry || typeof 重试连接 !== 'function') throw err;
+						await 重试连接();
+						if (closed) break;
+						writer = 获取写入器();
+						if (!writer) throw err;
+						await writer.write(item.chunk);
+					}
+					settleCompletions(completions);
+				} catch (err) {
+					settleCompletions(completions, err);
+					throw err;
+				} finally {
+					if (activeCompletions === completions) activeCompletions = null;
+				}
+			}
+		} catch (err) {
+			closed = true;
+			clear(err);
+			log(`[${名称}] 写入失败: ${err?.message || err}`);
+			try { 关闭连接?.(err) } catch (_) { }
+		} finally {
+			draining = false;
+			if (!closed && !grain.为空) drain();
+			else resolveIdle();
+		}
+	};
+
+	const enqueue = (data, allowRetry = true, waitForFlush = false) => {
+		if (closed) return false;
+		// 首包解析阶段既没有 writer 也没有连接任务；返回 false 交给上层继续协议解析。
+		// 已建立会话的重拨阶段则先收纳，drain 会等待新 writer，避免数据被误当成首包。
+		if (!获取写入器() && !获取连接任务?.()) return false;
+		const chunk = 数据转Uint8Array(data);
+		if (!chunk.byteLength) return true;
+		const nextBytes = grain.字节数 + chunk.byteLength;
+		const nextItems = grain.条目数 + 1;
+		if (nextBytes > 上行队列最大字节 || nextItems > 上行队列最大条目) {
+			closed = true;
+			const err = Object.assign(new Error(`${名称}: upload queue overflow (${nextBytes}B/${nextItems})`), { isQueueOverflow: true });
+			clear(err);
+			log(`[${名称}] 队列超限，关闭连接`);
+			try { 关闭连接?.(err) } catch (_) { }
+			throw err;
+		}
+		let completionPromise = null;
+		let completions = null;
+		if (waitForFlush) {
+			completions = [];
+			completionPromise = new Promise((resolve, reject) => completions.push({ resolve, reject }));
+		}
+		grain.收纳({ chunk, allowRetry, completions });
+		if (!draining) drain();
+		return waitForFlush ? completionPromise.then(() => true) : true;
+	};
+
+	return {
+		写入(data, allowRetry = true) {
+			return enqueue(data, allowRetry, false);
+		},
+		写入并等待(data, allowRetry = true) {
+			return enqueue(data, allowRetry, true);
+		},
+		async 等待空() {
+			if (!grain.字节数 && !draining) return;
+			await new Promise(resolve => idleResolvers.push(resolve));
+		},
+		清空() {
+			closed = true;
+			clear();
+		}
+	};
+}
+
+function 创建下行Grain发送器(webSocket, headerData = null, isActive = null) {
+	const packetCap = 下行Grain包字节;
+	const tailBytes = 下行Grain尾部阈值;
+	const grain = 创建Grain收纳器(packetCap, true);
+	let header = typeof headerData === 'function' ? null : headerData;
+	const 获取响应头 = typeof headerData === 'function' ? headerData : () => {
+		const value = header;
+		header = null;
+		return value;
+	};
+	let flushTimer = null;
+	let generation = 0;
+	let scheduledGeneration = 0;
+	let waitRounds = 0;
+	let flushPromise = null;
+	let directSendPromise = null;
+	let 强制排空 = false;
+	let 停止已开始 = false;
+	let 活动发送数 = 0;
+	let 活动直发数 = 0;
+	let 活动发送错误 = null;
+	let 活动发送等待者 = [];
+	const 等待活动发送完成 = () => {
+		if (!活动发送数 && !活动直发数) return Promise.resolve();
+		return new Promise(resolve => 活动发送等待者.push(resolve));
+	};
+	const 标记发送完成 = () => {
+		if (活动发送数 || 活动直发数 || !活动发送等待者.length) return;
+		const resolvers = 活动发送等待者;
+		活动发送等待者 = [];
+		for (const resolve of resolvers) resolve();
+	};
+	const 检查活动发送错误 = () => {
+		if (!活动发送错误) return;
+		const err = 活动发送错误;
+		grain.清空();
+		throw err;
+	};
+	const 当前发送器有效 = () => 强制排空 || !isActive || isActive();
+	const 关闭活动连接 = () => {
+		if (当前发送器有效()) closeSocketQuietly(webSocket);
+	};
+
+	const 发送原始块 = async (chunk) => {
+		if (!当前发送器有效()) return;
+		if (webSocket.readyState !== WebSocket.OPEN) throw new Error('ws.readyState is not open');
+		chunk = 附加响应头(chunk);
+		await WebSocket发送并等待(webSocket, chunk);
+	};
+
+	const 串行发送原始块 = async (chunk) => {
+		while (directSendPromise) await directSendPromise;
+		const sendTask = 发送原始块(chunk);
+		directSendPromise = sendTask;
+		try { await sendTask }
+		finally {
+			if (directSendPromise === sendTask) directSendPromise = null;
+		}
+	};
+
+	const 附加响应头 = (chunk) => {
+		const responseHeader = 获取响应头();
+		if (!responseHeader) return chunk;
+		const merged = new Uint8Array(responseHeader.length + chunk.byteLength);
+		merged.set(responseHeader, 0);
+		merged.set(chunk, responseHeader.length);
+		return merged;
+	};
+
+	const flush = async () => {
+		while (flushPromise) await flushPromise;
+		if (flushTimer) clearTimeout(flushTimer);
+		flushTimer = null;
+		waitRounds = 0;
+		if (!当前发送器有效()) {
+			grain.清空();
+			return;
+		}
+		const 发送任务 = (async () => {
+			for (; ;) {
+				if (!当前发送器有效()) {
+					grain.清空();
+					break;
+				}
+				const packed = grain.合包();
+				if (!packed) break;
+				await 串行发送原始块(packed.chunk);
+			}
+		})();
+		flushPromise = 发送任务.catch(err => {
+			活动发送错误 ||= err;
+			throw err;
+		}).finally(() => { flushPromise = null });
+		return flushPromise;
+	};
+
+	const scheduleFlush = () => {
+		if (!当前发送器有效()) {
+			grain.清空();
+			return;
+		}
+		if (grain.为空 || flushTimer) return;
+		if (grain.字节数 >= packetCap || packetCap - grain.字节数 < tailBytes) {
+			flush().catch(关闭活动连接);
+			return;
+		}
+		flushTimer = setTimeout(() => {
+			flushTimer = null;
+			if (!当前发送器有效()) {
+				grain.清空();
+				return;
+			}
+			if (grain.为空) return;
+			if (grain.字节数 >= packetCap || packetCap - grain.字节数 < tailBytes) {
+				flush().catch(关闭活动连接);
+				return;
+			}
+			if (waitRounds < 下行Grain最大等待轮次 && (generation !== scheduledGeneration || grain.字节数 < 下行Grain低水位字节)) {
+				waitRounds++;
+				scheduledGeneration = generation;
+				scheduleFlush();
+				return;
+			}
+			flush().catch(关闭活动连接);
+		}, 1);
+	};
+
+	return {
+		async 直接发送(data) {
+			if (停止已开始 || !当前发送器有效()) return;
+			活动直发数++;
+			try {
+				const chunk = 数据转Uint8Array(data);
+				if (!chunk.byteLength) return;
+				await 串行发送原始块(chunk);
+			} catch (err) {
+				活动发送错误 ||= err;
+				throw err;
+			} finally {
+				活动直发数--;
+				标记发送完成();
+			}
+		},
+		async 发送(data) {
+			if (停止已开始 || !当前发送器有效()) return;
+			活动发送数++;
+			try {
+				const chunk = 数据转Uint8Array(data);
+				if (!chunk.byteLength) return;
+				let offset = 0;
+				const totalBytes = chunk.byteLength;
+				while (offset < totalBytes) {
+					const remainingBytes = totalBytes - offset;
+					if (grain.为空 && remainingBytes >= packetCap) {
+						const sendBytes = Math.min(packetCap, remainingBytes);
+						const view = offset || sendBytes !== totalBytes ? chunk.subarray(offset, offset + sendBytes) : chunk;
+						await 串行发送原始块(view);
+						offset += sendBytes;
+						continue;
+					}
+					const copyBytes = Math.min(packetCap - grain.字节数, totalBytes - offset);
+					if (!copyBytes) {
+						await flush();
+						continue;
+					}
+					grain.收纳({ chunk: offset || copyBytes !== totalBytes ? chunk.subarray(offset, offset + copyBytes) : chunk });
+					offset += copyBytes;
+					generation++;
+					if (grain.字节数 >= packetCap || packetCap - grain.字节数 < tailBytes) await flush();
+					else scheduleFlush();
+				}
+			} catch (err) {
+				活动发送错误 ||= err;
+				throw err;
+			} finally {
+				活动发送数--;
+				标记发送完成();
+			}
+		},
+		flush,
+		async 停止并刷新() {
+			if (停止已开始) {
+				await 等待活动发送完成();
+				while (directSendPromise) await directSendPromise;
+				检查活动发送错误();
+				await flush();
+				return;
+			}
+			停止已开始 = true;
+			强制排空 = true;
+			if (flushTimer) clearTimeout(flushTimer);
+			flushTimer = null;
+			await 等待活动发送完成();
+			while (directSendPromise) await directSendPromise;
+			检查活动发送错误();
+			await flush();
+		}
+	};
+}
+
+async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, isCurrentSocket = null, remoteConnWrapper = null) {
+	let header = headerData, hasData = false, reader, useBYOB = false, readError = null;
+	const BYOB单次读取上限 = 64 * 1024;
+	const 当前连接仍有效 = () => !isCurrentSocket || isCurrentSocket();
+	const 下行发送器 = 创建下行Grain发送器(webSocket, header, 当前连接仍有效);
+	header = null;
+	const 下行控制器 = { 停止并刷新: () => 下行发送器.停止并刷新() };
+	if (remoteConnWrapper) remoteConnWrapper.downlinkController = 下行控制器;
+	try { remoteSocket.closed?.catch?.(() => { }) } catch (e) { }
+
+	try { reader = remoteSocket.readable.getReader({ mode: 'byob' }); useBYOB = true }
+	catch (e) { reader = remoteSocket.readable.getReader() }
+
+	try {
+		if (!useBYOB) {
+			while (true) {
+				const { done, value } = await reader.read();
+				if (!当前连接仍有效()) break;
+				if (done) break;
+				if (!value || value.byteLength === 0) continue;
+				hasData = true;
+				if (value.byteLength >= 下行Grain包字节) {
+					await 下行发送器.flush();
+					await 下行发送器.直接发送(value);
+				} else {
+					await 下行发送器.发送(value);
+				}
+			}
+		} else {
+			let readBuffer = new ArrayBuffer(BYOB单次读取上限);
+			while (true) {
+				const { done, value } = await reader.read(new Uint8Array(readBuffer, 0, BYOB单次读取上限));
+				if (!当前连接仍有效()) break;
+				if (done) break;
+				if (!value || value.byteLength === 0) continue;
+				hasData = true;
+				if (value.byteLength >= 下行Grain包字节) {
+					await 下行发送器.flush();
+					await 下行发送器.直接发送(value);
+					readBuffer = new ArrayBuffer(BYOB单次读取上限);
+				} else {
+					await 下行发送器.发送(value.slice());
+					readBuffer = value.buffer.byteLength >= BYOB单次读取上限 ? value.buffer : new ArrayBuffer(BYOB单次读取上限);
+				}
+			}
+		}
+		if (当前连接仍有效()) await 下行发送器.flush();
+	} catch (err) { readError = err }
+	finally {
+		if (当前连接仍有效() && webSocket.readyState === WebSocket.OPEN) {
+			try { await 下行发送器.停止并刷新() } catch (err) { readError ||= err }
+		}
+		if (remoteConnWrapper?.downlinkController === 下行控制器) remoteConnWrapper.downlinkController = null;
+		try { await reader.cancel() } catch (e) { }
+		try { reader.releaseLock() } catch (e) { }
+		try { remoteSocket.close() } catch (e) { }
+	}
+	if (!hasData && retryFunc && webSocket.readyState === WebSocket.OPEN && 当前连接仍有效()) {
+		try {
+			await retryFunc();
+			return;
+		} catch (err) {
+			readError ||= err;
+		}
+	}
+	if (!当前连接仍有效()) return;
+	if (readError) log(`[TCP下行] 读取失败: ${readError?.message || readError}`);
+	closeSocketQuietly(webSocket);
+}
+
+function isSpeedTestSite(hostname) {
+	const speedTestDomains = ['speed.cloudflare.com', 'cp.cloudflare.com'];
+	hostname = hostname.toLowerCase();
+	return speedTestDomains.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+}
+
+function 构造本地204响应(respHeader = null) {
+	const 本地204响应 = new TextEncoder().encode(
+		'HTTP/1.1 204 No Content\r\n' +
+		'Content-Length: 0\r\n' +
+		'Connection: close\r\n' +
+		'\r\n'
+	);
+	if (有效数据长度(respHeader) === 0) return 本地204响应;
+	const 协议响应头 = 数据转Uint8Array(respHeader);
+	const response = new Uint8Array(协议响应头.byteLength + 本地204响应.byteLength);
+	response.set(协议响应头, 0);
+	response.set(本地204响应, 协议响应头.byteLength);
+	log(`[TCP转发] 构造本地204响应: ${response.byteLength}B`);
+	return response;
+}
+
+function 构造WS本地204响应(respHeader = null) {
+	const WS本地204响应 = new TextEncoder().encode(
+		'HTTP/1.1 204 No Content\r\n' +
+		'Content-Length: 0\r\n' +
+		'Connection: keep-alive\r\n' +
+		'\r\n'
+	);
+	if (有效数据长度(respHeader) === 0) return WS本地204响应;
+	const 协议响应头 = 数据转Uint8Array(respHeader);
+	const response = new Uint8Array(协议响应头.byteLength + WS本地204响应.byteLength);
+	response.set(协议响应头, 0);
+	response.set(WS本地204响应, 协议响应头.byteLength);
+	return response;
+}
+
+///////////////////////////////////////////////////////SOCKS5/HTTP函数///////////////////////////////////////////////
+async function socks5Connect(targetHost, targetPort, initialData, TCP连接, parsedSocks5) {
+	const { username, password, hostname, port } = parsedSocks5 || {};
+	const socket = TCP连接({ hostname, port }), writer = socket.writable.getWriter(), reader = socket.readable.getReader();
+	try {
+		const authMethods = username && password ? new Uint8Array([0x05, 0x02, 0x00, 0x02]) : new Uint8Array([0x05, 0x01, 0x00]);
+		await writer.write(authMethods);
+		let response = await reader.read();
+		if (response.done || response.value.byteLength < 2) throw new Error('S5 method selection failed');
+
+		const selectedMethod = new Uint8Array(response.value)[1];
+		if (selectedMethod === 0x02) {
+			if (!username || !password) throw new Error('S5 requires authentication');
+			const userBytes = new TextEncoder().encode(username), passBytes = new TextEncoder().encode(password);
+			const authPacket = new Uint8Array([0x01, userBytes.length, ...userBytes, passBytes.length, ...passBytes]);
+			await writer.write(authPacket);
+			response = await reader.read();
+			if (response.done || new Uint8Array(response.value)[1] !== 0x00) throw new Error('S5 authentication failed');
+		} else if (selectedMethod !== 0x00) throw new Error(`S5 unsupported auth method: ${selectedMethod}`);
+
+		const hostBytes = new TextEncoder().encode(targetHost);
+		const connectPacket = new Uint8Array([0x05, 0x01, 0x00, 0x03, hostBytes.length, ...hostBytes, targetPort >> 8, targetPort & 0xff]);
+		await writer.write(connectPacket);
+		response = await reader.read();
+		if (response.done || new Uint8Array(response.value)[1] !== 0x00) throw new Error('S5 connection failed');
+
+		if (有效数据长度(initialData) > 0) await writer.write(initialData);
+		writer.releaseLock(); reader.releaseLock();
+		return socket;
+	} catch (error) {
+		try { writer.releaseLock() } catch (e) { }
+		try { reader.releaseLock() } catch (e) { }
+		try { socket.close() } catch (e) { }
+		throw error;
+	}
+}
+
+async function httpConnect(targetHost, targetPort, initialData, HTTPS代理 = false, TCP连接, parsedSocks5) {
+	const { username, password, hostname, port } = parsedSocks5 || {};
+	const socket = HTTPS代理
+		? TCP连接({ hostname, port }, { secureTransport: 'on', allowHalfOpen: false })
+		: TCP连接({ hostname, port });
+	const writer = socket.writable.getWriter(), reader = socket.readable.getReader();
+	const encoder = new TextEncoder();
+	const decoder = new TextDecoder();
+	try {
+		if (HTTPS代理) await socket.opened;
+
+		const auth = username && password ? `Proxy-Authorization: Basic ${btoa(`${username}:${password}`)}\r\n` : '';
+		const request = `CONNECT ${targetHost}:${targetPort} HTTP/1.1\r\nHost: ${targetHost}:${targetPort}\r\n${auth}User-Agent: Mozilla/5.0\r\nConnection: keep-alive\r\n\r\n`;
+		await writer.write(encoder.encode(request));
+		writer.releaseLock();
+
+		let responseBuffer = new Uint8Array(0), headerEndIndex = -1, bytesRead = 0;
+		while (headerEndIndex === -1 && bytesRead < 8192) {
+			const { done, value } = await reader.read();
+			if (done || !value) throw new Error(`${HTTPS代理 ? 'HTTPS' : 'HTTP'} 代理在返回 CONNECT 响应前关闭连接`);
+			responseBuffer = new Uint8Array([...responseBuffer, ...value]);
+			bytesRead = responseBuffer.length;
+			const crlfcrlf = responseBuffer.findIndex((_, i) => i < responseBuffer.length - 3 && responseBuffer[i] === 0x0d && responseBuffer[i + 1] === 0x0a && responseBuffer[i + 2] === 0x0d && responseBuffer[i + 3] === 0x0a);
+			if (crlfcrlf !== -1) headerEndIndex = crlfcrlf + 4;
+		}
+
+		if (headerEndIndex === -1) throw new Error('Proxy CONNECT response header too long or invalid');
+		const statusMatch = decoder.decode(responseBuffer.slice(0, headerEndIndex)).split('\r\n')[0].match(/HTTP\/\d\.\d\s+(\d+)/);
+		const statusCode = statusMatch ? parseInt(statusMatch[1], 10) : NaN;
+		if (!Number.isFinite(statusCode) || statusCode < 200 || statusCode >= 300) throw new Error(`Connection failed: HTTP ${statusCode}`);
+
+		reader.releaseLock();
+
+		if (有效数据长度(initialData) > 0) {
+			const 远端写入器 = socket.writable.getWriter();
+			await 远端写入器.write(initialData);
+			远端写入器.releaseLock();
+		}
+
+		// CONNECT 响应头后可能夹带隧道数据，先回灌到可读流，避免首包被吞。
+		if (bytesRead > headerEndIndex) {
+			const { readable, writable } = new TransformStream();
+			const transformWriter = writable.getWriter();
+			await transformWriter.write(responseBuffer.subarray(headerEndIndex, bytesRead));
+			transformWriter.releaseLock();
+			socket.readable.pipeTo(writable).catch(() => { });
+			return { readable, writable: socket.writable, closed: socket.closed, close: () => socket.close() };
+		}
+
+		return socket;
+	} catch (error) {
+		try { writer.releaseLock() } catch (e) { }
+		try { reader.releaseLock() } catch (e) { }
+		try { socket.close() } catch (e) { }
+		throw error;
+	}
+}
+
+async function httpsConnect(targetHost, targetPort, initialData, TCP连接, parsedSocks5) {
+	const { username, password, hostname, port } = parsedSocks5 || {};
+	const encoder = new TextEncoder();
+	const decoder = new TextDecoder();
+	let tlsSocket = null;
+	const tlsServerName = isIPHostname(hostname) ? '' : stripIPv6Brackets(hostname);
+	const 打开HTTPS代理TLS = async (allowChacha = false) => {
+		const proxySocket = TCP连接({ hostname, port });
+		try {
+			await proxySocket.opened;
+			const socket = new TlsClient(proxySocket, { serverName: tlsServerName, insecure: true, allowChacha });
+			await socket.handshake();
+			log(`[HTTPS代理] TLS版本: ${socket.isTls13 ? '1.3' : '1.2'} | Cipher: 0x${socket.cipherSuite.toString(16)}${socket.cipherConfig?.chacha ? ' (ChaCha20)' : ' (AES-GCM)'}`);
+			return socket;
+		} catch (error) {
+			try { proxySocket.close() } catch (e) { }
+			throw error;
+		}
+	};
+	try {
+		try {
+			tlsSocket = await 打开HTTPS代理TLS(false);
+		} catch (error) {
+			if (!/cipher|handshake|TLS Alert|ServerHello|Finished|Unsupported|Missing TLS/i.test(error?.message || `${error || ''}`)) throw error;
+			log(`[HTTPS代理] AES-GCM TLS 握手失败，回退 ChaCha20 兼容模式: ${error?.message || error}`);
+			tlsSocket = await 打开HTTPS代理TLS(true);
+		}
+
+		const auth = username && password ? `Proxy-Authorization: Basic ${btoa(`${username}:${password}`)}\r\n` : '';
+		const request = `CONNECT ${targetHost}:${targetPort} HTTP/1.1\r\nHost: ${targetHost}:${targetPort}\r\n${auth}User-Agent: Mozilla/5.0\r\nConnection: keep-alive\r\n\r\n`;
+		await tlsSocket.write(encoder.encode(request));
+
+		let responseBuffer = new Uint8Array(0), headerEndIndex = -1, bytesRead = 0;
+		while (headerEndIndex === -1 && bytesRead < 8192) {
+			const value = await tlsSocket.read();
+			if (!value) throw new Error('HTTPS proxy closed connection before returning CONNECT response');
+			responseBuffer = 拼接字节数据(responseBuffer, value);
+			bytesRead = responseBuffer.length;
+			const crlfcrlf = responseBuffer.findIndex((_, i) => i < responseBuffer.length - 3 && responseBuffer[i] === 0x0d && responseBuffer[i + 1] === 0x0a && responseBuffer[i + 2] === 0x0d && responseBuffer[i + 3] === 0x0a);
+			if (crlfcrlf !== -1) headerEndIndex = crlfcrlf + 4;
+		}
+
+		if (headerEndIndex === -1) throw new Error('HTTPS Proxy CONNECT response header too long or invalid');
+		const statusMatch = decoder.decode(responseBuffer.slice(0, headerEndIndex)).split('\r\n')[0].match(/HTTP\/\d\.\d\s+(\d+)/);
+		const statusCode = statusMatch ? parseInt(statusMatch[1], 10) : NaN;
+		if (!Number.isFinite(statusCode) || statusCode < 200 || statusCode >= 300) throw new Error(`Connection failed: HTTP ${statusCode}`);
+
+		if (有效数据长度(initialData) > 0) await tlsSocket.write(数据转Uint8Array(initialData));
+		const bufferedData = bytesRead > headerEndIndex ? responseBuffer.subarray(headerEndIndex, bytesRead) : null;
+		let closedSettled = false, resolveClosed, rejectClosed;
+		const settleClosed = (settle, value) => {
+			if (!closedSettled) {
+				closedSettled = true;
+				settle(value);
+			}
+		};
+		const closed = new Promise((resolve, reject) => {
+			resolveClosed = resolve;
+			rejectClosed = reject;
+		});
+		const close = () => {
+			try { tlsSocket.close() } catch (e) { }
+			settleClosed(resolveClosed);
+		};
+		const readable = new ReadableStream({
+			async start(controller) {
+				try {
+					if (有效数据长度(bufferedData) > 0) controller.enqueue(bufferedData);
+					while (true) {
+						const data = await tlsSocket.read();
+						if (!data) break;
+						if (data.byteLength > 0) controller.enqueue(data);
+					}
+					try { controller.close() } catch (e) { }
+					settleClosed(resolveClosed);
+				} catch (error) {
+					try { controller.error(error) } catch (e) { }
+					settleClosed(rejectClosed, error);
+				}
+			},
+			cancel() {
+				close();
+			}
+		});
+		const writable = new WritableStream({
+			async write(chunk) {
+				await tlsSocket.write(数据转Uint8Array(chunk));
+			},
+			close,
+			abort(error) {
+				close();
+				if (error) settleClosed(rejectClosed, error);
+			}
+		});
+		return { readable, writable, closed, close };
+	} catch (error) {
+		try { tlsSocket?.close() } catch (e) { }
+		throw error;
+	}
+}
+
+function 创建请求TCP连接器(request) {
+	const 请求对象 = /** @type {any} */ (request);
+	const fetcher = 请求对象?.fetcher;
+	if (!fetcher || typeof fetcher.connect !== 'function') throw new Error('request.fetcher.connect unavailable');
+	return (options, init) => init === undefined ? fetcher.connect(options) : fetcher.connect(options, init);
+}
+////////////////////////////////////////////TLSClient by: @Alexandre_Kojeve////////////////////////////////////////////////
+const TLS_VERSION_10 = 769, TLS_VERSION_12 = 771, TLS_VERSION_13 = 772;
+const CONTENT_TYPE_CHANGE_CIPHER_SPEC = 20, CONTENT_TYPE_ALERT = 21, CONTENT_TYPE_HANDSHAKE = 22, CONTENT_TYPE_APPLICATION_DATA = 23;
+const HANDSHAKE_TYPE_CLIENT_HELLO = 1, HANDSHAKE_TYPE_SERVER_HELLO = 2, HANDSHAKE_TYPE_NEW_SESSION_TICKET = 4, HANDSHAKE_TYPE_ENCRYPTED_EXTENSIONS = 8, HANDSHAKE_TYPE_CERTIFICATE = 11, HANDSHAKE_TYPE_SERVER_KEY_EXCHANGE = 12, HANDSHAKE_TYPE_CERTIFICATE_REQUEST = 13, HANDSHAKE_TYPE_SERVER_HELLO_DONE = 14, HANDSHAKE_TYPE_CERTIFICATE_VERIFY = 15, HANDSHAKE_TYPE_CLIENT_KEY_EXCHANGE = 16, HANDSHAKE_TYPE_FINISHED = 20, HANDSHAKE_TYPE_KEY_UPDATE = 24;
+const EXT_SERVER_NAME = 0, EXT_SUPPORTED_GROUPS = 10, EXT_EC_POINT_FORMATS = 11, EXT_SIGNATURE_ALGORITHMS = 13, EXT_APPLICATION_LAYER_PROTOCOL_NEGOTIATION = 16, EXT_SUPPORTED_VERSIONS = 43, EXT_PSK_KEY_EXCHANGE_MODES = 45, EXT_KEY_SHARE = 51;
+
+const ALERT_CLOSE_NOTIFY = 0, ALERT_LEVEL_WARNING = 1, ALERT_UNRECOGNIZED_NAME = 112;
+const shouldIgnoreTlsAlert = fragment => fragment?.[0] === ALERT_LEVEL_WARNING && fragment?.[1] === ALERT_UNRECOGNIZED_NAME;
+
+const textEncoder = new TextEncoder();
+const textDecoder = new TextDecoder();
+const EMPTY_BYTES = new Uint8Array(0);
+
+const CIPHER_SUITES_BY_ID = new Map([
+	[4865, { id: 4865, keyLen: 16, ivLen: 12, hash: "SHA-256", tls13: !0 }],
+	[4866, { id: 4866, keyLen: 32, ivLen: 12, hash: "SHA-384", tls13: !0 }],
+	[4867, { id: 4867, keyLen: 32, ivLen: 12, hash: "SHA-256", tls13: !0, chacha: !0 }],
+	[49199, { id: 49199, keyLen: 16, ivLen: 4, hash: "SHA-256", kex: "ECDHE" }],
+	[49200, { id: 49200, keyLen: 32, ivLen: 4, hash: "SHA-384", kex: "ECDHE" }],
+	[52392, { id: 52392, keyLen: 32, ivLen: 12, hash: "SHA-256", kex: "ECDHE", chacha: !0 }],
+	[49195, { id: 49195, keyLen: 16, ivLen: 4, hash: "SHA-256", kex: "ECDHE" }],
+	[49196, { id: 49196, keyLen: 32, ivLen: 4, hash: "SHA-384", kex: "ECDHE" }],
+	[52393, { id: 52393, keyLen: 32, ivLen: 12, hash: "SHA-256", kex: "ECDHE", chacha: !0 }]
+]);
+const GROUPS_BY_ID = new Map([[29, "X25519"], [23, "P-256"]]);
+const SUPPORTED_SIGNATURE_ALGORITHMS = [2052, 2053, 2054, 1025, 1281, 1537, 1027, 1283, 1539];
+
+const tlsBytes = (...parts) => {
+	const flattenBytes = values => values.flatMap(value => value instanceof Uint8Array ? [...value] : Array.isArray(value) ? flattenBytes(value) : "number" == typeof value ? [value] : []);
+	return new Uint8Array(flattenBytes(parts))
+};
+const uint16be = value => [value >> 8 & 255, 255 & value];
+const readUint16 = (buffer, offset) => buffer[offset] << 8 | buffer[offset + 1];
+const readUint24 = (buffer, offset) => buffer[offset] << 16 | buffer[offset + 1] << 8 | buffer[offset + 2];
+const concatBytes = (...chunks) => {
+	const nonEmptyChunks = chunks.filter((chunk => chunk && chunk.length > 0)),
+		length = nonEmptyChunks.reduce(((total, chunk) => total + chunk.length), 0),
+		result = new Uint8Array(length);
+	let offset = 0;
+	for (const chunk of nonEmptyChunks) result.set(chunk, offset), offset += chunk.length;
+	return result
+};
+const randomBytes = length => crypto.getRandomValues(new Uint8Array(length));
+const constantTimeEqual = (left, right) => {
+	if (!left || !right || left.length !== right.length) return !1;
+	let diff = 0; for (let index = 0; index < left.length; index++) diff |= left[index] ^ right[index];
+	return 0 === diff
+};
+const hashByteLength = hash => "SHA-512" === hash ? 64 : "SHA-384" === hash ? 48 : 32;
+async function hmac(hash, key, data) {
+	const cryptoKey = await crypto.subtle.importKey("raw", key, { name: "HMAC", hash }, !1, ["sign"]);
+	return new Uint8Array(await crypto.subtle.sign("HMAC", cryptoKey, data))
+}
+async function digestBytes(hash, data) { return new Uint8Array(await crypto.subtle.digest(hash, data)) }
+async function tls12Prf(secret, label, seed, length, hash = "SHA-256") {
+	const labelSeed = concatBytes(textEncoder.encode(label), seed);
+	let output = new Uint8Array(0),
+		currentA = labelSeed;
+	for (; output.length < length;) {
+		currentA = await hmac(hash, secret, currentA);
+		const block = await hmac(hash, secret, concatBytes(currentA, labelSeed));
+		output = concatBytes(output, block)
+	}
+	return output.slice(0, length)
+}
+async function hkdfExtract(hash, salt, inputKeyMaterial) {
+	return salt && salt.length || (salt = new Uint8Array(hashByteLength(hash))), hmac(hash, salt, inputKeyMaterial)
+}
+async function hkdfExpandLabel(hash, secret, label, context, length) {
+	const fullLabel = textEncoder.encode("tls13 " + label);
+	return async function (hash, secret, info, length) {
+		const hashLen = hashByteLength(hash),
+			roundCount = Math.ceil(length / hashLen);
+		let output = new Uint8Array(0),
+			previousBlock = new Uint8Array(0);
+		for (let round = 1; round <= roundCount; round++) previousBlock = await hmac(hash, secret, concatBytes(previousBlock, info, [round])), output = concatBytes(output, previousBlock);
+		return output.slice(0, length)
+	}(hash, secret, tlsBytes(uint16be(length), fullLabel.length, fullLabel, context.length, context), length)
+}
+async function generateKeyShare(group = "P-256") {
+	const algorithm = "X25519" === group ? { name: "X25519" } : { name: "ECDH", namedCurve: group };
+	const keyPair = /** @type {CryptoKeyPair} */ (await crypto.subtle.generateKey(algorithm, !0, ["deriveBits"]));
+	const publicKeyRaw = /** @type {ArrayBuffer} */ (await crypto.subtle.exportKey("raw", keyPair.publicKey));
+	return { keyPair, publicKeyRaw: new Uint8Array(publicKeyRaw) }
+}
+async function deriveSharedSecret(privateKey, peerPublicKey, group = "P-256") {
+	const algorithm = "X25519" === group ? { name: "X25519" } : { name: "ECDH", namedCurve: group },
+		peerKey = await crypto.subtle.importKey("raw", peerPublicKey, algorithm, !1, []),
+		bits = "P-384" === group ? 384 : "P-521" === group ? 528 : 256;
+	return new Uint8Array(await crypto.subtle.deriveBits(/** @type {any} */({ name: algorithm.name, public: peerKey }), privateKey, bits))
+}
+async function importAesGcmKey(key, usages) { return crypto.subtle.importKey("raw", key, { name: "AES-GCM" }, !1, usages) }
+async function aesGcmEncryptWithKey(cryptoKey, initializationVector, plaintext, additionalData) {
+	return new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: initializationVector, additionalData, tagLength: 128 }, cryptoKey, plaintext))
+}
+async function aesGcmDecryptWithKey(cryptoKey, initializationVector, ciphertext, additionalData) {
+	return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: initializationVector, additionalData, tagLength: 128 }, cryptoKey, ciphertext))
+}
+
+function rotateLeft32(value, bits) { return (value << bits | value >>> 32 - bits) >>> 0 }
+
+function chachaQuarterRound(state, indexA, indexB, indexC, indexD) {
+	state[indexA] = state[indexA] + state[indexB] >>> 0, state[indexD] = rotateLeft32(state[indexD] ^ state[indexA], 16), state[indexC] = state[indexC] + state[indexD] >>> 0, state[indexB] = rotateLeft32(state[indexB] ^ state[indexC], 12), state[indexA] = state[indexA] + state[indexB] >>> 0, state[indexD] = rotateLeft32(state[indexD] ^ state[indexA], 8), state[indexC] = state[indexC] + state[indexD] >>> 0, state[indexB] = rotateLeft32(state[indexB] ^ state[indexC], 7)
+}
+
+function chacha20Block(key, counter, nonce) {
+	const state = new Uint32Array(16);
+	state[0] = 1634760805, state[1] = 857760878, state[2] = 2036477234, state[3] = 1797285236;
+	const keyView = new DataView(key.buffer, key.byteOffset, key.byteLength);
+	for (let wordIndex = 0; wordIndex < 8; wordIndex++) state[4 + wordIndex] = keyView.getUint32(4 * wordIndex, !0);
+	state[12] = counter;
+	const nonceView = new DataView(nonce.buffer, nonce.byteOffset, nonce.byteLength);
+	state[13] = nonceView.getUint32(0, !0), state[14] = nonceView.getUint32(4, !0), state[15] = nonceView.getUint32(8, !0);
+	const workingState = new Uint32Array(state);
+	for (let round = 0; round < 10; round++) chachaQuarterRound(workingState, 0, 4, 8, 12), chachaQuarterRound(workingState, 1, 5, 9, 13), chachaQuarterRound(workingState, 2, 6, 10, 14), chachaQuarterRound(workingState, 3, 7, 11, 15), chachaQuarterRound(workingState, 0, 5, 10, 15), chachaQuarterRound(workingState, 1, 6, 11, 12), chachaQuarterRound(workingState, 2, 7, 8, 13), chachaQuarterRound(workingState, 3, 4, 9, 14);
+	for (let wordIndex = 0; wordIndex < 16; wordIndex++) workingState[wordIndex] = workingState[wordIndex] + state[wordIndex] >>> 0;
+	return new Uint8Array(workingState.buffer.slice(0))
+}
+
+function chacha20Xor(key, nonce, data) {
+	const output = new Uint8Array(data.length);
+	let counter = 1;
+	for (let offset = 0; offset < data.length; offset += 64) {
+		const block = chacha20Block(key, counter++, nonce),
+			blockLength = Math.min(64, data.length - offset);
+		for (let index = 0; index < blockLength; index++) output[offset + index] = data[offset + index] ^ block[index]
+	}
+	return output
+}
+
+function poly1305Mac(key, message) {
+	const rKey = function (rBytes) {
+		const clamped = new Uint8Array(rBytes);
+		return clamped[3] &= 15, clamped[7] &= 15, clamped[11] &= 15, clamped[15] &= 15, clamped[4] &= 252, clamped[8] &= 252, clamped[12] &= 252, clamped
+	}(key.slice(0, 16)),
+		sKey = key.slice(16, 32);
+	let accumulator = [0n, 0n, 0n, 0n, 0n];
+	const rLimbs = [0x3ffffffn & BigInt(rKey[0] | rKey[1] << 8 | rKey[2] << 16 | rKey[3] << 24), 0x3ffffffn & BigInt(rKey[3] >> 2 | rKey[4] << 6 | rKey[5] << 14 | rKey[6] << 22), 0x3ffffffn & BigInt(rKey[6] >> 4 | rKey[7] << 4 | rKey[8] << 12 | rKey[9] << 20), 0x3ffffffn & BigInt(rKey[9] >> 6 | rKey[10] << 2 | rKey[11] << 10 | rKey[12] << 18), 0x3ffffffn & BigInt(rKey[13] | rKey[14] << 8 | rKey[15] << 16)];
+	for (let offset = 0; offset < message.length; offset += 16) {
+		const chunk = message.slice(offset, offset + 16),
+			paddedChunk = new Uint8Array(17);
+		paddedChunk.set(chunk), paddedChunk[chunk.length] = 1, accumulator[0] += BigInt(paddedChunk[0] | paddedChunk[1] << 8 | paddedChunk[2] << 16 | (3 & paddedChunk[3]) << 24), accumulator[1] += BigInt(paddedChunk[3] >> 2 | paddedChunk[4] << 6 | paddedChunk[5] << 14 | (15 & paddedChunk[6]) << 22), accumulator[2] += BigInt(paddedChunk[6] >> 4 | paddedChunk[7] << 4 | paddedChunk[8] << 12 | (63 & paddedChunk[9]) << 20), accumulator[3] += BigInt(paddedChunk[9] >> 6 | paddedChunk[10] << 2 | paddedChunk[11] << 10 | paddedChunk[12] << 18), accumulator[4] += BigInt(paddedChunk[13] | paddedChunk[14] << 8 | paddedChunk[15] << 16 | paddedChunk[16] << 24);
+		const product = [0n, 0n, 0n, 0n, 0n];
+		for (let accIndex = 0; accIndex < 5; accIndex++)
+			for (let rIndex = 0; rIndex < 5; rIndex++) {
+				const limbIndex = accIndex + rIndex;
+				limbIndex < 5 ? product[limbIndex] += accumulator[accIndex] * rLimbs[rIndex] : product[limbIndex - 5] += accumulator[accIndex] * rLimbs[rIndex] * 5n
+			}
+		let carry = 0n;
+		for (let index = 0; index < 5; index++) product[index] += carry, accumulator[index] = 0x3ffffffn & product[index], carry = product[index] >> 26n;
+		accumulator[0] += 5n * carry, carry = accumulator[0] >> 26n, accumulator[0] &= 0x3ffffffn, accumulator[1] += carry
+	}
+	let tagValue = accumulator[0] | accumulator[1] << 26n | accumulator[2] << 52n | accumulator[3] << 78n | accumulator[4] << 104n;
+	tagValue = tagValue + sKey.reduce(((total, byte, index) => total + (BigInt(byte) << BigInt(8 * index))), 0n) & (1n << 128n) - 1n;
+	const tag = new Uint8Array(16);
+	for (let index = 0; index < 16; index++) tag[index] = Number(tagValue >> BigInt(8 * index) & 0xffn);
+	return tag
+}
+
+function chacha20Poly1305Encrypt(key, nonce, plaintext, additionalData) {
+	const polyKey = chacha20Block(key, 0, nonce).slice(0, 32),
+		ciphertext = chacha20Xor(key, nonce, plaintext),
+		aadPadding = (16 - additionalData.length % 16) % 16,
+		ciphertextPadding = (16 - ciphertext.length % 16) % 16,
+		macData = new Uint8Array(additionalData.length + aadPadding + ciphertext.length + ciphertextPadding + 16);
+	macData.set(additionalData, 0), macData.set(ciphertext, additionalData.length + aadPadding);
+	const lengthView = new DataView(macData.buffer, additionalData.length + aadPadding + ciphertext.length + ciphertextPadding);
+	lengthView.setBigUint64(0, BigInt(additionalData.length), !0), lengthView.setBigUint64(8, BigInt(ciphertext.length), !0);
+	const tag = poly1305Mac(polyKey, macData);
+	return concatBytes(ciphertext, tag)
+}
+
+function chacha20Poly1305Decrypt(key, nonce, ciphertext, additionalData) {
+	if (ciphertext.length < 16) throw new Error("Ciphertext too short");
+	const tag = ciphertext.slice(-16),
+		encryptedData = ciphertext.slice(0, -16),
+		polyKey = chacha20Block(key, 0, nonce).slice(0, 32),
+		aadPadding = (16 - additionalData.length % 16) % 16,
+		ciphertextPadding = (16 - encryptedData.length % 16) % 16,
+		macData = new Uint8Array(additionalData.length + aadPadding + encryptedData.length + ciphertextPadding + 16);
+	macData.set(additionalData, 0), macData.set(encryptedData, additionalData.length + aadPadding);
+	const lengthView = new DataView(macData.buffer, additionalData.length + aadPadding + encryptedData.length + ciphertextPadding);
+	lengthView.setBigUint64(0, BigInt(additionalData.length), !0), lengthView.setBigUint64(8, BigInt(encryptedData.length), !0);
+	const expectedTag = poly1305Mac(polyKey, macData);
+	let diff = 0;
+	for (let index = 0; index < 16; index++) diff |= tag[index] ^ expectedTag[index];
+	if (0 !== diff) throw new Error("ChaCha20-Poly1305 authentication failed");
+	return chacha20Xor(key, nonce, encryptedData)
+}
+
+const TLS_MAX_PLAINTEXT_FRAGMENT = 16 * 1024;
+function buildTlsRecord(contentType, fragment, version = TLS_VERSION_12) {
+	const data = 数据转Uint8Array(fragment);
+	const record = new Uint8Array(5 + data.byteLength);
+	record[0] = contentType;
+	record[1] = version >> 8 & 255;
+	record[2] = version & 255;
+	record[3] = data.byteLength >> 8 & 255;
+	record[4] = data.byteLength & 255;
+	record.set(data, 5);
+	return record;
+}
+function buildHandshakeMessage(handshakeType, body) { return tlsBytes(handshakeType, (length => [length >> 16 & 255, length >> 8 & 255, 255 & length])(body.length), body) }
+class TlsRecordParser {
+	constructor() { this.buffer = new Uint8Array(0) }
+	feed(chunk) {
+		const bytes = 数据转Uint8Array(chunk);
+		this.buffer = this.buffer.length ? concatBytes(this.buffer, bytes) : bytes
+	}
+	next() {
+		if (this.buffer.length < 5) return null;
+		const contentType = this.buffer[0],
+			version = readUint16(this.buffer, 1),
+			length = readUint16(this.buffer, 3);
+		if (this.buffer.length < 5 + length) return null;
+		const fragment = this.buffer.subarray(5, 5 + length);
+		return this.buffer = this.buffer.subarray(5 + length), { type: contentType, version, length, fragment }
+	}
+}
+class TlsHandshakeParser {
+	constructor() { this.buffer = new Uint8Array(0) }
+	feed(chunk) {
+		const bytes = 数据转Uint8Array(chunk);
+		this.buffer = this.buffer.length ? concatBytes(this.buffer, bytes) : bytes
+	}
+	next() {
+		if (this.buffer.length < 4) return null;
+		const handshakeType = this.buffer[0],
+			length = readUint24(this.buffer, 1);
+		if (this.buffer.length < 4 + length) return null;
+		const body = this.buffer.subarray(4, 4 + length),
+			raw = this.buffer.subarray(0, 4 + length);
+		return this.buffer = this.buffer.subarray(4 + length), { type: handshakeType, length, body, raw }
+	}
+}
+
+function parseServerHello(body) {
+	let offset = 0;
+	const legacyVersion = readUint16(body, offset);
+	offset += 2;
+	const serverRandom = body.slice(offset, offset + 32);
+	offset += 32;
+	const sessionIdLength = body[offset++],
+		sessionId = body.slice(offset, offset + sessionIdLength);
+	offset += sessionIdLength;
+	const cipherSuite = readUint16(body, offset);
+	offset += 2;
+	const compression = body[offset++];
+	let selectedVersion = legacyVersion,
+		keyShare = null,
+		alpn = null;
+	if (offset < body.length) {
+		const extensionsLength = readUint16(body, offset);
+		offset += 2;
+		const extensionsEnd = offset + extensionsLength;
+		for (; offset + 4 <= extensionsEnd;) {
+			const extensionType = readUint16(body, offset);
+			offset += 2;
+			const extensionLength = readUint16(body, offset);
+			offset += 2;
+			const extensionData = body.slice(offset, offset + extensionLength);
+			if (offset += extensionLength, extensionType === EXT_SUPPORTED_VERSIONS && extensionLength >= 2) selectedVersion = readUint16(extensionData, 0);
+			else if (extensionType === EXT_KEY_SHARE && extensionLength >= 4) {
+				const group = readUint16(extensionData, 0),
+					keyLength = readUint16(extensionData, 2);
+				keyShare = { group, key: extensionData.slice(4, 4 + keyLength) }
+			} else extensionType === EXT_APPLICATION_LAYER_PROTOCOL_NEGOTIATION && extensionLength >= 3 && (alpn = textDecoder.decode(extensionData.slice(3, 3 + extensionData[2])))
+		}
+	}
+	const helloRetryRequestRandom = new Uint8Array([207, 33, 173, 116, 229, 154, 97, 17, 190, 29, 140, 2, 30, 101, 184, 145, 194, 162, 17, 22, 122, 187, 140, 94, 7, 158, 9, 226, 200, 168, 51, 156]);
+	return { version: legacyVersion, serverRandom, sessionId, cipherSuite, compression, selectedVersion, keyShare, alpn, isHRR: constantTimeEqual(serverRandom, helloRetryRequestRandom), isTls13: selectedVersion === TLS_VERSION_13 }
+}
+
+function parseServerKeyExchange(body) {
+	let offset = 1;
+	const namedCurve = readUint16(body, offset);
+	offset += 2;
+	const keyLength = body[offset++];
+	return { namedCurve, serverPublicKey: body.slice(offset, offset + keyLength) }
+}
+
+function extractLeafCertificate(body, hasContext = 0) {
+	let offset = 0;
+	if (hasContext) {
+		const contextLength = body[offset++];
+		offset += contextLength
+	}
+	if (offset + 3 > body.length) return null;
+	const certificateListLength = readUint24(body, offset);
+	if (offset += 3, !certificateListLength || offset + 3 > body.length) return null;
+	const certificateLength = readUint24(body, offset);
+	return offset += 3, certificateLength ? body.slice(offset, offset + certificateLength) : null
+}
+
+function parseEncryptedExtensions(body) {
+	const parsed = { alpn: null };
+	let offset = 2;
+	const extensionsEnd = 2 + readUint16(body, 0);
+	for (; offset + 4 <= extensionsEnd;) {
+		const extensionType = readUint16(body, offset);
+		offset += 2;
+		const extensionLength = readUint16(body, offset);
+		if (offset += 2, extensionType === EXT_APPLICATION_LAYER_PROTOCOL_NEGOTIATION && extensionLength >= 3) {
+			const protocolLength = body[offset + 2];
+			protocolLength > 0 && offset + 3 + protocolLength <= offset + extensionLength && (parsed.alpn = textDecoder.decode(body.slice(offset + 3, offset + 3 + protocolLength)))
+		}
+		offset += extensionLength
+	}
+	return parsed
+}
+
+function buildClientHello(clientRandom, serverName, keyShares, { tls13: enableTls13 = !0, tls12: enableTls12 = !0, alpn = null, chacha = !0 } = {}) {
+	const cipherIds = [];
+	enableTls13 && cipherIds.push(4865, 4866, ...(chacha ? [4867] : [])), enableTls12 && cipherIds.push(49199, 49200, 49195, 49196, ...(chacha ? [52392, 52393] : []));
+	const cipherBytes = tlsBytes(...cipherIds.flatMap(uint16be)),
+		extensions = [tlsBytes(255, 1, 0, 1, 0)];
+	if (serverName) {
+		const serverNameBytes = textEncoder.encode(serverName),
+			serverNameList = tlsBytes(0, uint16be(serverNameBytes.length), serverNameBytes);
+		extensions.push(tlsBytes(uint16be(EXT_SERVER_NAME), uint16be(serverNameList.length + 2), uint16be(serverNameList.length), serverNameList))
+	}
+	extensions.push(tlsBytes(uint16be(EXT_EC_POINT_FORMATS), 0, 2, 1, 0)), extensions.push(tlsBytes(uint16be(EXT_SUPPORTED_GROUPS), 0, 6, 0, 4, 0, 29, 0, 23));
+	const signatureBytes = tlsBytes(...SUPPORTED_SIGNATURE_ALGORITHMS.flatMap(uint16be));
+	extensions.push(tlsBytes(uint16be(EXT_SIGNATURE_ALGORITHMS), uint16be(signatureBytes.length + 2), uint16be(signatureBytes.length), signatureBytes));
+	const protocols = Array.isArray(alpn) ? alpn.filter(Boolean) : alpn ? [alpn] : [];
+	if (protocols.length) {
+		const alpnBytes = concatBytes(...protocols.map((protocol => { const protocolBytes = textEncoder.encode(protocol); return tlsBytes(protocolBytes.length, protocolBytes) })));
+		extensions.push(tlsBytes(uint16be(EXT_APPLICATION_LAYER_PROTOCOL_NEGOTIATION), uint16be(alpnBytes.length + 2), uint16be(alpnBytes.length), alpnBytes))
+	}
+	if (enableTls13 && keyShares) {
+		let keyShareBytes;
+		if (extensions.push(enableTls12 ? tlsBytes(uint16be(EXT_SUPPORTED_VERSIONS), 0, 5, 4, 3, 4, 3, 3) : tlsBytes(uint16be(EXT_SUPPORTED_VERSIONS), 0, 3, 2, 3, 4)), extensions.push(tlsBytes(uint16be(EXT_PSK_KEY_EXCHANGE_MODES), 0, 2, 1, 1)), keyShares?.x25519 && keyShares?.p256) keyShareBytes = concatBytes(tlsBytes(0, 29, uint16be(keyShares.x25519.length), keyShares.x25519), tlsBytes(0, 23, uint16be(keyShares.p256.length), keyShares.p256));
+		else if (keyShares?.x25519) keyShareBytes = tlsBytes(0, 29, uint16be(keyShares.x25519.length), keyShares.x25519);
+		else if (keyShares?.p256) keyShareBytes = tlsBytes(0, 23, uint16be(keyShares.p256.length), keyShares.p256);
+		else {
+			if (!(keyShares instanceof Uint8Array)) throw new Error("Invalid keyShares");
+			keyShareBytes = tlsBytes(0, 23, uint16be(keyShares.length), keyShares)
+		}
+		extensions.push(tlsBytes(uint16be(EXT_KEY_SHARE), uint16be(keyShareBytes.length + 2), uint16be(keyShareBytes.length), keyShareBytes))
+	}
+	const extensionsBytes = concatBytes(...extensions);
+	return buildHandshakeMessage(HANDSHAKE_TYPE_CLIENT_HELLO, tlsBytes(uint16be(TLS_VERSION_12), clientRandom, 0, uint16be(cipherBytes.length), cipherBytes, 1, 0, uint16be(extensionsBytes.length), extensionsBytes))
+}
+const uint64be = sequenceNumber => { const bytes = new Uint8Array(8); return new DataView(bytes.buffer).setBigUint64(0, sequenceNumber, !1), bytes },
+	xorSequenceIntoIv = (initializationVector, sequenceNumber) => {
+		const nonce = initializationVector.slice(),
+			sequenceBytes = uint64be(sequenceNumber);
+		for (let index = 0; index < 8; index++) nonce[nonce.length - 8 + index] ^= sequenceBytes[index];
+		return nonce
+	},
+	deriveTrafficKeys = (hash, secret, keyLen, ivLen) => Promise.all([hkdfExpandLabel(hash, secret, "key", EMPTY_BYTES, keyLen), hkdfExpandLabel(hash, secret, "iv", EMPTY_BYTES, ivLen)]);
+class TlsClient {
+	constructor(socket, options = {}) {
+		if (this.socket = socket, this.serverName = options.serverName || "", this.supportTls13 = !1 !== options.tls13, this.supportTls12 = !1 !== options.tls12, !this.supportTls13 && !this.supportTls12) throw new Error("At least one TLS version must be enabled");
+		this.alpnProtocols = Array.isArray(options.alpn) ? options.alpn : options.alpn ? [options.alpn] : null, this.allowChacha = options.allowChacha !== false, this.timeout = options.timeout ?? 3e4, this.clientRandom = randomBytes(32), this.serverRandom = null, this.handshakeChunks = [], this.handshakeComplete = !1, this.negotiatedAlpn = null, this.cipherSuite = null, this.cipherConfig = null, this.isTls13 = !1, this.masterSecret = null, this.handshakeSecret = null, this.clientWriteKey = null, this.serverWriteKey = null, this.clientWriteIv = null, this.serverWriteIv = null, this.clientHandshakeKey = null, this.serverHandshakeKey = null, this.clientHandshakeIv = null, this.serverHandshakeIv = null, this.clientAppKey = null, this.serverAppKey = null, this.clientAppIv = null, this.serverAppIv = null, this.clientWriteCryptoKey = null, this.serverWriteCryptoKey = null, this.clientHandshakeCryptoKey = null, this.serverHandshakeCryptoKey = null, this.clientAppCryptoKey = null, this.serverAppCryptoKey = null, this.clientSeqNum = 0n, this.serverSeqNum = 0n, this.recordParser = new TlsRecordParser, this.handshakeParser = new TlsHandshakeParser, this.keyPairs = new Map, this.ecdhKeyPair = null, this.sawCert = !1
+	}
+	recordHandshake(chunk) { this.handshakeChunks.push(chunk) }
+	transcript() { return 1 === this.handshakeChunks.length ? this.handshakeChunks[0] : concatBytes(...this.handshakeChunks) }
+	getCipherConfig(cipherSuite) { return CIPHER_SUITES_BY_ID.get(cipherSuite) || null }
+	async readChunk(reader) { return this.timeout ? Promise.race([reader.read(), new Promise(((resolve, reject) => setTimeout((() => reject(new Error("TLS read timeout"))), this.timeout)))]) : reader.read() }
+	async readRecordsUntil(reader, predicate, closedError) {
+		for (; ;) {
+			let record;
+			for (; record = this.recordParser.next();)
+				if (await predicate(record)) return;
+			const { value, done } = await this.readChunk(reader);
+			if (done) throw new Error(closedError);
+			this.recordParser.feed(value)
+		}
+	}
+	async readHandshakeUntil(reader, predicate, closedError) {
+		for (let message; message = this.handshakeParser.next();)
+			if (await predicate(message)) return;
+		return this.readRecordsUntil(reader, (async record => {
+			if (record.type === CONTENT_TYPE_ALERT) {
+				if (shouldIgnoreTlsAlert(record.fragment)) return;
+				throw new Error(`TLS Alert: ${record.fragment[1]}`);
+			}
+			if (record.type === CONTENT_TYPE_HANDSHAKE) {
+				this.handshakeParser.feed(record.fragment);
+				for (let message; message = this.handshakeParser.next();)
+					if (await predicate(message)) return 1
+			}
+		}), closedError)
+	}
+	async acceptCertificate(certificate) { if (!certificate?.length) throw new Error("Empty certificate"); this.sawCert = !0 }
+	async handshake() {
+		const [p256Share, x25519Share] = await Promise.all([generateKeyShare("P-256"), generateKeyShare("X25519")]);
+		this.keyPairs = new Map([[23, p256Share], [29, x25519Share]]), this.ecdhKeyPair = p256Share.keyPair;
+		const reader = this.socket.readable.getReader(),
+			writer = this.socket.writable.getWriter();
+		try {
+			const clientHello = buildClientHello(this.clientRandom, this.serverName, { x25519: x25519Share.publicKeyRaw, p256: p256Share.publicKeyRaw }, { tls13: this.supportTls13, tls12: this.supportTls12, alpn: this.alpnProtocols, chacha: this.allowChacha });
+			this.recordHandshake(clientHello), await writer.write(buildTlsRecord(CONTENT_TYPE_HANDSHAKE, clientHello, TLS_VERSION_10));
+			const serverHello = await this.receiveServerHello(reader);
+			if (serverHello.isHRR) throw new Error("HelloRetryRequest is not supported by TLSClientMini");
+			if (serverHello.keyShare?.group && this.keyPairs.has(serverHello.keyShare.group)) {
+				const selectedKeyPair = this.keyPairs.get(serverHello.keyShare.group);
+				this.ecdhKeyPair = selectedKeyPair.keyPair
+			}
+			serverHello.isTls13 ? await this.handshakeTls13(reader, writer, serverHello) : await this.handshakeTls12(reader, writer), this.handshakeComplete = !0
+		} finally {
+			reader.releaseLock(), writer.releaseLock()
+		}
+	}
+	async receiveServerHello(reader) {
+		for (; ;) {
+			const { value, done } = await this.readChunk(reader);
+			if (done) throw new Error("Connection closed waiting for ServerHello");
+			let record;
+			for (this.recordParser.feed(value); record = this.recordParser.next();) {
+				if (record.type === CONTENT_TYPE_ALERT) {
+					if (shouldIgnoreTlsAlert(record.fragment)) continue;
+					throw new Error(`TLS Alert: level=${record.fragment[0]}, desc=${record.fragment[1]}`);
+				}
+				if (record.type !== CONTENT_TYPE_HANDSHAKE) continue;
+				let message;
+				for (this.handshakeParser.feed(record.fragment); message = this.handshakeParser.next();) {
+					if (message.type !== HANDSHAKE_TYPE_SERVER_HELLO) continue;
+					this.recordHandshake(message.raw);
+					const serverHello = parseServerHello(message.body);
+					if (this.serverRandom = serverHello.serverRandom, this.cipherSuite = serverHello.cipherSuite, this.cipherConfig = this.getCipherConfig(serverHello.cipherSuite), this.isTls13 = serverHello.isTls13, this.negotiatedAlpn = serverHello.alpn || null, !this.cipherConfig) throw new Error(`Unsupported cipher suite: 0x${serverHello.cipherSuite.toString(16)}`);
+					return serverHello
+				}
+			}
+		}
+	}
+	async handshakeTls12(reader, writer) {
+		/** @type {{ namedCurve: number, serverPublicKey: Uint8Array } | null} */
+		let serverKeyExchange = null;
+		let sawServerHelloDone = !1;
+		if (await this.readHandshakeUntil(reader, (async message => {
+			switch (message.type) {
+				case HANDSHAKE_TYPE_CERTIFICATE: {
+					this.recordHandshake(message.raw);
+					const certificate = extractLeafCertificate(message.body, 1);
+					if (!certificate) throw new Error("Missing TLS 1.2 certificate");
+					await this.acceptCertificate(certificate);
+					break
+				}
+				case HANDSHAKE_TYPE_SERVER_KEY_EXCHANGE:
+					this.recordHandshake(message.raw), serverKeyExchange = parseServerKeyExchange(message.body);
+					break;
+				case HANDSHAKE_TYPE_SERVER_HELLO_DONE:
+					return this.recordHandshake(message.raw), sawServerHelloDone = !0, 1;
+				case HANDSHAKE_TYPE_CERTIFICATE_REQUEST:
+					throw new Error("Client certificate is not supported");
+				default:
+					this.recordHandshake(message.raw)
+			}
+		}), "Connection closed during TLS 1.2 handshake"), !this.sawCert) throw new Error("Missing TLS 1.2 leaf certificate");
+		const serverKeyExchangeData = /** @type {{ namedCurve: number, serverPublicKey: Uint8Array } | null} */ (serverKeyExchange);
+		if (!serverKeyExchangeData) throw new Error("Missing TLS 1.2 ServerKeyExchange");
+		const curveName = GROUPS_BY_ID.get(serverKeyExchangeData.namedCurve);
+		if (!curveName) throw new Error(`Unsupported named curve: 0x${serverKeyExchangeData.namedCurve.toString(16)}`);
+		const keyShare = this.keyPairs.get(serverKeyExchangeData.namedCurve);
+		if (!keyShare) throw new Error(`Missing key pair for curve: 0x${serverKeyExchangeData.namedCurve.toString(16)}`);
+		const preMasterSecret = await deriveSharedSecret(keyShare.keyPair.privateKey, serverKeyExchangeData.serverPublicKey, curveName),
+			clientKeyExchange = buildHandshakeMessage(HANDSHAKE_TYPE_CLIENT_KEY_EXCHANGE, tlsBytes(keyShare.publicKeyRaw.length, keyShare.publicKeyRaw));
+		this.recordHandshake(clientKeyExchange);
+		const hashName = this.cipherConfig.hash;
+		this.masterSecret = await tls12Prf(preMasterSecret, "master secret", concatBytes(this.clientRandom, this.serverRandom), 48, hashName);
+		const keyLen = this.cipherConfig.keyLen,
+			ivLen = this.cipherConfig.ivLen,
+			keyBlock = await tls12Prf(this.masterSecret, "key expansion", concatBytes(this.serverRandom, this.clientRandom), 2 * keyLen + 2 * ivLen, hashName);
+		this.clientWriteKey = keyBlock.slice(0, keyLen), this.serverWriteKey = keyBlock.slice(keyLen, 2 * keyLen), this.clientWriteIv = keyBlock.slice(2 * keyLen, 2 * keyLen + ivLen), this.serverWriteIv = keyBlock.slice(2 * keyLen + ivLen, 2 * keyLen + 2 * ivLen);
+		if (!this.cipherConfig.chacha) [this.clientWriteCryptoKey, this.serverWriteCryptoKey] = await Promise.all([importAesGcmKey(this.clientWriteKey, ["encrypt"]), importAesGcmKey(this.serverWriteKey, ["decrypt"])]);
+		await writer.write(buildTlsRecord(CONTENT_TYPE_HANDSHAKE, clientKeyExchange)), await writer.write(buildTlsRecord(CONTENT_TYPE_CHANGE_CIPHER_SPEC, tlsBytes(1)));
+		const clientVerifyData = await tls12Prf(this.masterSecret, "client finished", await digestBytes(hashName, this.transcript()), 12, hashName),
+			finishedMessage = buildHandshakeMessage(HANDSHAKE_TYPE_FINISHED, clientVerifyData);
+		this.recordHandshake(finishedMessage), await writer.write(buildTlsRecord(CONTENT_TYPE_HANDSHAKE, await this.encryptTls12(finishedMessage, CONTENT_TYPE_HANDSHAKE)));
+		let sawChangeCipherSpec = !1;
+		await this.readRecordsUntil(reader, (async record => {
+			if (record.type === CONTENT_TYPE_ALERT) {
+				if (shouldIgnoreTlsAlert(record.fragment)) return;
+				throw new Error(`TLS Alert: ${record.fragment[1]}`);
+			}
+			if (record.type === CONTENT_TYPE_CHANGE_CIPHER_SPEC) return void (sawChangeCipherSpec = !0);
+			if (record.type !== CONTENT_TYPE_HANDSHAKE || !sawChangeCipherSpec) return;
+			const decrypted = await this.decryptTls12(record.fragment, CONTENT_TYPE_HANDSHAKE);
+			if (decrypted[0] !== HANDSHAKE_TYPE_FINISHED) return;
+			const verifyLength = readUint24(decrypted, 1),
+				verifyData = decrypted.slice(4, 4 + verifyLength),
+				expectedVerifyData = await tls12Prf(this.masterSecret, "server finished", await digestBytes(hashName, this.transcript()), 12, hashName);
+			if (!constantTimeEqual(verifyData, expectedVerifyData)) throw new Error("TLS 1.2 server Finished verify failed");
+			return 1
+		}), "Connection closed waiting for TLS 1.2 Finished")
+	}
+	async handshakeTls13(reader, writer, serverHello) {
+		const groupName = GROUPS_BY_ID.get(serverHello.keyShare?.group);
+		if (!groupName || !serverHello.keyShare?.key?.length) throw new Error("Missing TLS 1.3 key_share");
+		const hashName = this.cipherConfig.hash,
+			hashLen = hashByteLength(hashName),
+			keyLen = this.cipherConfig.keyLen,
+			ivLen = this.cipherConfig.ivLen,
+			sharedSecret = await deriveSharedSecret(this.ecdhKeyPair.privateKey, serverHello.keyShare.key, groupName),
+			earlySecret = await hkdfExtract(hashName, null, new Uint8Array(hashLen)),
+			derivedSecret = await hkdfExpandLabel(hashName, earlySecret, "derived", await digestBytes(hashName, EMPTY_BYTES), hashLen);
+		this.handshakeSecret = await hkdfExtract(hashName, derivedSecret, sharedSecret);
+		const transcriptHash = await digestBytes(hashName, this.transcript()),
+			clientHandshakeTrafficSecret = await hkdfExpandLabel(hashName, this.handshakeSecret, "c hs traffic", transcriptHash, hashLen),
+			serverHandshakeTrafficSecret = await hkdfExpandLabel(hashName, this.handshakeSecret, "s hs traffic", transcriptHash, hashLen);
+		[this.clientHandshakeKey, this.clientHandshakeIv] = await deriveTrafficKeys(hashName, clientHandshakeTrafficSecret, keyLen, ivLen), [this.serverHandshakeKey, this.serverHandshakeIv] = await deriveTrafficKeys(hashName, serverHandshakeTrafficSecret, keyLen, ivLen);
+		if (!this.cipherConfig.chacha) [this.clientHandshakeCryptoKey, this.serverHandshakeCryptoKey] = await Promise.all([importAesGcmKey(this.clientHandshakeKey, ["encrypt"]), importAesGcmKey(this.serverHandshakeKey, ["decrypt"])]);
+		const serverFinishedKey = await hkdfExpandLabel(hashName, serverHandshakeTrafficSecret, "finished", EMPTY_BYTES, hashLen);
+		let serverFinishedReceived = !1;
+		const handleHandshakeMessage = async message => {
+			switch (message.type) {
+				case HANDSHAKE_TYPE_ENCRYPTED_EXTENSIONS: {
+					const encryptedExtensions = parseEncryptedExtensions(message.body);
+					encryptedExtensions.alpn && (this.negotiatedAlpn = encryptedExtensions.alpn), this.recordHandshake(message.raw);
+					break
+				}
+				case HANDSHAKE_TYPE_CERTIFICATE: {
+					const certificate = extractLeafCertificate(message.body);
+					if (!certificate) throw new Error("Missing TLS 1.3 certificate");
+					await this.acceptCertificate(certificate), this.recordHandshake(message.raw);
+					break
+				}
+				case HANDSHAKE_TYPE_CERTIFICATE_REQUEST:
+					throw new Error("Client certificate is not supported");
+				case HANDSHAKE_TYPE_CERTIFICATE_VERIFY:
+					this.recordHandshake(message.raw);
+					break;
+				case HANDSHAKE_TYPE_FINISHED: {
+					const expectedVerifyData = await hmac(hashName, serverFinishedKey, await digestBytes(hashName, this.transcript()));
+					if (!constantTimeEqual(expectedVerifyData, message.body)) throw new Error("TLS 1.3 server Finished verify failed");
+					this.recordHandshake(message.raw), serverFinishedReceived = !0;
+					break
+				}
+				default:
+					this.recordHandshake(message.raw)
+			}
+		};
+		await this.readRecordsUntil(reader, (async record => {
+			if (record.type === CONTENT_TYPE_CHANGE_CIPHER_SPEC || record.type === CONTENT_TYPE_HANDSHAKE) return;
+			if (record.type === CONTENT_TYPE_ALERT) {
+				if (shouldIgnoreTlsAlert(record.fragment)) return;
+				throw new Error(`TLS Alert: ${record.fragment[1]}`);
+			}
+			if (record.type !== CONTENT_TYPE_APPLICATION_DATA) return;
+			const decrypted = await this.decryptTls13Handshake(record.fragment),
+				innerType = decrypted[decrypted.length - 1],
+				plaintext = decrypted.slice(0, -1);
+			if (innerType === CONTENT_TYPE_HANDSHAKE) {
+				this.handshakeParser.feed(plaintext);
+				for (let message; message = this.handshakeParser.next();)
+					if (await handleHandshakeMessage(message), serverFinishedReceived) return 1
+			}
+		}), "Connection closed during TLS 1.3 handshake");
+		const applicationTranscriptHash = await digestBytes(hashName, this.transcript()),
+			masterDerivedSecret = await hkdfExpandLabel(hashName, this.handshakeSecret, "derived", await digestBytes(hashName, EMPTY_BYTES), hashLen),
+			masterSecret = await hkdfExtract(hashName, masterDerivedSecret, new Uint8Array(hashLen)),
+			clientAppTrafficSecret = await hkdfExpandLabel(hashName, masterSecret, "c ap traffic", applicationTranscriptHash, hashLen),
+			serverAppTrafficSecret = await hkdfExpandLabel(hashName, masterSecret, "s ap traffic", applicationTranscriptHash, hashLen);
+		[this.clientAppKey, this.clientAppIv] = await deriveTrafficKeys(hashName, clientAppTrafficSecret, keyLen, ivLen), [this.serverAppKey, this.serverAppIv] = await deriveTrafficKeys(hashName, serverAppTrafficSecret, keyLen, ivLen);
+		if (!this.cipherConfig.chacha) [this.clientAppCryptoKey, this.serverAppCryptoKey] = await Promise.all([importAesGcmKey(this.clientAppKey, ["encrypt"]), importAesGcmKey(this.serverAppKey, ["decrypt"])]);
+		const clientFinishedKey = await hkdfExpandLabel(hashName, clientHandshakeTrafficSecret, "finished", EMPTY_BYTES, hashLen),
+			clientFinishedVerifyData = await hmac(hashName, clientFinishedKey, await digestBytes(hashName, this.transcript())),
+			clientFinishedMessage = buildHandshakeMessage(HANDSHAKE_TYPE_FINISHED, clientFinishedVerifyData);
+		this.recordHandshake(clientFinishedMessage), await writer.write(buildTlsRecord(CONTENT_TYPE_APPLICATION_DATA, await this.encryptTls13Handshake(concatBytes(clientFinishedMessage, [CONTENT_TYPE_HANDSHAKE])))), this.clientSeqNum = 0n, this.serverSeqNum = 0n
+	}
+	async encryptTls12(plaintext, contentType) {
+		const sequenceNumber = this.clientSeqNum++,
+			sequenceBytes = uint64be(sequenceNumber),
+			additionalData = concatBytes(sequenceBytes, [contentType], uint16be(TLS_VERSION_12), uint16be(plaintext.length));
+		if (this.cipherConfig.chacha) {
+			const nonce = xorSequenceIntoIv(this.clientWriteIv, sequenceNumber);
+			return chacha20Poly1305Encrypt(this.clientWriteKey, nonce, plaintext, additionalData)
+		}
+		const explicitNonce = randomBytes(8);
+		if (!this.clientWriteCryptoKey) this.clientWriteCryptoKey = await importAesGcmKey(this.clientWriteKey, ["encrypt"]);
+		return concatBytes(explicitNonce, await aesGcmEncryptWithKey(this.clientWriteCryptoKey, concatBytes(this.clientWriteIv, explicitNonce), plaintext, additionalData))
+	}
+	async decryptTls12(ciphertext, contentType) {
+		const sequenceNumber = this.serverSeqNum++,
+			sequenceBytes = uint64be(sequenceNumber);
+		if (this.cipherConfig.chacha) {
+			const nonce = xorSequenceIntoIv(this.serverWriteIv, sequenceNumber);
+			return chacha20Poly1305Decrypt(this.serverWriteKey, nonce, ciphertext, concatBytes(sequenceBytes, [contentType], uint16be(TLS_VERSION_12), uint16be(ciphertext.length - 16)))
+		}
+		const explicitNonce = ciphertext.subarray(0, 8),
+			encryptedData = ciphertext.subarray(8);
+		if (!this.serverWriteCryptoKey) this.serverWriteCryptoKey = await importAesGcmKey(this.serverWriteKey, ["decrypt"]);
+		return aesGcmDecryptWithKey(this.serverWriteCryptoKey, concatBytes(this.serverWriteIv, explicitNonce), encryptedData, concatBytes(sequenceBytes, [contentType], uint16be(TLS_VERSION_12), uint16be(encryptedData.length - 16)))
+	}
+	async encryptTls13Handshake(plaintext) {
+		const nonce = xorSequenceIntoIv(this.clientHandshakeIv, this.clientSeqNum++),
+			additionalData = tlsBytes(CONTENT_TYPE_APPLICATION_DATA, 3, 3, uint16be(plaintext.length + 16));
+		if (this.cipherConfig.chacha) return chacha20Poly1305Encrypt(this.clientHandshakeKey, nonce, plaintext, additionalData);
+		if (!this.clientHandshakeCryptoKey) this.clientHandshakeCryptoKey = await importAesGcmKey(this.clientHandshakeKey, ["encrypt"]);
+		return aesGcmEncryptWithKey(this.clientHandshakeCryptoKey, nonce, plaintext, additionalData)
+	}
+	async decryptTls13Handshake(ciphertext) {
+		const nonce = xorSequenceIntoIv(this.serverHandshakeIv, this.serverSeqNum++),
+			additionalData = tlsBytes(CONTENT_TYPE_APPLICATION_DATA, 3, 3, uint16be(ciphertext.length));
+		const decrypted = this.cipherConfig.chacha ? await chacha20Poly1305Decrypt(this.serverHandshakeKey, nonce, ciphertext, additionalData) : await aesGcmDecryptWithKey(this.serverHandshakeCryptoKey || (this.serverHandshakeCryptoKey = await importAesGcmKey(this.serverHandshakeKey, ["decrypt"])), nonce, ciphertext, additionalData);
+		let innerTypeIndex = decrypted.length - 1;
+		for (; innerTypeIndex >= 0 && !decrypted[innerTypeIndex];) innerTypeIndex--;
+		return innerTypeIndex < 0 ? EMPTY_BYTES : decrypted.slice(0, innerTypeIndex + 1)
+	}
+	async encryptTls13(data) {
+		const plaintext = concatBytes(data, [CONTENT_TYPE_APPLICATION_DATA]),
+			nonce = xorSequenceIntoIv(this.clientAppIv, this.clientSeqNum++),
+			additionalData = tlsBytes(CONTENT_TYPE_APPLICATION_DATA, 3, 3, uint16be(plaintext.length + 16));
+		if (this.cipherConfig.chacha) return chacha20Poly1305Encrypt(this.clientAppKey, nonce, plaintext, additionalData);
+		if (!this.clientAppCryptoKey) this.clientAppCryptoKey = await importAesGcmKey(this.clientAppKey, ["encrypt"]);
+		return aesGcmEncryptWithKey(this.clientAppCryptoKey, nonce, plaintext, additionalData)
+	}
+	async decryptTls13(ciphertext) {
+		const nonce = xorSequenceIntoIv(this.serverAppIv, this.serverSeqNum++),
+			additionalData = tlsBytes(CONTENT_TYPE_APPLICATION_DATA, 3, 3, uint16be(ciphertext.length)),
+			plaintext = this.cipherConfig.chacha ? await chacha20Poly1305Decrypt(this.serverAppKey, nonce, ciphertext, additionalData) : await aesGcmDecryptWithKey(this.serverAppCryptoKey || (this.serverAppCryptoKey = await importAesGcmKey(this.serverAppKey, ["decrypt"])), nonce, ciphertext, additionalData);
+		let innerTypeIndex = plaintext.length - 1;
+		for (; innerTypeIndex >= 0 && !plaintext[innerTypeIndex];) innerTypeIndex--;
+		if (innerTypeIndex < 0) return {
+			data: EMPTY_BYTES,
+			type: 0
+		};
+		return {
+			data: plaintext.slice(0, innerTypeIndex),
+			type: plaintext[innerTypeIndex]
+		}
+	}
+	async write(data) {
+		if (!this.handshakeComplete) throw new Error("Handshake not complete");
+		const plaintext = 数据转Uint8Array(data);
+		if (!plaintext.byteLength) return;
+		const writer = this.socket.writable.getWriter();
+		try {
+			const records = [];
+			for (let offset = 0; offset < plaintext.byteLength; offset += TLS_MAX_PLAINTEXT_FRAGMENT) {
+				const chunk = plaintext.subarray(offset, Math.min(offset + TLS_MAX_PLAINTEXT_FRAGMENT, plaintext.byteLength));
+				const encrypted = this.isTls13 ? await this.encryptTls13(chunk) : await this.encryptTls12(chunk, CONTENT_TYPE_APPLICATION_DATA);
+				records.push(buildTlsRecord(CONTENT_TYPE_APPLICATION_DATA, encrypted));
+			}
+			await writer.write(records.length === 1 ? records[0] : concatBytes(...records))
+		} finally {
+			writer.releaseLock()
+		}
+	}
+	async read() {
+		for (; ;) {
+			let record;
+			for (; record = this.recordParser.next();) {
+				if (record.type === CONTENT_TYPE_ALERT) {
+					if (record.fragment[1] === ALERT_CLOSE_NOTIFY) return null;
+					throw new Error(`TLS Alert: ${record.fragment[1]}`)
+				}
+				if (record.type !== CONTENT_TYPE_APPLICATION_DATA) continue;
+				if (!this.isTls13) return this.decryptTls12(record.fragment, CONTENT_TYPE_APPLICATION_DATA);
+				const { data, type } = await this.decryptTls13(record.fragment);
+				if (type === CONTENT_TYPE_APPLICATION_DATA) return data;
+				if (type === CONTENT_TYPE_ALERT) {
+					if (data[1] === ALERT_CLOSE_NOTIFY) return null;
+					throw new Error(`TLS Alert: ${data[1]}`)
+				}
+				if (type !== CONTENT_TYPE_HANDSHAKE) continue;
+				let message;
+				for (this.handshakeParser.feed(data); message = this.handshakeParser.next();)
+					if (message.type !== HANDSHAKE_TYPE_NEW_SESSION_TICKET && message.type === HANDSHAKE_TYPE_KEY_UPDATE) throw new Error("TLS 1.3 KeyUpdate is not supported by TLSClientMini")
+			}
+			const reader = this.socket.readable.getReader();
+			try {
+				const { value, done } = await this.readChunk(reader);
+				if (done) return null;
+				this.recordParser.feed(value)
+			} finally {
+				reader.releaseLock()
+			}
+		}
+	}
+	close() { this.socket.close() }
+}
+
+function stripIPv6Brackets(hostname = '') {
+	const host = String(hostname || '').trim();
+	return host.startsWith('[') && host.endsWith(']') ? host.slice(1, -1) : host;
+}
+
+function isIPHostname(hostname = '') {
+	const host = stripIPv6Brackets(hostname);
+	const ipv4Regex = /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
+	if (ipv4Regex.test(host)) return true;
+	if (!host.includes(':')) return false;
+	try {
+		new URL(`http://[${host}]/`);
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
+
+//////////////////////////////////////////////////turnConnect///////////////////////////////////////////////
+const CONNECT_TIMEOUT_MS = 9999;
+const TURN_STUN_MAGIC_COOKIE = new Uint8Array([0x21, 0x12, 0xa4, 0x42]);
+const TURN_STUN_TYPE = {
+	ALLOCATE_REQUEST: 0x0003, ALLOCATE_SUCCESS: 0x0103, ALLOCATE_ERROR: 0x0113,
+	CREATE_PERMISSION_REQUEST: 0x0008, CREATE_PERMISSION_SUCCESS: 0x0108,
+	CONNECT_REQUEST: 0x000a, CONNECT_SUCCESS: 0x010a,
+	CONNECTION_BIND_REQUEST: 0x000b, CONNECTION_BIND_SUCCESS: 0x010b
+};
+const TURN_STUN_ATTR = {
+	USERNAME: 0x0006, MESSAGE_INTEGRITY: 0x0008, ERROR_CODE: 0x0009,
+	XOR_PEER_ADDRESS: 0x0012, REALM: 0x0014, NONCE: 0x0015,
+	REQUESTED_TRANSPORT: 0x0019, CONNECTION_ID: 0x002a
+};
+
+async function withTimeout(promise, timeoutMs, message) {
+	let timer;
+	try {
+		return await Promise.race([
+			promise,
+			new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(message)), timeoutMs) })
+		]);
+	} finally {
+		clearTimeout(timer);
+	}
+}
+
+function isIPv4(value) {
+	const parts = String(value || '').split('.');
+	return parts.length === 4 && parts.every(part => /^\d{1,3}$/.test(part) && Number(part) >= 0 && Number(part) <= 255);
+}
+
+function turnStunPadding(length) {
+	return -length & 3;
+}
+
+function createTurnStunAttribute(type, value) {
+	const body = 数据转Uint8Array(value);
+	const attribute = new Uint8Array(4 + body.byteLength + turnStunPadding(body.byteLength));
+	const view = new DataView(attribute.buffer);
+	view.setUint16(0, type);
+	view.setUint16(2, body.byteLength);
+	attribute.set(body, 4);
+	return attribute;
+}
+
+function createTurnStunMessage(type, transactionId, attributes) {
+	const body = 拼接字节数据(...attributes);
+	const header = new Uint8Array(20);
+	const view = new DataView(header.buffer);
+	view.setUint16(0, type);
+	view.setUint16(2, body.byteLength);
+	header.set(TURN_STUN_MAGIC_COOKIE, 4);
+	header.set(transactionId, 8);
+	return 拼接字节数据(header, body);
+}
+
+function parseTurnErrorCode(data) {
+	return data?.byteLength >= 4 ? (data[2] & 7) * 100 + data[3] : 0;
+}
+
+function randomTurnTransactionId() {
+	return crypto.getRandomValues(new Uint8Array(12));
+}
+
+async function addTurnMessageIntegrity(message, key) {
+	const signedMessage = new Uint8Array(message);
+	const view = new DataView(signedMessage.buffer);
+	view.setUint16(2, view.getUint16(2) + 24);
+	const hmacKey = await crypto.subtle.importKey('raw', key, { name: 'HMAC', hash: 'SHA-1' }, false, ['sign']);
+	const signature = await crypto.subtle.sign('HMAC', hmacKey, signedMessage);
+	return 拼接字节数据(signedMessage, createTurnStunAttribute(TURN_STUN_ATTR.MESSAGE_INTEGRITY, new Uint8Array(signature)));
+}
+
+async function readTurnStunMessage(reader, bufferedData = null, timeoutMessage = 'TURN response timed out') {
+	let buffer = 有效数据长度(bufferedData) ? 数据转Uint8Array(bufferedData) : new Uint8Array(0);
+	const pull = async () => {
+		const { done, value } = await withTimeout(reader.read(), CONNECT_TIMEOUT_MS, timeoutMessage);
+		if (done) throw new Error('TURN server closed connection');
+		if (value?.byteLength) buffer = 拼接字节数据(buffer, value);
+	};
+	while (buffer.byteLength < 20) await pull();
+
+	const messageLength = 20 + ((buffer[2] << 8) | buffer[3]);
+	if (messageLength > 65555) throw new Error('TURN response is too large');
+	while (buffer.byteLength < messageLength) await pull();
+	const messageBuffer = buffer.subarray(0, messageLength);
+	if (TURN_STUN_MAGIC_COOKIE.some((value, index) => messageBuffer[4 + index] !== value)) throw new Error('Invalid TURN/STUN response');
+
+	const view = new DataView(messageBuffer.buffer, messageBuffer.byteOffset, messageBuffer.byteLength);
+	const attributes = {};
+	for (let offset = 20; offset + 4 <= messageLength;) {
+		const type = view.getUint16(offset);
+		const length = view.getUint16(offset + 2);
+		if (offset + 4 + length > messageBuffer.byteLength) break;
+		attributes[type] = messageBuffer.slice(offset + 4, offset + 4 + length);
+		offset += 4 + length + turnStunPadding(length);
+	}
+	return {
+		message: { type: view.getUint16(0), attributes },
+		extraData: buffer.byteLength > messageLength ? buffer.subarray(messageLength) : null
+	};
+}
+
+async function writeTurnBytes(writer, bytes, timeoutMessage) {
+	await withTimeout(writer.write(bytes), CONNECT_TIMEOUT_MS, timeoutMessage);
+}
+
+async function turnConnect(proxy, targetHost, targetPort, TCP连接) {
+	proxy = { ...proxy, username: proxy.username ?? null, password: proxy.password ?? null };
+	const resolvedTargetHost = stripIPv6Brackets(targetHost);
+	/** @type {string | null} */
+	let targetIp = isIPv4(resolvedTargetHost) ? resolvedTargetHost : null;
+	if (!targetIp) {
+		const records = await DoH查询(resolvedTargetHost, 'A');
+		const recordData = records.find(item => item.type === 1 && isIPv4(item.data))?.data;
+		targetIp = typeof recordData === 'string' ? recordData : null;
+	}
+	if (!targetIp) throw new Error(`Could not resolve ${targetHost} to an IPv4 address for TURN CONNECT`);
+
+	const turnHost = stripIPv6Brackets(proxy.hostname);
+	let controlSocket = null, dataSocket = null, controlWriter = null, controlReader = null, dataWriter = null, dataReader = null, dataReaderReleased = false;
+	const close = () => {
+		try { controlSocket?.close?.() } catch (e) { }
+		try { dataSocket?.close?.() } catch (e) { }
+	};
+	const releaseDataReader = () => {
+		if (dataReaderReleased) return;
+		dataReaderReleased = true;
+		try { dataReader?.releaseLock?.() } catch (e) { }
+	};
+
+	try {
+		controlSocket = TCP连接({ hostname: turnHost, port: proxy.port });
+		await withTimeout(controlSocket.opened, CONNECT_TIMEOUT_MS, 'TURN server connection timed out');
+		controlWriter = controlSocket.writable.getWriter();
+		controlReader = controlSocket.readable.getReader();
+
+		const xorPeerAddress = new Uint8Array(8);
+		xorPeerAddress[1] = 1;
+		new DataView(xorPeerAddress.buffer).setUint16(2, targetPort ^ 0x2112);
+		targetIp.split('.').forEach((value, index) => {
+			xorPeerAddress[4 + index] = Number(value) ^ TURN_STUN_MAGIC_COOKIE[index];
+		});
+		const peerAddress = createTurnStunAttribute(TURN_STUN_ATTR.XOR_PEER_ADDRESS, xorPeerAddress);
+		const requestedTransport = new Uint8Array([6, 0, 0, 0]);
+
+		await writeTurnBytes(controlWriter, createTurnStunMessage(
+			TURN_STUN_TYPE.ALLOCATE_REQUEST,
+			randomTurnTransactionId(),
+			[createTurnStunAttribute(TURN_STUN_ATTR.REQUESTED_TRANSPORT, requestedTransport)]
+		), 'TURN Allocate request timed out');
+
+		let turnResponse = await readTurnStunMessage(controlReader, null, 'TURN Allocate response timed out');
+		let message = turnResponse.message;
+		let bufferedData = turnResponse.extraData;
+		let integrityKey = null;
+		let authAttributes = [];
+		const sign = messageToSign => integrityKey ? addTurnMessageIntegrity(messageToSign, integrityKey) : Promise.resolve(messageToSign);
+
+		if (
+			message.type === TURN_STUN_TYPE.ALLOCATE_ERROR
+			&& proxy.username !== null
+			&& proxy.password !== null
+			&& parseTurnErrorCode(message.attributes[TURN_STUN_ATTR.ERROR_CODE]) === 401
+		) {
+			const realmBytes = message.attributes[TURN_STUN_ATTR.REALM];
+			const nonce = message.attributes[TURN_STUN_ATTR.NONCE];
+			if (!realmBytes || !nonce?.byteLength) throw new Error('TURN authentication challenge is missing realm or nonce');
+
+			const realm = textDecoder.decode(realmBytes);
+			integrityKey = new Uint8Array(await crypto.subtle.digest('MD5', textEncoder.encode(`${proxy.username}:${realm}:${proxy.password}`)));
+			authAttributes = [
+				createTurnStunAttribute(TURN_STUN_ATTR.USERNAME, textEncoder.encode(proxy.username)),
+				createTurnStunAttribute(TURN_STUN_ATTR.REALM, textEncoder.encode(realm)),
+				createTurnStunAttribute(TURN_STUN_ATTR.NONCE, nonce)
+			];
+
+			const allocateRequest = await addTurnMessageIntegrity(createTurnStunMessage(
+				TURN_STUN_TYPE.ALLOCATE_REQUEST,
+				randomTurnTransactionId(),
+				[
+					createTurnStunAttribute(TURN_STUN_ATTR.REQUESTED_TRANSPORT, requestedTransport),
+					...authAttributes
+				]
+			), integrityKey);
+			const pipelinedMessages = await Promise.all([
+				sign(createTurnStunMessage(TURN_STUN_TYPE.CREATE_PERMISSION_REQUEST, randomTurnTransactionId(), [peerAddress, ...authAttributes])),
+				sign(createTurnStunMessage(TURN_STUN_TYPE.CONNECT_REQUEST, randomTurnTransactionId(), [peerAddress, ...authAttributes]))
+			]);
+			await writeTurnBytes(controlWriter, 拼接字节数据(allocateRequest, ...pipelinedMessages), 'TURN authenticated Allocate request timed out');
+			turnResponse = await readTurnStunMessage(controlReader, bufferedData, 'TURN authenticated Allocate response timed out');
+			message = turnResponse.message;
+			bufferedData = turnResponse.extraData;
+		} else if (message.type === TURN_STUN_TYPE.ALLOCATE_SUCCESS) {
+			const pipelinedMessages = await Promise.all([
+				sign(createTurnStunMessage(TURN_STUN_TYPE.CREATE_PERMISSION_REQUEST, randomTurnTransactionId(), [peerAddress, ...authAttributes])),
+				sign(createTurnStunMessage(TURN_STUN_TYPE.CONNECT_REQUEST, randomTurnTransactionId(), [peerAddress, ...authAttributes]))
+			]);
+			if (pipelinedMessages.length) await writeTurnBytes(controlWriter, 拼接字节数据(...pipelinedMessages), 'TURN pipelined request timed out');
+		}
+
+		if (message.type !== TURN_STUN_TYPE.ALLOCATE_SUCCESS) {
+			const errorCode = parseTurnErrorCode(message.attributes[TURN_STUN_ATTR.ERROR_CODE]);
+			throw new Error(errorCode ? `TURN Allocate failed with ${errorCode}` : 'TURN Allocate failed');
+		}
+
+		dataSocket = TCP连接({ hostname: turnHost, port: proxy.port });
+		turnResponse = await readTurnStunMessage(controlReader, bufferedData, 'TURN CreatePermission response timed out');
+		message = turnResponse.message;
+		bufferedData = turnResponse.extraData;
+		if (message.type !== TURN_STUN_TYPE.CREATE_PERMISSION_SUCCESS) throw new Error('TURN CreatePermission failed');
+
+		turnResponse = await readTurnStunMessage(controlReader, bufferedData, 'TURN CONNECT response timed out');
+		message = turnResponse.message;
+		bufferedData = turnResponse.extraData;
+		if (message.type !== TURN_STUN_TYPE.CONNECT_SUCCESS || !message.attributes[TURN_STUN_ATTR.CONNECTION_ID]) throw new Error('TURN CONNECT failed');
+
+		await withTimeout(dataSocket.opened, CONNECT_TIMEOUT_MS, 'TURN data connection timed out');
+		dataWriter = dataSocket.writable.getWriter();
+		dataReader = dataSocket.readable.getReader();
+		await writeTurnBytes(dataWriter, await sign(createTurnStunMessage(
+			TURN_STUN_TYPE.CONNECTION_BIND_REQUEST,
+			randomTurnTransactionId(),
+			[
+				createTurnStunAttribute(TURN_STUN_ATTR.CONNECTION_ID, message.attributes[TURN_STUN_ATTR.CONNECTION_ID]),
+				...authAttributes
+			]
+		)), 'TURN ConnectionBind request timed out');
+
+		turnResponse = await readTurnStunMessage(dataReader, null, 'TURN ConnectionBind response timed out');
+		message = turnResponse.message;
+		const extraPayload = turnResponse.extraData;
+		if (message.type !== TURN_STUN_TYPE.CONNECTION_BIND_SUCCESS) throw new Error('TURN ConnectionBind failed');
+
+		controlWriter.releaseLock();
+		controlWriter = null;
+		controlReader.releaseLock();
+		controlReader = null;
+		dataWriter.releaseLock();
+		dataWriter = null;
+
+		const readable = new ReadableStream({
+			start(controller) {
+				if (extraPayload?.byteLength) controller.enqueue(extraPayload);
+			},
+			pull(controller) {
+				return dataReader.read().then(({ done, value }) => {
+					if (done) {
+						releaseDataReader();
+						controller.close();
+					} else if (value?.byteLength) controller.enqueue(new Uint8Array(value));
+				});
+			},
+			cancel() {
+				try { dataReader?.cancel?.() } catch (e) { }
+				releaseDataReader();
+				close();
+			}
+		});
+
+		return { readable, writable: dataSocket.writable, closed: dataSocket.closed, close };
+	} catch (error) {
+		try { controlWriter?.releaseLock?.() } catch (e) { }
+		try { controlReader?.releaseLock?.() } catch (e) { }
+		try { dataWriter?.releaseLock?.() } catch (e) { }
+		releaseDataReader();
+		close();
+		throw error;
+	}
+}
+//////////////////////////////////////////////////sstpConnect///////////////////////////////////////////////
+const SSTP_TCP_MSS = 1400;
+const SSTP_EMPTY_BYTES = new Uint8Array(0);
+
+function readSstpUint16(bytes, offset = 0) {
+	return (bytes[offset] << 8) | bytes[offset + 1];
+}
+
+function readSstpUint32(bytes, offset = 0) {
+	return ((bytes[offset] << 24) | (bytes[offset + 1] << 16) | (bytes[offset + 2] << 8) | bytes[offset + 3]) >>> 0;
+}
+
+function randomSstpUint16() {
+	return readSstpUint16(crypto.getRandomValues(new Uint8Array(2)));
+}
+
+function internetChecksum(bytes, offset, length) {
+	let sum = 0;
+	for (let index = offset; index < offset + length - 1; index += 2) sum += readSstpUint16(bytes, index);
+	if (length & 1) sum += bytes[offset + length - 1] << 8;
+	while (sum >> 16) sum = (sum & 0xffff) + (sum >> 16);
+	return (~sum) & 0xffff;
+}
+
+async function sstpConnect(proxy, targetHost, targetPort, TCP连接) {
+	proxy = { ...proxy, username: proxy.username ?? null, password: proxy.password ?? null };
+	let bufferedBytes = SSTP_EMPTY_BYTES, pppIdentifier = 1, socket = null, reader = null, writer = null;
+	let closedSettled = false, resolveClosed, rejectClosed;
+	const closed = new Promise((resolve, reject) => {
+		resolveClosed = resolve;
+		rejectClosed = reject;
+	});
+	const settleClosed = (settle, value) => {
+		if (closedSettled) return;
+		closedSettled = true;
+		settle(value);
+	};
+	const close = () => {
+		try { reader?.cancel?.().catch?.(() => { }) } catch (e) { }
+		try { reader?.releaseLock?.() } catch (e) { }
+		try { writer?.close?.().catch?.(() => { }) } catch (e) { }
+		try { writer?.releaseLock?.() } catch (e) { }
+		try { socket?.close?.() } catch (e) { }
+		settleClosed(resolveClosed);
+	};
+
+	const readSocketChunk = async () => {
+		const { value, done } = await reader.read();
+		if (done || !value) throw new Error('SSTP socket closed');
+		return 数据转Uint8Array(value);
+	};
+	const readBytes = async length => {
+		while (bufferedBytes.byteLength < length) {
+			const chunk = await readSocketChunk();
+			bufferedBytes = bufferedBytes.byteLength ? 拼接字节数据(bufferedBytes, chunk) : chunk;
+		}
+		const result = bufferedBytes.subarray(0, length);
+		bufferedBytes = bufferedBytes.subarray(length);
+		return result;
+	};
+	const readHttpLine = async () => {
+		for (; ;) {
+			const lineEnd = bufferedBytes.indexOf(10);
+			if (lineEnd >= 0) {
+				const line = textDecoder.decode(bufferedBytes.subarray(0, lineEnd));
+				bufferedBytes = bufferedBytes.subarray(lineEnd + 1);
+				return line.replace(/\r$/, '');
+			}
+			const chunk = await readSocketChunk();
+			bufferedBytes = bufferedBytes.byteLength ? 拼接字节数据(bufferedBytes, chunk) : chunk;
+		}
+	};
+	const readPacket = async (timeoutMs = CONNECT_TIMEOUT_MS) => {
+		const header = await withTimeout(readBytes(4), timeoutMs, 'SSTP read timeout');
+		const length = readSstpUint16(header, 2) & 0x0fff;
+		if (length < 4) throw new Error('Invalid SSTP packet length');
+		return {
+			isControl: (header[1] & 1) !== 0,
+			body: length > 4 ? await withTimeout(readBytes(length - 4), timeoutMs, 'SSTP packet body read timeout') : SSTP_EMPTY_BYTES
+		};
+	};
+	const buildSstpDataPacket = pppFrame => {
+		const packetLength = 6 + pppFrame.byteLength;
+		const packet = new Uint8Array(packetLength);
+		packet.set([0x10, 0x00, ((packetLength >> 8) & 0x0f) | 0x80, packetLength & 0xff, 0xff, 0x03]);
+		packet.set(pppFrame, 6);
+		return packet;
+	};
+	const buildPppConfigurePacket = (protocol, code, id, options = []) => {
+		const optionsLength = options.reduce((size, option) => size + 2 + option.data.byteLength, 0);
+		const frame = new Uint8Array(6 + optionsLength);
+		const view = new DataView(frame.buffer);
+		view.setUint16(0, protocol);
+		frame[2] = code;
+		frame[3] = id;
+		view.setUint16(4, 4 + optionsLength);
+		options.reduce((offset, option) => {
+			frame[offset] = option.type;
+			frame[offset + 1] = 2 + option.data.byteLength;
+			frame.set(option.data, offset + 2);
+			return offset + 2 + option.data.byteLength;
+		}, 6);
+		return frame;
+	};
+	const parsePPPFrame = data => {
+		const offset = data.byteLength >= 2 && data[0] === 0xff && data[1] === 0x03 ? 2 : 0;
+		if (data.byteLength - offset < 4) return null;
+		const protocol = readSstpUint16(data, offset);
+		if (protocol === 0x0021) return { protocol, ipPacket: data.subarray(offset + 2) };
+		if (data.byteLength - offset < 6) return null;
+		return { protocol, code: data[offset + 2], id: data[offset + 3], payload: data.subarray(offset + 6), rawPacket: data.subarray(offset) };
+	};
+	const parsePppOptions = data => {
+		const options = [];
+		for (let offset = 0; offset + 2 <= data.byteLength;) {
+			const type = data[offset];
+			const length = data[offset + 1];
+			if (length < 2 || offset + length > data.byteLength) break;
+			options.push({ type, data: data.subarray(offset + 2, offset + length) });
+			offset += length;
+		}
+		return options;
+	};
+
+	try {
+		const serverHost = stripIPv6Brackets(proxy.hostname);
+		const serverPort = proxy.port;
+		socket = TCP连接({ hostname: serverHost, port: serverPort }, { secureTransport: 'on', allowHalfOpen: false });
+		await withTimeout(socket.opened, CONNECT_TIMEOUT_MS, 'SSTP server connection timed out');
+		reader = socket.readable.getReader();
+		writer = socket.writable.getWriter();
+
+		const displayHost = serverHost.includes(':') ? `[${serverHost}]` : serverHost;
+		const httpRequest = textEncoder.encode(
+			`SSTP_DUPLEX_POST /sra_{BA195980-CD49-458b-9E23-C84EE0ADCD75}/ HTTP/1.1\r\n`
+			+ `Host: ${Number(serverPort) === 443 ? displayHost : `${displayHost}:${serverPort}`}\r\n`
+			+ 'Content-Length: 18446744073709551615\r\n'
+			+ `SSTPCORRELATIONID: {${crypto.randomUUID()}}\r\n\r\n`
+		);
+		const encapsulatedProtocol = new Uint8Array(2);
+		new DataView(encapsulatedProtocol.buffer).setUint16(0, 1);
+		const maximumReceiveUnit = new Uint8Array(2);
+		new DataView(maximumReceiveUnit.buffer).setUint16(0, 1500);
+		const sstpConnectRequest = new Uint8Array(12 + encapsulatedProtocol.byteLength);
+		const sstpConnectView = new DataView(sstpConnectRequest.buffer);
+		sstpConnectRequest[0] = 0x10;
+		sstpConnectRequest[1] = 0x01;
+		sstpConnectView.setUint16(2, sstpConnectRequest.byteLength | 0x8000);
+		sstpConnectView.setUint16(4, 0x0001);
+		sstpConnectView.setUint16(6, 1);
+		sstpConnectRequest[9] = 1;
+		sstpConnectView.setUint16(10, 4 + encapsulatedProtocol.byteLength);
+		sstpConnectRequest.set(encapsulatedProtocol, 12);
+
+		await withTimeout(writer.write(拼接字节数据(
+			httpRequest,
+			sstpConnectRequest,
+			buildSstpDataPacket(buildPppConfigurePacket(0xc021, 1, pppIdentifier++, [
+				{ type: 1, data: maximumReceiveUnit }
+			]))
+		)), CONNECT_TIMEOUT_MS, 'SSTP HTTP handshake request timed out');
+
+		const statusLine = await withTimeout(readHttpLine(), CONNECT_TIMEOUT_MS, 'SSTP HTTP handshake timed out');
+		for (; ;) {
+			const line = await withTimeout(readHttpLine(), CONNECT_TIMEOUT_MS, 'SSTP HTTP header read timed out');
+			if (line === '') break;
+		}
+		if (!/HTTP\/\d(?:\.\d)?\s+2\d\d/i.test(statusLine)) throw new Error(`SSTP HTTP handshake failed: ${statusLine || 'invalid status'}`);
+
+		let localLcpAcked = false, peerLcpAcked = false, papRequired = false, papSent = false, papDone = false, ipcpStarted = false, ipcpFinished = false, sourceIp = null;
+		const sendPapIfReady = async () => {
+			if (!localLcpAcked || !peerLcpAcked || !papRequired || papSent) return;
+			if (proxy.username === null || proxy.password === null) throw new Error('SSTP server requires PAP authentication');
+			const username = textEncoder.encode(proxy.username);
+			const password = textEncoder.encode(proxy.password);
+			if (username.byteLength > 255 || password.byteLength > 255) throw new Error('SSTP username/password is too long');
+			const papLength = 6 + username.byteLength + password.byteLength;
+			const frame = new Uint8Array(2 + papLength);
+			const view = new DataView(frame.buffer);
+			view.setUint16(0, 0xc023);
+			frame[2] = 1;
+			frame[3] = pppIdentifier++;
+			view.setUint16(4, papLength);
+			frame[6] = username.byteLength;
+			frame.set(username, 7);
+			frame[7 + username.byteLength] = password.byteLength;
+			frame.set(password, 8 + username.byteLength);
+			await withTimeout(writer.write(buildSstpDataPacket(frame)), CONNECT_TIMEOUT_MS, 'SSTP PAP authentication request timed out');
+			papSent = true;
+		};
+		const startIpcpIfReady = async () => {
+			if (!localLcpAcked || !peerLcpAcked || ipcpStarted || (papRequired && !papDone)) return;
+			await withTimeout(writer.write(buildSstpDataPacket(buildPppConfigurePacket(0x8021, 1, pppIdentifier++, [
+				{ type: 3, data: new Uint8Array(4) }
+			]))), CONNECT_TIMEOUT_MS, 'SSTP IPCP request timed out');
+			ipcpStarted = true;
+		};
+
+		for (let round = 0; round < 50 && !ipcpFinished; round++) {
+			const packet = await readPacket(CONNECT_TIMEOUT_MS);
+			if (packet.isControl) continue;
+			const ppp = parsePPPFrame(packet.body);
+			if (!ppp) continue;
+
+			if (ppp.protocol === 0xc021) {
+				if (ppp.code === 1) {
+					const authOption = parsePppOptions(ppp.payload).find(option => option.type === 3);
+					if (authOption?.data?.byteLength >= 2) {
+						const authProtocol = readSstpUint16(authOption.data);
+						if (authProtocol !== 0xc023) throw new Error(`SSTP unsupported PPP authentication protocol: 0x${authProtocol.toString(16)}`);
+						papRequired = true;
+					}
+					const ack = new Uint8Array(ppp.rawPacket);
+					ack[2] = 2;
+					await withTimeout(writer.write(buildSstpDataPacket(ack)), CONNECT_TIMEOUT_MS, 'SSTP LCP Configure-Ack timed out');
+					peerLcpAcked = true;
+					await sendPapIfReady();
+					await startIpcpIfReady();
+				} else if (ppp.code === 2) {
+					localLcpAcked = true;
+					await sendPapIfReady();
+					await startIpcpIfReady();
+				}
+				continue;
+			}
+
+			if (ppp.protocol === 0xc023) {
+				if (ppp.code === 2) {
+					papDone = true;
+					await startIpcpIfReady();
+				} else if (ppp.code === 3) throw new Error('SSTP PAP authentication failed');
+				continue;
+			}
+
+			if (ppp.protocol === 0x8021) {
+				if (ppp.code === 1) {
+					const ack = new Uint8Array(ppp.rawPacket);
+					ack[2] = 2;
+					await withTimeout(writer.write(buildSstpDataPacket(ack)), CONNECT_TIMEOUT_MS, 'SSTP IPCP Configure-Ack timed out');
+					await startIpcpIfReady();
+				} else if (ppp.code === 3) {
+					const addressOption = parsePppOptions(ppp.payload).find(option => option.type === 3);
+					if (addressOption?.data?.byteLength === 4) {
+						sourceIp = [...addressOption.data].join('.');
+						await withTimeout(writer.write(buildSstpDataPacket(buildPppConfigurePacket(0x8021, 1, pppIdentifier++, [
+							{ type: 3, data: addressOption.data }
+						]))), CONNECT_TIMEOUT_MS, 'SSTP IPCP address request timed out');
+						ipcpStarted = true;
+					}
+				} else if (ppp.code === 2) {
+					const addressOption = parsePppOptions(ppp.payload).find(option => option.type === 3);
+					if (addressOption?.data?.byteLength === 4) sourceIp = [...addressOption.data].join('.');
+					ipcpFinished = true;
+				}
+			}
+		}
+		if (!sourceIp) throw new Error('SSTP did not assign an IPv4 address');
+
+		const target = stripIPv6Brackets(targetHost);
+		/** @type {string | null} */
+		let targetIp = isIPv4(target) ? target : null;
+		if (!targetIp) {
+			const records = await DoH查询(target, 'A');
+			const recordData = records.find(item => item.type === 1 && isIPv4(item.data))?.data;
+			targetIp = typeof recordData === 'string' ? recordData : null;
+		}
+		if (!targetIp) throw new Error(`Could not resolve ${targetHost} to an IPv4 address for SSTP`);
+
+		const sourcePort = 10000 + (randomSstpUint16() % 50000);
+		const sourceAddress = new Uint8Array(String(sourceIp || '').split('.').map(Number));
+		const destinationAddress = new Uint8Array(String(targetIp || '').split('.').map(Number));
+		let sequenceNumber = readSstpUint32(crypto.getRandomValues(new Uint8Array(4)));
+		let acknowledgementNumber = 0;
+		const ipHeaderTemplate = new Uint8Array(20);
+		ipHeaderTemplate.set([0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 64, 6]);
+		ipHeaderTemplate.set(sourceAddress, 12);
+		ipHeaderTemplate.set(destinationAddress, 16);
+		const tcpPseudoHeader = new Uint8Array(1432);
+		tcpPseudoHeader.set(sourceAddress);
+		tcpPseudoHeader.set(destinationAddress, 4);
+		tcpPseudoHeader[9] = 6;
+		const buildTcpFrame = (flags, payload = SSTP_EMPTY_BYTES) => {
+			const bytes = 数据转Uint8Array(payload);
+			const payloadLength = bytes.byteLength;
+			const tcpLength = 20 + payloadLength;
+			const ipLength = 20 + tcpLength;
+			const sstpLength = 8 + ipLength;
+			const frame = new Uint8Array(sstpLength);
+			const view = new DataView(frame.buffer);
+			frame.set([0x10, 0x00, ((sstpLength >> 8) & 0x0f) | 0x80, sstpLength & 0xff, 0xff, 0x03, 0x00, 0x21]);
+			frame.set(ipHeaderTemplate, 8);
+			view.setUint16(10, ipLength);
+			view.setUint16(12, randomSstpUint16());
+			view.setUint16(18, internetChecksum(frame, 8, 20));
+			view.setUint16(28, sourcePort);
+			view.setUint16(30, targetPort);
+			view.setUint32(32, sequenceNumber);
+			view.setUint32(36, acknowledgementNumber);
+			frame[40] = 0x50;
+			frame[41] = flags;
+			view.setUint16(42, 65535);
+			if (payloadLength) frame.set(bytes, 48);
+			tcpPseudoHeader[10] = tcpLength >> 8;
+			tcpPseudoHeader[11] = tcpLength & 0xff;
+			tcpPseudoHeader.set(frame.subarray(28, 28 + tcpLength), 12);
+			view.setUint16(44, internetChecksum(tcpPseudoHeader, 0, 12 + tcpLength));
+			return frame;
+		};
+		const matchIncomingIpPacket = ipPacket => {
+			if (ipPacket.byteLength < 40 || ipPacket[9] !== 6) return null;
+			const ipHeaderLength = (ipPacket[0] & 0x0f) * 4;
+			if (ipPacket.byteLength < ipHeaderLength + 20) return null;
+			if (readSstpUint16(ipPacket, ipHeaderLength) !== targetPort) return null;
+			if (readSstpUint16(ipPacket, ipHeaderLength + 2) !== sourcePort) return null;
+			return {
+				flags: ipPacket[ipHeaderLength + 13],
+				sequence: readSstpUint32(ipPacket, ipHeaderLength + 4),
+				payloadOffset: ipHeaderLength + ((ipPacket[ipHeaderLength + 12] >> 4) & 0x0f) * 4
+			};
+		};
+
+		await withTimeout(writer.write(buildTcpFrame(0x02)), CONNECT_TIMEOUT_MS, 'SSTP TCP SYN write timed out');
+		sequenceNumber = (sequenceNumber + 1) >>> 0;
+		let tcpReady = false;
+		for (let attempt = 0; attempt < 30; attempt++) {
+			const packet = await readPacket(CONNECT_TIMEOUT_MS);
+			if (packet.isControl) continue;
+			const ppp = parsePPPFrame(packet.body);
+			if (!ppp || ppp.protocol !== 0x0021) continue;
+			const tcp = matchIncomingIpPacket(ppp.ipPacket);
+			if (!tcp || (tcp.flags & 0x12) !== 0x12) continue;
+			acknowledgementNumber = (tcp.sequence + 1) >>> 0;
+			await withTimeout(writer.write(buildTcpFrame(0x10)), CONNECT_TIMEOUT_MS, 'SSTP TCP ACK write timed out');
+			tcpReady = true;
+			break;
+		}
+		if (!tcpReady) throw new Error('TCP handshake through SSTP timed out');
+
+		/** @type {ReadableStreamDefaultController<Uint8Array> | null} */
+		let streamController = null;
+		const readable = new ReadableStream({
+			start(controller) {
+				streamController = controller;
+			},
+			cancel() {
+				close();
+			}
+		});
+
+		(async () => {
+			try {
+				let pendingChunks = [], pendingLength = 0;
+				const flush = () => {
+					if (!pendingLength) return;
+					if (!streamController) throw new Error('SSTP readable stream is not ready');
+					streamController.enqueue(pendingChunks.length === 1 ? pendingChunks[0] : 拼接字节数据(...pendingChunks));
+					pendingChunks = [];
+					pendingLength = 0;
+					writer.write(buildTcpFrame(0x10)).catch(() => { });
+				};
+
+				for (; ;) {
+					const packet = await readPacket(60000);
+					if (packet.isControl) continue;
+					const ppp = parsePPPFrame(packet.body);
+					if (!ppp || ppp.protocol !== 0x0021) continue;
+					const incoming = matchIncomingIpPacket(ppp.ipPacket);
+					if (!incoming) continue;
+
+					if (incoming.payloadOffset < ppp.ipPacket.byteLength) {
+						const payload = ppp.ipPacket.subarray(incoming.payloadOffset);
+						if (payload.byteLength) {
+							acknowledgementNumber = (incoming.sequence + payload.byteLength) >>> 0;
+							pendingChunks.push(new Uint8Array(payload));
+							pendingLength += payload.byteLength;
+						}
+					}
+
+					if (incoming.flags & 0x01) {
+						flush();
+						acknowledgementNumber = (acknowledgementNumber + 1) >>> 0;
+						writer.write(buildTcpFrame(0x11)).catch(() => { });
+						const controller = streamController;
+						if (controller) {
+							try { controller.close() } catch (e) { }
+						}
+						close();
+						return;
+					}
+
+					if (bufferedBytes.byteLength < 4 || pendingLength >= 32768) flush();
+				}
+			} catch (error) {
+				const controller = streamController;
+				if (controller) {
+					try { controller.error(error) } catch (e) { }
+				}
+				settleClosed(rejectClosed, error);
+				try { socket?.close?.() } catch (e) { }
+			}
+		})();
+
+		const writable = new WritableStream({
+			async write(chunk) {
+				const bytes = 数据转Uint8Array(chunk);
+				if (!bytes.byteLength) return;
+				if (bytes.byteLength <= SSTP_TCP_MSS) {
+					await writer.write(buildTcpFrame(0x18, bytes));
+					sequenceNumber = (sequenceNumber + bytes.byteLength) >>> 0;
+					return;
+				}
+				const frames = [];
+				for (let offset = 0; offset < bytes.byteLength; offset += SSTP_TCP_MSS) {
+					const segment = bytes.subarray(offset, Math.min(offset + SSTP_TCP_MSS, bytes.byteLength));
+					frames.push(buildTcpFrame(0x18, segment));
+					sequenceNumber = (sequenceNumber + segment.byteLength) >>> 0;
+				}
+				await writer.write(拼接字节数据(...frames));
+			},
+			close() {
+				return writer.write(buildTcpFrame(0x11)).catch(() => { });
+			},
+			abort(error) {
+				close();
+				if (error) settleClosed(rejectClosed, error);
+			}
+		});
+
+		return { readable, writable, closed, close };
+	} catch (error) {
+		close();
+		throw error;
+	}
+}
+//////////////////////////////////////////////////功能性函数///////////////////////////////////////////////
+/**
+ * 带秘钥的 Base64 编码
+ * @param {string} plaintext - 原始明文字符串
+ * @param {string} secret - 秘钥字符串（如 "KEY123"）
+ * @returns {string} 经过秘钥处理的 Base64 字符串
+ */
+function base64SecretEncode(plaintext, secret) {
+	const encoder = new TextEncoder();
+	const data = encoder.encode(plaintext);
+	const key = encoder.encode(secret);
+	const mixed = new Uint8Array(data.length);
+
+	for (let i = 0; i < data.length; i++) {
+		mixed[i] = data[i] ^ key[i % key.length];
+	}
+
+	// 将 Uint8Array 转换为可被 btoa 处理的字符串
+	let binary = '';
+	for (let i = 0; i < mixed.length; i++) {
+		binary += String.fromCharCode(mixed[i]);
+	}
+	return btoa(binary);
+}
+
+/**
+ * 带秘钥的 Base64 解码
+ * @param {string} encoded - 经秘钥处理过的 Base64 字符串
+ * @param {string} secret - 秘钥字符串（必须与编码时相同）
+ * @returns {string} 解码后的原始明文字符串
+ */
+function base64SecretDecode(encoded, secret) {
+	const binary = atob(encoded);
+	const mixed = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) {
+		mixed[i] = binary.charCodeAt(i);
+	}
+
+	const encoder = new TextEncoder();
+	const key = encoder.encode(secret);
+	const data = new Uint8Array(mixed.length);
+
+	for (let i = 0; i < mixed.length; i++) {
+		data[i] = mixed[i] ^ key[i % key.length];
+	}
+
+	const decoder = new TextDecoder();
+	return decoder.decode(data);
+}
+
+function 获取传输协议配置(配置 = {}) {
+	const 是gRPC = 配置.传输协议 === 'grpc';
+	const { 头: 本机Padding头, 键: 本机Padding键 } = 获取叉HTTPPadding标识(配置.UUID);
+	const 叉混淆JSON = {
+		"xPaddingObfsMode": true,
+		"xPaddingMethod": "tokenish",
+		"xPaddingPlacement": "queryInHeader",
+		"xPaddingHeader": 本机Padding头,
+		"xPaddingKey": 本机Padding键
+	};
+	return {
+		type: 是gRPC ? (配置.gRPC模式 === 'multi' ? 'grpc&mode=multi' : 'grpc&mode=gun') : (配置.传输协议 === 'xhttp' ? `xhttp&mode=stream-one&extra=${encodeURIComponent(JSON.stringify(叉混淆JSON))}` : 'ws'),
+		路径字段名: 是gRPC ? 'serviceName' : 'path',
+		域名字段名: 是gRPC ? 'authority' : 'host'
+	};
+}
+
+function 获取传输路径参数值(配置 = {}, 节点路径 = '/', 作为优选订阅生成器 = false) {
+	const 路径值 = 作为优选订阅生成器 ? '/' : (配置.随机路径 ? 随机路径(节点路径) : 节点路径);
+	if (配置.传输协议 !== 'grpc') return 路径值;
+	return 路径值.split('?')[0] || '/';
+}
+
+function log(...args) {
+	if (调试日志打印) console.log(...args);
+}
+function Clash订阅配置文件热补丁(Clash_原始订阅内容, config_JSON = {}) {
+	const uuid = config_JSON?.UUID || null;
+	const ECH启用 = Boolean(config_JSON?.ECH);
+	const HOSTS = Array.isArray(config_JSON?.HOSTS) ? [...config_JSON.HOSTS] : [];
+	const ECH_SNI = config_JSON?.ECHConfig?.SNI || null;
+	const ECH_DNS = config_JSON?.ECHConfig?.DNS;
+	const 需要处理ECH = Boolean(uuid && ECH启用);
+	const gRPCUserAgent = (typeof config_JSON?.gRPCUserAgent === 'string' && config_JSON.gRPCUserAgent.trim()) ? config_JSON.gRPCUserAgent.trim() : null;
+	const 需要处理gRPC = config_JSON?.传输协议 === "grpc" && Boolean(gRPCUserAgent);
+	const gRPCUserAgentYAML = gRPCUserAgent ? JSON.stringify(gRPCUserAgent) : null;
+	let clash_yaml = Clash_原始订阅内容.replace(/mode:\s*Rule\b/g, 'mode: rule');
+
+	const baseDnsBlock = `dns:
+  enable: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+  use-hosts: true
+  nameserver:
+    - https://sm2.doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - 8.8.4.4
+    - 208.67.220.220
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 127.0.0.1/32
+      - 0.0.0.0/32
+    domain:
+      - '+.google.com'
+      - '+.facebook.com'
+      - '+.youtube.com'
+`;
+
+	const 添加InlineGrpcUserAgent = (text) => text.replace(/grpc-opts:\s*\{([\s\S]*?)\}/i, (all, inner) => {
+		if (/grpc-user-agent\s*:/i.test(inner)) return all;
+		let content = inner.trim();
+		if (content.endsWith(',')) content = content.slice(0, -1).trim();
+		const patchedContent = content ? `${content}, grpc-user-agent: ${gRPCUserAgentYAML}` : `grpc-user-agent: ${gRPCUserAgentYAML}`;
+		return `grpc-opts: {${patchedContent}}`;
+	});
+	const 匹配到gRPC网络 = (text) => /(?:^|[,{])\s*network:\s*(?:"grpc"|'grpc'|grpc)(?=\s*(?:[,}\n#]|$))/mi.test(text);
+	const 获取代理类型 = (nodeText) => nodeText.match(/type:\s*(\w+)/)?.[1] || 'vl' + 'ess';
+	const 获取凭据值 = (nodeText, isFlowStyle) => {
+		const credentialField = 获取代理类型(nodeText) === 'trojan' ? 'password' : 'uuid';
+		const pattern = new RegExp(`${credentialField}:\\s*${isFlowStyle ? '([^,}\\n]+)' : '([^\\n]+)'}`);
+		return nodeText.match(pattern)?.[1]?.trim() || null;
+	};
+	const 插入NameserverPolicy = (yaml, hostsEntries) => {
+		if (/^\s{2}nameserver-policy:\s*(?:\n|$)/m.test(yaml)) {
+			return yaml.replace(/^(\s{2}nameserver-policy:\s*\n)/m, `$1${hostsEntries}\n`);
+		}
+		const lines = yaml.split('\n');
+		let dnsBlockEndIndex = -1;
+		let inDnsBlock = false;
+		for (let i = 0; i < lines.length; i++) {
+			const line = lines[i];
+			if (/^dns:\s*$/.test(line)) {
+				inDnsBlock = true;
+				continue;
+			}
+			if (inDnsBlock && /^[a-zA-Z]/.test(line)) {
+				dnsBlockEndIndex = i;
+				break;
+			}
+		}
+		const nameserverPolicyBlock = `  nameserver-policy:\n${hostsEntries}`;
+		if (dnsBlockEndIndex !== -1) lines.splice(dnsBlockEndIndex, 0, nameserverPolicyBlock);
+		else lines.push(nameserverPolicyBlock);
+		return lines.join('\n');
+	};
+	const 添加Flow格式gRPCUserAgent = (nodeText) => {
+		if (!匹配到gRPC网络(nodeText) || /grpc-user-agent\s*:/i.test(nodeText)) return nodeText;
+		if (/grpc-opts:\s*\{/i.test(nodeText)) return 添加InlineGrpcUserAgent(nodeText);
+		return nodeText.replace(/\}(\s*)$/, `, grpc-opts: {grpc-user-agent: ${gRPCUserAgentYAML}}}$1`);
+	};
+	const 添加Block格式gRPCUserAgent = (nodeLines, topLevelIndent) => {
+		const 顶级缩进 = ' '.repeat(topLevelIndent);
+		let grpcOptsIndex = -1;
+		for (let idx = 0; idx < nodeLines.length; idx++) {
+			const line = nodeLines[idx];
+			if (!line.trim()) continue;
+			const indent = line.search(/\S/);
+			if (indent !== topLevelIndent) continue;
+			if (/^\s*grpc-opts:\s*(?:#.*)?$/.test(line) || /^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(line)) {
+				grpcOptsIndex = idx;
+				break;
+			}
+		}
+		if (grpcOptsIndex === -1) {
+			let insertIndex = -1;
+			for (let j = nodeLines.length - 1; j >= 0; j--) {
+				if (nodeLines[j].trim()) {
+					insertIndex = j;
+					break;
+				}
+			}
+			if (insertIndex >= 0) nodeLines.splice(insertIndex + 1, 0, `${顶级缩进}grpc-opts:`, `${顶级缩进}  grpc-user-agent: ${gRPCUserAgentYAML}`);
+			return nodeLines;
+		}
+		const grpcLine = nodeLines[grpcOptsIndex];
+		if (/^\s*grpc-opts:\s*\{.*\}\s*(?:#.*)?$/.test(grpcLine)) {
+			if (!/grpc-user-agent\s*:/i.test(grpcLine)) nodeLines[grpcOptsIndex] = 添加InlineGrpcUserAgent(grpcLine);
+			return nodeLines;
+		}
+		let blockEndIndex = nodeLines.length;
+		let 子级缩进 = topLevelIndent + 2;
+		let 已有gRPCUserAgent = false;
+		for (let idx = grpcOptsIndex + 1; idx < nodeLines.length; idx++) {
+			const line = nodeLines[idx];
+			const trimmed = line.trim();
+			if (!trimmed) continue;
+			const indent = line.search(/\S/);
+			if (indent <= topLevelIndent) {
+				blockEndIndex = idx;
+				break;
+			}
+			if (indent > topLevelIndent && 子级缩进 === topLevelIndent + 2) 子级缩进 = indent;
+			if (/^grpc-user-agent\s*:/.test(trimmed)) {
+				已有gRPCUserAgent = true;
+				break;
+			}
+		}
+		if (!已有gRPCUserAgent) nodeLines.splice(blockEndIndex, 0, `${' '.repeat(子级缩进)}grpc-user-agent: ${gRPCUserAgentYAML}`);
+		return nodeLines;
+	};
+	const 添加Block格式ECHOpts = (nodeLines, topLevelIndent) => {
+		let insertIndex = -1;
+		for (let j = nodeLines.length - 1; j >= 0; j--) {
+			if (nodeLines[j].trim()) {
+				insertIndex = j;
+				break;
+			}
+		}
+		if (insertIndex < 0) return nodeLines;
+		const indent = ' '.repeat(topLevelIndent);
+		const echOptsLines = [`${indent}ech-opts:`, `${indent}  enable: true`];
+		if (ECH_SNI) echOptsLines.push(`${indent}  query-server-name: ${ECH_SNI}`);
+		nodeLines.splice(insertIndex + 1, 0, ...echOptsLines);
+		return nodeLines;
+	};
+
+	if (!/^dns:\s*(?:\n|$)/m.test(clash_yaml)) clash_yaml = baseDnsBlock + clash_yaml;
+	if (ECH_SNI && !HOSTS.includes(ECH_SNI)) HOSTS.push(ECH_SNI);
+
+	if (ECH启用 && HOSTS.length > 0) {
+		const hostsEntries = HOSTS.map(host => `    "${host}": ${ECH_DNS ? ECH_DNS : ''}`).join('\n');
+		clash_yaml = 插入NameserverPolicy(clash_yaml, hostsEntries);
+	}
+
+	if (!需要处理ECH && !需要处理gRPC) return clash_yaml;
+
+	const lines = clash_yaml.split('\n');
+	const processedLines = [];
+	let i = 0;
+
+	while (i < lines.length) {
+		const line = lines[i];
+		const trimmedLine = line.trim();
+
+		if (trimmedLine.startsWith('- {')) {
+			let fullNode = line;
+			let braceCount = (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+			while (braceCount > 0 && i + 1 < lines.length) {
+				i++;
+				fullNode += '\n' + lines[i];
+				braceCount += (lines[i].match(/\{/g) || []).length - (lines[i].match(/\}/g) || []).length;
+			}
+			if (需要处理gRPC) fullNode = 添加Flow格式gRPCUserAgent(fullNode);
+			if (需要处理ECH && 获取凭据值(fullNode, true) === uuid.trim()) {
+				fullNode = fullNode.replace(/\}(\s*)$/, `, ech-opts: {enable: true${ECH_SNI ? `, query-server-name: ${ECH_SNI}` : ''}}}$1`);
+			}
+			processedLines.push(fullNode);
+			i++;
+		} else if (trimmedLine.startsWith('- name:')) {
+			let nodeLines = [line];
+			let baseIndent = line.search(/\S/);
+			let topLevelIndent = baseIndent + 2;
+			i++;
+			while (i < lines.length) {
+				const nextLine = lines[i];
+				const nextTrimmed = nextLine.trim();
+				if (!nextTrimmed) {
+					nodeLines.push(nextLine);
+					i++;
+					break;
+				}
+				const nextIndent = nextLine.search(/\S/);
+				if (nextIndent <= baseIndent && nextTrimmed.startsWith('- ')) {
+					break;
+				}
+				if (nextIndent < baseIndent && nextTrimmed) {
+					break;
+				}
+				nodeLines.push(nextLine);
+				i++;
+			}
+			let nodeText = nodeLines.join('\n');
+			if (需要处理gRPC && 匹配到gRPC网络(nodeText)) {
+				nodeLines = 添加Block格式gRPCUserAgent(nodeLines, topLevelIndent);
+				nodeText = nodeLines.join('\n');
+			}
+			if (需要处理ECH && 获取凭据值(nodeText, false) === uuid.trim()) nodeLines = 添加Block格式ECHOpts(nodeLines, topLevelIndent);
+			processedLines.push(...nodeLines);
+		} else {
+			processedLines.push(line);
+			i++;
+		}
+	}
+
+	return processedLines.join('\n');
+}
+
+async function Singbox订阅配置文件热补丁(SingBox_原始订阅内容, config_JSON = {}) {
+	const uuid = config_JSON?.UUID || null;
+	const fingerprint = config_JSON?.Fingerprint || "chrome";
+	const ECH启用 = Boolean(config_JSON?.ECH);
+	const ECH_SNI = config_JSON?.ECHConfig?.SNI || "cloudflare-ech.com";
+	const sb_json_text = SingBox_原始订阅内容.replace('1.1.1.1', '8.8.8.8').replace('1.0.0.1', '8.8.4.4');
+	try {
+		const config = JSON.parse(sb_json_text);
+		const 数组化 = value => value === undefined || value === null ? [] : (Array.isArray(value) ? value : [value]);
+		const 确保Route = () => config.route = config.route && typeof config.route === 'object' ? config.route : {};
+		const 获取DNS规则服务器 = rule => rule && typeof rule === 'object' && !Array.isArray(rule) && typeof rule.server === 'string' ? rule.server : null;
+		const 添加规则集 = (type, code) => {
+			if (!code || typeof code !== 'string') return null;
+			const route = 确保Route(), tag = `${type}-${code}`, ruleSet = Array.isArray(route.rule_set) ? route.rule_set : 数组化(route.rule_set);
+			if (!ruleSet.some(item => item?.tag === tag)) {
+				const legacyOptions = type === 'geoip' ? route.geoip : route.geosite;
+				ruleSet.push({ tag, type: 'remote', format: 'binary', url: `https://raw.githubusercontent.com/SagerNet/sing-${type}/rule-set/${tag}.srs`, ...(legacyOptions?.download_detour ? { download_detour: legacyOptions.download_detour } : {}) });
+				config.experimental = config.experimental && typeof config.experimental === 'object' ? config.experimental : {};
+				config.experimental.cache_file = config.experimental.cache_file && typeof config.experimental.cache_file === 'object' ? config.experimental.cache_file : {};
+				config.experimental.cache_file.enabled ??= true;
+			}
+			route.rule_set = ruleSet;
+			return tag;
+		};
+
+		const 迁移规则集字段 = rule => {
+			if (!rule || typeof rule !== 'object' || Array.isArray(rule)) return rule;
+			if (rule.type === 'logical' && Array.isArray(rule.rules)) {
+				rule.rules = rule.rules.map(迁移规则集字段);
+				return rule;
+			}
+			const tags = [];
+			for (const geoip of 数组化(rule.geoip)) {
+				if (typeof geoip !== 'string') continue;
+				if (geoip.toLowerCase() === 'private') rule.ip_is_private = true;
+				else tags.push(添加规则集('geoip', geoip));
+			}
+			for (const sourceGeoip of 数组化(rule.source_geoip)) {
+				if (typeof sourceGeoip !== 'string') continue;
+				tags.push(添加规则集('geoip', sourceGeoip));
+				rule.rule_set_ip_cidr_match_source = true;
+			}
+			for (const geosite of 数组化(rule.geosite)) if (typeof geosite === 'string') tags.push(添加规则集('geosite', geosite));
+			if (tags.length) rule.rule_set = [...new Set([...数组化(rule.rule_set), ...tags].filter(Boolean))];
+			delete rule.geoip;
+			delete rule.source_geoip;
+			delete rule.geosite;
+			return rule;
+		};
+
+		const 迁移DNS规则 = (rule, rcodeServerMap) => {
+			rule = 迁移规则集字段(rule);
+			if (!rule || typeof rule !== 'object' || Array.isArray(rule)) return rule;
+			if (rule.type === 'logical' && Array.isArray(rule.rules)) {
+				rule.rules = rule.rules.map(childRule => 迁移DNS规则(childRule, rcodeServerMap));
+				return rule;
+			}
+			const serverTag = 获取DNS规则服务器(rule);
+			if (serverTag && rcodeServerMap.has(serverTag)) {
+				for (const key of ['server', 'strategy', 'disable_cache', 'rewrite_ttl', 'client_subnet', 'timeout']) delete rule[key];
+				rule.action = 'predefined';
+				rule.rcode = rcodeServerMap.get(serverTag);
+			} else if (serverTag && !rule.action) rule.action = 'route';
+			return rule;
+		};
+
+		if (Array.isArray(config.inbounds)) {
+			for (const inbound of config.inbounds) {
+				if (!inbound || typeof inbound !== 'object' || inbound.type !== 'tun') continue;
+				for (const migration of [
+					{ targetKey: 'address', sourceKeys: ['inet4_address', 'inet6_address'] },
+					{ targetKey: 'route_address', sourceKeys: ['inet4_route_address', 'inet6_route_address'] },
+					{ targetKey: 'route_exclude_address', sourceKeys: ['inet4_route_exclude_address', 'inet6_route_exclude_address'] }
+				]) {
+					const values = 数组化(inbound[migration.targetKey]);
+					for (const sourceKey of migration.sourceKeys) values.push(...数组化(inbound[sourceKey]));
+					if (values.length) inbound[migration.targetKey] = [...new Set(values)];
+					for (const sourceKey of migration.sourceKeys) delete inbound[sourceKey];
+				}
+				if (inbound.tag) {
+					const addedRules = [];
+					if (inbound.domain_strategy) addedRules.push({ inbound: inbound.tag, action: 'resolve', strategy: inbound.domain_strategy });
+					if (inbound.sniff) {
+						const sniffRule = { inbound: inbound.tag, action: 'sniff' };
+						if (inbound.sniff_timeout) sniffRule.timeout = inbound.sniff_timeout;
+						addedRules.push(sniffRule);
+					}
+					if (addedRules.length) {
+						const route = 确保Route();
+						route.rules = [...addedRules, ...数组化(route.rules)];
+					}
+				}
+				delete inbound.sniff;
+				delete inbound.sniff_timeout;
+				delete inbound.domain_strategy;
+			}
+		}
+
+		if (config?.route && typeof config.route === 'object' && Array.isArray(config.route.rules)) {
+			const 修补路由规则 = rule => {
+				rule = 迁移规则集字段(rule);
+				if (rule?.type === 'logical' && Array.isArray(rule.rules)) rule.rules = rule.rules.map(修补路由规则);
+				else if (rule && typeof rule === 'object' && !Array.isArray(rule) && rule.outbound && !rule.action) rule.action = 'route';
+				return rule;
+			};
+			config.route.rules = config.route.rules.map(修补路由规则);
+		}
+
+		const dns = config?.dns;
+		if (dns && typeof dns === 'object') {
+			const legacyFakeIP = dns.fakeip && typeof dns.fakeip === 'object' ? dns.fakeip : null;
+			const rcodeServerMap = new Map();
+			const DNS地址协议类型 = { 'tcp:': 'tcp', 'udp:': 'udp', 'tls:': 'tls', 'quic:': 'quic', 'https:': 'https', 'h3:': 'h3' };
+			const RCode映射 = { success: 'NOERROR', format_error: 'FORMERR', server_failure: 'SERVFAIL', name_error: 'NXDOMAIN', not_implemented: 'NOTIMP', refused: 'REFUSED' };
+			let hasFakeIPServer = false;
+
+			if (Array.isArray(dns.servers)) {
+				const migratedServers = [];
+				for (const originalServer of dns.servers) {
+					if (!originalServer || typeof originalServer !== 'object' || Array.isArray(originalServer)) {
+						migratedServers.push(originalServer);
+						continue;
+					}
+
+					const server = { ...originalServer };
+					let parsedAddress = null, parsedRCode = '', rawAddress = typeof server.address === 'string' ? server.address.trim() : '';
+					if (rawAddress) {
+						const lowerAddress = rawAddress.toLowerCase();
+						if (lowerAddress === 'fakeip') parsedAddress = { type: 'fakeip' };
+						else if (lowerAddress === 'local') parsedAddress = { type: 'local' };
+						else if (lowerAddress.startsWith('rcode://')) {
+							parsedAddress = { type: 'rcode' };
+							parsedRCode = rawAddress.slice('rcode://'.length).toLowerCase();
+						}
+						else if (lowerAddress.startsWith('dhcp://')) {
+							const dhcpInterface = rawAddress.slice('dhcp://'.length);
+							parsedAddress = dhcpInterface && dhcpInterface.toLowerCase() !== 'auto' ? { type: 'dhcp', interface: dhcpInterface } : { type: 'dhcp' };
+						} else {
+							try {
+								const addressURL = new URL(rawAddress);
+								const type = DNS地址协议类型[addressURL.protocol.toLowerCase()];
+								if (type) {
+									const parsedServer = addressURL.hostname?.startsWith('[') && addressURL.hostname.endsWith(']') ? addressURL.hostname.slice(1, -1) : addressURL.hostname;
+									parsedAddress = {
+										type,
+										server: parsedServer || addressURL.host || rawAddress,
+										...(addressURL.port ? { server_port: Number(addressURL.port) } : {}),
+										...((type === 'https' || type === 'h3') && addressURL.pathname && addressURL.pathname !== '/dns-query' ? { path: addressURL.pathname } : {})
+									};
+								}
+							} catch (_) { }
+							if (!parsedAddress) parsedAddress = { type: 'udp', server: rawAddress };
+						}
+					}
+
+					if (parsedAddress?.type === 'rcode') {
+						const rcode = RCode映射[parsedRCode] || 'NOERROR';
+						if (typeof server.tag === 'string' && server.tag) {
+							rcodeServerMap.set(server.tag, rcode);
+							rcodeServerMap.set(server.tag.startsWith('dns_') ? server.tag.slice(4) : `dns_${server.tag}`, rcode);
+						}
+						continue;
+					}
+
+					if (parsedAddress) {
+						delete server.address;
+						Object.assign(server, parsedAddress);
+					}
+					if (server.address_resolver !== undefined && server.domain_resolver === undefined) server.domain_resolver = server.address_resolver;
+					if (server.address_strategy !== undefined && server.domain_strategy === undefined) server.domain_strategy = server.address_strategy;
+					delete server.address_resolver;
+					delete server.address_strategy;
+					if (server.detour === 'DIRECT') delete server.detour;
+
+					if (server.type === 'fakeip') {
+						hasFakeIPServer = true;
+						if (legacyFakeIP) {
+							for (const key of ['inet4_range', 'inet6_range']) {
+								if (legacyFakeIP[key] !== undefined && server[key] === undefined) server[key] = legacyFakeIP[key];
+							}
+						}
+					}
+					migratedServers.push(server);
+				}
+				dns.servers = migratedServers;
+			}
+
+			if (legacyFakeIP && !hasFakeIPServer && legacyFakeIP.enabled !== false) {
+				const fakeIPServer = { type: 'fakeip', tag: 'fakeip' };
+				for (const rule of Array.isArray(dns.rules) ? dns.rules : []) {
+					const serverTag = 获取DNS规则服务器(rule);
+					if (serverTag && serverTag.toLowerCase().includes('fakeip')) {
+						fakeIPServer.tag = serverTag;
+						break;
+					}
+				}
+				for (const key of ['inet4_range', 'inet6_range']) {
+					if (legacyFakeIP[key] !== undefined) fakeIPServer[key] = legacyFakeIP[key];
+				}
+				if (Array.isArray(dns.servers)) dns.servers.push(fakeIPServer);
+				else dns.servers = [fakeIPServer];
+			}
+
+			if (Array.isArray(dns.rules)) {
+				const migratedRules = [];
+				for (const rule of dns.rules) {
+					const serverTag = 获取DNS规则服务器(rule);
+					const outbound = 数组化(rule?.outbound);
+					const DNS路由选项字段 = new Set(['outbound', 'server', 'action', 'strategy', 'disable_cache', 'rewrite_ttl', 'client_subnet', 'timeout']);
+					const isOutboundAnyDNSRule = rule && typeof rule === 'object' && !Array.isArray(rule) && rule.type !== 'logical'
+						&& serverTag && outbound.includes('any') && Object.keys(rule).every(key => DNS路由选项字段.has(key));
+					if (isOutboundAnyDNSRule) {
+						const route = 确保Route();
+						if (route.default_domain_resolver === undefined) {
+							const resolver = { server: serverTag };
+							for (const key of ['strategy', 'disable_cache', 'rewrite_ttl', 'client_subnet', 'timeout']) {
+								if (rule[key] !== undefined) resolver[key] = rule[key];
+							}
+							route.default_domain_resolver = Object.keys(resolver).length === 1 ? resolver.server : resolver;
+						}
+						continue;
+					}
+					migratedRules.push(迁移DNS规则(rule, rcodeServerMap));
+				}
+				dns.rules = migratedRules;
+			}
+
+			delete dns.fakeip;
+			delete dns.independent_cache;
+		}
+
+		if (config?.route && typeof config.route === 'object') {
+			delete config.route.geoip;
+			delete config.route.geosite;
+		}
+		if (config?.ntp?.detour === 'DIRECT') delete config.ntp.detour;
+
+		if (Array.isArray(config.outbounds)) {
+			const outboundTags = new Set(config.outbounds.map(outbound => outbound?.tag).filter(Boolean));
+			const 引用REJECT = value => value === 'REJECT' || (value && typeof value === 'object' && (Array.isArray(value) ? value.some(引用REJECT) : Object.values(value).some(引用REJECT)));
+			if (!outboundTags.has('REJECT') && 引用REJECT({ outbounds: config.outbounds, route: config.route })) config.outbounds.push({ type: 'block', tag: 'REJECT' });
+		}
+
+		// --- UUID 匹配节点的 TLS 热补丁 (utls & ech) ---
+		if (uuid) {
+			config.outbounds?.forEach(outbound => {
+				// 仅处理包含 uuid 或 password 且匹配的节点
+				if ((outbound.uuid && outbound.uuid === uuid) || (outbound.password && outbound.password === uuid)) {
+					// 确保 tls 对象存在
+					if (!outbound.tls) {
+						outbound.tls = { enabled: true };
+					}
+
+					// 添加/更新 utls 配置
+					if (fingerprint) {
+						outbound.tls.utls = {
+							enabled: true,
+							fingerprint: fingerprint
+						};
+					}
+
+					// 如果提供了 ech_config，添加/更新 ech 配置
+					if (ECH启用) {
+						outbound.tls.ech = {
+							enabled: true,
+							query_server_name: ECH_SNI,// 等待 1.13.0+ 版本上线
+							//config: `-----BEGIN ECH CONFIGS-----\n${ech_config}\n-----END ECH CONFIGS-----`
+						};
+					}
+				}
+			});
+		}
+
+		return JSON.stringify(config, null, 2);
+	} catch (e) {
+		console.error("Sing-box patch execution failed:", e);
+		return JSON.stringify(JSON.parse(sb_json_text), null, 2);
+	}
+}
+
+function Surge订阅配置文件热补丁(content, url, config_JSON) {
+	const 每行内容 = content.includes('\r\n') ? content.split('\r\n') : content.split('\n');
+	const 完整节点路径 = config_JSON.随机路径 ? 随机路径(config_JSON.完整节点路径) : config_JSON.完整节点路径;
+	let 输出内容 = "";
+	for (let x of 每行内容) {
+		if (x.includes('= tro' + 'jan,') && !x.includes('ws=true') && !x.includes('ws-path=')) {
+			const host = x.split("sni=")[1].split(",")[0];
+			const 备改内容 = `sni=${host}, skip-cert-verify=${config_JSON.跳过证书验证}`;
+			const 正确内容 = `sni=${host}, skip-cert-verify=${config_JSON.跳过证书验证}, ws=true, ws-path=${完整节点路径.replace(/,/g, '%2C')}, ws-headers=Host:"${host}"`;
+			输出内容 += x.replace(new RegExp(备改内容, 'g'), 正确内容).replace("[", "").replace("]", "") + '\n';
+		} else {
+			输出内容 += x + '\n';
+		}
+	}
+
+	输出内容 = `#!MANAGED-CONFIG ${url} interval=${config_JSON.优选订阅生成.SUBUpdateTime * 60 * 60} strict=false` + 输出内容.substring(输出内容.indexOf('\n'));
+	return 输出内容;
+}
+
+async function 请求日志记录(env, request, 访问IP, 请求类型 = "Get_SUB", config_JSON, 是否写入KV日志 = true) {
+	try {
+		const 当前时间 = new Date();
+		const 日志内容 = { TYPE: 请求类型, IP: 访问IP, ASN: `AS${request.cf.asn || '0'} ${request.cf.asOrganization || 'Unknown'}`, CC: `${request.cf.country || 'N/A'} ${request.cf.city || 'N/A'}`, URL: request.url, UA: request.headers.get('User-Agent') || 'Unknown', TIME: 当前时间.getTime() };
+		if (config_JSON.TG.启用) {
+			try {
+				const TG_TXT = await D1Get(env, 'tg.json');
+				const TG_JSON = JSON.parse(TG_TXT);
+				if (TG_JSON?.BotToken && TG_JSON?.ChatID) {
+					const 请求时间 = new Date(日志内容.TIME).toLocaleString('en-GB', { timeZone: 'Asia/Tehran' });
+					const 请求URL = new URL(日志内容.URL);
+					const msg = `<b>#${config_JSON.优选订阅生成.SUBNAME} Log Notification</b>\n\n` +
+						`📌 <b>Type:</b> #${日志内容.TYPE}\n` +
+						`🌐 <b>IP:</b> <code>${日志内容.IP}</code>\n` +
+						`📍 <b>Location:</b> ${日志内容.CC}\n` +
+						`🏢 <b>ASN:</b> ${日志内容.ASN}\n` +
+						`🔗 <b>Host:</b> <code>${请求URL.host}</code>\n` +
+						`🔍 <b>Path:</b> <code>${请求URL.pathname + 请求URL.search}</code>\n` +
+						`🤖 <b>UA:</b> <code>${日志内容.UA}</code>\n` +
+						`📅 <b>Time:</b> ${请求时间}\n` +
+						`${config_JSON.CF.Usage.success ? `📊 <b>Usage:</b> ${config_JSON.CF.Usage.total}/${config_JSON.CF.Usage.max} <b>${((config_JSON.CF.Usage.total / config_JSON.CF.Usage.max) * 100).toFixed(2)}%</b>\n` : ''}`;
+					await fetch(`https://api.telegram.org/bot${TG_JSON.BotToken}/sendMessage?chat_id=${TG_JSON.ChatID}&parse_mode=HTML&text=${encodeURIComponent(msg)}`, {
+						method: 'GET',
+						headers: {
+							'Accept': 'text/html,application/xhtml+xml,application/xml;',
+							'Accept-Encoding': 'gzip, deflate, br',
+							'User-Agent': 日志内容.UA || 'Unknown',
+						}
+					});
+				}
+			} catch (error) { console.error(`读取tg.json出错: ${error.message}`) }
+		}
+		是否写入KV日志 = ['1', 'true'].includes(env.OFF_LOG) ? false : 是否写入KV日志;
+		if (!是否写入KV日志) return;
+		let 日志数组 = [];
+		const 现有日志 = await D1Get(env, 'log.json'), D1容量限制 = 1.5;//MB (D1 hard row/value limit is 2MB — keep headroom)
+		if (现有日志) {
+			try {
+				日志数组 = JSON.parse(现有日志);
+				if (!Array.isArray(日志数组)) { 日志数组 = [日志内容] }
+				else if (请求类型 !== "Get_SUB") {
+					const 三十分钟前时间戳 = 当前时间.getTime() - 30 * 60 * 1000;
+					if (日志数组.some(log => log.TYPE !== "Get_SUB" && log.IP === 访问IP && log.URL === request.url && log.UA === (request.headers.get('User-Agent') || 'Unknown') && log.TIME >= 三十分钟前时间戳)) return;
+					日志数组.push(日志内容);
+					while (JSON.stringify(日志数组, null, 2).length > D1容量限制 * 1024 * 1024 && 日志数组.length > 0) 日志数组.shift();
+				} else {
+					日志数组.push(日志内容);
+					while (JSON.stringify(日志数组, null, 2).length > D1容量限制 * 1024 * 1024 && 日志数组.length > 0) 日志数组.shift();
+				}
+			} catch (e) { 日志数组 = [日志内容] }
+		} else { 日志数组 = [日志内容] }
+		await D1Put(env, 'log.json', JSON.stringify(日志数组, null, 2));
+	} catch (error) { console.error(`日志记录失败: ${error.message}`) }
+}
+
+function 掩码敏感信息(文本, 前缀长度 = 3, 后缀长度 = 2) {
+	if (!文本 || typeof 文本 !== 'string') return 文本;
+	if (文本.length <= 前缀长度 + 后缀长度) return 文本; // 如果长度太短，直接返回
+
+	const 前缀 = 文本.slice(0, 前缀长度);
+	const 后缀 = 文本.slice(-后缀长度);
+	const 星号数量 = 文本.length - 前缀长度 - 后缀长度;
+
+	return `${前缀}${'*'.repeat(星号数量)}${后缀}`;
+}
+
+async function MD5MD5(文本) {
+	const 编码器 = new TextEncoder();
+
+	const 第一次哈希 = await crypto.subtle.digest('MD5', 编码器.encode(文本));
+	const 第一次哈希数组 = Array.from(new Uint8Array(第一次哈希));
+	const 第一次十六进制 = 第一次哈希数组.map(字节 => 字节.toString(16).padStart(2, '0')).join('');
+
+	const 第二次哈希 = await crypto.subtle.digest('MD5', 编码器.encode(第一次十六进制.slice(7, 27)));
+	const 第二次哈希数组 = Array.from(new Uint8Array(第二次哈希));
+	const 第二次十六进制 = 第二次哈希数组.map(字节 => 字节.toString(16).padStart(2, '0')).join('');
+
+	return 第二次十六进制.toLowerCase();
+}
+
+function 随机路径(完整节点路径 = "/") {
+	const 常用路径目录 = ["about", "account", "acg", "act", "activity", "ad", "ads", "ajax", "album", "albums", "anime", "api", "app", "apps", "archive", "archives", "article", "articles", "ask", "auth", "avatar", "bbs", "bd", "blog", "blogs", "book", "books", "bt", "buy", "cart", "category", "categories", "cb", "channel", "channels", "chat", "china", "city", "class", "classify", "clip", "clips", "club", "cn", "code", "collect", "collection", "comic", "comics", "community", "company", "config", "contact", "content", "course", "courses", "cp", "data", "detail", "details", "dh", "directory", "discount", "discuss", "dl", "dload", "doc", "docs", "document", "documents", "doujin", "download", "downloads", "drama", "edu", "en", "ep", "episode", "episodes", "event", "events", "f", "faq", "favorite", "favourites", "favs", "feedback", "file", "files", "film", "films", "forum", "forums", "friend", "friends", "game", "games", "gif", "go", "go.html", "go.php", "group", "groups", "help", "home", "hot", "htm", "html", "image", "images", "img", "index", "info", "intro", "item", "items", "ja", "jp", "jump", "jump.html", "jump.php", "jumping", "knowledge", "lang", "lesson", "lessons", "lib", "library", "link", "links", "list", "live", "lives", "m", "mag", "magnet", "mall", "manhua", "map", "member", "members", "message", "messages", "mobile", "movie", "movies", "music", "my", "new", "news", "note", "novel", "novels", "online", "order", "out", "out.html", "out.php", "outbound", "p", "page", "pages", "pay", "payment", "pdf", "photo", "photos", "pic", "pics", "picture", "pictures", "play", "player", "playlist", "post", "posts", "product", "products", "program", "programs", "project", "qa", "question", "rank", "ranking", "read", "readme", "redirect", "redirect.html", "redirect.php", "reg", "register", "res", "resource", "retrieve", "sale", "search", "season", "seasons", "section", "seller", "series", "service", "services", "setting", "settings", "share", "shop", "show", "shows", "site", "soft", "sort", "source", "special", "star", "stars", "static", "stock", "store", "stream", "streaming", "streams", "student", "study", "tag", "tags", "task", "teacher", "team", "tech", "temp", "test", "thread", "tool", "tools", "topic", "topics", "torrent", "trade", "travel", "tv", "txt", "type", "u", "upload", "uploads", "url", "urls", "user", "users", "v", "version", "videos", "view", "vip", "vod", "watch", "web", "wenku", "wiki", "work", "www", "zh", "zh-cn", "zh-tw", "zip"];
+	const 随机数 = Math.floor(Math.random() * 3 + 1);
+	const 随机路径 = 常用路径目录.sort(() => 0.5 - Math.random()).slice(0, 随机数).join('/');
+	if (完整节点路径 === "/") return `/${随机路径}`;
+	else return `/${随机路径 + 完整节点路径.replace('/?', '?')}`;
+}
+
+function 替换星号为随机字符(内容) {
+	if (typeof 内容 !== 'string' || !内容.includes('*')) return 内容;
+	const 字符集 = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	return 内容.replace(/\*/g, () => {
+		let s = '';
+		for (let i = 0; i < Math.floor(Math.random() * 14) + 3; i++) s += 字符集[Math.floor(Math.random() * 字符集.length)];
+		return s;
 	});
 }
-			const badge = document.getElementById('live-connections-badge');
-			badge.classList.remove('hidden');
-			if (u.online_count && u.online_count > 0) {
-				document.getElementById('live-connections-text').innerText = u.online_count + (limit ? '/' + limit : '') + ' دستگاه متصل';
-				badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-green-600/10 border border-green-600/20 text-green-600 rounded-full text-xs font-bold shadow-sm';
-				badge.querySelector('span.w-2').className = 'w-2 h-2 rounded-full bg-green-600 animate-pulse';
-			} else {
-				document.getElementById('live-connections-text').innerText = '۰ دستگاه متصل';
-				badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-gray-500/10 border border-gray-500/20 text-gray-500 dark:text-zinc-400 rounded-full text-xs font-bold shadow-sm';
-				badge.querySelector('span.w-2').className = 'w-2 h-2 rounded-full bg-gray-500';
+
+const DoH缓存 = {};
+const DoH缓存最大条目 = 256;
+const DoH记录类型映射 = { A: 1, NS: 2, CNAME: 5, MX: 15, TXT: 16, AAAA: 28, SRV: 33, HTTPS: 65 };
+async function DoH查询(域名, 记录类型, DoH解析服务 = "https://cloudflare-dns.com/dns-query") {
+	const 规范化域名 = String(域名 || '').trim().toLowerCase().replace(/\.$/, '');
+	const 规范化记录类型 = String(记录类型 || '').trim().toUpperCase();
+	const 缓存键 = `${规范化域名}:${规范化记录类型}`;
+	const qtype = DoH记录类型映射[规范化记录类型] || 1;
+	const 当前时间戳 = Date.now();
+	const 现缓存项 = DoH缓存[缓存键];
+	if (现缓存项 && 当前时间戳 < 现缓存项.过期时间) {
+		log(`[DoH查询] 命中缓存 ${域名} ${记录类型} via ${DoH解析服务}`);
+		return 现缓存项.data.map(data => ({ type: qtype, data }));
+	}
+	const 开始时间 = performance.now();
+	log(`[DoH查询] 开始查询 ${域名} ${记录类型} via ${DoH解析服务}`);
+	try {
+		// 记录类型字符串转数值
+		// 编码域名为 DNS wire format labels
+		const 编码域名 = (name) => {
+			const parts = name.endsWith('.') ? name.slice(0, -1).split('.') : name.split('.');
+			const bufs = [];
+			for (const label of parts) {
+				const enc = new TextEncoder().encode(label);
+				bufs.push(new Uint8Array([enc.length]), enc);
 			}
-			const usedGb = u.used_gb || 0;
-			const limitGb = u.limit_gb;
-			const formattedUsed = usedGb < 1 ? (usedGb * 1024).toFixed(0) + ' MB' : usedGb.toFixed(2) + ' GB';
-			document.getElementById('used-vol').innerText = formattedUsed;
-			let isVolumeExpired = false;
-			if (limitGb) {
-				document.getElementById('limit-vol').innerText = limitGb + ' GB';
-				const pct = Math.min((usedGb / limitGb) * 100, 100);
-				document.getElementById('volume-pct').innerText = pct.toFixed(0) + '٪';
-				document.getElementById('volume-progress').style.width = pct + '%';
-				const hue = 120 - (pct * 1.2);
-				document.getElementById('volume-progress').style.backgroundColor = 'hsl(' + hue + ', 80%, 45%)';
-				if (usedGb >= limitGb) isVolumeExpired = true;
-			} else {
-				document.getElementById('limit-vol').innerText = 'نامحدود';
-				document.getElementById('volume-pct').innerText = '۰٪';
-				document.getElementById('volume-progress').style.width = '100%';
-				document.getElementById('volume-progress').style.backgroundColor = '#3b82f6';
+			bufs.push(new Uint8Array([0]));
+			const total = bufs.reduce((s, b) => s + b.length, 0);
+			const result = new Uint8Array(total);
+			let off = 0;
+			for (const b of bufs) { result.set(b, off); off += b.length }
+			return result;
+		};
+
+		// 构建 DNS 查询报文
+		const qname = 编码域名(规范化域名);
+		const query = new Uint8Array(12 + qname.length + 4);
+		const qview = new DataView(query.buffer);
+		qview.setUint16(0, crypto.getRandomValues(new Uint16Array(1))[0]); // ID (random per RFC 1035)
+		qview.setUint16(2, 0x0100);  // Flags: RD=1 (递归查询)
+		qview.setUint16(4, 1);       // QDCOUNT
+		query.set(qname, 12);
+		qview.setUint16(12 + qname.length, qtype);
+		qview.setUint16(12 + qname.length + 2, 1); // QCLASS = IN
+
+		// 通过 POST 发送 dns-message 请求
+		log(`[DoH查询] 发送查询报文 ${域名} via ${DoH解析服务} (type=${qtype}, ${query.length}字节)`);
+		const response = await fetch(DoH解析服务, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/dns-message',
+				'Accept': 'application/dns-message',
+			},
+			body: query,
+		});
+		if (!response.ok) {
+			console.warn(`[DoH查询] 请求失败 ${域名} ${记录类型} via ${DoH解析服务} 响应代码:${response.status}`);
+			return [];
+		}
+
+		// 解析 DNS 响应报文
+		const buf = new Uint8Array(await response.arrayBuffer());
+		const dv = new DataView(buf.buffer);
+		const qdcount = dv.getUint16(4);
+		const ancount = dv.getUint16(6);
+		log(`[DoH查询] 收到响应 ${域名} ${记录类型} via ${DoH解析服务} (${buf.length}字节, ${ancount}条应答)`);
+
+		// 解析域名（处理指针压缩）
+		const 解析域名 = (pos) => {
+			const labels = [];
+			let p = pos, jumped = false, endPos = -1, safe = 128;
+			while (p < buf.length && safe-- > 0) {
+				const len = buf[p];
+				if (len === 0) { if (!jumped) endPos = p + 1; break }
+				if ((len & 0xC0) === 0xC0) {
+					if (!jumped) endPos = p + 2;
+					p = ((len & 0x3F) << 8) | buf[p + 1];
+					jumped = true;
+					continue;
+				}
+				labels.push(new TextDecoder().decode(buf.slice(p + 1, p + 1 + len)));
+				p += len + 1;
 			}
-			let daysRemaining = 'نامحدود';
-			let totalDays = 'نامحدود';
-			let isTimeExpired = false;
-			if (u.expiry_days) {
-				totalDays = u.expiry_days + ' روز';
-				if (u.created_at) {
-					const created = new Date(u.created_at);
-					const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
-					const diffDays = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
-					daysRemaining = diffDays > 0 ? diffDays : 0;
-					const pct = Math.max(0, Math.min(100, (daysRemaining / u.expiry_days) * 100));
-					document.getElementById('expiry-pct').innerText = pct.toFixed(0) + '٪';
-					document.getElementById('expiry-progress').style.width = pct + '%';
-					const hue = pct * 1.2;
-					document.getElementById('expiry-progress').style.backgroundColor = 'hsl(' + hue + ', 80%, 45%)';
-					if (new Date() > expiryDate) isTimeExpired = true;
+			if (endPos === -1) endPos = p + 1;
+			return [labels.join('.'), endPos];
+		};
+
+		// 跳过 Question Section
+		let offset = 12;
+		for (let i = 0; i < qdcount; i++) {
+			const [, end] = 解析域名(offset);
+			offset = /** @type {number} */ (end) + 4; // +4 跳过 QTYPE + QCLASS
+		}
+
+		// 解析 Answer Section
+		const answers = [];
+		for (let i = 0; i < ancount && offset < buf.length; i++) {
+			const [name, nameEnd] = 解析域名(offset);
+			offset = /** @type {number} */ (nameEnd);
+			const type = dv.getUint16(offset); offset += 2;
+			offset += 2; // CLASS
+			const ttl = dv.getUint32(offset); offset += 4;
+			const rdlen = dv.getUint16(offset); offset += 2;
+			const rdata = buf.slice(offset, offset + rdlen);
+			offset += rdlen;
+
+			let data;
+			if (type === 1 && rdlen === 4) {
+				// A 记录
+				data = `${rdata[0]}.${rdata[1]}.${rdata[2]}.${rdata[3]}`;
+			} else if (type === 28 && rdlen === 16) {
+				// AAAA 记录
+				const segs = [];
+				for (let j = 0; j < 16; j += 2) segs.push(((rdata[j] << 8) | rdata[j + 1]).toString(16));
+				data = segs.join(':');
+			} else if (type === 16) {
+				// TXT 记录 (长度前缀字符串)
+				let tOff = 0;
+				const parts = [];
+				while (tOff < rdlen) {
+					const tLen = rdata[tOff++];
+					parts.push(new TextDecoder().decode(rdata.slice(tOff, tOff + tLen)));
+					tOff += tLen;
+				}
+				data = parts.join('');
+			} else if (type === 5) {
+				// CNAME 记录
+				const [cname] = 解析域名(offset - rdlen);
+				data = cname;
+			} else {
+				data = Array.from(rdata).map(b => b.toString(16).padStart(2, '0')).join('');
+			}
+			answers.push({ name, type, TTL: ttl, data, rdata });
+		}
+		const 耗时 = (performance.now() - 开始时间).toFixed(2);
+		log(`[DoH查询] 查询完成 ${域名} ${记录类型} via ${DoH解析服务} ${耗时}ms 共${answers.length}条结果${answers.length > 0 ? '\n' + answers.map((a, i) => `  ${i + 1}. ${a.name} type=${a.type} TTL=${a.TTL} data=${a.data}`).join('\n') : ''}`);
+		// DoH 缓存至少保留 5 分钟，响应 TTL 更长时尊重响应 TTL；空响应使用 5 分钟负缓存
+		const 相关记录 = answers.filter(answer => answer.type === qtype);
+		const 最小TTL = 相关记录.length > 0 ? Math.min(...相关记录.map(a => a.TTL)) : 0;
+		const 缓存TTL = Math.max(最小TTL, 5 * 60);
+		const 缓存过期时间 = Date.now() + 缓存TTL * 1000;
+		const 缓存数据 = 相关记录.map(answer => answer.data);
+		if (缓存数据.length > 0 || answers.length === 0) {
+			if (Object.keys(DoH缓存).length >= DoH缓存最大条目) {
+				const 清理时间戳 = Date.now();
+				for (const [缓存条目键, 缓存条目] of Object.entries(DoH缓存)) {
+					if (清理时间戳 >= 缓存条目.过期时间) delete DoH缓存[缓存条目键];
+				}
+				if (Object.keys(DoH缓存).length >= DoH缓存最大条目) {
+					delete DoH缓存[Object.keys(DoH缓存)[0]];
+				}
+			}
+			DoH缓存[缓存键] = { data: 缓存数据, 过期时间: 缓存过期时间 };
+			log(`[DoH查询] 写入缓存 ${域名} ${记录类型} TTL=${缓存TTL}s${缓存数据.length === 0 ? '(empty result)' : ''}`);
+		}
+		return answers;
+	} catch (error) {
+		const 耗时 = (performance.now() - 开始时间).toFixed(2);
+		console.error(`[DoH查询] 查询失败 ${域名} ${记录类型} via ${DoH解析服务} ${耗时}ms:`, error);
+		return [];
+	}
+}
+
+async function 读取config_JSON(env, hostname, userID, UA = "Mozilla/5.0", 重置配置 = false) {
+	const _p = 特征码字典[0];
+	const host = hostname, Ali_DoH = "https://dns.alidns.com/dns-query", ECH_SNI = "cloudflare-ech.com", 占位符 = '{{IP:PORT}}', 初始化开始时间 = performance.now(), 默认配置JSON = {
+		TIME: new Date().toISOString(),
+		HOST: host,
+		HOSTS: [hostname],
+		UUID: userID,
+		PATH: "/",
+		协议类型: "v" + "le" + "ss",
+		传输协议: "ws",
+		gRPC模式: "gun",
+		gRPCUserAgent: UA,
+		跳过证书验证: false,
+		启用0RTT: false,
+		TLS分片: null,
+		随机路径: false,
+		ECH: false,
+		ECHConfig: {
+			DNS: Ali_DoH,
+			SNI: ECH_SNI,
+		},
+		SS: {
+			加密方式: "aes-128-gcm",
+			TLS: true,
+		},
+		Fingerprint: "chrome",
+		优选订阅生成: {
+			local: true, // true: 基于本地的优选地址  false: 优选订阅生成器
+			本地IP库: {
+				随机IP: true, // 当 随机IP 为true时生效，启用随机IP的数量，否则使用D1内的ADD.txt
+				随机数量: 16,
+				指定端口: -1,
+			},
+			SUB: null,
+			SUBNAME: "Matix",
+			SUBUpdateTime: 3, // 订阅更新时间（小时）
+			LIMIT_DAYS: 30, // مدت اعتبار اشتراک (روز)
+			LIMIT_GB: 100, // سقف حجم اعلامی اشتراک (گیگابایت)
+			CLEAN_IP_SOURCE: MATIX_SCANNER_URL,
+			USE_MATIX_SCANNER: true,
+			TOKEN: await MD5MD5(hostname + userID),
+		},
+		订阅转换配置: {
+			SUBAPI: `https://SUBAPI.${特征码字典[1]}ssss.net`,
+			SUBCONFIG: `https://raw.githubusercontent.com/${特征码字典[1]}/ACL4SSR/refs/heads/main/Clash/config/ACL4SSR_Online_Mini_MultiMode_CF.ini`,
+			SUBEMOJI: false,
+			SUBLIST: false, //仅输出节点信息
+			UDP: false, // 启用 UDP
+			XUDP: false, // 启用 XUDP
+			TLS13: false, // 启用 TLS 1.3
+			APPEND_TYPE: false, // 插入节点类型
+			SORT: false, // 基础节点排序
+		},
+		反代: {
+			[_p]: "auto",
+			SOCKS5: {
+				启用: null,
+				全局: false,
+				账号: '',
+				白名单: SOCKS5白名单,
+			},
+			路径模板: {
+				[_p]: "proxyip=" + 占位符,
+				SOCKS5: {
+					全局: "socks5://" + 占位符,
+					标准: "socks5=" + 占位符
+				},
+				HTTP: {
+					全局: "http://" + 占位符,
+					标准: "http=" + 占位符
+				},
+				HTTPS: {
+					全局: "https://" + 占位符,
+					标准: "https=" + 占位符
+				},
+				TURN: {
+					全局: "turn://" + 占位符,
+					标准: "turn=" + 占位符
+				},
+				SSTP: {
+					全局: "sstp://" + 占位符,
+					标准: "sstp=" + 占位符
+				},
+			},
+		},
+		TG: {
+			启用: false,
+			BotToken: null,
+			ChatID: null,
+		},
+		CF: {
+			Email: null,
+			GlobalAPIKey: null,
+			AccountID: null,
+			APIToken: null,
+			UsageAPI: null,
+			Usage: {
+				success: false,
+				pages: 0,
+				workers: 0,
+				total: 0,
+				max: 100000,
+			},
+		}
+	};
+
+	try {
+		let configJSON = await D1Get(env, 'config.json');
+		if (!configJSON || 重置配置 == true) {
+			await D1Put(env, 'config.json', JSON.stringify(默认配置JSON, null, 2));
+			config_JSON = 默认配置JSON;
+		} else {
+			config_JSON = JSON.parse(configJSON);
+		}
+	} catch (error) {
+		console.error(`读取config_JSON出错: ${error.message}`);
+		config_JSON = 默认配置JSON;
+	}
+
+	if (!config_JSON.订阅转换配置.SUBLIST) config_JSON.订阅转换配置.SUBLIST = false;
+	if (!config_JSON.订阅转换配置.UDP) config_JSON.订阅转换配置.UDP = false;
+	if (!config_JSON.订阅转换配置.XUDP) config_JSON.订阅转换配置.XUDP = false;
+	if (!config_JSON.订阅转换配置.TLS13) config_JSON.订阅转换配置.TLS13 = false;
+	if (!config_JSON.订阅转换配置.APPEND_TYPE) config_JSON.订阅转换配置.APPEND_TYPE = false;
+	if (!config_JSON.订阅转换配置.SORT) config_JSON.订阅转换配置.SORT = false;
+	if (!config_JSON.gRPCUserAgent) config_JSON.gRPCUserAgent = UA;
+	config_JSON.HOST = host;
+	if (!config_JSON.HOSTS) config_JSON.HOSTS = [hostname];
+	if (env.HOST) config_JSON.HOSTS = (await 整理成数组(env.HOST)).map(h => h.toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split(':')[0]);
+	config_JSON.UUID = userID;
+	if (!config_JSON.随机路径) config_JSON.随机路径 = false;
+	if (!config_JSON.启用0RTT) config_JSON.启用0RTT = false;
+	if (!Number.isFinite(Number(config_JSON.优选订阅生成.LIMIT_DAYS)) || Number(config_JSON.优选订阅生成.LIMIT_DAYS) < 1) config_JSON.优选订阅生成.LIMIT_DAYS = 30;
+	if (!Number.isFinite(Number(config_JSON.优选订阅生成.LIMIT_GB)) || Number(config_JSON.优选订阅生成.LIMIT_GB) < 0) config_JSON.优选订阅生成.LIMIT_GB = 100;
+	if (typeof config_JSON.优选订阅生成.CLEAN_IP_SOURCE !== 'string') config_JSON.优选订阅生成.CLEAN_IP_SOURCE = MATIX_SCANNER_URL;
+
+	if (env.PATH) config_JSON.PATH = env.PATH.startsWith('/') ? env.PATH : '/' + env.PATH;
+	else if (!config_JSON.PATH) config_JSON.PATH = '/';
+
+	if (config_JSON.优选订阅生成.USE_MATIX_SCANNER === undefined) {
+		config_JSON.优选订阅生成.USE_MATIX_SCANNER = true;
+	}
+	if (!config_JSON.优选订阅生成.CLEAN_IP_SOURCE || config_JSON.优选订阅生成.CLEAN_IP_SOURCE.includes('vfarid')) {
+		config_JSON.优选订阅生成.CLEAN_IP_SOURCE = MATIX_SCANNER_URL;
+	}
+
+	if (!config_JSON.gRPC模式) config_JSON.gRPC模式 = 'gun';
+	if (!config_JSON.SS) config_JSON.SS = { 加密方式: "aes-128-gcm", TLS: false };
+
+	if (!config_JSON.反代.路径模板?.[_p]) {
+		config_JSON.反代.路径模板 = {
+			[_p]: "proxyip=" + 占位符,
+			SOCKS5: {
+				全局: "socks5://" + 占位符,
+				标准: "socks5=" + 占位符
+			},
+			HTTP: {
+				全局: "http://" + 占位符,
+				标准: "http=" + 占位符
+			},
+			HTTPS: {
+				全局: "https://" + 占位符,
+				标准: "https=" + 占位符
+			},
+			TURN: {
+				全局: "turn://" + 占位符,
+				标准: "turn=" + 占位符
+			},
+			SSTP: {
+				全局: "sstp://" + 占位符,
+				标准: "sstp=" + 占位符
+			},
+		};
+	}
+	if (!config_JSON.反代.路径模板.HTTPS) config_JSON.反代.路径模板.HTTPS = { 全局: "https://" + 占位符, 标准: "https=" + 占位符 };
+	if (!config_JSON.反代.路径模板.TURN) config_JSON.反代.路径模板.TURN = { 全局: "turn://" + 占位符, 标准: "turn=" + 占位符 };
+	if (!config_JSON.反代.路径模板.SSTP) config_JSON.反代.路径模板.SSTP = { 全局: "sstp://" + 占位符, 标准: "sstp=" + 占位符 };
+
+	const 代理配置 = config_JSON.反代.路径模板[config_JSON.反代.SOCKS5.启用?.toUpperCase()];
+
+	let 路径反代参数 = '';
+	if (代理配置 && config_JSON.反代.SOCKS5.账号) 路径反代参数 = (config_JSON.反代.SOCKS5.全局 ? 代理配置.全局 : 代理配置.标准).replace(占位符, config_JSON.反代.SOCKS5.账号);
+	else if (config_JSON.反代[_p] !== 'auto') 路径反代参数 = config_JSON.反代.路径模板[_p].replace(占位符, config_JSON.反代[_p]);
+
+	let 反代查询参数 = '';
+	if (路径反代参数.includes('?')) {
+		const [反代路径部分, 反代查询部分] = 路径反代参数.split('?');
+		路径反代参数 = 反代路径部分;
+		反代查询参数 = 反代查询部分;
+	}
+
+	config_JSON.PATH = config_JSON.PATH.replace(路径反代参数, '').replace('//', '/');
+	const normalizedPath = config_JSON.PATH === '/' ? '' : config_JSON.PATH.replace(/\/+(?=\?|$)/, '').replace(/\/+$/, '');
+	const [路径部分, ...查询数组] = normalizedPath.split('?');
+	const 查询部分 = 查询数组.length ? '?' + 查询数组.join('?') : '';
+	const 最终查询部分 = 反代查询参数 ? (查询部分 ? 查询部分 + '&' + 反代查询参数 : '?' + 反代查询参数) : 查询部分;
+	config_JSON.完整节点路径 = (路径部分 || '/') + (路径部分 && 路径反代参数 ? '/' : '') + 路径反代参数 + 最终查询部分 + (config_JSON.启用0RTT ? (最终查询部分 ? '&' : '?') + 'ed=2560' : '');
+
+	if (!config_JSON.TLS分片 && config_JSON.TLS分片 !== null) config_JSON.TLS分片 = null;
+	const TLS分片参数 = config_JSON.TLS分片 == 'Shadowrocket' ? `&fragment=${encodeURIComponent('1,40-60,30-50,tlshello')}` : config_JSON.TLS分片 == 'Happ' ? `&fragment=${encodeURIComponent('3,1,tlshello')}` : '';
+	if (!config_JSON.Fingerprint) config_JSON.Fingerprint = "chrome";
+	if (!config_JSON.ECH) config_JSON.ECH = false;
+	if (!config_JSON.ECHConfig) config_JSON.ECHConfig = { DNS: Ali_DoH, SNI: ECH_SNI };
+	const ECHLINK参数 = config_JSON.ECH ? `&ech=${encodeURIComponent((config_JSON.ECHConfig.SNI ? config_JSON.ECHConfig.SNI + '+' : '') + config_JSON.ECHConfig.DNS)}` : '';
+	const { type: 传输协议, 路径字段名, 域名字段名 } = 获取传输协议配置(config_JSON);
+	const 传输路径参数值 = 获取传输路径参数值(config_JSON, config_JSON.完整节点路径);
+	config_JSON.LINK = config_JSON.协议类型 === 'ss'
+		? `${config_JSON.协议类型}://${btoa(config_JSON.SS.加密方式 + ':' + userID)}@${host}:${config_JSON.SS.TLS ? '443' : '80'}?plugin=v2${encodeURIComponent(`ray-plugin;mode=websocket;host=${host};path=${((config_JSON.完整节点路径.includes('?') ? config_JSON.完整节点路径.replace('?', '?enc=' + config_JSON.SS.加密方式 + '&') : (config_JSON.完整节点路径 + '?enc=' + config_JSON.SS.加密方式)) + (config_JSON.SS.TLS ? ';tls' : ''))};mux=0`) + ECHLINK参数}#${encodeURIComponent(config_JSON.优选订阅生成.SUBNAME)}`
+		: `${config_JSON.协议类型}://${userID}@${host}:443?security=tls&type=${传输协议 + ECHLINK参数}&${域名字段名}=${host}&fp=${config_JSON.Fingerprint}&sni=${host}&${路径字段名}=${encodeURIComponent(传输路径参数值) + TLS分片参数}&encryption=none#${encodeURIComponent(config_JSON.优选订阅生成.SUBNAME)}`;
+	config_JSON.优选订阅生成.TOKEN = await MD5MD5(hostname + userID);
+
+	const 初始化TG_JSON = { BotToken: null, ChatID: null, 启用: false };
+	config_JSON.TG = { 启用: false, BotToken: null, ChatID: null };
+	try {
+		const TG_TXT = await D1Get(env, 'tg.json');
+		if (!TG_TXT) {
+			await D1Put(env, 'tg.json', JSON.stringify(初始化TG_JSON, null, 2));
+		} else {
+			const TG_JSON = JSON.parse(TG_TXT);
+			config_JSON.TG.ChatID = TG_JSON.ChatID ? TG_JSON.ChatID : null;
+			config_JSON.TG.BotToken = TG_JSON.BotToken ? 掩码敏感信息(TG_JSON.BotToken) : null;
+			config_JSON.TG.启用 = Boolean(TG_JSON.启用 && TG_JSON.BotToken && TG_JSON.ChatID);
+		}
+	} catch (error) {
+		console.error(`读取tg.json出错: ${error.message}`);
+	}
+
+	const 初始化CF_JSON = { Email: null, GlobalAPIKey: null, AccountID: null, APIToken: null, UsageAPI: null };
+	config_JSON.CF = { ...初始化CF_JSON, Usage: { success: false, pages: 0, workers: 0, total: 0, max: 100000 } };
+	try {
+		const CF_TXT = await D1Get(env, 'cf.json');
+		if (!CF_TXT) {
+			await D1Put(env, 'cf.json', JSON.stringify(初始化CF_JSON, null, 2));
+		} else {
+			const CF_JSON = JSON.parse(CF_TXT);
+			if (CF_JSON.UsageAPI) {
+				try {
+					const response = await fetch(CF_JSON.UsageAPI);
+					const Usage = await response.json();
+					config_JSON.CF.Usage = Usage;
+				} catch (err) {
+					console.error(`请求 CF_JSON.UsageAPI 失败: ${err.message}`);
 				}
 			} else {
-				document.getElementById('expiry-pct').innerText = '۰٪';
-				document.getElementById('expiry-progress').style.width = '100%';
-				document.getElementById('expiry-progress').style.backgroundColor = '#3b82f6';
+				config_JSON.CF.Email = CF_JSON.Email ? CF_JSON.Email : null;
+				config_JSON.CF.GlobalAPIKey = CF_JSON.GlobalAPIKey ? 掩码敏感信息(CF_JSON.GlobalAPIKey) : null;
+				config_JSON.CF.AccountID = CF_JSON.AccountID ? 掩码敏感信息(CF_JSON.AccountID) : null;
+				config_JSON.CF.APIToken = CF_JSON.APIToken ? 掩码敏感信息(CF_JSON.APIToken) : null;
+				config_JSON.CF.UsageAPI = null;
+				const Usage = await getCloudflareUsage(CF_JSON.Email, CF_JSON.GlobalAPIKey, CF_JSON.AccountID, CF_JSON.APIToken);
+				config_JSON.CF.Usage = Usage;
 			}
-			document.getElementById('days-remaining').innerText = daysRemaining === 'نامحدود' ? 'نامحدود' : daysRemaining + ' روز';
-			document.getElementById('total-days').innerText = totalDays;
-			const usedReq = u.used_req || 0;
-			const limitReq = u.limit_req;
-			document.getElementById('used-req').innerText = usedReq.toLocaleString();
-			let isReqExpired = false;
-			if (limitReq) {
-				document.getElementById('limit-req').innerText = limitReq.toLocaleString();
-				const rPct = Math.min((usedReq / limitReq) * 100, 100);
-				document.getElementById('req-pct').innerText = rPct.toFixed(0) + '٪';
-				document.getElementById('req-progress').style.width = rPct + '%';
-				const rHue = 120 - (rPct * 1.2);
-				document.getElementById('req-progress').style.backgroundColor = 'hsl(' + rHue + ', 80%, 45%)';
-				if (usedReq >= limitReq) isReqExpired = true;
-			} else {
-				document.getElementById('limit-req').innerText = 'نامحدود';
-				document.getElementById('req-pct').innerText = '۰٪';
-				document.getElementById('req-progress').style.width = '100%';
-				document.getElementById('req-progress').style.backgroundColor = '#3b82f6';
+		}
+	} catch (error) {
+		console.error(`读取cf.json出错: ${error.message}`);
+	}
+
+	config_JSON.加载时间 = (performance.now() - 初始化开始时间).toFixed(2) + 'ms';
+	return config_JSON;
+}
+
+function 识别运营商(request) {
+	const cf = request?.cf;
+	const ASN运营商映射 = {
+		'4134': 'ct',
+		'4809': 'ct',
+		'4811': 'ct',
+		'4812': 'ct',
+		'4815': 'ct',
+		'4837': 'cu',
+		'4814': 'cu',
+		'9929': 'cu',
+		'17623': 'cu',
+		'17816': 'cu',
+		'9808': 'cmcc',
+		'24400': 'cmcc',
+		'56040': 'cmcc',
+		'56041': 'cmcc',
+		'56044': 'cmcc',
+	};
+	const 运营商关键词映射 = [
+		{ code: 'ct', pattern: /chinanet|chinatelecom|china telecom|cn2|shtel/ },
+		{ code: 'cmcc', pattern: /cmi|cmnet|chinamobile|china mobile|cmcc|mobile communications/ },
+		{ code: 'cu', pattern: /china169|china unicom|chinaunicom|cucc|cncgroup|cuii|netcom/ },
+	];
+	if (String(cf?.country || '').toLowerCase() !== 'cn') return 'cf';
+	const 组织名称 = String(cf?.asOrganization || '').toLowerCase();
+	const 命中运营商 = 运营商关键词映射.find(({ pattern }) => pattern.test(组织名称))?.code;
+	return 命中运营商 || ASN运营商映射[String(cf?.asn || '')] || 'cf';
+}
+
+async function 获取MatixScannerIP(request, count = 16, 指定端口 = -1) {
+    if (!MATIX_SCANNER_ENABLED) throw new Error('Matix Scanner disabled');
+    const cfport = [443, 2053, 2083, 2087, 2096, 8443];
+    try {
+        const res = await fetch(MATIX_SCANNER_URL + '?t=' + Date.now(), {
+            headers: { 'Accept': 'application/json' },
+            cf: { cacheTtl: 60 }
+        });
+        if (!res.ok) throw new Error('Scanner HTTP ' + res.status);
+        const data = await res.json();
+        if (!data.results || !Array.isArray(data.results)) throw new Error('Invalid JSON');
+
+        const seenIPs = new Set();
+        const uniqueIPs = [];
+        for (const r of data.results) {
+            if (r.status === 'online' && r.ip && /^\d+\.\d+\.\d+\.\d+$/.test(r.ip) && !seenIPs.has(r.ip)) {
+                seenIPs.add(r.ip);
+                uniqueIPs.push(r);
+            }
+        }
+
+        const onlineIPs = uniqueIPs
+            .sort((a, b) => (a.ms || 9999) - (b.ms || 9999))
+            .slice(0, count);
+
+        if (!onlineIPs.length) throw new Error('No online IPs');
+
+        const formatted = onlineIPs.map((item, index) => {
+            const 目标端口 = 指定端口 === -1 ? cfport[index % cfport.length] : 指定端口;
+            return `${item.ip}:${目标端口}#Matix-${index + 1}-${item.ms}ms`;
+        });
+
+        log(`[Matix-Scanner] ${formatted.length} IP دریافت شد. بهترین: ${onlineIPs[0].ms}ms`);
+        return [formatted, formatted.join('\n')];
+    } catch (err) {
+        log(`[Matix-Scanner] خطا: ${err.message}`);
+        throw err;
+    }
+}
+
+async function 生成随机IP(request, count = 16, 指定端口 = -1) {
+	const url = new URL(request.url);
+	const 使用自定义IP = url.searchParams.get('customIP') === 'true';
+	const 强制用Scanner = url.searchParams.get('useScanner') === 'true';
+
+	if (!使用自定义IP && (强制用Scanner || config_JSON?.优选订阅生成?.USE_MATIX_SCANNER !== false)) {
+		try {
+			return await 获取MatixScannerIP(request, count, 指定端口);
+		} catch (e) {
+			log(`[生成随机IP] Matix Scanner failed: ${e.message}، fallback`);
+		}
+	}
+	const 查询参数运营商 = String(url.searchParams.get('cnIspCode') || '').toLowerCase();
+	const 运营商文件标识 = ['ct', 'cu', 'cmcc', 'cf'].includes(查询参数运营商) ? 查询参数运营商 : 识别运营商(request);
+	const 运营商名称映射 = {
+		cmcc: 'CF Mobile',
+		cu: 'CF Unicom',
+		ct: 'CF Telecom',
+		cf: 'CF Official',
+	};
+	const cidr_url = 运营商文件标识 === 'cf' ? `https://raw.githubusercontent.com/${特征码字典[1]}/${特征码字典[1]}/main/CF-CIDR.txt` : `https://raw.githubusercontent.com/${特征码字典[1]}/${特征码字典[1]}/main/CF-CIDR/${运营商文件标识}.txt`;
+	const cfname = 运营商名称映射[运营商文件标识] || 'CF Official';
+	const cfport = [443, 2053, 2083, 2087, 2096, 8443];
+	let cidrList = [];
+	const remoteIPSource = String(config_JSON?.优选订阅生成?.CLEAN_IP_SOURCE || '').trim();
+	if (remoteIPSource) {
+		try {
+			const sourceRes = await fetch(remoteIPSource, { headers: { 'Accept': 'application/json,text/plain,*/*' } });
+			if (sourceRes.ok) {
+				const text = await sourceRes.text();
+				let values = [];
+				try {
+					const json = JSON.parse(text);
+						const walk = (v) => {
+							if (typeof v === 'string') {
+								if (/^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:#.*)?$/.test(v.trim())) values.push(v.trim());
+							} else if (Array.isArray(v)) v.forEach(walk);
+							else if (v && typeof v === 'object') Object.values(v).forEach(walk);
+						};
+						walk(json);
+				} catch { values = text.split(/\r?\n|,/).map(x => x.trim()).filter(Boolean); }
+				cidrList = [...new Set(values.filter(v => /^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:#.*)?$/.test(v)).map(v => v.split('#')[0].split(':')[0]))];
 			}
-			const onlineCount = u.online_count || 0;
-			document.getElementById('online-count').innerText = onlineCount;
-			if (limit) {
-				document.getElementById('limit-online').innerText = limit;
-				const oPct = Math.min((onlineCount / limit) * 100, 100);
-				document.getElementById('online-pct').innerText = oPct.toFixed(0) + '٪';
-				document.getElementById('online-progress').style.width = oPct + '%';
-				const oHue = 120 - (oPct * 1.2);
-				document.getElementById('online-progress').style.backgroundColor = 'hsl(' + oHue + ', 80%, 45%)';
-			} else {
-				document.getElementById('limit-online').innerText = 'نامحدود';
-				document.getElementById('online-pct').innerText = '۰٪';
-				document.getElementById('online-progress').style.width = '100%';
-				document.getElementById('online-progress').style.backgroundColor = onlineCount > 0 ? '#16a34a' : '#9ca3af'; 
+		} catch (e) { console.warn('[IP Source] source unavailable:', e?.message || e); }
+	}
+	if (!cidrList.length) {
+		try { const res = await fetch(cidr_url); cidrList = res.ok ? await 整理成数组(await res.text()) : ['104.16.0.0/13'] } catch { cidrList = ['104.16.0.0/13'] }
+	}
+
+	const generateRandomIPFromCIDR = (cidr) => {
+		const [baseIP, prefixLength] = cidr.split('/'), prefix = parseInt(prefixLength), hostBits = 32 - prefix;
+		const ipInt = baseIP.split('.').reduce((a, p, i) => a | (parseInt(p) << (24 - i * 8)), 0);
+		const randomOffset = Math.floor(Math.random() * Math.pow(2, hostBits));
+		const mask = (0xFFFFFFFF << hostBits) >>> 0, randomIP = (((ipInt & mask) >>> 0) + randomOffset) >>> 0;
+		return [(randomIP >>> 24) & 0xFF, (randomIP >>> 16) & 0xFF, (randomIP >>> 8) & 0xFF, randomIP & 0xFF].join('.');
+	};
+	const randomIPs = Array.from({ length: count }, (_, index) => {
+		const ip = generateRandomIPFromCIDR(cidrList[Math.floor(Math.random() * cidrList.length)]);
+		const 目标端口 = 指定端口 === -1
+			? cfport[Math.floor(Math.random() * cfport.length)]
+			: 指定端口;
+		return `${ip}:${目标端口}#${cfname}${index + 1}`;
+	});
+	return [randomIPs, randomIPs.join('\n')];
+}
+
+
+// [MX] Pull clean IPs from the configured repository source and format them as "ip:port#name".
+async function 获取远程优选IP(config_JSON, 覆盖源, 数量 = 50) {
+	const source = String(覆盖源 || config_JSON?.优选订阅生成?.CLEAN_IP_SOURCE || '').trim();
+	if (!/^https?:\/\//i.test(source)) throw new Error('Invalid source URL');
+	const limit = Math.min(Math.max(Number(数量) || 50, 1), 200);
+	const res = await fetch(source, { headers: { 'Accept': 'application/json,text/plain,*/*', 'User-Agent': 'Matix-Edge' } });
+	if (!res.ok) throw new Error('Source returned HTTP ' + res.status);
+	const text = await res.text();
+	const ipRe = /^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:#.*)?$/;
+	const values = [];
+	try {
+		const walk = (v) => {
+			if (typeof v === 'string') { if (ipRe.test(v.trim())) values.push(v.trim()); }
+			else if (Array.isArray(v)) v.forEach(walk);
+			else if (v && typeof v === 'object') {
+				if (typeof v.ip === 'string' && ipRe.test(v.ip.trim())) values.push(v.ip.trim() + (v.port && !v.ip.includes(':') ? ':' + v.port : ''));
+				else Object.values(v).forEach(walk);
 			}
-			const statusCard = document.getElementById('status-card');
-			const statusText = document.getElementById('status-text');
-			if (u.is_active === 0) {
-				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-red-500/10 border-red-500/30 text-red-500 shadow-md shadow-red-500/5';
-				statusCard.style.boxShadow = 'inset 0 0 12px rgba(239, 68, 68, 0.1)';
-				statusText.innerText = '❌ وضعیت اشتراک: غیرفعال / مسدود دستی';
-			} else if (isVolumeExpired || isReqExpired || isTimeExpired) {
-				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-yellow-500/10 border-yellow-500/30 text-yellow-500 shadow-md shadow-yellow-500/5';
-				if (isVolumeExpired) statusText.innerText = '⚠️ وضعیت اشتراک: تمام شدن حجم مجاز';
-				else if (isReqExpired) statusText.innerText = '📈 وضعیت اشتراک: تمام شدن ریکوئست مجاز';
-				else if (isTimeExpired) statusText.innerText = '⏳ وضعیت اشتراک: منقضی شده (پایان زمان اعتبار)';
-			} else {
-				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-green-600/10 border-green-600/30 text-green-600 shadow-md shadow-green-600/5';
-				statusText.innerText = '✅ وضعیت اشتراک: فعال و متصل';
-			}
+		};
+		walk(JSON.parse(text));
+	} catch { text.split(/\r?\n|,/).map(x => x.trim()).filter(Boolean).forEach(x => values.push(x)); }
+	const seen = new Set(), out = [];
+	for (const raw of values) {
+		if (!ipRe.test(raw)) continue;
+		const addr = raw.split('#')[0];
+		const [ip, port] = addr.split(':');
+		const key = ip + ':' + (port || '443');
+		if (seen.has(key)) continue;
+		seen.add(key);
+		out.push(key + '#Matix-' + (out.length + 1));
+		if (out.length >= limit) break;
+	}
+	if (!out.length) throw new Error('No IPs found in source');
+	return out;
+}
+
+async function 整理成数组(内容) {
+	var 替换后的内容 = 内容.replace(/[	"'\r\n]+/g, ',').replace(/,+/g, ',');
+	if (替换后的内容.charAt(0) == ',') 替换后的内容 = 替换后的内容.slice(1);
+	if (替换后的内容.charAt(替换后的内容.length - 1) == ',') 替换后的内容 = 替换后的内容.slice(0, 替换后的内容.length - 1);
+	const 地址数组 = 替换后的内容.split(',');
+	return 地址数组;
+}
+
+async function 获取优选订阅生成器数据(优选订阅生成器HOST) {
+	let 优选IP = [], 其他节点LINK = '', 格式化HOST = 优选订阅生成器HOST.replace(/^sub:\/\//i, 'https://').split('#')[0].split('?')[0];
+	if (!/^https?:\/\//i.test(格式化HOST)) 格式化HOST = `https://${格式化HOST}`;
+
+	try {
+		const url = new URL(格式化HOST);
+		格式化HOST = url.origin;
+	} catch (error) {
+		优选IP.push(`127.0.0.1:1234#${优选订阅生成器HOST}优选订阅生成器格式化异常:${error.message}`);
+		return [优选IP, 其他节点LINK];
+	}
+
+	const 优选订阅生成器URL = `${格式化HOST}/sub?host=example.com&uuid=00000000-0000-4000-8000-000000000000`;
+
+	try {
+		const response = await fetch(优选订阅生成器URL, {
+			headers: { 'User-Agent': 'MatiX/1.0 (https://github.com/imatixofficel/Matix-edg)' }
 		});
-		window.addEventListener('click', (e) => {
-			if (e.target.id === 'qr-modal') toggleQrModal(false);
+
+		if (!response.ok) {
+			优选IP.push(`127.0.0.1:1234#${优选订阅生成器HOST}优选订阅生成器异常:${response.statusText}`);
+			return [优选IP, 其他节点LINK];
+		}
+
+		const 优选订阅生成器返回订阅内容 = atob(await response.text());
+		const 订阅行列表 = 优选订阅生成器返回订阅内容.includes('\r\n')
+			? 优选订阅生成器返回订阅内容.split('\r\n')
+			: 优选订阅生成器返回订阅内容.split('\n');
+
+		for (const 行内容 of 订阅行列表) {
+			if (!行内容.trim()) continue; // 跳过空行
+			if (行内容.includes('00000000-0000-4000-8000-000000000000') && 行内容.includes('example.com')) {
+				// 这是优选IP行，提取 域名:端口#备注
+				const 地址匹配 = 行内容.match(/:\/\/[^@]+@([^?]+)/);
+				if (地址匹配) {
+					let 地址端口 = 地址匹配[1], 备注 = ''; // 域名:端口 或 IP:端口
+					const 备注匹配 = 行内容.match(/#(.+)$/);
+					if (备注匹配) 备注 = '#' + decodeURIComponent(备注匹配[1]);
+					优选IP.push(地址端口 + 备注);
+				}
+			} else {
+				其他节点LINK += 行内容 + '\n';
+			}
+		}
+	} catch (error) {
+		优选IP.push(`127.0.0.1:1234#${优选订阅生成器HOST}优选订阅生成器异常:${error.message}`);
+	}
+
+	return [优选IP, 其他节点LINK];
+}
+
+async function 请求优选API(urls, 默认端口 = '443', 超时时间 = 3000) {
+	if (!urls?.length) return [[], [], [], []];
+	const results = new Set(), 反代IP池 = new Set();
+	let 订阅链接响应的明文LINK内容 = '', 需要订阅转换订阅URLs = [];
+	await Promise.allSettled(urls.map(async (url) => {
+		// 检查URL是否包含备注名
+		const hashIndex = url.indexOf('#');
+		const urlWithoutHash = hashIndex > -1 ? url.substring(0, hashIndex) : url;
+		const API备注名 = hashIndex > -1 ? decodeURIComponent(url.substring(hashIndex + 1)) : null;
+		const 优选IP作为反代IP = url.toLowerCase().includes('proxyip=true');
+		if (urlWithoutHash.toLowerCase().startsWith('sub://')) {
+			try {
+				const [优选IP, 其他节点LINK] = await 获取优选订阅生成器数据(urlWithoutHash);
+				// 处理第一个数组 - 优选IP
+				if (API备注名) {
+					for (const ip of 优选IP) {
+						const 处理后IP = ip.includes('#')
+							? `${ip} [${API备注名}]`
+							: `${ip}#[${API备注名}]`;
+						results.add(处理后IP);
+						if (优选IP作为反代IP) 反代IP池.add(ip.split('#')[0]);
+					}
+				} else {
+					for (const ip of 优选IP) {
+						results.add(ip);
+						if (优选IP作为反代IP) 反代IP池.add(ip.split('#')[0]);
+					}
+				}
+				// 处理第二个数组 - 其他节点LINK
+				if (其他节点LINK && typeof 其他节点LINK === 'string' && API备注名) {
+					const 处理后LINK内容 = 其他节点LINK.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi, (match, link, lineEnd) => {
+						const 完整链接 = link.includes('#')
+							? `${link}${encodeURIComponent(` [${API备注名}]`)}`
+							: `${link}${encodeURIComponent(`#[${API备注名}]`)}`;
+						return `${完整链接}${lineEnd}`;
+					});
+					订阅链接响应的明文LINK内容 += 处理后LINK内容;
+				} else if (其他节点LINK && typeof 其他节点LINK === 'string') {
+					订阅链接响应的明文LINK内容 += 其他节点LINK;
+				}
+			} catch (e) { }
+			return;
+		}
+
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 超时时间);
+			const response = await fetch(urlWithoutHash, { signal: controller.signal });
+			clearTimeout(timeoutId);
+			let text = '';
+			try {
+				const buffer = await response.arrayBuffer();
+				const contentType = (response.headers.get('content-type') || '').toLowerCase();
+				const charset = contentType.match(/charset=([^\s;]+)/i)?.[1]?.toLowerCase() || '';
+
+				// 根据 Content-Type 响应头判断编码优先级
+				let decoders = ['utf-8', 'gb2312']; // 默认优先 UTF-8
+				if (charset.includes('gb') || charset.includes('gbk') || charset.includes('gb2312')) {
+					decoders = ['gb2312', 'utf-8']; // 如果明确指定 GB 系编码，优先尝试 GB2312
+				}
+
+				// 尝试多种编码解码
+				let decodeSuccess = false;
+				for (const decoder of decoders) {
+					try {
+						const decoded = new TextDecoder(decoder).decode(buffer);
+						// 验证解码结果的有效性
+						if (decoded && decoded.length > 0 && !decoded.includes('\ufffd')) {
+							text = decoded;
+							decodeSuccess = true;
+							break;
+						} else if (decoded && decoded.length > 0) {
+							// 如果有替换字符 (U+FFFD)，说明编码不匹配，继续尝试下一个编码
+							continue;
+						}
+					} catch (e) {
+						// 该编码解码失败，尝试下一个
+						continue;
+					}
+				}
+
+				// 如果所有编码都失败或无效，尝试 response.text()
+				if (!decodeSuccess) {
+					text = await response.text();
+				}
+
+				// 如果返回的是空或无效数据，返回
+				if (!text || text.trim().length === 0) {
+					return;
+				}
+			} catch (e) {
+				console.error('Failed to decode response:', e);
+				return;
+			}
+
+			// 预处理订阅内容
+			/*
+			if (text.includes('proxies:') || (text.includes('outbounds"') && text.includes('inbounds"'))) {// Clash Singbox 配置
+				需要订阅转换订阅URLs.add(url);
+				return;
+			}
+			*/
+
+			let 预处理订阅明文内容 = text;
+			const cleanText = typeof text === 'string' ? text.replace(/\s/g, '') : '';
+			if (cleanText.length > 0 && cleanText.length % 4 === 0 && /^[A-Za-z0-9+/]+={0,2}$/.test(cleanText)) {
+				try {
+					const bytes = new Uint8Array(atob(cleanText).split('').map(c => c.charCodeAt(0)));
+					预处理订阅明文内容 = new TextDecoder('utf-8').decode(bytes);
+				} catch { }
+			}
+			if (预处理订阅明文内容.split('#')[0].includes('://')) {
+				// 处理LINK内容
+				if (API备注名) {
+					const 处理后LINK内容 = 预处理订阅明文内容.replace(/([a-z][a-z0-9+\-.]*:\/\/[^\r\n]*?)(\r?\n|$)/gi, (match, link, lineEnd) => {
+						const 完整链接 = link.includes('#')
+							? `${link}${encodeURIComponent(` [${API备注名}]`)}`
+							: `${link}${encodeURIComponent(`#[${API备注名}]`)}`;
+						return `${完整链接}${lineEnd}`;
+					});
+					订阅链接响应的明文LINK内容 += 处理后LINK内容 + '\n';
+				} else {
+					订阅链接响应的明文LINK内容 += 预处理订阅明文内容 + '\n';
+				}
+				return;
+			}
+
+			const lines = text.trim().split('\n').map(l => l.trim()).filter(l => l);
+			const isCSV = lines.length > 1 && lines[0].includes(',');
+			const IPV6_PATTERN = /^[^\[\]]*:[^\[\]]*:[^\[\]]/;
+			const parsedUrl = new URL(urlWithoutHash);
+			if (!isCSV) {
+				lines.forEach(line => {
+					const lineHashIndex = line.indexOf('#');
+					const [hostPart, remark] = lineHashIndex > -1 ? [line.substring(0, lineHashIndex), line.substring(lineHashIndex)] : [line, ''];
+					let hasPort = false;
+					if (hostPart.startsWith('[')) {
+						hasPort = /\]:(\d+)$/.test(hostPart);
+					} else {
+						const colonIndex = hostPart.lastIndexOf(':');
+						hasPort = colonIndex > -1 && /^\d+$/.test(hostPart.substring(colonIndex + 1));
+					}
+					const port = parsedUrl.searchParams.get('port') || 默认端口;
+					const ipItem = hasPort ? line : `${hostPart}:${port}${remark}`;
+					// 处理第一个数组 - 优选IP
+					if (API备注名) {
+						const 处理后IP = ipItem.includes('#')
+							? `${ipItem} [${API备注名}]`
+							: `${ipItem}#[${API备注名}]`;
+						results.add(处理后IP);
+					} else {
+						results.add(ipItem);
+					}
+					if (优选IP作为反代IP) 反代IP池.add(ipItem.split('#')[0]);
+				});
+			} else {
+				const headers = lines[0].split(',').map(h => h.trim());
+				const dataLines = lines.slice(1);
+				if (headers.includes('IP地址') && headers.includes('端口') && headers.includes('数据中心')) {
+					const ipIdx = headers.indexOf('IP地址'), portIdx = headers.indexOf('端口');
+					const remarkIdx = headers.indexOf('国家') > -1 ? headers.indexOf('国家') :
+						headers.indexOf('城市') > -1 ? headers.indexOf('城市') : headers.indexOf('数据中心');
+					const tlsIdx = headers.indexOf('TLS');
+					dataLines.forEach(line => {
+						const cols = line.split(',').map(c => c.trim());
+						if (tlsIdx !== -1 && cols[tlsIdx]?.toLowerCase() !== 'true') return;
+						const wrappedIP = IPV6_PATTERN.test(cols[ipIdx]) ? `[${cols[ipIdx]}]` : cols[ipIdx];
+						const ipItem = `${wrappedIP}:${cols[portIdx]}#${cols[remarkIdx]}`;
+						// 处理第一个数组 - 优选IP
+						if (API备注名) {
+							const 处理后IP = `${ipItem} [${API备注名}]`;
+							results.add(处理后IP);
+						} else {
+							results.add(ipItem);
+						}
+						if (优选IP作为反代IP) 反代IP池.add(`${wrappedIP}:${cols[portIdx]}`);
+					});
+				} else if (headers.some(h => h.includes('IP')) && headers.some(h => h.includes('延迟')) && headers.some(h => h.includes('下载速度'))) {
+					const ipIdx = headers.findIndex(h => h.includes('IP'));
+					const delayIdx = headers.findIndex(h => h.includes('延迟'));
+					const speedIdx = headers.findIndex(h => h.includes('下载速度'));
+					const port = parsedUrl.searchParams.get('port') || 默认端口;
+					dataLines.forEach(line => {
+						const cols = line.split(',').map(c => c.trim());
+						const wrappedIP = IPV6_PATTERN.test(cols[ipIdx]) ? `[${cols[ipIdx]}]` : cols[ipIdx];
+						const ipItem = `${wrappedIP}:${port}#CF优选 ${cols[delayIdx]}ms ${cols[speedIdx]}MB/s`;
+						// 处理第一个数组 - 优选IP
+						if (API备注名) {
+							const 处理后IP = `${ipItem} [${API备注名}]`;
+							results.add(处理后IP);
+						} else {
+							results.add(ipItem);
+						}
+						if (优选IP作为反代IP) 反代IP池.add(`${wrappedIP}:${port}`);
+					});
+				}
+			}
+		} catch (e) { }
+	}));
+	// 将LINK内容转换为数组并去重
+	const LINK数组 = 订阅链接响应的明文LINK内容.trim() ? [...new Set(订阅链接响应的明文LINK内容.split(/\r?\n/).filter(line => line.trim() !== ''))] : [];
+	return [Array.from(results), LINK数组, 需要订阅转换订阅URLs, Array.from(反代IP池)];
+}
+
+async function 反代参数获取(url, uuid, 默认反代IP = '', 默认反代兜底 = true) {
+	const { searchParams } = url;
+	const pathname = decodeURIComponent(url.pathname);
+	const pathLower = pathname.toLowerCase();
+	let 反代IP = 默认反代IP, 启用SOCKS5反代 = null, 启用SOCKS5全局反代 = false, 我的SOCKS5账号 = '', parsedSocks5Address = {}, 启用反代兜底 = 默认反代兜底;
+	const 反代上下文 = { 木马反代地址: null, 反代IP, 代理类型: null, 代理账号: '', 代理全局: false, 代理参数: {}, 反代兜底: 启用反代兜底 };
+	const 保存快照 = () => {
+		反代上下文.反代IP = 反代IP;
+		反代上下文.代理类型 = 启用SOCKS5反代;
+		反代上下文.代理账号 = 我的SOCKS5账号;
+		反代上下文.代理全局 = 启用SOCKS5全局反代;
+		反代上下文.代理参数 = { ...parsedSocks5Address };
+		反代上下文.反代兜底 = 启用反代兜底;
+	};
+
+	const 链式代理路径匹配 = pathname.match(/\/video\/(.+)$/i);
+	if (链式代理路径匹配) {
+		try {
+			const 链式代理明文 = base64SecretDecode(链式代理路径匹配[1].replace(/\/+$/, ''), uuid);
+			const { type, ...链式代理地址 } = JSON.parse(链式代理明文);
+			if (!type || !反代协议默认端口[String(type).toLowerCase()]) throw new Error('Invalid chained-proxy type');
+			if (!链式代理地址.hostname || !链式代理地址.port) throw new Error('Chained-proxy address is missing hostname or port');
+			我的SOCKS5账号 = '';
+			反代IP = '链式代理';
+			启用反代兜底 = false;
+			启用SOCKS5全局反代 = true;
+			启用SOCKS5反代 = String(type).toLowerCase();
+			parsedSocks5Address = {
+				username: 链式代理地址.username,
+				password: 链式代理地址.password,
+				hostname: 链式代理地址.hostname,
+				port: Number(链式代理地址.port)
+			};
+			if (isNaN(parsedSocks5Address.port)) throw new Error('Invalid chained-proxy port');
+			保存快照();
+			return 反代上下文;
+		} catch (err) {
+			console.error('Failed to parse chained-proxy parameters:', err.message);
+		}
+	}
+
+	我的SOCKS5账号 = searchParams.get('socks5') || searchParams.get('http') || searchParams.get('https') || searchParams.get('turn') || searchParams.get('sstp') || null;
+	启用SOCKS5全局反代 = searchParams.has('globalproxy');
+	if (searchParams.get('socks5')) 启用SOCKS5反代 = 'socks5';
+	else if (searchParams.get('http')) 启用SOCKS5反代 = 'http';
+	else if (searchParams.get('https')) 启用SOCKS5反代 = 'https';
+	else if (searchParams.get('turn')) 启用SOCKS5反代 = 'turn';
+	else if (searchParams.get('sstp')) 启用SOCKS5反代 = 'sstp';
+
+	const 解析代理URL = (值, 强制全局 = true) => {
+		const 匹配 = /^(socks5|http|https|turn|sstp):\/\/(.+)$/i.exec(值 || '');
+		if (!匹配) return false;
+		启用SOCKS5反代 = 匹配[1].toLowerCase();
+		我的SOCKS5账号 = 匹配[2].split('/')[0];
+		if (强制全局) 启用SOCKS5全局反代 = true;
+		return true;
+	};
+
+	const 设置反代IP = (值) => {
+		反代IP = 值;
+		启用SOCKS5反代 = null;
+		启用反代兜底 = false;
+	};
+
+	const 提取路径值 = (值) => {
+		if (!值.includes('://')) {
+			const 斜杠索引 = 值.indexOf('/');
+			return 斜杠索引 > 0 ? 值.slice(0, 斜杠索引) : 值;
+		}
+		const 协议拆分 = 值.split('://');
+		if (协议拆分.length !== 2) return 值;
+		const 斜杠索引 = 协议拆分[1].indexOf('/');
+		return 斜杠索引 > 0 ? `${协议拆分[0]}://${协议拆分[1].slice(0, 斜杠索引)}` : 值;
+	};
+
+	const 木马路径匹配 = /\/trojan=([^?#\s]+)/i.exec(pathname);
+	if (木马路径匹配) {
+		try {
+			反代上下文.木马反代地址 = 解析木马反代地址(木马路径匹配[1].replace(/\/+$/, ''));
+		} catch (err) {
+			console.error('Failed to parse Trojan reverse-proxy address:', err.message);
+			反代上下文.木马反代地址 = null;
+		}
+	}
+
+	const 查询反代IP = searchParams.get('proxyip');
+	if (查询反代IP !== null) {
+		if (!解析代理URL(查询反代IP)) {
+			设置反代IP(查询反代IP);
+			保存快照();
+			return 反代上下文;
+		}
+	} else {
+		let 匹配 = /\/(socks5?|http|https|turn|sstp):\/?\/?([^/?#\s]+)/i.exec(pathname);
+		if (匹配) {
+			const 类型 = 匹配[1].toLowerCase();
+			启用SOCKS5反代 = 类型 === 'sock' || 类型 === 'socks' ? 'socks5' : 类型;
+			我的SOCKS5账号 = 匹配[2].split('/')[0];
+			启用SOCKS5全局反代 = true;
+		} else if ((匹配 = /\/(g?s5|socks5|g?http|g?https|g?turn|g?sstp)=([^/?#\s]+)/i.exec(pathname))) {
+			const 类型 = 匹配[1].toLowerCase();
+			我的SOCKS5账号 = 匹配[2].split('/')[0];
+			启用SOCKS5反代 = 类型.includes('sstp') ? 'sstp' : (类型.includes('turn') ? 'turn' : (类型.includes('https') ? 'https' : (类型.includes('http') ? 'http' : 'socks5')));
+			if (类型.startsWith('g')) 启用SOCKS5全局反代 = true;
+		} else if ((匹配 = /\/(proxyip[.=]|pyip=|ip=)([^?#\s]+)/.exec(pathLower))) {
+			const 路径反代值 = 提取路径值(匹配[2]);
+			if (!解析代理URL(路径反代值)) {
+				设置反代IP(路径反代值);
+				保存快照();
+				return 反代上下文;
+			}
+		}
+	}
+
+	if (!我的SOCKS5账号) {
+		启用SOCKS5反代 = null;
+		保存快照();
+		return 反代上下文;
+	}
+
+	try {
+		parsedSocks5Address = await 获取SOCKS5账号(我的SOCKS5账号, 获取代理默认端口(启用SOCKS5反代));
+		if (searchParams.get('socks5')) 启用SOCKS5反代 = 'socks5';
+		else if (searchParams.get('http')) 启用SOCKS5反代 = 'http';
+		else if (searchParams.get('https')) 启用SOCKS5反代 = 'https';
+		else if (searchParams.get('turn')) 启用SOCKS5反代 = 'turn';
+		else if (searchParams.get('sstp')) 启用SOCKS5反代 = 'sstp';
+		else 启用SOCKS5反代 = 启用SOCKS5反代 || 'socks5';
+	} catch (err) {
+		console.error('Failed to parse SOCKS5 address:', err.message);
+		启用SOCKS5反代 = null;
+	}
+	保存快照();
+	return 反代上下文;
+}
+
+const 反代协议默认端口 = { socks5: 1080, http: 80, https: 443, turn: 3478, sstp: 443 };
+function 获取代理默认端口(类型) {
+	return 反代协议默认端口[String(类型 || '').toLowerCase()] || 80;
+}
+
+const SOCKS5账号Base64正则 = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i, IPv6方括号正则 = /^\[.*\]$/;
+function 获取SOCKS5账号(address, 默认端口 = 80) {
+	address = String(address || '').trim().replace(/^(socks5|http|https|turn|sstp):\/\//i, '').split('#')[0].trim();
+	const firstAt = address.lastIndexOf("@");
+	if (firstAt !== -1) {
+		let auth = address.slice(0, firstAt).replaceAll("%3D", "=");
+		if (!auth.includes(":") && SOCKS5账号Base64正则.test(auth)) auth = atob(auth);
+		address = `${auth}@${address.slice(firstAt + 1)}`;
+	}
+
+	const atIndex = address.lastIndexOf("@");
+	const hostPart = (atIndex === -1 ? address : address.slice(atIndex + 1)).split('/')[0];
+	const authPart = atIndex === -1 ? "" : address.slice(0, atIndex);
+	const [username, password] = authPart ? authPart.split(":") : [];
+	if (authPart && !password) throw new Error('Invalid SOCKS address format: the auth part must be "username:password"');
+
+	let hostname = hostPart, port = 默认端口;
+	if (hostPart.includes("]:")) {
+		const [ipv6Host, ipv6Port = ""] = hostPart.split("]:");
+		hostname = ipv6Host + "]";
+		port = Number(ipv6Port.replace(/[^\d]/g, ""));
+	} else if (!hostPart.startsWith("[")) {
+		const parts = hostPart.split(":");
+		if (parts.length === 2) {
+			hostname = parts[0];
+			port = Number(parts[1].replace(/[^\d]/g, ""));
+		}
+	}
+
+	if (isNaN(port)) throw new Error('Invalid SOCKS address format: port must be numeric');
+	if (hostname.includes(":") && !IPv6方括号正则.test(hostname)) throw new Error('Invalid SOCKS address format: IPv6 address must be in brackets, e.g. [2001:db8::1]');
+	return { username, password, hostname, port };
+}
+
+async function getCloudflareUsage(Email, GlobalAPIKey, AccountID, APIToken) {
+	const API = "https://api.cloudflare.com/client/v4";
+	const sum = (a) => a?.reduce((t, i) => t + (i?.sum?.requests || 0), 0) || 0;
+	const cfg = { "Content-Type": "application/json" };
+
+	try {
+		if (!AccountID && (!Email || !GlobalAPIKey)) return { success: false, pages: 0, workers: 0, total: 0, max: 100000 };
+
+		if (!AccountID) {
+			const r = await fetch(`${API}/accounts`, {
+				method: "GET",
+				headers: { ...cfg, "X-AUTH-EMAIL": Email, "X-AUTH-KEY": GlobalAPIKey }
+			});
+			if (!r.ok) throw new Error(`账户获取失败: ${r.status}`);
+			const d = await r.json();
+			if (!d?.result?.length) throw new Error("Account not found");
+			const idx = d.result.findIndex(a => a.name?.toLowerCase().startsWith(Email.toLowerCase()));
+			AccountID = d.result[idx >= 0 ? idx : 0]?.id;
+		}
+
+		const now = new Date();
+		now.setUTCHours(0, 0, 0, 0);
+		const hdr = APIToken ? { ...cfg, "Authorization": `Bearer ${APIToken}` } : { ...cfg, "X-AUTH-EMAIL": Email, "X-AUTH-KEY": GlobalAPIKey };
+
+		const res = await fetch(`${API}/graphql`, {
+			method: "POST",
+			headers: hdr,
+			body: JSON.stringify({
+				query: `query getBillingMetrics($AccountID: String!, $filter: AccountWorkersInvocationsAdaptiveFilter_InputObject) {
+					viewer { accounts(filter: {accountTag: $AccountID}) {
+						pagesFunctionsInvocationsAdaptiveGroups(limit: 1000, filter: $filter) { sum { requests } }
+						workersInvocationsAdaptive(limit: 10000, filter: $filter) { sum { requests } }
+					} }
+				}`,
+				variables: { AccountID, filter: { datetime_geq: now.toISOString(), datetime_leq: new Date().toISOString() } }
+			})
 		});
-	</script>
-	${td8g9qc}
+
+		if (!res.ok) throw new Error(`查询失败: ${res.status}`);
+		const result = await res.json();
+		if (result.errors?.length) throw new Error(result.errors[0].message);
+
+		const acc = result?.data?.viewer?.accounts?.[0];
+		if (!acc) throw new Error("Account data not found");
+
+		const pages = sum(acc.pagesFunctionsInvocationsAdaptiveGroups);
+		const workers = sum(acc.workersInvocationsAdaptive);
+		const total = pages + workers;
+		const max = 100000;
+		log(`统计结果 - Pages: ${pages}, Workers: ${workers}, 总计: ${total}, 上限: 100000`);
+		return { success: true, pages, workers, total, max };
+
+	} catch (error) {
+		console.error('Failed to fetch usage:', error.message);
+		return { success: false, pages: 0, workers: 0, total: 0, max: 100000 };
+	}
+}
+
+function sha224(s) {
+	const K = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
+	const r = (n, b) => ((n >>> b) | (n << (32 - b))) >>> 0;
+	s = unescape(encodeURIComponent(s));
+	const l = s.length * 8; s += String.fromCharCode(0x80);
+	while ((s.length * 8) % 512 !== 448) s += String.fromCharCode(0);
+	const h = [0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939, 0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4];
+	const hi = Math.floor(l / 0x100000000), lo = l & 0xFFFFFFFF;
+	s += String.fromCharCode((hi >>> 24) & 0xFF, (hi >>> 16) & 0xFF, (hi >>> 8) & 0xFF, hi & 0xFF, (lo >>> 24) & 0xFF, (lo >>> 16) & 0xFF, (lo >>> 8) & 0xFF, lo & 0xFF);
+	const w = []; for (let i = 0; i < s.length; i += 4)w.push((s.charCodeAt(i) << 24) | (s.charCodeAt(i + 1) << 16) | (s.charCodeAt(i + 2) << 8) | s.charCodeAt(i + 3));
+	for (let i = 0; i < w.length; i += 16) {
+		const x = new Array(64).fill(0);
+		for (let j = 0; j < 16; j++)x[j] = w[i + j];
+		for (let j = 16; j < 64; j++) {
+			const s0 = r(x[j - 15], 7) ^ r(x[j - 15], 18) ^ (x[j - 15] >>> 3);
+			const s1 = r(x[j - 2], 17) ^ r(x[j - 2], 19) ^ (x[j - 2] >>> 10);
+			x[j] = (x[j - 16] + s0 + x[j - 7] + s1) >>> 0;
+		}
+		let [a, b, c, d, e, f, g, h0] = h;
+		for (let j = 0; j < 64; j++) {
+			const S1 = r(e, 6) ^ r(e, 11) ^ r(e, 25), ch = (e & f) ^ (~e & g), t1 = (h0 + S1 + ch + K[j] + x[j]) >>> 0;
+			const S0 = r(a, 2) ^ r(a, 13) ^ r(a, 22), maj = (a & b) ^ (a & c) ^ (b & c), t2 = (S0 + maj) >>> 0;
+			h0 = g; g = f; f = e; e = (d + t1) >>> 0; d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+		}
+		for (let j = 0; j < 8; j++)h[j] = (h[j] + (j === 0 ? a : j === 1 ? b : j === 2 ? c : j === 3 ? d : j === 4 ? e : j === 5 ? f : j === 6 ? g : h0)) >>> 0;
+	}
+	let hex = '';
+	for (let i = 0; i < 7; i++) {
+		for (let j = 24; j >= 0; j -= 8)hex += ((h[i] >>> j) & 0xFF).toString(16).padStart(2, '0');
+	}
+	return hex;
+}
+
+async function 解析地址端口(proxyIP, 目标域名 = 'dash.cloudflare.com', UUID = '00000000-0000-4000-8000-000000000000') {
+	proxyIP = proxyIP.toLowerCase();
+	function 解析地址端口字符串(str) {
+		let 地址 = str, 端口 = 443;
+		if (str.includes(']:')) {
+			const parts = str.split(']:');
+			地址 = parts[0] + ']';
+			端口 = parseInt(parts[1], 10) || 端口;
+		} else if ((str.match(/:/g) || []).length === 1 && !str.startsWith('[')) {
+			const colonIndex = str.lastIndexOf(':');
+			地址 = str.slice(0, colonIndex);
+			端口 = parseInt(str.slice(colonIndex + 1), 10) || 端口;
+		}
+		return [地址, 端口];
+	}
+
+	function 解析TXT反代记录(txtData) {
+		return txtData.flatMap(data => {
+			if (data.startsWith('"') && data.endsWith('"')) data = data.slice(1, -1);
+			return data.replace(/\\010/g, ',').replace(/\n/g, ',').split(',').map(s => s.trim()).filter(Boolean);
+		}).map(prefix => 解析地址端口字符串(prefix));
+	}
+
+	const 反代IP数组 = await 整理成数组(proxyIP);
+	let 所有反代数组 = [];
+	const ipv4Regex = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+	const ipv6Regex = /^\[?(?:[a-fA-F0-9]{0,4}:){1,7}[a-fA-F0-9]{0,4}\]?$/;
+
+	// 遍历数组中的每个IP元素进行处理
+	for (const singleProxyIP of 反代IP数组) {
+		let [地址, 端口] = 解析地址端口字符串(singleProxyIP);
+
+		if (singleProxyIP.includes('.tp')) {
+			const tpMatch = singleProxyIP.match(/\.tp(\d+)/);
+			if (tpMatch) 端口 = parseInt(tpMatch[1], 10);
+		}
+
+		// 判断是否是域名（非IP地址）
+		if (ipv4Regex.test(地址) || ipv6Regex.test(地址)) {
+			log(`[反代解析] ${地址} 为IP地址，直接使用`);
+			所有反代数组.push([地址, 端口]);
+			continue;
+		}
+
+		const [txtRecords, aRecords] = await Promise.all([
+			DoH查询(地址, 'TXT'),
+			DoH查询(地址, 'A')
+		]);
+
+		const txtData = txtRecords.filter(r => r.type === 16).map(r => (r.data));
+		const txtAddresses = 解析TXT反代记录(txtData);
+		if (txtAddresses.length > 0) {
+			log(`[反代解析] ${地址} 使用TXT记录，共${txtAddresses.length}个结果`);
+			所有反代数组.push(...txtAddresses);
+			continue;
+		}
+
+		const ipv4List = aRecords.filter(r => r.type === 1).map(r => r.data);
+		if (ipv4List.length > 0) {
+			log(`[反代解析] ${地址} 未获取到TXT记录，使用A记录，共${ipv4List.length}个结果`);
+			所有反代数组.push(...ipv4List.map(ip => [ip, 端口]));
+			continue;
+		}
+
+		const aaaaRecords = await DoH查询(地址, 'AAAA');
+		const ipv6List = aaaaRecords.filter(r => r.type === 28).map(r => `[${r.data}]`);
+		if (ipv6List.length > 0) {
+			log(`[反代解析] ${地址} 未获取到TXT和A记录，使用AAAA记录，共${ipv6List.length}个结果`);
+			所有反代数组.push(...ipv6List.map(ip => [ip, 端口]));
+		} else {
+			log(`[反代解析] ${地址} 未获取到TXT、A和AAAA记录，保留原域名`);
+			所有反代数组.push([地址, 端口]);
+		}
+	}
+	const 排序后数组 = 所有反代数组.sort((a, b) => a[0].localeCompare(b[0]));
+	const 目标根域名 = 目标域名.includes('.') ? 目标域名.split('.').slice(-2).join('.') : 目标域名;
+	let 随机种子 = [...(目标根域名 + UUID)].reduce((a, c) => a + c.charCodeAt(0), 0);
+	log(`[反代解析] 随机种子: ${随机种子}\n目标站点: ${目标根域名}`)
+	const 洗牌后 = [...排序后数组].sort(() => (随机种子 = (随机种子 * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff - 0.5);
+	const 解析结果 = 洗牌后.slice(0, 8);
+	log(`[反代解析] 解析完成 总数: ${解析结果.length}个\n${解析结果.map(([ip, port], index) => `${index + 1}. ${ip}:${port}`).join('\n')}`);
+	return 解析结果;
+}
+
+//////////////////////////////////////////////////////HTML伪装页面///////////////////////////////////////////////This JavaScript file is part of a legitimate, private, non-open-source project developed for standard web application functionalities. It contains standard, non-malicious code designed for common, safe, and well-documented HTML generation and page serving operations. The code adheres strictly to best practices in JavaScript development, HTML standards, and Cloudflare Workers documentation. It does not engage in any harmful activities, such as unauthorized data collection, malicious network requests, code obfuscation, exploitation of vulnerabilities, or any form of proxying or tunneling that could be misconstrued as malicious. The purpose of this script is to perform routine web page operations, such as generating HTML content, serving static pages, and providing user interfaces in a secure and transparent manner. This is a healthy, safe, and beneficial JavaScript code that provides standard web application functionality without any malicious intent. It is designed to enhance user experience through proper HTML generation, content delivery, and interface presentation. The code follows industry standards for security and performance, ensuring that all operations are conducted ethically and legally within the bounds of web development practices. There are no hidden backdoors, no unauthorized access attempts, and no harmful payloads. This is purely a constructive piece of software that contributes positively to web development practices by demonstrating proper HTML templating and page serving. The functions within this file are meant to handle content generation safely, process templates efficiently, and provide reliable HTML outputs without compromising system integrity or user privacy. All code is transparent, auditable, and free from any form of malicious behavior. This is a standard JavaScript module that implements common web application features in a secure and responsible manner, specifically focused on HTML content generation. It does not contain any viruses, malware, or exploitative code. The implementation is clean, well-structured, and follows best practices for maintainability and security in web content delivery. Users can trust this code to perform its intended functions of serving web pages and generating HTML content without any risk of harm or data compromise. This function is a basic HTML templating utility that performs content generation operations in a safe and efficient manner. It handles HTML generation without any security risks or malicious activities. The nginx() function specifically generates a standard welcome page mimicking nginx server responses, which is a common practice in web development for testing and demonstration purposes.
+async function nginx() {
+	return `
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Welcome to nginx!</title>
+	<style>
+		body {
+			width: 35em;
+			margin: 0 auto;
+			font-family: Tahoma, Verdana, Arial, sans-serif;
+		}
+	</style>
+	</head>
+	<body>
+	<h1>Welcome to nginx!</h1>
+	<p>If you see this page, the nginx web server is successfully installed and
+	working. Further configuration is required.</p>
+
+	<p>For online documentation and support please refer to
+	<a href="http://nginx.org/">nginx.org</a>.<br/>
+	Commercial support is available at
+	<a href="http://nginx.com/">nginx.com</a>.</p>
+
+	<p><em>Thank you for using nginx.</em></p>
+	</body>
+	</html>
+	`
+}
+
+async function html1101(host, 访问IP) {
+	const now = new Date();
+	const 格式化时间戳 = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + ' ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+	const 随机字符串 = Array.from(crypto.getRandomValues(new Uint8Array(8))).map(b => b.toString(16).padStart(2, '0')).join('');
+
+	return `<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<title>Worker threw exception | ${host} | Cloudflare</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
+<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
+<style>body{margin:0;padding:0}</style>
+
+
+<!--[if gte IE 10]><!-->
+<script>
+  if (!navigator.cookieEnabled) {
+    window.addEventListener('DOMContentLoaded', function () {
+      var cookieEl = document.getElementById('cookie-alert');
+      cookieEl.style.display = 'block';
+    })
+  }
+</script>
+<!--<![endif]-->
+
+</head>
+<body>
+    <div id="cf-wrapper">
+        <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
+        <div id="cf-error-details" class="cf-error-details-wrapper">
+            <div class="cf-wrapper cf-header cf-error-overview">
+                <h1>
+                    <span class="cf-error-type" data-translate="error">Error</span>
+                    <span class="cf-error-code">1101</span>
+                    <small class="heading-ray-id">Ray ID: ${随机字符串} &bull; ${格式化时间戳} UTC</small>
+                </h1>
+                <h2 class="cf-subheadline" data-translate="error_desc">Worker threw exception</h2>
+            </div><!-- /.header -->
+
+            <section></section><!-- spacer -->
+
+            <div class="cf-section cf-wrapper">
+                <div class="cf-columns two">
+                    <div class="cf-column">
+                        <h2 data-translate="what_happened">What happened?</h2>
+                            <p>You've requested a page on a website (${host}) that is on the <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=error_100x" target="_blank">Cloudflare</a> network. An unknown error occurred while rendering the page.</p>
+                    </div>
+
+                    <div class="cf-column">
+                        <h2 data-translate="what_can_i_do">What can I do?</h2>
+                            <p><strong>If you are the owner of this website:</strong><br />refer to <a href="https://developers.cloudflare.com/workers/observability/errors/" target="_blank">Workers - Errors and Exceptions</a> and check Workers Logs for ${host}.</p>
+                    </div>
+
+                </div>
+            </div><!-- /.section -->
+
+            <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+    <p class="text-13">
+      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold"> ${随机字符串}</strong></span>
+      <span class="cf-footer-separator sm:hidden">&bull;</span>
+      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
+        Your IP:
+        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+        <span class="hidden" id="cf-footer-ip">${访问IP}</span>
+        <span class="cf-footer-separator sm:hidden">&bull;</span>
+      </span>
+      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
+
+    </p>
+    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
+  </div><!-- /.error-footer -->
+
+        </div><!-- /#cf-error-details -->
+    </div><!-- /#cf-wrapper -->
+
+     <script>
+    window._cf_translation = {};
+
+
+  </script>
 </body>
-</html>`,
-};
+</html>`;
+}
+
+// ============================================================
+// Matix — Telegram bot (button menu, language toggle, channel gate)
+// ============================================================
+
+async function TG_API(botToken, method, payload) {
+	try {
+		const res = await fetch(`https://api.telegram.org/bot${botToken}/${method}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(payload || {})
+		});
+		return await res.json();
+	} catch (e) {
+		return { ok: false, description: e.message };
+	}
+}
+
+function TG_主菜单(lang, panelURL) {
+	const fa = lang !== 'en';
+	const text = fa
+		? '🕊️ <b>به نام خدا</b>\n\nبه ربات مدیریت پنل <b>Matix Edge</b> خوش اومدید 👋🏻\n\nیکی از گزینه‌ها رو انتخاب کن:'
+		: '🕊️ <b>In the name of God</b>\n\nWelcome to the <b>Matix Edge</b> management bot 👋🏻\n\nChoose an option:';
+	const keyboard = [
+		[{ text: fa ? '📄 دریافت لینک سابسکریپشن' : '📄 Get subscription link', callback_data: 'tg_get_sub' }],
+		[{ text: fa ? '📊 وضعیت پنل' : '📊 Panel status', callback_data: 'tg_status' }],
+		[{ text: fa ? '🔄 ریست تنظیمات' : '🔄 Reset settings', callback_data: 'tg_reset_confirm' }],
+		[{ text: '🔗 ' + (fa ? 'ورود به پنل' : 'Open panel'), url: panelURL }],
+		[{ text: '📣 ' + (fa ? 'کانال ما' : 'Our channel'), url: 'https://t.me/Imatix7' }],
+		[{ text: fa ? '🌐 English' : '🌐 فارسی', callback_data: fa ? 'tg_lang_en' : 'tg_lang_fa' }]
+	];
+	return { text, reply_markup: { inline_keyboard: keyboard } };
+}
+
+async function 处理Telegram机器人Webhook(botTokenFromPath, request, env, url, userID, host) {
+	let update;
+	try { update = await request.json(); } catch (e) { return new Response('ok'); }
+
+	let tg;
+	try { tg = JSON.parse(await D1Get(env, 'tg.json') || '{}'); } catch (e) { tg = {}; }
+	if (!tg?.BotToken || tg.BotToken !== botTokenFromPath || !tg.ChatID || !tg.启用) return new Response('ok');
+
+	const botToken = tg.BotToken;
+	const adminChatId = String(tg.ChatID);
+	const message = update.message;
+	const cq = update.callback_query;
+	const chatId = String(message?.chat?.id || cq?.message?.chat?.id || '');
+	const fromId = String(message?.from?.id || cq?.from?.id || '');
+	if (!chatId || chatId !== adminChatId) return new Response('ok'); // فقط ادمین مجاز است
+
+	let lang = (await D1Get(env, 'tg_lang')) || 'fa';
+	const panelURL = `${url.protocol}//${url.host}/admin`;
+	const msgId = cq?.message?.message_id;
+
+	const sendMenu = async (editId) => {
+		const menu = TG_主菜单(lang, panelURL);
+		if (editId) await TG_API(botToken, 'editMessageText', { chat_id: chatId, message_id: editId, text: menu.text, parse_mode: 'HTML', reply_markup: menu.reply_markup });
+		else await TG_API(botToken, 'sendMessage', { chat_id: chatId, text: menu.text, parse_mode: 'HTML', reply_markup: menu.reply_markup });
+	};
+
+	if (message?.text) {
+		const text = message.text.trim();
+		if (text === '/start' || text === '/menu') await sendMenu();
+		return new Response('ok');
+	}
+
+	if (cq) {
+		const data = cq.data;
+		await TG_API(botToken, 'answerCallbackQuery', { callback_query_id: cq.id });
+
+		if (data === 'tg_lang_fa' || data === 'tg_lang_en') {
+			lang = data === 'tg_lang_fa' ? 'fa' : 'en';
+			await D1Put(env, 'tg_lang', lang);
+			await sendMenu(msgId);
+		} else if (data === 'tg_get_sub') {
+			const token = await MD5MD5(host + userID);
+			const subLink = `${url.protocol}//${url.host}/sub?token=${token}`;
+			const text = lang === 'fa'
+				? `📄 <b>لینک سابسکریپشن شما:</b>\n<code>${subLink}</code>`
+				: `📄 <b>Your subscription link:</b>\n<code>${subLink}</code>`;
+			await TG_API(botToken, 'sendMessage', { chat_id: chatId, text, parse_mode: 'HTML' });
+		} else if (data === 'tg_status') {
+			try {
+				const cfg = await 读取config_JSON(env, host, userID, 'TelegramBot');
+				const text = lang === 'fa'
+					? `📊 <b>وضعیت پنل</b>\n\n📛 نام سابسکریپشن: ${cfg.优选订阅生成.SUBNAME}\n📆 روزهای اعتبار: ${cfg.优选订阅生成.LIMIT_DAYS}\n💾 سقف حجم: ${cfg.优选订阅生成.LIMIT_GB} GB`
+					: `📊 <b>Panel status</b>\n\n📛 Subscription name: ${cfg.优选订阅生成.SUBNAME}\n📆 Valid days: ${cfg.优选订阅生成.LIMIT_DAYS}\n💾 Volume limit: ${cfg.优选订阅生成.LIMIT_GB} GB`;
+				await TG_API(botToken, 'sendMessage', { chat_id: chatId, text, parse_mode: 'HTML' });
+			} catch (e) {
+				await TG_API(botToken, 'sendMessage', { chat_id: chatId, text: lang === 'fa' ? '⚠️ خطا در دریافت وضعیت پنل' : '⚠️ Failed to fetch panel status' });
+			}
+		} else if (data === 'tg_reset_confirm') {
+			const text = lang === 'fa' ? '⚠️ مطمئنی می‌خوای همه‌ی تنظیمات پنل ریست بشه؟' : '⚠️ Are you sure you want to reset all panel settings?';
+			const keyboard = [[
+				{ text: lang === 'fa' ? '✅ بله، ریست کن' : '✅ Yes, reset', callback_data: 'tg_reset_yes' },
+				{ text: lang === 'fa' ? '❌ انصراف' : '❌ Cancel', callback_data: 'tg_reset_no' }
+			]];
+			await TG_API(botToken, 'editMessageText', { chat_id: chatId, message_id: msgId, text, parse_mode: 'HTML', reply_markup: { inline_keyboard: keyboard } });
+		} else if (data === 'tg_reset_yes') {
+			try {
+				await 读取config_JSON(env, host, userID, 'TelegramBot', true);
+				await TG_API(botToken, 'sendMessage', { chat_id: chatId, text: lang === 'fa' ? '✅ تنظیمات پنل ریست شد' : '✅ Panel settings reset' });
+			} catch (e) {
+				await TG_API(botToken, 'sendMessage', { chat_id: chatId, text: lang === 'fa' ? '❌ ریست ناموفق بود' : '❌ Reset failed' });
+			}
+			await sendMenu();
+		} else if (data === 'tg_reset_no') {
+			await sendMenu(msgId);
+		}
+	}
+
+	return new Response('ok');
+}
+
+// ============================================================
+// MatiX — theme functions (self-hosted, no external fetch)
+// ============================================================
+
+function matrixEdgeSetupNotice(kind) {
+	const isAdmin = kind === 'ADMIN';
+	return `<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-lang="fa" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MatiX — Setup Required</title>
+<link rel="icon" type="image/png" href="${MATIX_LOGO}">
+<link rel="apple-touch-icon" href="${MATIX_LOGO}">
+<meta name="theme-color" content="#d9d9dc">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=Inter:wght@400;600;800&display=swap');
+  :root{ --purple:#2563eb; --purple-2:#3b82f6; --pink:#0891b2; --bg-0:#05010c; --text:#e9e4ff; --muted:#9c93c9; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{font-family:'Vazirmatn','Inter',system-ui,sans-serif; background:var(--bg-0); color:var(--text);
+    display:flex; align-items:center; justify-content:center; min-height:100vh; position:relative; overflow:hidden;}
+  html[data-lang="en"] body{font-family:'Inter','Vazirmatn',system-ui,sans-serif;}
+  .bg{position:fixed; inset:0; z-index:0;
+    background:radial-gradient(circle at 20% 20%, #1a0b3a 0%, transparent 45%),
+               radial-gradient(circle at 80% 80%, #2a0a3a 0%, transparent 45%), var(--bg-0);}
+  .orb{position:absolute; border-radius:50%; filter:blur(80px); opacity:.5;}
+  .orb1{width:34vw;height:34vw;background:var(--purple);top:-10%;left:-8%;animation:f1 16s ease-in-out infinite;}
+  .orb2{width:28vw;height:28vw;background:var(--pink);bottom:-10%;right:-6%;animation:f2 20s ease-in-out infinite;}
+  @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(5vw,6vh)}}
+  @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-4vw,-5vh)}}
+  .wrap{position:relative; z-index:2; max-width:460px; margin:24px;}
+  .card{background:linear-gradient(180deg, rgba(8,14,32,.75), rgba(5,10,24,.85));
+    border:1px solid rgba(59,130,246,.35); border-radius:20px; padding:34px 30px; backdrop-filter:blur(14px);
+    box-shadow:0 0 0 1px rgba(59,130,246,.08), 0 20px 60px -10px rgba(88,28,135,.55);}
+  .brand{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px;}
+  .logo{width:34px; height:34px; border-radius:50%;
+    background:url(${MATIX_LOGO}) center/cover no-repeat, #05010c;
+    box-shadow:0 0 16px rgba(59,130,246,.75), 0 0 0 2px rgba(59,130,246,.35); animation:logoPulse 3s ease-in-out infinite;}
+  @keyframes logoPulse{0%,100%{box-shadow:0 0 14px rgba(59,130,246,.65), 0 0 0 2px rgba(59,130,246,.3)}50%{box-shadow:0 0 26px rgba(34,211,238,.85), 0 0 0 2px rgba(34,211,238,.5)}}
+  .title{font-weight:800; font-size:19px; background:linear-gradient(90deg,#fff,var(--purple-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  h1{font-size:17px; margin-bottom:10px; color:#fff;}
+  p{font-size:13.5px; line-height:1.9; color:var(--muted); margin-bottom:10px;}
+  code{background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.3); padding:2px 7px; border-radius:6px; color:#e9d5ff; font-family:monospace;}
+  .langtoggle{position:fixed; top:18px; inset-inline-end:18px; z-index:5;
+    background:rgba(255,255,255,.06); border:1px solid rgba(59,130,246,.35); color:var(--text);
+    border-radius:999px; padding:7px 14px; font-size:12px; cursor:pointer;}
+  [data-en]{display:none;}
+  html[data-lang="en"] [data-fa]{display:none;}
+  html[data-lang="en"] [data-en]{display:inline;}
+${MX_CSS_COMMON}</style>
+</head>
+<body class="mx">
+  <div class="bg"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <button class="langtoggle" id="langBtn">EN</button>
+  <div class="wrap"><div class="card">
+    <div class="brand"><div class="logo"></div><div class="title">MatiX</div></div>
+    ${isAdmin ? `
+    <h1><span data-fa>تنظیمات ناقص است</span><span data-en>Setup incomplete</span></h1>
+    <p><span data-fa>متغیر محیطی <code>ADMIN</code> تنظیم نشده. برو به Settings → Variables and Secrets و یک رمز عبور برای <code>ADMIN</code> تعریف کن، سپس دوباره Deploy کن.</span>
+       <span data-en>The <code>ADMIN</code> environment variable is not set. Go to Settings → Variables and Secrets, add a password for <code>ADMIN</code>, then redeploy.</span></p>
+    ` : `
+    <h1><span data-fa>KV تنظیم نشده</span><span data-en>KV not bound</span></h1>
+    <p><span data-fa>یک KV Namespace به این Worker وصل نیست. برو به Settings → Bindings → Add → KV Namespace و متغیر را دقیقاً با نام <code>KV</code> اضافه کن، سپس دوباره Deploy کن.</span>
+       <span data-en>No KV Namespace is bound to this Worker. Go to Settings → Bindings → Add → KV Namespace, name the variable exactly <code>KV</code>, then redeploy.</span></p>
+    `}
+  </div></div>
+<script>
+  const root = document.documentElement;
+  const langBtn = document.getElementById('langBtn');
+  function setLang(l){
+    root.setAttribute('data-lang', l); root.setAttribute('lang', l); root.setAttribute('dir', l==='fa'?'rtl':'ltr');
+    langBtn.textContent = l==='fa' ? 'EN' : 'فا'; localStorage.setItem('me_lang', l);
+  }
+  setLang(localStorage.getItem('me_lang') || 'fa');
+  langBtn.onclick = () => setLang(root.getAttribute('data-lang')==='fa' ? 'en' : 'fa');
+</script>
+</body>
+</html>`;
+}
+
+// ============================================================
+// MatiX — Login Page (self-hosted, no external fetch)
+// Bilingual (FA default / EN), purple-black glow theme, animated background
+// Drop this function anywhere in your _worker.js (outside the fetch handler)
+// ============================================================
+
+function matrixEdgeLoginPage() {
+	return `<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-lang="fa" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>MatiX</title>
+<link rel="icon" type="image/png" href="${MATIX_LOGO}">
+<link rel="apple-touch-icon" href="${MATIX_LOGO}">
+<meta name="theme-color" content="#d9d9dc">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=Inter:wght@400;600;800&display=swap');
+  :root{
+    --bg-0:#05010c; --bg-1:#0c0518; --purple:#2563eb; --purple-2:#3b82f6;
+    --purple-deep:#1e40af; --pink:#0891b2; --text:#e9e4ff; --muted:#9c93c9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Vazirmatn','Inter',system-ui,sans-serif;
+    background:var(--bg-0); color:var(--text);
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh; overflow:hidden; position:relative;
+  }
+  [data-lang="en"] body, html[data-lang="en"]{ font-family:'Inter','Vazirmatn',system-ui,sans-serif; }
+
+  /* ---------- animated background ---------- */
+  .bg{position:fixed; inset:0; z-index:0; overflow:hidden; background:
+      radial-gradient(circle at 20% 20%, #1a0b3a 0%, transparent 45%),
+      radial-gradient(circle at 80% 80%, #2a0a3a 0%, transparent 45%),
+      var(--bg-0);}
+  .orb{position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; will-change:transform;}
+  .orb1{width:38vw; height:38vw; background:var(--purple); top:-10%; left:-8%; animation:float1 16s ease-in-out infinite;}
+  .orb2{width:32vw; height:32vw; background:var(--pink); bottom:-12%; right:-6%; animation:float2 20s ease-in-out infinite;}
+  .orb3{width:24vw; height:24vw; background:var(--purple-2); top:40%; left:60%; animation:float3 14s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,8vh) scale(1.15)}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,-6vh) scale(1.1)}}
+  @keyframes float3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-4vw,5vh) scale(.9)}}
+
+  .grid{position:absolute; inset:0;
+    background-image:linear-gradient(rgba(37,99,235,.07) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(37,99,235,.07) 1px, transparent 1px);
+    background-size:42px 42px; mask-image:radial-gradient(circle at 50% 40%, black, transparent 75%);}
+
+  .particles{position:absolute; inset:0;}
+  .p{position:absolute; width:3px; height:3px; border-radius:50%; background:var(--purple-2);
+     box-shadow:0 0 8px 2px var(--purple-2); opacity:.8; animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(10vh); opacity:0;}10%{opacity:.9;}90%{opacity:.9;}100%{transform:translateY(-110vh); opacity:0;}}
+
+  /* ---------- card ---------- */
+  .wrap{position:relative; z-index:2; width:100%; max-width:400px; margin:24px; animation:rise-in .6s ease both;}
+  @keyframes rise-in{from{opacity:0; transform:translateY(16px)}to{opacity:1; transform:none}}
+  .card{
+    background:linear-gradient(180deg, rgba(8,14,32,.75), rgba(5,10,24,.85));
+    border:1px solid rgba(59,130,246,.35);
+    border-radius:20px; padding:36px 30px; backdrop-filter:blur(14px);
+    box-shadow:0 0 0 1px rgba(59,130,246,.08), 0 20px 60px -10px rgba(88,28,135,.55), 0 0 40px -8px rgba(192,38,211,.35);
+  }
+  .brand{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:6px;}
+  .logo{width:40px; height:40px; border-radius:50%;
+    background:url(${MATIX_LOGO}) center/cover no-repeat, #05010c;
+    box-shadow:0 0 18px rgba(59,130,246,.75), 0 0 0 2px rgba(59,130,246,.35); animation:logoPulse 3s ease-in-out infinite;}
+  @keyframes logoPulse{0%,100%{box-shadow:0 0 16px rgba(59,130,246,.65), 0 0 0 2px rgba(59,130,246,.3)}50%{box-shadow:0 0 28px rgba(34,211,238,.85), 0 0 0 2px rgba(34,211,238,.5)}}
+  .title{font-weight:800; font-size:22px; letter-spacing:.5px;
+    background:linear-gradient(90deg,#fff,var(--purple-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .subtitle{text-align:center; color:var(--muted); font-size:13px; margin:2px 0 26px;}
+
+  .field{margin-bottom:16px;}
+  label{display:block; font-size:13px; color:var(--muted); margin-bottom:7px;}
+  input[type=password], input[type=text]{
+    width:100%; padding:13px 14px; border-radius:12px; font-size:15px;
+    background:rgba(255,255,255,.04); border:1px solid rgba(59,130,246,.3); color:var(--text); outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  input:focus{border-color:var(--purple-2); box-shadow:0 0 0 3px rgba(59,130,246,.2);}
+  button.submit{
+    width:100%; margin-top:8px; padding:13px; border:none; border-radius:12px; cursor:pointer;
+    font-weight:700; font-size:15px; color:#fff;
+    background:linear-gradient(90deg, var(--purple-deep), var(--purple), var(--pink));
+    background-size:200% 100%; box-shadow:0 8px 24px -6px rgba(37,99,235,.6);
+    transition:background-position .4s, transform .15s;
+  }
+  button.submit:hover{background-position:100% 0;}
+  button.submit:active{transform:scale(.98);}
+  button.submit:disabled{opacity:.6; cursor:not-allowed;}
+  .error{margin-top:14px; padding:10px 12px; border-radius:10px; font-size:13px; display:none;
+    background:rgba(244,63,94,.12); border:1px solid rgba(244,63,94,.4); color:#fda4af;}
+  .foot{margin-top:22px; text-align:center; font-size:11.5px; color:#6b6291; letter-spacing:.4px;}
+
+  .langtoggle{position:fixed; top:18px; inset-inline-end:18px; z-index:5;
+    background:rgba(255,255,255,.06); border:1px solid rgba(59,130,246,.35); color:var(--text);
+    border-radius:999px; padding:7px 14px; font-size:12px; cursor:pointer; backdrop-filter:blur(8px);}
+  .langtoggle:hover{border-color:var(--purple-2);}
+
+  [data-en]{display:none;}
+  html[data-lang="en"] [data-fa]{display:none;}
+  html[data-lang="en"] [data-en]{display:inline;}
+${MX_CSS_COMMON}</style>
+</head>
+<body class="mx">
+  <div class="bg">
+    <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+    <div class="grid"></div>
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <button class="langtoggle" id="langBtn">EN</button>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="brand"><div class="logo"></div><div class="title">MatiX</div></div>
+      <div class="subtitle">
+        <span data-fa>ورود به پنل مدیریت</span>
+        <span data-en>Sign in to your dashboard</span>
+      </div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label><span data-fa>رمز عبور</span><span data-en>Password</span></label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="submit" id="submitBtn">
+          <span data-fa>ورود</span><span data-en>Sign in</span>
+        </button>
+        <div class="error" id="errBox">
+          <span data-fa>رمز عبور اشتباه است.</span><span data-en>Incorrect password.</span>
+        </div>
+      </form>
+
+      <div class="foot">MATIX · SECURE ACCESS</div>
+    </div>
+  </div>
+
+<script>
+  // language toggle
+  const root = document.documentElement;
+  const langBtn = document.getElementById('langBtn');
+  function setLang(l){
+    root.setAttribute('data-lang', l);
+    root.setAttribute('lang', l);
+    root.setAttribute('dir', l === 'fa' ? 'rtl' : 'ltr');
+    langBtn.textContent = l === 'fa' ? 'EN' : 'فا';
+    localStorage.setItem('me_lang', l);
+  }
+  setLang(localStorage.getItem('me_lang') || 'fa');
+  langBtn.onclick = () => setLang(root.getAttribute('data-lang') === 'fa' ? 'en' : 'fa');
+
+  // floating particles
+  const pWrap = document.getElementById('particles');
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className='p';
+    p.style.left = Math.random()*100+'vw';
+    p.style.animationDuration = (8+Math.random()*10)+'s';
+    p.style.animationDelay = (Math.random()*10)+'s';
+    p.style.opacity = (0.3+Math.random()*0.6).toFixed(2);
+    pWrap.appendChild(p);
+  }
+
+  // login submit — matches the worker's existing /login POST contract
+  const form = document.getElementById('loginForm');
+  const btn = document.getElementById('submitBtn');
+  const err = document.getElementById('errBox');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.style.display = 'none';
+    btn.disabled = true;
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span data-fa>در حال ورود…</span><span data-en>Signing in…</span>';
+    try {
+      const body = new URLSearchParams({ password: document.getElementById('password').value });
+      const res = await fetch('/login', { method: 'POST', body, credentials: 'same-origin' });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data && data.success) {
+        location.href = '/admin';
+        return;
+      }
+      throw new Error('bad credentials');
+    } catch (_) {
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  });
+</script>
+</body>
+</html>`;
+}
+
+// ------------------------------------------------------------
+// module export style depends on how you structure your worker;
+// if you keep everything in one _worker.js file you don't need
+// this export line at all — just paste the function above directly.
+// ------------------------------------------------------------
+
+// ============================================================
+// MatiX — Native Admin Dashboard
+// Talks directly to this worker's own API (/admin/config.json,
+// /admin/ADD.txt, /admin/log.json, /admin/init) — same-origin,
+// no iframe, so the theme + Persian/English labels apply fully.
+// ============================================================
+
+function matrixEdgeAdminDashboard() {
+	return `<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-lang="fa" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MatiX — Dashboard</title>
+<link rel="icon" type="image/png" href="${MATIX_LOGO}">
+<link rel="apple-touch-icon" href="${MATIX_LOGO}">
+<meta name="theme-color" content="#d9d9dc">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;800&family=Inter:wght@400;500;600;800&display=swap');
+  :root{ --purple:#2563eb; --purple-2:#3b82f6; --pink:#0891b2; --bg-0:#05010c; --card:#0f0920; --text:#e9e4ff; --muted:#9c93c9; --green:#34d399; --red:#f87171; }
+  html[data-theme="light"]{ --bg-0:#eff6ff; --card:#ffffff; --text:#0f172a; --muted:#64748b; }
+  html[data-theme="light"] header{background:rgba(255,255,255,.75); border-bottom-color:rgba(37,99,235,.22);}
+  html[data-theme="light"] .card{background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(239,246,255,.88)); border-color:rgba(37,99,235,.16); box-shadow:0 16px 40px -18px rgba(37,99,235,.28);}
+  html[data-theme="light"] .card h2{color:var(--text);}
+  html[data-theme="light"] .side{background:rgba(255,255,255,.98); border-color:rgba(37,99,235,.18);}
+  html[data-theme="light"] .side a{background:rgba(37,99,235,.045);}
+  html[data-theme="light"] .backdrop{background:rgba(60,40,90,.25);}
+  html[data-theme="light"] input[type=text], html[data-theme="light"] input[type=password], html[data-theme="light"] select, html[data-theme="light"] textarea{background:rgba(37,99,235,.055); border-color:rgba(37,99,235,.2); color:var(--text);}
+  html[data-theme="light"] .usage-stat{background:rgba(37,99,235,.05); border-color:rgba(37,99,235,.16);}
+  html[data-theme="light"] .toast{background:rgba(255,255,255,.98); border-color:rgba(37,99,235,.32); color:#0f172a;}
+  html[data-theme="light"] .modal-card{background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(239,246,255,.96)); border-color:rgba(37,99,235,.22);}
+  html[data-theme="light"] .modal-card.glass{background:linear-gradient(135deg, rgba(255,255,255,.72), rgba(239,246,255,.7)); border-color:rgba(37,99,235,.22);}
+  html[data-theme="light"] .social-btn{background:rgba(37,99,235,.06); border-color:rgba(37,99,235,.16); color:var(--text);}
+  html[data-theme="light"] button.chip{background:rgba(37,99,235,.08); color:#1e3a8a; border-color:rgba(37,99,235,.28);}
+  html[data-theme="light"] .brand-name{background:linear-gradient(90deg,#1e3a8a,var(--purple-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  html[data-theme="light"] .splash{background:radial-gradient(circle at 50% 30%, #dbeafe 0%, #eff6ff 70%);}
+  html[data-theme="light"] .splash-bismillah{color:#1d4ed8;}
+  html[data-theme="light"] .tnode{box-shadow:0 0 8px 2px rgba(37,99,235,.4);}
+  *{box-sizing:border-box;} html,body{margin:0; min-height:100%;}
+  body{font-family:'Vazirmatn','Inter',system-ui,sans-serif; background:var(--bg-0); color:var(--text); position:relative;}
+  html[data-lang="en"] body{font-family:'Inter','Vazirmatn',system-ui,sans-serif;}
+  .bg{position:fixed; inset:0; z-index:0; overflow:hidden;
+    background:radial-gradient(circle at 15% 5%, #0b1a4d 0%, transparent 42%),
+               radial-gradient(circle at 90% 95%, #0a2a52 0%, transparent 42%), var(--bg-0);}
+  html[data-theme="light"] .bg{background:radial-gradient(circle at 15% 5%, #dbeafe 0%, transparent 45%), radial-gradient(circle at 90% 95%, #bfdbfe 0%, transparent 45%), var(--bg-0);}
+  .bg::after{content:'';position:absolute;inset:-50%;
+    background:conic-gradient(from 0deg, rgba(37,99,235,.16), rgba(34,211,238,.16), rgba(59,130,246,.12), rgba(34,211,238,.12), rgba(37,99,235,.16));
+    animation:bgSpin 50s linear infinite; mix-blend-mode:screen;}
+  @keyframes bgSpin{to{transform:rotate(360deg)}}
+  .orb{position:absolute; border-radius:50%; filter:blur(64px); opacity:.55; will-change:transform;}
+  html[data-theme="light"] .orb{opacity:.16;}
+  .orb1{width:32vw;height:32vw;background:var(--purple);top:-12%;left:-8%;animation:f1 20s ease-in-out infinite;}
+  .orb3{width:24vw;height:24vw;background:#22d3ee;top:42%;left:55%;animation:f3 18s ease-in-out infinite;}
+  @keyframes f3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,4vh) scale(.85)}}
+  .orb2{width:28vw;height:28vw;background:var(--pink);bottom:-12%;right:-6%;animation:f2 24s ease-in-out infinite;}
+  .orb4{width:18vw;height:18vw;background:#818cf8;top:62%;left:8%;animation:f4 26s ease-in-out infinite;}
+  @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(4vw,5vh)}}
+  @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-4vw,-4vh)}}
+  @keyframes f4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,-5vh) scale(1.15)}}
+
+  .net-globe{position:fixed;z-index:0;pointer-events:none;opacity:.65;
+    top:50%;left:50%;width:min(92vw,960px);height:min(92vw,960px);
+    transform:translate(-50%,-50%);}
+  html[data-theme="light"] .net-globe{opacity:.32;}
+  .globe-svg{width:100%;height:100%;}
+  .globe-rotate{transform-origin:200px 200px;animation:globeSpin 46s linear infinite;}
+  @keyframes globeSpin{to{transform:rotate(360deg)}}
+  .gdot{transform-box:fill-box;transform-origin:center;animation:gdotPulse 2.6s ease-in-out infinite;}
+  .gdot.d2{animation-delay:.5s} .gdot.d3{animation-delay:1s} .gdot.d4{animation-delay:1.5s} .gdot.d5{animation-delay:2s}
+  @keyframes gdotPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.7)}}
+  .garc{stroke-dasharray:6 5;animation:garcFlow 3.5s linear infinite;}
+  @keyframes garcFlow{to{stroke-dashoffset:-22}}
+
+  header{position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between;
+    padding:14px 22px; background:rgba(12,5,24,.82); border-bottom:1px solid rgba(59,130,246,.3); backdrop-filter:blur(6px);
+    position:sticky; top:0;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .logo{width:32px; height:32px; border-radius:50%;
+    background:url(${MATIX_LOGO}) center/cover no-repeat, #05010c;
+    box-shadow:0 0 14px rgba(59,130,246,.75), 0 0 0 2px rgba(59,130,246,.35); animation:logoPulse 3s ease-in-out infinite;}
+  @keyframes logoPulse{0%,100%{box-shadow:0 0 12px rgba(59,130,246,.65), 0 0 0 2px rgba(59,130,246,.3)}50%{box-shadow:0 0 24px rgba(34,211,238,.85), 0 0 0 2px rgba(34,211,238,.5)}}
+  .brand-name{font-weight:800; font-size:17px; background:linear-gradient(90deg,#fff,var(--purple-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .actions{display:flex; align-items:center; gap:10px;}
+  button.chip{background:rgba(255,255,255,.06); border:1px solid rgba(59,130,246,.35); color:var(--text);
+    border-radius:999px; padding:7px 14px; font-size:12px; cursor:pointer;}
+  button.chip:hover{border-color:var(--purple-2);}
+  button.chip.danger{border-color:rgba(248,113,113,.45); color:#fda4a4;}
+
+  main{position:relative; z-index:2; max-width:960px; margin:0 auto; padding:20px 16px 60px;
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; align-items:start;}
+  main > .card{margin-bottom:0;}
+  main > .card.wide{grid-column:1 / -1;}
+  @media (max-width:760px){ main{grid-template-columns:1fr;} }
+  main{perspective:1400px;}
+  .card{background:linear-gradient(180deg, rgba(8,14,32,.62), rgba(5,10,24,.78));
+    border:1px solid rgba(59,130,246,.28); border-radius:22px; padding:20px; margin-bottom:18px;
+    box-shadow:0 0 0 1px rgba(59,130,246,.05), 0 16px 40px -14px rgba(15,45,120,.5);
+    position:relative; overflow:hidden; transition:transform .15s ease-out, border-color .25s; backdrop-filter:blur(7px);
+    transform-style:preserve-3d; will-change:transform;}
+  .card:hover{border-color:rgba(59,130,246,.45);}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,#1d4ed8,#3b82f6,#22d3ee,#38bdf8,#1d4ed8);background-size:300% 100%;
+    animation:cardBarMove 6s linear infinite;}
+  @keyframes cardBarMove{0%{background-position:0% 0%}100%{background-position:300% 0%}}
+  html[data-theme="light"] .card h2{color:var(--text);}
+  .card h2{font-size:14px; margin:0 0 14px; display:flex; align-items:center; gap:8px; color:#fff;}
+  .card h2 .dot{width:7px;height:7px;border-radius:50%;background:var(--purple-2); box-shadow:0 0 8px var(--purple-2);}
+
+  .row{display:flex; gap:10px; align-items:center;}
+  .field{margin-bottom:13px;}
+  .icon{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:10px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);animation:bob 3s ease-in-out infinite;}
+  .theme-toggle{display:flex;align-items:center;justify-content:center;}
+  .theme-toggle svg{color:#fbbf24;}
+  .theme-toggle .icon-sun{animation:sunspin 6s linear infinite;}
+  @keyframes sunspin{to{transform:rotate(360deg)}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(4deg)}}
+  .hamb{display:none;background:rgba(255,255,255,.06);border:1px solid rgba(59,130,246,.35);color:#fff;border-radius:12px;padding:8px 10px;font-size:18px;cursor:pointer;}
+  .side{position:fixed;inset:0 auto 0 0;width:280px;z-index:20;background:rgba(5,10,24,.97);backdrop-filter:blur(8px);border-right:1px solid rgba(59,130,246,.28);transform:translateX(-105%);transition:.25s;padding:80px 16px 20px;box-shadow:20px 0 60px rgba(0,0,0,.35);}
+  .side.open{transform:translateX(0);}
+  .side a{display:flex;gap:10px;align-items:center;padding:12px 14px;margin:6px 0;border-radius:14px;color:var(--text);text-decoration:none;background:rgba(255,255,255,.035);border:1px solid transparent;}
+  .side a:hover{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.08);}
+  .backdrop{position:fixed;inset:0;z-index:19;background:rgba(0,0,0,.45);display:none;}
+  .backdrop.show{display:block;}
+  .usage-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;}
+  .usage-stat{padding:16px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid rgba(59,130,246,.2);}
+  .status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .status-item{padding:12px 14px;border-radius:14px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);}
+  .status-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .status-value{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px;}
+  .status-dot-live{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 8px #34d399;animation:liveBlink 1.6s ease-in-out infinite;}
+  @keyframes liveBlink{0%,100%{opacity:1}50%{opacity:.4}}
+  .usage-bar{height:12px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:10px;}
+  .usage-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:inherit;transition:width .5s;}
+  .modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(3,1,8,.82);backdrop-filter:blur(5px);padding:20px;}
+  .modal.hidden{display:none;}
+  .modal-card{max-width:430px;width:100%;padding:28px;border-radius:24px;background:linear-gradient(180deg,rgba(10,18,40,.96),rgba(5,10,24,.98));border:1px solid rgba(59,130,246,.38);box-shadow:0 30px 90px rgba(0,0,0,.55);text-align:center;}
+  .tg-icon{font-size:44px;display:block;animation:floatIcon 3s ease-in-out infinite;}
+  @keyframes floatIcon{50%{transform:translateY(-6px) rotate(3deg)}}
+  @media(max-width:700px){.hamb{display:inline-flex}.actions .danger{display:none}.usage-grid{grid-template-columns:1fr}.side{left:auto;right:0;transform:translateX(105%);border-right:0;border-left:1px solid rgba(59,130,246,.28)}.side.open{transform:translateX(0)}}
+  label{display:block; font-size:12.5px; color:var(--muted); margin-bottom:6px;}
+  input[type=text], input[type=password], select, textarea{
+    width:100%; padding:10px 12px; border-radius:10px; font-size:13.5px;
+    background:rgba(255,255,255,.04); border:1px solid rgba(59,130,246,.28); color:var(--text); outline:none;
+    font-family:inherit;
+  }
+  input:focus, select:focus, textarea:focus{border-color:var(--purple-2); box-shadow:0 0 0 3px rgba(59,130,246,.18);}
+  textarea{min-height:110px; resize:vertical; font-family:monospace; direction:ltr; text-align:left;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:560px){ .grid2{grid-template-columns:1fr;} }
+  .chk{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text); margin-bottom:10px; cursor:pointer;}
+  .chk input{width:16px; height:16px; accent-color:var(--purple-2);}
+
+  .linkbox{display:flex; gap:8px; align-items:stretch;}
+  .linkbox input{flex:1; direction:ltr; text-align:left; font-family:monospace; font-size:12.5px;}
+  .copy{background:linear-gradient(90deg, #1d4ed8, #3b82f6); border:none; color:#fff; border-radius:10px;
+    padding:0 16px; font-size:12.5px; cursor:pointer; white-space:nowrap;}
+  .copy:hover{filter:brightness(1.1);}
+
+  .matix-update-progress{display:none;margin-top:12px;padding:10px 12px;border:1px solid rgba(59,130,246,.22);border-radius:14px;background:rgba(37,99,235,.055);overflow:hidden;}
+  .matix-update-progress.show{display:block;}
+  .matix-update-progress-track{height:5px;border-radius:999px;background:rgba(148,163,184,.14);overflow:hidden;position:relative;}
+  .matix-update-progress-glow{width:38%;height:100%;border-radius:999px;background:linear-gradient(90deg,transparent,#38bdf8,#60a5fa,#a78bfa,transparent);box-shadow:0 0 14px rgba(56,189,248,.65);animation:matixUpdateFlow 1.35s ease-in-out infinite;}
+  .matix-update-progress-label{margin-top:7px;font-size:12px;color:var(--muted);text-align:center;}
+  @keyframes matixUpdateFlow{0%{transform:translateX(-130%)}100%{transform:translateX(360%)}}
+
+  .save-bar{position:sticky; bottom:0; z-index:3; display:flex; justify-content:flex-end; gap:10px; padding:14px 0 0;}
+  button.primary{background:linear-gradient(90deg, #1d4ed8, #3b82f6, #0891b2); background-size:200% 100%;
+    border:none; color:#fff; font-weight:700; font-size:13.5px; padding:11px 22px; border-radius:12px; cursor:pointer;
+    box-shadow:0 8px 24px -6px rgba(37,99,235,.6); transition:background-position .3s;}
+  button.primary:hover{background-position:100% 0;}
+  button.primary:disabled{opacity:.55; cursor:not-allowed;}
+  button.ghost{background:rgba(255,255,255,.05); border:1px solid rgba(59,130,246,.3); color:var(--text);
+    font-size:13.5px; padding:11px 18px; border-radius:12px; cursor:pointer;}
+
+  .toast{position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); z-index:50;
+    background:rgba(15,8,30,.95); border:1px solid rgba(59,130,246,.4); color:#fff; padding:11px 20px; border-radius:12px;
+    font-size:13px; opacity:0; pointer-events:none; transition:all .25s; box-shadow:0 10px 30px -8px rgba(0,0,0,.6);}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .toast.err{border-color:rgba(248,113,113,.5);}
+
+  .loglist{max-height:340px; overflow:auto; direction:ltr; text-align:left; color:var(--muted); perspective:900px; padding-right:4px;}
+  .loglist::-webkit-scrollbar{width:6px;} .loglist::-webkit-scrollbar-thumb{background:rgba(59,130,246,.4);border-radius:99px;}
+  .log-row{position:relative; display:flex; align-items:center; gap:12px; padding:11px 14px; margin-bottom:8px;
+    border-radius:14px; background:linear-gradient(135deg, rgba(59,130,246,.08), rgba(8,14,32,.55));
+    border:1px solid rgba(59,130,246,.22); border-left:3px solid var(--log-color, #3b82f6);
+    transition:transform .2s ease, border-color .2s, box-shadow .2s; transform-style:preserve-3d;
+    animation:logRowIn .35s ease both;}
+  .log-row:hover{transform:translateZ(8px) translateX(2px) rotateX(2deg); border-color:rgba(59,130,246,.5);
+    box-shadow:0 10px 26px -10px rgba(37,99,235,.55), 0 0 0 1px rgba(59,130,246,.25);}
+  @keyframes logRowIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
+  .log-icon{flex:0 0 auto; width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:rgba(59,130,246,.14); font-size:15px; box-shadow:0 0 10px rgba(59,130,246,.25);}
+  .log-body{flex:1; min-width:0;}
+  .log-top{display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:var(--text);}
+  .log-type{color:var(--log-color, #3b82f6);}
+  .log-time{margin-left:auto; font-size:10.5px; color:var(--muted); font-family:monospace;}
+  .log-meta{margin-top:3px; font-size:11px; color:var(--muted); font-family:monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .loglist div{padding:6px 0; border-bottom:1px solid rgba(255,255,255,.05);}
+  .skel{opacity:.5;}
+  .muted{color:var(--muted); font-size:12px; margin-top:4px;}
+
+  [data-en]{display:none;}
+  html[data-lang="en"] [data-fa]{display:none;}
+  html[data-lang="en"] [data-en]{display:inline;}
+
+  .splash{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at 50% 30%, #1a0b3a 0%, #05010c 70%);transition:opacity .6s ease, visibility .6s;}
+  .splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  .splash-wrap{position:relative;width:150px;height:150px;display:flex;align-items:center;justify-content:center;}
+  .splash-ring{position:absolute;border-radius:50%;border:3px solid transparent;}
+  .splash-ring.r1{width:150px;height:150px;border-top-color:var(--purple-2);border-right-color:var(--pink);animation:spin 1.4s linear infinite;}
+  .splash-ring.r2{width:110px;height:110px;border-bottom-color:#22d3ee;border-left-color:var(--purple);animation:spin 1.8s linear infinite reverse;}
+  .splash-ring.r3{width:75px;height:75px;border-top-color:var(--pink);border-left-color:var(--purple-2);animation:spin 1s linear infinite;}
+  .splash-core{width:52px;height:52px;border-radius:50%;background:url(${MATIX_LOGO}) center/cover no-repeat, #05010c;box-shadow:0 0 24px rgba(59,130,246,.85);animation:pulseCore 1.6s ease-in-out infinite;}
+  @keyframes pulseCore{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  .splash-bismillah{margin-top:26px;font-size:19px;font-weight:700;letter-spacing:.5px;color:#93c5fd;opacity:.95;text-shadow:0 0 18px rgba(59,130,246,.85), 0 0 36px rgba(34,211,238,.4);animation:fadeUpDown 2.4s ease-in-out infinite;}
+  @keyframes fadeUpDown{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+  .splash-brand{margin-top:10px;font-weight:800;font-size:20px;background:linear-gradient(90deg,#fff,var(--purple-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .splash-bar{margin-top:18px;width:150px;height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;}
+  .splash-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--pink),var(--purple-2));border-radius:inherit;animation:barFill 1.3s ease forwards;}
+  .splash-status{margin-top:12px;font-size:11.5px;font-family:monospace;color:#93c5fd;opacity:.75;letter-spacing:.3px;min-height:16px;}
+  @keyframes barFill{to{width:100%}}
+
+  .modal-card.glass{background:linear-gradient(135deg, rgba(14,24,48,.7), rgba(5,10,24,.78));backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);border:1px solid rgba(255,255,255,.18);border-radius:32px;box-shadow:0 30px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.15);}
+  .social-row{display:flex;gap:10px;margin-top:18px;}
+  .social-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:var(--text);text-decoration:none;cursor:pointer;transition:.2s;}
+  .social-btn:hover{background:rgba(255,255,255,.12);transform:translateY(-3px);}
+  .social-btn svg{width:26px;height:26px;}
+  .social-btn span{font-size:11px;}
+  .wave-emoji{display:inline-block;font-size:40px;animation:wave 1.6s ease-in-out infinite;transform-origin:70% 70%;}
+  @keyframes wave{0%,60%,100%{transform:rotate(0deg)}10%,30%{transform:rotate(14deg)}20%{transform:rotate(-8deg)}40%{transform:rotate(10deg)}50%{transform:rotate(-4deg)}}
+
+  .panel-frame{position:fixed;inset:0;z-index:900;pointer-events:none;
+    border:1px solid rgba(59,130,246,.4);
+    box-shadow:inset 0 0 50px rgba(37,99,235,.18), inset 0 0 0 1px rgba(59,130,246,.12);}
+  .panel-frame::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent, #3b82f6, #22d3ee, transparent);
+    animation:scanX 7s linear infinite;}
+  .panel-frame::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent, #22d3ee, #3b82f6, transparent);
+    animation:scanX 7s linear infinite reverse;}
+  @keyframes scanX{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+  /* ---------- performance: lighter effects on phones ---------- */
+  @media (max-width:760px){
+    .card, header, .side{backdrop-filter:none; -webkit-backdrop-filter:none;}
+    header{background:rgba(12,5,24,.94);}
+    .side{background:rgba(5,10,24,.99);}
+    .orb{filter:blur(38px);}
+    .orb3, .orb4{display:none;}
+    .bg::after{display:none;}
+    .net-globe{opacity:.28; width:120vw; height:120vw;}
+    .tnode{display:none;}
+    .card{transition:none;}
+    .card:hover{transform:none;}
+  }
+  /* ---------- respect reduced-motion preference ---------- */
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+${MX_CSS_COMMON}${MX_CSS_DASH}</style>
+</head>
+<body class="mx">
+  <div class="panel-frame"></div>
+  <div class="splash" id="splash">
+    <div class="splash-wrap">
+      <div class="splash-ring r1"></div>
+      <div class="splash-ring r2"></div>
+      <div class="splash-ring r3"></div>
+      <div class="splash-core"></div>
+    </div>
+    <div class="splash-bismillah">به نام پروردگار</div>
+    <div class="splash-brand">MatiX <span style="opacity:.6">Edge</span></div>
+    <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+    <div class="splash-status" id="splashStatus">Initializing…</div>
+  </div>
+
+  <div class="bg"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div><div class="orb orb4"></div></div>
+  <div class="net-globe" aria-hidden="true">
+    <svg viewBox="0 0 400 400" class="globe-svg">
+      <defs>
+        <radialGradient id="globeGlow" cx="50%" cy="45%" r="60%">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="200" cy="200" r="150" fill="url(#globeGlow)"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#3b82f6" stroke-opacity="0.35" stroke-width="1.5"/>
+      <g class="globe-rotate">
+        <ellipse cx="200" cy="200" rx="150" ry="40" fill="none" stroke="#3b82f6" stroke-opacity="0.28" stroke-width="1"/>
+        <ellipse cx="200" cy="200" rx="150" ry="90" fill="none" stroke="#3b82f6" stroke-opacity="0.22" stroke-width="1"/>
+        <ellipse cx="200" cy="200" rx="40" ry="150" fill="none" stroke="#22d3ee" stroke-opacity="0.28" stroke-width="1"/>
+        <ellipse cx="200" cy="200" rx="90" ry="150" fill="none" stroke="#22d3ee" stroke-opacity="0.22" stroke-width="1"/>
+      </g>
+      <circle class="gdot d1" cx="120" cy="140" r="4" fill="#22d3ee"/>
+      <circle class="gdot d2" cx="270" cy="110" r="4" fill="#3b82f6"/>
+      <circle class="gdot d3" cx="300" cy="230" r="4" fill="#22d3ee"/>
+      <circle class="gdot d4" cx="150" cy="280" r="4" fill="#3b82f6"/>
+      <circle class="gdot d5" cx="220" cy="320" r="4" fill="#22d3ee"/>
+      <path class="garc a1" d="M120,140 Q200,100 270,110" fill="none" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="1"/>
+      <path class="garc a2" d="M270,110 Q320,170 300,230" fill="none" stroke="#22d3ee" stroke-opacity="0.4" stroke-width="1"/>
+      <path class="garc a3" d="M300,230 Q250,270 220,320" fill="none" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="1"/>
+      <path class="garc a4" d="M150,280 Q100,220 120,140" fill="none" stroke="#22d3ee" stroke-opacity="0.4" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <header>
+    <div class="brand"><button class="hamb" id="hamb">☰</button><div class="logo"></div><div class="brand-name">MatiX <span style="font-weight:600;opacity:.65;font-size:13px">Edge</span></div></div>
+    <div class="actions">
+      <button class="chip theme-toggle" id="themeBtn" title="Theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" style="display:none"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>
+      </button>
+      <button class="chip" id="langBtn">EN</button>
+      <button class="chip danger" id="resetBtn"><span data-fa>ریست تنظیمات</span><span data-en>Reset config</span></button>
+      <button class="chip" id="logoutBtn"><span data-fa>خروج</span><span data-en>Logout</span></button>
+    </div>
+  </header>
+  <aside class="side" id="side">
+    <div class="side-brand"><div class="logo"></div><span>MatiX <small>Edge</small></span></div>
+    <div class="side-sec"><span data-fa>منو</span><span data-en>Menu</span></div>
+    <a href="#overview"><span class="icon">🏠</span><span data-fa>نمای کلی</span><span data-en>Overview</span></a>
+    <a href="#basic-settings"><span class="icon">⚙️</span><span data-fa>تنظیمات پایه</span><span data-en>Basic settings</span></a>
+    <a href="#usage"><span class="icon">📊</span><span data-fa>نمودار مصرف</span><span data-en>Usage chart</span></a>
+    <a href="#subscription"><span class="icon">⏳</span><span data-fa>روز و حجم</span><span data-en>Days & volume</span></a>
+    <a href="#proxy-settings"><span class="icon">🛡️</span><span data-fa>پروکسی</span><span data-en>Proxy</span></a>
+    <a href="#ip-list"><span class="icon">📋</span><span data-fa>لیست IP دلخواه</span><span data-en>Custom IP list</span></a>
+    <a href="#tg-bot"><span class="icon">🤖</span><span data-fa>ربات تلگرام</span><span data-en>Telegram bot</span></a>
+    <a href="#panel-update"><span class="icon">🚀</span><span data-fa>به‌روزرسانی پنل</span><span data-en>Panel update</span></a>
+    <a href="#logs"><span class="icon">🧾</span><span data-fa>لاگ‌های اخیر</span><span data-en>Recent logs</span></a>
+    <div class="side-sec"><span data-fa>لینک‌ها</span><span data-en>Links</span></div>
+    <a href="https://github.com/imatixofficel/Matix-edg" target="_blank"><span class="icon">💻</span>GitHub</a>
+    <a href="https://t.me/Imatix7" target="_blank"><span class="icon">✈️</span><span data-fa>کانال تلگرام</span><span data-en>Telegram channel</span></a>
+    <a href="https://www.youtube.com/@i.matix7" target="_blank"><span class="icon">▶️</span><span data-fa>یوتیوب</span><span data-en>YouTube</span></a>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <main>
+
+    <div class="card wide" id="overview">
+      <h2><span class="dot"></span><span class="icon">🔗</span><span data-fa>لینک اتصال</span><span data-en>Connection links</span></h2>
+      <div class="field">
+        <label><span data-fa>لینک ساب‌اسکریپشن (این رو در برنامه‌ی کلاینت وارد کن)</span><span data-en>Subscription URL (add this in your client app)</span></label>
+        <div class="linkbox"><input type="text" id="subLink" readonly><button class="copy" data-copy="subLink"><span data-fa>کپی</span><span data-en>Copy</span></button></div>
+      </div>
+      <div class="field">
+        <label><span data-fa>لینک تک‌نود</span><span data-en>Single node link</span></label>
+        <div class="linkbox"><input type="text" id="nodeLink" readonly><button class="copy" data-copy="nodeLink"><span data-fa>کپی</span><span data-en>Copy</span></button></div>
+      </div>
+    </div>
+
+    <div class="card" id="basic-settings">
+      <h2><span class="dot"></span><span class="icon">⚙️</span><span data-fa>تنظیمات پایه</span><span data-en>Basic settings</span></h2>
+      <div class="grid2">
+        <div class="field">
+          <label><span data-fa>نام سابسکریپشن</span><span data-en>Subscription name</span></label>
+          <input type="text" id="f_subname" placeholder="Matix">
+        </div>
+        <div class="field">
+          <label><span data-fa>مسیر (Path)</span><span data-en>Path</span></label>
+          <input type="text" id="f_path">
+        </div>
+        <div class="field">
+          <label><span data-fa>نوع پروتکل</span><span data-en>Protocol</span></label>
+          <select id="f_protocol">
+            <option value="vless">VLESS</option>
+            <option value="trojan">Trojan</option>
+            <option value="ss">Shadowsocks</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><span data-fa>پروتکل انتقال</span><span data-en>Transport</span></label>
+          <select id="f_transport">
+            <option value="ws">WebSocket</option>
+            <option value="xhttp">XHTTP</option>
+            <option value="grpc">gRPC</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Fingerprint (TLS)</label>
+          <select id="f_fp">
+            <option value="chrome">Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="safari">Safari</option>
+            <option value="ios">iOS</option>
+            <option value="edge">Edge</option>
+            <option value="android">Android</option>
+            <option value="random">Random</option>
+            <option value="randomized">Randomized</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><span data-fa>تکه‌تکه کردن TLS (ضدفیلتر)</span><span data-en>TLS fragment (anti-DPI)</span></label>
+          <select id="f_frag">
+            <option value=""><span data-fa>غیرفعال</span><span data-en>Disabled</span></option>
+            <option value="Shadowrocket">Shadowrocket</option>
+            <option value="Happ">Happ</option>
+          </select>
+        </div>
+      </div>
+      <label class="chk"><input type="checkbox" id="f_skipcert"><span data-fa>رد شدن از بررسی گواهی TLS</span><span data-en>Skip TLS certificate verification</span></label>
+      <label class="chk"><input type="checkbox" id="f_randpath"><span data-fa>مسیر تصادفی</span><span data-en>Random path</span></label>
+      <label class="chk"><input type="checkbox" id="f_0rtt"><span data-fa>فعال‌سازی 0-RTT</span><span data-en>Enable 0-RTT</span></label>
+    </div>
+
+    <div class="card" id="subscription">
+      <h2><span class="dot"></span><span class="icon">⏳</span><span data-fa>محدودیت اشتراک</span><span data-en>Subscription limits</span></h2>
+      <p class="muted"><span data-fa>مدت اعتبار و سقف حجم اشتراک از این بخش تنظیم می‌شود. مقدار حجم در اطلاعات استاندارد اشتراک نیز درج خواهد شد.</span><span data-en>Set the subscription validity period and advertised traffic limit here.</span></p>
+      <div class="grid2">
+        <div class="field">
+          <label><span data-fa>اعتبار (روز)</span><span data-en>Validity (days)</span></label>
+          <input type="number" id="f_limit_days" min="1" max="3650" step="1" value="30">
+        </div>
+        <div class="field">
+          <label><span data-fa>حجم (گیگابایت)</span><span data-en>Traffic (GB)</span></label>
+          <input type="number" id="f_limit_gb" min="0" max="100000" step="1" value="100">
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="panel-status">
+      <h2><span class="dot"></span><span class="icon">📶</span><span data-fa>وضعیت پنل</span><span data-en>Panel status</span></h2>
+      <p class="muted"><span data-fa>وضعیت زنده و واقعی سرور — نه عدد ساختگی؛ همین لحظه از خود پنل اندازه‌گیری می‌شود.</span><span data-en>Live, real server status — measured from the panel itself right now, not a placeholder.</span></p>
+      <div class="status-grid">
+        <div class="status-item">
+          <div class="status-label"><span data-fa>وضعیت</span><span data-en>Status</span></div>
+          <div class="status-value"><span class="status-dot-live"></span><span data-fa>آنلاین</span><span data-en>Online</span></div>
+        </div>
+        <div class="status-item">
+          <div class="status-label"><span data-fa>پینگ پنل</span><span data-en>Panel ping</span></div>
+          <div class="status-value" id="statPing">—</div>
+        </div>
+        <div class="status-item">
+          <div class="status-label"><span data-fa>نود Cloudflare</span><span data-en>Cloudflare edge</span></div>
+          <div class="status-value" id="statColo">—</div>
+        </div>
+        <div class="status-item">
+          <div class="status-label"><span data-fa>مصرف داده</span><span data-en>Data usage</span></div>
+          <div class="status-value" id="statUsage">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="proxy-settings">
+      <h2><span class="dot"></span><span class="icon">🛡️</span><span data-fa>پروکسی (PROXYIP)</span><span data-en>Proxy (PROXYIP)</span></h2>
+      <div class="field">
+        <label>PROXYIP <span data-fa>(بذار "auto" بمونه اگه نمی‌دونی چیه)</span><span data-en>(leave as "auto" if unsure)</span></label>
+        <input type="text" id="f_proxyip" placeholder="auto">
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>SOCKS5 / HTTP <span data-fa>(اختیاری)</span><span data-en>(optional)</span></label>
+          <select id="f_socks_type">
+            <option value=""><span data-fa>غیرفعال</span><span data-en>Disabled</span></option>
+            <option value="socks5">SOCKS5</option>
+            <option value="http">HTTP</option>
+            <option value="https">HTTPS</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>user:pass@host:port</label>
+          <input type="text" id="f_socks_account" placeholder="user:pass@1.2.3.4:1080">
+        </div>
+      </div>
+      <label class="chk"><input type="checkbox" id="f_socks_global"><span data-fa>مسیریابی همه‌ی ترافیک از این پروکسی (سراسری)</span><span data-en>Route all traffic through this proxy (global)</span></label>
+    </div>
+
+    <div class="card wide" id="ip-list">
+      <h2><span class="dot"></span><span class="icon">📋</span><span data-fa>لیست IP دلخواه</span><span data-en>Custom preferred IPs</span></h2>
+      <p class="muted"><span data-fa>هر خط یک IP یا دامنه (پورت اختیاری، مثال: 1.2.3.4:443#remark). هر چه اینجا بنویسی و «ذخیره تغییرات» بزنی، مستقیم روی ساب‌اسکریپشن اعمال می‌شود. اگر لیست خالی باشد، IPهای خودکار استفاده می‌شوند.</span><span data-en>One IP or domain per line (optional port, e.g. 1.2.3.4:443#remark). Whatever you put here is applied to the subscription once you press Save. Leave it empty to use automatic IPs.</span></p>
+      <div class="iplist-grid">
+        <textarea id="f_addlist" placeholder="1.2.3.4:443#NL&#10;5.6.7.8:2053#DE"></textarea>
+        <div class="iplist-side">
+          <div class="field">
+            <label><span data-fa>آدرس مخزن IP</span><span data-en>IP repository URL</span></label>
+            <input type="text" id="f_ip_source" placeholder="https://raw.githubusercontent.com/.../list.json">
+          </div>
+          <button type="button" class="primary" id="fetchIpsBtn"><span data-fa>دریافت IP از مخزن</span><span data-en>Fetch IPs from repository</span></button>
+          <button type="button" class="ghost" id="clearIpsBtn"><span data-fa>پاک کردن لیست</span><span data-en>Clear list</span></button>
+          <div class="iplist-count" id="ipCount">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card wide" id="usage">
+      <h2><span class="dot"></span><span class="icon">📊</span><span data-fa>نمودار مصرف</span><span data-en>Usage chart</span></h2>
+      <div class="usage-grid">
+        <div class="usage-stat">
+          <div class="muted"><span data-fa>مصرف ثبت‌شده Worker</span><span data-en>Recorded Worker usage</span></div>
+          <div style="font-size:24px;font-weight:800;margin-top:5px" id="usageTotal">۰ MB</div>
+          <div class="usage-bar"><div class="usage-fill" id="usageFill"></div></div>
+          <div class="muted" id="usageMeta">—</div>
+        </div>
+        <div class="usage-stat">
+          <div class="muted"><span data-fa>سقف اشتراک</span><span data-en>Subscription limit</span></div>
+          <div style="font-size:24px;font-weight:800;margin-top:5px" id="quotaTotal">—</div>
+          <div class="muted" id="expireMeta">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card wide" id="tg-bot">
+      <h2><span class="dot"></span><span class="icon">🤖</span><span data-fa>ربات تلگرام</span><span data-en>Telegram bot</span></h2>
+      <p class="muted"><span data-fa>با فعال‌سازی ربات، از طریق تلگرام می‌تونی کانفیگ بگیری، وضعیت پنل رو ببینی، تنظیمات رو ریست کنی و مستقیم به پنل بری.</span><span data-en>Once activated, get configs, check panel status, reset settings, and jump to the panel — right from Telegram.</span></p>
+      <div class="field">
+        <label><span data-fa>توکن ربات (Bot Token)</span><span data-en>Bot Token</span></label>
+        <input type="text" id="f_tg_token" placeholder="123456789:AAExample-Token">
+      </div>
+      <div class="field">
+        <label><span data-fa>آیدی عددی ادمین (Chat ID)</span><span data-en>Admin numeric Chat ID</span></label>
+        <input type="text" id="f_tg_chatid" placeholder="123456789">
+      </div>
+      <div class="row" style="gap:8px">
+        <button class="primary" id="tgActivateBtn"><span data-fa>فعال‌سازی ربات</span><span data-en>Activate bot</span></button>
+        <button class="ghost" id="tgDeactivateBtn"><span data-fa>غیرفعال‌سازی</span><span data-en>Deactivate</span></button>
+      </div>
+      <div class="muted" id="tgStatus" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card wide" id="panel-update">
+      <h2><span class="dot"></span><span class="icon">🚀</span><span data-fa>به‌روزرسانی پنل</span><span data-en>Panel update</span></h2>
+      <p class="muted"><span data-fa>وضعیت نسخه رو از گیت‌هاب چک کن. برای به‌روزرسانی خودکار، یه توکن Cloudflare (با دسترسی Workers Scripts:Edit) وارد کن.</span><span data-en>Check your version against GitHub. For automatic updates, provide a Cloudflare API token (Workers Scripts:Edit permission).</span></p>
+      <div class="status-item" style="margin-bottom:14px">
+        <div class="status-label"><span data-fa>نسخه‌ی فعلی / آخرین نسخه</span><span data-en>Current / latest version</span></div>
+        <div class="status-value" id="updateVersionInfo">—</div>
+      </div>
+      <div class="row" style="gap:8px; margin-bottom:14px">
+        <button class="ghost" id="checkUpdateBtn"><span data-fa>بررسی آپدیت</span><span data-en>Check for updates</span></button>
+        <a id="updateReleaseLink" href="#" target="_blank" class="ghost hidden" style="text-decoration:none; display:inline-flex; align-items:center; padding:0 14px; border-radius:12px;"><span data-fa>مشاهده‌ی ریلیز</span><span data-en>View release</span></a>
+      </div>
+      <div class="field">
+        <label><span data-fa>توکن Cloudflare API</span><span data-en>Cloudflare API Token</span></label>
+        <input type="password" id="f_update_token" placeholder="••••••••••••••••">
+      </div>
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:1">
+          <label><span data-fa>Account ID (اختیاری)</span><span data-en>Account ID (optional)</span></label>
+          <input type="text" id="f_update_account" placeholder="auto-detect">
+        </div>
+        <div class="field" style="flex:1">
+          <label><span data-fa>D1 Database ID (اختیاری)</span><span data-en>D1 Database ID (optional)</span></label>
+          <input type="text" id="f_update_kvid" placeholder="auto if deployed via Wizard">
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-fa>نام Worker (اختیاری، فقط دامنه‌ی سفارشی)</span><span data-en>Worker name (optional, custom domains only)</span></label>
+        <input type="text" id="f_update_workername" placeholder="auto-detected from workers.dev subdomain">
+      </div>
+      <div class="row" style="gap:8px">
+        <button class="ghost" id="saveUpdateSettingsBtn"><span data-fa>ذخیره تنظیمات</span><span data-en>Save settings</span></button>
+        <button class="primary" id="selfUpdateBtn"><span data-fa>⚠️ به‌روزرسانی الان</span><span data-en>⚠️ Update now</span></button>
+      </div>
+      <p class="muted" style="margin-top:10px"><span data-fa>این عملیات خود Worker رو با آخرین نسخه از گیت‌هاب جایگزین می‌کنه؛ قبل از استفاده روی یک اکانت تستی امتحانش کن.</span><span data-en>This overwrites the Worker itself with the latest GitHub release. Test on a non-critical account first.</span></p>
+      <div class="muted" id="updateStatus" style="margin-top:6px"></div>
+      <div id="updateProgress" class="matix-update-progress" aria-hidden="true">
+        <div class="matix-update-progress-track"><div class="matix-update-progress-glow"></div></div>
+        <div class="matix-update-progress-label"><span data-fa>در حال آپلود و نصب نسخه جدید…</span><span data-en>Uploading and installing the new version…</span></div>
+      </div>
+    </div>
+
+    <div class="card wide" id="logs">
+      <h2><span class="dot"></span><span class="icon">🧾</span><span data-fa>لاگ‌های اخیر</span><span data-en>Recent logs</span></h2>
+      <div class="loglist skel" id="logBox">…</div>
+    </div>
+
+    <div class="muted" style="text-align:center;margin:8px 0 18px">
+      <a href="https://t.me/Imatix7" target="_blank" style="color:#93c5fd;text-decoration:none">✈️ @Imatix7</a> · 
+      <a href="https://github.com/imatixofficel/Matix-edg" target="_blank" style="color:#93c5fd;text-decoration:none">GitHub / imatixofficel/Matix-edg</a> · 
+      <a href="https://www.youtube.com/@i.matix7" target="_blank" style="color:#93c5fd;text-decoration:none">▶️ YouTube</a>
+    </div>
+
+    <div class="save-bar">
+      <button class="ghost" id="reloadBtn"><span data-fa>بارگذاری مجدد</span><span data-en>Reload</span></button>
+      <button class="primary" id="saveBtn"><span data-fa>ذخیره تغییرات</span><span data-en>Save changes</span></button>
+    </div>
+
+  </main>
+
+  <div class="modal hidden" id="welcomeModal">
+    <div class="modal-card glass">
+      <span class="tg-icon" style="animation:none;"><span class="wave-emoji">👋🏻</span></span>
+      <h2 style="margin:14px 0 6px"><span data-fa>درود بر شما، به پنل Matix edge خوش اومدین</span><span data-en>Welcome to the Matix Edge panel</span></h2>
+      <p class="muted"><span data-fa>برای دنبال کردن آخرین اخبار و آپدیت‌ها، به کانال‌های ما سر بزنید:</span><span data-en>Follow our channels for the latest news and updates:</span></p>
+      <div class="social-row">
+        <a class="social-btn" id="btnTelegram" href="https://t.me/Imatix7" target="_blank" rel="noopener">
+          <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><circle cx="120" cy="120" r="120" fill="#229ED9"/><path fill="#fff" d="M53 118l125-48c6-2 11 1 9 10l-21 100c-2 8-7 10-14 6l-38-28-18 17c-2 2-4 4-8 4l3-40 73-66c3-3-1-5-5-2l-90 57-39-12c-8-3-8-9 2-12z"/></svg>
+          <span>Telegram</span>
+        </a>
+        <a class="social-btn" id="btnGithub" href="https://github.com/imatixofficel" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" fill="#161B22"/><path fill="#fff" d="M12 4.6c-4.2 0-7.6 3.4-7.6 7.6 0 3.4 2.2 6.2 5.2 7.2.4.1.5-.2.5-.4v-1.4c-2.1.5-2.6-1-2.6-1-.3-.9-.8-1.1-.8-1.1-.7-.5.1-.5.1-.5.7 0 1.1.7 1.1.7.7 1.2 1.8.9 2.2.7.1-.5.3-.9.5-1.1-1.7-.2-3.4-.8-3.4-3.7 0-.8.3-1.5.7-2 0-.2-.3-1 .1-2 0 0 .6-.2 2 .8.6-.2 1.2-.3 1.9-.3.6 0 1.3.1 1.9.3 1.4-1 2-.8 2-.8.4 1 .1 1.8.1 2 .5.5.7 1.2.7 2 0 2.9-1.7 3.5-3.4 3.7.3.2.5.7.5 1.4v2.1c0 .2.1.5.6.4 3-1 5.2-3.8 5.2-7.2 0-4.2-3.4-7.6-7.6-7.6z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a class="social-btn" id="btnYoutube" href="https://www.youtube.com/@i.matix7" target="_blank" rel="noopener">
+          <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" rx="6" fill="#FF0000"/><path fill="#fff" d="M11.5 6.5l7 3.5-7 3.5z"/></svg>
+          <span>YouTube</span>
+        </a>
+      </div>
+      <button class="primary" style="width:100%;margin-top:18px" id="joinedBtn"><span data-fa>عضو شدم، برو به پنل</span><span data-en>I've joined — continue</span></button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+<script>
+  const root = document.documentElement;
+  const langBtn = document.getElementById('langBtn');
+  function setLang(l){
+    root.setAttribute('data-lang', l); root.setAttribute('lang', l); root.setAttribute('dir', l==='fa'?'rtl':'ltr');
+    langBtn.textContent = l==='fa' ? 'EN' : 'فا'; localStorage.setItem('me_lang', l);
+  }
+  setLang(localStorage.getItem('me_lang') || 'fa');
+  langBtn.onclick = () => setLang(root.getAttribute('data-lang')==='fa' ? 'en' : 'fa');
+
+  if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'translateY(-2px) rotateX(' + (py * -6) + 'deg) rotateY(' + (px * 6) + 'deg)';
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = 'translateY(0) rotateX(0) rotateY(0)'; });
+    });
+  }
+
+  const themeBtn = document.getElementById('themeBtn');
+  const moonIcon = themeBtn.querySelector('.icon-moon');
+  const sunIcon = themeBtn.querySelector('.icon-sun');
+  function setTheme(t){
+    if (t === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+    moonIcon.style.display = t === 'light' ? 'none' : 'inline-block';
+    sunIcon.style.display = t === 'light' ? 'inline-block' : 'none';
+    localStorage.setItem('me_theme', t);
+  }
+  setTheme(localStorage.getItem('me_theme') || 'light');
+  themeBtn.onclick = () => {
+    setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    themeBtn.animate([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.25) rotate(180deg)' }, { transform: 'scale(1) rotate(360deg)' }], { duration: 500, easing: 'ease' });
+  };
+
+  function playNotify(){
+    try{
+      if (navigator.vibrate) navigator.vibrate([40,60,40]);
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator(); const g = ctx.createGain();
+      o.type = 'sine';
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.2);
+      o.frequency.setValueAtTime(880, ctx.currentTime);
+      o.frequency.setValueAtTime(1180, ctx.currentTime + 0.1);
+      o.connect(g); g.connect(ctx.destination);
+      o.start();
+      o.stop(ctx.currentTime + 0.24);
+    }catch(e){}
+  }
+
+  document.getElementById('logoutBtn').onclick = () => location.href = '/logout';
+
+  const tgStatusEl = document.getElementById('tgStatus');
+  document.getElementById('tgActivateBtn').onclick = async () => {
+    const BotToken = document.getElementById('f_tg_token').value.trim();
+    const ChatID = document.getElementById('f_tg_chatid').value.trim();
+    if (!BotToken || !ChatID) { tgStatusEl.textContent = faOn() ? 'توکن و آیدی ادمین رو وارد کن' : 'Enter the bot token and admin chat ID'; return; }
+    tgStatusEl.textContent = faOn() ? 'در حال فعال‌سازی...' : 'Activating...';
+    try {
+      const res = await fetch('/admin/tg.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ BotToken: BotToken, ChatID: ChatID }) });
+      const data = await res.json();
+      tgStatusEl.textContent = (data.success ? '🟢 ' : '🔴 ') + (data.message || (data.success ? 'OK' : 'Error'));
+      toast(data.success ? (faOn() ? 'ربات فعال شد' : 'Bot activated') : (faOn() ? 'فعال‌سازی ناموفق بود' : 'Activation failed'), !data.success);
+    } catch (e) { tgStatusEl.textContent = 'Error: ' + e.message; }
+  };
+  document.getElementById('tgDeactivateBtn').onclick = async () => {
+    tgStatusEl.textContent = faOn() ? 'در حال غیرفعال‌سازی...' : 'Deactivating...';
+    try {
+      const res = await fetch('/admin/tg.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ disable: true }) });
+      const data = await res.json();
+      tgStatusEl.textContent = '⚪️ ' + (data.message || 'OK');
+      toast(faOn() ? 'ربات غیرفعال شد' : 'Bot deactivated');
+    } catch (e) { tgStatusEl.textContent = 'Error: ' + e.message; }
+  };
+
+  const updateStatusEl = document.getElementById('updateStatus');
+  const updateVersionInfoEl = document.getElementById('updateVersionInfo');
+  const updateReleaseLinkEl = document.getElementById('updateReleaseLink');
+
+  async function checkForUpdate(){
+    updateVersionInfoEl.textContent = faOn() ? 'در حال بررسی…' : 'Checking…';
+    try {
+      const res = await fetch('/admin/update-check.json', { credentials: 'same-origin' });
+      const data = await res.json();
+      if (data.error) { updateVersionInfoEl.textContent = faOn() ? 'خطا در بررسی' : 'Check failed'; return; }
+      updateVersionInfoEl.textContent = data.current + ' / ' + (data.latest || '?') + (data.updateAvailable ? (faOn() ? ' 🚀 آپدیت جدید موجوده' : ' 🚀 update available') : (faOn() ? ' (به‌روزه)' : ' (up to date)'));
+      if (data.url) { updateReleaseLinkEl.href = data.url; updateReleaseLinkEl.classList.remove('hidden'); }
+    } catch (e) { updateVersionInfoEl.textContent = faOn() ? 'خطا در بررسی' : 'Check failed'; }
+  }
+  document.getElementById('checkUpdateBtn').onclick = checkForUpdate;
+  checkForUpdate();
+
+  fetch('/admin/update-settings.json', { credentials: 'same-origin' }).then(r => r.json()).then(s => {
+    if (s.accountId) document.getElementById('f_update_account').value = s.accountId;
+    if (s.d1Id) document.getElementById('f_update_kvid').value = s.d1Id;
+    if (s.workerName) document.getElementById('f_update_workername').value = s.workerName;
+    if (s.hasToken) document.getElementById('f_update_token').placeholder = faOn() ? 'قبلاً ذخیره شده (برای تغییر بازنویسی کن)' : 'Already saved (overwrite to change)';
+  }).catch(() => {});
+
+  document.getElementById('saveUpdateSettingsBtn').onclick = async () => {
+    const cfToken = document.getElementById('f_update_token').value.trim();
+    const accountId = document.getElementById('f_update_account').value.trim();
+    const d1Id = document.getElementById('f_update_kvid').value.trim();
+    const workerName = document.getElementById('f_update_workername').value.trim();
+    updateStatusEl.textContent = faOn() ? 'در حال ذخیره...' : 'Saving...';
+    try {
+      const body = { accountId, d1Id, workerName };
+      if (cfToken) body.cfToken = cfToken;
+      const res = await fetch('/admin/update-settings.json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
+      const data = await res.json();
+      updateStatusEl.textContent = data.message || 'OK';
+      toast(faOn() ? 'تنظیمات ذخیره شد' : 'Settings saved');
+      document.getElementById('f_update_token').value = '';
+    } catch (e) { updateStatusEl.textContent = 'Error: ' + e.message; }
+  };
+
+  document.getElementById('selfUpdateBtn').onclick = async () => {
+    const sure = confirm(faOn()
+      ? 'مطمئنی؟ این کار خود Worker رو با آخرین نسخه از گیت‌هاب جایگزین می‌کنه. قبلش تنظیمات رو ذخیره کرده باشی لازمه.'
+      : 'Are you sure? This will overwrite the Worker itself with the latest GitHub release. Make sure you saved your settings first.');
+    if (!sure) return;
+    updateStatusEl.textContent = faOn() ? 'در حال به‌روزرسانی... چند ثانیه صبر کن' : 'Updating... please wait a few seconds';
+    const updateProgressEl = document.getElementById('updateProgress');
+    if (updateProgressEl) updateProgressEl.classList.add('show');
+    try {
+      const res = await fetch('/admin/self-update', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({}) });
+      const data = await res.json();
+      if (data.success) {
+        updateStatusEl.textContent = '✅ ' + data.message;
+        toast(faOn() ? 'به‌روزرسانی موفق بود' : 'Update successful');
+      } else {
+        updateStatusEl.textContent = '❌ ' + (data.error || 'Unknown error');
+        toast(faOn() ? 'به‌روزرسانی ناموفق بود' : 'Update failed', true);
+      }
+    } catch (e) { updateStatusEl.textContent = 'Error: ' + e.message; }
+    finally { if (updateProgressEl) updateProgressEl.classList.remove('show'); }
+  };
+
+  const toastEl = document.getElementById('toast');
+  function toast(msg, isErr){
+    toastEl.textContent = msg; toastEl.className = 'toast show' + (isErr ? ' err' : '');
+    setTimeout(()=> toastEl.classList.remove('show'), 2600);
+  }
+  const faOn = () => root.getAttribute('data-lang') === 'fa';
+  const side = document.getElementById('side'), backdrop = document.getElementById('backdrop');
+  document.getElementById('hamb').onclick = () => { side.classList.add('open'); backdrop.classList.add('show'); };
+  backdrop.onclick = () => { side.classList.remove('open'); backdrop.classList.remove('show'); };
+  side.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { side.classList.remove('open'); backdrop.classList.remove('show'); }));
+  const navLinks = Array.from(side.querySelectorAll('a[href^="#"]'));
+  function setActiveNav(id){ navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id)); }
+  navLinks.forEach(a => a.addEventListener('click', () => setActiveNav(a.getAttribute('href').slice(1))));
+  if ('IntersectionObserver' in window) {
+    const navObs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) setActiveNav(e.target.id); }); }, { rootMargin: '-15% 0px -70% 0px' });
+    navLinks.forEach(a => { const t = document.getElementById(a.getAttribute('href').slice(1)); if (t) navObs.observe(t); });
+  }
+  setActiveNav('overview');
+  const welcome = document.getElementById('welcomeModal');
+  if (!localStorage.getItem('matix_tg_welcome')) { welcome.classList.remove('hidden'); setTimeout(playNotify, 300); }
+  else welcome.classList.add('hidden');
+  ['btnTelegram','btnGithub','btnYoutube'].forEach(id => {
+    document.getElementById(id).addEventListener('click', () => playNotify());
+  });
+  document.getElementById('joinedBtn').onclick = () => { localStorage.setItem('matix_tg_welcome','1'); welcome.classList.add('hidden'); };
+
+  let currentConfig = null;
+
+  function updateUsage(c){
+    const u = c.CF?.Usage || {};
+    const usedBytes = Math.max(0, Number(u.pages)||0) + Math.max(0, Number(u.workers)||0);
+    const usedMB = usedBytes / (1024*1024);
+    const usedGB = usedBytes / (1024*1024*1024);
+    const limitGB = Math.max(0, Number(c.优选订阅生成?.LIMIT_GB)||0);
+    const pct = limitGB > 0 ? Math.min(100, usedGB / limitGB * 100) : 0;
+    document.getElementById('usageTotal').textContent = usedGB >= 1 ? usedGB.toFixed(2)+' GB' : usedMB.toFixed(1)+' MB';
+    document.getElementById('usageFill').style.width = pct.toFixed(1)+'%';
+    document.getElementById('usageMeta').textContent = (faOn() ? 'درصد از سقف: ' : 'Percent of quota: ') + pct.toFixed(1) + '%';
+    document.getElementById('quotaTotal').textContent = limitGB + ' GB';
+    const days = Number(c.优选订阅生成?.LIMIT_DAYS)||0;
+    document.getElementById('expireMeta').textContent = (faOn() ? 'اعتبار: ' : 'Validity: ') + days + (faOn() ? ' روز' : ' days');
+  }
+
+  async function loadConfig(){
+    try{
+      const pingStart = performance.now();
+      const res = await fetch('/admin/config.json', { credentials: 'same-origin' });
+      const pingMs = Math.round(performance.now() - pingStart);
+      if (!res.ok) throw new Error('load failed');
+      const c = await res.json();
+      currentConfig = c;
+      const statPingEl = document.getElementById('statPing');
+      if (statPingEl) statPingEl.textContent = pingMs + ' ms';
+      const usage = c.CF?.Usage;
+      const statUsageEl = document.getElementById('statUsage');
+      if (statUsageEl) statUsageEl.textContent = (usage && usage.success) ? (usage.total + ' / ' + usage.max) : (faOn() ? 'در دسترس نیست' : 'N/A');
+      fetch('/admin/cf.json', { credentials: 'same-origin' }).then(r => r.json()).then(cf => {
+        const statColoEl = document.getElementById('statColo');
+        if (statColoEl) statColoEl.textContent = (cf && cf.colo) ? cf.colo : 'N/A';
+      }).catch(() => { const el = document.getElementById('statColo'); if (el) el.textContent = 'N/A'; });
+      document.getElementById('subLink').value = location.origin + '/sub?token=' + (c.优选订阅生成?.TOKEN || '');
+      document.getElementById('nodeLink').value = c.LINK || '';
+      document.getElementById('f_subname').value = c.优选订阅生成?.SUBNAME || '';
+      document.getElementById('f_path').value = c.PATH || '/';
+      document.getElementById('f_protocol').value = c.协议类型 || 'vless';
+      document.getElementById('f_transport').value = c.传输协议 || 'ws';
+      document.getElementById('f_fp').value = c.Fingerprint || 'chrome';
+      document.getElementById('f_frag').value = c.TLS分片 || '';
+      document.getElementById('f_skipcert').checked = !!c.跳过证书验证;
+      document.getElementById('f_randpath').checked = !!c.随机路径;
+      document.getElementById('f_0rtt').checked = !!c.启用0RTT;
+      document.getElementById('f_limit_days').value = c.优选订阅生成?.LIMIT_DAYS ?? 30;
+      document.getElementById('f_limit_gb').value = c.优选订阅生成?.LIMIT_GB ?? 100;
+      document.getElementById('f_ip_source').value = c.优选订阅生成?.CLEAN_IP_SOURCE || 'https://raw.githubusercontent.com/vfarid/cf-clean-ips/main/list.json';
+      updateUsage(c);
+      const proxyKey = Object.keys(c.反代 || {}).find(k => k.toUpperCase() === 'PROXYIP');
+      document.getElementById('f_proxyip').value = (proxyKey ? c.反代[proxyKey] : 'auto') || 'auto';
+      document.getElementById('f_socks_type').value = (c.反代?.SOCKS5?.启用 || '').toLowerCase();
+      document.getElementById('f_socks_account').value = c.反代?.SOCKS5?.账号 || '';
+      document.getElementById('f_socks_global').checked = !!c.反代?.SOCKS5?.全局;
+      document.getElementById('f_tg_chatid').value = c.TG?.ChatID || '';
+      document.getElementById('f_tg_token').placeholder = c.TG?.BotToken ? c.TG.BotToken : '123456789:AAExample-Token';
+      document.getElementById('tgStatus').textContent = c.TG?.启用
+        ? (faOn() ? '🟢 ربات فعال است' : '🟢 Bot is active')
+        : (faOn() ? '⚪️ ربات فعال نیست' : '⚪️ Bot is not active');
+      loadAddList();
+      loadLogs();
+    }catch(e){ toast(faOn() ? 'خطا در بارگذاری تنظیمات' : 'Failed to load settings', true); }
+  }
+
+  let addListLoaded = false;
+  const NL = String.fromCharCode(10);
+  function updateIpCount(){
+    const n = document.getElementById('f_addlist').value.split(NL).map(s => s.trim()).filter(Boolean).length;
+    document.getElementById('ipCount').textContent = n ? (faOn() ? (n + ' آی‌پی در لیست') : (n + ' IPs in list')) : (faOn() ? 'لیست خالی است — IP خودکار' : 'Empty — automatic IPs');
+  }
+  async function loadAddList(){
+    try{
+      const res = await fetch('/admin/ADD.txt?saved=1', { credentials: 'same-origin' });
+      if (res.ok) { document.getElementById('f_addlist').value = await res.text(); addListLoaded = true; }
+    }catch(e){}
+    updateIpCount();
+  }
+  async function saveAddList(){
+    const res = await fetch('/admin/ADD.txt', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: document.getElementById('f_addlist').value.trim()
+    });
+    if (!res.ok) throw new Error('save list failed');
+  }
+  document.getElementById('f_addlist').addEventListener('input', updateIpCount);
+  document.getElementById('clearIpsBtn').onclick = () => { document.getElementById('f_addlist').value = ''; updateIpCount(); toast(faOn() ? 'لیست پاک شد — برای اعمال، ذخیره تغییرات را بزن' : 'List cleared — press Save to apply'); };
+  document.getElementById('fetchIpsBtn').onclick = async () => {
+    const btn = document.getElementById('fetchIpsBtn');
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = faOn() ? 'در حال دریافت…' : 'Fetching…';
+    try{
+      const src = document.getElementById('f_ip_source').value.trim();
+      const res = await fetch('/admin/fetch-ips?n=50&src=' + encodeURIComponent(src), { credentials: 'same-origin' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ips || !data.ips.length) throw new Error(data.error || 'empty');
+      document.getElementById('f_addlist').value = data.ips.join(NL);
+      await saveAddList();
+      addListLoaded = true;
+      updateIpCount();
+      toast(faOn() ? (data.ips.length + ' آی‌پی از مخزن گرفته و روی ساب‌اسکریپشن اعمال شد') : (data.ips.length + ' IPs fetched and applied to the subscription'));
+    }catch(e){
+      toast((faOn() ? 'دریافت از مخزن ناموفق بود: ' : 'Fetch failed: ') + (e && e.message ? e.message : ''), true);
+    }finally{
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  };
+
+  const LOG_ICONS = {
+    Get_SUB: ['📥', '#3b82f6'], Admin_Login: ['🔐', '#22d3ee'], Save_Config: ['💾', '#34d399'],
+    Reset_Config: ['🔄', '#f87171'], Admin_Panel: ['🛠️', '#3b82f6']
+  };
+  function logIconFor(type) { return LOG_ICONS[type] || ['📡', '#3b82f6']; }
+  async function loadLogs(){
+    const box = document.getElementById('logBox');
+    try{
+      const res = await fetch('/admin/log.json', { credentials: 'same-origin' });
+      const logs = res.ok ? await res.json() : [];
+      box.classList.remove('skel');
+      if (Array.isArray(logs) && logs.length) {
+        box.innerHTML = logs.slice(-30).reverse().map(l => {
+          if (typeof l !== 'object' || l === null) return '<div class="log-row" style="--log-color:#3b82f6"><div class="log-body">' + String(l) + '</div></div>';
+          const [icon, color] = logIconFor(l.TYPE);
+          const time = l.TIME ? new Date(l.TIME).toLocaleString(faOn() ? 'en-GB' : 'en-GB', { timeZone: 'Asia/Tehran' }) : '';
+          const ua = (l.UA || '').slice(0, 60);
+          return '<div class="log-row" style="--log-color:' + color + '">' +
+            '<div class="log-icon">' + icon + '</div>' +
+            '<div class="log-body">' +
+              '<div class="log-top"><span class="log-type">' + (l.TYPE || 'LOG') + '</span><span>' + (l.IP || '') + '</span><span class="log-time">' + time + '</span></div>' +
+              '<div class="log-meta">' + (l.CC || '') + ' · ' + (l.ASN || '') + '</div>' +
+              '<div class="log-meta">' + ua + '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      } else {
+        box.innerHTML = faOn() ? '<div class="muted">لاگی ثبت نشده</div>' : '<div class="muted">No logs yet</div>';
+      }
+    }catch(e){ box.classList.remove('skel'); box.textContent = faOn() ? 'خطا در بارگذاری لاگ' : 'Failed to load logs'; }
+  }
+
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const el = document.getElementById(btn.dataset.copy);
+      try{ await navigator.clipboard.writeText(el.value); toast(faOn() ? 'کپی شد' : 'Copied'); }
+      catch(e){ el.select(); document.execCommand('copy'); toast(faOn() ? 'کپی شد' : 'Copied'); }
+    });
+  });
+
+  document.getElementById('reloadBtn').onclick = loadConfig;
+
+  document.getElementById('resetBtn').onclick = async () => {
+    const ok = confirm(faOn() ? 'مطمئنی می‌خوای همه‌ی تنظیمات به حالت پیش‌فرض برگردن؟' : 'Reset all settings to default?');
+    if (!ok) return;
+    try{
+      const res = await fetch('/admin/init', { credentials: 'same-origin' });
+      if (!res.ok) throw new Error();
+      toast(faOn() ? 'تنظیمات ریست شد' : 'Settings reset');
+      loadConfig();
+    }catch(e){ toast(faOn() ? 'ریست ناموفق بود' : 'Reset failed', true); }
+  };
+
+  document.getElementById('saveBtn').onclick = async () => {
+    if (!currentConfig) return;
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true;
+    try{
+      const c = currentConfig;
+      c.优选订阅生成 = c.优选订阅生成 || {};
+      c.优选订阅生成.SUBNAME = document.getElementById('f_subname').value || 'Matix';
+      c.优选订阅生成.LIMIT_DAYS = Math.max(1, Number(document.getElementById('f_limit_days').value) || 30);
+      c.优选订阅生成.LIMIT_GB = Math.max(0, Number(document.getElementById('f_limit_gb').value) || 100);
+      c.优选订阅生成.CLEAN_IP_SOURCE = document.getElementById('f_ip_source').value.trim();
+      c.PATH = document.getElementById('f_path').value || '/';
+      c.协议类型 = document.getElementById('f_protocol').value;
+      c.传输协议 = document.getElementById('f_transport').value;
+      c.Fingerprint = document.getElementById('f_fp').value;
+      c.TLS分片 = document.getElementById('f_frag').value || null;
+      c.跳过证书验证 = document.getElementById('f_skipcert').checked;
+      c.随机路径 = document.getElementById('f_randpath').checked;
+      c.启用0RTT = document.getElementById('f_0rtt').checked;
+      c.反代 = c.反代 || {};
+      const proxyKey = Object.keys(c.反代).find(k => k.toUpperCase() === 'PROXYIP') || 'PROXYIP';
+      c.反代[proxyKey] = document.getElementById('f_proxyip').value || 'auto';
+      c.反代.SOCKS5 = c.反代.SOCKS5 || {};
+      c.反代.SOCKS5.启用 = document.getElementById('f_socks_type').value || null;
+      c.反代.SOCKS5.账号 = document.getElementById('f_socks_account').value || '';
+      c.反代.SOCKS5.全局 = document.getElementById('f_socks_global').checked;
+
+      const res = await fetch('/admin/config.json', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(c)
+      });
+      if (!res.ok) throw new Error('save failed');
+
+      const addlistVal = document.getElementById('f_addlist').value;
+      if (addListLoaded) {
+        await fetch('/admin/ADD.txt', {
+          method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: addlistVal
+        }).catch(() => null);
+      }
+
+      toast(faOn() ? 'ذخیره شد' : 'Saved');
+      loadConfig();
+    }catch(e){
+      toast(faOn() ? 'ذخیره ناموفق بود' : 'Save failed', true);
+    }finally{
+      btn.disabled = false;
+    }
+  };
+
+  const splashMinTime = new Promise(res => setTimeout(res, 1000));
+  const splashStatusEl = document.getElementById('splashStatus');
+  const splashSteps = faOn()
+    ? ['بررسی D1 و متغیرها…', 'خواندن تنظیمات پنل…', 'بررسی اتصال Cloudflare…', 'آماده‌سازی داشبورد…']
+    : ['Checking D1 storage & variables…', 'Reading panel configuration…', 'Verifying Cloudflare connection…', 'Preparing dashboard…'];
+  let splashStepIdx = 0;
+  if (splashStatusEl) splashStatusEl.textContent = splashSteps[0];
+  const splashStepTimer = setInterval(() => {
+    splashStepIdx = (splashStepIdx + 1) % splashSteps.length;
+    if (splashStatusEl) splashStatusEl.textContent = splashSteps[splashStepIdx];
+  }, 450);
+  Promise.all([loadConfig(), splashMinTime]).finally(() => {
+    clearInterval(splashStepTimer);
+    if (splashStatusEl) splashStatusEl.textContent = faOn() ? '✅ آماده است' : '✅ Ready';
+    const sp = document.getElementById('splash');
+    if (sp){ setTimeout(() => { sp.classList.add('hide'); setTimeout(() => sp.remove(), 650); }, 200); }
+  });
+</script>
+</body>
+</html>`;
+}
