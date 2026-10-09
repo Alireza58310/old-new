@@ -1,4 +1,4 @@
-// مرحله ۸: step7 + نوشتن ترافیک/آفلاین/active_ips توی D1 خاموش
+// مرحله ۹: step8 + نوشتن first_connection/active_ips موقع اتصال هم خاموش
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -2107,8 +2107,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, reqUUID).run();
 					} catch (e) {}
 				};
-				if (ctx) ctx.waitUntil(firstConnTask());
-				else firstConnTask();
+				/* D1 write OFF (bisect) */
 			}
 			let currentReqs = USER_REQ_CACHE.get(username) || 0;
 			USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2187,8 +2186,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 							await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), now, reqUUID).run();
 						} catch (e) {}
 					};
-					if (ctx) ctx.waitUntil(updateTask());
-					else updateTask();
+					/* D1 write OFF (bisect) */
 				}
 			}
 			isHeaderParsed = true;
@@ -2413,8 +2411,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
 				} catch (e) {}
 			};
-			if (ctx) ctx.waitUntil(firstConnTask());
-			else firstConnTask();
+			/* D1 write OFF (bisect) */
 		}
 		let currentReqs = USER_REQ_CACHE.get(username) || 0;
 		USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2633,8 +2630,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
 				} catch (e) {}
 			};
-			if (ctx) ctx.waitUntil(firstConnTask());
-			else firstConnTask();
+			/* D1 write OFF (bisect) */
 		}
 		const currentReqs = USER_REQ_CACHE.get(username) || 0;
 		USER_REQ_CACHE.set(username, currentReqs + 1);
@@ -2691,8 +2687,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
 					} catch (e) {}
 				};
-				if (ctx) ctx.waitUntil(updateTask());
-				else updateTask();
+				/* D1 write OFF (bisect) */
 			}
 		}
 		if ((user.block_ads === 1 || user.block_porn === 1) && atyp === 3 && port !== 53) {
