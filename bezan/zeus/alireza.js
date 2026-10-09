@@ -1,4 +1,4 @@
-// مرحله ۴: step3 + import cloudflare:sockets + رمزنگاری SS + تولیدکننده ساب (kvkt6ve)
+// مرحله ۵: step4 + نوشتن ترافیک/آمار در D1 (dyj1dp1, xn0iw7z, viwe15t)
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -1631,10 +1631,82 @@ const kvkt6ve = {
 		});
 	},
 };
-async function dyj1dp1() {}
+async function dyj1dp1(env) {
+	const now = Date.now();
+	for (const [key, val] of obx6yh7.entries()) {
+		if (now > val.expires) obx6yh7.delete(key);
+	}
+	for (const [ip, record] of tp0s2fk.entries()) {
+		if (now - record.lastAttempt > 900000) tp0s2fk.delete(ip);
+	}
+	const allUsers = new Set([...GLOBAL_TRAFFIC_CACHE.keys(), ...USER_REQ_CACHE.keys()]);
+	for (const uname of allUsers) {
+		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
+		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
+		const activeCount = a40qkal.get(uname) || 0;
+		if (cachedBytes <= 0 && cachedReqs <= 0) {
+			GLOBAL_TRAFFIC_CACHE.delete(uname);
+			USER_REQ_CACHE.delete(uname);
+			if (activeCount <= 0) {
+				cchca6z.delete(uname);
+				cchca6z.delete(uname + "_hb");
+			}
+			continue;
+		}
+		if (r2x0v6w.get(uname)) continue;
+		const lastActive = cchca6z.get(uname) || 0;
+		if (activeCount <= 0 || now - lastActive > 60000) {
+			r2x0v6w.set(uname, true);
+			GLOBAL_TRAFFIC_CACHE.set(uname, 0);
+			USER_REQ_CACHE.set(uname, 0);
+			const deltaGb = cachedBytes / (1024 * 1024 * 1024);
+			try {
+				await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
+			} catch (e) {
+				console.error(e.message);
+				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
+				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
+			} finally {
+				r2x0v6w.delete(uname);
+				if (activeCount <= 0) {
+					cchca6z.delete(uname);
+					cchca6z.delete(uname + "_hb");
+				}
+			}
+		}
+	}
+}
 async function bvj1iaf() { return new Response("Not Found", { status: 404 }); }
-async function viwe15t() { return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 }; }
-function xn0iw7z() {}
+async function viwe15t(env) {
+	return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+}
+function xn0iw7z(env, ctx) {
+	cwsdrkz++;
+	const now = Date.now();
+	if ((now - jlvmthl > 900000 || cwsdrkz > 5000) && cwsdrkz > 0) {
+		jlvmthl = now;
+		const countToSave = cwsdrkz;
+		cwsdrkz = 0;
+		const task = async () => {
+			try {
+				const today = new Date().toISOString().split("T")[0];
+				await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
+				const lastDateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
+				if (!lastDateRow || lastDateRow.value !== today) {
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_last_date', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(today, today).run();
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(countToSave), String(countToSave)).run();
+				} else {
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
+				}
+			} catch (e) {}
+		};
+		if (ctx) ctx.waitUntil(task());
+		else task();
+	}
+}
+/*
+[1.
+*/
 async function zbxph7j() { throw new Error("disabled"); }
 const yg6opgi = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
