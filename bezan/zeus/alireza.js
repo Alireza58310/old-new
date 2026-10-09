@@ -1,4 +1,4 @@
-// مرحله ۶: step5 + همه توابع کمکی پروکسی (DNS, صف آپلود, pipe, UDP, socks/http) - هندلر اصلی bvj1iaf هنوز خاموش
+// مرحله ۷: فایل کامل اصلی ولی heartbeat هر اتصال (runHeartbeat) خاموش
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -1711,7 +1711,1125 @@ function depvumf(userSocks5, request) {
 	const selected = proxyList[idx] || proxyList[0];
 	return typeof selected === "object" ? selected.proxy || "" : String(selected || "");
 }
-async function bvj1iaf() { return new Response("Not Found", { status: 404 }); }
+async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
+	if (n7wooiz >= j0z7nx7) {
+		return new Response(null, { status: 503 });
+	}
+	const proxyIP = storedData?.proxy_ip || "";
+	let rawClientIP = request ? request.headers.get("CF-Connecting-IP") || "unknown" : "unknown";
+	let clientIP = rawClientIP;
+	if (rawClientIP !== "unknown") {
+		if (rawClientIP.includes(":")) {
+			const parts = rawClientIP.split(":");
+			if (parts.length >= 4) {
+				clientIP = parts.slice(0, 4).join(":") + "::/64";
+			}
+		} else if (rawClientIP.includes(".")) {
+			const parts = rawClientIP.split(".");
+			if (parts.length === 4) {
+				clientIP = parts.slice(0, 3).join(".") + ".0/24";
+			}
+		}
+	}
+	const socketPair = new WebSocketPair();
+	const [clientSock, serverSock] = Object.values(socketPair);
+	serverSock.accept();
+	serverSock.binaryType = "arraybuffer";
+	n7wooiz++;
+	let isolateSlotReleased = false;
+	const releaseIsolateSlot = () => {
+		if (isolateSlotReleased) return;
+		isolateSlotReleased = true;
+		n7wooiz = Math.max(0, n7wooiz - 1);
+	};
+	serverSock.addEventListener("close", releaseIsolateSlot);
+	serverSock.addEventListener("error", releaseIsolateSlot);
+	let username = null;
+	let validUUID = null;
+	let targetDns = "8.8.4.4";
+	let targetDoh = "https://cloudflare-dns.com/dns-query";
+	function s749df7(bytes) {
+		if (bytes <= 0) return;
+		if (!username) {
+			uncountedBytes += bytes;
+			return;
+		}
+		if (uncountedBytes > 0) {
+			bytes += uncountedBytes;
+			uncountedBytes = 0;
+		}
+		let current = GLOBAL_TRAFFIC_CACHE.get(username) || 0;
+		GLOBAL_TRAFFIC_CACHE.set(username, current + bytes);
+		cchca6z.set(username, Date.now());
+		if (r2x0v6w.get(username)) return;
+		let lastDbWrite = gizzyby.get(username) || 0;
+		let now = Date.now();
+		let thresholdBytes = 500 * 1024 * 1024;
+		if ((current >= thresholdBytes && now - lastDbWrite > 180000) || (current > 0 && now - lastDbWrite > 900000)) {
+			r2x0v6w.set(username, true);
+			let toCommit = GLOBAL_TRAFFIC_CACHE.get(username) || 0;
+			let toCommitReq = USER_REQ_CACHE.get(username) || 0;
+			if (toCommit <= 0 && toCommitReq <= 0) {
+				r2x0v6w.set(username, false);
+				return;
+			}
+			GLOBAL_TRAFFIC_CACHE.set(username, (GLOBAL_TRAFFIC_CACHE.get(username) || 0) - toCommit);
+			USER_REQ_CACHE.set(username, (USER_REQ_CACHE.get(username) || 0) - toCommitReq);
+			gizzyby.set(username, now);
+			let deltaGb = toCommit / (1024 * 1024 * 1024);
+			let writeTask = async () => {
+				try {
+					await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ?, last_active = ? WHERE username = ?").bind(deltaGb, deltaGb, toCommitReq, now, username).run());
+				} catch (e) {
+					console.error(e.message);
+					GLOBAL_TRAFFIC_CACHE.set(username, (GLOBAL_TRAFFIC_CACHE.get(username) || 0) + toCommit);
+					USER_REQ_CACHE.set(username, (USER_REQ_CACHE.get(username) || 0) + toCommitReq);
+				} finally {
+					r2x0v6w.set(username, false);
+				}
+			};
+			if (ctx) ctx.waitUntil(writeTask());
+			else writeTask();
+		}
+	}
+	let isOfflineSet = false;
+	let hasCountedAsActive = false;
+	const setOffline = () => {
+		releaseIsolateSlot();
+		if (isOfflineSet) return;
+		isOfflineSet = true;
+		const uname = username;
+		if (!uname) return;
+		let activeCount = a40qkal.get(uname) || 0;
+		if (hasCountedAsActive) {
+			activeCount = Math.max(0, activeCount - 1);
+			const ipLeft = eojgr6y(uname, clientIP);
+			if (ipLeft <= 0) c85kz7x(env, ctx, uname, validUUID, clientIP);
+		}
+		if (activeCount <= 0) {
+			a40qkal.delete(uname);
+			let cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
+			let cachedReqs = USER_REQ_CACHE.get(uname) || 0;
+			const nowOff = Date.now();
+			const lastTrafficWrite = gizzyby.get(uname) || 0;
+			const shouldCommit = (cachedBytes >= 20 * 1024 * 1024) || (nowOff - lastTrafficWrite > 600000) || (cachedReqs >= 20);
+			if (shouldCommit && (cachedBytes > 0 || cachedReqs > 0) && !r2x0v6w.get(uname)) {
+				r2x0v6w.set(uname, true);
+				gizzyby.set(uname, nowOff);
+				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) - cachedBytes);
+				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) - cachedReqs);
+				const deltaGb = cachedBytes / (1024 * 1024 * 1024);
+				const writeTask = async () => {
+					try {
+						await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
+					} catch (e) {
+						console.error(e.message);
+						GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
+						USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
+					} finally {
+						r2x0v6w.delete(uname);
+						cchca6z.delete(uname);
+					}
+				};
+				if (ctx) {
+					ctx.waitUntil(writeTask());
+				} else {
+					writeTask();
+				}
+			} else {
+				cchca6z.delete(uname);
+			}
+		} else {
+			a40qkal.set(uname, activeCount);
+		}
+	};
+	let heartbeat;
+	const runHeartbeat = async () => {
+		if (serverSock.readyState === WebSocket.OPEN) {
+			try {
+				serverSock.send(new Uint8Array(0));
+				if (!validUUID || !username) {
+					heartbeat = setTimeout(runHeartbeat, Math.floor(Math.random() * 5000) + 20000);
+					return;
+				}
+				const nowTime = Date.now();
+				const hbKey = username + "_hb_" + (clientIP || "");
+				const lastCheck = gbd8v13.get(hbKey) || 0;
+				if (nowTime - lastCheck >= 120000) {
+					gbd8v13.set(hbKey, nowTime);
+					const user = await fz8j64g(() => env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, first_connection_time, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first(), 2);
+					let isExpired = false;
+					let isIpLimitExpired = false;
+					let updatedActiveIps = null;
+					if (!user || user.is_active === 0) {
+						isExpired = true;
+					} else {
+						const liveGbHb = (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(username) || 0) / (1024 * 1024 * 1024));
+						if (user.limit_gb && liveGbHb >= user.limit_gb) isExpired = true;
+						if (user.limit_req && user.used_req + (USER_REQ_CACHE.get(username) || 0) >= user.limit_req) isExpired = true;
+						if (user.expiry_days && user.created_at) {
+							const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 86400000) : new Date(new Date(user.created_at).getTime() + user.expiry_days * 86400000);
+							if (nowTime > expiryDate.getTime()) isExpired = true;
+						}
+						if (!isExpired && clientIP && clientIP !== "unknown") {
+							let activeIps = {};
+							try {
+								activeIps = JSON.parse(user.active_ips || "{}");
+							} catch (e) {}
+							let hasChanges = false;
+							for (const [ip, data] of Object.entries(activeIps)) {
+								const lastSeen = data && typeof data === "object" ? data.timestamp : data;
+								if (ip !== clientIP && nowTime - lastSeen > 180000) {
+									delete activeIps[ip];
+									hasChanges = true;
+								}
+							}
+							if (!activeIps[clientIP]) {
+								if (user.ip_limit && user.ip_limit > 0 && Object.keys(activeIps).length >= user.ip_limit) {
+									isIpLimitExpired = true;
+								} else {
+									activeIps[clientIP] = { timestamp: nowTime, count: 1 };
+									hasChanges = true;
+								}
+							} else {
+								const sortedIps = Object.keys(activeIps).sort((a, b) => {
+									const tA = typeof activeIps[a] === "object" ? activeIps[a].timestamp : activeIps[a];
+									const tB = typeof activeIps[b] === "object" ? activeIps[b].timestamp : activeIps[b];
+									return tB - tA;
+								});
+								if (user.ip_limit && user.ip_limit > 0 && sortedIps.indexOf(clientIP) >= user.ip_limit) {
+									isIpLimitExpired = true;
+								} else {
+									const curData = activeIps[clientIP];
+									const curSeen = typeof curData === "object" ? curData.timestamp : curData;
+									if (nowTime - curSeen > 100000) {
+										if (typeof curData === "object") {
+											curData.timestamp = nowTime;
+										} else {
+											activeIps[clientIP] = { timestamp: nowTime, count: 1 };
+										}
+										hasChanges = true;
+									}
+								}
+							}
+							if (hasChanges || isIpLimitExpired) updatedActiveIps = JSON.stringify(activeIps);
+						}
+					}
+					if (isExpired) {
+						await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(validUUID).run();
+						clearTimeout(heartbeat);
+						grmlvmk(serverSock);
+						return;
+					}
+					if (isIpLimitExpired) {
+						clearTimeout(heartbeat);
+						grmlvmk(serverSock);
+						return;
+					}
+					if (updatedActiveIps !== null) {
+						orfpjpg.set(username, nowTime);
+						await env.DB.prepare("UPDATE users SET last_active = ?, active_ips = ? WHERE username = ?").bind(nowTime, updatedActiveIps, username).run();
+					} else if (nowTime - (orfpjpg.get(username) || 0) >= 900000) {
+						orfpjpg.set(username, nowTime);
+						await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(nowTime, username).run();
+					}
+				}
+			} catch (e) {}
+			heartbeat = setTimeout(runHeartbeat, Math.floor(Math.random() * 5000) + 20000);
+		} else {
+			clearTimeout(heartbeat);
+		}
+	};
+	/* heartbeat OFF (bisect) */
+	let remoteConnWrapper = { socket: null, connectingPromise: null, retryConnect: null };
+	let reqUUID = null;
+	let isHeaderParsed = false;
+	let isHeaderParsing = false;
+	let isDnsQuery = false;
+	let chunkBuffer = new Uint8Array(0);
+	let uncountedBytes = 0;
+	let ssPathKey = null;
+	if (request) {
+		try {
+			const ssMatch = new URL(request.url).pathname.match(/^\/stream\/aaaaaaaaaa\/([0-9A-Za-z]{1,32})\/ss(?:\/|$)/);
+			if (ssMatch) ssPathKey = ssMatch[1].toLowerCase();
+		} catch (e) {}
+	}
+	let ssUser = null;
+	let ssUpCtx = null;
+	let ssUpBuffer = new Uint8Array(0);
+	let ssUpExpectedLen = null;
+	let wsChain = Promise.resolve();
+	let wsStopped = false,
+		wsFailed = false,
+		wsFinished = false;
+	let wsQueueBytes = 0,
+		wsQueueItems = 0;
+	let currentSocketWriter = null,
+		activeRemoteWriter = null;
+	const releaseRemoteWriter = () => {
+		if (activeRemoteWriter) {
+			try {
+				activeRemoteWriter.releaseLock();
+			} catch (e) {}
+			activeRemoteWriter = null;
+		}
+		currentSocketWriter = null;
+	};
+	const getRemoteWriter = () => {
+		const s = remoteConnWrapper.socket;
+		if (!s) return null;
+		if (s !== currentSocketWriter) {
+			releaseRemoteWriter();
+			currentSocketWriter = s;
+			activeRemoteWriter = s.writable.getWriter();
+		}
+		return activeRemoteWriter;
+	};
+	const upstreamQueue = tasyh7l({
+		getWriter: getRemoteWriter,
+		releaseWriter: releaseRemoteWriter,
+		retryConnect: async () => {
+			if (typeof remoteConnWrapper.retryConnect === "function") {
+				await remoteConnWrapper.retryConnect();
+			}
+		},
+		closeConnection: () => {
+			try {
+				remoteConnWrapper.socket?.close();
+			} catch (e) {}
+			grmlvmk(serverSock);
+		},
+		name: "vIeesWSQueue",
+	});
+	let hasRemoteWriteSucceeded = false;
+	const writeToRemote = async (chunk, allowRetry = true) => {
+		const effectiveAllowRetry = allowRetry && !hasRemoteWriteSucceeded;
+		const result = await upstreamQueue.write(chunk, effectiveAllowRetry);
+		if (result === true) hasRemoteWriteSucceeded = true;
+		return result;
+	};
+	const processWsMessage = async (chunk) => {
+		const bytes = chunk.byteLength || 0;
+		s749df7(bytes);
+		if (isDnsQuery) {
+			await sf3jqd6(chunk, serverSock, null, s749df7, targetDns);
+			return;
+		}
+		if (isHeaderParsed) {
+			if (remoteConnWrapper.connectingPromise) {
+				await remoteConnWrapper.connectingPromise;
+			}
+			if (ssUpCtx) {
+				await processShadowsocksUplink(chunk);
+				return;
+			}
+			await writeToRemote(chunk);
+			return;
+		}
+		if (!isHeaderParsed) {
+			chunkBuffer = o6qjwnj(chunkBuffer, chunk);
+			if (ssPathKey) {
+				await processShadowsocksMessage();
+				return;
+			}
+			if (chunkBuffer.byteLength > 0 && chunkBuffer[0] !== 0) {
+				if (chunkBuffer.byteLength < 58) return;
+				let isHexHash = true;
+				for (let i = 0; i < 56; i++) {
+					const b = chunkBuffer[i];
+					if (!((b >= 0x30 && b <= 0x39) || (b >= 0x61 && b <= 0x66))) {
+						isHexHash = false;
+						break;
+					}
+				}
+				if (isHexHash && chunkBuffer[56] === 0x0d && chunkBuffer[57] === 0x0a) {
+					await processTrojanMessage();
+					return;
+				}
+				serverSock.close();
+				return;
+			}
+			if (chunkBuffer.byteLength < 24) return;
+			let optLen = chunkBuffer[17];
+			let requiredLen = 18 + optLen + 4;
+			if (chunkBuffer.byteLength < requiredLen) return;
+			let addrType = chunkBuffer[18 + optLen + 3];
+			if (addrType === 1) {
+				requiredLen += 4;
+			} else if (addrType === 2) {
+				requiredLen += 1;
+				if (chunkBuffer.byteLength < requiredLen) return;
+				requiredLen += chunkBuffer[18 + optLen + 4];
+			} else if (addrType === 3) {
+				requiredLen += 16;
+			} else {
+				serverSock.close();
+				return;
+			}
+			if (chunkBuffer.byteLength < requiredLen) return;
+			if (isHeaderParsing) return;
+			isHeaderParsing = true;
+			reqUUID = g5gydre(chunkBuffer);
+			if (!reqUUID) {
+				serverSock.close();
+				return;
+			}
+			if (chunkBuffer[18 + optLen] === 2 && ((chunkBuffer[19 + optLen] << 8) | chunkBuffer[20 + optLen]) !== 53) {
+				serverSock.close();
+				return;
+			}
+			let user = null;
+			try {
+				user = await vjcnes5(env, "SELECT * FROM users WHERE uuid = ? COLLATE NOCASE", reqUUID);
+			} catch (e) {}
+			if (!user) {
+				serverSock.close();
+				return;
+			}
+			if (!le69yqs(user).vless) {
+				serverSock.close();
+				return;
+			}
+			reqUUID = user.uuid;
+			if (request) {
+				const reqUrl = new URL(request.url);
+				const pathKey = ((user.uuid || "").split("-")[4] || "default").toLowerCase();
+				const pathOk = /^\/stream\/[^\/]+\//.test(reqUrl.pathname) && reqUrl.pathname.toLowerCase().split("/")[3] === pathKey;
+				if (!pathOk) {
+					serverSock.close();
+					return;
+				}
+			}
+			username = user.username;
+			validUUID = reqUUID;
+			if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(reqUUID + "_first_conn")) {
+				r2x0v6w.set(reqUUID + "_first_conn", true);
+				const firstConnectNow = Date.now();
+				user.first_connection_time = firstConnectNow;
+				const firstConnTask = async () => {
+					try {
+						await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, reqUUID).run();
+					} catch (e) {}
+				};
+				if (ctx) ctx.waitUntil(firstConnTask());
+				else firstConnTask();
+			}
+			let currentReqs = USER_REQ_CACHE.get(username) || 0;
+			USER_REQ_CACHE.set(username, currentReqs + 1);
+			if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
+				GLOBAL_TRAFFIC_CACHE.set(username, 0);
+			}
+			if (isOfflineSet || serverSock.readyState !== WebSocket.OPEN) {
+				return;
+			}
+			if (user.is_active === 0) {
+				serverSock.close();
+				return;
+			}
+			if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
+				serverSock.close();
+				return;
+			}
+			if (user.limit_req && user.used_req + (USER_REQ_CACHE.get(username) || 0) > user.limit_req) {
+				serverSock.close();
+				return;
+			}
+			if (user.expiry_days && user.created_at) {
+				const created = new Date(user.created_at);
+				const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+				if (new Date() > expiryDate) {
+					try {
+						await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(reqUUID).run();
+					} catch (e) {}
+					serverSock.close();
+					return;
+				}
+			}
+			if (user.block_porn === 1 && user.block_ads === 1) {
+				targetDns = "94.140.14.15";
+				targetDoh = "https://family.adguard-dns.com/dns-query";
+			} else if (user.block_porn === 1) {
+				targetDns = "1.1.1.3";
+				targetDoh = "https://family.cloudflare-dns.com/dns-query";
+			} else if (user.block_ads === 1) {
+				targetDns = "94.140.14.14";
+				targetDoh = "https://dns.adguard-dns.com/dns-query";
+			}
+			if (clientIP && clientIP !== "unknown") {
+				let activeIps = {};
+				try {
+					activeIps = JSON.parse(user.active_ips || "{}");
+				} catch (e) {}
+				const now = Date.now();
+				for (const [ip, data] of Object.entries(activeIps)) {
+					const lastSeen = data && typeof data === "object" ? data.timestamp : data;
+					if (now - lastSeen > 180000) delete activeIps[ip];
+				}
+				let isNewIp = false;
+				if (!activeIps[clientIP]) {
+					const sortedIps = Object.keys(activeIps);
+					if (user.ip_limit && user.ip_limit > 0 && sortedIps.length >= user.ip_limit) {
+						serverSock.close();
+						return;
+					}
+					activeIps[clientIP] = { timestamp: now, count: 1 };
+					isNewIp = true;
+				} else {
+					if (typeof activeIps[clientIP] === "object") {
+						activeIps[clientIP].timestamp = now;
+						activeIps[clientIP].count = (activeIps[clientIP].count || 0) + 1;
+					} else {
+						activeIps[clientIP] = { timestamp: now, count: 1 };
+					}
+				}
+				const lastIpWrite = orfpjpg.get(username) || 0;
+				if (isNewIp || now - lastIpWrite > 900000) {
+					cchca6z.set(username, now);
+					orfpjpg.set(username, now);
+					const updateTask = async () => {
+						try {
+							await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), now, reqUUID).run();
+						} catch (e) {}
+					};
+					if (ctx) ctx.waitUntil(updateTask());
+					else updateTask();
+				}
+			}
+			isHeaderParsed = true;
+			let activeCount = a40qkal.get(username) || 0;
+			a40qkal.set(username, activeCount + 1);
+			hasCountedAsActive = true;
+			h0pqirm(username, clientIP);
+			cchca6z.set(username, Date.now());
+			try {
+				let offset = 17;
+				const optLen = chunkBuffer[offset++];
+				offset += optLen;
+				const cmd = chunkBuffer[offset++];
+				const port = (chunkBuffer[offset++] << 8) | chunkBuffer[offset++];
+				const addrType = chunkBuffer[offset++];
+				let addr = "";
+				if (addrType === 1) {
+					addr = `${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}`;
+				} else if (addrType === 2) {
+					const domainLen = chunkBuffer[offset++];
+					addr = b1p8pcx.decode(chunkBuffer.slice(offset, offset + domainLen));
+					offset += domainLen;
+				} else if (addrType === 3) {
+					const v6 = [];
+					for (let i = 0; i < 8; i++) {
+						v6.push(((chunkBuffer[offset++] << 8) | chunkBuffer[offset++]).toString(16));
+					}
+					addr = v6.join(":");
+				}
+				const rawData = chunkBuffer.slice(offset);
+				const respHeader = new Uint8Array([chunkBuffer[0], 0]);
+				if ((user.block_ads === 1 || user.block_porn === 1) && addrType === 2 && port !== 53) {
+					try {
+						const dnsCheck = await xrts5qo(addr, "A", targetDoh);
+						const isBlocked = dnsCheck.some((r) => r.data === "0.0.0.0" || r.data === "::" || r.data === "176.103.130.130");
+						if (isBlocked) {
+							serverSock.close();
+							return;
+						}
+						const resolvedRecord = dnsCheck.find((r) => r.type === 1 || r.type === 28);
+						if (resolvedRecord && resolvedRecord.data) {
+							addr = resolvedRecord.data;
+						}
+					} catch (e) {}
+				}
+				if (cmd === 2) {
+					if (port === 53) {
+						isDnsQuery = true;
+						await sf3jqd6(rawData, serverSock, respHeader, s749df7, targetDns);
+					} else {
+						serverSock.close();
+					}
+					return;
+				}
+				if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+					serverSock.close();
+					return;
+				}
+				if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
+					serverSock.close();
+					return;
+				}
+				const connectTCP = async (dataPayload = null, useFallback = true) => {
+					if (remoteConnWrapper.connectingPromise) {
+						await remoteConnWrapper.connectingPromise;
+						return;
+					}
+					const task = (async () => {
+						let s = null;
+						const socks5 = depvumf(user?.user_socks5, request);
+						if (socks5) {
+							try {
+								s = await zbxph7j(socks5, addr, port, dataPayload);
+							} catch (proxyErr) {
+								if (user.auto_rotate_user_proxy === 1) {
+									const replaceTask = d8fsytq(user.username, env, socks5);
+									if (ctx) ctx.waitUntil(replaceTask);
+									else replaceTask.catch(() => {});
+								}
+								throw proxyErr;
+							}
+						} else {
+							try {
+								s = await ndhpogz(addr, port, dataPayload, targetDoh);
+							} catch (directErr) {
+								if (useFallback && proxyIP) {
+									/* اتصال مستقیم شکست خورد؛ روی proxyIP ثابتی که تو تنظیمات پنل انتخاب شده retry می‌کنیم
+									   (همون مکانیزم کشور/آی‌پی ثابت — بدون دست‌زدن به مسیر socks5 کاربر) */
+									s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
+								} else if (useFallback && directErr && directErr.connectPhase) {
+									try {
+										s = await ndhpogz(addr, port, dataPayload, targetDoh);
+									} catch (retryErr) {
+										throw directErr;
+									}
+								} else {
+									throw directErr;
+								}
+							}
+						}
+						remoteConnWrapper.socket = s;
+						s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
+						v18gj84(s, serverSock, respHeader, null, s749df7);
+					})();
+					remoteConnWrapper.connectingPromise = task;
+					try {
+						await task;
+					} finally {
+						if (remoteConnWrapper.connectingPromise === task) {
+							remoteConnWrapper.connectingPromise = null;
+						}
+					}
+				};
+				remoteConnWrapper.retryConnect = async () => connectTCP(null, false);
+				await connectTCP(rawData, true);
+			} catch (e) {
+				serverSock.close();
+			}
+		}
+	};
+	const processTrojanMessage = async () => {
+		if (isHeaderParsing) return;
+		isHeaderParsing = true;
+		const passHash = b1p8pcx.decode(chunkBuffer.slice(0, 56));
+		let user = null;
+		try {
+			user = await vjcnes5(env, "SELECT * FROM users WHERE trojan_hash = ?", passHash);
+		} catch (e) {}
+		if (!user || !le69yqs(user).trojan) {
+			serverSock.close();
+			return;
+		}
+		let offset = 58;
+		if (chunkBuffer.byteLength < offset + 2) {
+			isHeaderParsing = false;
+			return;
+		}
+		const cmd = chunkBuffer[offset++];
+		const addrType = chunkBuffer[offset++];
+		let addr = "";
+		if (addrType === 1) {
+			if (chunkBuffer.byteLength < offset + 4) {
+				isHeaderParsing = false;
+				return;
+			}
+			addr = `${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}`;
+		} else if (addrType === 3) {
+			if (chunkBuffer.byteLength < offset + 1) {
+				isHeaderParsing = false;
+				return;
+			}
+			const domainLen = chunkBuffer[offset++];
+			if (chunkBuffer.byteLength < offset + domainLen) {
+				isHeaderParsing = false;
+				return;
+			}
+			addr = b1p8pcx.decode(chunkBuffer.slice(offset, offset + domainLen));
+			offset += domainLen;
+		} else if (addrType === 4) {
+			if (chunkBuffer.byteLength < offset + 16) {
+				isHeaderParsing = false;
+				return;
+			}
+			const v6 = [];
+			for (let i = 0; i < 8; i++) {
+				v6.push(((chunkBuffer[offset++] << 8) | chunkBuffer[offset++]).toString(16));
+			}
+			addr = v6.join(":");
+		} else {
+			serverSock.close();
+			return;
+		}
+		if (chunkBuffer.byteLength < offset + 4) {
+			isHeaderParsing = false;
+			return;
+		}
+		const port = (chunkBuffer[offset++] << 8) | chunkBuffer[offset++];
+		if (chunkBuffer[offset] !== 0x0d || chunkBuffer[offset + 1] !== 0x0a) {
+			serverSock.close();
+			return;
+		}
+		offset += 2;
+		const rawData = chunkBuffer.slice(offset);
+		if (user.is_active === 0) {
+			serverSock.close();
+			return;
+		}
+		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
+			serverSock.close();
+			return;
+		}
+		if (user.limit_req && user.used_req >= user.limit_req) {
+			serverSock.close();
+			return;
+		}
+		if (user.expiry_days && user.created_at) {
+			const created = new Date(user.created_at);
+			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+			if (new Date() > expiryDate) {
+				try {
+					await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(user.uuid).run();
+				} catch (e) {}
+				serverSock.close();
+				return;
+			}
+		}
+		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+			serverSock.close();
+			return;
+		}
+		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
+			serverSock.close();
+			return;
+		}
+		username = user.username;
+		validUUID = user.uuid || null;
+		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
+			r2x0v6w.set(user.uuid + "_first_conn", true);
+			const firstConnectNow = Date.now();
+			const firstConnTask = async () => {
+				try {
+					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
+				} catch (e) {}
+			};
+			if (ctx) ctx.waitUntil(firstConnTask());
+			else firstConnTask();
+		}
+		let currentReqs = USER_REQ_CACHE.get(username) || 0;
+		USER_REQ_CACHE.set(username, currentReqs + 1);
+		if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
+			GLOBAL_TRAFFIC_CACHE.set(username, 0);
+		}
+		isHeaderParsed = true;
+		let activeCount = a40qkal.get(username) || 0;
+		a40qkal.set(username, activeCount + 1);
+		hasCountedAsActive = true;
+		h0pqirm(username, clientIP);
+		cchca6z.set(username, Date.now());
+		const trojanConnectTCP = async (dataPayload = null) => {
+			if (remoteConnWrapper.connectingPromise) {
+				await remoteConnWrapper.connectingPromise;
+				return;
+			}
+			const task = (async () => {
+				let s = null;
+				const socks5 = depvumf(user?.user_socks5, request);
+				if (socks5) {
+					try {
+						s = await zbxph7j(socks5, addr, port, dataPayload);
+					} catch (proxyErr) {
+						if (user.auto_rotate_user_proxy === 1) {
+							const replaceTask = d8fsytq(user.username, env, socks5);
+							if (ctx) ctx.waitUntil(replaceTask);
+							else replaceTask.catch(() => {});
+						}
+						throw proxyErr;
+					}
+				} else {
+					try {
+						s = await ndhpogz(addr, port, dataPayload, targetDoh);
+					} catch (directErr) {
+						if (proxyIP) {
+							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
+						} else {
+							throw directErr;
+						}
+					}
+				}
+				remoteConnWrapper.socket = s;
+				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
+				v18gj84(s, serverSock, null, null, s749df7);
+			})();
+			remoteConnWrapper.connectingPromise = task;
+			try {
+				await task;
+			} finally {
+				if (remoteConnWrapper.connectingPromise === task) {
+					remoteConnWrapper.connectingPromise = null;
+				}
+			}
+		};
+		remoteConnWrapper.retryConnect = async () => trojanConnectTCP(null);
+		try {
+			await trojanConnectTCP(rawData);
+		} catch (e) {
+			serverSock.close();
+		}
+	};
+	const SS_SALT_LEN = 32;
+	const SS_MAX_PAYLOAD = 0x3fff;
+	const ssDrainFrames = async () => {
+		const out = [];
+		while (true) {
+			if (ssUpExpectedLen === null) {
+				if (ssUpBuffer.byteLength < 18) break;
+				const decLen = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, 18));
+				if (!decLen) return null;
+				const l = (decLen[0] << 8) | decLen[1];
+				if (l > SS_MAX_PAYLOAD) return null;
+				ssUpExpectedLen = l;
+				ssUpBuffer = ssUpBuffer.slice(18);
+			}
+			if (ssUpBuffer.byteLength < ssUpExpectedLen + 16) break;
+			const dec = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, ssUpExpectedLen + 16));
+			if (!dec) return null;
+			ssUpBuffer = ssUpBuffer.slice(ssUpExpectedLen + 16);
+			ssUpExpectedLen = null;
+			if (dec.byteLength > 0) out.push(dec);
+		}
+		return out;
+	};
+	const processShadowsocksUplink = async (chunk) => {
+		ssUpBuffer = o6qjwnj(ssUpBuffer, chunk);
+		if (ssUpBuffer.byteLength > 2 * 1024 * 1024) {
+			grmlvmk(serverSock);
+			return;
+		}
+		const frames = await ssDrainFrames();
+		if (frames === null) {
+			grmlvmk(serverSock);
+			return;
+		}
+		for (const f of frames) await writeToRemote(f);
+	};
+	const processShadowsocksMessage = async () => {
+		if (chunkBuffer.byteLength < SS_SALT_LEN + 18) return;
+		if (chunkBuffer.byteLength > 128 * 1024) {
+			serverSock.close();
+			return;
+		}
+		if (!ssUser) {
+			let found = null;
+			try {
+				const { results } = await rpsmq65(env, "SELECT * FROM users WHERE uuid LIKE ? LIMIT 8", "%-" + ssPathKey);
+				found = (results || []).find((r) => String(String(r.uuid || "").split("-")[4] || "").toLowerCase() === ssPathKey) || null;
+			} catch (e) {}
+			if (!found || !le69yqs(found).ss) {
+				serverSock.close();
+				return;
+			}
+			ssUser = found;
+		}
+		const user = ssUser;
+		const upSalt = chunkBuffer.slice(0, SS_SALT_LEN);
+		const upKey = await bp4qnv1.deriveSubkey(user.uuid, upSalt);
+		const upCtx = { key: upKey, nonce: new Uint8Array(12) };
+		const decLenBuf = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN, SS_SALT_LEN + 18));
+		if (!decLenBuf) {
+			serverSock.close();
+			return;
+		}
+		const payloadLen = (decLenBuf[0] << 8) | decLenBuf[1];
+		if (payloadLen === 0 || payloadLen > SS_MAX_PAYLOAD) {
+			serverSock.close();
+			return;
+		}
+		const frameEnd = SS_SALT_LEN + 18 + payloadLen + 16;
+		if (chunkBuffer.byteLength < frameEnd) return;
+		const first = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN + 18, frameEnd));
+		if (!first) {
+			serverSock.close();
+			return;
+		}
+		let off = 0;
+		const atyp = first[off++];
+		let addr = "";
+		if (atyp === 1) {
+			if (first.byteLength < off + 4 + 2) {
+				serverSock.close();
+				return;
+			}
+			addr = `${first[off++]}.${first[off++]}.${first[off++]}.${first[off++]}`;
+		} else if (atyp === 3) {
+			const domainLen = first[off++];
+			if (!domainLen || first.byteLength < off + domainLen + 2) {
+				serverSock.close();
+				return;
+			}
+			addr = b1p8pcx.decode(first.subarray(off, off + domainLen));
+			off += domainLen;
+		} else if (atyp === 4) {
+			if (first.byteLength < off + 16 + 2) {
+				serverSock.close();
+				return;
+			}
+			const v6 = [];
+			for (let i = 0; i < 8; i++) v6.push(((first[off++] << 8) | first[off++]).toString(16));
+			addr = v6.join(":");
+		} else {
+			serverSock.close();
+			return;
+		}
+		const port = (first[off++] << 8) | first[off++];
+		let rawData = first.slice(off);
+		ssUpCtx = upCtx;
+		ssUpBuffer = chunkBuffer.slice(frameEnd);
+		ssUpExpectedLen = null;
+		chunkBuffer = new Uint8Array(0);
+		const moreFrames = await ssDrainFrames();
+		if (moreFrames === null) {
+			serverSock.close();
+			return;
+		}
+		if (moreFrames.length > 0) rawData = o6qjwnj(rawData, ...moreFrames);
+		if (isHeaderParsing) return;
+		isHeaderParsing = true;
+		if (user.is_active === 0) {
+			serverSock.close();
+			return;
+		}
+		if (user.limit_gb && (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)) >= user.limit_gb) {
+			serverSock.close();
+			return;
+		}
+		if (user.expiry_days && user.created_at) {
+			const created = new Date(user.created_at);
+			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+			if (new Date() > expiryDate) {
+				try {
+					await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(user.uuid).run();
+				} catch (e) {}
+				serverSock.close();
+				return;
+			}
+		}
+		if (port === 25 || port === 22 || /^(0\.|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|169\.254\.|localhost$|::1|::ffff:|fd[0-9a-f]{2}:|fe80:)/i.test(addr)) {
+			serverSock.close();
+			return;
+		}
+		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
+			serverSock.close();
+			return;
+		}
+		username = user.username;
+		validUUID = user.uuid || null;
+		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
+			r2x0v6w.set(user.uuid + "_first_conn", true);
+			const firstConnectNow = Date.now();
+			user.first_connection_time = firstConnectNow;
+			const firstConnTask = async () => {
+				try {
+					await env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE uuid = ?").bind(firstConnectNow, user.uuid).run();
+				} catch (e) {}
+			};
+			if (ctx) ctx.waitUntil(firstConnTask());
+			else firstConnTask();
+		}
+		const currentReqs = USER_REQ_CACHE.get(username) || 0;
+		USER_REQ_CACHE.set(username, currentReqs + 1);
+		if (!GLOBAL_TRAFFIC_CACHE.has(username)) {
+			GLOBAL_TRAFFIC_CACHE.set(username, 0);
+		}
+		if (isOfflineSet || serverSock.readyState !== WebSocket.OPEN) {
+			return;
+		}
+		if (user.limit_req && user.used_req + (USER_REQ_CACHE.get(username) || 0) > user.limit_req) {
+			serverSock.close();
+			return;
+		}
+		if (user.block_porn === 1 && user.block_ads === 1) {
+			targetDns = "94.140.14.15";
+			targetDoh = "https://family.adguard-dns.com/dns-query";
+		} else if (user.block_porn === 1) {
+			targetDns = "1.1.1.3";
+			targetDoh = "https://family.cloudflare-dns.com/dns-query";
+		} else if (user.block_ads === 1) {
+			targetDns = "94.140.14.14";
+			targetDoh = "https://dns.adguard-dns.com/dns-query";
+		}
+		if (clientIP && clientIP !== "unknown") {
+			let activeIps = {};
+			try {
+				activeIps = JSON.parse(user.active_ips || "{}");
+			} catch (e) {}
+			const nowIp = Date.now();
+			for (const [ip, data] of Object.entries(activeIps)) {
+				const lastSeen = data && typeof data === "object" ? data.timestamp : data;
+				if (nowIp - lastSeen > 180000) delete activeIps[ip];
+			}
+			let isNewIp = false;
+			if (!activeIps[clientIP]) {
+				if (user.ip_limit && user.ip_limit > 0 && Object.keys(activeIps).length >= user.ip_limit) {
+					serverSock.close();
+					return;
+				}
+				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
+				isNewIp = true;
+			} else if (typeof activeIps[clientIP] === "object") {
+				activeIps[clientIP].timestamp = nowIp;
+				activeIps[clientIP].count = (activeIps[clientIP].count || 0) + 1;
+			} else {
+				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
+			}
+			const lastIpWrite = orfpjpg.get(username) || 0;
+			if (isNewIp || nowIp - lastIpWrite > 900000) {
+				cchca6z.set(username, nowIp);
+				orfpjpg.set(username, nowIp);
+				const updateTask = async () => {
+					try {
+						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
+					} catch (e) {}
+				};
+				if (ctx) ctx.waitUntil(updateTask());
+				else updateTask();
+			}
+		}
+		if ((user.block_ads === 1 || user.block_porn === 1) && atyp === 3 && port !== 53) {
+			try {
+				const dnsCheck = await xrts5qo(addr, "A", targetDoh);
+				const isBlocked = dnsCheck.some((r) => r.data === "0.0.0.0" || r.data === "::" || r.data === "176.103.130.130");
+				if (isBlocked) {
+					serverSock.close();
+					return;
+				}
+				const resolvedRecord = dnsCheck.find((r) => r.type === 1 || r.type === 28);
+				if (resolvedRecord && resolvedRecord.data) addr = resolvedRecord.data;
+			} catch (e) {}
+		}
+		isHeaderParsed = true;
+		const activeCount = a40qkal.get(username) || 0;
+		a40qkal.set(username, activeCount + 1);
+		hasCountedAsActive = true;
+		h0pqirm(username, clientIP);
+		cchca6z.set(username, Date.now());
+		const ssConnectTCP = async (dataPayload = null) => {
+			if (remoteConnWrapper.connectingPromise) {
+				await remoteConnWrapper.connectingPromise;
+				return;
+			}
+			const task = (async () => {
+				let s = null;
+				const socks5 = depvumf(user?.user_socks5, request);
+				if (socks5) {
+					try {
+						s = await zbxph7j(socks5, addr, port, dataPayload);
+					} catch (proxyErr) {
+						if (user.auto_rotate_user_proxy === 1) {
+							const replaceTask = d8fsytq(user.username, env, socks5);
+							if (ctx) ctx.waitUntil(replaceTask);
+							else replaceTask.catch(() => {});
+						}
+						throw proxyErr;
+					}
+				} else {
+					try {
+						s = await ndhpogz(addr, port, dataPayload, targetDoh);
+					} catch (directErr) {
+						if (proxyIP) {
+							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
+						} else if (directErr && directErr.connectPhase) {
+							try {
+								s = await ndhpogz(addr, port, dataPayload, targetDoh);
+							} catch (retryErr) {
+								throw directErr;
+							}
+						} else {
+							throw directErr;
+						}
+					}
+				}
+				remoteConnWrapper.socket = s;
+				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
+				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
+				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
+				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
+			})();
+			remoteConnWrapper.connectingPromise = task;
+			try {
+				await task;
+			} finally {
+				if (remoteConnWrapper.connectingPromise === task) {
+					remoteConnWrapper.connectingPromise = null;
+				}
+			}
+		};
+		remoteConnWrapper.retryConnect = async () => {
+			throw new Error("shadowsocks: reconnect not supported");
+		};
+		try {
+			await ssConnectTCP(rawData);
+		} catch (e) {
+			serverSock.close();
+		}
+	};
+	const handleWsError = (err) => {
+		if (wsFailed) return;
+		wsFailed = true;
+		wsStopped = true;
+		clearTimeout(heartbeat);
+		wsQueueBytes = 0;
+		wsQueueItems = 0;
+		upstreamQueue.clear();
+		releaseRemoteWriter();
+		grmlvmk(serverSock);
+		setOffline();
+	};
+	const pushToChain = (task) => {
+		wsChain = wsChain.then(task).catch(handleWsError);
+	};
+	serverSock.addEventListener("message", (event) => {
+		if (wsStopped || wsFailed) return;
+		if (typeof event.data === "string") return;
+		const size = event.data.byteLength || 0;
+		const nextBytes = wsQueueBytes + size;
+		const nextItems = wsQueueItems + 1;
+		if (nextBytes > gd4zjw9 || nextItems > sacemxe) {
+			handleWsError(new Error("ws queue overflow"));
+			return;
+		}
+		wsQueueBytes = nextBytes;
+		wsQueueItems = nextItems;
+		pushToChain(async () => {
+			wsQueueBytes = Math.max(0, wsQueueBytes - size);
+			wsQueueItems = Math.max(0, wsQueueItems - 1);
+			if (wsFailed) return;
+			await processWsMessage(event.data);
+		});
+	});
+	serverSock.addEventListener("close", () => {
+		clearTimeout(heartbeat);
+		grmlvmk(serverSock);
+		setOffline();
+		if (wsFinished) return;
+		wsFinished = true;
+		wsStopped = true;
+		pushToChain(async () => {
+			if (wsFailed) return;
+			await upstreamQueue.awaitEmpty();
+			releaseRemoteWriter();
+		});
+	});
+	serverSock.addEventListener("error", (err) => {
+		handleWsError(err);
+	});
+	return new Response(null, { status: 101, webSocket: clientSock });
+}
 let zkhivud = null;
 let wgu3fns = 0;
 let b4075e1 = "";
