@@ -1,380 +1,8922 @@
-// wjwjw@bezan.qzz.io
-// Build: 2026-10-09T11:53:50.487Z
-// @ts-nocheck
-let __var_yzalashmq_0 = 33913;
-let __var_klyvu5fa_1 = 38468;
-let __var_bgbvyuae_2 = 53820;
-let __var_8u2p6sabl_3 = 86336;
-let __var_762o120jkxyij8ci_4 = 31927;
-let __var_t71c67w7g4g5w8o_5 = 67539;
-let __var_tqehsg6zdb2jdzwi_6 = 96005;
-let __var_j50ygki6l_7 = 30667;
-let __var_cl128vaafn_8 = 11790;
-let __var_jgh4r916qz2ic8_9 = 51016;
-let __var_r6fhqd4r_10 = 65354;
-let __var_dskras4kumt5kkxl_11 = 65551;
-let __var_48odgjqxv9gm4e_12 = 2315;
-let __var_5bp6xu3c97_13 = 81703;
-let __var_v15vbad0buy7_14 = 23068;
-let __var_pagz9bcr3i2_15 = 36054;
-let __var_py0cpldshhl8nk_16 = 9397;
-let __var_0xr9zt2o17cj_17 = 37048;
-let __var_zkclcgc5bd_18 = 62022;
-let __var_adkoggwtv9d_19 = 97601;
-let __var_3hbh1hc3bye82_20 = 84714;
-let __var_m7x8lntal6cyiiob_21 = 94100;
-let __var_4dqnq3coh_22 = 21;
-let __var_dxp68zjg2tk_23 = 26172;
-let __var_v9s3eooo7hto70_24 = 19880;
-let __var_ug9bso6b390uv_25 = 84366;
-let __var_3g2tvgd23vg3bf_26 = 79467;
-let __var_snoxp52u8xbblvwc_27 = 7004;
-let __var_okz0o32v_28 = 67315;
-let __var_wery6a1d12ad_29 = 49730;
-let __var_5i6d0t1ov139l92_30 = 54428;
-let __var_xirkcagjir1h_31 = 72071;
-let __var_qswtpe46h0_32 = 88011;
-let __var_idvy1wur_33 = 70592;
-let __var_5fsmbqjn14_34 = 55198;
-let __var_s88ua81gwc43rsce_35 = 39056;
-let __var_arxyz9lsd1_36 = 87171;
-let __var_0cu3pbrg_37 = 41128;
-let __var_j9bxb1baud50_38 = 69612;
-let __var_y16tvdgwi2qom5r6_39 = 99914;
-let __var_dwk4s748mi_40 = 43385;
-let __var_nhw03zcahdr1_41 = 87269;
-let __var_073qcw7yhzdi_42 = 24981;
-let __var_jt7tyy6eo0_43 = 57467;
-let __var_gzd2ae5zq9p4_44 = 37669;
-let __var_s6uzcy0htk_45 = 13758;
-let __var_83fcimteoj48l_46 = 33238;
-let __var_kyguutt57rx1fg_47 = 17733;
-let __var_sdnafg485_48 = 20442;
-let __var_rb4ai0y7qb_49 = 40126;
-let __var_n5ddntbf3y4t3_50 = 45724;
-let __var_zyjo40mes_51 = 65858;
-let __var_icwd3xyb0fwpl_52 = 4350;
-let __var_qchu3utsd25f2bw_53 = 54305;
-let __var_o8q1qfuo1gr_54 = 5235;
-let __var_yra6vqfyb2_55 = 71204;
-let __var_9xd096ce5wh7tc1_56 = 82461;
-let __var_1p5fwtxu_57 = 88452;
-let __var_2h72alccr1ba_58 = 72628;
-let __var_3kjdde30l_59 = 58559;
-let __var_dev490jecqs_60 = 81010;
-let __var_3qyewg3o1_61 = 85520;
-let __var_v3ok1xum5sx9ixds_62 = 58408;
-let __var_ca6cdayc_63 = 26745;
-let __var_9q158gvhytruxkc_64 = 14875;
-let __var_2q1z3jzc9h_65 = 13985;
-let __var_235qu5df4_66 = 79277;
-let __var_pnifz8egung8e_67 = 91917;
-let __var_yxaalri75ryq2_68 = 81563;
-let __var_634w1pobe_69 = 87992;
-let __var_xlhlgbwzwm_70 = 34377;
-let __var_srmmk8bzsis_71 = 4565;
-let __var_67fd6n0zv3neu_72 = 86264;
-let __var_8bseu08k7b_73 = 57277;
-let __var_i5ufq0ng3oh4_74 = 3482;
-let __var_0zeo6h6geesi3_75 = 62742;
-let __var_hgb0155cft0tbho_76 = 13050;
-let __var_k7fwc3crza_77 = 47230;
-let __var_ke1emb0mmymjdk_78 = 41331;
-function __func_qdu5biyw_0() { return 263; }
-function __func_su20wl8ayaiix_1() { return 109; }
-function __func_pml4f13nft8_2() { return 574; }
-function __func_dlcy0np9_3() { return 80; }
-function __func_53drawl3_4() { return 261; }
-function __func_46kjrucnrad2hjr_5() { return 792; }
-function __func_u8ugtbyw_6() { return 302; }
-function __func_de6nfhv1qpe_7() { return 921; }
-function __func_b21iduqxqcpx_8() { return 611; }
-function __func_sx8qwzbr2lr_9() { return 462; }
-function __func_r5tns6dcu_10() { return 807; }
-function __func_3n37rxp64_11() { return 989; }
-function __func_aaygoomdjufpm4_12() { return 784; }
-function __func_dk87r3m82_13() { return 909; }
-function __func_oi3hzf33jh_14() { return 263; }
-function __func_4wmil8f46gduj29_15() { return 169; }
-function __func_6oi4hie3inb_16() { return 604; }
-function __func_ada9bf38yr960_17() { return 248; }
-function __func_ucbftvvea4zo1v_18() { return 638; }
-function __func_fcg3wj5ma1_19() { return 868; }
-function __func_qcpmmlxy0n_20() { return 831; }
-function __func_ll7v1dye5z7yxc86_21() { return 393; }
-function __func_kihlinstk8h_22() { return 619; }
-function __func_18nieyj9_23() { return 981; }
-function __func_a5r7du96whk_24() { return 668; }
-function __func_qbd1ih2pwjq26w_25() { return 228; }
-function __func_3afleuxk9qk7mlp9_26() { return 984; }
-function __func_tx655url_27() { return 114; }
-function __func_8vjyubanobc7av_28() { return 690; }
-function __func_bmskkya5lz7_29() { return 660; }
-function __func_bnahh5y8ck6xr_30() { return 312; }
-function __func_2lspt9d5xgh5_31() { return 27; }
-function __func_3bydtjjdzq_32() { return 426; }
-function __func_dllzgtppwg9_33() { return 620; }
-function __func_5lbwineai1h5q_34() { return 978; }
-function __func_u3g6qzkork_35() { return 903; }
-function __func_zr4dizziyys_36() { return 762; }
-function __func_ob7iqupca0_37() { return 580; }
-function __func_br2uvlsxz3_38() { return 75; }
-function __func_3s46keth8i96x_39() { return 950; }
-function __func_qyi5bcwu4t_40() { return 533; }
-function __func_68kbn0ei1geq_41() { return 313; }
-function __func_ndz97vsmb_42() { return 897; }
-function __func_9g8y2smdy_43() { return 44; }
-function __func_oujvbr996_44() { return 308; }
-function __func_gjhn8uic2kq68xq_45() { return 97; }
-function __func_ltdmwvceqc298_46() { return 57; }
-function __func_4laiebfr8_47() { return 156; }
-function __func_4jgb07rsl74_48() { return 359; }
-function __func_shza7ct14ipw8h_49() { return 602; }
-function __func_wvzwl648sbkijpzx_50() { return 968; }
-function __func_aqbj50j8tj_51() { return 78; }
-function __func_jiywfxfx22yr_52() { return 598; }
-function __func_r7keucj1_53() { return 671; }
-function __func_fdybe6wlmkd0c_54() { return 685; }
-function __func_6fx4tvpq8wo9nms_55() { return 288; }
-function __func_atvj6p4ho6t3_56() { return 842; }
-function __func_pzpjwprrplikwn_57() { return 899; }
-function __func_e2qqlosr5l_58() { return 379; }
-function __func_dvuqpntbds_59() { return 463; }
-function __func_gp6246z4422p8_60() { return 891; }
-function __func_0rc694y9rnpy_61() { return 925; }
-function __func_9uxzn03y4u_62() { return 264; }
-function __func_sgvajg14_63() { return 649; }
-function __func_51o67b0r30_64() { return 719; }
-function __func_odoep2lx_65() { return 733; }
-function __func_vhcpx7s2346_66() { return 330; }
-function __func_2bhesfg2y5c_67() { return 616; }
-function __func_q3vi4ikha4edbwa6_68() { return 679; }
-function __func_259ftgdslhw34_69() { return 497; }
-function __func_5czpobr8zgrk50_70() { return 721; }
-function __func_t0hwc26wrzsw_71() { return 873; }
-function __func_fk0ch9ix7djg9t_72() { return 578; }
-function __func_1b93fowq3wf44_73() { return 426; }
-function __func_rtw3i1hwchoj6sjs_74() { return 117; }
-function __func_j8q851r052_75() { return 623; }
-function __func_0k4vxev5l_76() { return 95; }
-function __func_znq2vsoe_77() { return 169; }
-function __func_axf9rdoe_78() { return 985; }
-function __func_qklgnnhah0qprky_79() { return 784; }
-function __func_bc1hmh6ckmog6_80() { return 977; }
-function __func_57ad3tei6_81() { return 383; }
-function __func_0p55zp7wg6_82() { return 803; }
-function __func_leu3ubis2zr_83() { return 886; }
-function __func_gc8oji4q8a_84() { return 281; }
-function __func_4takgcj9c91ip21_85() { return 542; }
-function __func_bgb8wbtevyu8_86() { return 984; }
-function __func_nto0lrmc22kgq1jk_87() { return 436; }
-function __func_pzrmxhe7e0w_88() { return 881; }
-function __func_5twoucckh1nmf_89() { return 739; }
-function __func_xck31mllfvslp52_90() { return 741; }
-function __func_8x2dj7lyg7vx_91() { return 373; }
-function __func_eobcxnnpvxnyyf_92() { return 580; }
-function __func_metyplyjy_93() { return 531; }
-function __func_329h8tuln_94() { return 728; }
-function __func_9x0dnfzeh1y_95() { return 456; }
-function __func_n89dg3ihkiet_96() { return 70; }
-function __func_tp8qcabs4uogs_97() { return 812; }
-function __func_noxp8odj8cphcl_98() { return 332; }
-function __func_aj2xb4iz3n8_99() { return 758; }
-function __func_kkt7xpp71i9_100() { return 486; }
-function __func_p5obqqmylq_101() { return 775; }
-function __func_fxeacjvy2_102() { return 695; }
-function __func_l8l5tcz0_103() { return 31; }
-function __func_up9es7nq2ujmghvl_104() { return 792; }
-function __func_dqnzl4nt4ych6_105() { return 482; }
-function __func_1fpbky7kilip0w_106() { return 656; }
-function __func_xqajsbji_107() { return 630; }
-function __func_hn4lv5uocefq08da_108() { return 573; }
-function __func_v4mjqvo9anwrywp_109() { return 270; }
-function __func_mlmgw6czwcz_110() { return 76; }
-function __func_1w6p70f9mu2z_111() { return 119; }
-function __func_ov2iqnc2jw88_112() { return 939; }
-function __func_7kt66aq87qqy3_113() { return 65; }
-function __func_elhh6tqmw0_114() { return 693; }
-function __func_62owzjyvxbryp2x_115() { return 782; }
-function __func_4mvcfldhllm0a21_116() { return 101; }
-function __func_l7rkk1hac0vmvex_117() { return 820; }
-function __func_bdyv5hhle0gdrl_118() { return 520; }
-function __func_4mkv5c6gct_119() { return 488; }
-function __func_261ruvazr0wc_120() { return 120; }
-function __func_iwq09j0la62c_121() { return 944; }
-function __func_85umidtx30pbo04b_122() { return 208; }
-function __func_9tbnmfz9rsha_123() { return 365; }
-function __func_sa297gl9iy_124() { return 172; }
-function __func_qovh5hkdiem9f3v8_125() { return 63; }
-function __func_liq838pbto_126() { return 42; }
-function __func_mii9fm9yzzqfgwx_127() { return 724; }
-function __func_kgk02imahjzl_128() { return 211; }
-function __func_f7q6fad1h11fj3w_129() { return 501; }
-function __func_zgego8w4t8cj8_130() { return 92; }
-function __func_pl25g20vixg_131() { return 94; }
-function __func_vi84prw2_132() { return 320; }
-function __func_o8gbf4gptu_133() { return 427; }
-function __func_yaywa29blg3m_134() { return 152; }
-function __func_4zk3b8kviq12j_135() { return 777; }
-function __func_xogsmzphn7acg0u_136() { return 244; }
-function __func_5avd77mbkhtzmt_137() { return 394; }
-function __func_vhw1j3su404c5_138() { return 478; }
-function __func_1dbr6jix_139() { return 535; }
-function __func_4wxbm2y9f5zyb_140() { return 771; }
-function __func_d4j7n8nip4ffkbi_141() { return 622; }
-function __func_ta7sdccxcbtl9_142() { return 17; }
-function __func_bybw4w9he28cxpl_143() { return 521; }
-function __func_4mcfwzv2axlth_144() { return 722; }
-function __func_jz5ei9cysjf_145() { return 625; }
-function __func_t5t2hijme_146() { return 244; }
-function __func_g8g4zivks8lz9_147() { return 336; }
-function __func_tooj7jk2v7jud9u_148() { return 894; }
-function __func_4130i976e48l_149() { return 878; }
-function __func_l14ilt0n7l1_150() { return 906; }
-function __func_w18c52zk8hi_151() { return 382; }
-function __func_eo0mc1oh4sv_152() { return 485; }
-function __func_q9sqze01g_153() { return 843; }
-function __func_9s6fu95hpk3hje_154() { return 953; }
-function __func_39h77pn671_155() { return 918; }
-function __func_3wqajs91ymahawb_156() { return 852; }
-function __func_g496mxdo32e99za_157() { return 778; }
-function __func_8liysr09uq5_158() { return 374; }
-function __func_scim5hspbfbsqpc_159() { return 631; }
-function __func_oya5ixxkder_160() { return 348; }
-function __func_32waeb0ru10w8z6_161() { return 506; }
-function __func_wazxjpc9lzu9u6ek_162() { return 143; }
-function __func_vw1uv0gdog_163() { return 634; }
-function __func_wnlim61md1e9_164() { return 489; }
-function __func_y0o7nlac8nl_165() { return 233; }
-function __func_nxudtg0zn8o972ng_166() { return 965; }
-function __func_6hsmz4fpwboir2_167() { return 691; }
-function __func_diicias6bs_168() { return 416; }
-function __func_2auzvnqhrm9uc9m_169() { return 586; }
-function __func_ksabai9uhm2lzyqb_170() { return 383; }
-function __func_6jthgip87sm3_171() { return 877; }
-function __func_3pqcjcfm7b_172() { return 40; }
-function __func_gf8slhazj3f_173() { return 75; }
-function __func_bhzfdbd3b7fup050_174() { return 203; }
-function __func_2cah3on4t0i17wg_175() { return 675; }
-function __func_8uixmqsw4d_176() { return 500; }
-function __func_eytebbe330jr_177() { return 913; }
-function __func_yfakll38ps6w_178() { return 956; }
-function __func_dvv8p1aztx_179() { return 489; }
-function __func_aip0pda56dpgnurn_180() { return 174; }
-function __func_zebhvs97rvgf18pg_181() { return 466; }
-function __func_4c1x1eb9p_182() { return 596; }
-function __func_qyuyaasii5x3vi8_183() { return 977; }
-function __func_f5h1w3b9_184() { return 719; }
-function __func_swrge5hsp6t_185() { return 296; }
-function __func_b60bk61g61o2e8f_186() { return 173; }
-function __func_0gfayc3pa13b_187() { return 684; }
-function __func_bvoafvgdza6_188() { return 294; }
-function __func_ja6t8jhaj_189() { return 423; }
-function __func_1lx136jcqzk7luy_190() { return 640; }
-function __func_q1cdapqtikk4_191() { return 531; }
-function __func_doydoxzt9jcp8vo_192() { return 847; }
-function __func_vti1kbxq1zabofa_193() { return 982; }
-function __func_9xmzynfa39_194() { return 460; }
-function __func_yizuxbaqwey_195() { return 399; }
-function __func_ksapu3c1c9_196() { return 842; }
-function __func_n7vixtvei_197() { return 975; }
-function __func_udd7d30ct_198() { return 304; }
-function __func_egs9kaosk4u35_199() { return 582; }
-function __func_dd3iv4owgu_200() { return 573; }
-function __func_v1ff40c8x06mz_201() { return 938; }
-function __func_8dihzomdc3l65_202() { return 853; }
-function __func_pe0jlli8fd3kld_203() { return 150; }
-function __func_g4ovs5kv682_204() { return 275; }
-function __func_rl8nshdfnuf_205() { return 281; }
-function __func_xdinubme42r8pgg_206() { return 161; }
-function __func_of2ojojfz9b78i9z_207() { return 238; }
-function __func_8rm7ced6l0jvnad1_208() { return 816; }
-function __func_om51euvz7klrwrmi_209() { return 250; }
-function __func_9nlqxuvmc_210() { return 639; }
-function __func_5elkmdfnrhau4v74_211() { return 777; }
-function __func_6lbl51rqa3_212() { return 53; }
-function __func_s4id0xq0ueiy_213() { return 373; }
-function __func_81pbdfmjncaoizhb_214() { return 269; }
-function __func_z0vdzioug_215() { return 139; }
-function __func_wkj9tngdrfl_216() { return 652; }
-function __func_q7sso68dr2ldbfg3_217() { return 742; }
-function __func_u5brgcch1gjxui_218() { return 156; }
-function __func_vbi9zm94ezjtgxqs_219() { return 154; }
-function __func_tqscwwbo2ir3_220() { return 876; }
-function __func_5ppzks6ehqe0m0_221() { return 969; }
-function __func_sttc17l859tyio9j_222() { return 168; }
-function __func_xm3eka34uf29_223() { return 658; }
-function __func_vq6uab55bxbpjf9_224() { return 231; }
-function __func_osb4fjvnwg7kp7u_225() { return 124; }
-function __func_3jux7xz6nb_226() { return 802; }
-function __func_zxmliidyibpmqd_227() { return 758; }
-function __func_z4qeeapu_228() { return 254; }
-function __func_f7toz6hzop_229() { return 346; }
-function __func_id2t6memwyps5c_230() { return 421; }
-function __func_7b00xa6dwmtm4_231() { return 600; }
-function __func_ogszfjs4uy_232() { return 609; }
-function __func_l66c2zh83rp3zg_233() { return 137; }
-function __func_z7kmhyxe18cria4_234() { return 120; }
-function __func_vqo9xit3drdcn2jp_235() { return 799; }
-function __func_lpuc2pouuti_236() { return 970; }
-function __func_6jmur8schw_237() { return 338; }
-function __func_f62oe86hs7_238() { return 175; }
-function __func_iaugscgc3h_239() { return 118; }
-function __func_wr0q3jte8byc_240() { return 272; }
-function __func_xn5sojmktfc2_241() { return 459; }
-function __func_pa3dnhzwq_242() { return 884; }
-function __func_ch9m0p4qd91552x_243() { return 635; }
-function __func_gah9b0s5014_244() { return 335; }
-function __func_t09svxh8ivk_245() { return 504; }
-function __func_v4h6vblfcvz_246() { return 681; }
-function __func_8ntmjquey_247() { return 797; }
-function __func_y72h8ycfe_248() { return 423; }
-function __func_my9w9hx6g_249() { return 555; }
-function __func_nftitab6_250() { return 656; }
-function __func_gqbxqlv8gxuchf_251() { return 960; }
-function __func_shbepzqth5rr14_252() { return 558; }
-function __func_1jau1g4czim4sx_253() { return 23; }
-function __func_kuzut660z0kljs_254() { return 813; }
-function __func_f2twlax8_255() { return 773; }
-function __func_7qbiew39n_256() { return 963; }
-function __func_et9er2afmrk_257() { return 250; }
-function __func_60llaq3cvbizwdfz_258() { return 494; }
-function __func_stpf0xn5qdwjd_259() { return 780; }
-function __func_eac8znknv_260() { return 471; }
-function __func_2rxlfplj0u4gxaq_261() { return 545; }
-function __func_qo6exju6_262() { return 970; }
-function __func_emi1nc1j0l9_263() { return 43; }
-function __func_w09q5giuedco_264() { return 756; }
-function __func_neizwbk6_265() { return 109; }
-function __func_y15i1vvq1n8yzix_266() { return 880; }
-function __func_0978lua2uu1_267() { return 252; }
-function __func_brv9o0ayp8b_268() { return 293; }
-function __func_clk63g72fb0j87pk_269() { return 371; }
-function __func_jyaxgnah_270() { return 805; }
-function __func_r2fj25gwber_271() { return 974; }
-function __func_v227xj5mpna_272() { return 299; }
-function __func_6a07hvaa9l_273() { return 669; }
-function __func_v4wyffpux7gw45_274() { return 648; }
-function __func_uuwlnrouwa7ssers_275() { return 557; }
-function __func_gdvnb8bfhcq_276() { return 451; }
-function __func_xhjrkhzroxnt2ut7_277() { return 647; }
-function __func_lf4xotx8gs6_278() { return 306; }
-function __func_gt19gaqk0osy_279() { return 784; }
-function __func_qoe2rf7l_280() { return 561; }
-function __func_yv4ybcxkx02qrljg_281() { return 713; }
-function __func_vybqkp8u6579s_282() { return 838; }
-function __func_3rfrhtm8f2_283() { return 73; }
-function __func_l74fjmw6r7gay75_284() { return 415; }
-function __func_z1n07ua0r3ui1ul_285() { return 100; }
-function __func_fvb92nqsz_286() { return 45; }
-function __func_vh2gqhu4ra_287() { return 210; }
-function __func_t7lazbn1xo_288() { return 839; }
-function __func_oqn5larnkiqw7e_289() { return 262; }
-function __func_vdwllc7lawv_290() { return 736; }
-function __func_46vpiz3s1re0gwy_291() { return 123; }
-function __func_a301j7xaslo8fvms_292() { return 649; }
-function __func_8djxl6gsqvrngd7_293() { return 477; }
-function __func_k63vdz9r_294() { return 669; }
-function __func_c9o2ezq4pgobaj_295() { return 790; }
-function __func_kdyi7qdvhs_296() { return 644; }
-const EMBEDED_SETTINGS = {"accID":"51cce6c03b5c20d811cd018f04c4fde9","accEmail":"wjwjw@bezan.qzz.io","apiToken":"cfut_I6YuPxmNDzMg4LK78PXLIpzQNrWoqmcvBBACSol786aa6491","vlUUID":"b0a8ec8b-a595-4e6c-8e98-769d56f84f15","trPass":"nBb8jIBP-F:1eCOYY","securePath":"jMKsj2uNvfpa4AB","proxyIpMode":"proxyip","proxyIPs":[],"prefixes":[],"fallback":"","dohUrl":"","mainDomain":"1qqzkdzkh-k8b191.white-wind-0c047.workers.dev"};Object.assign(globalThis, {"SOURCE_CONTENT":"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","PANEL_HTML_CONTENT":"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","LOGIN_HTML_CONTENT":"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","ERROR_HTML_CONTENT":"H4sIAAAAAAACA5VVXY7bNhC+iuKgRQyYluTYrSNRapvELQq03cVu8tAnYyyNKHYpUiDH9iqGb9Ar9HI9SSFKBtbt9u+FHn2c/2845i/e37z78PPtJqipUTnvz0CBFhnqnNcIZc4bJAiKGqxDyj5++JatR0xDg9lB4rE1loLCaEJN2eQoS6qzEg+yQOY/ZlJLkqCYK0BhFk9yTpIU5m9v3wa3oFEFh9U8nsc8HHCupH4IZJlVcJCF0YFFlXmBuhYz2YDA8JF5pLZYZSUQJE/hdAcOv1jOttvv3938tN2OLns/rcXCaI0FDbY1UeuSMKyMJjcXxgiF0Eo3L0zz380cAcmitwkKa5wzVgqpR3tvMPmnQGHh3OKrChqpuuzjbq9pn0gCNTuKmr6OZq+jKI1mS3+u/PllFKWxx2OPxx6Pe/zzUrpWQZe5I7QTn72jTqGrESnnXs4TawydGCuMMpbtBGtA6kRJjWCZsFBK1PTqTVSimAUvoyh6vVh7Yblab6bpxZDwkVhrZQO2S15WcbWq3lxfur5vpb8GLJa4SBlzNZTmyPoBQ5tE83ixstgET4Thd4zbW7RQIHNNEs37m/POlN2sH9dTjVLUlMRR9Fnqx20QG7BC6iRKx2YklcLH9Je9I1l1bJzWpEBNaFNQUmgmCRt3gXqW2EBIMhAyc50jbNhepr685AD21fOlTtMdFA/Cmr0ur9TGPk9Tr+/DXgL+FWFH3D1IYj4V1xhDtdQiAd0/JgkOy5Q15hMz7vHPOsJC51/buY5Pf5PtyNqYy0DJqHXFz/R/t9CRRSrqVEB7cTjSNz3PB6enK5/P9P/5MOd5/7ovnC+GWZi3/Q5hB7ROGn0anDlUlXfOHIGlgU8nP2GiwAo883B4Bzwc1lw/UDkv5aHfO2itsT40SI12wAsFzmVD+jmXjeg1h0+mjDCBs8W/b6IAFGWTfvP9YISZBMO6XK6DoaZsuc55HT9Zjdy1oMfgV4Xml6XZK/R1xDkPS3nw2ea8XuS///ZrcG8a9DMRHFFTcLRGixc8rBc5b3O+y7fbzd3dzd32x839/TffbbZbHu5yHrYXX+M5tCf0fxN/AD3m1ic2BgAA","PROXY_IP_HTML_CONTENT":"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","ICON_CONTENT":"AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAABMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASGtEBSs/KFsRGRCyAwQC5wAAAPoBAgHtDxYOvyU2InFEZD8QTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAOVQ1LgcLB9UAAAD/AQEA/ykjGP9ANyb/MCod/wUEA/8AAAD/AgQC6yo/J1dMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAOVU2KwIDAu4AAAD/Wk01/9W3f//105L/9dOS//XTkv/jxIf/emlI/wYFA/8AAAD/JjgjZkxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEptRQE2UDM3IjMgehQdEqsNFAzHBwsHzw4VDcUWIRWmJTcjcTpVNilMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASGpDBgcKBtcAAAD/lYBY//XTkv/105L/9dOS//XTkv/105L/9dOS//TSkf+xjE7/DQoF/wABAPg6VTYsTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAS25GAC1DKlQHCwfXAAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/DBILwzVPMjhMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHACo/J1sAAAD/VUkz//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/xzIj/5LJh/5t5Qv8AAAD/EhoRrUxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAPls5IA4VDbwAAAD/BAMC/0k+K/+VgFn/y695/+rKi//00pH/6MiK/8aqdv+JdlH/Ny8h/wAAAP8AAAD9FyIVmkVlQA1McEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwARGRC0AAAA/8Gmc//105L/9dOS//XTkv/105L/9dOS//XTkv/105L/6r90/+SyYf/jsWD/MiYV/wAAAPlCYj4STHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcANlAyNQIEAuoAAAD/S0As/9O2fv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv+/pHH/Lykc/wAAAP8JDQjSQF88GUxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBIakMFAAEA9R4aEv/00pH/9dOS//XTkv/105L/9dOS//XTkv/105L/8s2K/+SyYf/ksmH/5LJh/3pfM/8AAAD/LkQrUExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAO1g3JQIDAu0CAQH/iXZR//TSkf/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS/+7Njv9bTjb/AAAA/wkNCM9GZ0EKTHBHAExwRwBMcEcATHBHAExwRwBMcEcAOFQ0LwAAAP9bTjb/9dOS//XTkv/105L/9dOS//XTkv/105L/9NKR/+i6bv/ksmH/5LJh/+SyYf+XdkD/AAAA/yo+J21McEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcARWZBDAcLBtgAAAD/lH9Y//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9NKR/15PM/8AAAD/ExwRp0tuRgBMcEcATHBHAExwRwBMcEcATHBHAC1EKlYAAAD/iXZR//XTkv/105L/9dOS//XTkv/105L/9dOS/+3Ffv/ksmH/5LJh/+SyYf/ksmH/kXE9/wAAAP8qPidmTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHABspGYwAAAD/ZVc8//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/lunH/MSYU/wAAAP8sQSlUTHBHAExwRwBMcEcATHBHAExwRwAjNCB3AAAA/66WZ//105L/9dOS//XTkv/105L/9dOS//DKhf/ksmL/5LJh/+SyYf/ksmH/5LJh/2ROKv8AAAD/NE4xPExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEJhPRMAAQD2ExAL/+fHiv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/6bxw/7WNTP8AAAD/CAwH0ktuRgBMcEcATHBHAExwRwBMcEcAHSobjwAAAP/JrXf/9dOS//XTkv/105L/9dOS//HMiP/ks2P/5LJh/+SyYf/ksmH/5LJh/92tXv8WEQn/AgMC60lrRARMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwAlNyNuAAAA/4RyTv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS/+e4av/ksmH/QzQc/wAAAP82UDI2THBHAExwRwBMcEcATHBHABYhFaEAAAD/3b6D//XTkv/105L/9dOS//LNif/ltWX/5LJh/+SyYf/ksmH/5LJh/+OxYP9iTCn/AAAA/x4tHIRMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcADhYOuwQDAv/kxIf/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//TRkP/ksmL/5LJh/6J+RP8AAAD/HiwchkxwRwBMcEcATHBHAExwRwASGxGxAAAA/+7Njv/105L/9dOS//DLhv/ltGX/5LJh/+SyYf/ksmH/5LJh/9WmWv9bRyb/AAAA/wgMB9dFZkELTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAAIDAucqJBn/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/wyoX/5LJh/+SyYf/drF3/BQMC/w4WDr5McEcATHBHAExwRwBMcEcADxYOvgYGA//105L/9dOS/+/Igv/ksmL/5LJh/+SyYf/gr1//rohK/19KKP8LCQT/AAAA/wUIBd88WTgkTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEptRQAAAAD8QTgm//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/6r91/+SyYf/ksmH/5LJh/yMcD/8EBgTiTHBHAExwRwBMcEcATHBHAAsQCsoPDQn/zK95/7CUYf+Pbz3/dFsx/1ZDJP8xJhT/CAcD/wAAAP8AAAD/AgMC7B4sHIRFZUANTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBJbEQAAAAA/EM5J//105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9NKQ/+W0ZP/ksmH/5LJh/+SyYf81KRb/AAAA8kxwRwBMcEcATHBHAExwRwAHCwfYAAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAEA8wsRC8ccKhqQMUguSUdpQwZMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAAABAO0yKx7/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS/+/Igv/ksmH/5LJh/+SyYf/ksmH/MicV/wAAAO9McEcATHBHAExwRwBMcEcAHiwcghAXDroZJReeIDAegik8JmQzTDBEPlw6IElsRAFMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwAJDgnRFRIM//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/ou27/5LJh/+SyYf/ksmH/5LJh/xoUCv8HCwfYTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAFB4TpwAAAP/cvYL/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/yzYr/5LJh/+SyYf/ksmH/5LJh/8yfVv8AAAD/FB0Sq0xwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHACQ1IXUAAAD/o4xh//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/6r50/+SyYf/ksmH/5LJh/+SyYf+AZDb/AAAA/yY5I2tMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwA0TjE7AAAA/2FUOv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/8s6L/+SyYv/ksmH/5LJh/+SyYf/ZqVz/GRMK/wABAPhBXzwYTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASGpDBQECAfAXEw3/8tGQ//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS/+m8cP/ksmH/5LJh/+SyYf/ksmH/XEcn/wAAAP8aJxmOTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHADhTNC4fLh2FDhUNwAUIBeAAAADpBwsH2RIbEbMlNiJ0P147G0xwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwASHBGuAAAA/8Clcv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//DLhv/ksmH/5LJh/+SyYf/ksmH/kXE9/wAAAP8FCAXeRWVADUxwRwBMcEcATHBHAExwRwBMcEcARWVADhQdEqUAAAD/AAAA/wAAAP8PDQn/GhYP/wgHBf8AAAD/AAAA/wAAAPkaJhiQRWVADExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAKT0mYAAAAP9yYkT/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//TSkf/nuWz/5LJh/+SyYf/ksmH/mXhB/wYEAv8CAwLtOVU2LExwRwBMcEcATHBHAExwRwBMcEcAO1g3JggMB9cAAAD/KCIX/5aBWf/dvoT/9dOS//XTkv/z0ZD/zbF6/4NxTv8bFxD/AAAA/wcLB9k6VTYsTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEJiPRAAAQD3HhoR//PRkf/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/ux4D/5LJh/+SyYf/jsWD/el8z/wEBAP8CAwLwNlAyOExwRwBMcEcATHBHAExwRwBMcEcANlAyNQIDAu4BAAD/eWhI//HQkP/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/68qM/3JiQ/8CAQH/AgMC8TdRMzZMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAExwRqQAAAP+7oW//9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/00Y//5bVm/+SyYf/gr1//XUgn/wAAAP8CBALuNE4xOExwRwBMcEcATHBHAExwRwBMcEcAP106HQMEA+kAAAD/i3dS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/k35X/wAAAP8EBwThRWVADExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHADFJLkQAAAD/Y1U6//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/6r91/+SyYf/AllH/MCUU/wAAAP8JDQjRPFk4JUxwRwBMcEcATHBHAExwRwBMcEcARmhCCQsQCsoAAAD/gnBN//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv9tXkH/AAAA/x4sHIhMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBKbUUABwsH2Q0LB//oyIr/9dOS//XTkv/105L/9dOS//XTkv/105L/8MmE/+KxYP+DZjf/CQcD/wAAAP8VHxOgRmhBCkxwRwBMcEcATHBHAExwRwBMcEcAS25GABMdEqgAAAD/aFk+//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/786O/yIeFP8BAgH0QmI+EUxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHACIyH3kAAAD/jnpU//XTkv/105L/9dOS//XTkv/105L/9NGQ/8adWv82Khb/AAAA/wIDAvApPSdZTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHACg7JWIAAAD/Licb/+/Ojv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv+GdFD/AAAA/yc6JWZMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwA/XTsbAAAA+iYgFv/z0ZH/9dOS//XTkv/105L/8M6O/4JtSP8JBwT/AAAA/w8WDrs9WjkgTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAD9dOxoCAwLuCAcE/8queP/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/zrF6/wAAAP8THRKqTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHABMcEqwAAAD/sJhp//XTkv/105L/qpJl/yMeFf8AAAD/BQcE4yo/KFhLbkYATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEtuRgARGRCyAAAA/5R/WP/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//PRkf8HBgT/CAwH1UxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwAwRy1JAAAA/1JHMf/WuH//SD0q/wAAAP8AAAD/FiEVnUVlQA5McEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwArQChXAAAA/0I4J//00pH/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/FBEM/wECAeJMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASGtDAwQHBOAGBQP/CgkG/wAAAP8LEArJNU4xOkxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBCYj4UAwQC6QcGBP/Psnv/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9NKR/wgHBf8IDAfWTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwAiMyBzAAAA/wUHBOMqPidcSm1FAkxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAFiEVngAAAP97akn/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS/9K0fP8AAAD/EhwRrkxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAR2lCBitAKV9FZUAOTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcANU8xOAAAAP4hHBP/7cyN//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv+MeVP/AAAA/yY4I2tMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASWxEAgoPCc0AAAD/qJBj//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/y0JD/KSMY/wABAPdAXzwVTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAEZnQQ0AAQD0AAAA/wgHBP9lVjz/1bd+//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9dOS//XTkv/105L/9NKR//HMiP/tw3v/f2c+/wAAAP8YIxaZTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcAPls6HR8tHIUDBAPoAAAA/wMDAv9IPiv/p49h/+zGgf/wyYT/8MqE//DJhP/wyYP/78iC/+7HgP/txX3/7MN6/+vAdf/pvHD/57hq/+SzYv/ksmH/on5E/wQDAf8CBALrQWA8GExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcASGpDBSxBKVUNFAzCAAAA/wAAAP8VEQn/ZE4q/7KLS//jsWD/5LJh/+SyYf/ksmH/5LJh/+SyYf/ksmH/5LJh/+SyYf/hsF//gGQ2/wYEAv8AAQD4MUkuQ0xwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHADlUNSwZJReXAAEA9AAAAP8AAAD/HBYM/2NNKv+hfkT/1qdb/+SyYf/ksmH/5LJh/+GvX/+jf0X/LyQT/wAAAP8CAwLwMUguQ0xwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAERkPw8qPyheEhsRsAABAPUAAAD/AAAA/wAAAP8WEQn/KB8R/yYeEP8KCAT/AAAA/wAAAP8PFw61PFk4JUxwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBFZkEKMkovRCExH38THBGwCQ0I0gMFA+QFBwTiCxELyB0rG484UjQwTHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcATHBHAExwRwBMcEcA////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////gD////////8AH////////gAP///+AH/8AAf///wAH/wAB///8AAH/AAD///gAAP4AAP//8AAAfgAA///gAAB+AAD//+AAAD4AAP//wAAAPgAA///AAAAeAAH//8AAAB4AAf//wAAAHgAD///AAAAeAAf//8AAAB4AH///wAAAHgH////AAAAf/////8AAAB//////wAAAH//////AAAAf/////8AAAD+AP///4AAAPgAP///gAAB8AAf//+AAAPgAA///8AAB8AAB///wAAPgAAH///gAB+AAAP//+AAfwAAA///4AD+AAAD///wA/4AAAP///AH/AAAA///8B/4AAAD///4P/gAAAP///j/8AAAA//////gAAAD/////+AAAAf/////8AAAB//////8AAAP//////+AAB///////+AAP////////AD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8="});var e=Object.create,t=Object.defineProperty,r=Object.getOwnPropertyDescriptor,n=Object.getOwnPropertyNames,a=Object.getPrototypeOf,o=Object.prototype.hasOwnProperty,s=(e=>"undefined"!=typeof require?require:"undefined"!=typeof Proxy?new Proxy(e,{get:(e,t)=>("undefined"!=typeof require?require:e)[t]}):e)(function(e){if("undefined"!=typeof require)return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')}),i,c=(e,a,s,i)=>{if(a&&"object"==typeof a||"function"==typeof a)for(let c of n(a))o.call(e,c)||c===s||t(e,c,{get:()=>a[c],enumerable:!(i=r(a,c))||i.enumerable});return e},l=(r,n,o)=>(o=null!=r?e(a(r)):{},c(!n&&r&&r.__esModule?o:t(o,"default",{value:r,enumerable:!0}),r)),u=((e,t)=>function r(){try{return t||(0,e[n(e)[0]])((t={exports:{}}).exports,t),t.exports}catch(e){throw t=0,e}})({"node_modules/jszip/dist/jszip.min.js"(e,t){!function(r){"object"==typeof e&&void 0!==t?t.exports=r():"function"==typeof define&&define.amd?define([],r):("undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this).JSZip=r()}(function(){return function e(t,r,n){function a(i,c){if(!r[i]){if(!t[i]){var l="function"==typeof s&&s;if(!c&&l)return l(i,!0);if(o)return o(i,!0);var u=new Error("Cannot find module '"+i+"'");throw u.code="MODULE_NOT_FOUND",u}var d=r[i]={exports:{}};t[i][0].call(d.exports,function(e){var r;return a(t[i][1][e]||e)},d,d.exports,e,t,r,n)}return r[i].exports}for(var o="function"==typeof s&&s,i=0;i<n.length;i++)a(n[i]);return a}({1:[function(e,t,r){var n=e("./utils"),a=e("./support"),o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";r.encode=function(e){for(var t,r,a,s,i,c,l,u=[],d=0,h=e.length,p=h,f="string"!==n.getTypeOf(e);d<e.length;)p=h-d,a=f?(t=e[d++],r=d<h?e[d++]:0,d<h?e[d++]:0):(t=e.charCodeAt(d++),r=d<h?e.charCodeAt(d++):0,d<h?e.charCodeAt(d++):0),s=t>>2,i=(3&t)<<4|r>>4,c=1<p?(15&r)<<2|a>>6:64,l=2<p?63&a:64,u.push(o.charAt(s)+o.charAt(i)+o.charAt(c)+o.charAt(l));return u.join("")},r.decode=function(e){var t,r,n,s,i,c,l=0,u=0,d="data:";if(e.substr(0,5)===d)throw new Error("Invalid base64 input, it looks like a data url.");var h,p=3*(e=e.replace(/[^A-Za-z0-9+/=]/g,"")).length/4;if(e.charAt(e.length-1)===o.charAt(64)&&p--,e.charAt(e.length-2)===o.charAt(64)&&p--,p%1!=0)throw new Error("Invalid base64 input, bad content length.");for(h=a.uint8array?new Uint8Array(0|p):new Array(0|p);l<e.length;)t=o.indexOf(e.charAt(l++))<<2|(s=o.indexOf(e.charAt(l++)))>>4,r=(15&s)<<4|(i=o.indexOf(e.charAt(l++)))>>2,n=(3&i)<<6|(c=o.indexOf(e.charAt(l++))),h[u++]=t,64!==i&&(h[u++]=r),64!==c&&(h[u++]=n);return h}},{"./support":30,"./utils":32}],2:[function(e,t,r){var n=e("./external"),a=e("./stream/DataWorker"),o=e("./stream/Crc32Probe"),s=e("./stream/DataLengthProbe");function i(e,t,r,n,a){this.compressedSize=e,this.uncompressedSize=t,this.crc32=r,this.compression=n,this.compressedContent=a}i.prototype={getContentWorker:function(){var e=new a(n.Promise.resolve(this.compressedContent)).pipe(this.compression.uncompressWorker()).pipe(new s("data_length")),t=this;return e.on("end",function(){if(this.streamInfo.data_length!==t.uncompressedSize)throw new Error("Bug : uncompressed data size mismatch")}),e},getCompressedWorker:function(){return new a(n.Promise.resolve(this.compressedContent)).withStreamInfo("compressedSize",this.compressedSize).withStreamInfo("uncompressedSize",this.uncompressedSize).withStreamInfo("crc32",this.crc32).withStreamInfo("compression",this.compression)}},i.createWorkerFrom=function(e,t,r){return e.pipe(new o).pipe(new s("uncompressedSize")).pipe(t.compressWorker(r)).pipe(new s("compressedSize")).withStreamInfo("compression",t)},t.exports=i},{"./external":6,"./stream/Crc32Probe":25,"./stream/DataLengthProbe":26,"./stream/DataWorker":27}],3:[function(e,t,r){var n=e("./stream/GenericWorker");r.STORE={magic:"\0\0",compressWorker:function(){return new n("STORE compression")},uncompressWorker:function(){return new n("STORE decompression")}},r.DEFLATE=e("./flate")},{"./flate":7,"./stream/GenericWorker":28}],4:[function(e,t,r){var n=e("./utils"),a=function(){for(var e,t=[],r=0;r<256;r++){e=r;for(var n=0;n<8;n++)e=1&e?3988292384^e>>>1:e>>>1;t[r]=e}return t}();t.exports=function(e,t){return void 0!==e&&e.length?"string"!==n.getTypeOf(e)?function(e,t,r,n){var o=a,s=0+r;e^=-1;for(var i=0;i<s;i++)e=e>>>8^o[255&(e^t[i])];return-1^e}(0|t,e,e.length,0):function(e,t,r,n){var o=a,s=0+r;e^=-1;for(var i=0;i<s;i++)e=e>>>8^o[255&(e^t.charCodeAt(i))];return-1^e}(0|t,e,e.length,0):0}},{"./utils":32}],5:[function(e,t,r){r.base64=!1,r.binary=!1,r.dir=!1,r.createFolders=!0,r.date=null,r.compression=null,r.compressionOptions=null,r.comment=null,r.unixPermissions=null,r.dosPermissions=null},{}],6:[function(e,t,r){var n=null;n="undefined"!=typeof Promise?Promise:e("lie"),t.exports={Promise:n}},{lie:37}],7:[function(e,t,r){var n="undefined"!=typeof Uint8Array&&"undefined"!=typeof Uint16Array&&"undefined"!=typeof Uint32Array,a=e("pako"),o=e("./utils"),s=e("./stream/GenericWorker"),i=n?"uint8array":"array";function c(e,t){s.call(this,"FlateWorker/"+e),this._pako=null,this._pakoAction=e,this._pakoOptions=t,this.meta={}}r.magic="\b\0",o.inherits(c,s),c.prototype.processChunk=function(e){this.meta=e.meta,null===this._pako&&this._createPako(),this._pako.push(o.transformTo(i,e.data),!1)},c.prototype.flush=function(){s.prototype.flush.call(this),null===this._pako&&this._createPako(),this._pako.push([],!0)},c.prototype.cleanUp=function(){s.prototype.cleanUp.call(this),this._pako=null},c.prototype._createPako=function(){this._pako=new a[this._pakoAction]({raw:!0,level:this._pakoOptions.level||-1});var e=this;this._pako.onData=function(t){e.push({data:t,meta:e.meta})}},r.compressWorker=function(e){return new c("Deflate",e)},r.uncompressWorker=function(){return new c("Inflate",{})}},{"./stream/GenericWorker":28,"./utils":32,pako:38}],8:[function(e,t,r){function n(e,t){var r,n="";for(r=0;r<t;r++)n+=String.fromCharCode(255&e),e>>>=8;return n}function a(e,t,r,a,s,u){var d,h,p=e.file,f=e.compression,m=u!==i.utf8encode,g=o.transformTo("string",u(p.name)),y=o.transformTo("string",i.utf8encode(p.name)),w=p.comment,b=o.transformTo("string",u(w)),v=o.transformTo("string",i.utf8encode(w)),_=y.length!==p.name.length,k=v.length!==w.length,S="",x="",C="",E=p.dir,A=p.date,P={crc32:0,compressedSize:0,uncompressedSize:0};t&&!r||(P.crc32=e.crc32,P.compressedSize=e.compressedSize,P.uncompressedSize=e.uncompressedSize);var T=0;t&&(T|=8),m||!_&&!k||(T|=2048);var D=0,I=0,R,N,U;E&&(D|=16),"UNIX"===s?(I=798,D|=(R=p.unixPermissions,N=E,U=R,R||(U=N?16893:33204),(65535&U)<<16)):(I=20,D|=function(e){return 63&(e||0)}(p.dosPermissions)),d=A.getUTCHours(),d<<=6,d|=A.getUTCMinutes(),d<<=5,d|=A.getUTCSeconds()/2,h=A.getUTCFullYear()-1980,h<<=4,h|=A.getUTCMonth()+1,h<<=5,h|=A.getUTCDate(),_&&(x=n(1,1)+n(c(g),4)+y,S+="up"+n(x.length,2)+x),k&&(C=n(1,1)+n(c(b),4)+v,S+="uc"+n(C.length,2)+C);var M="";return M+="\n\0",M+=n(T,2),M+=f.magic,M+=n(d,2),M+=n(h,2),M+=n(P.crc32,4),M+=n(P.compressedSize,4),M+=n(P.uncompressedSize,4),M+=n(g.length,2),M+=n(S.length,2),{fileRecord:l.LOCAL_FILE_HEADER+M+g+S,dirRecord:l.CENTRAL_FILE_HEADER+n(I,2)+M+n(b.length,2)+"\0\0\0\0"+n(D,4)+n(a,4)+g+S+b}}var o=e("../utils"),s=e("../stream/GenericWorker"),i=e("../utf8"),c=e("../crc32"),l=e("../signature");function u(e,t,r,n){s.call(this,"ZipFileWorker"),this.bytesWritten=0,this.zipComment=t,this.zipPlatform=r,this.encodeFileName=n,this.streamFiles=e,this.accumulate=!1,this.contentBuffer=[],this.dirRecords=[],this.currentSourceOffset=0,this.entriesCount=0,this.currentFile=null,this._sources=[]}o.inherits(u,s),u.prototype.push=function(e){var t=e.meta.percent||0,r=this.entriesCount,n=this._sources.length;this.accumulate?this.contentBuffer.push(e):(this.bytesWritten+=e.data.length,s.prototype.push.call(this,{data:e.data,meta:{currentFile:this.currentFile,percent:r?(t+100*(r-n-1))/r:100}}))},u.prototype.openedSource=function(e){this.currentSourceOffset=this.bytesWritten,this.currentFile=e.file.name;var t=this.streamFiles&&!e.file.dir;if(t){var r=a(e,t,!1,this.currentSourceOffset,this.zipPlatform,this.encodeFileName);this.push({data:r.fileRecord,meta:{percent:0}})}else this.accumulate=!0},u.prototype.closedSource=function(e){this.accumulate=!1;var t=this.streamFiles&&!e.file.dir,r=a(e,t,!0,this.currentSourceOffset,this.zipPlatform,this.encodeFileName),o;if(this.dirRecords.push(r.dirRecord),t)this.push({data:(o=e,l.DATA_DESCRIPTOR+n(o.crc32,4)+n(o.compressedSize,4)+n(o.uncompressedSize,4)),meta:{percent:100}});else for(this.push({data:r.fileRecord,meta:{percent:0}});this.contentBuffer.length;)this.push(this.contentBuffer.shift());this.currentFile=null},u.prototype.flush=function(){for(var e=this.bytesWritten,t=0;t<this.dirRecords.length;t++)this.push({data:this.dirRecords[t],meta:{percent:100}});var r=this.bytesWritten-e,a=(s=this.dirRecords.length,i=r,c=e,u=this.zipComment,d=this.encodeFileName,h=o.transformTo("string",d(u)),l.CENTRAL_DIRECTORY_END+"\0\0\0\0"+n(s,2)+n(s,2)+n(i,4)+n(c,4)+n(h.length,2)+h),s,i,c,u,d,h;this.push({data:a,meta:{percent:100}})},u.prototype.prepareNextSource=function(){this.previous=this._sources.shift(),this.openedSource(this.previous.streamInfo),this.isPaused?this.previous.pause():this.previous.resume()},u.prototype.registerPrevious=function(e){this._sources.push(e);var t=this;return e.on("data",function(e){t.processChunk(e)}),e.on("end",function(){t.closedSource(t.previous.streamInfo),t._sources.length?t.prepareNextSource():t.end()}),e.on("error",function(e){t.error(e)}),this},u.prototype.resume=function(){return!!s.prototype.resume.call(this)&&(!this.previous&&this._sources.length?(this.prepareNextSource(),!0):this.previous||this._sources.length||this.generatedError?void 0:(this.end(),!0))},u.prototype.error=function(e){var t=this._sources;if(!s.prototype.error.call(this,e))return!1;for(var r=0;r<t.length;r++)try{t[r].error(e)}catch(e){}return!0},u.prototype.lock=function(){s.prototype.lock.call(this);for(var e=this._sources,t=0;t<e.length;t++)e[t].lock()},t.exports=u},{"../crc32":4,"../signature":23,"../stream/GenericWorker":28,"../utf8":31,"../utils":32}],9:[function(e,t,r){var n=e("../compressions"),a=e("./ZipFileWorker");r.generateWorker=function(e,t,r){var o=new a(t.streamFiles,r,t.platform,t.encodeFileName),s=0;try{e.forEach(function(e,r){s++;var a=function(e,t){var r=e||t,a=n[r];if(!a)throw new Error(r+" is not a valid compression method !");return a}(r.options.compression,t.compression),i=r.options.compressionOptions||t.compressionOptions||{},c=r.dir,l=r.date;r._compressWorker(a,i).withStreamInfo("file",{name:e,dir:c,date:l,comment:r.comment||"",unixPermissions:r.unixPermissions,dosPermissions:r.dosPermissions}).pipe(o)}),o.entriesCount=s}catch(e){o.error(e)}return o}},{"../compressions":3,"./ZipFileWorker":8}],10:[function(e,t,r){function n(){if(!(this instanceof n))return new n;if(arguments.length)throw new Error("The constructor with parameters has been removed in JSZip 3.0, please check the upgrade guide.");this.files=Object.create(null),this.comment=null,this.root="",this.clone=function(){var e=new n;for(var t in this)"function"!=typeof this[t]&&(e[t]=this[t]);return e}}(n.prototype=e("./object")).loadAsync=e("./load"),n.support=e("./support"),n.defaults=e("./defaults"),n.version="3.10.1",n.loadAsync=function(e,t){return(new n).loadAsync(e,t)},n.external=e("./external"),t.exports=n},{"./defaults":5,"./external":6,"./load":11,"./object":15,"./support":30}],11:[function(e,t,r){var n=e("./utils"),a=e("./external"),o=e("./utf8"),s=e("./zipEntries"),i=e("./stream/Crc32Probe"),c=e("./nodejsUtils");function l(e){return new a.Promise(function(t,r){var n=e.decompressed.getContentWorker().pipe(new i);n.on("error",function(e){r(e)}).on("end",function(){n.streamInfo.crc32!==e.decompressed.crc32?r(new Error("Corrupted zip : CRC32 mismatch")):t()}).resume()})}t.exports=function(e,t){var r=this;return t=n.extend(t||{},{base64:!1,checkCRC32:!1,optimizedBinaryString:!1,createFolders:!1,decodeFileName:o.utf8decode}),c.isNode&&c.isStream(e)?a.Promise.reject(new Error("JSZip can't accept a stream when loading a zip file.")):n.prepareContent("the loaded zip file",e,!0,t.optimizedBinaryString,t.base64).then(function(e){var r=new s(t);return r.load(e),r}).then(function(e){var r=[a.Promise.resolve(e)],n=e.files;if(t.checkCRC32)for(var o=0;o<n.length;o++)r.push(l(n[o]));return a.Promise.all(r)}).then(function(e){for(var a=e.shift(),o=a.files,s=0;s<o.length;s++){var i=o[s],c=i.fileNameStr,l=n.resolve(i.fileNameStr);r.file(l,i.decompressed,{binary:!0,optimizedBinaryString:!0,date:i.date,dir:i.dir,comment:i.fileCommentStr.length?i.fileCommentStr:null,unixPermissions:i.unixPermissions,dosPermissions:i.dosPermissions,createFolders:t.createFolders}),i.dir||(r.file(l).unsafeOriginalName=c)}return a.zipComment.length&&(r.comment=a.zipComment),r})}},{"./external":6,"./nodejsUtils":14,"./stream/Crc32Probe":25,"./utf8":31,"./utils":32,"./zipEntries":33}],12:[function(e,t,r){var n=e("../utils"),a=e("../stream/GenericWorker");function o(e,t){a.call(this,"Nodejs stream input adapter for "+e),this._upstreamEnded=!1,this._bindStream(t)}n.inherits(o,a),o.prototype._bindStream=function(e){var t=this;(this._stream=e).pause(),e.on("data",function(e){t.push({data:e,meta:{percent:0}})}).on("error",function(e){t.isPaused?this.generatedError=e:t.error(e)}).on("end",function(){t.isPaused?t._upstreamEnded=!0:t.end()})},o.prototype.pause=function(){return!!a.prototype.pause.call(this)&&(this._stream.pause(),!0)},o.prototype.resume=function(){return!!a.prototype.resume.call(this)&&(this._upstreamEnded?this.end():this._stream.resume(),!0)},t.exports=o},{"../stream/GenericWorker":28,"../utils":32}],13:[function(e,t,r){var n=e("readable-stream").Readable;function a(e,t,r){n.call(this,t),this._helper=e;var a=this;e.on("data",function(e,t){a.push(e)||a._helper.pause(),r&&r(t)}).on("error",function(e){a.emit("error",e)}).on("end",function(){a.push(null)})}e("../utils").inherits(a,n),a.prototype._read=function(){this._helper.resume()},t.exports=a},{"../utils":32,"readable-stream":16}],14:[function(e,t,r){t.exports={isNode:"undefined"!=typeof Buffer,newBufferFrom:function(e,t){if(Buffer.from&&Buffer.from!==Uint8Array.from)return Buffer.from(e,t);if("number"==typeof e)throw new Error('The "data" argument must not be a number');return new Buffer(e,t)},allocBuffer:function(e){if(Buffer.alloc)return Buffer.alloc(e);var t=new Buffer(e);return t.fill(0),t},isBuffer:function(e){return Buffer.isBuffer(e)},isStream:function(e){return e&&"function"==typeof e.on&&"function"==typeof e.pause&&"function"==typeof e.resume}}},{}],15:[function(e,t,r){function n(e,t,r){var n,a=o.getTypeOf(t),i=o.extend(r||{},c);i.date=i.date||new Date,null!==i.compression&&(i.compression=i.compression.toUpperCase()),"string"==typeof i.unixPermissions&&(i.unixPermissions=parseInt(i.unixPermissions,8)),i.unixPermissions&&16384&i.unixPermissions&&(i.dir=!0),i.dosPermissions&&16&i.dosPermissions&&(i.dir=!0),i.dir&&(e=m(e)),i.createFolders&&(n=f(e))&&g.call(this,n,!0);var d="string"===a&&!1===i.binary&&!1===i.base64;r&&void 0!==r.binary||(i.binary=!d),(t instanceof l&&0===t.uncompressedSize||i.dir||!t||0===t.length)&&(i.base64=!1,i.binary=!0,t="",i.compression="STORE",a="string");var y=null;y=t instanceof l||t instanceof s?t:h.isNode&&h.isStream(t)?new p(e,t):o.prepareContent(e,t,i.binary,i.optimizedBinaryString,i.base64);var w=new u(e,y,i);this.files[e]=w}var a=e("./utf8"),o=e("./utils"),s=e("./stream/GenericWorker"),i=e("./stream/StreamHelper"),c=e("./defaults"),l=e("./compressedObject"),u=e("./zipObject"),d=e("./generate"),h=e("./nodejsUtils"),p=e("./nodejs/NodejsStreamInputAdapter"),f=function(e){"/"===e.slice(-1)&&(e=e.substring(0,e.length-1));var t=e.lastIndexOf("/");return 0<t?e.substring(0,t):""},m=function(e){return"/"!==e.slice(-1)&&(e+="/"),e},g=function(e,t){return t=void 0!==t?t:c.createFolders,e=m(e),this.files[e]||n.call(this,e,null,{dir:!0,createFolders:t}),this.files[e]};function y(e){return"[object RegExp]"===Object.prototype.toString.call(e)}var w={load:function(){throw new Error("This method has been removed in JSZip 3.0, please check the upgrade guide.")},forEach:function(e){var t,r,n;for(t in this.files)n=this.files[t],(r=t.slice(this.root.length,t.length))&&t.slice(0,this.root.length)===this.root&&e(r,n)},filter:function(e){var t=[];return this.forEach(function(r,n){e(r,n)&&t.push(n)}),t},file:function(e,t,r){if(1!==arguments.length)return e=this.root+e,n.call(this,e,t,r),this;if(y(e)){var a=e;return this.filter(function(e,t){return!t.dir&&a.test(e)})}var o=this.files[this.root+e];return o&&!o.dir?o:null},folder:function(e){if(!e)return this;if(y(e))return this.filter(function(t,r){return r.dir&&e.test(t)});var t=this.root+e,r=g.call(this,t),n=this.clone();return n.root=r.name,n},remove:function(e){e=this.root+e;var t=this.files[e];if(t||("/"!==e.slice(-1)&&(e+="/"),t=this.files[e]),t&&!t.dir)delete this.files[e];else for(var r=this.filter(function(t,r){return r.name.slice(0,e.length)===e}),n=0;n<r.length;n++)delete this.files[r[n].name];return this},generate:function(){throw new Error("This method has been removed in JSZip 3.0, please check the upgrade guide.")},generateInternalStream:function(e){var t,r={};try{if((r=o.extend(e||{},{streamFiles:!1,compression:"STORE",compressionOptions:null,type:"",platform:"DOS",comment:null,mimeType:"application/zip",encodeFileName:a.utf8encode})).type=r.type.toLowerCase(),r.compression=r.compression.toUpperCase(),"binarystring"===r.type&&(r.type="string"),!r.type)throw new Error("No output type specified.");o.checkSupport(r.type),"darwin"!==r.platform&&"freebsd"!==r.platform&&"linux"!==r.platform&&"sunos"!==r.platform||(r.platform="UNIX"),"win32"===r.platform&&(r.platform="DOS");var n=r.comment||this.comment||"";t=d.generateWorker(this,r,n)}catch(e){(t=new s("error")).error(e)}return new i(t,r.type||"string",r.mimeType)},generateAsync:function(e,t){return this.generateInternalStream(e).accumulate(t)},generateNodeStream:function(e,t){return(e=e||{}).type||(e.type="nodebuffer"),this.generateInternalStream(e).toNodejsStream(t)}};t.exports=w},{"./compressedObject":2,"./defaults":5,"./generate":9,"./nodejs/NodejsStreamInputAdapter":12,"./nodejsUtils":14,"./stream/GenericWorker":28,"./stream/StreamHelper":29,"./utf8":31,"./utils":32,"./zipObject":35}],16:[function(e,t,r){t.exports=e("stream")},{stream:void 0}],17:[function(e,t,r){var n=e("./DataReader");function a(e){n.call(this,e);for(var t=0;t<this.data.length;t++)e[t]=255&e[t]}e("../utils").inherits(a,n),a.prototype.byteAt=function(e){return this.data[this.zero+e]},a.prototype.lastIndexOfSignature=function(e){for(var t=e.charCodeAt(0),r=e.charCodeAt(1),n=e.charCodeAt(2),a=e.charCodeAt(3),o=this.length-4;0<=o;--o)if(this.data[o]===t&&this.data[o+1]===r&&this.data[o+2]===n&&this.data[o+3]===a)return o-this.zero;return-1},a.prototype.readAndCheckSignature=function(e){var t=e.charCodeAt(0),r=e.charCodeAt(1),n=e.charCodeAt(2),a=e.charCodeAt(3),o=this.readData(4);return t===o[0]&&r===o[1]&&n===o[2]&&a===o[3]},a.prototype.readData=function(e){if(this.checkOffset(e),0===e)return[];var t=this.data.slice(this.zero+this.index,this.zero+this.index+e);return this.index+=e,t},t.exports=a},{"../utils":32,"./DataReader":18}],18:[function(e,t,r){var n=e("../utils");function a(e){this.data=e,this.length=e.length,this.index=0,this.zero=0}a.prototype={checkOffset:function(e){this.checkIndex(this.index+e)},checkIndex:function(e){if(this.length<this.zero+e||e<0)throw new Error("End of data reached (data length = "+this.length+", asked index = "+e+"). Corrupted zip ?")},setIndex:function(e){this.checkIndex(e),this.index=e},skip:function(e){this.setIndex(this.index+e)},byteAt:function(){},readInt:function(e){var t,r=0;for(this.checkOffset(e),t=this.index+e-1;t>=this.index;t--)r=(r<<8)+this.byteAt(t);return this.index+=e,r},readString:function(e){return n.transformTo("string",this.readData(e))},readData:function(){},lastIndexOfSignature:function(){},readAndCheckSignature:function(){},readDate:function(){var e=this.readInt(4);return new Date(Date.UTC(1980+(e>>25&127),(e>>21&15)-1,e>>16&31,e>>11&31,e>>5&63,(31&e)<<1))}},t.exports=a},{"../utils":32}],19:[function(e,t,r){var n=e("./Uint8ArrayReader");function a(e){n.call(this,e)}e("../utils").inherits(a,n),a.prototype.readData=function(e){this.checkOffset(e);var t=this.data.slice(this.zero+this.index,this.zero+this.index+e);return this.index+=e,t},t.exports=a},{"../utils":32,"./Uint8ArrayReader":21}],20:[function(e,t,r){var n=e("./DataReader");function a(e){n.call(this,e)}e("../utils").inherits(a,n),a.prototype.byteAt=function(e){return this.data.charCodeAt(this.zero+e)},a.prototype.lastIndexOfSignature=function(e){return this.data.lastIndexOf(e)-this.zero},a.prototype.readAndCheckSignature=function(e){return e===this.readData(4)},a.prototype.readData=function(e){this.checkOffset(e);var t=this.data.slice(this.zero+this.index,this.zero+this.index+e);return this.index+=e,t},t.exports=a},{"../utils":32,"./DataReader":18}],21:[function(e,t,r){var n=e("./ArrayReader");function a(e){n.call(this,e)}e("../utils").inherits(a,n),a.prototype.readData=function(e){if(this.checkOffset(e),0===e)return new Uint8Array(0);var t=this.data.subarray(this.zero+this.index,this.zero+this.index+e);return this.index+=e,t},t.exports=a},{"../utils":32,"./ArrayReader":17}],22:[function(e,t,r){var n=e("../utils"),a=e("../support"),o=e("./ArrayReader"),s=e("./StringReader"),i=e("./NodeBufferReader"),c=e("./Uint8ArrayReader");t.exports=function(e){var t=n.getTypeOf(e);return n.checkSupport(t),"string"!==t||a.uint8array?"nodebuffer"===t?new i(e):a.uint8array?new c(n.transformTo("uint8array",e)):new o(n.transformTo("array",e)):new s(e)}},{"../support":30,"../utils":32,"./ArrayReader":17,"./NodeBufferReader":19,"./StringReader":20,"./Uint8ArrayReader":21}],23:[function(e,t,r){r.LOCAL_FILE_HEADER="PK",r.CENTRAL_FILE_HEADER="PK",r.CENTRAL_DIRECTORY_END="PK",r.ZIP64_CENTRAL_DIRECTORY_LOCATOR="PK",r.ZIP64_CENTRAL_DIRECTORY_END="PK",r.DATA_DESCRIPTOR="PK\b"},{}],24:[function(e,t,r){var n=e("./GenericWorker"),a=e("../utils");function o(e){n.call(this,"ConvertWorker to "+e),this.destType=e}a.inherits(o,n),o.prototype.processChunk=function(e){this.push({data:a.transformTo(this.destType,e.data),meta:e.meta})},t.exports=o},{"../utils":32,"./GenericWorker":28}],25:[function(e,t,r){var n=e("./GenericWorker"),a=e("../crc32");function o(){n.call(this,"Crc32Probe"),this.withStreamInfo("crc32",0)}e("../utils").inherits(o,n),o.prototype.processChunk=function(e){this.streamInfo.crc32=a(e.data,this.streamInfo.crc32||0),this.push(e)},t.exports=o},{"../crc32":4,"../utils":32,"./GenericWorker":28}],26:[function(e,t,r){var n=e("../utils"),a=e("./GenericWorker");function o(e){a.call(this,"DataLengthProbe for "+e),this.propName=e,this.withStreamInfo(e,0)}n.inherits(o,a),o.prototype.processChunk=function(e){if(e){var t=this.streamInfo[this.propName]||0;this.streamInfo[this.propName]=t+e.data.length}a.prototype.processChunk.call(this,e)},t.exports=o},{"../utils":32,"./GenericWorker":28}],27:[function(e,t,r){var n=e("../utils"),a=e("./GenericWorker");function o(e){a.call(this,"DataWorker");var t=this;this.dataIsReady=!1,this.index=0,this.max=0,this.data=null,this.type="",this._tickScheduled=!1,e.then(function(e){t.dataIsReady=!0,t.data=e,t.max=e&&e.length||0,t.type=n.getTypeOf(e),t.isPaused||t._tickAndRepeat()},function(e){t.error(e)})}n.inherits(o,a),o.prototype.cleanUp=function(){a.prototype.cleanUp.call(this),this.data=null},o.prototype.resume=function(){return!!a.prototype.resume.call(this)&&(!this._tickScheduled&&this.dataIsReady&&(this._tickScheduled=!0,n.delay(this._tickAndRepeat,[],this)),!0)},o.prototype._tickAndRepeat=function(){this._tickScheduled=!1,this.isPaused||this.isFinished||(this._tick(),this.isFinished||(n.delay(this._tickAndRepeat,[],this),this._tickScheduled=!0))},o.prototype._tick=function(){if(this.isPaused||this.isFinished)return!1;var e=null,t=Math.min(this.max,this.index+16384);if(this.index>=this.max)return this.end();switch(this.type){case"string":e=this.data.substring(this.index,t);break;case"uint8array":e=this.data.subarray(this.index,t);break;case"array":case"nodebuffer":e=this.data.slice(this.index,t)}return this.index=t,this.push({data:e,meta:{percent:this.max?this.index/this.max*100:0}})},t.exports=o},{"../utils":32,"./GenericWorker":28}],28:[function(e,t,r){function n(e){this.name=e||"default",this.streamInfo={},this.generatedError=null,this.extraStreamInfo={},this.isPaused=!0,this.isFinished=!1,this.isLocked=!1,this._listeners={data:[],end:[],error:[]},this.previous=null}n.prototype={push:function(e){this.emit("data",e)},end:function(){if(this.isFinished)return!1;this.flush();try{this.emit("end"),this.cleanUp(),this.isFinished=!0}catch(e){this.emit("error",e)}return!0},error:function(e){return!this.isFinished&&(this.isPaused?this.generatedError=e:(this.isFinished=!0,this.emit("error",e),this.previous&&this.previous.error(e),this.cleanUp()),!0)},on:function(e,t){return this._listeners[e].push(t),this},cleanUp:function(){this.streamInfo=this.generatedError=this.extraStreamInfo=null,this._listeners=[]},emit:function(e,t){if(this._listeners[e])for(var r=0;r<this._listeners[e].length;r++)this._listeners[e][r].call(this,t)},pipe:function(e){return e.registerPrevious(this)},registerPrevious:function(e){if(this.isLocked)throw new Error("The stream '"+this+"' has already been used.");this.streamInfo=e.streamInfo,this.mergeStreamInfo(),this.previous=e;var t=this;return e.on("data",function(e){t.processChunk(e)}),e.on("end",function(){t.end()}),e.on("error",function(e){t.error(e)}),this},pause:function(){return!this.isPaused&&!this.isFinished&&(this.isPaused=!0,this.previous&&this.previous.pause(),!0)},resume:function(){if(!this.isPaused||this.isFinished)return!1;var e=this.isPaused=!1;return this.generatedError&&(this.error(this.generatedError),e=!0),this.previous&&this.previous.resume(),!e},flush:function(){},processChunk:function(e){this.push(e)},withStreamInfo:function(e,t){return this.extraStreamInfo[e]=t,this.mergeStreamInfo(),this},mergeStreamInfo:function(){for(var e in this.extraStreamInfo)Object.prototype.hasOwnProperty.call(this.extraStreamInfo,e)&&(this.streamInfo[e]=this.extraStreamInfo[e])},lock:function(){if(this.isLocked)throw new Error("The stream '"+this+"' has already been used.");this.isLocked=!0,this.previous&&this.previous.lock()},toString:function(){var e="Worker "+this.name;return this.previous?this.previous+" -> "+e:e}},t.exports=n},{}],29:[function(e,t,r){var n=e("../utils"),a=e("./ConvertWorker"),o=e("./GenericWorker"),s=e("../base64"),i=e("../support"),c=e("../external"),l=null;if(i.nodestream)try{l=e("../nodejs/NodejsStreamOutputAdapter")}catch(e){}function u(e,t){return new c.Promise(function(r,a){var o=[],i=e._internalType,c=e._outputType,l=e._mimeType;e.on("data",function(e,r){o.push(e),t&&t(r)}).on("error",function(e){o=[],a(e)}).on("end",function(){try{var e=function(e,t,r){switch(e){case"blob":return n.newBlob(n.transformTo("arraybuffer",t),r);case"base64":return s.encode(t);default:return n.transformTo(e,t)}}(c,function(e,t){var r,n=0,a=null,o=0;for(r=0;r<t.length;r++)o+=t[r].length;switch(e){case"string":return t.join("");case"array":return Array.prototype.concat.apply([],t);case"uint8array":for(a=new Uint8Array(o),r=0;r<t.length;r++)a.set(t[r],n),n+=t[r].length;return a;case"nodebuffer":return Buffer.concat(t);default:throw new Error("concat : unsupported type '"+e+"'")}}(i,o),l);r(e)}catch(e){a(e)}o=[]}).resume()})}function d(e,t,r){var s=t;switch(t){case"blob":case"arraybuffer":s="uint8array";break;case"base64":s="string"}try{this._internalType=s,this._outputType=t,this._mimeType=r,n.checkSupport(s),this._worker=e.pipe(new a(s)),e.lock()}catch(e){this._worker=new o("error"),this._worker.error(e)}}d.prototype={accumulate:function(e){return u(this,e)},on:function(e,t){var r=this;return"data"===e?this._worker.on(e,function(e){t.call(r,e.data,e.meta)}):this._worker.on(e,function(){n.delay(t,arguments,r)}),this},resume:function(){return n.delay(this._worker.resume,[],this._worker),this},pause:function(){return this._worker.pause(),this},toNodejsStream:function(e){if(n.checkSupport("nodestream"),"nodebuffer"!==this._outputType)throw new Error(this._outputType+" is not supported by this method");return new l(this,{objectMode:"nodebuffer"!==this._outputType},e)}},t.exports=d},{"../base64":1,"../external":6,"../nodejs/NodejsStreamOutputAdapter":13,"../support":30,"../utils":32,"./ConvertWorker":24,"./GenericWorker":28}],30:[function(e,t,r){if(r.base64=!0,r.array=!0,r.string=!0,r.arraybuffer="undefined"!=typeof ArrayBuffer&&"undefined"!=typeof Uint8Array,r.nodebuffer="undefined"!=typeof Buffer,r.uint8array="undefined"!=typeof Uint8Array,"undefined"==typeof ArrayBuffer)r.blob=!1;else{var n=new ArrayBuffer(0);try{r.blob=0===new Blob([n],{type:"application/zip"}).size}catch(e){try{var a=new(self.BlobBuilder||self.WebKitBlobBuilder||self.MozBlobBuilder||self.MSBlobBuilder);a.append(n),r.blob=0===a.getBlob("application/zip").size}catch(e){r.blob=!1}}}try{r.nodestream=!!e("readable-stream").Readable}catch(e){r.nodestream=!1}},{"readable-stream":16}],31:[function(e,t,r){for(var n=e("./utils"),a=e("./support"),o=e("./nodejsUtils"),s=e("./stream/GenericWorker"),i=new Array(256),c=0;c<256;c++)i[c]=252<=c?6:248<=c?5:240<=c?4:224<=c?3:192<=c?2:1;function l(){s.call(this,"utf-8 decode"),this.leftOver=null}function u(){s.call(this,"utf-8 encode")}i[254]=i[254]=1,r.utf8encode=function(e){return a.nodebuffer?o.newBufferFrom(e,"utf-8"):function(e){var t,r,n,o,s,i=e.length,c=0;for(o=0;o<i;o++)55296==(64512&(r=e.charCodeAt(o)))&&o+1<i&&56320==(64512&(n=e.charCodeAt(o+1)))&&(r=65536+(r-55296<<10)+(n-56320),o++),c+=r<128?1:r<2048?2:r<65536?3:4;for(t=a.uint8array?new Uint8Array(c):new Array(c),o=s=0;s<c;o++)55296==(64512&(r=e.charCodeAt(o)))&&o+1<i&&56320==(64512&(n=e.charCodeAt(o+1)))&&(r=65536+(r-55296<<10)+(n-56320),o++),r<128?t[s++]=r:(r<2048?t[s++]=192|r>>>6:(r<65536?t[s++]=224|r>>>12:(t[s++]=240|r>>>18,t[s++]=128|r>>>12&63),t[s++]=128|r>>>6&63),t[s++]=128|63&r);return t}(e)},r.utf8decode=function(e){return a.nodebuffer?n.transformTo("nodebuffer",e).toString("utf-8"):function(e){var t,r,a,o,s=e.length,c=new Array(2*s);for(t=r=0;t<s;)if((a=e[t++])<128)c[r++]=a;else if(4<(o=i[a]))c[r++]=65533,t+=o-1;else{for(a&=2===o?31:3===o?15:7;1<o&&t<s;)a=a<<6|63&e[t++],o--;1<o?c[r++]=65533:a<65536?c[r++]=a:(a-=65536,c[r++]=55296|a>>10&1023,c[r++]=56320|1023&a)}return c.length!==r&&(c.subarray?c=c.subarray(0,r):c.length=r),n.applyFromCharCode(c)}(e=n.transformTo(a.uint8array?"uint8array":"array",e))},n.inherits(l,s),l.prototype.processChunk=function(e){var t=n.transformTo(a.uint8array?"uint8array":"array",e.data);if(this.leftOver&&this.leftOver.length){if(a.uint8array){var o=t;(t=new Uint8Array(o.length+this.leftOver.length)).set(this.leftOver,0),t.set(o,this.leftOver.length)}else t=this.leftOver.concat(t);this.leftOver=null}var s=function(e,t){var r;for((t=t||e.length)>e.length&&(t=e.length),r=t-1;0<=r&&128==(192&e[r]);)r--;return r<0||0===r?t:r+i[e[r]]>t?r:t}(t),c=t;s!==t.length&&(a.uint8array?(c=t.subarray(0,s),this.leftOver=t.subarray(s,t.length)):(c=t.slice(0,s),this.leftOver=t.slice(s,t.length))),this.push({data:r.utf8decode(c),meta:e.meta})},l.prototype.flush=function(){this.leftOver&&this.leftOver.length&&(this.push({data:r.utf8decode(this.leftOver),meta:{}}),this.leftOver=null)},r.Utf8DecodeWorker=l,n.inherits(u,s),u.prototype.processChunk=function(e){this.push({data:r.utf8encode(e.data),meta:e.meta})},r.Utf8EncodeWorker=u},{"./nodejsUtils":14,"./stream/GenericWorker":28,"./support":30,"./utils":32}],32:[function(e,t,r){var n=e("./support"),a=e("./base64"),o=e("./nodejsUtils"),s=e("./external");function i(e){return e}function c(e,t){for(var r=0;r<e.length;++r)t[r]=255&e.charCodeAt(r);return t}e("setimmediate"),r.newBlob=function(e,t){r.checkSupport("blob");try{return new Blob([e],{type:t})}catch(r){try{var n=new(self.BlobBuilder||self.WebKitBlobBuilder||self.MozBlobBuilder||self.MSBlobBuilder);return n.append(e),n.getBlob(t)}catch(e){throw new Error("Bug : can't construct the Blob.")}}};var l={stringifyByChunk:function(e,t,r){var n=[],a=0,o=e.length;if(o<=r)return String.fromCharCode.apply(null,e);for(;a<o;)"array"===t||"nodebuffer"===t?n.push(String.fromCharCode.apply(null,e.slice(a,Math.min(a+r,o)))):n.push(String.fromCharCode.apply(null,e.subarray(a,Math.min(a+r,o)))),a+=r;return n.join("")},stringifyByChar:function(e){for(var t="",r=0;r<e.length;r++)t+=String.fromCharCode(e[r]);return t},applyCanBeUsed:{uint8array:function(){try{return n.uint8array&&1===String.fromCharCode.apply(null,new Uint8Array(1)).length}catch(e){return!1}}(),nodebuffer:function(){try{return n.nodebuffer&&1===String.fromCharCode.apply(null,o.allocBuffer(1)).length}catch(e){return!1}}()}};function u(e){var t=65536,n=r.getTypeOf(e),a=!0;if("uint8array"===n?a=l.applyCanBeUsed.uint8array:"nodebuffer"===n&&(a=l.applyCanBeUsed.nodebuffer),a)for(;1<t;)try{return l.stringifyByChunk(e,n,t)}catch(e){t=Math.floor(t/2)}return l.stringifyByChar(e)}function d(e,t){for(var r=0;r<e.length;r++)t[r]=e[r];return t}r.applyFromCharCode=u;var h={};h.string={string:i,array:function(e){return c(e,new Array(e.length))},arraybuffer:function(e){return h.string.uint8array(e).buffer},uint8array:function(e){return c(e,new Uint8Array(e.length))},nodebuffer:function(e){return c(e,o.allocBuffer(e.length))}},h.array={string:u,array:i,arraybuffer:function(e){return new Uint8Array(e).buffer},uint8array:function(e){return new Uint8Array(e)},nodebuffer:function(e){return o.newBufferFrom(e)}},h.arraybuffer={string:function(e){return u(new Uint8Array(e))},array:function(e){return d(new Uint8Array(e),new Array(e.byteLength))},arraybuffer:i,uint8array:function(e){return new Uint8Array(e)},nodebuffer:function(e){return o.newBufferFrom(new Uint8Array(e))}},h.uint8array={string:u,array:function(e){return d(e,new Array(e.length))},arraybuffer:function(e){return e.buffer},uint8array:i,nodebuffer:function(e){return o.newBufferFrom(e)}},h.nodebuffer={string:u,array:function(e){return d(e,new Array(e.length))},arraybuffer:function(e){return h.nodebuffer.uint8array(e).buffer},uint8array:function(e){return d(e,new Uint8Array(e.length))},nodebuffer:i},r.transformTo=function(e,t){if(t=t||"",!e)return t;r.checkSupport(e);var n=r.getTypeOf(t);return h[n][e](t)},r.resolve=function(e){for(var t=e.split("/"),r=[],n=0;n<t.length;n++){var a=t[n];"."===a||""===a&&0!==n&&n!==t.length-1||(".."===a?r.pop():r.push(a))}return r.join("/")},r.getTypeOf=function(e){return"string"==typeof e?"string":"[object Array]"===Object.prototype.toString.call(e)?"array":n.nodebuffer&&o.isBuffer(e)?"nodebuffer":n.uint8array&&e instanceof Uint8Array?"uint8array":n.arraybuffer&&e instanceof ArrayBuffer?"arraybuffer":void 0},r.checkSupport=function(e){if(!n[e.toLowerCase()])throw new Error(e+" is not supported by this platform")},r.MAX_VALUE_16BITS=65535,r.MAX_VALUE_32BITS=-1,r.pretty=function(e){var t,r,n="";for(r=0;r<(e||"").length;r++)n+="\\x"+((t=e.charCodeAt(r))<16?"0":"")+t.toString(16).toUpperCase();return n},r.delay=function(e,t,r){setImmediate(function(){e.apply(r||null,t||[])})},r.inherits=function(e,t){function r(){}r.prototype=t.prototype,e.prototype=new r},r.extend=function(){var e,t,r={};for(e=0;e<arguments.length;e++)for(t in arguments[e])Object.prototype.hasOwnProperty.call(arguments[e],t)&&void 0===r[t]&&(r[t]=arguments[e][t]);return r},r.prepareContent=function(e,t,o,i,l){return s.Promise.resolve(t).then(function(e){return n.blob&&(e instanceof Blob||-1!==["[object File]","[object Blob]"].indexOf(Object.prototype.toString.call(e)))&&"undefined"!=typeof FileReader?new s.Promise(function(t,r){var n=new FileReader;n.onload=function(e){t(e.target.result)},n.onerror=function(e){r(e.target.error)},n.readAsArrayBuffer(e)}):e}).then(function(t){var u=r.getTypeOf(t),d;return u?("arraybuffer"===u?t=r.transformTo("uint8array",t):"string"===u&&(l?t=a.decode(t):o&&!0!==i&&(t=c(d=t,n.uint8array?new Uint8Array(d.length):new Array(d.length)))),t):s.Promise.reject(new Error("Can't read the data of '"+e+"'. Is it in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"))})}},{"./base64":1,"./external":6,"./nodejsUtils":14,"./support":30,setimmediate:54}],33:[function(e,t,r){var n=e("./reader/readerFor"),a=e("./utils"),o=e("./signature"),s=e("./zipEntry"),i=e("./support");function c(e){this.files=[],this.loadOptions=e}c.prototype={checkSignature:function(e){if(!this.reader.readAndCheckSignature(e)){this.reader.index-=4;var t=this.reader.readString(4);throw new Error("Corrupted zip or bug: unexpected signature ("+a.pretty(t)+", expected "+a.pretty(e)+")")}},isSignature:function(e,t){var r=this.reader.index;this.reader.setIndex(e);var n=this.reader.readString(4)===t;return this.reader.setIndex(r),n},readBlockEndOfCentral:function(){this.diskNumber=this.reader.readInt(2),this.diskWithCentralDirStart=this.reader.readInt(2),this.centralDirRecordsOnThisDisk=this.reader.readInt(2),this.centralDirRecords=this.reader.readInt(2),this.centralDirSize=this.reader.readInt(4),this.centralDirOffset=this.reader.readInt(4),this.zipCommentLength=this.reader.readInt(2);var e=this.reader.readData(this.zipCommentLength),t=i.uint8array?"uint8array":"array",r=a.transformTo(t,e);this.zipComment=this.loadOptions.decodeFileName(r)},readBlockZip64EndOfCentral:function(){this.zip64EndOfCentralSize=this.reader.readInt(8),this.reader.skip(4),this.diskNumber=this.reader.readInt(4),this.diskWithCentralDirStart=this.reader.readInt(4),this.centralDirRecordsOnThisDisk=this.reader.readInt(8),this.centralDirRecords=this.reader.readInt(8),this.centralDirSize=this.reader.readInt(8),this.centralDirOffset=this.reader.readInt(8),this.zip64ExtensibleData={};for(var e,t,r,n=this.zip64EndOfCentralSize-44;0<n;)e=this.reader.readInt(2),t=this.reader.readInt(4),r=this.reader.readData(t),this.zip64ExtensibleData[e]={id:e,length:t,value:r}},readBlockZip64EndOfCentralLocator:function(){if(this.diskWithZip64CentralDirStart=this.reader.readInt(4),this.relativeOffsetEndOfZip64CentralDir=this.reader.readInt(8),this.disksCount=this.reader.readInt(4),1<this.disksCount)throw new Error("Multi-volumes zip are not supported")},readLocalFiles:function(){var e,t;for(e=0;e<this.files.length;e++)t=this.files[e],this.reader.setIndex(t.localHeaderOffset),this.checkSignature(o.LOCAL_FILE_HEADER),t.readLocalPart(this.reader),t.handleUTF8(),t.processAttributes()},readCentralDir:function(){var e;for(this.reader.setIndex(this.centralDirOffset);this.reader.readAndCheckSignature(o.CENTRAL_FILE_HEADER);)(e=new s({zip64:this.zip64},this.loadOptions)).readCentralPart(this.reader),this.files.push(e);if(this.centralDirRecords!==this.files.length&&0!==this.centralDirRecords&&0===this.files.length)throw new Error("Corrupted zip or bug: expected "+this.centralDirRecords+" records in central dir, got "+this.files.length)},readEndOfCentral:function(){var e=this.reader.lastIndexOfSignature(o.CENTRAL_DIRECTORY_END);if(e<0)throw this.isSignature(0,o.LOCAL_FILE_HEADER)?new Error("Corrupted zip: can't find end of central directory"):new Error("Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html");this.reader.setIndex(e);var t=e;if(this.checkSignature(o.CENTRAL_DIRECTORY_END),this.readBlockEndOfCentral(),this.diskNumber===a.MAX_VALUE_16BITS||this.diskWithCentralDirStart===a.MAX_VALUE_16BITS||this.centralDirRecordsOnThisDisk===a.MAX_VALUE_16BITS||this.centralDirRecords===a.MAX_VALUE_16BITS||this.centralDirSize===a.MAX_VALUE_32BITS||this.centralDirOffset===a.MAX_VALUE_32BITS){if(this.zip64=!0,(e=this.reader.lastIndexOfSignature(o.ZIP64_CENTRAL_DIRECTORY_LOCATOR))<0)throw new Error("Corrupted zip: can't find the ZIP64 end of central directory locator");if(this.reader.setIndex(e),this.checkSignature(o.ZIP64_CENTRAL_DIRECTORY_LOCATOR),this.readBlockZip64EndOfCentralLocator(),!this.isSignature(this.relativeOffsetEndOfZip64CentralDir,o.ZIP64_CENTRAL_DIRECTORY_END)&&(this.relativeOffsetEndOfZip64CentralDir=this.reader.lastIndexOfSignature(o.ZIP64_CENTRAL_DIRECTORY_END),this.relativeOffsetEndOfZip64CentralDir<0))throw new Error("Corrupted zip: can't find the ZIP64 end of central directory");this.reader.setIndex(this.relativeOffsetEndOfZip64CentralDir),this.checkSignature(o.ZIP64_CENTRAL_DIRECTORY_END),this.readBlockZip64EndOfCentral()}var r=this.centralDirOffset+this.centralDirSize;this.zip64&&(r+=20,r+=12+this.zip64EndOfCentralSize);var n=t-r;if(0<n)this.isSignature(t,o.CENTRAL_FILE_HEADER)||(this.reader.zero=n);else if(n<0)throw new Error("Corrupted zip: missing "+Math.abs(n)+" bytes.")},prepareReader:function(e){this.reader=n(e)},load:function(e){this.prepareReader(e),this.readEndOfCentral(),this.readCentralDir(),this.readLocalFiles()}},t.exports=c},{"./reader/readerFor":22,"./signature":23,"./support":30,"./utils":32,"./zipEntry":34}],34:[function(e,t,r){var n=e("./reader/readerFor"),a=e("./utils"),o=e("./compressedObject"),s=e("./crc32"),i=e("./utf8"),c=e("./compressions"),l=e("./support");function u(e,t){this.options=e,this.loadOptions=t}u.prototype={isEncrypted:function(){return!(1&~this.bitFlag)},useUTF8:function(){return!(2048&~this.bitFlag)},readLocalPart:function(e){var t,r;if(e.skip(22),this.fileNameLength=e.readInt(2),r=e.readInt(2),this.fileName=e.readData(this.fileNameLength),e.skip(r),-1===this.compressedSize||-1===this.uncompressedSize)throw new Error("Bug or corrupted zip : didn't get enough information from the central directory (compressedSize === -1 || uncompressedSize === -1)");if(null===(t=function(e){for(var t in c)if(Object.prototype.hasOwnProperty.call(c,t)&&c[t].magic===e)return c[t];return null}(this.compressionMethod)))throw new Error("Corrupted zip : compression "+a.pretty(this.compressionMethod)+" unknown (inner file : "+a.transformTo("string",this.fileName)+")");this.decompressed=new o(this.compressedSize,this.uncompressedSize,this.crc32,t,e.readData(this.compressedSize))},readCentralPart:function(e){this.versionMadeBy=e.readInt(2),e.skip(2),this.bitFlag=e.readInt(2),this.compressionMethod=e.readString(2),this.date=e.readDate(),this.crc32=e.readInt(4),this.compressedSize=e.readInt(4),this.uncompressedSize=e.readInt(4);var t=e.readInt(2);if(this.extraFieldsLength=e.readInt(2),this.fileCommentLength=e.readInt(2),this.diskNumberStart=e.readInt(2),this.internalFileAttributes=e.readInt(2),this.externalFileAttributes=e.readInt(4),this.localHeaderOffset=e.readInt(4),this.isEncrypted())throw new Error("Encrypted zip are not supported");e.skip(t),this.readExtraFields(e),this.parseZIP64ExtraField(e),this.fileComment=e.readData(this.fileCommentLength)},processAttributes:function(){this.unixPermissions=null,this.dosPermissions=null;var e=this.versionMadeBy>>8;this.dir=!!(16&this.externalFileAttributes),0==e&&(this.dosPermissions=63&this.externalFileAttributes),3==e&&(this.unixPermissions=this.externalFileAttributes>>16&65535),this.dir||"/"!==this.fileNameStr.slice(-1)||(this.dir=!0)},parseZIP64ExtraField:function(){if(this.extraFields[1]){var e=n(this.extraFields[1].value);this.uncompressedSize===a.MAX_VALUE_32BITS&&(this.uncompressedSize=e.readInt(8)),this.compressedSize===a.MAX_VALUE_32BITS&&(this.compressedSize=e.readInt(8)),this.localHeaderOffset===a.MAX_VALUE_32BITS&&(this.localHeaderOffset=e.readInt(8)),this.diskNumberStart===a.MAX_VALUE_32BITS&&(this.diskNumberStart=e.readInt(4))}},readExtraFields:function(e){var t,r,n,a=e.index+this.extraFieldsLength;for(this.extraFields||(this.extraFields={});e.index+4<a;)t=e.readInt(2),r=e.readInt(2),n=e.readData(r),this.extraFields[t]={id:t,length:r,value:n};e.setIndex(a)},handleUTF8:function(){var e=l.uint8array?"uint8array":"array";if(this.useUTF8())this.fileNameStr=i.utf8decode(this.fileName),this.fileCommentStr=i.utf8decode(this.fileComment);else{var t=this.findExtraFieldUnicodePath();if(null!==t)this.fileNameStr=t;else{var r=a.transformTo(e,this.fileName);this.fileNameStr=this.loadOptions.decodeFileName(r)}var n=this.findExtraFieldUnicodeComment();if(null!==n)this.fileCommentStr=n;else{var o=a.transformTo(e,this.fileComment);this.fileCommentStr=this.loadOptions.decodeFileName(o)}}},findExtraFieldUnicodePath:function(){var e=this.extraFields[28789];if(e){var t=n(e.value);return 1!==t.readInt(1)||s(this.fileName)!==t.readInt(4)?null:i.utf8decode(t.readData(e.length-5))}return null},findExtraFieldUnicodeComment:function(){var e=this.extraFields[25461];if(e){var t=n(e.value);return 1!==t.readInt(1)||s(this.fileComment)!==t.readInt(4)?null:i.utf8decode(t.readData(e.length-5))}return null}},t.exports=u},{"./compressedObject":2,"./compressions":3,"./crc32":4,"./reader/readerFor":22,"./support":30,"./utf8":31,"./utils":32}],35:[function(e,t,r){function n(e,t,r){this.name=e,this.dir=r.dir,this.date=r.date,this.comment=r.comment,this.unixPermissions=r.unixPermissions,this.dosPermissions=r.dosPermissions,this._data=t,this._dataBinary=r.binary,this.options={compression:r.compression,compressionOptions:r.compressionOptions}}var a=e("./stream/StreamHelper"),o=e("./stream/DataWorker"),s=e("./utf8"),i=e("./compressedObject"),c=e("./stream/GenericWorker");n.prototype={internalStream:function(e){var t=null,r="string";try{if(!e)throw new Error("No output type specified.");var n="string"===(r=e.toLowerCase())||"text"===r;"binarystring"!==r&&"text"!==r||(r="string"),t=this._decompressWorker();var o=!this._dataBinary;o&&!n&&(t=t.pipe(new s.Utf8EncodeWorker)),!o&&n&&(t=t.pipe(new s.Utf8DecodeWorker))}catch(e){(t=new c("error")).error(e)}return new a(t,r,"")},async:function(e,t){return this.internalStream(e).accumulate(t)},nodeStream:function(e,t){return this.internalStream(e||"nodebuffer").toNodejsStream(t)},_compressWorker:function(e,t){if(this._data instanceof i&&this._data.compression.magic===e.magic)return this._data.getCompressedWorker();var r=this._decompressWorker();return this._dataBinary||(r=r.pipe(new s.Utf8EncodeWorker)),i.createWorkerFrom(r,e,t)},_decompressWorker:function(){return this._data instanceof i?this._data.getContentWorker():this._data instanceof c?this._data:new o(this._data)}};for(var l=["asText","asBinary","asNodeBuffer","asUint8Array","asArrayBuffer"],u=function(){throw new Error("This method has been removed in JSZip 3.0, please check the upgrade guide.")},d=0;d<l.length;d++)n.prototype[l[d]]=u;t.exports=n},{"./compressedObject":2,"./stream/DataWorker":27,"./stream/GenericWorker":28,"./stream/StreamHelper":29,"./utf8":31}],36:[function(e,t,r){(function(e){var r,n,a=e.MutationObserver||e.WebKitMutationObserver;if(a){var o=0,s=new a(u),i=e.document.createTextNode("");s.observe(i,{characterData:!0}),r=function(){i.data=o=++o%2}}else if(e.setImmediate||void 0===e.MessageChannel)r="document"in e&&"onreadystatechange"in e.document.createElement("script")?function(){var t=e.document.createElement("script");t.onreadystatechange=function(){u(),t.onreadystatechange=null,t.parentNode.removeChild(t),t=null},e.document.documentElement.appendChild(t)}:function(){setTimeout(u,0)};else{var c=new e.MessageChannel;c.port1.onmessage=u,r=function(){c.port2.postMessage(0)}}var l=[];function u(){var e,t;n=!0;for(var r=l.length;r;){for(t=l,l=[],e=-1;++e<r;)t[e]();r=l.length}n=!1}t.exports=function(e){1!==l.push(e)||n||r()}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}],37:[function(e,t,r){var n=e("immediate");function a(){}var o={},s=["REJECTED"],i=["FULFILLED"],c=["PENDING"];function l(e){if("function"!=typeof e)throw new TypeError("resolver must be a function");this.state=c,this.queue=[],this.outcome=void 0,e!==a&&p(this,e)}function u(e,t,r){this.promise=e,"function"==typeof t&&(this.onFulfilled=t,this.callFulfilled=this.otherCallFulfilled),"function"==typeof r&&(this.onRejected=r,this.callRejected=this.otherCallRejected)}function d(e,t,r){n(function(){var n;try{n=t(r)}catch(t){return o.reject(e,t)}n===e?o.reject(e,new TypeError("Cannot resolve promise with itself")):o.resolve(e,n)})}function h(e){var t=e&&e.then;if(e&&("object"==typeof e||"function"==typeof e)&&"function"==typeof t)return function(){t.apply(e,arguments)}}function p(e,t){var r=!1;function n(t){r||(r=!0,o.reject(e,t))}function a(t){r||(r=!0,o.resolve(e,t))}var s=f(function(){t(a,n)});"error"===s.status&&n(s.value)}function f(e,t){var r={};try{r.value=e(t),r.status="success"}catch(e){r.status="error",r.value=e}return r}(t.exports=l).prototype.finally=function(e){if("function"!=typeof e)return this;var t=this.constructor;return this.then(function(r){return t.resolve(e()).then(function(){return r})},function(r){return t.resolve(e()).then(function(){throw r})})},l.prototype.catch=function(e){return this.then(null,e)},l.prototype.then=function(e,t){if("function"!=typeof e&&this.state===i||"function"!=typeof t&&this.state===s)return this;var r=new this.constructor(a);return this.state!==c?d(r,this.state===i?e:t,this.outcome):this.queue.push(new u(r,e,t)),r},u.prototype.callFulfilled=function(e){o.resolve(this.promise,e)},u.prototype.otherCallFulfilled=function(e){d(this.promise,this.onFulfilled,e)},u.prototype.callRejected=function(e){o.reject(this.promise,e)},u.prototype.otherCallRejected=function(e){d(this.promise,this.onRejected,e)},o.resolve=function(e,t){var r=f(h,t);if("error"===r.status)return o.reject(e,r.value);var n=r.value;if(n)p(e,n);else{e.state=i,e.outcome=t;for(var a=-1,s=e.queue.length;++a<s;)e.queue[a].callFulfilled(t)}return e},o.reject=function(e,t){e.state=s,e.outcome=t;for(var r=-1,n=e.queue.length;++r<n;)e.queue[r].callRejected(t);return e},l.resolve=function(e){return e instanceof this?e:o.resolve(new this(a),e)},l.reject=function(e){var t=new this(a);return o.reject(t,e)},l.all=function(e){var t=this;if("[object Array]"!==Object.prototype.toString.call(e))return this.reject(new TypeError("must be an array"));var r=e.length,n=!1;if(!r)return this.resolve([]);for(var s=new Array(r),i=0,c=-1,l=new this(a);++c<r;)u(e[c],c);return l;function u(e,a){t.resolve(e).then(function(e){s[a]=e,++i!==r||n||(n=!0,o.resolve(l,s))},function(e){n||(n=!0,o.reject(l,e))})}},l.race=function(e){var t=this;if("[object Array]"!==Object.prototype.toString.call(e))return this.reject(new TypeError("must be an array"));var r=e.length,n=!1;if(!r)return this.resolve([]);for(var s=-1,i=new this(a),c;++s<r;)c=e[s],t.resolve(c).then(function(e){n||(n=!0,o.resolve(i,e))},function(e){n||(n=!0,o.reject(i,e))});return i}},{immediate:36}],38:[function(e,t,r){var n={};(0,e("./lib/utils/common").assign)(n,e("./lib/deflate"),e("./lib/inflate"),e("./lib/zlib/constants")),t.exports=n},{"./lib/deflate":39,"./lib/inflate":40,"./lib/utils/common":41,"./lib/zlib/constants":44}],39:[function(e,t,r){var n=e("./zlib/deflate"),a=e("./utils/common"),o=e("./utils/strings"),s=e("./zlib/messages"),i=e("./zlib/zstream"),c=Object.prototype.toString,l=0,u=-1,d=0,h=8;function p(e){if(!(this instanceof p))return new p(e);this.options=a.assign({level:u,method:8,chunkSize:16384,windowBits:15,memLevel:8,strategy:0,to:""},e||{});var t=this.options;t.raw&&0<t.windowBits?t.windowBits=-t.windowBits:t.gzip&&0<t.windowBits&&t.windowBits<16&&(t.windowBits+=16),this.err=0,this.msg="",this.ended=!1,this.chunks=[],this.strm=new i,this.strm.avail_out=0;var r=n.deflateInit2(this.strm,t.level,t.method,t.windowBits,t.memLevel,t.strategy);if(0!==r)throw new Error(s[r]);if(t.header&&n.deflateSetHeader(this.strm,t.header),t.dictionary){var l;if(l="string"==typeof t.dictionary?o.string2buf(t.dictionary):"[object ArrayBuffer]"===c.call(t.dictionary)?new Uint8Array(t.dictionary):t.dictionary,0!==(r=n.deflateSetDictionary(this.strm,l)))throw new Error(s[r]);this._dict_set=!0}}function f(e,t){var r=new p(t);if(r.push(e,!0),r.err)throw r.msg||s[r.err];return r.result}p.prototype.push=function(e,t){var r,s,i=this.strm,l=this.options.chunkSize;if(this.ended)return!1;s=t===~~t?t:!0===t?4:0,"string"==typeof e?i.input=o.string2buf(e):"[object ArrayBuffer]"===c.call(e)?i.input=new Uint8Array(e):i.input=e,i.next_in=0,i.avail_in=i.input.length;do{if(0===i.avail_out&&(i.output=new a.Buf8(l),i.next_out=0,i.avail_out=l),1!==(r=n.deflate(i,s))&&0!==r)return this.onEnd(r),!(this.ended=!0);0!==i.avail_out&&(0!==i.avail_in||4!==s&&2!==s)||("string"===this.options.to?this.onData(o.buf2binstring(a.shrinkBuf(i.output,i.next_out))):this.onData(a.shrinkBuf(i.output,i.next_out)))}while((0<i.avail_in||0===i.avail_out)&&1!==r);return 4===s?(r=n.deflateEnd(this.strm),this.onEnd(r),this.ended=!0,0===r):2!==s||(this.onEnd(0),!(i.avail_out=0))},p.prototype.onData=function(e){this.chunks.push(e)},p.prototype.onEnd=function(e){0===e&&("string"===this.options.to?this.result=this.chunks.join(""):this.result=a.flattenChunks(this.chunks)),this.chunks=[],this.err=e,this.msg=this.strm.msg},r.Deflate=p,r.deflate=f,r.deflateRaw=function(e,t){return(t=t||{}).raw=!0,f(e,t)},r.gzip=function(e,t){return(t=t||{}).gzip=!0,f(e,t)}},{"./utils/common":41,"./utils/strings":42,"./zlib/deflate":46,"./zlib/messages":51,"./zlib/zstream":53}],40:[function(e,t,r){var n=e("./zlib/inflate"),a=e("./utils/common"),o=e("./utils/strings"),s=e("./zlib/constants"),i=e("./zlib/messages"),c=e("./zlib/zstream"),l=e("./zlib/gzheader"),u=Object.prototype.toString;function d(e){if(!(this instanceof d))return new d(e);this.options=a.assign({chunkSize:16384,windowBits:0,to:""},e||{});var t=this.options;t.raw&&0<=t.windowBits&&t.windowBits<16&&(t.windowBits=-t.windowBits,0===t.windowBits&&(t.windowBits=-15)),!(0<=t.windowBits&&t.windowBits<16)||e&&e.windowBits||(t.windowBits+=32),15<t.windowBits&&t.windowBits<48&&!(15&t.windowBits)&&(t.windowBits|=15),this.err=0,this.msg="",this.ended=!1,this.chunks=[],this.strm=new c,this.strm.avail_out=0;var r=n.inflateInit2(this.strm,t.windowBits);if(r!==s.Z_OK)throw new Error(i[r]);this.header=new l,n.inflateGetHeader(this.strm,this.header)}function h(e,t){var r=new d(t);if(r.push(e,!0),r.err)throw r.msg||i[r.err];return r.result}d.prototype.push=function(e,t){var r,i,c,l,d,h,p=this.strm,f=this.options.chunkSize,m=this.options.dictionary,g=!1;if(this.ended)return!1;i=t===~~t?t:!0===t?s.Z_FINISH:s.Z_NO_FLUSH,"string"==typeof e?p.input=o.binstring2buf(e):"[object ArrayBuffer]"===u.call(e)?p.input=new Uint8Array(e):p.input=e,p.next_in=0,p.avail_in=p.input.length;do{if(0===p.avail_out&&(p.output=new a.Buf8(f),p.next_out=0,p.avail_out=f),(r=n.inflate(p,s.Z_NO_FLUSH))===s.Z_NEED_DICT&&m&&(h="string"==typeof m?o.string2buf(m):"[object ArrayBuffer]"===u.call(m)?new Uint8Array(m):m,r=n.inflateSetDictionary(this.strm,h)),r===s.Z_BUF_ERROR&&!0===g&&(r=s.Z_OK,g=!1),r!==s.Z_STREAM_END&&r!==s.Z_OK)return this.onEnd(r),!(this.ended=!0);p.next_out&&(0!==p.avail_out&&r!==s.Z_STREAM_END&&(0!==p.avail_in||i!==s.Z_FINISH&&i!==s.Z_SYNC_FLUSH)||("string"===this.options.to?(c=o.utf8border(p.output,p.next_out),l=p.next_out-c,d=o.buf2string(p.output,c),p.next_out=l,p.avail_out=f-l,l&&a.arraySet(p.output,p.output,c,l,0),this.onData(d)):this.onData(a.shrinkBuf(p.output,p.next_out)))),0===p.avail_in&&0===p.avail_out&&(g=!0)}while((0<p.avail_in||0===p.avail_out)&&r!==s.Z_STREAM_END);return r===s.Z_STREAM_END&&(i=s.Z_FINISH),i===s.Z_FINISH?(r=n.inflateEnd(this.strm),this.onEnd(r),this.ended=!0,r===s.Z_OK):i!==s.Z_SYNC_FLUSH||(this.onEnd(s.Z_OK),!(p.avail_out=0))},d.prototype.onData=function(e){this.chunks.push(e)},d.prototype.onEnd=function(e){e===s.Z_OK&&("string"===this.options.to?this.result=this.chunks.join(""):this.result=a.flattenChunks(this.chunks)),this.chunks=[],this.err=e,this.msg=this.strm.msg},r.Inflate=d,r.inflate=h,r.inflateRaw=function(e,t){return(t=t||{}).raw=!0,h(e,t)},r.ungzip=h},{"./utils/common":41,"./utils/strings":42,"./zlib/constants":44,"./zlib/gzheader":47,"./zlib/inflate":49,"./zlib/messages":51,"./zlib/zstream":53}],41:[function(e,t,r){var n="undefined"!=typeof Uint8Array&&"undefined"!=typeof Uint16Array&&"undefined"!=typeof Int32Array;r.assign=function(e){for(var t=Array.prototype.slice.call(arguments,1);t.length;){var r=t.shift();if(r){if("object"!=typeof r)throw new TypeError(r+"must be non-object");for(var n in r)r.hasOwnProperty(n)&&(e[n]=r[n])}}return e},r.shrinkBuf=function(e,t){return e.length===t?e:e.subarray?e.subarray(0,t):(e.length=t,e)};var a={arraySet:function(e,t,r,n,a){if(t.subarray&&e.subarray)e.set(t.subarray(r,r+n),a);else for(var o=0;o<n;o++)e[a+o]=t[r+o]},flattenChunks:function(e){var t,r,n,a,o,s;for(t=n=0,r=e.length;t<r;t++)n+=e[t].length;for(s=new Uint8Array(n),t=a=0,r=e.length;t<r;t++)o=e[t],s.set(o,a),a+=o.length;return s}},o={arraySet:function(e,t,r,n,a){for(var o=0;o<n;o++)e[a+o]=t[r+o]},flattenChunks:function(e){return[].concat.apply([],e)}};r.setTyped=function(e){e?(r.Buf8=Uint8Array,r.Buf16=Uint16Array,r.Buf32=Int32Array,r.assign(r,a)):(r.Buf8=Array,r.Buf16=Array,r.Buf32=Array,r.assign(r,o))},r.setTyped(n)},{}],42:[function(e,t,r){var n=e("./common"),a=!0,o=!0;try{String.fromCharCode.apply(null,[0])}catch(e){a=!1}try{String.fromCharCode.apply(null,new Uint8Array(1))}catch(e){o=!1}for(var s=new n.Buf8(256),i=0;i<256;i++)s[i]=252<=i?6:248<=i?5:240<=i?4:224<=i?3:192<=i?2:1;function c(e,t){if(t<65537&&(e.subarray&&o||!e.subarray&&a))return String.fromCharCode.apply(null,n.shrinkBuf(e,t));for(var r="",s=0;s<t;s++)r+=String.fromCharCode(e[s]);return r}s[254]=s[254]=1,r.string2buf=function(e){var t,r,a,o,s,i=e.length,c=0;for(o=0;o<i;o++)55296==(64512&(r=e.charCodeAt(o)))&&o+1<i&&56320==(64512&(a=e.charCodeAt(o+1)))&&(r=65536+(r-55296<<10)+(a-56320),o++),c+=r<128?1:r<2048?2:r<65536?3:4;for(t=new n.Buf8(c),o=s=0;s<c;o++)55296==(64512&(r=e.charCodeAt(o)))&&o+1<i&&56320==(64512&(a=e.charCodeAt(o+1)))&&(r=65536+(r-55296<<10)+(a-56320),o++),r<128?t[s++]=r:(r<2048?t[s++]=192|r>>>6:(r<65536?t[s++]=224|r>>>12:(t[s++]=240|r>>>18,t[s++]=128|r>>>12&63),t[s++]=128|r>>>6&63),t[s++]=128|63&r);return t},r.buf2binstring=function(e){return c(e,e.length)},r.binstring2buf=function(e){for(var t=new n.Buf8(e.length),r=0,a=t.length;r<a;r++)t[r]=e.charCodeAt(r);return t},r.buf2string=function(e,t){var r,n,a,o,i=t||e.length,l=new Array(2*i);for(r=n=0;r<i;)if((a=e[r++])<128)l[n++]=a;else if(4<(o=s[a]))l[n++]=65533,r+=o-1;else{for(a&=2===o?31:3===o?15:7;1<o&&r<i;)a=a<<6|63&e[r++],o--;1<o?l[n++]=65533:a<65536?l[n++]=a:(a-=65536,l[n++]=55296|a>>10&1023,l[n++]=56320|1023&a)}return c(l,n)},r.utf8border=function(e,t){var r;for((t=t||e.length)>e.length&&(t=e.length),r=t-1;0<=r&&128==(192&e[r]);)r--;return r<0||0===r?t:r+s[e[r]]>t?r:t}},{"./common":41}],43:[function(e,t,r){t.exports=function(e,t,r,n){for(var a=65535&e,o=e>>>16&65535,s=0;0!==r;){for(r-=s=2e3<r?2e3:r;o=o+(a=a+t[n++]|0)|0,--s;);a%=65521,o%=65521}return a|o<<16}},{}],44:[function(e,t,r){t.exports={Z_NO_FLUSH:0,Z_PARTIAL_FLUSH:1,Z_SYNC_FLUSH:2,Z_FULL_FLUSH:3,Z_FINISH:4,Z_BLOCK:5,Z_TREES:6,Z_OK:0,Z_STREAM_END:1,Z_NEED_DICT:2,Z_ERRNO:-1,Z_STREAM_ERROR:-2,Z_DATA_ERROR:-3,Z_BUF_ERROR:-5,Z_NO_COMPRESSION:0,Z_BEST_SPEED:1,Z_BEST_COMPRESSION:9,Z_DEFAULT_COMPRESSION:-1,Z_FILTERED:1,Z_HUFFMAN_ONLY:2,Z_RLE:3,Z_FIXED:4,Z_DEFAULT_STRATEGY:0,Z_BINARY:0,Z_TEXT:1,Z_UNKNOWN:2,Z_DEFLATED:8}},{}],45:[function(e,t,r){var n=function(){for(var e,t=[],r=0;r<256;r++){e=r;for(var n=0;n<8;n++)e=1&e?3988292384^e>>>1:e>>>1;t[r]=e}return t}();t.exports=function(e,t,r,a){var o=n,s=a+r;e^=-1;for(var i=a;i<s;i++)e=e>>>8^o[255&(e^t[i])];return-1^e}},{}],46:[function(e,t,r){var n,a=e("../utils/common"),o=e("./trees"),s=e("./adler32"),i=e("./crc32"),c=e("./messages"),l=0,u=4,d=0,h=-2,p=-1,f=4,m=2,g=8,y=9,w=286,b=30,v=19,_=573,k=15,S=3,x=258,C=262,E=42,A=113,P=1,T=2,D=3,I=4;function R(e,t){return e.msg=c[t],t}function N(e){return(e<<1)-(4<e?9:0)}function U(e){for(var t=e.length;0<=--t;)e[t]=0}function M(e){var t=e.state,r=t.pending;r>e.avail_out&&(r=e.avail_out),0!==r&&(a.arraySet(e.output,t.pending_buf,t.pending_out,r,e.next_out),e.next_out+=r,t.pending_out+=r,e.total_out+=r,e.avail_out-=r,t.pending-=r,0===t.pending&&(t.pending_out=0))}function L(e,t){o._tr_flush_block(e,0<=e.block_start?e.block_start:-1,e.strstart-e.block_start,t),e.block_start=e.strstart,M(e.strm)}function O(e,t){e.pending_buf[e.pending++]=t}function B(e,t){e.pending_buf[e.pending++]=t>>>8&255,e.pending_buf[e.pending++]=255&t}function $(e,t){var r,n,a=e.max_chain_length,o=e.strstart,s=e.prev_length,i=e.nice_match,c=e.strstart>e.w_size-C?e.strstart-(e.w_size-C):0,l=e.window,u=e.w_mask,d=e.prev,h=e.strstart+x,p=l[o+s-1],f=l[o+s];e.prev_length>=e.good_match&&(a>>=2),i>e.lookahead&&(i=e.lookahead);do{if(l[(r=t)+s]===f&&l[r+s-1]===p&&l[r]===l[o]&&l[++r]===l[o+1]){o+=2,r++;do{}while(l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&l[++o]===l[++r]&&o<h);if(n=x-(h-o),o=h-x,s<n){if(e.match_start=t,i<=(s=n))break;p=l[o+s-1],f=l[o+s]}}}while((t=d[t&u])>c&&0!=--a);return s<=e.lookahead?s:e.lookahead}function z(e){var t,r,n,o,c,l,u,d,h,p,f=e.w_size;do{if(o=e.window_size-e.lookahead-e.strstart,e.strstart>=f+(f-C)){for(a.arraySet(e.window,e.window,f,f,0),e.match_start-=f,e.strstart-=f,e.block_start-=f,t=r=e.hash_size;n=e.head[--t],e.head[t]=f<=n?n-f:0,--r;);for(t=r=f;n=e.prev[--t],e.prev[t]=f<=n?n-f:0,--r;);o+=f}if(0===e.strm.avail_in)break;if(l=e.strm,u=e.window,d=e.strstart+e.lookahead,p=void 0,(h=o)<(p=l.avail_in)&&(p=h),r=0===p?0:(l.avail_in-=p,a.arraySet(u,l.input,l.next_in,p,d),1===l.state.wrap?l.adler=s(l.adler,u,p,d):2===l.state.wrap&&(l.adler=i(l.adler,u,p,d)),l.next_in+=p,l.total_in+=p,p),e.lookahead+=r,e.lookahead+e.insert>=3)for(c=e.strstart-e.insert,e.ins_h=e.window[c],e.ins_h=(e.ins_h<<e.hash_shift^e.window[c+1])&e.hash_mask;e.insert&&(e.ins_h=(e.ins_h<<e.hash_shift^e.window[c+3-1])&e.hash_mask,e.prev[c&e.w_mask]=e.head[e.ins_h],e.head[e.ins_h]=c,c++,e.insert--,!(e.lookahead+e.insert<3)););}while(e.lookahead<C&&0!==e.strm.avail_in)}function j(e,t){for(var r,n;;){if(e.lookahead<C){if(z(e),e.lookahead<C&&0===t)return 1;if(0===e.lookahead)break}if(r=0,e.lookahead>=3&&(e.ins_h=(e.ins_h<<e.hash_shift^e.window[e.strstart+3-1])&e.hash_mask,r=e.prev[e.strstart&e.w_mask]=e.head[e.ins_h],e.head[e.ins_h]=e.strstart),0!==r&&e.strstart-r<=e.w_size-C&&(e.match_length=$(e,r)),e.match_length>=3)if(n=o._tr_tally(e,e.strstart-e.match_start,e.match_length-3),e.lookahead-=e.match_length,e.match_length<=e.max_lazy_match&&e.lookahead>=3){for(e.match_length--;e.strstart++,e.ins_h=(e.ins_h<<e.hash_shift^e.window[e.strstart+3-1])&e.hash_mask,r=e.prev[e.strstart&e.w_mask]=e.head[e.ins_h],e.head[e.ins_h]=e.strstart,0!=--e.match_length;);e.strstart++}else e.strstart+=e.match_length,e.match_length=0,e.ins_h=e.window[e.strstart],e.ins_h=(e.ins_h<<e.hash_shift^e.window[e.strstart+1])&e.hash_mask;else n=o._tr_tally(e,0,e.window[e.strstart]),e.lookahead--,e.strstart++;if(n&&(L(e,!1),0===e.strm.avail_out))return 1}return e.insert=e.strstart<2?e.strstart:2,4===t?(L(e,!0),0===e.strm.avail_out?3:4):e.last_lit&&(L(e,!1),0===e.strm.avail_out)?1:2}function H(e,t){for(var r,n,a;;){if(e.lookahead<C){if(z(e),e.lookahead<C&&0===t)return 1;if(0===e.lookahead)break}if(r=0,e.lookahead>=3&&(e.ins_h=(e.ins_h<<e.hash_shift^e.window[e.strstart+3-1])&e.hash_mask,r=e.prev[e.strstart&e.w_mask]=e.head[e.ins_h],e.head[e.ins_h]=e.strstart),e.prev_length=e.match_length,e.prev_match=e.match_start,e.match_length=2,0!==r&&e.prev_length<e.max_lazy_match&&e.strstart-r<=e.w_size-C&&(e.match_length=$(e,r),e.match_length<=5&&(1===e.strategy||3===e.match_length&&4096<e.strstart-e.match_start)&&(e.match_length=2)),e.prev_length>=3&&e.match_length<=e.prev_length){for(a=e.strstart+e.lookahead-3,n=o._tr_tally(e,e.strstart-1-e.prev_match,e.prev_length-3),e.lookahead-=e.prev_length-1,e.prev_length-=2;++e.strstart<=a&&(e.ins_h=(e.ins_h<<e.hash_shift^e.window[e.strstart+3-1])&e.hash_mask,r=e.prev[e.strstart&e.w_mask]=e.head[e.ins_h],e.head[e.ins_h]=e.strstart),0!=--e.prev_length;);if(e.match_available=0,e.match_length=2,e.strstart++,n&&(L(e,!1),0===e.strm.avail_out))return 1}else if(e.match_available){if((n=o._tr_tally(e,0,e.window[e.strstart-1]))&&L(e,!1),e.strstart++,e.lookahead--,0===e.strm.avail_out)return 1}else e.match_available=1,e.strstart++,e.lookahead--}return e.match_available&&(n=o._tr_tally(e,0,e.window[e.strstart-1]),e.match_available=0),e.insert=e.strstart<2?e.strstart:2,4===t?(L(e,!0),0===e.strm.avail_out?3:4):e.last_lit&&(L(e,!1),0===e.strm.avail_out)?1:2}function W(e,t,r,n,a){this.good_length=e,this.max_lazy=t,this.nice_length=r,this.max_chain=n,this.func=a}function F(){this.strm=null,this.status=0,this.pending_buf=null,this.pending_buf_size=0,this.pending_out=0,this.pending=0,this.wrap=0,this.gzhead=null,this.gzindex=0,this.method=8,this.last_flush=-1,this.w_size=0,this.w_bits=0,this.w_mask=0,this.window=null,this.window_size=0,this.prev=null,this.head=null,this.ins_h=0,this.hash_size=0,this.hash_bits=0,this.hash_mask=0,this.hash_shift=0,this.block_start=0,this.match_length=0,this.prev_match=0,this.match_available=0,this.strstart=0,this.match_start=0,this.lookahead=0,this.prev_length=0,this.max_chain_length=0,this.max_lazy_match=0,this.level=0,this.strategy=0,this.good_match=0,this.nice_match=0,this.dyn_ltree=new a.Buf16(2*_),this.dyn_dtree=new a.Buf16(122),this.bl_tree=new a.Buf16(78),U(this.dyn_ltree),U(this.dyn_dtree),U(this.bl_tree),this.l_desc=null,this.d_desc=null,this.bl_desc=null,this.bl_count=new a.Buf16(16),this.heap=new a.Buf16(573),U(this.heap),this.heap_len=0,this.heap_max=0,this.depth=new a.Buf16(573),U(this.depth),this.l_buf=0,this.lit_bufsize=0,this.last_lit=0,this.d_buf=0,this.opt_len=0,this.static_len=0,this.matches=0,this.insert=0,this.bi_buf=0,this.bi_valid=0}function G(e){var t;return e&&e.state?(e.total_in=e.total_out=0,e.data_type=2,(t=e.state).pending=0,t.pending_out=0,t.wrap<0&&(t.wrap=-t.wrap),t.status=t.wrap?E:A,e.adler=2===t.wrap?0:1,t.last_flush=0,o._tr_init(t),0):R(e,h)}function V(e){var t=G(e),r;return 0===t&&((r=e.state).window_size=2*r.w_size,U(r.head),r.max_lazy_match=n[r.level].max_lazy,r.good_match=n[r.level].good_length,r.nice_match=n[r.level].nice_length,r.max_chain_length=n[r.level].max_chain,r.strstart=0,r.block_start=0,r.lookahead=0,r.insert=0,r.match_length=r.prev_length=2,r.match_available=0,r.ins_h=0),t}function K(e,t,r,n,o,s){if(!e)return h;var i=1;if(t===p&&(t=6),n<0?(i=0,n=-n):15<n&&(i=2,n-=16),o<1||9<o||8!==r||n<8||15<n||t<0||9<t||s<0||4<s)return R(e,h);8===n&&(n=9);var c=new F;return(e.state=c).strm=e,c.wrap=i,c.gzhead=null,c.w_bits=n,c.w_size=1<<c.w_bits,c.w_mask=c.w_size-1,c.hash_bits=o+7,c.hash_size=1<<c.hash_bits,c.hash_mask=c.hash_size-1,c.hash_shift=~~((c.hash_bits+3-1)/3),c.window=new a.Buf8(2*c.w_size),c.head=new a.Buf16(c.hash_size),c.prev=new a.Buf16(c.w_size),c.lit_bufsize=1<<o+6,c.pending_buf_size=4*c.lit_bufsize,c.pending_buf=new a.Buf8(c.pending_buf_size),c.d_buf=1*c.lit_bufsize,c.l_buf=3*c.lit_bufsize,c.level=t,c.strategy=s,c.method=r,V(e)}n=[new W(0,0,0,0,function(e,t){var r=65535;for(r>e.pending_buf_size-5&&(r=e.pending_buf_size-5);;){if(e.lookahead<=1){if(z(e),0===e.lookahead&&0===t)return 1;if(0===e.lookahead)break}e.strstart+=e.lookahead,e.lookahead=0;var n=e.block_start+r;if((0===e.strstart||e.strstart>=n)&&(e.lookahead=e.strstart-n,e.strstart=n,L(e,!1),0===e.strm.avail_out))return 1;if(e.strstart-e.block_start>=e.w_size-C&&(L(e,!1),0===e.strm.avail_out))return 1}return e.insert=0,4===t?(L(e,!0),0===e.strm.avail_out?3:4):(e.strstart>e.block_start&&(L(e,!1),e.strm.avail_out),1)}),new W(4,4,8,4,j),new W(4,5,16,8,j),new W(4,6,32,32,j),new W(4,4,16,16,H),new W(8,16,32,32,H),new W(8,16,128,128,H),new W(8,32,128,256,H),new W(32,128,258,1024,H),new W(32,258,258,4096,H)],r.deflateInit=function(e,t){return K(e,t,8,15,8,0)},r.deflateInit2=K,r.deflateReset=V,r.deflateResetKeep=G,r.deflateSetHeader=function(e,t){return e&&e.state?2!==e.state.wrap?h:(e.state.gzhead=t,0):h},r.deflate=function(e,t){var r,a,s,c;if(!e||!e.state||5<t||t<0)return e?R(e,h):h;if(a=e.state,!e.output||!e.input&&0!==e.avail_in||666===a.status&&4!==t)return R(e,0===e.avail_out?-5:h);if(a.strm=e,r=a.last_flush,a.last_flush=t,a.status===E)if(2===a.wrap)e.adler=0,O(a,31),O(a,139),O(a,8),a.gzhead?(O(a,(a.gzhead.text?1:0)+(a.gzhead.hcrc?2:0)+(a.gzhead.extra?4:0)+(a.gzhead.name?8:0)+(a.gzhead.comment?16:0)),O(a,255&a.gzhead.time),O(a,a.gzhead.time>>8&255),O(a,a.gzhead.time>>16&255),O(a,a.gzhead.time>>24&255),O(a,9===a.level?2:2<=a.strategy||a.level<2?4:0),O(a,255&a.gzhead.os),a.gzhead.extra&&a.gzhead.extra.length&&(O(a,255&a.gzhead.extra.length),O(a,a.gzhead.extra.length>>8&255)),a.gzhead.hcrc&&(e.adler=i(e.adler,a.pending_buf,a.pending,0)),a.gzindex=0,a.status=69):(O(a,0),O(a,0),O(a,0),O(a,0),O(a,0),O(a,9===a.level?2:2<=a.strategy||a.level<2?4:0),O(a,3),a.status=A);else{var l=8+(a.w_bits-8<<4)<<8;l|=(2<=a.strategy||a.level<2?0:a.level<6?1:6===a.level?2:3)<<6,0!==a.strstart&&(l|=32),l+=31-l%31,a.status=A,B(a,l),0!==a.strstart&&(B(a,e.adler>>>16),B(a,65535&e.adler)),e.adler=1}if(69===a.status)if(a.gzhead.extra){for(s=a.pending;a.gzindex<(65535&a.gzhead.extra.length)&&(a.pending!==a.pending_buf_size||(a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),M(e),s=a.pending,a.pending!==a.pending_buf_size));)O(a,255&a.gzhead.extra[a.gzindex]),a.gzindex++;a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),a.gzindex===a.gzhead.extra.length&&(a.gzindex=0,a.status=73)}else a.status=73;if(73===a.status)if(a.gzhead.name){s=a.pending;do{if(a.pending===a.pending_buf_size&&(a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),M(e),s=a.pending,a.pending===a.pending_buf_size)){c=1;break}c=a.gzindex<a.gzhead.name.length?255&a.gzhead.name.charCodeAt(a.gzindex++):0,O(a,c)}while(0!==c);a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),0===c&&(a.gzindex=0,a.status=91)}else a.status=91;if(91===a.status)if(a.gzhead.comment){s=a.pending;do{if(a.pending===a.pending_buf_size&&(a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),M(e),s=a.pending,a.pending===a.pending_buf_size)){c=1;break}c=a.gzindex<a.gzhead.comment.length?255&a.gzhead.comment.charCodeAt(a.gzindex++):0,O(a,c)}while(0!==c);a.gzhead.hcrc&&a.pending>s&&(e.adler=i(e.adler,a.pending_buf,a.pending-s,s)),0===c&&(a.status=103)}else a.status=103;if(103===a.status&&(a.gzhead.hcrc?(a.pending+2>a.pending_buf_size&&M(e),a.pending+2<=a.pending_buf_size&&(O(a,255&e.adler),O(a,e.adler>>8&255),e.adler=0,a.status=A)):a.status=A),0!==a.pending){if(M(e),0===e.avail_out)return a.last_flush=-1,0}else if(0===e.avail_in&&N(t)<=N(r)&&4!==t)return R(e,-5);if(666===a.status&&0!==e.avail_in)return R(e,-5);if(0!==e.avail_in||0!==a.lookahead||0!==t&&666!==a.status){var u=2===a.strategy?function(e,t){for(var r;;){if(0===e.lookahead&&(z(e),0===e.lookahead)){if(0===t)return 1;break}if(e.match_length=0,r=o._tr_tally(e,0,e.window[e.strstart]),e.lookahead--,e.strstart++,r&&(L(e,!1),0===e.strm.avail_out))return 1}return e.insert=0,4===t?(L(e,!0),0===e.strm.avail_out?3:4):e.last_lit&&(L(e,!1),0===e.strm.avail_out)?1:2}(a,t):3===a.strategy?function(e,t){for(var r,n,a,s,i=e.window;;){if(e.lookahead<=x){if(z(e),e.lookahead<=x&&0===t)return 1;if(0===e.lookahead)break}if(e.match_length=0,e.lookahead>=3&&0<e.strstart&&(n=i[a=e.strstart-1])===i[++a]&&n===i[++a]&&n===i[++a]){s=e.strstart+x;do{}while(n===i[++a]&&n===i[++a]&&n===i[++a]&&n===i[++a]&&n===i[++a]&&n===i[++a]&&n===i[++a]&&n===i[++a]&&a<s);e.match_length=x-(s-a),e.match_length>e.lookahead&&(e.match_length=e.lookahead)}if(e.match_length>=3?(r=o._tr_tally(e,1,e.match_length-3),e.lookahead-=e.match_length,e.strstart+=e.match_length,e.match_length=0):(r=o._tr_tally(e,0,e.window[e.strstart]),e.lookahead--,e.strstart++),r&&(L(e,!1),0===e.strm.avail_out))return 1}return e.insert=0,4===t?(L(e,!0),0===e.strm.avail_out?3:4):e.last_lit&&(L(e,!1),0===e.strm.avail_out)?1:2}(a,t):n[a.level].func(a,t);if(3!==u&&4!==u||(a.status=666),1===u||3===u)return 0===e.avail_out&&(a.last_flush=-1),0;if(2===u&&(1===t?o._tr_align(a):5!==t&&(o._tr_stored_block(a,0,0,!1),3===t&&(U(a.head),0===a.lookahead&&(a.strstart=0,a.block_start=0,a.insert=0))),M(e),0===e.avail_out))return a.last_flush=-1,0}return 4!==t?0:a.wrap<=0?1:(2===a.wrap?(O(a,255&e.adler),O(a,e.adler>>8&255),O(a,e.adler>>16&255),O(a,e.adler>>24&255),O(a,255&e.total_in),O(a,e.total_in>>8&255),O(a,e.total_in>>16&255),O(a,e.total_in>>24&255)):(B(a,e.adler>>>16),B(a,65535&e.adler)),M(e),0<a.wrap&&(a.wrap=-a.wrap),0!==a.pending?0:1)},r.deflateEnd=function(e){var t;return e&&e.state?(t=e.state.status)!==E&&69!==t&&73!==t&&91!==t&&103!==t&&t!==A&&666!==t?R(e,h):(e.state=null,t===A?R(e,-3):0):h},r.deflateSetDictionary=function(e,t){var r,n,o,i,c,l,u,d,p=t.length;if(!e||!e.state)return h;if(2===(i=(r=e.state).wrap)||1===i&&r.status!==E||r.lookahead)return h;for(1===i&&(e.adler=s(e.adler,t,p,0)),r.wrap=0,p>=r.w_size&&(0===i&&(U(r.head),r.strstart=0,r.block_start=0,r.insert=0),d=new a.Buf8(r.w_size),a.arraySet(d,t,p-r.w_size,r.w_size,0),t=d,p=r.w_size),c=e.avail_in,l=e.next_in,u=e.input,e.avail_in=p,e.next_in=0,e.input=t,z(r);r.lookahead>=3;){for(n=r.strstart,o=r.lookahead-2;r.ins_h=(r.ins_h<<r.hash_shift^r.window[n+3-1])&r.hash_mask,r.prev[n&r.w_mask]=r.head[r.ins_h],r.head[r.ins_h]=n,n++,--o;);r.strstart=n,r.lookahead=2,z(r)}return r.strstart+=r.lookahead,r.block_start=r.strstart,r.insert=r.lookahead,r.lookahead=0,r.match_length=r.prev_length=2,r.match_available=0,e.next_in=l,e.input=u,e.avail_in=c,r.wrap=i,0},r.deflateInfo="pako deflate (from Nodeca project)"},{"../utils/common":41,"./adler32":43,"./crc32":45,"./messages":51,"./trees":52}],47:[function(e,t,r){t.exports=function(){this.text=0,this.time=0,this.xflags=0,this.os=0,this.extra=null,this.extra_len=0,this.name="",this.comment="",this.hcrc=0,this.done=!1}},{}],48:[function(e,t,r){t.exports=function(e,t){var r,n,a,o,s,i,c,l,u,d,h,p,f,m,g,y,w,b,v,_,k,S,x,C,E;r=e.state,n=e.next_in,C=e.input,a=n+(e.avail_in-5),o=e.next_out,E=e.output,s=o-(t-e.avail_out),i=o+(e.avail_out-257),c=r.dmax,l=r.wsize,u=r.whave,d=r.wnext,h=r.window,p=r.hold,f=r.bits,m=r.lencode,g=r.distcode,y=(1<<r.lenbits)-1,w=(1<<r.distbits)-1;e:do{f<15&&(p+=C[n++]<<f,f+=8,p+=C[n++]<<f,f+=8),b=m[p&y];t:for(;;){if(p>>>=v=b>>>24,f-=v,0==(v=b>>>16&255))E[o++]=65535&b;else{if(!(16&v)){if(!(64&v)){b=m[(65535&b)+(p&(1<<v)-1)];continue t}if(32&v){r.mode=12;break e}e.msg="invalid literal/length code",r.mode=30;break e}_=65535&b,(v&=15)&&(f<v&&(p+=C[n++]<<f,f+=8),_+=p&(1<<v)-1,p>>>=v,f-=v),f<15&&(p+=C[n++]<<f,f+=8,p+=C[n++]<<f,f+=8),b=g[p&w];r:for(;;){if(p>>>=v=b>>>24,f-=v,!(16&(v=b>>>16&255))){if(!(64&v)){b=g[(65535&b)+(p&(1<<v)-1)];continue r}e.msg="invalid distance code",r.mode=30;break e}if(k=65535&b,f<(v&=15)&&(p+=C[n++]<<f,(f+=8)<v&&(p+=C[n++]<<f,f+=8)),c<(k+=p&(1<<v)-1)){e.msg="invalid distance too far back",r.mode=30;break e}if(p>>>=v,f-=v,(v=o-s)<k){if(u<(v=k-v)&&r.sane){e.msg="invalid distance too far back",r.mode=30;break e}if(x=h,(S=0)===d){if(S+=l-v,v<_){for(_-=v;E[o++]=h[S++],--v;);S=o-k,x=E}}else if(d<v){if(S+=l+d-v,(v-=d)<_){for(_-=v;E[o++]=h[S++],--v;);if(S=0,d<_){for(_-=v=d;E[o++]=h[S++],--v;);S=o-k,x=E}}}else if(S+=d-v,v<_){for(_-=v;E[o++]=h[S++],--v;);S=o-k,x=E}for(;2<_;)E[o++]=x[S++],E[o++]=x[S++],E[o++]=x[S++],_-=3;_&&(E[o++]=x[S++],1<_&&(E[o++]=x[S++]))}else{for(S=o-k;E[o++]=E[S++],E[o++]=E[S++],E[o++]=E[S++],2<(_-=3););_&&(E[o++]=E[S++],1<_&&(E[o++]=E[S++]))}break}}break}}while(n<a&&o<i);n-=_=f>>3,p&=(1<<(f-=_<<3))-1,e.next_in=n,e.next_out=o,e.avail_in=n<a?a-n+5:5-(n-a),e.avail_out=o<i?i-o+257:257-(o-i),r.hold=p,r.bits=f}},{}],49:[function(e,t,r){var n=e("../utils/common"),a=e("./adler32"),o=e("./crc32"),s=e("./inffast"),i=e("./inftrees"),c=1,l=2,u=0,d=-2,h=1,p=852,f=592;function m(e){return(e>>>24&255)+(e>>>8&65280)+((65280&e)<<8)+((255&e)<<24)}function g(){this.mode=0,this.last=!1,this.wrap=0,this.havedict=!1,this.flags=0,this.dmax=0,this.check=0,this.total=0,this.head=null,this.wbits=0,this.wsize=0,this.whave=0,this.wnext=0,this.window=null,this.hold=0,this.bits=0,this.length=0,this.offset=0,this.extra=0,this.lencode=null,this.distcode=null,this.lenbits=0,this.distbits=0,this.ncode=0,this.nlen=0,this.ndist=0,this.have=0,this.next=null,this.lens=new n.Buf16(320),this.work=new n.Buf16(288),this.lendyn=null,this.distdyn=null,this.sane=0,this.back=0,this.was=0}function y(e){var t;return e&&e.state?(t=e.state,e.total_in=e.total_out=t.total=0,e.msg="",t.wrap&&(e.adler=1&t.wrap),t.mode=1,t.last=0,t.havedict=0,t.dmax=32768,t.head=null,t.hold=0,t.bits=0,t.lencode=t.lendyn=new n.Buf32(p),t.distcode=t.distdyn=new n.Buf32(f),t.sane=1,t.back=-1,0):d}function w(e){var t;return e&&e.state?((t=e.state).wsize=0,t.whave=0,t.wnext=0,y(e)):d}function b(e,t){var r,n;return e&&e.state?(n=e.state,t<0?(r=0,t=-t):(r=1+(t>>4),t<48&&(t&=15)),t&&(t<8||15<t)?d:(null!==n.window&&n.wbits!==t&&(n.window=null),n.wrap=r,n.wbits=t,w(e))):d}function v(e,t){var r,n;return e?(n=new g,(e.state=n).window=null,0!==(r=b(e,t))&&(e.state=null),r):d}var _,k,S=!0;function x(e){if(S){var t;for(_=new n.Buf32(512),k=new n.Buf32(32),t=0;t<144;)e.lens[t++]=8;for(;t<256;)e.lens[t++]=9;for(;t<280;)e.lens[t++]=7;for(;t<288;)e.lens[t++]=8;for(i(1,e.lens,0,288,_,0,e.work,{bits:9}),t=0;t<32;)e.lens[t++]=5;i(2,e.lens,0,32,k,0,e.work,{bits:5}),S=!1}e.lencode=_,e.lenbits=9,e.distcode=k,e.distbits=5}function C(e,t,r,a){var o,s=e.state;return null===s.window&&(s.wsize=1<<s.wbits,s.wnext=0,s.whave=0,s.window=new n.Buf8(s.wsize)),a>=s.wsize?(n.arraySet(s.window,t,r-s.wsize,s.wsize,0),s.wnext=0,s.whave=s.wsize):(a<(o=s.wsize-s.wnext)&&(o=a),n.arraySet(s.window,t,r-a,o,s.wnext),(a-=o)?(n.arraySet(s.window,t,r-a,a,0),s.wnext=a,s.whave=s.wsize):(s.wnext+=o,s.wnext===s.wsize&&(s.wnext=0),s.whave<s.wsize&&(s.whave+=o))),0}r.inflateReset=w,r.inflateReset2=b,r.inflateResetKeep=y,r.inflateInit=function(e){return v(e,15)},r.inflateInit2=v,r.inflate=function(e,t){var r,c,l,u,h,p,f,g,y,w,b,v,_,k,S,E,A,P,T,D,I,R,N,U,M=0,L=new n.Buf8(4),O=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];if(!e||!e.state||!e.output||!e.input&&0!==e.avail_in)return d;12===(r=e.state).mode&&(r.mode=13),h=e.next_out,l=e.output,f=e.avail_out,u=e.next_in,c=e.input,p=e.avail_in,g=r.hold,y=r.bits,w=p,b=f,R=0;e:for(;;)switch(r.mode){case 1:if(0===r.wrap){r.mode=13;break}for(;y<16;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(2&r.wrap&&35615===g){L[r.check=0]=255&g,L[1]=g>>>8&255,r.check=o(r.check,L,2,0),y=g=0,r.mode=2;break}if(r.flags=0,r.head&&(r.head.done=!1),!(1&r.wrap)||(((255&g)<<8)+(g>>8))%31){e.msg="incorrect header check",r.mode=30;break}if(8!=(15&g)){e.msg="unknown compression method",r.mode=30;break}if(y-=4,I=8+(15&(g>>>=4)),0===r.wbits)r.wbits=I;else if(I>r.wbits){e.msg="invalid window size",r.mode=30;break}r.dmax=1<<I,e.adler=r.check=1,r.mode=512&g?10:12,y=g=0;break;case 2:for(;y<16;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(r.flags=g,8!=(255&r.flags)){e.msg="unknown compression method",r.mode=30;break}if(57344&r.flags){e.msg="unknown header flags set",r.mode=30;break}r.head&&(r.head.text=g>>8&1),512&r.flags&&(L[0]=255&g,L[1]=g>>>8&255,r.check=o(r.check,L,2,0)),y=g=0,r.mode=3;case 3:for(;y<32;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.head&&(r.head.time=g),512&r.flags&&(L[0]=255&g,L[1]=g>>>8&255,L[2]=g>>>16&255,L[3]=g>>>24&255,r.check=o(r.check,L,4,0)),y=g=0,r.mode=4;case 4:for(;y<16;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.head&&(r.head.xflags=255&g,r.head.os=g>>8),512&r.flags&&(L[0]=255&g,L[1]=g>>>8&255,r.check=o(r.check,L,2,0)),y=g=0,r.mode=5;case 5:if(1024&r.flags){for(;y<16;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.length=g,r.head&&(r.head.extra_len=g),512&r.flags&&(L[0]=255&g,L[1]=g>>>8&255,r.check=o(r.check,L,2,0)),y=g=0}else r.head&&(r.head.extra=null);r.mode=6;case 6:if(1024&r.flags&&(p<(v=r.length)&&(v=p),v&&(r.head&&(I=r.head.extra_len-r.length,r.head.extra||(r.head.extra=new Array(r.head.extra_len)),n.arraySet(r.head.extra,c,u,v,I)),512&r.flags&&(r.check=o(r.check,c,v,u)),p-=v,u+=v,r.length-=v),r.length))break e;r.length=0,r.mode=7;case 7:if(2048&r.flags){if(0===p)break e;for(v=0;I=c[u+v++],r.head&&I&&r.length<65536&&(r.head.name+=String.fromCharCode(I)),I&&v<p;);if(512&r.flags&&(r.check=o(r.check,c,v,u)),p-=v,u+=v,I)break e}else r.head&&(r.head.name=null);r.length=0,r.mode=8;case 8:if(4096&r.flags){if(0===p)break e;for(v=0;I=c[u+v++],r.head&&I&&r.length<65536&&(r.head.comment+=String.fromCharCode(I)),I&&v<p;);if(512&r.flags&&(r.check=o(r.check,c,v,u)),p-=v,u+=v,I)break e}else r.head&&(r.head.comment=null);r.mode=9;case 9:if(512&r.flags){for(;y<16;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(g!==(65535&r.check)){e.msg="header crc mismatch",r.mode=30;break}y=g=0}r.head&&(r.head.hcrc=r.flags>>9&1,r.head.done=!0),e.adler=r.check=0,r.mode=12;break;case 10:for(;y<32;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}e.adler=r.check=m(g),y=g=0,r.mode=11;case 11:if(0===r.havedict)return e.next_out=h,e.avail_out=f,e.next_in=u,e.avail_in=p,r.hold=g,r.bits=y,2;e.adler=r.check=1,r.mode=12;case 12:if(5===t||6===t)break e;case 13:if(r.last){g>>>=7&y,y-=7&y,r.mode=27;break}for(;y<3;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}switch(r.last=1&g,y-=1,3&(g>>>=1)){case 0:r.mode=14;break;case 1:if(x(r),r.mode=20,6!==t)break;g>>>=2,y-=2;break e;case 2:r.mode=17;break;case 3:e.msg="invalid block type",r.mode=30}g>>>=2,y-=2;break;case 14:for(g>>>=7&y,y-=7&y;y<32;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if((65535&g)!=(g>>>16^65535)){e.msg="invalid stored block lengths",r.mode=30;break}if(r.length=65535&g,y=g=0,r.mode=15,6===t)break e;case 15:r.mode=16;case 16:if(v=r.length){if(p<v&&(v=p),f<v&&(v=f),0===v)break e;n.arraySet(l,c,u,v,h),p-=v,u+=v,f-=v,h+=v,r.length-=v;break}r.mode=12;break;case 17:for(;y<14;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(r.nlen=257+(31&g),g>>>=5,y-=5,r.ndist=1+(31&g),g>>>=5,y-=5,r.ncode=4+(15&g),g>>>=4,y-=4,286<r.nlen||30<r.ndist){e.msg="too many length or distance symbols",r.mode=30;break}r.have=0,r.mode=18;case 18:for(;r.have<r.ncode;){for(;y<3;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.lens[O[r.have++]]=7&g,g>>>=3,y-=3}for(;r.have<19;)r.lens[O[r.have++]]=0;if(r.lencode=r.lendyn,r.lenbits=7,N={bits:r.lenbits},R=i(0,r.lens,0,19,r.lencode,0,r.work,N),r.lenbits=N.bits,R){e.msg="invalid code lengths set",r.mode=30;break}r.have=0,r.mode=19;case 19:for(;r.have<r.nlen+r.ndist;){for(;E=(M=r.lencode[g&(1<<r.lenbits)-1])>>>16&255,A=65535&M,!((S=M>>>24)<=y);){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(A<16)g>>>=S,y-=S,r.lens[r.have++]=A;else{if(16===A){for(U=S+2;y<U;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(g>>>=S,y-=S,0===r.have){e.msg="invalid bit length repeat",r.mode=30;break}I=r.lens[r.have-1],v=3+(3&g),g>>>=2,y-=2}else if(17===A){for(U=S+3;y<U;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}y-=S,I=0,v=3+(7&(g>>>=S)),g>>>=3,y-=3}else{for(U=S+7;y<U;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}y-=S,I=0,v=11+(127&(g>>>=S)),g>>>=7,y-=7}if(r.have+v>r.nlen+r.ndist){e.msg="invalid bit length repeat",r.mode=30;break}for(;v--;)r.lens[r.have++]=I}}if(30===r.mode)break;if(0===r.lens[256]){e.msg="invalid code -- missing end-of-block",r.mode=30;break}if(r.lenbits=9,N={bits:r.lenbits},R=i(1,r.lens,0,r.nlen,r.lencode,0,r.work,N),r.lenbits=N.bits,R){e.msg="invalid literal/lengths set",r.mode=30;break}if(r.distbits=6,r.distcode=r.distdyn,N={bits:r.distbits},R=i(2,r.lens,r.nlen,r.ndist,r.distcode,0,r.work,N),r.distbits=N.bits,R){e.msg="invalid distances set",r.mode=30;break}if(r.mode=20,6===t)break e;case 20:r.mode=21;case 21:if(6<=p&&258<=f){e.next_out=h,e.avail_out=f,e.next_in=u,e.avail_in=p,r.hold=g,r.bits=y,s(e,b),h=e.next_out,l=e.output,f=e.avail_out,u=e.next_in,c=e.input,p=e.avail_in,g=r.hold,y=r.bits,12===r.mode&&(r.back=-1);break}for(r.back=0;E=(M=r.lencode[g&(1<<r.lenbits)-1])>>>16&255,A=65535&M,!((S=M>>>24)<=y);){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(E&&!(240&E)){for(P=S,T=E,D=A;E=(M=r.lencode[D+((g&(1<<P+T)-1)>>P)])>>>16&255,A=65535&M,!(P+(S=M>>>24)<=y);){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}g>>>=P,y-=P,r.back+=P}if(g>>>=S,y-=S,r.back+=S,r.length=A,0===E){r.mode=26;break}if(32&E){r.back=-1,r.mode=12;break}if(64&E){e.msg="invalid literal/length code",r.mode=30;break}r.extra=15&E,r.mode=22;case 22:if(r.extra){for(U=r.extra;y<U;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.length+=g&(1<<r.extra)-1,g>>>=r.extra,y-=r.extra,r.back+=r.extra}r.was=r.length,r.mode=23;case 23:for(;E=(M=r.distcode[g&(1<<r.distbits)-1])>>>16&255,A=65535&M,!((S=M>>>24)<=y);){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(!(240&E)){for(P=S,T=E,D=A;E=(M=r.distcode[D+((g&(1<<P+T)-1)>>P)])>>>16&255,A=65535&M,!(P+(S=M>>>24)<=y);){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}g>>>=P,y-=P,r.back+=P}if(g>>>=S,y-=S,r.back+=S,64&E){e.msg="invalid distance code",r.mode=30;break}r.offset=A,r.extra=15&E,r.mode=24;case 24:if(r.extra){for(U=r.extra;y<U;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}r.offset+=g&(1<<r.extra)-1,g>>>=r.extra,y-=r.extra,r.back+=r.extra}if(r.offset>r.dmax){e.msg="invalid distance too far back",r.mode=30;break}r.mode=25;case 25:if(0===f)break e;if(v=b-f,r.offset>v){if((v=r.offset-v)>r.whave&&r.sane){e.msg="invalid distance too far back",r.mode=30;break}_=v>r.wnext?(v-=r.wnext,r.wsize-v):r.wnext-v,v>r.length&&(v=r.length),k=r.window}else k=l,_=h-r.offset,v=r.length;for(f<v&&(v=f),f-=v,r.length-=v;l[h++]=k[_++],--v;);0===r.length&&(r.mode=21);break;case 26:if(0===f)break e;l[h++]=r.length,f--,r.mode=21;break;case 27:if(r.wrap){for(;y<32;){if(0===p)break e;p--,g|=c[u++]<<y,y+=8}if(b-=f,e.total_out+=b,r.total+=b,b&&(e.adler=r.check=r.flags?o(r.check,l,b,h-b):a(r.check,l,b,h-b)),b=f,(r.flags?g:m(g))!==r.check){e.msg="incorrect data check",r.mode=30;break}y=g=0}r.mode=28;case 28:if(r.wrap&&r.flags){for(;y<32;){if(0===p)break e;p--,g+=c[u++]<<y,y+=8}if(g!==(4294967295&r.total)){e.msg="incorrect length check",r.mode=30;break}y=g=0}r.mode=29;case 29:R=1;break e;case 30:R=-3;break e;case 31:return-4;case 32:default:return d}return e.next_out=h,e.avail_out=f,e.next_in=u,e.avail_in=p,r.hold=g,r.bits=y,(r.wsize||b!==e.avail_out&&r.mode<30&&(r.mode<27||4!==t))&&C(e,e.output,e.next_out,b-e.avail_out)?(r.mode=31,-4):(w-=e.avail_in,b-=e.avail_out,e.total_in+=w,e.total_out+=b,r.total+=b,r.wrap&&b&&(e.adler=r.check=r.flags?o(r.check,l,b,e.next_out-b):a(r.check,l,b,e.next_out-b)),e.data_type=r.bits+(r.last?64:0)+(12===r.mode?128:0)+(20===r.mode||15===r.mode?256:0),(0==w&&0===b||4===t)&&0===R&&(R=-5),R)},r.inflateEnd=function(e){if(!e||!e.state)return d;var t=e.state;return t.window&&(t.window=null),e.state=null,0},r.inflateGetHeader=function(e,t){var r;return e&&e.state&&2&(r=e.state).wrap?((r.head=t).done=!1,0):d},r.inflateSetDictionary=function(e,t){var r,n=t.length;return e&&e.state?0!==(r=e.state).wrap&&11!==r.mode?d:11===r.mode&&a(1,t,n,0)!==r.check?-3:C(e,t,n,n)?(r.mode=31,-4):(r.havedict=1,0):d},r.inflateInfo="pako inflate (from Nodeca project)"},{"../utils/common":41,"./adler32":43,"./crc32":45,"./inffast":48,"./inftrees":50}],50:[function(e,t,r){var n=e("../utils/common"),a=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],o=[16,16,16,16,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,16,72,78],s=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577,0,0],i=[16,16,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,64,64];t.exports=function(e,t,r,c,l,u,d,h){var p,f,m,g,y,w,b,v,_,k=h.bits,S=0,x=0,C=0,E=0,A=0,P=0,T=0,D=0,I=0,R=0,N=null,U=0,M=new n.Buf16(16),L=new n.Buf16(16),O=null,B=0;for(S=0;S<=15;S++)M[S]=0;for(x=0;x<c;x++)M[t[r+x]]++;for(A=k,E=15;1<=E&&0===M[E];E--);if(E<A&&(A=E),0===E)return l[u++]=20971520,l[u++]=20971520,h.bits=1,0;for(C=1;C<E&&0===M[C];C++);for(A<C&&(A=C),S=D=1;S<=15;S++)if(D<<=1,(D-=M[S])<0)return-1;if(0<D&&(0===e||1!==E))return-1;for(L[1]=0,S=1;S<15;S++)L[S+1]=L[S]+M[S];for(x=0;x<c;x++)0!==t[r+x]&&(d[L[t[r+x]]++]=x);if(w=0===e?(N=O=d,19):1===e?(N=a,U-=257,O=o,B-=257,256):(N=s,O=i,-1),S=C,y=u,T=x=R=0,m=-1,g=(I=1<<(P=A))-1,1===e&&852<I||2===e&&592<I)return 1;for(;;){for(b=S-T,_=d[x]<w?(v=0,d[x]):d[x]>w?(v=O[B+d[x]],N[U+d[x]]):(v=96,0),p=1<<S-T,C=f=1<<P;l[y+(R>>T)+(f-=p)]=b<<24|v<<16|_,0!==f;);for(p=1<<S-1;R&p;)p>>=1;if(0!==p?(R&=p-1,R+=p):R=0,x++,0==--M[S]){if(S===E)break;S=t[r+d[x]]}if(A<S&&(R&g)!==m){for(0===T&&(T=A),y+=C,D=1<<(P=S-T);P+T<E&&!((D-=M[P+T])<=0);)P++,D<<=1;if(I+=1<<P,1===e&&852<I||2===e&&592<I)return 1;l[m=R&g]=A<<24|P<<16|y-u}}return 0!==R&&(l[y+R]=S-T<<24|64<<16),h.bits=A,0}},{"../utils/common":41}],51:[function(e,t,r){t.exports={2:"need dictionary",1:"stream end",0:"","-1":"file error","-2":"stream error","-3":"data error","-4":"insufficient memory","-5":"buffer error","-6":"incompatible version"}},{}],52:[function(e,t,r){var n=e("../utils/common"),a=0,o=1;function s(e){for(var t=e.length;0<=--t;)e[t]=0}var i=0,c=29,l=256,u=286,d=30,h=19,p=573,f=15,m=16,g=7,y=256,w=16,b=17,v=18,_=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],k=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],S=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7],x=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],C=new Array(576);s(C);var E=new Array(60);s(E);var A=new Array(512);s(A);var P=new Array(256);s(P);var T=new Array(c);s(T);var D,I,R,N=new Array(d);function U(e,t,r,n,a){this.static_tree=e,this.extra_bits=t,this.extra_base=r,this.elems=n,this.max_length=a,this.has_stree=e&&e.length}function M(e,t){this.dyn_tree=e,this.max_code=0,this.stat_desc=t}function L(e){return e<256?A[e]:A[256+(e>>>7)]}function O(e,t){e.pending_buf[e.pending++]=255&t,e.pending_buf[e.pending++]=t>>>8&255}function B(e,t,r){e.bi_valid>m-r?(e.bi_buf|=t<<e.bi_valid&65535,O(e,e.bi_buf),e.bi_buf=t>>m-e.bi_valid,e.bi_valid+=r-m):(e.bi_buf|=t<<e.bi_valid&65535,e.bi_valid+=r)}function $(e,t,r){B(e,r[2*t],r[2*t+1])}function z(e,t){for(var r=0;r|=1&e,e>>>=1,r<<=1,0<--t;);return r>>>1}function j(e,t,r){var n,a,o=new Array(16),s=0;for(n=1;n<=f;n++)o[n]=s=s+r[n-1]<<1;for(a=0;a<=t;a++){var i=e[2*a+1];0!==i&&(e[2*a]=z(o[i]++,i))}}function H(e){var t;for(t=0;t<u;t++)e.dyn_ltree[2*t]=0;for(t=0;t<d;t++)e.dyn_dtree[2*t]=0;for(t=0;t<h;t++)e.bl_tree[2*t]=0;e.dyn_ltree[512]=1,e.opt_len=e.static_len=0,e.last_lit=e.matches=0}function W(e){8<e.bi_valid?O(e,e.bi_buf):0<e.bi_valid&&(e.pending_buf[e.pending++]=e.bi_buf),e.bi_buf=0,e.bi_valid=0}function F(e,t,r,n){var a=2*t,o=2*r;return e[a]<e[o]||e[a]===e[o]&&n[t]<=n[r]}function G(e,t,r){for(var n=e.heap[r],a=r<<1;a<=e.heap_len&&(a<e.heap_len&&F(t,e.heap[a+1],e.heap[a],e.depth)&&a++,!F(t,n,e.heap[a],e.depth));)e.heap[r]=e.heap[a],r=a,a<<=1;e.heap[r]=n}function V(e,t,r){var n,a,o,s,i=0;if(0!==e.last_lit)for(;n=e.pending_buf[e.d_buf+2*i]<<8|e.pending_buf[e.d_buf+2*i+1],a=e.pending_buf[e.l_buf+i],i++,0===n?$(e,a,t):($(e,(o=P[a])+l+1,t),0!==(s=_[o])&&B(e,a-=T[o],s),$(e,o=L(--n),r),0!==(s=k[o])&&B(e,n-=N[o],s)),i<e.last_lit;);$(e,y,t)}function K(e,t){var r,n,a,o=t.dyn_tree,s=t.stat_desc.static_tree,i=t.stat_desc.has_stree,c=t.stat_desc.elems,l=-1;for(e.heap_len=0,e.heap_max=p,r=0;r<c;r++)0!==o[2*r]?(e.heap[++e.heap_len]=l=r,e.depth[r]=0):o[2*r+1]=0;for(;e.heap_len<2;)o[2*(a=e.heap[++e.heap_len]=l<2?++l:0)]=1,e.depth[a]=0,e.opt_len--,i&&(e.static_len-=s[2*a+1]);for(t.max_code=l,r=e.heap_len>>1;1<=r;r--)G(e,o,r);for(a=c;r=e.heap[1],e.heap[1]=e.heap[e.heap_len--],G(e,o,1),n=e.heap[1],e.heap[--e.heap_max]=r,e.heap[--e.heap_max]=n,o[2*a]=o[2*r]+o[2*n],e.depth[a]=(e.depth[r]>=e.depth[n]?e.depth[r]:e.depth[n])+1,o[2*r+1]=o[2*n+1]=a,e.heap[1]=a++,G(e,o,1),2<=e.heap_len;);e.heap[--e.heap_max]=e.heap[1],function(e,t){var r,n,a,o,s,i,c=t.dyn_tree,l=t.max_code,u=t.stat_desc.static_tree,d=t.stat_desc.has_stree,h=t.stat_desc.extra_bits,m=t.stat_desc.extra_base,g=t.stat_desc.max_length,y=0;for(o=0;o<=f;o++)e.bl_count[o]=0;for(c[2*e.heap[e.heap_max]+1]=0,r=e.heap_max+1;r<p;r++)g<(o=c[2*c[2*(n=e.heap[r])+1]+1]+1)&&(o=g,y++),c[2*n+1]=o,l<n||(e.bl_count[o]++,s=0,m<=n&&(s=h[n-m]),i=c[2*n],e.opt_len+=i*(o+s),d&&(e.static_len+=i*(u[2*n+1]+s)));if(0!==y){do{for(o=g-1;0===e.bl_count[o];)o--;e.bl_count[o]--,e.bl_count[o+1]+=2,e.bl_count[g]--,y-=2}while(0<y);for(o=g;0!==o;o--)for(n=e.bl_count[o];0!==n;)l<(a=e.heap[--r])||(c[2*a+1]!==o&&(e.opt_len+=(o-c[2*a+1])*c[2*a],c[2*a+1]=o),n--)}}(e,t),j(o,l,e.bl_count)}function J(e,t,r){var n,a,o=-1,s=t[1],i=0,c=7,l=4;for(0===s&&(c=138,l=3),t[2*(r+1)+1]=65535,n=0;n<=r;n++)a=s,s=t[2*(n+1)+1],++i<c&&a===s||(i<l?e.bl_tree[2*a]+=i:0!==a?(a!==o&&e.bl_tree[2*a]++,e.bl_tree[32]++):i<=10?e.bl_tree[34]++:e.bl_tree[36]++,o=a,l=(i=0)===s?(c=138,3):a===s?(c=6,3):(c=7,4))}function Z(e,t,r){var n,a,o=-1,s=t[1],i=0,c=7,l=4;for(0===s&&(c=138,l=3),n=0;n<=r;n++)if(a=s,s=t[2*(n+1)+1],!(++i<c&&a===s)){if(i<l)for(;$(e,a,e.bl_tree),0!=--i;);else 0!==a?(a!==o&&($(e,a,e.bl_tree),i--),$(e,w,e.bl_tree),B(e,i-3,2)):i<=10?($(e,b,e.bl_tree),B(e,i-3,3)):($(e,v,e.bl_tree),B(e,i-11,7));o=a,l=(i=0)===s?(c=138,3):a===s?(c=6,3):(c=7,4)}}s(N);var X=!1;function q(e,t,r,a){var o,s,i,c;B(e,0+(a?1:0),3),s=t,i=r,c=!0,W(o=e),O(o,i),O(o,~i),n.arraySet(o.pending_buf,o.window,s,i,o.pending),o.pending+=i}r._tr_init=function(e){X||(function(){var e,t,r,n,a,o=new Array(16);for(n=r=0;n<28;n++)for(T[n]=r,e=0;e<1<<_[n];e++)P[r++]=n;for(P[r-1]=n,n=a=0;n<16;n++)for(N[n]=a,e=0;e<1<<k[n];e++)A[a++]=n;for(a>>=7;n<d;n++)for(N[n]=a<<7,e=0;e<1<<k[n]-7;e++)A[256+a++]=n;for(t=0;t<=f;t++)o[t]=0;for(e=0;e<=143;)C[2*e+1]=8,e++,o[8]++;for(;e<=255;)C[2*e+1]=9,e++,o[9]++;for(;e<=279;)C[2*e+1]=7,e++,o[7]++;for(;e<=287;)C[2*e+1]=8,e++,o[8]++;for(j(C,287,o),e=0;e<d;e++)E[2*e+1]=5,E[2*e]=z(e,5);D=new U(C,_,257,u,f),I=new U(E,k,0,d,f),R=new U(new Array(0),S,0,h,7)}(),X=!0),e.l_desc=new M(e.dyn_ltree,D),e.d_desc=new M(e.dyn_dtree,I),e.bl_desc=new M(e.bl_tree,R),e.bi_buf=0,e.bi_valid=0,H(e)},r._tr_stored_block=q,r._tr_flush_block=function(e,t,r,n){var a,o,s=0;0<e.level?(2===e.strm.data_type&&(e.strm.data_type=function(e){var t,r=4093624447;for(t=0;t<=31;t++,r>>>=1)if(1&r&&0!==e.dyn_ltree[2*t])return 0;if(0!==e.dyn_ltree[18]||0!==e.dyn_ltree[20]||0!==e.dyn_ltree[26])return 1;for(t=32;t<l;t++)if(0!==e.dyn_ltree[2*t])return 1;return 0}(e)),K(e,e.l_desc),K(e,e.d_desc),s=function(e){var t;for(J(e,e.dyn_ltree,e.l_desc.max_code),J(e,e.dyn_dtree,e.d_desc.max_code),K(e,e.bl_desc),t=18;3<=t&&0===e.bl_tree[2*x[t]+1];t--);return e.opt_len+=3*(t+1)+5+5+4,t}(e),a=e.opt_len+3+7>>>3,(o=e.static_len+3+7>>>3)<=a&&(a=o)):a=o=r+5,r+4<=a&&-1!==t?q(e,t,r,n):4===e.strategy||o===a?(B(e,2+(n?1:0),3),V(e,C,E)):(B(e,4+(n?1:0),3),function(e,t,r,n){var a;for(B(e,t-257,5),B(e,r-1,5),B(e,n-4,4),a=0;a<n;a++)B(e,e.bl_tree[2*x[a]+1],3);Z(e,e.dyn_ltree,t-1),Z(e,e.dyn_dtree,r-1)}(e,e.l_desc.max_code+1,e.d_desc.max_code+1,s+1),V(e,e.dyn_ltree,e.dyn_dtree)),H(e),n&&W(e)},r._tr_tally=function(e,t,r){return e.pending_buf[e.d_buf+2*e.last_lit]=t>>>8&255,e.pending_buf[e.d_buf+2*e.last_lit+1]=255&t,e.pending_buf[e.l_buf+e.last_lit]=255&r,e.last_lit++,0===t?e.dyn_ltree[2*r]++:(e.matches++,t--,e.dyn_ltree[2*(P[r]+l+1)]++,e.dyn_dtree[2*L(t)]++),e.last_lit===e.lit_bufsize-1},r._tr_align=function(e){var t;B(e,2,3),$(e,y,C),16===(t=e).bi_valid?(O(t,t.bi_buf),t.bi_buf=0,t.bi_valid=0):8<=t.bi_valid&&(t.pending_buf[t.pending++]=255&t.bi_buf,t.bi_buf>>=8,t.bi_valid-=8)}},{"../utils/common":41}],53:[function(e,t,r){t.exports=function(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg="",this.state=null,this.data_type=2,this.adler=0}},{}],54:[function(e,t,r){(function(e){!function(e,t){if(!e.setImmediate){var r,n,a,o,s=1,i={},c=!1,l=e.document,u=Object.getPrototypeOf&&Object.getPrototypeOf(e);u=u&&u.setTimeout?u:e,r="[object process]"==={}.toString.call(e.process)?function(e){process.nextTick(function(){h(e)})}:function(){if(e.postMessage&&!e.importScripts){var t=!0,r=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=r,t}}()?(o="setImmediate$"+Math.random()+"$",e.addEventListener?e.addEventListener("message",p,!1):e.attachEvent("onmessage",p),function(t){e.postMessage(o+t,"*")}):e.MessageChannel?((a=new MessageChannel).port1.onmessage=function(e){h(e.data)},function(e){a.port2.postMessage(e)}):l&&"onreadystatechange"in l.createElement("script")?(n=l.documentElement,function(e){var t=l.createElement("script");t.onreadystatechange=function(){h(e),t.onreadystatechange=null,n.removeChild(t),t=null},n.appendChild(t)}):function(e){setTimeout(h,0,e)},u.setImmediate=function(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var a={callback:e,args:t};return i[s]=a,r(s),s++},u.clearImmediate=d}function d(e){delete i[e]}function h(e){if(c)setTimeout(h,0,e);else{var r=i[e];if(r){c=!0;try{!function(e){var r=e.callback,n=e.args;switch(n.length){case 0:r();break;case 1:r(n[0]);break;case 2:r(n[0],n[1]);break;case 3:r(n[0],n[1],n[2]);break;default:r.apply(t,n)}}(r)}finally{d(e),c=!1}}}}function p(t){t.source===e&&"string"==typeof t.data&&0===t.data.indexOf(o)&&h(+t.data.slice(o.length))}}("undefined"==typeof self?void 0===e?this:e:self)}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}]},{},[10])(10)})}});function d(e){const t=(new TextEncoder).encode(e),r=Array.from(t,e=>String.fromCharCode(e)).join("");return btoa(r)}function h(e){return(new TextDecoder).decode(Uint8Array.from(atob(e),e=>e.charCodeAt(0)))}async function p(e){const t=atob(e),r=new Uint8Array(t.length);for(let e=0;e<t.length;e++)r[e]=t.charCodeAt(e);return await new Response(new ReadableStream({start(e){e.enqueue(r),e.close()}}).pipeThrough(new DecompressionStream("gzip"))).text()}function f(e){const t=void 0;return/^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(e)}function m(e,t,r,n,a){const o={"Content-Type":"application/json",...a},s={success:e,status:t,message:r??null,body:n??null};return new Response(JSON.stringify(s),{status:t,headers:o})}function g(e){return e instanceof Error?e.message:String(e)}async function y(e,t=!1){const r=`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(e)}`,n={ipv4:`${r}&type=A`,ipv6:`${r}&type=AAAA`};try{const e=await w(n.ipv4,1),r=void 0;return{ipv4:e,ipv6:t?[]:await w(n.ipv6,28)}}catch(t){throw new Error(`Error resolving DNS for ${e}: ${g(t)}`)}}async function w(e,t){try{const r=await fetch(e,{headers:{accept:"application/dns-json"}}),n=await r.json();return n.Answer?n.Answer.filter(e=>e.type===t).map(e=>e.data):[]}catch(t){throw new Error(`Failed to fetch DNS records from ${e}: ${g(t)}`)}}function b(){const{protocols:e}=ve();return e.split(",")}async function v(e,t){const{enableIPv6:r,customCdnAddrs:n,cleanIPs:a}=ve(),{ipv4:o,ipv6:s}=await y(e,!r),i=void 0;return[e,...o,...s.map(e=>`[${e}]`),...a].concatIf(!t,n)}function _(e,t,r,n,a,o,s){const{cleanIPs:i,customCdnAddrs:c,customDomain:l,upstreamParams:{upstreamServer:u}}=ve(),d=s?"🔗 ":"",h=n===_VL_?_VL_CAP_:_TR_CAP_,p=void 0,f=void 0,m=void 0,g=`${o?"F ":""}${a===l?"D ":""}${c.includes(r)?"C ":""}`;let y;return y=i.includes(r)?"Clean IP":E(r)?"Domain":A(r)?"IPv4":P(r)?"IPv6":"",r===u?`💦 ${e}. ${d}${h} ${g}- Upstream Proxy`:`💦 ${e}. ${d}${h} ${g}- ${y} : ${t}`}function k(e){let t="";for(let r=0;r<e.length;r++)t+=Math.random()<.5?e[r].toUpperCase():e[r];return t}function S(e,t){let r="";const n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",a=Math.floor(Math.random()*(t-e+1))+e;for(let e=0;e<a;e++)r+=n.charAt(Math.floor(62*Math.random()));return r}function x(e){const t=void 0;return`/${e===_VL_?"vl":"tr"}/${S(16,32)}`}function C(e){const t=atob(e),r=void 0,n=void 0;return Array.from(t).map(e=>e.charCodeAt(0).toString(16).padStart(2,"0")).join("").match(/.{2}/g).map(e=>parseInt(e,16))}function E(e){if(!e)return!1;const t=void 0;return/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(e)}function A(e){const t=void 0;return/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\/([0-9]|[1-2][0-9]|3[0-2]))?$/.test(e)}function P(e){const t=void 0;return/^\[(?:(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4}|(?:[a-fA-F0-9]{1,4}:){1,7}:|::(?:[a-fA-F0-9]{1,4}:){0,7}|(?:[a-fA-F0-9]{1,4}:){1,6}:[a-fA-F0-9]{1,4}|(?:[a-fA-F0-9]{1,4}:){1,5}(?::[a-fA-F0-9]{1,4}){1,2}|(?:[a-fA-F0-9]{1,4}:){1,4}(?::[a-fA-F0-9]{1,4}){1,3}|(?:[a-fA-F0-9]{1,4}:){1,3}(?::[a-fA-F0-9]{1,4}){1,4}|(?:[a-fA-F0-9]{1,4}:){1,2}(?::[a-fA-F0-9]{1,4}){1,5}|[a-fA-F0-9]{1,4}:(?::[a-fA-F0-9]{1,4}){1,6})\](?:\/(1[0-1][0-9]|12[0-8]|[0-9]?[0-9]))?$/.test(e)}function T(e){const t=void 0;return/^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)(?:\/(?:[0-9]|[1-2][0-9]|3[0-2]))?$/.test(e)}function D(e){const t=void 0;return/^(?:(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4}|(?:[a-fA-F0-9]{1,4}:){1,7}:|(?:[a-fA-F0-9]{1,4}:){1,6}:[a-fA-F0-9]{1,4}|(?:[a-fA-F0-9]{1,4}:){1,5}(?::[a-fA-F0-9]{1,4}){1,2}|(?:[a-fA-F0-9]{1,4}:){1,4}(?::[a-fA-F0-9]{1,4}){1,3}|(?:[a-fA-F0-9]{1,4}:){1,3}(?::[a-fA-F0-9]{1,4}){1,4}|(?:[a-fA-F0-9]{1,4}:){1,2}(?::[a-fA-F0-9]{1,4}){1,5}|[a-fA-F0-9]{1,4}:(?::[a-fA-F0-9]{1,4}){1,6}|:(?::[a-fA-F0-9]{1,4}){1,7}|::)(?:\/(?:12[0-8]|1[01]?[0-9]|[0-9]?[0-9]))?$/.test(e)}function I(e){try{const t=new URL(e);return"http:"===t.protocol||"https:"===t.protocol}catch(e){return!1}}function R(e){return!(!e||e.length%4!=0)&&/^[A-Za-z0-9+/=\r\n]+$/.test(e)}function N(e){return/^(?=(?:[0-9A-Fa-f]{2})*$)[0-9A-Fa-f]+$/.test(e)}function U(e){try{const t=void 0,r=new URL(e).hostname,n=void 0;return{host:r,isHostDomain:E(r)}}catch{return{host:"",isHostDomain:!1}}}function M(e,t){const{customCdnAddrs:r,customCdnHost:n,customCdnSni:a}=ve(),o=r.includes(e),s=void 0,i=void 0;return{host:o?n:t,sni:o?a:k(t),allowInsecure:o}}function L(e,t){const r=/^(?:\[(?<ipv6>.+?)\]|(?<host>[^:]+))(:(?<port>\d+))?$/,n=e.match(r);if(!n||!n.groups)return{host:"",port:0};const{ipv6:a,host:o,port:s}=n.groups;let i=a??o??"";t&&a&&(i=`[${a}]`);const c=void 0;return{host:i,port:s?Number(s):0}}function O(e){const{httpsPorts:t}=ve();return t.includes(e)}var B=e=>"direct"===e,$=e=>"block"===e;function z(e){const{customBypassRules:t,customBypassSanctionRules:r,customBlockRules:n}=ve();return{bypass:{geosites:e.filter(e=>B(e.type)).map(e=>e.geosite),geoips:e.filter(e=>B(e.type)&&e.geoip).map(e=>e.geoip),domains:[...t.filter(E),...r.filter(E)],ips:t.filter(e=>!E(e))},block:{geosites:e.filter(e=>$(e.type)).map(e=>e.geosite),geoips:e.filter(e=>$(e.type)&&e.geoip).map(e=>e.geoip),domains:n.filter(E),ips:n.filter(e=>!E(e))}}}function j(e){const{localDNS:t,antiSanctionDNS:r,customBypassRules:n,customBypassSanctionRules:a,customBlockRules:o}=ve();return{bypass:{localDNS:{geositeGeoips:e.filter(({type:e,geoip:r,dns:n})=>B(e)&&r&&n===t).map(({geosite:e,geoip:t})=>({geosite:e,geoip:t})),geosites:e.filter(({type:e,geoip:r,dns:n})=>B(e)&&!r&&n===t).map(e=>e.geosite),domains:n.filter(E)},antiSanctionDNS:{geosites:e.filter(e=>B(e.type)&&e.dns===r).map(e=>e.geosite),domains:a.filter(E)}},block:{geosites:e.filter(e=>$(e.type)).map(e=>e.geosite),domains:o.filter(E)}}}function H(e,t){if(e&&t)return e===t?String(e):`${e}-${t}`}function W(e){if(!e)return{};let t=new URL(e);const r=t.protocol.slice(0,-1),n="ss"===r?_SS_:r.replace("socks5","socks");if(n===_VM_){const e=JSON.parse(h(t.host));return{protocol:n,uuid:e.id,server:e.add,port:+e.port,aid:+e.aid,type:e.net,headerType:e.type,serviceName:e.path,authority:e.authority,path:e.path||void 0,host:e.host||void 0,security:e.tls,sni:e.sni,fp:e.fp,alpn:e.alpn||void 0}}const a={protocol:n,server:t.hostname,port:+t.port},o=(e,r)=>{if(e)for(const[e,r]of t.searchParams)a[e]=r||void 0;return{...a,...r}};switch(n){case _VL_:return o(!0,{uuid:t.username});case _TR_:return o(!0,{password:t.username});case _SS_:const e=h(t.username),[r,...n]=e.split(":");return o(!0,{method:r,password:n.join(":")});case"socks":case"http":let a,s;try{const e=h(t.username);e.includes(":")&&([a,s]=e.split(":"))}catch(e){a=t.username,s=t.password}return o(!1,{user:a||void 0,pass:s||void 0});default:return{}}}function F(e){let t,r;return e&&({host:t,port:r}=L(e,!0)),{upstreamServer:t,upstreamPort:r}}Array.prototype.concatIf=function(e,t){return e?Array.isArray(t)?[...this,...t]:[...this,t]:this},Object.prototype.omitEmpty=function(){if(0!==Object.keys(this).length)return this};import{generateKeyPairSync as G}from"node:crypto";async function V(e){const t=[],r=ge();try{const r=[await J(),await J()];for(const[e,n]of r.entries()){const{config:r}=await K(n);t.push({privateKey:n.privateKey,warpIPv6:`${r.interface.addresses.v6}/128`,reserved:r.client_id,publicKey:r.peers[0].public_key}),0===e&&await new Promise(e=>setTimeout(e,2e3))}return await e.kv.put("warpAccounts",JSON.stringify(t)),t}catch(e){return console.error("Failed to fetch new WARP accounts:",e instanceof Error?e.message:String(e)),r}}async function K(e){const t=await fetch("https://api.cloudflareclient.com/v0a4005/reg",{method:"POST",headers:{"User-Agent":"insomnia/13.0.2","Content-Type":"application/json"},body:JSON.stringify({install_id:"",fcm_token:"",tos:(new Date).toISOString(),type:"Android",model:"PC",locale:"en_US",warp_enabled:!0,key:e.publicKey})});if(!t.ok)throw new Error(`API returned status ${t.status}: ${await t.text()}`);return t.json()}async function J(){const{publicKey:e,privateKey:t}=G("x25519",{publicKeyEncoding:{type:"spki",format:"der"},privateKeyEncoding:{type:"pkcs8",format:"der"}});return{publicKey:e.subarray(-32).toString("base64"),privateKey:t.subarray(-32).toString("base64")}}async function Z(e){const{accID:t,apiToken:r,mainDomain:n}=me(),a=n.split(".")[0],o=new FormData;o.append("manifest","{}"),o.append("_worker.js",new Blob([e],{type:"application/javascript"}),"_worker.js");try{const e=await fetch(`https://api.cloudflare.com/client/v4/accounts/${t}/pages/projects/${a}/deployments`,{method:"POST",headers:{Authorization:`Bearer ${r}`},body:o}),n=await e.json();if(!n.success)throw new Error(n?.errors?.[0]?.message||JSON.stringify(n.errors))}catch(e){throw new Error(`Failed to create Pages deployment: ${g(e)}`)}}async function X(){const{accID:e,apiToken:t,mainDomain:r}=me(),n=r.split(".")[0];try{const r=await fetch(`https://api.cloudflare.com/client/v4/accounts/${e}/pages/projects/${n}/domains`,{headers:{Authorization:`Bearer ${t}`}}),a=await r.json();if(!a.success)throw new Error(a?.errors?.[0]?.message);return a.result.map(e=>e.hostname)}catch(e){throw new Error(`Failed to get Pages project domains: ${g(e)}`)}}async function q(e){const{accID:t,apiToken:r,mainDomain:n}=me(),a=n.split(".")[0];try{const n=await fetch(`https://api.cloudflare.com/client/v4/accounts/${t}/pages/projects/${a}/domains`,{method:"POST",headers:{Authorization:`Bearer ${r}`,"Content-Type":"application/json"},body:JSON.stringify({name:e})}),o=await n.json();if(!o.success)throw new Error(o?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to set Pages project domain: ${g(e)}`)}}async function Y(){const{accID:e,apiToken:t,mainDomain:r}=me(),n=r.split(".")[0];console.log(r);try{const r=await fetch(`https://api.cloudflare.com/client/v4/accounts/${e}/pages/projects/${n}`,{method:"DELETE",headers:{Authorization:`Bearer ${t}`}}),a=await r.json();if(!a.success)throw new Error(a?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to delete pages project: ${g(e)}`)}}async function Q(e){const{accID:t,apiToken:r,mainDomain:n}=me(),a={main_module:"worker.js",keep_bindings:["kv_namespace"],compatibility_date:(new Date).toISOString().split("T")[0],compatibility_flags:["nodejs_compat"]},o=new FormData;o.append("metadata",new Blob([JSON.stringify(a)],{type:"application/json"})),o.append("worker.js",new Blob([e],{type:"application/javascript+module"}),"worker.js");const s=n.split(".")[0];try{const e=await fetch(`https://api.cloudflare.com/client/v4/accounts/${t}/workers/scripts/${s}`,{method:"PUT",headers:{Authorization:`Bearer ${r}`},body:o}),n=await e.json();if(!n.success)throw new Error(n?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to deploy worker: ${g(e)}`)}}async function ee(){const{accID:e,apiToken:t,mainDomain:r}=me(),n=r.split(".")[0];try{const r=await fetch(`https://api.cloudflare.com/client/v4/accounts/${e}/workers/domains?service=${n}`,{headers:{Authorization:`Bearer ${t}`}}),a=await r.json();if(!a.success)throw new Error(a?.errors?.[0]?.message);return a.result.map(e=>e.hostname)}catch(e){throw new Error(`Failed to get worker domains: ${g(e)}`)}}async function te(e){const{accID:t,apiToken:r,mainDomain:n}=me(),a=n.split(".")[0];try{const n=await fetch(`https://api.cloudflare.com/client/v4/accounts/${t}/workers/domains`,{method:"PUT",headers:{Authorization:`Bearer ${r}`,"Content-Type":"application/json"},body:JSON.stringify({hostname:e,service:a})}),o=await n.json();if(!o.success)throw new Error(o?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to set worker domain: ${g(e)}`)}}async function re(){const{accID:e,apiToken:t,mainDomain:r}=me(),n=r.split(".")[0];try{const r=await fetch(`https://api.cloudflare.com/client/v4/accounts/${e}/workers/scripts/${n}`,{method:"DELETE",headers:{Authorization:`Bearer ${t}`}}),a=await r.json();if(!a.success)throw new Error(a?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to delete worker: ${g(e)}`)}}async function ne(){const{apiToken:e}=me();try{const t=await fetch("https://api.cloudflare.com/client/v4/zones",{headers:{Authorization:`Bearer ${e}`}}),r=await t.json();if(!r.success)throw new Error(r?.errors?.[0]?.message);return r.result}catch(e){throw new Error(`Failed to list account DNS zones: ${g(e)}`)}}async function ae(e,t){const{apiToken:r,mainDomain:n}=me(),a=n.split(".")[0];try{const n=await fetch(`https://api.cloudflare.com/client/v4/zones/${e}/dns_records`,{method:"POST",headers:{Authorization:`Bearer ${r}`,"Content-Type":"application/json"},body:JSON.stringify({name:t,ttl:1,type:"CNAME",comment:`${_project_} Panel`,content:a,proxied:!0})}),o=await n.json();if(!o.success)throw new Error(o?.errors?.[0]?.message)}catch(e){throw new Error(`Failed to create DNS record: ${g(e)}`)}}async function oe(e){const{accID:t,accEmail:r,apiToken:n,mainDomain:a,vlUUID:o,trPass:s,securePath:i}=me(),c={accID:t,accEmail:r,apiToken:n,vlUUID:e?e.vlUUID:o,trPass:e?e.trPass:s,securePath:e?e.securePath:i,proxyIpMode:e?e.proxyIpMode:"proxyip",proxyIPs:e?e.proxyIPs:[],prefixes:e?e.prefixes:[],mainDomain:a,fallback:e?e.fallback:"",dohUrl:e?e.dohUrl:""};if(e){const e=void 0;if(se(c))return{}}try{const e=await ce(!1,c),{deployType:t}=ve();return"pages"===t?await Z(e):await Q(e),c}catch(e){throw new Error(`An error occurred while updating Env vars: ${g(e)}`)}}function se(e){const t=we(),r=void 0;return Object.keys(t).every(r=>{const n=t[r],a=e[r];return Array.isArray(n)&&Array.isArray(a)?n.join(",")===a.join(","):n===a})}async function ie(e){if(!e)return;const{deployType:t}=me();try{const r=e.split(".").slice(-2).join("."),n=await ne(),a=n?.find(e=>e.name===r);if(!a)throw new Error(`Specified domain ${r} is not registered on your Cloudflare account.`);const o=a.id,s=void 0;if(("workers"===t?await ee():await X()).includes(e))throw new Error(`Custom domain '${e}' is already added to ${t}.`);return"pages"===t?(await q(e),await ae(o,e)):await te(e),e}catch(e){throw new Error(`Failed to set Custom Domain: ${g(e)}`)}}async function ce(e,t){let r="";if(t)r=await p(SOURCE_CONTENT);else{const e=`${_repo_}/releases/latest/download/worker.js`,n=await fetch(e);r=await n.text(),t=ve()}const{accID:n,accEmail:a,apiToken:o,mainDomain:s}=me(),i={accID:n,accEmail:a,apiToken:o,vlUUID:t.vlUUID,trPass:t.trPass,securePath:t.securePath,proxyIpMode:t.proxyIpMode,proxyIPs:t.proxyIPs,prefixes:t.prefixes,fallback:t.fallback,dohUrl:t.dohUrl,mainDomain:s},c={SOURCE_CONTENT:SOURCE_CONTENT,PANEL_HTML_CONTENT:PANEL_HTML_CONTENT,LOGIN_HTML_CONTENT:LOGIN_HTML_CONTENT,ERROR_HTML_CONTENT:ERROR_HTML_CONTENT,PROXY_IP_HTML_CONTENT:PROXY_IP_HTML_CONTENT,ICON_CONTENT:ICON_CONTENT},l=e?{EMBEDED_SETTINGS:i}:{...c,EMBEDED_SETTINGS:i},u=void 0,d=void 0,h=void 0;return[`// ${a}`,`// Build: ${(new Date).toISOString()}`,"// @ts-nocheck",`${le()}Object.assign(globalThis, ${JSON.stringify(l)});${r}`].join("\n")}function le(){const e=50,t=500,r=50,n=500,a=Math.floor(451*Math.random())+e,o=Math.floor(451*Math.random())+r,s=void 0,i=void 0;return`${Array.from({length:a},(e,t)=>{const r=void 0,n=void 0;return`let ${`__padd_${Math.random().toString(36).substring(2,10)}_${t}`} = ${Math.floor(1e5*Math.random())};`}).join("\n")}\n${Array.from({length:o},(e,t)=>{const r=void 0;return`function ${`__paddFunc_${Math.random().toString(36).substring(2,10)}_${t}`}() { return ${Math.floor(1e3*Math.random())}; }`}).join("\n")}\n`}async function ue(e){let t,r;const n=ye();try{t=await e.kv.get("proxySettings",{type:"json"}),r=await e.kv.get("warpAccounts",{type:"json"}),t||(await e.kv.put("proxySettings",JSON.stringify(n)),t=n),r||(r=await V(e)),"5.1.1"!==t.panelVersion&&(t=await de(e));let a=await e.kv.get("telegramBot",{type:"json"});return a||(a={telegramBotToken:"",telegramUserId:""},await e.kv.put("telegramBot",JSON.stringify(a))),{settings:t,telegramBot:a,warpAccounts:r}}catch(e){throw console.log(e),new Error(`An error occurred while getting KV: ${g(e)}`)}}async function de(e,t){if(!t){const t=ye();return await e.kv.put("proxySettings",JSON.stringify(t)),t}let r;const n=ye();try{r=await e.kv.get("proxySettings",{type:"json"})}catch(e){throw console.log(e),new Error(`An error occurred while getting current KV settings: ${g(e)}`)}const a=async(e,a,o)=>{const s=void 0;if(o&&a){const e=(e=>t?.[e]??r?.[e]??n[e])(a);if(e!==r?.[a])return o(e)}const i=void 0;return t?.[e]??r?.[e]??n[e]},o=[["remoteDNS"],["remoteDnsHost","remoteDNS",he],["localDNS"],["antiSanctionDNS"],["enableIPv6"],["fakeDNS"],["logLevel"],["allowLANConnection"],["customDomain","customDomain",ie],["upstreamProxy"],["upstreamParams","upstreamProxy",F],["chainProxy"],["chainProxyParams","chainProxy",W],["cleanIPs"],["customCdnAddrs"],["customCdnHost"],["customCdnSni"],["bestPingInterval"],["protocols"],["ports"],["fingerprint"],["enableTFO"],["fragmentMode"],["fragmentLengthMin"],["fragmentLengthMax"],["fragmentDelayMin"],["fragmentDelayMax"],["fragmentMaxSplitMin"],["fragmentMaxSplitMax"],["fragmentPackets"],["enableECH"],["echServerName"],["bypassIran"],["bypassChina"],["bypassRussia"],["bypassOpenAi"],["bypassGoogleAi"],["bypassMicrosoft"],["bypassOracle"],["bypassDocker"],["bypassAdobe"],["bypassEpicGames"],["bypassIntel"],["bypassAmd"],["bypassNvidia"],["bypassAsus"],["bypassHp"],["bypassLenovo"],["blockAds"],["blockPorn"],["blockUDP443"],["blockMalware"],["blockPhishing"],["blockCryptominers"],["customBypassRules"],["customBlockRules"],["customBypassSanctionRules"],["warpRemoteDNS"],["warpEndpoints"],["warpBestPingInterval"],["warpReservedBytes"],["xrayUdpNoises"],["knockerNoiseMode"],["knockerNoiseCountMin"],["knockerNoiseCountMax"],["knockerNoiseSizeMin"],["knockerNoiseSizeMax"],["knockerNoiseDelayMin"],["knockerNoiseDelayMax"],["amneziaNoiseCount"],["amneziaNoiseSizeMin"],["amneziaNoiseSizeMax"],["customSubs"],["remoteSettings"],["customConfigs"]];try{const t=await Promise.all(o.map(async([e,t,r])=>[e,await a(e,t,r)])),r={...Object.fromEntries(t),panelVersion:"5.1.1"};return await e.kv.put("proxySettings",JSON.stringify(r)),r}catch(e){throw console.log(e),new Error(`An error occurred while updating KV: ${g(e)}`)}}async function he(e){const{host:t,isHostDomain:r}=U(e),n={host:t,isDomain:r,ipv4:[],ipv6:[]};if(r){const{ipv4:e,ipv6:r}=await y(t);n.ipv4=e,n.ipv6=r}return n}function pe(e,t){if(t.UUID||t.TR_PASS||"undefined"==typeof EMBEDED_SETTINGS)throw new Error(`BPB Panel v5 can only be installed using <a href="${_wizard_repo_}/secrets" target="_blank">BPB Wizard v3</a> or later.`);const{pathname:r,origin:n,searchParams:a,hostname:o}=new URL(e.url);_e={accID:EMBEDED_SETTINGS.accID,accEmail:EMBEDED_SETTINGS.accEmail.toLowerCase(),apiToken:EMBEDED_SETTINGS.apiToken,vlUUID:EMBEDED_SETTINGS.vlUUID,trPass:EMBEDED_SETTINGS.trPass,securePath:EMBEDED_SETTINGS.securePath,proxyIpMode:EMBEDED_SETTINGS.proxyIpMode,proxyIPs:EMBEDED_SETTINGS.proxyIPs.length?EMBEDED_SETTINGS.proxyIPs:[_public_proxy_ip_],prefixes:EMBEDED_SETTINGS.prefixes.length?EMBEDED_SETTINGS.prefixes:["[2a02:898:146:64::]","[2602:fc59:b0:64::]","[2602:fc59:11:64::]"],mainDomain:EMBEDED_SETTINGS.mainDomain,fallback:EMBEDED_SETTINGS.fallback,dohUrl:EMBEDED_SETTINGS.dohUrl||"https://cloudflare-dns.com/dns-query",deployType:"1"===t.CF_PAGES?"pages":"workers",httpPorts:[80,8080,2052,2082,2086,2095,8880],httpsPorts:[443,8443,2053,2083,2087,2096],client:decodeURIComponent(a.get("app")??""),origin:n,searchParams:a,pathname:decodeURIComponent(r),hostname:o}}async function fe(e){const t=await ue(e);Ce=t.settings,ke=t.warpAccounts}Object.assign(globalThis,{_VL_:atob("dmxlc3M="),_VL_CAP_:atob("VkxFU1M="),_VM_:atob("dm1lc3M="),_VM_CAP_:atob("Vk1lc3M="),_TR_:atob("dHJvamFu"),_TR_CAP_:atob("VHJvamFu"),_SS_:atob("c2hhZG93c29ja3M="),_V2_:atob("djJyYXk="),_project_:atob("QlBC"),_project_SM_:atob("YnBi"),_repo_:atob("aHR0cHM6Ly9naXRodWIuY29tL2JpYS1wYWluLWJhY2hlL0JQQi1Xb3JrZXItUGFuZWw="),_wizard_repo_:atob("aHR0cHM6Ly9naXRodWIuY29tL2JpYS1wYWluLWJhY2hlL0JQQi1XaXphcmQ="),_website_:atob("aHR0cHM6Ly9iaWEtcGFpbi1iYWNoZS5naXRodWIuaW8vQlBCLVdvcmtlci1QYW5lbC8="),_public_proxy_ip_:atob("YnBiLnlvdXNlZi5pc2VnYXJvLmNvbQ==")});var me=()=>_e,ge=()=>ke,ye=()=>Ce;function we(){const{accID:e,accEmail:t,apiToken:r,mainDomain:n,...a}=EMBEDED_SETTINGS;return a}function be(){const{remoteSettings:e,customDomain:t,panelVersion:r,...n}=Ce,{proxyIpMode:a,proxyIPs:o,prefixes:s,fallback:i,dohUrl:c}=EMBEDED_SETTINGS;return{...n,proxyIpMode:a,proxyIPs:o,prefixes:s,fallback:i,dohUrl:c}}var ve=()=>({...Ce,..._e}),_e,ke=[{privateKey:"4NyxMUme2zGv5r3QWI0hJBlNglm1J/thoCE55PK29G8=",publicKey:"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",warpIPv6:"2606:4700:110:8fd2:11f3:8e67:11d4:3704/128",reserved:"N16D"},{privateKey:"aPQwXZBOndL0km0Swo0ArDOoy3bjeZzTu+/d4YHxW04=",publicKey:"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",warpIPv6:"2606:4700:110:859d:1029:4dfa:bf63:ff08/128",reserved:"SmWi"}],Se={normal:{label:"Normal",categories:[{core:"xray",clients:[`${_V2_}N(G)`,"MahsaNG","Streisand"]},{core:"sing-box",clients:["sing-box","husi"]},{core:"clash",clients:["Clash Meta","Clash Verge","FlClash","Stash"]}]},fragment:{label:"Fragment",categories:[{core:"xray",clients:[`${_V2_}N(G)`,"MahsaNG","Streisand"]},{core:"sing-box",clients:["sing-box","husi"]}]},raw:{label:"Raw",categories:[{core:"xray",clients:[`${_V2_}N(G)`,"MahsaNG","Shadowrocket","Streisand","PassWall"]},{core:"sing-box",clients:["husi","NekoBox","Hiddify","Karing"]}]},warp:{label:"Warp",categories:[{core:"xray",clients:[`${_V2_}N(G)`,"Streisand"]},{core:"sing-box",clients:["sing-box","husi"]},{core:"clash",clients:["Clash Meta","Clash Verge","FlClash","Stash"]},{core:"wireguard",clients:["Wireguard"]}]},"warp-pro":{label:"Warp Pro",categories:[{core:"xray",clients:[`${_V2_}N(G)`,"Streisand"]},{core:"xray-knocker",clients:["MahsaNG","v2rayN-PRO"]},{core:"clash",clients:["Clash Meta","Clash Verge","FlClash","Stash"]},{core:"amnezia",clients:["Amnezia","WG Tunnel"]}]}},xe=[{name:`${_V2_}NG`,minVer:"2.2.3",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tLzJkdXN0L3YycmF5TkcvcmVsZWFzZXMvbGF0ZXN0"},{name:`${_V2_}N`,minVer:"7.22.5",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tLzJkdXN0L3YycmF5Ti9yZWxlYXNlcy9sYXRlc3Q="},{name:"MahsaNG",minVer:"17",source:"Google Play",b64Url:"aHR0cHM6Ly9wbGF5Lmdvb2dsZS5jb20vc3RvcmUvYXBwcy9kZXRhaWxzP2lkPWNvbS5NYWhzYU5ldC5NYWhzYU5HJmhsPWVu"},{name:"Streisand",minVer:"1.6.71",source:"App Store",b64Url:"aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS91cy9hcHAvc3RyZWlzYW5kL2lkNjQ1MDUzNDA2NA=="},{name:"sing-box",minVer:"1.12.0",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL1NhZ2VyTmV0L3NpbmctYm94L3JlbGVhc2VzL2xhdGVzdA=="},{name:"husi",minVer:"1.3.2",source:"Codeberg",b64Url:"aHR0cHM6Ly9jb2RlYmVyZy5vcmcveGNoYWNoYTIwLXBvbHkxMzA1L2h1c2kvcmVsZWFzZXMvbGF0ZXN0"},{name:"NekoBox",minVer:"1.3.2",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL01hdHN1cmlkYXlvL05la29Cb3hGb3JBbmRyb2lkL3JlbGVhc2VzL2xhdGVzdA=="},{name:"Clash Meta",minVer:"2.11.31",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL01ldGFDdWJlWC9DbGFzaE1ldGFGb3JBbmRyb2lkL3JlbGVhc2VzL2xhdGVzdA=="},{name:"Clash verge rev",minVer:"2.5.1",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL2NsYXNoLXZlcmdlLXJldi9jbGFzaC12ZXJnZS1yZXYvcmVsZWFzZXMvbGF0ZXN0"},{name:"FlClash",minVer:"0.8.94",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL2NoZW4wODIwOS9GbENsYXNoL3JlbGVhc2VzL2xhdGVzdA=="},{name:"Stash",minVer:"3.4.1",source:"App Store",b64Url:"aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS91cy9hcHAvc3Rhc2gtcnVsZS1iYXNlZC1wcm94eS9pZDE1OTYwNjMzNDk="},{name:"Amnezia",minVer:"4.8.21.0",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL2FtbmV6aWEtdnBuL2FtbmV6aWEtY2xpZW50L3JlbGVhc2VzL2xhdGVzdA=="},{name:"Wireguard",minVer:"Stable",source:"Official Website",b64Url:"aHR0cHM6Ly93d3cud2lyZWd1YXJkLmNvbS9pbnN0YWxsLw=="},{name:"WG Tunnel",minVer:"5.1.0",source:"Github",b64Url:"aHR0cHM6Ly9naXRodWIuY29tL3dndHVubmVsL2FuZHJvaWQvcmVsZWFzZXMvbGF0ZXN0"}],Ce={localDNS:"8.8.8.8",antiSanctionDNS:"178.22.122.100",fakeDNS:!1,enableIPv6:!1,allowLANConnection:!1,logLevel:"warning",customDomain:"",protocols:`${_VL_},${_TR_}`,remoteDNS:"https://8.8.8.8/dns-query",remoteDnsHost:{isDomain:!1,host:"8.8.8.8",ipv4:[],ipv6:[]},upstreamProxy:"",upstreamParams:{upstreamServer:"",upstreamPort:0},chainProxy:"",chainProxyParams:{},cleanIPs:["www.speedtest.net"],ports:[443],fingerprint:"chrome",bestPingInterval:30,enableTFO:!1,enableECH:!1,echServerName:"",customCdnAddrs:[],customCdnHost:"",customCdnSni:"",fragmentMode:"custom",fragmentPackets:"tlshello",fragmentLengthMin:100,fragmentLengthMax:200,fragmentDelayMin:1,fragmentDelayMax:1,fragmentMaxSplitMin:0,fragmentMaxSplitMax:0,customSubs:[],customConfigs:[],warpRemoteDNS:"1.1.1.1",warpEndpoints:["engage.cloudflareclient.com:2408"],warpBestPingInterval:30,warpReservedBytes:!0,xrayUdpNoises:[{type:"rand",packet:"50-100",delay:"1-5",count:5}],knockerNoiseMode:"quic",knockerNoiseCountMin:10,knockerNoiseCountMax:15,knockerNoiseSizeMin:5,knockerNoiseSizeMax:10,knockerNoiseDelayMin:1,knockerNoiseDelayMax:1,amneziaNoiseCount:5,amneziaNoiseSizeMin:50,amneziaNoiseSizeMax:100,bypassIran:!1,bypassChina:!1,bypassRussia:!1,bypassOpenAi:!1,bypassGoogleAi:!1,bypassMicrosoft:!1,bypassOracle:!1,bypassDocker:!1,bypassAdobe:!1,bypassEpicGames:!1,bypassIntel:!1,bypassAmd:!1,bypassNvidia:!1,bypassAsus:!1,bypassHp:!1,bypassLenovo:!1,blockAds:!1,blockPorn:!1,blockUDP443:!1,blockMalware:!1,blockPhishing:!1,blockCryptominers:!1,customBypassRules:[],customBlockRules:[],customBypassSanctionRules:[],remoteSettings:"",panelVersion:"5.1.1"};async function Ee(e){const{dohUrl:t,searchParams:r}=me(),n=new URL(t);r.forEach((e,t)=>{n.searchParams.set(t,e)});const a=new Request(n.toString(),e);return fetch(a)}async function Ae(e){const t=void 0,r=(await p(ERROR_HTML_CONTENT)).replace("__ERROR_MESSAGE__",g(e)).replaceAll("__ICON__",ICON_CONTENT);return new Response(r,{headers:{"Content-Type":"text/html; charset=utf-8"}})}var Pe=new TextEncoder,Te=new TextDecoder,De=2**32;function Ie(...e){const t=e.reduce((e,{length:t})=>e+t,0),r=new Uint8Array(t);let n=0;for(const t of e)r.set(t,n),n+=t.length;return r}function Re(e){const t=new Uint8Array(e.length);for(let r=0;r<e.length;r++){const n=e.charCodeAt(r);if(n>127)throw new TypeError("non-ASCII string encountered in encode()");t[r]=n}return t}function Ne(e){if(Uint8Array.prototype.toBase64)return e.toBase64();const t=32768,r=[];for(let n=0;n<e.length;n+=t)r.push(String.fromCharCode.apply(null,e.subarray(n,n+t)));return btoa(r.join(""))}function Ue(e){if(Uint8Array.fromBase64)return Uint8Array.fromBase64(e);const t=atob(e),r=new Uint8Array(t.length);for(let e=0;e<t.length;e++)r[e]=t.charCodeAt(e);return r}function Me(e){if(Uint8Array.fromBase64)return Uint8Array.fromBase64("string"==typeof e?e:Te.decode(e),{alphabet:"base64url"});let t=e;t instanceof Uint8Array&&(t=Te.decode(t)),t=t.replace(/-/g,"+").replace(/_/g,"/");try{return Ue(t)}catch{throw new TypeError("The input to be decoded is not correctly encoded.")}}function Le(e){let t=e;return"string"==typeof t&&(t=Pe.encode(t)),Uint8Array.prototype.toBase64?t.toBase64({alphabet:"base64url",omitPadding:!0}):Ne(t).replace(/=/g,"").replace(/\+/g,"-").replace(/\//g,"_")}var Oe=(e,t="algorithm.name")=>new TypeError(`CryptoKey does not support this operation, its ${t} must be ${e}`),Be=(e,t)=>e.name===t;function $e(e){return parseInt(e.name.slice(4),10)}function ze(e,t){const r=void 0;if($e(e.hash)!==t)throw Oe(`SHA-${t}`,"algorithm.hash")}function je(e){switch(e){case"ES256":return"P-256";case"ES384":return"P-384";case"ES512":return"P-521";default:throw new Error("unreachable")}}function He(e,t){if(t&&!e.usages.includes(t))throw new TypeError(`CryptoKey does not support this operation, its usages must include ${t}.`)}function We(e,t,r){switch(t){case"HS256":case"HS384":case"HS512":if(!Be(e.algorithm,"HMAC"))throw Oe("HMAC");ze(e.algorithm,parseInt(t.slice(2),10));break;case"RS256":case"RS384":case"RS512":if(!Be(e.algorithm,"RSASSA-PKCS1-v1_5"))throw Oe("RSASSA-PKCS1-v1_5");ze(e.algorithm,parseInt(t.slice(2),10));break;case"PS256":case"PS384":case"PS512":if(!Be(e.algorithm,"RSA-PSS"))throw Oe("RSA-PSS");ze(e.algorithm,parseInt(t.slice(2),10));break;case"Ed25519":case"EdDSA":if(!Be(e.algorithm,"Ed25519"))throw Oe("Ed25519");break;case"ML-DSA-44":case"ML-DSA-65":case"ML-DSA-87":if(!Be(e.algorithm,t))throw Oe(t);break;case"ES256":case"ES384":case"ES512":{if(!Be(e.algorithm,"ECDSA"))throw Oe("ECDSA");const r=je(t),n=void 0;if(e.algorithm.namedCurve!==r)throw Oe(r,"algorithm.namedCurve");break}default:throw new TypeError("CryptoKey does not support this operation")}He(e,r)}function Fe(e,t,...r){if((r=r.filter(Boolean)).length>2){const t=r.pop();e+=`one of type ${r.join(", ")}, or ${t}.`}else 2===r.length?e+=`one of type ${r[0]} or ${r[1]}.`:e+=`of type ${r[0]}.`;return null==t?e+=` Received ${t}`:"function"==typeof t&&t.name?e+=` Received function ${t.name}`:"object"==typeof t&&null!=t&&t.constructor?.name&&(e+=` Received an instance of ${t.constructor.name}`),e}var Ge=(e,...t)=>Fe("Key must be ",e,...t),Ve=(e,t,...r)=>Fe(`Key for the ${e} algorithm must be `,t,...r),Ke=class extends Error{static code="ERR_JOSE_GENERIC";code="ERR_JOSE_GENERIC";constructor(e,t){super(e,t),this.name=this.constructor.name,Error.captureStackTrace?.(this,this.constructor)}},Je=class extends Ke{static code="ERR_JWT_CLAIM_VALIDATION_FAILED";code="ERR_JWT_CLAIM_VALIDATION_FAILED";claim;reason;payload;constructor(e,t,r="unspecified",n="unspecified"){super(e,{cause:{claim:r,reason:n,payload:t}}),this.claim=r,this.reason=n,this.payload=t}},Ze=class extends Ke{static code="ERR_JWT_EXPIRED";code="ERR_JWT_EXPIRED";claim;reason;payload;constructor(e,t,r="unspecified",n="unspecified"){super(e,{cause:{claim:r,reason:n,payload:t}}),this.claim=r,this.reason=n,this.payload=t}},Xe=class extends Ke{static code="ERR_JOSE_ALG_NOT_ALLOWED";code="ERR_JOSE_ALG_NOT_ALLOWED"},qe=class extends Ke{static code="ERR_JOSE_NOT_SUPPORTED";code="ERR_JOSE_NOT_SUPPORTED"},Ye=class extends Ke{static code="ERR_JWS_INVALID";code="ERR_JWS_INVALID"},Qe=class extends Ke{static code="ERR_JWT_INVALID";code="ERR_JWT_INVALID"},et=class extends Ke{static code="ERR_JWS_SIGNATURE_VERIFICATION_FAILED";code="ERR_JWS_SIGNATURE_VERIFICATION_FAILED";constructor(e="signature verification failed",t){super(e,t)}},tt=e=>{if("CryptoKey"===e?.[Symbol.toStringTag])return!0;try{return e instanceof CryptoKey}catch{return!1}},rt=e=>"KeyObject"===e?.[Symbol.toStringTag],nt=e=>tt(e)||rt(e);function at(e,t){if(e)throw new TypeError(`${t} can only be called once`)}function ot(e,t,r){try{return Me(e)}catch{throw new r(`Failed to base64url decode the ${t}`)}}var st=e=>"object"==typeof e&&null!==e;function it(e){if(!st(e)||"[object Object]"!==Object.prototype.toString.call(e))return!1;if(null===Object.getPrototypeOf(e))return!0;let t=e;for(;null!==Object.getPrototypeOf(t);)t=Object.getPrototypeOf(t);return Object.getPrototypeOf(e)===t}function ct(...e){const t=e.filter(Boolean);if(0===t.length||1===t.length)return!0;let r;for(const e of t){const t=Object.keys(e);if(r&&0!==r.size)for(const e of t){if(r.has(e))return!1;r.add(e)}else r=new Set(t)}return!0}var lt=e=>it(e)&&"string"==typeof e.kty,ut=e=>"oct"!==e.kty&&("AKP"===e.kty&&"string"==typeof e.priv||"string"==typeof e.d),dt=e=>"oct"!==e.kty&&void 0===e.d&&void 0===e.priv,ht=e=>"oct"===e.kty&&"string"==typeof e.k;function pt(e,t){if(e.startsWith("RS")||e.startsWith("PS")){const{modulusLength:r}=t.algorithm;if("number"!=typeof r||r<2048)throw new TypeError(`${e} requires key modulusLength to be 2048 bits or larger`)}}function ft(e,t){const r=`SHA-${e.slice(-3)}`;switch(e){case"HS256":case"HS384":case"HS512":return{hash:r,name:"HMAC"};case"PS256":case"PS384":case"PS512":return{hash:r,name:"RSA-PSS",saltLength:parseInt(e.slice(-3),10)>>3};case"RS256":case"RS384":case"RS512":return{hash:r,name:"RSASSA-PKCS1-v1_5"};case"ES256":case"ES384":case"ES512":return{hash:r,name:"ECDSA",namedCurve:t.namedCurve};case"Ed25519":case"EdDSA":return{name:"Ed25519"};case"ML-DSA-44":case"ML-DSA-65":case"ML-DSA-87":return{name:e};default:throw new qe(`alg ${e} is not supported either by JOSE or your javascript runtime`)}}async function mt(e,t,r){if(t instanceof Uint8Array){if(!e.startsWith("HS"))throw new TypeError(Ge(t,"CryptoKey","KeyObject","JSON Web Key"));return crypto.subtle.importKey("raw",t,{hash:`SHA-${e.slice(-3)}`,name:"HMAC"},!1,[r])}return We(t,e,r),t}async function gt(e,t,r){const n=await mt(e,t,"sign");pt(e,n);const a=await crypto.subtle.sign(ft(e,n.algorithm),n,r);return new Uint8Array(a)}async function yt(e,t,r,n){const a=await mt(e,t,"verify");pt(e,a);const o=ft(e,a.algorithm);try{return await crypto.subtle.verify(o,a,r,n)}catch{return!1}}var wt='Invalid or unsupported JWK "alg" (Algorithm) Parameter value';function bt(e){let t,r;switch(e.kty){case"AKP":switch(e.alg){case"ML-DSA-44":case"ML-DSA-65":case"ML-DSA-87":t={name:e.alg},r=e.priv?["sign"]:["verify"];break;default:throw new qe(wt)}break;case"RSA":switch(e.alg){case"PS256":case"PS384":case"PS512":t={name:"RSA-PSS",hash:`SHA-${e.alg.slice(-3)}`},r=e.d?["sign"]:["verify"];break;case"RS256":case"RS384":case"RS512":t={name:"RSASSA-PKCS1-v1_5",hash:`SHA-${e.alg.slice(-3)}`},r=e.d?["sign"]:["verify"];break;case"RSA-OAEP":case"RSA-OAEP-256":case"RSA-OAEP-384":case"RSA-OAEP-512":t={name:"RSA-OAEP",hash:`SHA-${parseInt(e.alg.slice(-3),10)||1}`},r=e.d?["decrypt","unwrapKey"]:["encrypt","wrapKey"];break;default:throw new qe(wt)}break;case"EC":switch(e.alg){case"ES256":case"ES384":case"ES512":t={name:"ECDSA",namedCurve:{ES256:"P-256",ES384:"P-384",ES512:"P-521"}[e.alg]},r=e.d?["sign"]:["verify"];break;case"ECDH-ES":case"ECDH-ES+A128KW":case"ECDH-ES+A192KW":case"ECDH-ES+A256KW":t={name:"ECDH",namedCurve:e.crv},r=e.d?["deriveBits"]:[];break;default:throw new qe(wt)}break;case"OKP":switch(e.alg){case"Ed25519":case"EdDSA":t={name:"Ed25519"},r=e.d?["sign"]:["verify"];break;case"ECDH-ES":case"ECDH-ES+A128KW":case"ECDH-ES+A192KW":case"ECDH-ES+A256KW":t={name:e.crv},r=e.d?["deriveBits"]:[];break;default:throw new qe(wt)}break;default:throw new qe('Invalid or unsupported JWK "kty" (Key Type) Parameter value')}return{algorithm:t,keyUsages:r}}async function vt(e){if(!e.alg)throw new TypeError('"alg" argument is required when "jwk.alg" is not present');const{algorithm:t,keyUsages:r}=bt(e),n={...e};return"AKP"!==n.kty&&delete n.alg,delete n.use,crypto.subtle.importKey("jwk",n,t,e.ext??(!e.d&&!e.priv),e.key_ops??r)}var _t="given KeyObject instance cannot be used for this algorithm",kt,St=async(e,t,r,n=!1)=>{kt||=new WeakMap;let a=kt.get(e);if(a?.[r])return a[r];const o=await vt({...t,alg:r});return n&&Object.freeze(e),a?a[r]=o:kt.set(e,{[r]:o}),o},xt=(e,t)=>{kt||=new WeakMap;let r=kt.get(e);if(r?.[t])return r[t];const n="public"===e.type,a=!!n;let o;if("x25519"===e.asymmetricKeyType){switch(t){case"ECDH-ES":case"ECDH-ES+A128KW":case"ECDH-ES+A192KW":case"ECDH-ES+A256KW":break;default:throw new TypeError(_t)}o=e.toCryptoKey(e.asymmetricKeyType,a,n?[]:["deriveBits"])}if("ed25519"===e.asymmetricKeyType){if("EdDSA"!==t&&"Ed25519"!==t)throw new TypeError(_t);o=e.toCryptoKey(e.asymmetricKeyType,a,[n?"verify":"sign"])}switch(e.asymmetricKeyType){case"ml-dsa-44":case"ml-dsa-65":case"ml-dsa-87":if(t!==e.asymmetricKeyType.toUpperCase())throw new TypeError(_t);o=e.toCryptoKey(e.asymmetricKeyType,a,[n?"verify":"sign"])}if("rsa"===e.asymmetricKeyType){let r;switch(t){case"RSA-OAEP":r="SHA-1";break;case"RS256":case"PS256":case"RSA-OAEP-256":r="SHA-256";break;case"RS384":case"PS384":case"RSA-OAEP-384":r="SHA-384";break;case"RS512":case"PS512":case"RSA-OAEP-512":r="SHA-512";break;default:throw new TypeError(_t)}if(t.startsWith("RSA-OAEP"))return e.toCryptoKey({name:"RSA-OAEP",hash:r},a,n?["encrypt"]:["decrypt"]);o=e.toCryptoKey({name:t.startsWith("PS")?"RSA-PSS":"RSASSA-PKCS1-v1_5",hash:r},a,[n?"verify":"sign"])}if("ec"===e.asymmetricKeyType){const r=void 0,s=new Map([["prime256v1","P-256"],["secp384r1","P-384"],["secp521r1","P-521"]]).get(e.asymmetricKeyDetails?.namedCurve);if(!s)throw new TypeError(_t);const i={ES256:"P-256",ES384:"P-384",ES512:"P-521"};i[t]&&s===i[t]&&(o=e.toCryptoKey({name:"ECDSA",namedCurve:s},a,[n?"verify":"sign"])),t.startsWith("ECDH-ES")&&(o=e.toCryptoKey({name:"ECDH",namedCurve:s},a,n?[]:["deriveBits"]))}if(!o)throw new TypeError(_t);return r?r[t]=o:kt.set(e,{[t]:o}),o};async function Ct(e,t){if(e instanceof Uint8Array)return e;if(tt(e))return e;if(rt(e)){if("secret"===e.type)return e.export();if("toCryptoKey"in e&&"function"==typeof e.toCryptoKey)try{return xt(e,t)}catch(e){if(e instanceof TypeError)throw e}let r=e.export({format:"jwk"});return St(e,r,t)}if(lt(e))return e.k?Me(e.k):St(e,e,t,!0);throw new Error("unreachable")}function Et(e,t,r,n,a){if(void 0!==a.crit&&void 0===n?.crit)throw new e('"crit" (Critical) Header Parameter MUST be integrity protected');if(!n||void 0===n.crit)return new Set;if(!Array.isArray(n.crit)||0===n.crit.length||n.crit.some(e=>"string"!=typeof e||0===e.length))throw new e('"crit" (Critical) Header Parameter MUST be an array of non-empty strings when present');let o;o=void 0!==r?new Map([...Object.entries(r),...t.entries()]):t;for(const t of n.crit){if(!o.has(t))throw new qe(`Extension Header Parameter "${t}" is not recognized`);if(void 0===a[t])throw new e(`Extension Header Parameter "${t}" is missing`);if(o.get(t)&&void 0===n[t])throw new e(`Extension Header Parameter "${t}" MUST be integrity protected`)}return new Set(n.crit)}function At(e,t){if(void 0!==t&&(!Array.isArray(t)||t.some(e=>"string"!=typeof e)))throw new TypeError(`"${e}" option must be an array of strings`);if(t)return new Set(t)}var Pt=e=>e?.[Symbol.toStringTag],Tt=(e,t,r)=>{if(void 0!==t.use){let e;switch(r){case"sign":case"verify":e="sig";break;case"encrypt":case"decrypt":e="enc";break}if(t.use!==e)throw new TypeError(`Invalid key for this operation, its "use" must be "${e}" when present`)}if(void 0!==t.alg&&t.alg!==e)throw new TypeError(`Invalid key for this operation, its "alg" must be "${e}" when present`);if(Array.isArray(t.key_ops)){let n;switch(!0){case"sign"===r||"verify"===r:case"dir"===e:case e.includes("CBC-HS"):n=r;break;case e.startsWith("PBES2"):n="deriveBits";break;case/^A\d{3}(?:GCM)?(?:KW)?$/.test(e):n=!e.includes("GCM")&&e.endsWith("KW")?"encrypt"===r?"wrapKey":"unwrapKey":r;break;case"encrypt"===r&&e.startsWith("RSA"):n="wrapKey";break;case"decrypt"===r:n=e.startsWith("RSA")?"unwrapKey":"deriveBits";break}if(n&&!1===t.key_ops?.includes?.(n))throw new TypeError(`Invalid key for this operation, its "key_ops" must include "${n}" when present`)}return!0},Dt=(e,t,r)=>{if(!(t instanceof Uint8Array)){if(lt(t)){if(ht(t)&&Tt(e,t,r))return;throw new TypeError('JSON Web Key for symmetric algorithms must have JWK "kty" (Key Type) equal to "oct" and the JWK "k" (Key Value) present')}if(!nt(t))throw new TypeError(Ve(e,t,"CryptoKey","KeyObject","JSON Web Key","Uint8Array"));if("secret"!==t.type)throw new TypeError(`${Pt(t)} instances for symmetric algorithms must be of type "secret"`)}},It=(e,t,r)=>{if(lt(t))switch(r){case"decrypt":case"sign":if(ut(t)&&Tt(e,t,r))return;throw new TypeError("JSON Web Key for this operation must be a private JWK");case"encrypt":case"verify":if(dt(t)&&Tt(e,t,r))return;throw new TypeError("JSON Web Key for this operation must be a public JWK")}if(!nt(t))throw new TypeError(Ve(e,t,"CryptoKey","KeyObject","JSON Web Key"));if("secret"===t.type)throw new TypeError(`${Pt(t)} instances for asymmetric algorithms must not be of type "secret"`);if("public"===t.type)switch(r){case"sign":throw new TypeError(`${Pt(t)} instances for asymmetric algorithm signing must be of type "private"`);case"decrypt":throw new TypeError(`${Pt(t)} instances for asymmetric algorithm decryption must be of type "private"`)}if("private"===t.type)switch(r){case"verify":throw new TypeError(`${Pt(t)} instances for asymmetric algorithm verifying must be of type "public"`);case"encrypt":throw new TypeError(`${Pt(t)} instances for asymmetric algorithm encryption must be of type "public"`)}};function Rt(e,t,r){switch(e.substring(0,2)){case"A1":case"A2":case"di":case"HS":case"PB":Dt(e,t,r);break;default:It(e,t,r)}}async function Nt(e,t,r){if(!it(e))throw new Ye("Flattened JWS must be an object");if(void 0===e.protected&&void 0===e.header)throw new Ye('Flattened JWS must have either of the "protected" or "header" members');if(void 0!==e.protected&&"string"!=typeof e.protected)throw new Ye("JWS Protected Header incorrect type");if(void 0===e.payload)throw new Ye("JWS Payload missing");if("string"!=typeof e.signature)throw new Ye("JWS Signature missing or incorrect type");if(void 0!==e.header&&!it(e.header))throw new Ye("JWS Unprotected Header incorrect type");let n={};if(e.protected)try{const t=Me(e.protected);n=JSON.parse(Te.decode(t))}catch{throw new Ye("JWS Protected Header is invalid")}if(!ct(n,e.header))throw new Ye("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");const a={...n,...e.header},o=void 0;let s=!0;if(Et(Ye,new Map([["b64",!0]]),r?.crit,n,a).has("b64")&&(s=n.b64,"boolean"!=typeof s))throw new Ye('The "b64" (base64url-encode payload) Header Parameter must be a boolean');const{alg:i}=a;if("string"!=typeof i||!i)throw new Ye('JWS "alg" (Algorithm) Header Parameter missing or invalid');const c=r&&At("algorithms",r.algorithms);if(c&&!c.has(i))throw new Xe('"alg" (Algorithm) Header Parameter value not allowed');if(s){if("string"!=typeof e.payload)throw new Ye("JWS Payload must be a string")}else if("string"!=typeof e.payload&&!(e.payload instanceof Uint8Array))throw new Ye("JWS Payload must be a string or an Uint8Array instance");let l=!1;"function"==typeof t&&(t=await t(n,e),l=!0),Rt(i,t,"verify");const u=Ie(void 0!==e.protected?Re(e.protected):new Uint8Array,Re("."),"string"==typeof e.payload?s?Re(e.payload):Pe.encode(e.payload):e.payload),d=ot(e.signature,"signature",Ye),h=await Ct(t,i),p=void 0;if(!await yt(i,h,d,u))throw new et;let f;f=s?ot(e.payload,"payload",Ye):"string"==typeof e.payload?Pe.encode(e.payload):e.payload;const m={payload:f};return void 0!==e.protected&&(m.protectedHeader=n),void 0!==e.header&&(m.unprotectedHeader=e.header),l?{...m,key:h}:m}async function Ut(e,t,r){if(e instanceof Uint8Array&&(e=Te.decode(e)),"string"!=typeof e)throw new Ye("Compact JWS must be a string or Uint8Array");const{0:n,1:a,2:o,length:s}=e.split(".");if(3!==s)throw new Ye("Invalid Compact JWS");const i=await Nt({payload:a,protected:n,signature:o},t,r),c={payload:i.payload,protectedHeader:i.protectedHeader};return"function"==typeof t?{...c,key:i.key}:c}var Mt=e=>Math.floor(e.getTime()/1e3),Lt=60,Ot=3600,Bt=86400,$t=7*Bt,zt=31557600,jt=/^(\+|\-)? ?(\d+|\d+\.\d+) ?(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)(?: (ago|from now))?$/i;function Ht(e){const t=jt.exec(e);if(!t||t[4]&&t[1])throw new TypeError("Invalid time period format");const r=parseFloat(t[2]),n=void 0;let a;switch(t[3].toLowerCase()){case"sec":case"secs":case"second":case"seconds":case"s":a=Math.round(r);break;case"minute":case"minutes":case"min":case"mins":case"m":a=Math.round(r*Lt);break;case"hour":case"hours":case"hr":case"hrs":case"h":a=Math.round(r*Ot);break;case"day":case"days":case"d":a=Math.round(r*Bt);break;case"week":case"weeks":case"w":a=Math.round(r*$t);break;default:a=Math.round(r*zt);break}return"-"===t[1]||"ago"===t[4]?-a:a}function Wt(e,t){if(!Number.isFinite(t))throw new TypeError(`Invalid ${e} input`);return t}var Ft=e=>e.includes("/")?e.toLowerCase():`application/${e.toLowerCase()}`,Gt=(e,t)=>"string"==typeof e?t.includes(e):!!Array.isArray(e)&&t.some(Set.prototype.has.bind(new Set(e)));function Vt(e,t,r={}){let n;try{n=JSON.parse(Te.decode(t))}catch{}if(!it(n))throw new Qe("JWT Claims Set must be a top-level JSON object");const{typ:a}=r;if(a&&("string"!=typeof e.typ||Ft(e.typ)!==Ft(a)))throw new Je('unexpected "typ" JWT header value',n,"typ","check_failed");const{requiredClaims:o=[],issuer:s,subject:i,audience:c,maxTokenAge:l}=r,u=[...o];void 0!==l&&u.push("iat"),void 0!==c&&u.push("aud"),void 0!==i&&u.push("sub"),void 0!==s&&u.push("iss");for(const e of new Set(u.reverse()))if(!(e in n))throw new Je(`missing required "${e}" claim`,n,e,"missing");if(s&&!(Array.isArray(s)?s:[s]).includes(n.iss))throw new Je('unexpected "iss" claim value',n,"iss","check_failed");if(i&&n.sub!==i)throw new Je('unexpected "sub" claim value',n,"sub","check_failed");if(c&&!Gt(n.aud,"string"==typeof c?[c]:c))throw new Je('unexpected "aud" claim value',n,"aud","check_failed");let d;switch(typeof r.clockTolerance){case"string":d=Ht(r.clockTolerance);break;case"number":d=r.clockTolerance;break;case"undefined":d=0;break;default:throw new TypeError("Invalid clockTolerance option type")}const{currentDate:h}=r,p=Mt(h||new Date);if((void 0!==n.iat||l)&&"number"!=typeof n.iat)throw new Je('"iat" claim must be a number',n,"iat","invalid");if(void 0!==n.nbf){if("number"!=typeof n.nbf)throw new Je('"nbf" claim must be a number',n,"nbf","invalid");if(n.nbf>p+d)throw new Je('"nbf" claim timestamp check failed',n,"nbf","check_failed")}if(void 0!==n.exp){if("number"!=typeof n.exp)throw new Je('"exp" claim must be a number',n,"exp","invalid");if(n.exp<=p-d)throw new Ze('"exp" claim timestamp check failed',n,"exp","check_failed")}if(l){const e=p-n.iat,t=void 0;if(e-d>("number"==typeof l?l:Ht(l)))throw new Ze('"iat" claim timestamp check failed (too far in the past)',n,"iat","check_failed");if(e<0-d)throw new Je('"iat" claim timestamp check failed (it should be in the past)',n,"iat","check_failed")}return n}var Kt=class{#e;constructor(e){if(!it(e))throw new TypeError("JWT Claims Set MUST be an object");this.#e=structuredClone(e)}data(){return Pe.encode(JSON.stringify(this.#e))}get iss(){return this.#e.iss}set iss(e){this.#e.iss=e}get sub(){return this.#e.sub}set sub(e){this.#e.sub=e}get aud(){return this.#e.aud}set aud(e){this.#e.aud=e}set jti(e){this.#e.jti=e}set nbf(e){"number"==typeof e?this.#e.nbf=Wt("setNotBefore",e):e instanceof Date?this.#e.nbf=Wt("setNotBefore",Mt(e)):this.#e.nbf=Mt(new Date)+Ht(e)}set exp(e){"number"==typeof e?this.#e.exp=Wt("setExpirationTime",e):e instanceof Date?this.#e.exp=Wt("setExpirationTime",Mt(e)):this.#e.exp=Mt(new Date)+Ht(e)}set iat(e){void 0===e?this.#e.iat=Mt(new Date):e instanceof Date?this.#e.iat=Wt("setIssuedAt",Mt(e)):this.#e.iat=Wt("setIssuedAt","string"==typeof e?Mt(new Date)+Ht(e):e)}};async function Jt(e,t,r){const n=await Ut(e,t,r);if(n.protectedHeader.crit?.includes("b64")&&!1===n.protectedHeader.b64)throw new Qe("JWTs MUST NOT use unencoded payload");const a=void 0,o={payload:Vt(n.protectedHeader,n.payload,r),protectedHeader:n.protectedHeader};return"function"==typeof t?{...o,key:n.key}:o}var Zt=class{#e;#t;#r;constructor(e){if(!(e instanceof Uint8Array))throw new TypeError("payload must be an instance of Uint8Array");this.#e=e}setProtectedHeader(e){return at(this.#t,"setProtectedHeader"),this.#t=e,this}setUnprotectedHeader(e){return at(this.#r,"setUnprotectedHeader"),this.#r=e,this}async sign(e,t){if(!this.#t&&!this.#r)throw new Ye("either setProtectedHeader or setUnprotectedHeader must be called before #sign()");if(!ct(this.#t,this.#r))throw new Ye("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");const r={...this.#t,...this.#r},n=void 0;let a=!0;if(Et(Ye,new Map([["b64",!0]]),t?.crit,this.#t,r).has("b64")&&(a=this.#t.b64,"boolean"!=typeof a))throw new Ye('The "b64" (base64url-encode payload) Header Parameter must be a boolean');const{alg:o}=r;if("string"!=typeof o||!o)throw new Ye('JWS "alg" (Algorithm) Header Parameter missing or invalid');let s,i,c,l;Rt(o,e,"sign"),a?(s=Le(this.#e),i=Re(s)):(i=this.#e,s=""),this.#t?(c=Le(JSON.stringify(this.#t)),l=Re(c)):(c="",l=new Uint8Array);const u=Ie(l,Re("."),i),d=await Ct(e,o),h=void 0,p={signature:Le(await gt(o,d,u)),payload:s};return this.#r&&(p.header=this.#r),this.#t&&(p.protected=c),p}},Xt=class{#n;constructor(e){this.#n=new Zt(e)}setProtectedHeader(e){return this.#n.setProtectedHeader(e),this}async sign(e,t){const r=await this.#n.sign(e,t);if(void 0===r.payload)throw new TypeError("use the flattened module for creating JWS with b64: false");return`${r.protected}.${r.payload}.${r.signature}`}},qt=class{#t;#a;constructor(e={}){this.#a=new Kt(e)}setIssuer(e){return this.#a.iss=e,this}setSubject(e){return this.#a.sub=e,this}setAudience(e){return this.#a.aud=e,this}setJti(e){return this.#a.jti=e,this}setNotBefore(e){return this.#a.nbf=e,this}setExpirationTime(e){return this.#a.exp=e,this}setIssuedAt(e){return this.#a.iat=e,this}setProtectedHeader(e){return this.#t=e,this}async sign(e,t){const r=new Xt(this.#a.data());if(r.setProtectedHeader(this.#t),Array.isArray(this.#t?.crit)&&this.#t.crit.includes("b64")&&!1===this.#t.b64)throw new Qe("JWTs MUST NOT use unencoded payload");return r.sign(e,t)}};function Yt(){return m(!0,200,"Successfully logged out!",null,{"Set-Cookie":"jwtToken=; Path=/; Secure; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT","Content-Type":"text/plain"})}async function Qt(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed.");const r=await e.json(),n=await t.kv.get("pwd"),{accEmail:a}=me(),o=r.username?.toLowerCase();if(o!==a||r.password!==n)return m(!1,401,"Wrong Credentials.");let s=await t.kv.get("secretKey");s||(s=er(),await t.kv.put("secretKey",s));const i=(new TextEncoder).encode(s),{accID:c}=me(),l=void 0;return m(!0,200,"Successfully generated Auth token",null,{"Set-Cookie":`jwtToken=${await new qt({id:c}).setProtectedHeader({alg:"HS256"}).setIssuedAt().setExpirationTime("24h").sign(i)}; Path=/; HttpOnly; Secure; Max-Age=86400; SameSite=Strict`,"Content-Type":"text/plain"})}function er(){const e=new Uint8Array(32);return crypto.getRandomValues(e),Array.from(e,e=>e.toString(16).padStart(2,"0")).join("")}async function tr(e,t){try{const r=await t.kv.get("secretKey");if(null===r)return console.log("Secret key not found in KV."),!1;const n=(new TextEncoder).encode(r),a=e.headers.get("Cookie")?.match(/(^|;\s*)jwtToken=([^;]*)/),o=a?a[2]:null;if(!o)return console.log("Unauthorized: Token not available!"),!1;const{payload:s}=await Jt(o,n);return console.log(`Successfully authenticated, User ID: ${s.id}`),!0}catch(e){return console.log(e),!1}}async function rr(e,t){const r=await tr(e,t),n=await t.kv.get("pwd");if(n&&!r)return m(!1,401,"Unauthorized.");const a=await e.json(),{accEmail:o}=me();return r||a.username?a.username&&a.username!==o?m(!1,400,"Wrong username."):a.password===n?m(!1,400,"Please enter a new Password."):(await t.kv.put("pwd",a.password),m(!0,200,"Successfully logged in!",null,{"Set-Cookie":"jwtToken=; Path=/; Secure; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:00 GMT","Content-Type":"text/plain"})):m(!1,400,"Missing username.")}async function nr(e){const{url:t,method:r,headers:n,body:a}=e,{fallback:o}=me();if(!o)return new Response("Not Found",{status:404});const s=new URL(t);s.hostname=o,s.protocol="https:";const i=new Request(s.toString(),{method:r,headers:n,body:a,redirect:"manual"});return fetch(i)}async function ar(e,t){const{pathname:r}=me(),n=void 0,a=void 0;switch(r.split("/").slice(2).join("/")){case"login":return or(e,t);case"login/authenticate":return Qt(e,t);default:return nr(e)}}async function or(e,t){const r=void 0;if(await tr(e,t)){const t=new URL("./panel",e.url);return Response.redirect(t,302)}const n=void 0,a=(await p(LOGIN_HTML_CONTENT)).replaceAll("__ICON__",ICON_CONTENT);return new Response(a,{headers:{"Content-Type":"text/html; charset=utf-8"}})}async function sr(){const{accID:e,apiToken:t,mainDomain:r}=me(),n=r.split(".")[0];try{const r=new Date,a=r.toISOString(),o=void 0,s={query:"\n                query GetUsage($accountTag: String!, $scriptName: String!, $start: String!, $end: String!) {\n                    viewer {\n                        accounts(filter: { accountTag: $accountTag }) {\n                            total: workersInvocationsAdaptive(\n                                limit: 100\n                                filter: { datetime_geq: $start, datetime_leq: $end }\n                            ) {\n                                sum { requests }\n                            }\n                            worker: workersInvocationsAdaptive(\n                                limit: 100\n                                filter: { scriptName: $scriptName, datetime_geq: $start, datetime_leq: $end }\n                            ) {\n                                sum { requests }\n                            }\n                        }\n                    }\n                }\n            ",variables:{accountTag:e,scriptName:n,start:new Date(r.getTime()-864e5).toISOString(),end:a}},i=await fetch(`https://api.cloudflare.com/client/v4/graphql?nocache=${Date.now()}`,{method:"POST",headers:{Authorization:`Bearer ${t}`,"Content-Type":"application/json"},body:JSON.stringify(s)}),c=await i.json(),l=c?.data?.viewer?.accounts?.[0],u=(l?.total??[]).reduce((e,t)=>e+(t?.sum?.requests||0),0),d=void 0;return{success:!0,total:u,worker:(l?.worker??[]).reduce((e,t)=>e+(t?.sum?.requests||0),0)}}catch(e){return{success:!1,error:"Error fetching usage data. Check your credentials."}}}async function ir(e,t){try{const r=void 0;if(!await tr(e,t))throw new Error("Unauthorized or expired session.");const n=await sr();return n.success?m(!0,200,"",{total:n.total,worker:n.worker}):m(!1,500,"Failed to fetch account usage.")}catch(e){return m(!1,500,`Error occurred while fetching usage: ${g(e)}`)}}var cr=[Mr,dr,hr,fr,pr,gr,yr,wr,br,vr,Er,_r,kr,Sr,xr,mr,Cr,Ar,Pr,Tr,Dr,Ir,Rr,Nr,Ur];function lr(e){if(!e)return null;const t=[];return cr.forEach(r=>r(e,t)),t.length?t:null}function ur(e,t=!1){const r=e.match(/^(?<host>\[.*?\]|[^:]+)(?::(?<port>\d+))?$/);if(!r?.groups?.host)return!1;const{host:n,port:a}=r.groups;if(!!a!=!!t)return!1;if(a){const e=Number(a);if(e<1||e>65535)return!1}return P(n)||A(n)||E(n)}function dr(e,t){let r;try{r=new URL(e.remoteDNS)}catch{return void t.push({field:"Remote DNS",message:["Invalid DoH, Please enter a valid URL."]})}const n=["1.1.1.1","1.0.0.1","1.1.1.2","1.0.0.2","1.1.1.3","1.0.0.3","2606:4700:4700::1111","2606:4700:4700::1001","2606:4700:4700::1112","2606:4700:4700::1002","2606:4700:4700::1113","2606:4700:4700::1003","one.one.one.one","1dot1dot1dot1","cloudflare-dns.com","family.cloudflare-dns.com","security.cloudflare-dns.com"];["tcp:","https:","tls:"].includes(r.protocol)||t.push({field:"Remote DNS",message:["It can be only TCP, DoH or DoT servers."]}),n.includes(r.hostname)&&t.push({field:"Remote DNS",message:["Cloudflare DNS is not allowed for workers.","Please use other public DNS servers like Google, Adguard..."]})}function hr(e,t){const r=e.antiSanctionDNS;let n;try{const e=void 0;n=new URL(r).hostname}catch{n=r}ur(n,!1)||t.push({field:"Anti Sanction DNS",message:["Invalid IPs or Domains."]})}function pr(e,t){const r=void 0;A(e.warpRemoteDNS)||t.push({field:"Warp Remote DNS",message:["Only IPv4 address (UDP DNS) is valid for this field."]})}function fr(e,t){const r=e.localDNS;A(r)||"localhost"===r||t.push({field:"Local DNS",message:['Only IPv4 addresses or "localhost" are valid.']})}function mr(e,t){const r=void 0;["customBypassRules","customBlockRules"].forEach(r=>{const n=e[r].filter(e=>!T(e)&&!D(e)&&!E(e));n.length&&t.push({field:"Routing Custom Rules",message:["Invalid IPs, Domains or IP CIDR.","Please enter each value in a new line.","Invalid values are:\n",...n.map(e=>`+ ${e}`)]})});const n=e.customBypassSanctionRules.filter(e=>!E(e));n.length&&t.push({field:"Routing Sanction Rules",message:["Invalid Domains.","Please enter each value in a new line.","Invalid values are:\n",...n.map(e=>`+ ${e}`)]})}function gr(e,t){const r=e.cleanIPs.filter(e=>!ur(e));r.length&&t.push({field:"Clean IPs - Domains",message:["Invalid IPs or Domains.","Please enter each value in a new line.","Invalid values are:\n",...r.map(e=>`+ ${e}`)]})}function yr(e,t){const r=e.proxyIPs.filter(e=>!ur(e,!1)&&!ur(e,!0));r.length&&t.push({field:"Proxy IPs - Domains",message:["Invalid IPs or Domains.","Please enter each value in a new line.","Invalid values are:\n",...r.map(e=>`+ ${e}`)]})}function wr(e,t){const r=e.prefixes.filter(e=>!P(e));r.length&&t.push({field:"NAT64 Prefixes",message:["Invalid NAT64 prefix.","Please enter each prefix in a new line like [IPv6].","Invalid values are:\n",...r.map(e=>`+ ${e}`)]})}function br(e,t){const r=e.warpEndpoints.filter(e=>!ur(e,!0));r.length&&t.push({field:"Warp Endpoints",message:["Endpoints should be like IPv4:Port, Domain:Port or [IPv6]:Port.","Invalid values are:\n",...r.map(e=>`+ ${e}`)]})}function vr(e,t){const r=[["fragmentLengthMin","fragmentLengthMax","Fragment Length"],["fragmentDelayMin","fragmentDelayMax","Fragment Delay"],["fragmentMaxSplitMin","fragmentMaxSplitMax","Fragment Max Split"],["knockerNoiseCountMin","knockerNoiseCountMax","MahsaNG Noise Count"],["knockerNoiseSizeMin","knockerNoiseSizeMax","MahsaNG Noise Size"],["knockerNoiseDelayMin","knockerNoiseDelayMax","MahsaNGNoise Delay"],["amneziaNoiseSizeMin","amneziaNoiseSizeMax","Amnezia Noise Size"]];for(const[n,a,o]of r){const r=void 0,s=void 0;Number(e[n])>Number(e[a])&&t.push({field:o,message:["Minimum cannot be bigger than Maximum!"]})}}function _r(e,t){let r=e.chainProxy;if(!r)return!0;const n=new RegExp(`${_VM_}:\\/\\/.+$`),a=new RegExp(`(http|socks|socks5|${_VL_}|${_TR_}|ss):\\/\\/[^\\s@]+@[^\\s:]+:[^\\s]+`),o=n.test(r),s=a.test(r);o||s||t.push({field:"Chain Proxy",message:["Invalid Config!","Standard formats are:"," + (socks or socks5 or http)://user:pass@server:port"," + (socks or socks5 or http)://base64@server:port",` + ${_VL_}://uuid@server:port...`,` + ${_VM_}://base64`,` + ${_TR_}://password@server:port...`," + ss://base64@server:port..."]});const i=new URL(r);let{protocol:c,username:l}=i,u=i.searchParams.get("security"),d=i.searchParams.get("type");if(o){const e=JSON.parse(atob(i.host));l=e.id,u=e.tls,d=e.net}[`${_VL_}:`,`${_TR_}:`,`${_VM_}:`].includes(c)&&(l||t.push({field:"Chain Proxy",message:["Invalid Config!","Config URL should contain UUID or Password."]}),u&&!["tls","none","reality"].includes(u)&&t.push({field:"Chain Proxy",message:["Invalid Config!",`${_VL_CAP_}, ${_VM_CAP_} or ${_TR_CAP_} security can be TLS, Reality or None.`]}),d&&["tcp","raw","ws","grpc","httpupgrade","xhttp"].includes(d)||t.push({field:"Chain Proxy",message:["Invalid Config!",`${_VL_CAP_}, ${_VM_CAP_} or ${_TR_CAP_} transmission can be tcp, ws, grpc or httpupgrade.`]}))}function kr(e,t){const{customCdnAddrs:r,customCdnHost:n,customCdnSni:a}=e,o=!!r.length||!!n||!!a;let s=!o||!!r.length&&!!n&&!!a;if(s||t.push({field:"Custom CDN",message:["All fields should be filled or empty together!"]}),o&&s){const r=void 0;[["customCdnSni","Custom CDN SNI"],["customCdnHost","Custom CDN Host"]].forEach(([r,n])=>{E(e[r])||t.push({field:n,message:[`Invalid Domain: ${e[r]}`]})});const n=e.customCdnAddrs.filter(e=>!ur(e));n.length&&t.push({field:"Custom CDN Addresses",message:["Invalid IPs or Domains.","Please enter each value in a new line.","Invalid values are:\n",...n.map(e=>`+ ${e}`)]})}}function Sr(e,t){const r=void 0;/^(none|quic|random|[0-9A-Fa-f]+)$/.test(e.knockerNoiseMode)||t.push({field:"MahsaNG Noise",message:["Invalid noise mode.",'Please use "none", "quic", "random" or a valid hex value.']})}function xr(e,t){e.xrayUdpNoises.forEach(({type:e,packet:r,delay:n})=>{const[a,o]=n.split("-").map(Number);switch(a>o&&t.push({field:"Xray Noise Delay",message:["Minimum cannot be bigger than Maximum!"]}),e){case"base64":R(r)||t.push({field:"Xray Noise Packet",message:["The packet is not a valid base64 value!"]});break;case"rand":{/^\d+-\d+$/.test(r)||t.push({field:"Xray Noise Packet",message:["The packet should be a range like 0-10 or 10-30!"]});const[e,n]=r.split("-").map(Number);e>n&&t.push({field:"Xray Noise Packet",message:["Minimum cannot be bigger than Maximum!"]});break}case"hex":N(r)||t.push({field:"Xray Noise Packet",message:["The packet is not a valid hex value!","It should have even length and consisted of 0-9, a-f and A-F."]});break;case"array":{const e=void 0;r.split(",").every(e=>/^\d+$/.test(e)&&Number(e)>=0&&Number(e)<=255)||t.push({field:"Xray Noise Packet",message:["It should be comma separated numbers between 0-255 like 1,10,128..."]});break}}})}function Cr(e,t){const r=e.echServerName;r&&!E(r)&&t.push({field:"ECH Server Name",message:["The ECH Server Name should be a domain!"]})}function Er(e,t){const r=e.upstreamProxy;r&&!ur(r,!0)&&t.push({field:"Upstream Proxy",message:["It can be either IP:Port or Domain:Port"]})}function Ar(e,t){const r=void 0;f(e.vlUUID)||t.push({field:`${_VL_CAP_} UUID`,message:["Invalid UUID!"]})}function Pr(e,t){const r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$&*_-+;:,.",n=void 0;[...e.trPass].every(e=>r.includes(e))||t.push({field:`${_TR_CAP_} Password`,message:["Invalid characters!"]})}function Tr(e,t){const r=e.fallback;r&&!E(r)&&t.push({field:"Fallback Domain",message:["It should be a domain!"]})}function Dr(e,t){const r=e.dohUrl;let n=!0;try{const{protocol:e,pathname:t}=new URL(r);n="https:"===e&&t.endsWith("/dns-query")}catch{n=!1}r&&!n&&t.push({field:"Underlying DoH URL",message:["It should be like https://Domain-or-IP/dns-query"]})}function Ir(e,t){const r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$&*_-+;:,.",n=void 0;[...e.securePath].every(e=>r.includes(e))||t.push({field:"Panel - Subscriptions Path",message:["Invalid characters!"]})}function Rr(e,t){const r=e.customDomain;r&&!E(r)&&t.push({field:"Custom Domain",message:["It should be a domain!"]})}function Nr(e,t){const r=e.customSubs.filter(e=>!I(e));r.length&&t.push({field:"External Raw subscriptions",message:["Invalid URLs.","Please enter each value in a new line.","Invalid values are:\n",...r.map(e=>`+ ${e}`)]})}function Ur(e,t){if(!e.remoteSettings)return;let r;try{r=new URL(e.remoteSettings)}catch{return void t.push({field:"Remote Settings URL",message:["Please enter a valid URL."]})}const n=void 0;"sub/share-settings"!==r.pathname.split("/").slice(2).join("/")&&t.push({field:"Remote Settings URL",message:["This is not a valid BPB remote settings URL"]})}function Mr(e,t){const{httpsPorts:r}=me(),n=void 0;e.ports.filter(e=>r.includes(e)).length||t.push({field:"Ports",message:["At least one TLS port should be selected."]})}async function Lr(e,t){if("PUT"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const{telegramBotToken:n,telegramUserId:a}=await e.json(),o=n.trim(),s=a.trim();if(!o||!s)return m(!1,400,"Missing but info.");const{securePath:i}=me();await Or(i,o);const c={telegramBotToken:o,telegramUserId:s};return await t.kv.put("telegramBot",JSON.stringify(c)),m(!0,200,"Telegram bot setup completed successfully!",c)}catch(e){return m(!1,500,`Error occurred while setting Telegram Bot: ${g(e)}`)}}async function Or(e,t){const{origin:r}=me(),n=new URL(`/${e}/telegram/webhook`,r),a=new URL(`https://api.telegram.org/bot${t}/setWebhook`);a.searchParams.set("url",n.href);try{const e=await fetch(a),r=await e.json();if(!r.ok)throw new Error(r.description||"Failed to set webhook.");const n=await fetch(`https://api.telegram.org/bot${t}/setMyCommands`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({commands:[{command:"start",description:"🤖 Show welcome menu"},{command:"config",description:"🔗 Get configs"},{command:"clients",description:"📱 Get supported clients"},{command:"usage",description:"📊 Monitor usage"}]})}),o=await n.json();if(!o.ok)throw new Error(o.description||"Failed to set bot commands.")}catch(e){throw new Error(g(e))}}async function Br(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const{telegramBotToken:n}=await t.kv.get("telegramBot",{type:"json"}),a=await fetch(`https://api.telegram.org/bot${n}/deleteWebhook`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({drop_pending_updates:!0})}),o=await a.json();if(!a.ok||!o.ok)throw new Error(o.description||`Failed with status ${a.status}`);const s={telegramBotToken:"",telegramUserId:""};return await t.kv.put("telegramBot",JSON.stringify(s)),m(!0,200,"Telegram bot webhook deleted successfully!",s)}catch(e){return m(!1,500,`Error occurred while removing Telegram bot: ${g(e)}`)}}function $r(){return{inline_keyboard:[[{text:"🔗 Get Config",callback_data:"sub"}],[{text:"📱 Supported Clients",callback_data:"clients"}],[{text:"📊 Usage",callback_data:"usage"}]]}}function zr(){const e=void 0;return{inline_keyboard:[...Object.entries(Se).map(([e,t])=>[{text:`🔗 ${t.label}`,callback_data:`sub_${e}`}]),[{text:"◀️ Back",callback_data:"main"}]]}}function jr(){return{inline_keyboard:[[{text:"🔄 Refresh",callback_data:"usage_refresh"}],[{text:"◀️ Back",callback_data:"main"}]]}}function Hr(){const e=void 0;return{inline_keyboard:[...xe.map(e=>[{text:`🟢 ${e.name}`,callback_data:`client_${e.name}`}]),[{text:"◀️ Back",callback_data:"main"}]]}}async function Wr(e,t,r){const n=void 0;return(await fetch(`https://api.telegram.org/bot${e}/${t}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(r)})).json()}function Fr(e,t){const r=Math.ceil(Number(t)/1e5*100),n=Math.ceil(Number(e)/1e5*100),a=void 0;let o=["📊 <b>Cloudflare Workers Usage</b>","━━━━━━━━━━━━━━━━",`📅 Today: ${(new Date).toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}`,"",`🔵 <b>${_project_} requests</b>`,`${t} / 100,000 (${r}%)`,"","🔵 <b>Total requests</b>",`${e} / 100,000 (${n}%)`,"",""].join("\n");return o+=n>80?"🔴 <b>WARNING:</b> Approaching limit!\n":"✅ All within limits",o}function Gr(e,t){const{securePath:r,origin:n}=me(),a=new URL(`/${r}/sub/${e}`,n);return a.searchParams.set("app",t),a}function Vr(e,t,r){const n=Gr(e,t);if("sing-box"===t&&"raw"!==e){const e=new URL("sing-box://import-remote-profile");return e.searchParams.set("url",n.href),e.hash=`💦 ${_project_} ${r}`,e.href}return n.hash=`💦 ${_project_} ${r}`,n.href}function Kr(e,t,r){const{securePath:n,origin:a}=me(),o=Vr(e,t,r),s=new URL(`/${n}/qrcode`,a);return s.searchParams.set("data",o),s.searchParams.set("nocache",Date.now().toString()),s.href}function Jr(e,t){if("raw"===e)return null;const r=Gr(e,t),n=new URL(r),a=void 0,o=`${e}-${t.replace("xray-knocker","mahsang")}`,s=["wireguard","amnezia"].includes(t),i=s?`${o}-conf`:o,c=s?"zip":"json";return n.pathname=`${r.pathname}/${_project_SM_}-${i}.${c}`,n.searchParams.set("nocache",Date.now().toString()),n.href}async function Zr(e,t,r){const n=e.data||"";switch(n){case"sub":await Wr(t,"sendMessage",{chat_id:r,text:"🔗 <b>Get Config</b>\n\nChoose a config type:",parse_mode:"HTML",reply_markup:zr()});break;case"clients":await Wr(t,"sendMessage",{chat_id:r,text:"📱 <b>Supported clients</b>\n\nChoose a client:",parse_mode:"HTML",reply_markup:Hr()});break;case"usage":case"usage_refresh":const a=await sr();if(!a){await Wr(t,"sendMessage",{chat_id:r,text:"⚠️ Could not fetch usage data.",parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"◀️ Back",callback_data:"main"}]]}});break}if(!a.success){await Wr(t,"sendMessage",{chat_id:r,text:a.error,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"◀️ Back",callback_data:"main"}]]}});break}if(!a.total||!a.worker)break;const o=Fr(a.total,a.worker);"usage_refresh"===n&&e.message?.message_id?await Wr(t,"editMessageText",{chat_id:r,message_id:e.message.message_id,text:o,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔄 Refresh",callback_data:"usage_refresh"}],[{text:"◀️ Back",callback_data:"main"}]]}}):await Wr(t,"sendMessage",{chat_id:r,text:o,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔄 Refresh",callback_data:"usage_refresh"}],[{text:"◀️ Back",callback_data:"main"}]]}});break;default:const s=n.split("_")[1];if(n.startsWith("sub_")){const e=Se[s];if(!e)break;for(const[n,a]of e.categories.entries()){const o=Vr(s,a.core,e.label),i=Kr(s,a.core,e.label),c=Jr(s,a.core),l=["wireguard","amnezia"].includes(a.core),u=a.clients.map(e=>`✅ ${e}`).join("\n"),d=l?"":`<code>${o}</code>\n\n`,h=`💦 <b>${_project_} ${e.label}</b>\n\n${d}<b>Supported apps:</b>\n\n${u}`,p=n===e.categories.length-1,f={reply_markup:{inline_keyboard:[[{text:"◀️ Back",callback_data:"sub"}]]}};if(l)await Wr(t,"sendDocument",{chat_id:r,document:c,caption:h,parse_mode:"HTML",...p&&f});else{const e="raw"!==s;await Wr(t,"sendPhoto",{chat_id:r,photo:i,caption:h,parse_mode:"HTML",...p&&!e&&f}),e&&await Wr(t,"sendDocument",{chat_id:r,document:c,...p&&f})}}}if(n.startsWith("client_")){const e=xe.find(e=>e.name===s);if(!e)break;let n=[`✅ <b>${e.name}</b>`,"━━━━━━━━━━━━━━━━",`📍 <b>Minimum requirement:</b> ${e.minVer}`,`🏚️ <b>Download source:</b> ${e.source}`,"",`📥 <a href="${atob(e.b64Url)}"><b>Get latest version</b></a>`,""].join("\n");await Wr(t,"sendMessage",{chat_id:r,text:n,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"◀️ Back",callback_data:"clients"}]]}})}}}async function Xr(e,t){const r=await t.kv.get("telegramBot",{type:"json"});if(!r)return new Response(null,{status:200});const{telegramBotToken:n,telegramUserId:a}=r;if(!n||!a)return new Response(null,{status:200});const o=await e.json();if(o.callback_query){const e=o.callback_query;if(e.from.id.toString()!==a)return new Response(null,{status:200});await Wr(n,"answerCallbackQuery",{callback_query_id:e.id});const t=e.message?.chat.id;if(!t)return new Response(null,{status:200});const r=void 0;return"main"===(e.data||"")?await Wr(n,"sendMessage",{chat_id:t,text:`🤖 <b>${_project_} Panel Bot</b>\n\nChoose an option:`,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔗 Get Config",callback_data:"sub"}],[{text:"📱 Supported Clients",callback_data:"clients"}],[{text:"📊 Usage",callback_data:"usage"}]]}}):await Zr(e,n,t),qr(n,t),new Response(null,{status:200})}if(o.message){if(o.message.from.id.toString()!==a)return new Response(null,{status:200});const e=o.message.chat.id,t=void 0;switch(o.message.text||""){case"/usage":const t=await sr();if(!t.success||!t.worker||!t.total)break;await Wr(n,"sendMessage",{chat_id:e,text:Fr(t.total,t.worker),parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔄 Refresh",callback_data:"usage_refresh"}],[{text:"◀️ Back",callback_data:"main"}]]}});break;case"/clients":await Wr(n,"sendMessage",{chat_id:e,text:"📱 <b>Supported clients</b>\n\nChoose a client:",parse_mode:"HTML",reply_markup:Hr()});break;case"/config":await Wr(n,"sendMessage",{chat_id:e,text:"🔗 <b>Get Config</b>\n\nChoose a configuration type:",parse_mode:"HTML",reply_markup:zr()});break;default:await Wr(n,"sendMessage",{chat_id:e,text:`🤖 <b>${_project_} Panel Bot</b>\n\nChoose an option:`,parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔗 Get Config",callback_data:"sub"}],[{text:"📱 Supported Clients",callback_data:"clients"}],[{text:"📊 Usage",callback_data:"usage"}]]}});break}return qr(n,e),new Response(null,{status:200})}return new Response(null,{status:200})}async function qr(e,t){const r=await sr();if(!r.success||!r.worker||!r.total)return;const n=void 0;r.total/1e5*100>80&&await Wr(e,"sendMessage",{chat_id:t,text:Fr(r.total,r.worker),parse_mode:"HTML",reply_markup:{inline_keyboard:[[{text:"🔄 Refresh",callback_data:"usage_refresh"}],[{text:"◀️ Back",callback_data:"main"}]]}})}async function Yr(e,t){const{pathname:r}=me(),n=void 0,a=void 0;switch(r.split("/").slice(2).join("/")){case"panel":return Qr(e,t);case"panel/settings":return rn(e,t);case"panel/update-settings":return nn(e,t);case"panel/reset-settings":return an(e,t);case"panel/reset-password":return rr(e,t);case"panel/my-ip":return on(e);case"panel/update-warp":return sn(e,t);case"panel/update-panel":return en(e,t);case"panel/delete-panel":return tn(e,t);case"panel/usage":return ir(e,t);case"panel/logout":return Yt();default:return nr(e)}}async function Qr(e,t){const r=void 0;if(await t.kv.get("pwd")){const r=void 0;if(!await tr(e,t)){const t=new URL("./login",e.url);return Response.redirect(t,302)}}const n=void 0,a=(await p(PANEL_HTML_CONTENT)).replaceAll("__ICON__",ICON_CONTENT);return new Response(a,{headers:{"Content-Type":"text/html; charset=utf-8"}})}async function en(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const{deployType:n}=me(),a=await ce(!0);return"pages"===n?await Z(a):await Q(a),m(!0,200)}catch(e){return m(!1,500,`Error occurred while upgrading panel: ${g(e)}`)}}async function tn(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const{deployType:n}=me();return"pages"===n?await Y():await re(),m(!0,200)}catch(e){return m(!1,500,`Error occurred while deleting panel: ${g(e)}`)}}async function rn(e,t){const r=Boolean(await t.kv.get("pwd"));try{const n=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.",{isPassSet:r});const{settings:a,telegramBot:o}=await ue(t),s=we(),i=void 0;return m(!0,200,void 0,{proxySettings:{...a,...s},telegramSettings:o,subscriptions:Se,clients:xe,isPassSet:r},{"Content-Type":"application/json","Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"})}catch(e){return console.log(e),m(!1,500,`Error occurred while fetching settings: ${g(e)}`)}}async function nn(e,t){if("PUT"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const n=await e.json(),a=lr(n);if(a)return m(!1,400,"Validation Error",a);await Promise.all([de(t,n),oe(n)]);const{securePath:o}=me();if(n.securePath!==o){const e=await t.kv.get("telegramBot",{type:"json"});e&&await Or(n.securePath,e.telegramBotToken)}return m(!0,200,"")}catch(e){return console.log(e),m(!1,500,g(e))}}async function an(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed!");try{const r=void 0;if(!await tr(e,t))return m(!1,401,"Unauthorized or expired session.");const[n,a]=await Promise.all([de(t),oe(null)]);return m(!0,200,"",{...n,...a})}catch(e){return console.log(e),m(!1,500,`Error occurred while resetting settings: ${g(e)}`)}}async function on(e){const t=await e.text();try{const e=await fetch(`http://ip-api.com/json/${t}?nocache=${Date.now()}`),r=void 0;return m(!0,200,"",await e.json())}catch(e){return console.error("Error fetching IP address:",e),m(!1,500,`Error fetching IP address: ${g(e)}`)}}async function sn(e,t){if("POST"!==e.method)return m(!1,405,"Method not allowed.");try{const r=void 0;return await tr(e,t)?(await V(t),m(!0,200,"Warp configs updated successfully!")):m(!1,401,"Unauthorized or expired session.")}catch(e){return console.log(e),m(!1,500,`An error occurred while updating Warp configs: ${g(e)}`)}}import{connect as cn}from"cloudflare:sockets";async function ln(e,t){const{pathname:r}=me(),n=void 0;if(!await tr(e,t)){const t=new URL("./login",e.url);return Response.redirect(t,302)}const a=void 0,o=void 0;switch(r.split("/").slice(2).join("/")){case"proxy-ip":return un();case"proxy-ip/get":return dn();case"proxy-ip/test":return wn();default:return nr(e)}}async function un(){const e=void 0,t=(await p(PROXY_IP_HTML_CONTENT)).replaceAll("__ICON__",ICON_CONTENT);return new Response(t,{headers:{"Content-Type":"text/html; charset=utf-8"}})}async function dn(){const e=await y(_public_proxy_ip_,!0),t=void 0;return m(!0,200,void 0,await pn(e.ipv4))}function hn(e,t){const r=[];for(let n=0;n<e.length;n+=t)r.push(e.slice(n,n+t));return r}async function pn(e){const t=hn(e,100),r=[];for(const e of t){const t=await fetch("http://ip-api.com/batch?fields=query,city,country,countryCode,isp,status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(e)});if(!t.ok)throw new Error(`ip-api request failed: ${t.status}`);const n=await t.json();for(const e of n)"success"===e.status&&r.push({ip:e.query,city:e.city,country:e.country,countryCode:e.countryCode,isp:e.isp})}return r}var fn="speed.cloudflare.com",mn=5e3,gn=5;async function yn(e){const t=Date.now(),r="/__down?bytes=5000",n=new Promise((e,t)=>setTimeout(()=>t(new Error("timeout")),mn));try{const a=cn({hostname:e,port:443}),o=a.writable.getWriter(),s=`GET ${r} HTTP/1.1\r\nHost: ${fn}\r\nConnection: close\r\n\r\n`;await o.write((new TextEncoder).encode(s)),o.releaseLock();const i=a.readable.getReader(),{value:c,done:l}=await Promise.race([i.read(),n]);if(i.releaseLock(),await a.close().catch(()=>{}),l||!c)return{ok:!1,elapsedMs:Date.now()-t};const u=(new TextDecoder).decode(c),d=/^HTTP\/1\.[01] 400/.test(u),h=/cf-ray:/i.test(u),p=void 0;return{ok:d&&h,elapsedMs:Date.now()-t}}catch(e){return{ok:!1,elapsedMs:Date.now()-t}}}async function wn(){const{searchParams:e}=me(),t=e.get("target"),r=Array.from({length:gn},(e,r)=>yn(t).then(e=>({attempt:r+1,...e}))),n=await Promise.all(r),a=n.filter(e=>e.ok),o=a.length?Math.round(a.reduce((e,t)=>e+t.elapsedMs,0)/a.length):null;return m(!0,200,"",{successRate:`${a.length}/${gn}`,avgLatencyMs:o,attempts:n})}var bn=function(e,t){const r=236,n=17;let a=e;const o=xn[t];let s=null,i=0,c=null;const l=[],u={},d=function(e,t){i=4*a+17,s=function(e){const t=new Array(e);for(let r=0;r<e;r+=1){t[r]=new Array(e);for(let n=0;n<e;n+=1)t[r][n]=null}return t}(i),h(0,0),h(i-7,0),h(0,i-7),m(),f(),y(e,t),a>=7&&g(e),null==c&&(c=v(a,o,l)),w(c,t)},h=function(e,t){for(let r=-1;r<=7;r+=1)if(!(e+r<=-1||i<=e+r))for(let n=-1;n<=7;n+=1)t+n<=-1||i<=t+n||(s[e+r][t+n]=0<=r&&r<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==r||6==r)||2<=r&&r<=4&&2<=n&&n<=4)},p=function(){let e=0,t=0;for(let r=0;r<8;r+=1){d(!0,r);const n=Nn.getLostPoint(u);(0==r||e>n)&&(e=n,t=r)}return t},f=function(){for(let e=8;e<i-8;e+=1)null==s[e][6]&&(s[e][6]=e%2==0);for(let e=8;e<i-8;e+=1)null==s[6][e]&&(s[6][e]=e%2==0)},m=function(){const e=Nn.getPatternPosition(a);for(let t=0;t<e.length;t+=1)for(let r=0;r<e.length;r+=1){const n=e[t],a=e[r];if(null==s[n][a])for(let e=-2;e<=2;e+=1)for(let t=-2;t<=2;t+=1)s[n+e][a+t]=-2==e||2==e||-2==t||2==t||0==e&&0==t}},g=function(e){const t=Nn.getBCHTypeNumber(a);for(let r=0;r<18;r+=1){const n=!e&&1==(t>>r&1);s[Math.floor(r/3)][r%3+i-8-3]=n}for(let r=0;r<18;r+=1){const n=!e&&1==(t>>r&1);s[r%3+i-8-3][Math.floor(r/3)]=n}},y=function(e,t){const r=o<<3|t,n=Nn.getBCHTypeInfo(r);for(let t=0;t<15;t+=1){const r=!e&&1==(n>>t&1);t<6?s[t][8]=r:t<8?s[t+1][8]=r:s[i-15+t][8]=r}for(let t=0;t<15;t+=1){const r=!e&&1==(n>>t&1);t<8?s[8][i-t-1]=r:t<9?s[8][15-t-1+1]=r:s[8][15-t-1]=r}s[i-8][8]=!e},w=function(e,t){let r=-1,n=i-1,a=7,o=0;const c=Nn.getMaskFunction(t);for(let t=i-1;t>0;t-=2)for(6==t&&(t-=1);;){for(let r=0;r<2;r+=1)if(null==s[n][t-r]){let i=!1;o<e.length&&(i=1==(e[o]>>>a&1));const l=void 0;c(n,t-r)&&(i=!i),s[n][t-r]=i,a-=1,-1==a&&(o+=1,a=7)}if(n+=r,n<0||i<=n){n-=r,r=-r;break}}},b=function(e,t){let r=0,n=0,a=0;const o=new Array(t.length),s=new Array(t.length);for(let i=0;i<t.length;i+=1){const c=t[i].dataCount,l=t[i].totalCount-c;n=Math.max(n,c),a=Math.max(a,l),o[i]=new Array(c);for(let t=0;t<o[i].length;t+=1)o[i][t]=255&e.getBuffer()[t+r];r+=c;const u=Nn.getErrorCorrectPolynomial(l),d=void 0,h=Mn(o[i],u.getLength()-1).mod(u);s[i]=new Array(u.getLength()-1);for(let e=0;e<s[i].length;e+=1){const t=e+h.getLength()-s[i].length;s[i][e]=t>=0?h.getAt(t):0}}let i=0;for(let e=0;e<t.length;e+=1)i+=t[e].totalCount;const c=new Array(i);let l=0;for(let e=0;e<n;e+=1)for(let r=0;r<t.length;r+=1)e<o[r].length&&(c[l]=o[r][e],l+=1);for(let e=0;e<a;e+=1)for(let r=0;r<t.length;r+=1)e<s[r].length&&(c[l]=s[r][e],l+=1);return c},v=function(e,t,a){const o=Ln.getRSBlocks(e,t),s=On();for(let t=0;t<a.length;t+=1){const r=a[t];s.put(r.getMode(),4),s.put(r.getLength(),Nn.getLengthInBits(r.getMode(),e)),r.write(s)}let i=0;for(let e=0;e<o.length;e+=1)i+=o[e].dataCount;if(s.getLengthInBits()>8*i)throw"code length overflow. ("+s.getLengthInBits()+">"+8*i+")";for(s.getLengthInBits()+4<=8*i&&s.put(0,4);s.getLengthInBits()%8!=0;)s.putBit(!1);for(;!(s.getLengthInBits()>=8*i||(s.put(r,8),s.getLengthInBits()>=8*i));)s.put(n,8);return b(s,o)};u.addData=function(e,t){let r=null;switch(t=t||"Byte"){case"Numeric":r=Bn(e);break;case"Alphanumeric":r=$n(e);break;case"Byte":r=zn(e);break;case"Kanji":r=jn(e);break;default:throw"mode:"+t}l.push(r),c=null},u.isDark=function(e,t){if(e<0||i<=e||t<0||i<=t)throw e+","+t;return s[e][t]},u.getModuleCount=function(){return i},u.make=function(){if(a<1){let e=1;for(;e<40;e++){const t=Ln.getRSBlocks(e,o),r=On();for(let t=0;t<l.length;t++){const n=l[t];r.put(n.getMode(),4),r.put(n.getLength(),Nn.getLengthInBits(n.getMode(),e)),n.write(r)}let n=0;for(let e=0;e<t.length;e++)n+=t[e].dataCount;if(r.getLengthInBits()<=8*n)break}a=e}d(!1,p())},u.createTableTag=function(e,t){e=e||2;let r="";r+='<table style="',r+=" border-width: 0px; border-style: none;",r+=" border-collapse: collapse;",r+=" padding: 0px; margin: "+(t=void 0===t?4*e:t)+"px;",r+='">',r+="<tbody>";for(let t=0;t<u.getModuleCount();t+=1){r+="<tr>";for(let n=0;n<u.getModuleCount();n+=1)r+='<td style="',r+=" border-width: 0px; border-style: none;",r+=" border-collapse: collapse;",r+=" padding: 0px; margin: 0px;",r+=" width: "+e+"px;",r+=" height: "+e+"px;",r+=" background-color: ",r+=u.isDark(t,n)?"#000000":"#ffffff",r+=";",r+='"/>';r+="</tr>"}return r+="</tbody>",r+="</table>",r},u.createSvgTag=function(e,t,r,n){let a={};"object"==typeof arguments[0]&&(a=arguments[0],e=a.cellSize,t=a.margin,r=a.alt,n=a.title),e=e||2,t=void 0===t?4*e:t,(r="string"==typeof r?{text:r}:r||{}).text=r.text||null,r.id=r.text?r.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;const o=u.getModuleCount()*e+2*t;let s,i,c,l,d="",h;for(h="l"+e+",0 0,"+e+" -"+e+",0 0,-"+e+"z ",d+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',d+=a.scalable?"":' width="'+o+'px" height="'+o+'px"',d+=' viewBox="0 0 '+o+" "+o+'" ',d+=' preserveAspectRatio="xMinYMin meet"',d+=n.text||r.text?' role="img" aria-labelledby="'+_([n.id,r.id].join(" ").trim())+'"':"",d+=">",d+=n.text?'<title id="'+_(n.id)+'">'+_(n.text)+"</title>":"",d+=r.text?'<description id="'+_(r.id)+'">'+_(r.text)+"</description>":"",d+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',d+='<path d="',c=0;c<u.getModuleCount();c+=1)for(l=c*e+t,s=0;s<u.getModuleCount();s+=1)u.isDark(c,s)&&(i=s*e+t,d+="M"+i+","+l+h);return d+='" stroke="transparent" fill="black"/>',d+="</svg>",d},u.createDataURL=function(e,t){e=e||2,t=void 0===t?4*e:t;const r=u.getModuleCount()*e+2*t,n=t,a=r-t;return Vn(r,r,function(t,r){if(n<=t&&t<a&&n<=r&&r<a){const a=Math.floor((t-n)/e),o=Math.floor((r-n)/e);return u.isDark(o,a)?0:1}return 1})},u.createImgTag=function(e,t,r){e=e||2,t=void 0===t?4*e:t;const n=u.getModuleCount()*e+2*t;let a="";return a+="<img",a+=' src="',a+=u.createDataURL(e,t),a+='"',a+=' width="',a+=n,a+='"',a+=' height="',a+=n,a+='"',r&&(a+=' alt="',a+=_(r),a+='"'),a+="/>",a};const _=function(e){let t="";for(let r=0;r<e.length;r+=1){const n=e.charAt(r);switch(n){case"<":t+="&lt;";break;case">":t+="&gt;";break;case"&":t+="&amp;";break;case'"':t+="&quot;";break;default:t+=n;break}}return t},k=function(e){const t=1;e=void 0===e?2:e;const r=1*u.getModuleCount()+2*e,n=e,a=r-e;let o,s,i,c,l;const d={"██":"█","█ ":"▀"," █":"▄","  ":" "},h={"██":"▀","█ ":"▀"," █":" ","  ":" "};let p="";for(o=0;o<r;o+=2){for(i=Math.floor((o-n)/1),c=Math.floor((o+1-n)/1),s=0;s<r;s+=1)l="█",n<=s&&s<a&&n<=o&&o<a&&u.isDark(i,Math.floor((s-n)/1))&&(l=" "),n<=s&&s<a&&n<=o+1&&o+1<a&&u.isDark(c,Math.floor((s-n)/1))?l+=" ":l+="█",p+=e<1&&o+1>=a?h[l]:d[l];p+="\n"}return r%2&&e>0?p.substring(0,p.length-r-1)+Array(r+1).join("▀"):p.substring(0,p.length-1)};return u.createASCII=function(e,t){if((e=e||1)<2)return k(t);e-=1,t=void 0===t?2*e:t;const r=u.getModuleCount()*e+2*t,n=t,a=r-t;let o,s,i,c;const l=Array(e+1).join("██"),d=Array(e+1).join("  ");let h="",p="";for(o=0;o<r;o+=1){for(i=Math.floor((o-n)/e),p="",s=0;s<r;s+=1)c=1,n<=s&&s<a&&n<=o&&o<a&&u.isDark(i,Math.floor((s-n)/e))&&(c=0),p+=c?l:d;for(i=0;i<e;i+=1)h+=p+"\n"}return h.substring(0,h.length-1)},u.renderTo2dContext=function(e,t){t=t||2;const r=u.getModuleCount();for(let n=0;n<r;n++)for(let a=0;a<r;a++)e.fillStyle=u.isDark(n,a)?"black":"white",e.fillRect(a*t,n*t,t,t)},u};bn.stringToBytes=function(e){const t=[];for(let r=0;r<e.length;r+=1){const n=e.charCodeAt(r);t.push(255&n)}return t},bn.createStringToBytes=function(e,t){const r=function(){const r=Fn(e),n=function(){const e=r.read();if(-1==e)throw"eof";return e};let a=0;const o={};for(;;){const e=r.read();if(-1==e)break;const t=n(),s=void 0,i=void 0,c=void 0,l=n()<<8|n();o[String.fromCharCode(e<<8|t)]=l,a+=1}if(a!=t)throw a+" != "+t;return o}(),n="?".charCodeAt(0);return function(e){const t=[];for(let a=0;a<e.length;a+=1){const o=e.charCodeAt(a);if(o<128)t.push(o);else{const o=r[e.charAt(a)];"number"==typeof o?(255&o)==o?t.push(o):(t.push(o>>>8),t.push(255&o)):t.push(n)}}return t}};var vn=1,_n=2,kn=4,Sn=8,xn={L:1,M:0,Q:3,H:2},Cn=0,En=1,An=2,Pn=3,Tn=4,Dn=5,In=6,Rn=7,Nn=function(){const e=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],t=1335,r=7973,n=21522,a={},o=function(e){let t=0;for(;0!=e;)t+=1,e>>>=1;return t};return a.getBCHTypeInfo=function(e){let r=e<<10;for(;o(r)-o(t)>=0;)r^=t<<o(r)-o(t);return(e<<10|r)^n},a.getBCHTypeNumber=function(e){let t=e<<12;for(;o(t)-o(r)>=0;)t^=r<<o(t)-o(r);return e<<12|t},a.getPatternPosition=function(t){return e[t-1]},a.getMaskFunction=function(e){switch(e){case Cn:return function(e,t){return(e+t)%2==0};case En:return function(e,t){return e%2==0};case An:return function(e,t){return t%3==0};case Pn:return function(e,t){return(e+t)%3==0};case Tn:return function(e,t){return(Math.floor(e/2)+Math.floor(t/3))%2==0};case Dn:return function(e,t){return e*t%2+e*t%3==0};case In:return function(e,t){return(e*t%2+e*t%3)%2==0};case Rn:return function(e,t){return(e*t%3+(e+t)%2)%2==0};default:throw"bad maskPattern:"+e}},a.getErrorCorrectPolynomial=function(e){let t=Mn([1],0);for(let r=0;r<e;r+=1)t=t.multiply(Mn([1,Un.gexp(r)],0));return t},a.getLengthInBits=function(e,t){if(1<=t&&t<10)switch(e){case vn:return 10;case _n:return 9;case kn:return 8;case Sn:return 8;default:throw"mode:"+e}else if(t<27)switch(e){case vn:return 12;case _n:return 11;case kn:return 16;case Sn:return 10;default:throw"mode:"+e}else{if(!(t<41))throw"type:"+t;switch(e){case vn:return 14;case _n:return 13;case kn:return 16;case Sn:return 12;default:throw"mode:"+e}}},a.getLostPoint=function(e){const t=e.getModuleCount();let r=0;for(let n=0;n<t;n+=1)for(let a=0;a<t;a+=1){let o=0;const s=e.isDark(n,a);for(let r=-1;r<=1;r+=1)if(!(n+r<0||t<=n+r))for(let i=-1;i<=1;i+=1)a+i<0||t<=a+i||0==r&&0==i||s==e.isDark(n+r,a+i)&&(o+=1);o>5&&(r+=3+o-5)}for(let n=0;n<t-1;n+=1)for(let a=0;a<t-1;a+=1){let t=0;e.isDark(n,a)&&(t+=1),e.isDark(n+1,a)&&(t+=1),e.isDark(n,a+1)&&(t+=1),e.isDark(n+1,a+1)&&(t+=1),0!=t&&4!=t||(r+=3)}for(let n=0;n<t;n+=1)for(let a=0;a<t-6;a+=1)e.isDark(n,a)&&!e.isDark(n,a+1)&&e.isDark(n,a+2)&&e.isDark(n,a+3)&&e.isDark(n,a+4)&&!e.isDark(n,a+5)&&e.isDark(n,a+6)&&(r+=40);for(let n=0;n<t;n+=1)for(let a=0;a<t-6;a+=1)e.isDark(a,n)&&!e.isDark(a+1,n)&&e.isDark(a+2,n)&&e.isDark(a+3,n)&&e.isDark(a+4,n)&&!e.isDark(a+5,n)&&e.isDark(a+6,n)&&(r+=40);let n=0;for(let r=0;r<t;r+=1)for(let a=0;a<t;a+=1)e.isDark(a,r)&&(n+=1);const a=void 0;return r+=10*(Math.abs(100*n/t/t-50)/5),r},a}(),Un=function(){const e=new Array(256),t=new Array(256);for(let t=0;t<8;t+=1)e[t]=1<<t;for(let t=8;t<256;t+=1)e[t]=e[t-4]^e[t-5]^e[t-6]^e[t-8];for(let r=0;r<255;r+=1)t[e[r]]=r;const r={glog:function(e){if(e<1)throw"glog("+e+")";return t[e]},gexp:function(t){for(;t<0;)t+=255;for(;t>=256;)t-=255;return e[t]}};return r}(),Mn=function(e,t){if(void 0===e.length)throw e.length+"/"+t;const r=function(){let r=0;for(;r<e.length&&0==e[r];)r+=1;const n=new Array(e.length-r+t);for(let t=0;t<e.length-r;t+=1)n[t]=e[t+r];return n}(),n={getAt:function(e){return r[e]},getLength:function(){return r.length},multiply:function(e){const t=new Array(n.getLength()+e.getLength()-1);for(let r=0;r<n.getLength();r+=1)for(let a=0;a<e.getLength();a+=1)t[r+a]^=Un.gexp(Un.glog(n.getAt(r))+Un.glog(e.getAt(a)));return Mn(t,0)},mod:function(e){if(n.getLength()-e.getLength()<0)return n;const t=Un.glog(n.getAt(0))-Un.glog(e.getAt(0)),r=new Array(n.getLength());for(let e=0;e<n.getLength();e+=1)r[e]=n.getAt(e);for(let n=0;n<e.getLength();n+=1)r[n]^=Un.gexp(Un.glog(e.getAt(n))+t);return Mn(r,0).mod(e)}};return n},Ln=function(){const e=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],t=function(e,t){const r={};return r.totalCount=e,r.dataCount=t,r},r={},n=function(t,r){switch(r){case xn.L:return e[4*(t-1)+0];case xn.M:return e[4*(t-1)+1];case xn.Q:return e[4*(t-1)+2];case xn.H:return e[4*(t-1)+3];default:return}};return r.getRSBlocks=function(e,r){const a=n(e,r);if(void 0===a)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+r;const o=a.length/3,s=[];for(let e=0;e<o;e+=1){const r=a[3*e+0],n=a[3*e+1],o=a[3*e+2];for(let e=0;e<r;e+=1)s.push(t(n,o))}return s},r}(),On=function(){const e=[];let t=0;const r={getBuffer:function(){return e},getAt:function(t){const r=Math.floor(t/8);return 1==(e[r]>>>7-t%8&1)},put:function(e,t){for(let n=0;n<t;n+=1)r.putBit(1==(e>>>t-n-1&1))},getLengthInBits:function(){return t},putBit:function(r){const n=Math.floor(t/8);e.length<=n&&e.push(0),r&&(e[n]|=128>>>t%8),t+=1}};return r},Bn=function(e){const t=vn,r=e,n={getMode:function(){return t},getLength:function(e){return r.length},write:function(e){const t=r;let n=0;for(;n+2<t.length;)e.put(a(t.substring(n,n+3)),10),n+=3;n<t.length&&(t.length-n==1?e.put(a(t.substring(n,n+1)),4):t.length-n==2&&e.put(a(t.substring(n,n+2)),7))}},a=function(e){let t=0;for(let r=0;r<e.length;r+=1)t=10*t+o(e.charAt(r));return t},o=function(e){if("0"<=e&&e<="9")return e.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+e};return n},$n=function(e){const t=_n,r=e,n={getMode:function(){return t},getLength:function(e){return r.length},write:function(e){const t=r;let n=0;for(;n+1<t.length;)e.put(45*a(t.charAt(n))+a(t.charAt(n+1)),11),n+=2;n<t.length&&e.put(a(t.charAt(n)),6)}},a=function(e){if("0"<=e&&e<="9")return e.charCodeAt(0)-"0".charCodeAt(0);if("A"<=e&&e<="Z")return e.charCodeAt(0)-"A".charCodeAt(0)+10;switch(e){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+e}};return n},zn=function(e){const t=kn,r=e,n=bn.stringToBytes(e),a={getMode:function(){return t},getLength:function(e){return n.length},write:function(e){for(let t=0;t<n.length;t+=1)e.put(n[t],8)}};return a},jn=function(e){const t=Sn,r=e,n=bn.stringToBytes;!function(e,t){const r=n(e);if(2!=r.length||(r[0]<<8|r[1])!=t)throw"sjis not supported."}("友",38726);const a=n(e),o={getMode:function(){return t},getLength:function(e){return~~(a.length/2)},write:function(e){const t=a;let r=0;for(;r+1<t.length;){let n=(255&t[r])<<8|255&t[r+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(r+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),e.put(n,13),r+=2}if(r<t.length)throw"illegal char at "+(r+1)}};return o},Hn=function(){const e=[],t={writeByte:function(t){e.push(255&t)},writeShort:function(e){t.writeByte(e),t.writeByte(e>>>8)},writeBytes:function(e,r,n){r=r||0,n=n||e.length;for(let a=0;a<n;a+=1)t.writeByte(e[a+r])},writeString:function(e){for(let r=0;r<e.length;r+=1)t.writeByte(e.charCodeAt(r))},toByteArray:function(){return e},toString:function(){let t="";t+="[";for(let r=0;r<e.length;r+=1)r>0&&(t+=","),t+=e[r];return t+="]",t}};return t},Wn=function(){let e=0,t=0,r=0,n="";const a={},o=function(e){n+=String.fromCharCode(s(63&e))},s=function(e){if(e<0)throw"n:"+e;if(e<26)return 65+e;if(e<52)return e-26+97;if(e<62)return e-52+48;if(62==e)return 43;if(63==e)return 47;throw"n:"+e};return a.writeByte=function(n){for(e=e<<8|255&n,t+=8,r+=1;t>=6;)o(e>>>t-6),t-=6},a.flush=function(){if(t>0&&(o(e<<6-t),e=0,t=0),r%3!=0){const e=3-r%3;for(let t=0;t<e;t+=1)n+="="}},a.toString=function(){return n},a},Fn=function(e){const t=e;let r=0,n=0,a=0;const o={read:function(){for(;a<8;){if(r>=t.length){if(0==a)return-1;throw"unexpected end of file./"+a}const e=t.charAt(r);if(r+=1,"="==e)return a=0,-1;e.match(/^\s$/)||(n=n<<6|s(e.charCodeAt(0)),a+=6)}const e=n>>>a-8&255;return a-=8,e}},s=function(e){if(65<=e&&e<=90)return e-65;if(97<=e&&e<=122)return e-97+26;if(48<=e&&e<=57)return e-48+52;if(43==e)return 62;if(47==e)return 63;throw"c:"+e};return o},Gn=function(e,t){const r=e,n=t,a=new Array(e*t),o={setPixel:function(e,t,n){a[t*r+e]=n},write:function(e){e.writeString("GIF87a"),e.writeShort(r),e.writeShort(n),e.writeByte(128),e.writeByte(0),e.writeByte(0),e.writeByte(0),e.writeByte(0),e.writeByte(0),e.writeByte(255),e.writeByte(255),e.writeByte(255),e.writeString(","),e.writeShort(0),e.writeShort(0),e.writeShort(r),e.writeShort(n),e.writeByte(0);const t=2,a=i(2);e.writeByte(2);let o=0;for(;a.length-o>255;)e.writeByte(255),e.writeBytes(a,o,255),o+=255;e.writeByte(a.length-o),e.writeBytes(a,o,a.length-o),e.writeByte(0),e.writeString(";")}},s=function(e){const t=e;let r=0,n=0;const a={write:function(e,a){if(e>>>a!=0)throw"length over";for(;r+a>=8;)t.writeByte(255&(e<<r|n)),a-=8-r,e>>>=8-r,n=0,r=0;n|=e<<r,r+=a},flush:function(){r>0&&t.writeByte(n)}};return a},i=function(e){const t=1<<e,r=1+(1<<e);let n=e+1;const o=c();for(let e=0;e<t;e+=1)o.add(String.fromCharCode(e));o.add(String.fromCharCode(t)),o.add(String.fromCharCode(r));const i=Hn(),l=s(i);l.write(t,n);let u=0,d=String.fromCharCode(a[u]);for(u+=1;u<a.length;){const e=String.fromCharCode(a[u]);u+=1,o.contains(d+e)?d+=e:(l.write(o.indexOf(d),n),o.size()<4095&&(o.size()==1<<n&&(n+=1),o.add(d+e)),d=e)}return l.write(o.indexOf(d),n),l.write(r,n),l.flush(),i.toByteArray()},c=function(){const e={};let t=0;const r={add:function(n){if(r.contains(n))throw"dup key:"+n;e[n]=t,t+=1},size:function(){return t},indexOf:function(t){return e[t]},contains:function(t){return void 0!==e[t]}};return r};return o},Vn=function(e,t,r){const n=Gn(e,t);for(let a=0;a<t;a+=1)for(let t=0;t<e;t+=1)n.setPixel(t,a,r(t,a));const a=Hn();n.write(a);const o=Wn(),s=a.toByteArray();for(let e=0;e<s.length;e+=1)o.writeByte(s[e]);return o.flush(),"data:image/gif;base64,"+o},Kn=bn,Jn=bn.stringToBytes;function Zn(e){let t=4294967295;for(const r of e){t^=r;for(let e=0;e<8;e++)t=t>>>1^(1&t?3988292384:0)}return(4294967295^t)>>>0}function Xn(e){return new Uint8Array([e>>>24,e>>>16,e>>>8,e])}function qn(e,t){const r=(new TextEncoder).encode(e),n=new Uint8Array(r.length+t.length);n.set(r),n.set(t,r.length);const a=new Uint8Array(12+t.length);return a.set(Xn(t.length),0),a.set(r,4),a.set(t,8),a.set(Xn(Zn(n)),8+t.length),a}async function Yn(e){const t=new Uint8Array(e),r=new Blob([t.buffer]).stream().pipeThrough(new CompressionStream("deflate"));return new Uint8Array(await new Response(r).arrayBuffer())}async function Qn(e,t,r){const n=new Uint8Array(t*(4*e+1));for(let a=0;a<t;a++){const t=a*e*4,o=a*(4*e+1);n[o]=0,n.set(r.subarray(t,t+4*e),o+1)}const a=new Uint8Array(13);a.set(Xn(e),0),a.set(Xn(t),4),a[8]=8,a[9]=6;const o=await Yn(n),s=[new Uint8Array([137,80,78,71,13,10,26,10]),qn("IHDR",a),qn("IDAT",o),qn("IEND",new Uint8Array)],i=s.reduce((e,t)=>e+t.length,0),c=new Uint8Array(i);let l=0;for(const e of s)c.set(e,l),l+=e.length;return c.buffer}async function ea(e){const{searchParams:t,origin:r}=me(),n=t.get("data")??"",a=new URL(n),o=void 0;let s=a;if("sing-box:"===a.protocol){const e=a.searchParams.get("url")??"";s=new URL(e)}if(s.origin!==r)return nr(e);const i=Kn(0,"M");i.addData(n),i.make();const c=i.getModuleCount(),l=8,u=4,d=8*(c+8),h=new Uint8Array(d*d*4);for(let e=0;e<h.length;e+=4)h[e]=255,h[e+1]=255,h[e+2]=255,h[e+3]=255;for(let e=0;e<c;e++)for(let t=0;t<c;t++)if(i.isDark(e,t))for(let r=0;r<8;r++)for(let n=0;n<8;n++){const a=void 0,o=void 0,s=4*((8*(e+4)+r)*d+(8*(t+4)+n));h[s]=15,h[s+1]=23,h[s+2]=42,h[s+3]=255}const p=await Qn(d,d,h);return new Response(p,{headers:{"Content-Type":"image/png","Cache-Control":"no-store"}})}function ta(){const{localDNS:e,antiSanctionDNS:t,blockMalware:r,blockPhishing:n,blockCryptominers:a,blockAds:o,blockPorn:s,bypassIran:i,bypassChina:c,bypassRussia:l,bypassOpenAi:u,bypassGoogleAi:d,bypassMicrosoft:h,bypassOracle:p,bypassDocker:f,bypassAdobe:m,bypassEpicGames:g,bypassIntel:y,bypassAmd:w,bypassNvidia:b,bypassAsus:v,bypassHp:_,bypassLenovo:k}=ve();return[{rule:r,type:"block",format:"text",geosite:"malware",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware.txt",geoip:"malware-cidr",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware-ip.txt"},{rule:n,type:"block",format:"text",geosite:"phishing",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing.txt",geoip:"phishing-cidr",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing-ip.txt"},{rule:a,type:"block",format:"text",geosite:"cryptominers",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/cryptominers.txt"},{rule:o,type:"block",format:"text",geosite:"category-ads-all",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/category-ads-all.txt"},{rule:s,type:"block",format:"text",geosite:"nsfw",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/nsfw.txt"},{rule:i,type:"direct",dns:e,format:"text",geosite:"ir",geoip:"ir-cidr",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ir.txt",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ircidr.txt"},{rule:c,type:"direct",dns:e,format:"yaml",geosite:"cn",geoip:"cn-cidr",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml",geoipURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml"},{rule:l,type:"direct",dns:e,format:"yaml",geosite:"ru",geoip:"ru-cidr",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ru.yaml",geoipURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/ru.yaml"},{rule:u,type:"direct",dns:t,format:"yaml",geosite:"openai",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml"},{rule:d,type:"direct",dns:t,format:"yaml",geosite:"googleai",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-deepmind.yaml"},{rule:h,type:"direct",dns:t,format:"yaml",geosite:"microsoft",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.yaml"},{rule:p,type:"direct",dns:t,format:"yaml",geosite:"oracle",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/oracle.yaml"},{rule:f,type:"direct",dns:t,format:"yaml",geosite:"docker",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/docker.yaml"},{rule:m,type:"direct",dns:t,format:"yaml",geosite:"adobe",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/adobe.yaml"},{rule:g,type:"direct",dns:t,format:"yaml",geosite:"epicgames",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/epicgames.yaml"},{rule:y,type:"direct",dns:t,format:"yaml",geosite:"intel",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/intel.yaml"},{rule:w,type:"direct",dns:t,format:"yaml",geosite:"amd",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/amd.yaml"},{rule:b,type:"direct",dns:t,format:"yaml",geosite:"nvidia",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/nvidia.yaml"},{rule:v,type:"direct",dns:t,format:"yaml",geosite:"asus",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/asus.yaml"},{rule:_,type:"direct",dns:t,format:"yaml",geosite:"hp",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/hp.yaml"},{rule:k,type:"direct",dns:t,format:"yaml",geosite:"lenovo",geositeURL:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/lenovo.yaml"}].filter(({rule:e})=>e)}async function ra(e,t,r){const{localDNS:n,remoteDNS:a,warpRemoteDNS:o,antiSanctionDNS:s,chainProxyParams:i,remoteDnsHost:c,enableIPv6:l,fakeDNS:u,allowLANConnection:d}=ve(),h="localhost"===n?"system":`${n}#DIRECT`,p=void 0,f=void 0,m=`${t?o:a}#${t?`💦 Warp ${r?"Pro ":""}- Best Ping 🚀`:e?"💦 Best Ping 🚀":"✅ Selector"}`,g={},y={};if(e&&!t){const{server:e}=i;E(e)&&(y[e]=m)}if(c.isDomain&&!t){const{ipv4:e,ipv6:t,host:r}=c;g[r]=e.concatIf(l,t)}const w=void 0,b=j(ta()),v=void 0;[...b.block.geosites.map(e=>`rule-set:${e}`),...b.block.domains.map(e=>`+.${e}`)].forEach(e=>g[e]="rcode://refused");const _=[...b.bypass.antiSanctionDNS.geosites.map(e=>`rule-set:${e}`),...b.bypass.antiSanctionDNS.domains.map(e=>`+.${e}`)],k=[...b.bypass.localDNS.geositeGeoips.map(({geosite:e})=>`rule-set:${e}`),...b.bypass.localDNS.geosites.map(e=>`rule-set:${e}`),...b.bypass.localDNS.domains.map(e=>`+.${e}`)];if(_.length){_.forEach(e=>y[e]=`${s}#DIRECT`);const{host:e,isHostDomain:t}=U(s);t&&k.push(e)}k.forEach(e=>y[e]=h);const S=void 0;let x="redir-host",C={};u&&(x="fake-ip",C={"fake-ip-range":"198.18.0.1/16","fake-ip-filter-mode":"blacklist","fake-ip-filter":["+.lan","+.local"]});const A=void 0;return{enable:!0,"respect-rules":!0,"use-system-hosts":!1,listen:(d?"0.0.0.0":"127.0.0.1")+":1053",ipv6:l,hosts:g.omitEmpty(),nameserver:[m],"proxy-server-nameserver":[h],"direct-nameserver":[h],"direct-nameserver-follow-policy":!0,"nameserver-policy":y.omitEmpty(),"enhanced-mode":x,...C}}function na(e){const{blockUDP443:t}=ve(),r=void 0,n=z(ta()),a=["GEOIP,lan,DIRECT,no-resolve"];return e?t&&a.push("AND,((NETWORK,udp),(DST-PORT,443)),REJECT"):a.push("NETWORK,udp,REJECT"),[...a,...n.block.geosites.map(e=>`RULE-SET,${e},REJECT`),...n.block.domains.map(e=>`DOMAIN-SUFFIX,${e},REJECT`),...n.block.geoips.map(e=>`RULE-SET,${e},REJECT`),...n.block.ips.map(e=>sa(e,"REJECT")),...n.bypass.geosites.map(e=>`RULE-SET,${e},DIRECT`),...n.bypass.domains.map(e=>`DOMAIN-SUFFIX,${e},DIRECT`),...n.bypass.geoips.map(e=>`RULE-SET,${e},DIRECT`),...n.bypass.ips.map(e=>sa(e,"DIRECT")),"MATCH,✅ Selector"]}function aa(){const e=void 0;return ta().reduce((e,t)=>(oa(e,t),e),{}).omitEmpty()}function oa(e,t){const{geosite:r,geoip:n,geositeURL:a,geoipURL:o,format:s}=t,i="text"===s?"txt":s,c=(t,r,n)=>{e[t]={type:"http",format:s,behavior:r,path:`./ruleset/${t}.${i}`,interval:86400,url:n}};r&&a&&c(r,"domain",a),n&&o&&c(n,"ipcidr",o)}function sa(e,t){const r=(e=P(e)?e.replace(/\[|\]/g,""):e).includes("/")?"":A(e)?"/32":"/128";return`IP-CIDR,${e}${r},${t}`}function ia(e,t,r,n,a,o,s,i,c){return{name:e,type:t,server:r.replace(/\[|\]/g,""),port:n,"ip-version":a?"ipv4-prefer":"ipv4",tfo:o,udp:!1,...c,...s,...i}}function ca(e,t,r,n,a){const{vlUUID:o,trPass:s,fingerprint:i,enableTFO:c,enableIPv6:l,enableECH:u,echServerName:d,upstreamParams:{upstreamServer:h}}=ve(),p=O(n)||r===h;if(e===_TR_&&!p)return null;const{host:f,sni:m,allowInsecure:g}=M(r,a),y=p?ha(e,"tls",g,m,u,d||void 0,"http/1.1",i):{},w=pa("ws",void 0,x(e),f,void 0,2560);return e===_VL_?ia(t,e,r,n,l,c,y,w,{uuid:o,"packet-encoding":"",encryption:""}):ia(t,e,r,n,l,c,y,w,{password:s})}function la(e,t,r,n,a){const{amneziaNoiseCount:o,amneziaNoiseSizeMin:s,amneziaNoiseSizeMax:i,enableIPv6:c,warpReservedBytes:l}=ve(),{warpIPv6:u,reserved:d,publicKey:h,privateKey:p}=e,{host:f,port:m}=L(r,!1),g=void 0,y=void 0;return{name:t,type:"wireguard",ip:"172.16.0.2/32",ipv6:u,"ip-version":c?"ipv4-prefer":"ipv4","private-key":p,server:n?"162.159.192.1":f,port:n?2408:m,"public-key":h,"allowed-ips":["0.0.0.0/0","::/0"],reserved:l?C(d):[0,0,0],udp:!0,mtu:1280,"dialer-proxy":n||void 0,"amnezia-wg-option":a?{jc:o,jmin:s,jmax:i,H1:1,H2:2,H3:3,H4:4}:void 0}}function ua(){const{chainProxy:e,chainProxyParams:{protocol:t,server:r,port:n,user:a,pass:o,password:s,method:i,uuid:c,flow:l,security:u,type:d,sni:h,fp:p,host:f,path:m,alpn:g,pbk:y,sid:w,headerType:b,serviceName:v,aid:_,encryption:k}}=ve(),{searchParams:S}=new URL(e),x=S.get("ed"),C=x?+x:void 0,E=ha(t,u,!1,h||r,!1,void 0,g,p,y,w),A=pa(d,b,m,f,v,C);switch(t){case"http":return ia("","http",r,n,!1,!1,{},{},{username:a,password:o});case"socks":return ia("","socks5",r,n,!1,!1,{},{},{username:a,password:o});case _SS_:return ia("","ss",r,n,!1,!1,{},{},{cipher:i,password:s});case _VL_:return ia("",_VL_,r,n,!1,!1,E,A,{uuid:c,flow:l,encryption:k?.replace("none","")??""});case _VM_:return ia("",_VM_,r,n,!1,!1,E,A,{uuid:c,cipher:"auto",alterId:_});case _TR_:if("none"===u)return;return ia("",_TR_,r,n,!1,!1,E,A,{password:s});default:return}}function da(e,t,r){const{warpBestPingInterval:n,bestPingInterval:a}=ve();return{name:e,type:"url-test",proxies:t,url:"https://www.gstatic.com/generate_204",interval:r?n:a,tolerance:50}}function ha(e,t,r,n,a,o,s,i,c,l){if(!["tls","reality"].includes(t))return{};const u={tls:!0,[e===_TR_?"sni":"servername"]:n,"client-fingerprint":"randomized"===i?"random":i,"skip-cert-verify":r};return"tls"===t?{...u,alpn:s?.split(","),"ech-opts":a?{enable:!0,"query-server-name":o}:void 0}:"reality"===t&&c&&l?{...u,"reality-opts":{"public-key":c,"short-id":l}}:{}}function pa(e,t,r="/",n,a,o,s,i){switch(r=r?.split("?")[0],e){case"tcp":return"http"===t?{network:"http","http-opts":{method:"GET",path:r.split(","),headers:{Host:n?.split(","),Connection:["keep-alive"],"Content-Type":["application/octet-stream"]}}}:{network:"tcp"};case"ws":return{network:"ws","ws-opts":{path:r,"max-early-data":o,"early-data-header-name":o?"Sec-WebSocket-Protocol":void 0,headers:{Host:n}}};case"httpupgrade":return{network:"ws","ws-opts":{[`${_V2_}-http-upgrade`]:!0,[`${_V2_}-http-upgrade-fast-open`]:!0,path:r,headers:{Host:n}}};case"grpc":return{network:"grpc","grpc-opts":{"grpc-service-name":a}};case"xhttp":const e=JSON.parse(decodeURIComponent(i??"{}")),{xPaddingBytes:c,xmux:l}=e;return{network:"xhttp","xhttp-opts":{host:n??"",path:r,mode:s||"auto","x-padding-bytes":c??"100-1000","reuse-settings":{"max-concurrency":l?.maxConcurrency??"16-32","max-connections":l?.maxConnections??0,"c-max-reuse-times":l?.cMaxReuseTimes??0,"h-max-request-times":l?.hMaxRequestTimes??"600-900","h-max-reusable-secs":l?.hMaxReusableSecs??"1800-3000","h-keep-alive-period":l?.hKeepAlivePeriod??0}}};default:return{}}}var fa={enable:!0,stack:"mixed","auto-route":!0,"strict-route":!0,"auto-detect-interface":!0,"dns-hijack":["any:53","tcp://any:53"],mtu:9e3},ma={enable:!0,"force-dns-mapping":!0,"parse-pure-ip":!0,"override-destination":!0,sniff:{HTTP:{ports:[80,8080,8880,2052,2082,2086,2095]},TLS:{ports:[443,8443,2053,2083,2087,2096]}}};async function ga(e,t,r,n,a){const{logLevel:o,allowLANConnection:s}=ve(),i=Object.keys(t).filter(e=>!!t[e].length),c=[...i,...i.flatMap(e=>t[e])],l=n?{}:{"disable-keep-alive":!1,"keep-alive-idle":10,"keep-alive-interval":15,"tcp-concurrent":!0},u={"mixed-port":7890,ipv6:!0,"allow-lan":s,"unified-delay":!1,"log-level":o.replace("none","silent"),mode:"rule",...l,"geo-auto-update":!0,"geo-update-interval":168,"external-controller":"127.0.0.1:9090","external-controller-cors":{"allow-origins":["*"],"allow-private-network":!0},"external-ui":"ui","external-ui-url":"https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",profile:{"store-selected":!0,"store-fake-ip":!0},dns:await ra(r,n,a),tun:fa,sniffer:ma,proxies:e,"proxy-groups":[{name:"✅ Selector",type:"select",proxies:c}],"rule-providers":aa(),rules:na(n),ntp:{enable:!0,server:"time.cloudflare.com",port:123,interval:30}};for(const e of i)if(t[e].length){const r=da(e,t[e],n);u["proxy-groups"].push(r)}return u}async function ya(){const{chainProxy:e,ports:t,mainDomain:r,customDomain:n,upstreamParams:{upstreamServer:a,upstreamPort:o}}=ve(),s=e?ua():void 0,i=!!s,c=[r].concatIf(!!n,n),l=b(),u=[],d={"💦 Best Ping 🚀":[],"💦 🔗 Best Ping 🚀":[],"💦 Best Ping D 🚀":[],"💦 🔗 Best Ping D 🚀":[]};for(const e of c){const r=t.filter(t=>e.endsWith("workers.dev")||O(t)),c=await v(e,!1);a&&o&&(r.unshift(o),c.unshift(a));for(const t of l){let l=1;for(const h of r)for(const r of c){if(h===o!=(r===a))continue;const c=_(l,h,r,t,e,!1,!1),p=ca(t,c,r,h,e);if(p){if(u.push(p),e===n?d["💦 Best Ping D 🚀"].push(c):d["💦 Best Ping 🚀"].push(c),i){const a=_(l,h,r,t,e,!1,!0),o=structuredClone(s);o.name=a,o["dialer-proxy"]=c,u.push(o),e===n?d["💦 🔗 Best Ping D 🚀"].push(a):d["💦 🔗 Best Ping 🚀"].push(a)}l++}}}}const h=await ga(u,d,i,!1,!1);return new Response(JSON.stringify(h,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-normal-clash.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}async function wa(e){const{warpEndpoints:t}=ve(),r=ge(),n=[],a=e?"Pro ":"",o={[`💦 Warp ${a}- Best Ping 🚀`]:[],[`💦 WoW ${a}- Best Ping 🚀`]:[]};t.forEach((t,s)=>{const i=`💦 ${s+1}. Warp ${a}🇮🇷`;o[`💦 Warp ${a}- Best Ping 🚀`].push(i);const c=`💦 ${s+1}. WoW ${a}🌍`;o[`💦 WoW ${a}- Best Ping 🚀`].push(c);const l=la(r[0],i,t,"",e),u=la(r[1],c,t,i,!1);n.push(l,u)});const s=await ga(n,o,!1,!0,e),i=e?"warp-Pro":"warp";return new Response(JSON.stringify(s,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-${i}-clash.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}async function ba(){const{fingerprint:e,ports:t,chainProxy:r,remoteDNS:n,customConfigs:a,customSubs:o,customDomain:s,vlUUID:i,trPass:c,httpsPorts:l,client:u,mainDomain:h,upstreamParams:{upstreamServer:p,upstreamPort:f}}=ve(),m=(t,r,n,a,o,s)=>{const d=l.includes(n)||r===p,h=d?"tls":"none",f=new URL(`${t}://config`);t===_VL_?(f.username=i,f.searchParams.append("encryption","none")):f.username=c;const m=x(t);return f.hostname=r,f.port=n.toString(),f.searchParams.append("host",a),f.searchParams.append("type","ws"),f.searchParams.append("security",h),f.hash=s,"sing-box"===u?(f.searchParams.append("eh","Sec-WebSocket-Protocol"),f.searchParams.append("ed","2560"),f.searchParams.append("path",m)):f.searchParams.append("path",`${m}?ed=2560`),d&&(f.searchParams.append("sni",o),f.searchParams.append("fp",e),f.searchParams.append("alpn","http/1.1")),f.href};let g="",y="",w="",k=1;const S=[h].concatIf(!!s,s),C=b();for(const e of S){const r=t.filter(t=>e.endsWith("workers.dev")||O(t)),n=await v(e,!1);p&&f&&(r.unshift(f),n.unshift(p));for(const t of r)for(const r of n){const{sni:n,host:a}=M(r,e);if(t===f==(r===p)){if(C.includes(_VL_)){const o=_(k,t,r,_VL_,e,!1,!1),s=void 0;g+=`${m(_VL_,r,t,a,n,o)}\n`}if(C.includes(_TR_)){const o=_(k,t,r,_TR_,e,!1,!1),s=void 0;y+=`${m(_TR_,r,t,a,n,o)}\n`}k++}}}if(r){let e=`#${encodeURIComponent("💦 Chain proxy 🔗")}`;if(r.startsWith("socks")||r.startsWith("http")){const t=/^(?:socks|http):\/\/([^@]+)@/,n=r.match(t),a=!!n&&n[1];w=a?r.replace(a,btoa(a))+e:r+e}else w=r.split("#")[0]+e}const E=void 0,A=d(g+y+w+(a.join("\n")+await va(o)));return new Response(A,{status:200,headers:{"Content-Type":"text/plain; charset=utf-8","Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0","Profile-Title":`base64:${d(`💦 ${_project_} Raw`)}`,DNS:n}})}async function va(e){const t=void 0;return(await Promise.all(e.map(async e=>{try{const t=await fetch(e);if(!t.ok)return"";const r=(await t.text()).trim();if(!r)return"";if(R(r))try{return h(r)}catch{return r}return r}catch{return""}}))).filter(Boolean).join("\n")}function _a(e,t,r,n,a,o,s,i,c){return{tag:e,type:t,server:r,server_port:n,tcp_fast_open:a,...o,tls:s,transport:i,domain_resolver:E(r)?c?"dns-remote":"dns-direct":void 0}}function ka(e,t,r,n,a,o){const{vlUUID:s,trPass:i,fingerprint:c,enableTFO:l,enableECH:u,echServerName:d,upstreamParams:{upstreamServer:h}}=ve(),{host:p,sni:f,allowInsecure:m}=M(r,a),g=Aa("ws","none",x(e),p,void 0,2560),y=O(n)||r===h?Ea("tls",o,m,f,u&&!o,d||void 0,"http/1.1",c):void 0;return e===_VL_?_a(t,e,r,n,l,{uuid:s,packet_encoding:"",network:"tcp"},y,g):_a(t,e,r,n,l,{password:i,network:"tcp"},y,g)}function Sa(e,t,r,n){const{host:a,port:o}=L(r,!1),{warpReservedBytes:s}=ve(),{warpIPv6:i,reserved:c,publicKey:l,privateKey:u}=e,d=void 0,h=n?"162.159.192.1":a;return{tag:t,detour:n||void 0,type:"wireguard",address:["172.16.0.2/32",i],mtu:1280,peers:[{address:h,port:n?2408:o,public_key:l,reserved:s?C(c):[0,0,0],allowed_ips:["0.0.0.0/0","::/0"],persistent_keepalive_interval:5}],private_key:u,domain_resolver:E(h)?"dns-direct":void 0}}function xa(){const{chainProxy:e,chainProxyParams:{protocol:t,server:r,port:n,user:a,pass:o,password:s,method:i,uuid:c,flow:l,security:u,type:d,sni:h,fp:p,host:f,path:m,alpn:g,pbk:y,sid:w,headerType:b,serviceName:v,aid:_}}=ve(),{searchParams:k}=new URL(e),S=k.get("ed"),x=S?+S:void 0,C=Ea(u,!1,!1,h||r,!1,void 0,g,p,y,w),E=Aa(d,b,m,f,v,x);switch(t){case"http":return _a("",t,r,n,!1,{username:a,password:o},void 0,void 0,!0);case"socks":return _a("",t,r,n,!1,{username:a,password:o,version:"5",network:"tcp"},void 0,void 0,!0);case _SS_:return _a("",t,r,n,!1,{method:i,password:s,network:"tcp"},void 0,void 0,!0);case _VL_:return _a("",t,r,n,!1,{uuid:c,flow:l,network:"tcp"},C,E,!0);case _VM_:return _a("",t,r,n,!1,{uuid:c,security:"auto",alter_id:_,network:"tcp"},C,E,!0);case _TR_:return _a("",t,r,n,!1,{password:s,network:"tcp"},C,E,!0);default:return}}function Ca(e,t,r){const{warpBestPingInterval:n,bestPingInterval:a}=ve();return{type:"urltest",tag:e,outbounds:t,url:"https://www.gstatic.com/generate_204",interrupt_exist_connections:!1,interval:r?`${n}s`:`${a}s`}}function Ea(e,t,r,n,a,o,s,i,c,l){if(!["tls","reality"].includes(e))return;const u=s?.split(",").filter(e=>"h2"!==e),d={enabled:!0,server_name:n,record_fragment:t,insecure:r,alpn:u,utls:{enabled:!!i,fingerprint:i},ech:a?{enabled:!0,query_server_name:o}:void 0};return"tls"===e?d:"reality"===e&&c&&l?{...d,reality:{enabled:!0,public_key:c,short_id:l}}:void 0}function Aa(e,t,r="/",n,a,o){switch(r=r?.split("?")[0],e){case"tcp":return"http"===t?{type:"http",host:n?.split(","),path:r,method:"GET",headers:{Connection:["keep-alive"],"Content-Type":["application/octet-stream"]}}:void 0;case"ws":return{type:"ws",path:r?.split("?ed=")[0],max_early_data:o,early_data_header_name:o?"Sec-WebSocket-Protocol":void 0,headers:{Host:n}};case"httpupgrade":return{type:"httpupgrade",host:n,path:r?.split("?ed=")[0]};case"grpc":return{type:"grpc",service_name:a};default:return}}function Pa(){const{localDNS:e,antiSanctionDNS:t,blockMalware:r,blockPhishing:n,blockCryptominers:a,blockAds:o,blockPorn:s,bypassIran:i,bypassChina:c,bypassRussia:l,bypassOpenAi:u,bypassGoogleAi:d,bypassMicrosoft:h,bypassOracle:p,bypassDocker:f,bypassAdobe:m,bypassEpicGames:g,bypassIntel:y,bypassAmd:w,bypassNvidia:b,bypassAsus:v,bypassHp:_,bypassLenovo:k}=ve();return[{rule:r,type:"block",geosite:"geosite-malware",geoip:"geoip-malware",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs"},{rule:n,type:"block",geosite:"geosite-phishing",geoip:"geoip-phishing",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs"},{rule:a,type:"block",geosite:"geosite-cryptominers",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs"},{rule:o,type:"block",geosite:"geosite-category-ads-all",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs"},{rule:s,type:"block",geosite:"geosite-nsfw",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-nsfw.srs"},{rule:i,type:"direct",dns:e,geosite:"geosite-ir",geoip:"geoip-ir",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-ir.srs",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ir.srs"},{rule:c,type:"direct",dns:e,geosite:"geosite-cn",geoip:"geoip-cn",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cn.srs",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-cn.srs"},{rule:l,type:"direct",dns:e,geosite:"geosite-category-ru",geoip:"geoip-ru",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ru.srs",geoipURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-ru.srs"},{rule:u,type:"direct",dns:t,geosite:"geosite-openai",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-openai.srs"},{rule:d,type:"direct",dns:t,geosite:"geosite-google-deepmind",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-google-deepmind.srs"},{rule:h,type:"direct",dns:t,geosite:"geosite-microsoft",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-microsoft.srs"},{rule:p,type:"direct",dns:t,geosite:"geosite-oracle",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-oracle.srs"},{rule:f,type:"direct",dns:t,geosite:"geosite-docker",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-docker.srs"},{rule:m,type:"direct",dns:t,geosite:"geosite-adobe",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-adobe.srs"},{rule:g,type:"direct",dns:t,geosite:"geosite-epicgames",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-epicgames.srs"},{rule:y,type:"direct",dns:t,geosite:"geosite-intel",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-intel.srs"},{rule:w,type:"direct",dns:t,geosite:"geosite-amd",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-amd.srs"},{rule:b,type:"direct",dns:t,geosite:"geosite-nvidia",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-nvidia.srs"},{rule:v,type:"direct",dns:t,geosite:"geosite-asus",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-asus.srs"},{rule:_,type:"direct",dns:t,geosite:"geosite-hp",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-hp.srs"},{rule:k,type:"direct",dns:t,geosite:"geosite-lenovo",geositeURL:"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-lenovo.srs"}].filter(({rule:e})=>e)}function Ta(e){const{blockUDP443:t}=ve(),r=[{ip_cidr:"172.19.0.2",action:"hijack-dns"},{clash_mode:"Direct",outbound:"direct"},{clash_mode:"Global",outbound:"✅ Selector"},{action:"sniff"},{protocol:"dns",action:"hijack-dns"},{ip_is_private:!0,outbound:"direct"}];e?t&&Da(r,"reject",void 0,void 0,void 0,void 0,"udp","quic",443):Da(r,"reject",void 0,void 0,void 0,void 0,"udp");const n=Pa(),a=z(n),o=void 0;[...a.block.geosites,...a.block.domains].length&&Da(r,"reject",a.block.domains,void 0,a.block.geosites);const s=void 0;[...a.block.geoips,...a.block.ips].length&&Da(r,"reject",void 0,a.block.ips,void 0,a.block.geoips);const i=void 0;[...a.bypass.geosites,...a.bypass.domains].length&&Da(r,"direct",a.bypass.domains,void 0,a.bypass.geosites);const c=void 0;[...a.bypass.geoips,...a.bypass.ips].length&&Da(r,"direct",void 0,a.bypass.ips,void 0,a.bypass.geoips);const l=void 0;return{rules:r,rule_set:n.reduce((e,t)=>(Ia(e,t),e),[]).omitEmpty(),auto_detect_interface:!0,final:"✅ Selector"}}function Da(e,t,r,n,a,o,s,i,c){e.push({rule_set:a||o,domain_suffix:r?.length?r:void 0,ip_cidr:n?.length?n:void 0,network:s,protocol:i,port:c,action:"reject"===t?"reject":"route",outbound:"direct"===t?"direct":void 0})}function Ia(e,t){const{geosite:r,geositeURL:n,geoip:a,geoipURL:o}=t,s=(t,r)=>e.push({type:"remote",tag:t,format:"binary",url:r,download_detour:"direct"});r&&n&&s(r,n),a&&o&&s(a,o)}var Ra={type:"tun",tag:"tun-in",address:["172.19.0.1/28"],mtu:9e3,auto_route:!0,strict_route:!0,stack:"mixed"};function Na(){const{allowLANConnection:e}=ve();return{type:"mixed",tag:"mixed-in",listen:e?"0.0.0.0":"127.0.0.1",listen_port:2080}}async function Ua(e,t){const{localDNS:r,remoteDNS:n,warpRemoteDNS:a,antiSanctionDNS:o,remoteDnsHost:s,enableIPv6:i,fakeDNS:c,enableECH:l,echServerName:u}=ve(),d=void 0,h=new URL(n).protocol.replace(":",""),p=[{type:e?"udp":h,server:e?a:s.host,detour:e?"💦 Warp - Best Ping 🚀":t?"💦 Best Ping 🚀":"✅ Selector",tag:"dns-remote"}];"localhost"===r?Ma(p,"local","dns-direct",void 0,void 0,void 0):Ma(p,"udp","dns-direct",r,void 0,void 0);const f=[{clash_mode:"Direct",server:"dns-direct"},{clash_mode:"Global",server:"dns-remote"}];if(l){const{mainDomain:e,customDomain:t}=ve(),r=u?[u]:[e].concatIf(!!t,t);La(f,"dns-direct",void 0,void 0,void 0,r,["HTTPS"])}if(s.isDomain&&!e){const{ipv4:e,ipv6:t,host:r}=s,n=void 0;Ma(p,"hosts","hosts",void 0,void 0,void 0,r,e.concatIf(i,t)),f.unshift({ip_accept_any:!0,server:"hosts"})}const m=void 0,g=j(Pa()),y=void 0;[...g.block.geosites,...g.block.domains].length&&La(f,"reject",void 0,g.block.geosites,void 0,g.block.domains),g.bypass.localDNS.geositeGeoips.forEach(({geosite:e,geoip:t})=>{La(f,"dns-direct",void 0,[e],t,void 0)});const w=void 0;[...g.bypass.localDNS.geosites,...g.bypass.localDNS.domains].length&&La(f,"dns-direct",void 0,g.bypass.localDNS.geosites,void 0,g.bypass.localDNS.domains);const b=void 0;if([...g.bypass.antiSanctionDNS.geosites,...g.bypass.antiSanctionDNS.domains].length){const e=U(o);La(f,"dns-anti-sanction",void 0,g.bypass.antiSanctionDNS.geosites,void 0,g.bypass.antiSanctionDNS.domains),e.isHostDomain?Ma(p,"https","dns-anti-sanction",e.host,void 0,"dns-direct"):Ma(p,"udp","dns-anti-sanction",o,void 0,void 0)}return c&&(Ma(p,"fakeip","dns-fake",void 0,void 0,void 0,void 0,void 0,"198.18.0.0/15",i?"fc00::/18":void 0),La(f,"dns-fake","tun-in",void 0,void 0,void 0,["A","AAAA"])),{servers:p,rules:f,strategy:i?"prefer_ipv4":"ipv4_only",independent_cache:!0}}function Ma(e,t,r,n,a,o,s,i,c,l){e.push({type:t,server:n,detour:a,domain_resolver:o?{server:o,strategy:"ipv4_only"}:void 0,predefined:s?{[s]:i}:void 0,inet4_range:c,inet6_range:l,tag:r})}function La(e,t,r,n,a,o,s){const i=n&&a;e.push({inbound:r,type:i?"logical":void 0,mode:i?"and":void 0,rules:i?[{rule_set:n},{rule_set:a}]:void 0,rule_set:n?.length&&!a?n:void 0,domain_suffix:o?.omitEmpty(),query_type:s,action:"reject"===t?"reject":"route",server:"reject"===t?void 0:t})}async function Oa(e,t,r,n,a){const{logLevel:o}=ve(),s=Object.keys(r).filter(e=>!!r[e].length),i=[...s,...s.flatMap(e=>r[e])],c={log:{disabled:"none"===o,level:"none"===o?void 0:"warning"===o?"warn":o,timestamp:!0},dns:await Ua(n,a),inbounds:[Ra,Na()],outbounds:[...e,{type:"selector",tag:"✅ Selector",outbounds:i,interrupt_exist_connections:!1},{type:"direct",tag:"direct",domain_resolver:"dns-direct"}],endpoints:t.omitEmpty(),route:Ta(n),ntp:{enabled:!0,server:"time.cloudflare.com",server_port:123,domain_resolver:"dns-direct",interval:"30m",write_to_system:!1},experimental:{cache_file:{enabled:!0,store_fakeip:!0},clash_api:{external_controller:"127.0.0.1:9090",external_ui:"ui",default_mode:"Rule",external_ui_download_url:"https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",external_ui_download_detour:"direct"}}};for(const e of s)if(r[e].length){const t=Ca(e,r[e],n);c.outbounds.push(t)}return c}async function Ba(e){const{chainProxy:t,ports:r,mainDomain:n,customDomain:a,upstreamParams:{upstreamServer:o,upstreamPort:s}}=ve(),i=t?xa():void 0,c=!!i,l=[n].concatIf(!!a,a),u=b(),d=[],h={"💦 Best Ping 🚀":[],"💦 🔗 Best Ping 🚀":[],"💦 Best Ping D 🚀":[],"💦 🔗 Best Ping D 🚀":[]};for(const t of l){const n=r.filter(r=>!e&&t.endsWith("workers.dev")||O(r)),l=await v(t,e);o&&s&&(n.unshift(s),l.unshift(o));for(const r of u){let u=1;for(const p of n)for(const n of l){if(p===s!=(n===o))continue;const l=_(u,p,n,r,t,e,!1),f=ka(r,l,n,p,t,e);if(d.push(f),t===a?h["💦 Best Ping D 🚀"].push(l):h["💦 Best Ping 🚀"].push(l),c){const o=_(u,p,n,r,t,e,!0),s=structuredClone(i);s.tag=o,s.detour=l,d.push(s),t===a?h["💦 🔗 Best Ping D 🚀"].push(o):h["💦 🔗 Best Ping 🚀"].push(o)}u++}}}const p=await Oa(d,[],h,!1,c),f=e?"fragment":"normal";return new Response(JSON.stringify(p,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-${f}-sing-box.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}async function $a(){const{warpEndpoints:e}=ve(),t=ge(),r=[],n={"💦 Warp - Best Ping 🚀":[],"💦 WoW - Best Ping 🚀":[]};e.forEach((e,a)=>{const o=`💦 ${a+1}. Warp 🇮🇷`;n["💦 Warp - Best Ping 🚀"].push(o);const s=`💦 ${a+1}. WoW 🌍`;n["💦 WoW - Best Ping 🚀"].push(s);const i=Sa(t[0],o,e),c=Sa(t[1],s,e,o);r.push(i,c)});const a=await Oa([],r,n,!0,!1);return new Response(JSON.stringify(a,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-warp-sing-box.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}function za(e,t,r){const n=void 0;return{listen:e?"0.0.0.0":"127.0.0.1",port:10808,protocol:"mixed",settings:{auth:"noauth",udp:!0},sniffing:{destOverride:["http","tls"].concatIf(t,"quic").concatIf(r,"fakedns"),enabled:!0,routeOnly:!0},tag:"mixed-in"}}function ja(e){return{listen:e?"0.0.0.0":"127.0.0.1",port:10853,protocol:"dokodemo-door",settings:{address:"1.1.1.1",network:"tcp,udp",port:53},tag:"dns-in"}}function Ha(){const{localDNS:e,antiSanctionDNS:t,blockMalware:r,blockPhishing:n,blockCryptominers:a,blockAds:o,blockPorn:s,bypassIran:i,bypassChina:c,bypassRussia:l,bypassOpenAi:u,bypassGoogleAi:d,bypassMicrosoft:h,bypassOracle:p,bypassDocker:f,bypassAdobe:m,bypassEpicGames:g,bypassIntel:y,bypassAmd:w,bypassNvidia:b,bypassAsus:v,bypassHp:_,bypassLenovo:k}=ve();return[{rule:o,type:"block",geosite:"geosite:category-ads-all"},{rule:o,type:"block",geosite:"geosite:category-ads-ir"},{rule:s,type:"block",geosite:"geosite:category-porn"},{rule:r,type:"block",geosite:"geosite:malware",geoip:"geoip:malware"},{rule:n,type:"block",geosite:"geosite:phishing",geoip:"geoip:phishing"},{rule:a,type:"block",geosite:"geosite:cryptominers"},{rule:i,type:"direct",geosite:"geosite:category-ir",geoip:"geoip:ir",dns:e},{rule:c,type:"direct",geosite:"geosite:cn",geoip:"geoip:cn",dns:e},{rule:l,type:"direct",geosite:"geosite:category-ru",geoip:"geoip:ru",dns:e},{rule:u,type:"direct",geosite:"geosite:openai",dns:t},{rule:d,type:"direct",geosite:"geosite:google-deepmind",dns:t},{rule:h,type:"direct",geosite:"geosite:microsoft",dns:t},{rule:p,type:"direct",geosite:"geosite:oracle",dns:t},{rule:f,type:"direct",geosite:"geosite:docker",dns:t},{rule:m,type:"direct",geosite:"geosite:adobe",dns:t},{rule:g,type:"direct",geosite:"geosite:epicgames",dns:t},{rule:y,type:"direct",geosite:"geosite:intel",dns:t},{rule:w,type:"direct",geosite:"geosite:amd",dns:t},{rule:b,type:"direct",geosite:"geosite:nvidia",dns:t},{rule:v,type:"direct",geosite:"geosite:asus",dns:t},{rule:_,type:"direct",geosite:"geosite:hp",dns:t},{rule:k,type:"direct",geosite:"geosite:lenovo",dns:t}].filter(({rule:e})=>e)}function Wa(e,t,r,n){const{blockUDP443:a}=ve(),o=[{inboundTag:["mixed-in"],port:53,outboundTag:"dns-out",type:"field"},{inboundTag:["dns-in"],outboundTag:"dns-out",type:"field"}],s=void 0,i=t?e?"all-chains":"all-proxies":e?"chain":r?"direct":"proxy",c=void 0;Fa(o,["remote-dns"],void 0,void 0,void 0,void 0,void 0,t?"all-proxies":"proxy",t),Fa(o,["dns"],void 0,void 0,void 0,void 0,void 0,"direct",!1),Fa(o,void 0,["geosite:private"],void 0,void 0,void 0,void 0,"direct",!1),Fa(o,void 0,void 0,["geoip:private"],void 0,void 0,void 0,"direct",!1),n||r?a&&Fa(o,void 0,void 0,void 0,443,"udp",void 0,"block",!1):Fa(o,void 0,void 0,void 0,void 0,"udp",void 0,"block",!1);const l=void 0,u=z(Ha()),d=[...u.block.geosites,...u.block.domains.map(e=>`domain:${e}`)];d.length&&Fa(o,void 0,d,void 0,void 0,void 0,void 0,"block");const h=[...u.block.geoips,...u.block.ips];h.length&&Fa(o,void 0,void 0,h,void 0,void 0,void 0,"block");const p=[...u.bypass.geosites,...u.bypass.domains.map(e=>`domain:${e}`)];p.length&&Fa(o,void 0,p,void 0,void 0,void 0,void 0,"direct");const f=[...u.bypass.geoips,...u.bypass.ips];f.length&&Fa(o,void 0,void 0,f,void 0,void 0,void 0,"direct"),r&&(Fa(o,void 0,void 0,void 0,void 0,"tcp",["tls"],"proxy",!1),Fa(o,void 0,void 0,void 0,void 0,"tcp",["http"],"http-fragment",!1),Fa(o,void 0,void 0,void 0,void 0,"udp",["quic"],"udp-noise",!1),Fa(o,void 0,void 0,void 0,"443,2053,2083,2087,2096,8443","udp",void 0,"udp-noise",!1));const m=void 0;return Fa(o,void 0,void 0,void 0,void 0,n||r?"tcp,udp":"tcp",void 0,i,t),o}var Fa=(e,t,r,n,a,o,s,i,c)=>e.push({inboundTag:t,domain:r,ip:n,port:a,network:o,protocol:s,balancerTag:c?i:void 0,outboundTag:c?void 0:i,type:"field"});async function Ga(e,t,r,n,a,o){const{localDNS:s,remoteDNS:i,warpRemoteDNS:c,antiSanctionDNS:l,remoteDnsHost:u,enableIPv6:d,fakeDNS:h}=ve(),p={},f=[],m=[];if(u.isDomain&&!t&&!r){const{ipv4:e,ipv6:t,host:r}=u;p[r]=e.concatIf(d,t)}if(n){const{ipv4:e,ipv6:t}=await y(n,d);p[n]=[...e,...t]}let g=!0,w=r?c:i;t&&(w=`https://${a}/dns-query`,a&&o&&(p[a]=o),g=!1);const b=Va(w,void 0,void 0,void 0,void 0,"remote-dns");f.push(b);const v=void 0,_=j(Ha()),k=void 0;[..._.block.geosites,..._.block.domains.map(e=>`domain:${e}`)].forEach(e=>p[e]="#3"),_.bypass.localDNS.geositeGeoips.forEach(({geosite:e,geoip:t})=>{const r=Va(s,[e],[t],g);f.push(r),m.push(e)});const S=[..._.bypass.antiSanctionDNS.geosites,..._.bypass.antiSanctionDNS.domains.map(e=>`domain:${e}`)],x=[..._.bypass.localDNS.geosites,..._.bypass.localDNS.domains.map(e=>`domain:${e}`),...e.filter(E).map(e=>`full:${e}`)];if(S.length){const e=Va(l,S,void 0,g,!0);f.push(e);const{host:t,isHostDomain:r}=U(l);r&&x.push(`full:${t}`)}if(o?.filter(E).forEach(e=>x.push(`full:${e}`)),x.length){const e=Va(s,x,void 0,g);f.push(e),m.push(...x)}if(h||t){const e=m.length?Va("fakedns",m,void 0,!1,void 0):"fakedns";f.unshift(e)}return{hosts:p.omitEmpty(),servers:f,queryStrategy:r&&!d?"UseIPv4":"UseIP",tag:"dns"}}function Va(e,t,r,n,a,o){return{address:e,domains:t,expectIPs:r,skipFallback:n,finalQuery:a,tag:o}}function Ka(e,t,r,n,a){return{protocol:e,mux:r?{enabled:!0,concurrency:8,xudpConcurrency:16,xudpProxyUDP443:"reject"}:void 0,settings:n,streamSettings:a,tag:t}}function Ja(e,t,r,n,a,o){const{enableTFO:s,enableIPv6:i}=ve(),c=void 0,l=void 0;return{protocol:"freedom",settings:{domainStrategy:e?void 0:i?"UseIPv4v6":"UseIPv4"},streamSettings:{sockopt:e?Qa(!0,s,"UseIP"):void 0,finalmask:no(e,t,n,a,o)},tag:r}}function Za(e,t,r,n,a,o,s,i){const{vlUUID:c,trPass:l,fingerprint:u,enableTFO:d,enableECH:h,echServerName:p,upstreamParams:{upstreamServer:f}}=ve(),m=O(n)||r===f,{host:g,sni:y}=M(r,a),w=m?eo(y,u,"http/1.1",h&&!o,p||void 0):void 0,b={network:"ws",...Ya("ws","none",`${x(t)}?ed=2560`,g),security:m?"tls":"none",tlsSettings:w,sockopt:Qa(!0,d,"UseIP"),finalmask:no(o,!1,s,i)};return t===_VL_?Ka(t,e,!1,{vnext:[{address:r,port:n,users:[{id:c,encryption:"none"}]}]},b):Ka(t,e,!1,{servers:[{address:r,port:n,password:l}]},b)}function Xa(e,t,r,n,a){const{warpIPv6:o,reserved:s,publicKey:i,privateKey:c}=e,{warpReservedBytes:l}=ve(),u=void 0;let d={address:["172.16.0.2/32",o],mtu:1280,peers:[{endpoint:r?"162.159.192.1:2408":t,publicKey:i,keepAlive:5}],reserved:l?C(s):[0,0,0],secretKey:c};const h={};if(r)h.sockopt=Qa(!1,!1,void 0,"proxy");else if(n)if(a){const{knockerNoiseMode:e,knockerNoiseCountMin:t,knockerNoiseCountMax:r,knockerNoiseSizeMin:n,knockerNoiseSizeMax:a,knockerNoiseDelayMin:o,knockerNoiseDelayMax:s}=ve();d={...d,wnoise:e,wnoisecount:H(t,r),wpayloadsize:H(n,a),wnoisedelay:H(o,s)}}else h.finalmask=no(!1,n);return{protocol:"wireguard",settings:d,streamSettings:h.omitEmpty(),tag:r?"chain":"proxy"}}function qa(){const{chainProxyParams:{protocol:e,server:t,port:r,user:n,pass:a,password:o,method:s,uuid:i,flow:c,security:l,type:u,sni:d,fp:h,host:p,path:f,alpn:m,pbk:g,sid:y,spx:w,headerType:b,serviceName:v,mode:_,authority:k,encryption:S}}=ve(),x={network:u||"raw",...Ya(u,b,f,p,v,_,k),security:l,tlsSettings:"tls"===l?eo(d||t,h,m,!1,void 0):void 0,realitySettings:"reality"===l?to(d,h,g,y,w):void 0,sockopt:Qa(!1,!1,"UseIPv4","proxy")},C=!("reality"===l||"grpc"===u||"xhttp"===u);switch(e){case"http":case"socks":return Ka(e,"chain",C,{servers:[{address:t,port:r,users:[{user:n,pass:a}]}]},x);case _SS_:return Ka(e,"chain",C,{servers:[{address:t,port:r,method:s,password:o}]},x);case _VL_:return Ka(e,"chain",C,{vnext:[{address:t,port:r,users:[{id:i,flow:c,encryption:S??"none"}]}]},x);case _VM_:return Ka(e,"chain",C,{vnext:[{address:t,port:r,users:[{id:i,security:"auto"}]}]},x);case _TR_:return Ka(e,"chain",C,{servers:[{address:t,port:r,password:o}]},x);default:return}}function Ya(e,t,r="/",n,a,o,s,i){switch(e){case"tcp":case"raw":return{rawSettings:{header:"http"===t?{type:"http",request:{headers:{Host:n?.split(","),"Accept-Encoding":["gzip, deflate"],Connection:["keep-alive"],Pragma:"no-cache"},path:r.split(","),method:"GET",version:"1.1"}}:{type:"none"}}};case"ws":return{wsSettings:{host:n,path:r}};case"httpupgrade":return{httpupgradeSettings:{host:n,path:r}};case"grpc":return{grpcSettings:{authority:s,multiMode:"multi"===o,serviceName:a}};case"xhttp":const e=void 0;return{xhttpSettings:{host:n,path:r,mode:o||"auto",extra:JSON.parse(decodeURIComponent(i??"{}"))}};default:return{}}}function Qa(e,t,r,n){return{domainStrategy:r,dialerProxy:n,tcpFastOpen:t||void 0,happyEyeballs:e?{tryDelayMs:250,prioritizeIPv6:!1,interleave:2,maxConcurrentTry:4}:void 0}}function eo(e,t,r,n,a){const{localDNS:o}=ve(),s="localhost"===o?"8.8.8.8":o;return{serverName:e,fingerprint:t,alpn:r?.split(","),echConfigList:n?a?`${a}+udp://${s}`:`udp://${s}`:void 0}}function to(e,t,r,n,a){return{serverName:e,fingerprint:t,publicKey:r,shortId:n,spiderX:a,show:!1,allowInsecure:!1}}function ro(e){return e.flatMap(({type:e,packet:t,delay:r,count:n})=>{const a="rand"===e?{rand:t,randRange:"0-255",delay:r}:{type:e,packet:"array"===e?t.split(",").map(Number):t,delay:r};return Array.from({length:n},()=>a)})}function no(e,t,r,n,a){if(!e&&!t)return;const{fragmentPackets:o,fragmentLengthMin:s,fragmentLengthMax:i,fragmentDelayMin:c,fragmentDelayMax:l,fragmentMaxSplitMin:u,fragmentMaxSplitMax:d,xrayUdpNoises:h}=ve();return{tcp:e?[{type:"fragment",settings:{packets:a||o,length:r||H(s,i),delay:n||H(c,l),maxSplit:H(u,d)}}]:void 0,udp:t?[{type:"noise",settings:{reset:"30-60",noise:ro(h)}}]:void 0}}function ao(e,t,r){return{tag:e,selector:[t],strategy:{type:"leastPing"},fallbackTag:r?"proxy-2":void 0}}async function oo(e,t,r,n,a,o,s,i,c,l,u){const{fakeDNS:d,warpBestPingInterval:h,bestPingInterval:p,logLevel:f,allowLANConnection:m}=ve();let g,y;r&&(g=[ao("all-proxies","proxy",a)].concatIf(n,ao("all-chains","chain",!1)),y={subjectSelector:n?["chain","proxy"]:["proxy"],probeUrl:"https://www.gstatic.com/generate_204",probeInterval:`${o?h:p}s`,enableConcurrency:!0});const w=void 0;return{remarks:e,version:{min:"26.2.6"},log:{loglevel:f},dns:await Ga(i,s,o,c,l,u),inbounds:[za(m,s,s||d),ja(m)],outbounds:[...t,{protocol:"dns",settings:{rules:[{action:"hijack"}]},tag:"dns-out"},{protocol:"freedom",settings:{domainStrategy:"UseIP"},tag:"direct"},{protocol:"blackhole",settings:{response:{type:"http"}},tag:"block"}],routing:{domainStrategy:"IPIfNonMatch",rules:Wa(n,r,s,o),balancers:g},observatory:y,policy:{levels:{0:{connIdle:300,handshake:4,uplinkOnly:1,downlinkOnly:1}},system:{statsOutboundUplink:!0,statsOutboundDownlink:!0}},stats:{}}}async function so(e,t,r,n,a,o){t=[...new Set(t)];const s=!!n.length,i=void 0,c=void 0,l=void 0,u=void 0,d=`💦 ${s?"🔗 ":""}Best Ping ${`${a?"F ":""}${o?"D ":""}`}🚀`,h=[...n,...r],p=await oo(d,h,!0,s,!0,!1,!1,t);s&&await so(e,t,r,[],a,o),e.push(p)}async function io(e,t){const{mainDomain:r,fragmentDelayMin:n,fragmentDelayMax:a}=ve(),o=!!t,s=[],i=void 0;["1-5","1-10","10-20","20-30","30-40","40-50","50-60","60-70","70-80","80-90","90-100","10-30","20-40","30-50","40-60","50-70","60-80","70-90","80-100","100-200"].forEach((e,i)=>{if(o){const e=ho(t,`chain-${i+1}`,`proxy-${i+1}`);s.push(e)}const c=Za(`proxy-${i+1}`,_VL_,r,443,r,!0,e,`${n}-${a}`);s.push(c)});const c=o?"🔗 ":"",l=await oo(`💦 ${c}Smart Fragment 🧠`,s,!0,o,!1,!1,!1,[],r);t&&await io(e),e.push(l)}async function co(e){const t=Ja(!0,!1,"proxy"),r=Ja(!1,!0,"udp-noise"),n=void 0,a=[t,Ja(!0,!1,"http-fragment",void 0,void 0,"1-1"),r],o=await oo("💦 1 - Serverless 🌟",a,!1,!1,!1,!1,!0,[],void 0,"cloudflare-dns.com",["cloudflare.com"]),s=await oo("💦 2 - Serverless 🌟",a,!1,!1,!1,!1,!0,[],void 0,"dns.google",["8.8.8.8","8.8.4.4"]);e.push(o,s)}async function lo(e){const{chainProxy:t,ports:r,mainDomain:n,customDomain:a,upstreamParams:{upstreamServer:o,upstreamPort:s}}=ve(),i=t?qa():void 0,c=[n].concatIf(!!a,a),l=b(),u=[];let d=1;for(const t of c){let n=[];const c=[],h=[],p=r.filter(r=>!e&&t.endsWith("workers.dev")||O(r)),f=await v(t,e);o&&s&&!e&&(p.unshift(s),f.unshift(o)),n.push(...f);for(const r of l){let n=1;for(const a of p)for(const l of f){if(a===s!=(l===o))continue;const p=Za("proxy",r,l,a,t,e),f=ho(p,`proxy-${d}`);c.push(f);const m=_(n,a,l,r,t,e,!1),g=await oo(m,[p],!1,!1,!1,!1,!1,[l]);if(u.push(g),i){const o=_(n,a,l,r,t,e,!0),s=await oo(o,[i,p],!1,!0,!1,!1,!1,[l]);u.push(s);const c=ho(i,`chain-${d}`,`proxy-${d}`);h.push(c)}n++,d++}}const m=t===a;await so(u,n,c,h,e,m)}e&&(await io(u,i),await co(u));const h=e?"fragment":"normal";return new Response(JSON.stringify(u,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-${h}-xray.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}async function uo(e,t){const{warpEndpoints:r}=ve(),n=ge(),a=e?" Pro ":" ",o=[],s=[],i=[],c=[];for(const[l,u]of r.entries()){const{host:r}=L(u);E(r)&&c.push(r);const d=Xa(n[0],u,!1,e,t),h=Xa(n[1],u,!0,e,t),p=await oo(`💦 ${l+1} - Warp${a}🇮🇷`,[d],!1,!1,!1,!0,!1,[r]),f=await oo(`💦 ${l+1} - WoW${a}🌍`,[h,d],!1,!0,!1,!0,!1,[r]);o.push(p,f);const m=ho(d,`proxy-${l+1}`);s.push(m);const g=ho(h,`chain-${l+1}`,`proxy-${l+1}`);i.push(g)}const l=await oo(`💦 Warp${a}- Best Ping 🚀`,[...s],!0,!1,!1,!0,!1,c),u=await oo(`💦 WoW${a}- Best Ping 🚀`,[...i,...s],!0,!0,!1,!0,!1,c);o.push(l,u);const d=e?"warp-Pro":"warp";return new Response(JSON.stringify(o,null,4),{status:200,headers:{"Content-Type":"application/json","Content-Disposition":`attachment; filename=${_project_SM_}-${d}-xray.json`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}function ho(e,t,r){const n=structuredClone(e);return n.tag=t,r&&n.streamSettings?.sockopt&&(n.streamSettings.sockopt.dialerProxy=r),n}var po=l(u(),1);async function fo(e){try{const{warpIPv6:t,publicKey:r,privateKey:n}=ge()[0],{warpEndpoints:a,warpRemoteDNS:o,amneziaNoiseCount:s,amneziaNoiseSizeMin:i,amneziaNoiseSizeMax:c}=ve(),l=new po.default;a?.forEach((a,u)=>{const d=["[Interface]",`PrivateKey = ${n}`,`Address = 172.16.0.2/32, ${t}`,`DNS = ${o}`,"MTU = 1280",...e?[`Jc = ${s}`,`Jmin = ${i}`,`Jmax = ${c}`,"S1 = 0","S2 = 0","H1 = 1","H2 = 2","H3 = 3","H4 = 4"]:[],"","[Peer]",`PublicKey = ${r}`,"AllowedIPs = 0.0.0.0/0, ::/0",`Endpoint = ${a}`,"PersistentKeepalive = 25"].join("\n");l.file(`${_project_}-Warp-${u+1}.conf`,d)});const u=await l.generateAsync({type:"blob"}),d=await u.arrayBuffer(),h=void 0;return new Response(d,{headers:{"Content-Type":"application/zip","Content-Disposition":`attachment; filename=${_project_SM_}-warp-${e?"pro-amnezia":"wireguard"}-conf.zip`,"Cache-Control":"no-store, no-cache, must-revalidate",Pragma:"no-cache"}})}catch(e){return m(!1,500,`Error generating ZIP file: ${g(e)}`)}}async function mo(e,t){await fe(t);const{pathname:r,client:n}=me(),a=void 0;switch(r.split("/")[3]){case"normal":switch(n){case"xray":return lo(!1);case"sing-box":return Ba(!1);case"clash":return ya();default:break}case"raw":switch(n){case"xray":case"sing-box":return ba();default:break}case"fragment":switch(n){case"xray":return lo(!0);case"sing-box":return Ba(!0);default:break}case"warp":switch(n){case"xray":return uo(!1,!1);case"sing-box":return $a();case"clash":return wa(!1);case"wireguard":return fo(!1);default:break}case"warp-pro":switch(n){case"xray":return uo(!0,!1);case"xray-knocker":return uo(!0,!0);case"clash":return wa(!0);case"amnezia":return fo(!0);default:break}case"share-settings":return go();default:return nr(e)}}async function go(){const e=be(),t=btoa(JSON.stringify(e));return new Response(t,{status:200,headers:{"Content-Type":"text/plain; charset=utf-8","Content-Disposition":`attachment; filename=${_project_SM_}-settings.dat`,"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET","Cache-Control":"no-store, no-cache, must-revalidate, max-age=0",Pragma:"no-cache",Expires:"0"}})}async function yo(e,t){await fe(t);const{pathname:r}=me(),n=void 0;switch(r.split("/")[3]){case"setup":return Lr(e,t);case"remove":return Br(e,t);case"webhook":return Xr(e,t);default:return nr(e)}}import{createHash as wo}from"node:crypto";import{connect as bo}from"cloudflare:sockets";var vo=1,_o=2;async function ko(e,t,r,n,a,o,s){async function i(t,r){const a=bo({hostname:t,port:r});e.value=a,s(`connected to ${t}:${r}`);const o=a.writable.getWriter();return await o.write(n),o.releaseLock(),a}async function c(){const{proxyIpMode:e,proxyIPs:n,prefixes:c}=me(),l=e=>e[Math.floor(Math.random()*e.length)];if("proxyip"===e){s(`direct connection failed, trying to use Proxy IP for ${t}`);const e=l(n),{host:a,port:o}=L(e,!0);t=a||t,r=o||r}else if("prefix"===e){s(`direct connection failed, trying to generate dynamic prefix for ${t}`);const e=l(c),r=await Po(t,e);r?t=r:a.close(1011,"Retry connection failed: Invalid Prefix")}try{const e=await i(t,r);e.closed.catch(e=>console.log("retry TCP socket closed error",e)).finally(()=>Ao(a)),So(e,a,o,null,s)}catch(e){console.error("Retry connection failed:",e),a.close(1011,`Retry connection failed: ${g(e)}`)}}try{const e=void 0;So(await i(t,r),a,o,c,s)}catch(e){console.error(`Connection failed: ${e}`),a.close(1011,`Connection failed: ${g(e)}`)}}async function So(e,t,r,n,a){let o=r,s=!1;const i=new WritableStream({start(){},async write(e,r){s=!0,1!==t.readyState&&r.error("webSocket.readyState is not open, maybe close"),o?(t.send(await new Blob([o,e]).arrayBuffer()),o=null):t.send(e)},close(){a(`remoteConnection.readable is close with hasIncomingData is ${s}`)},abort(t){console.error("remoteConnection.readable abort",t),Eo(e)}});try{await e.readable.pipeTo(i)}catch(r){console.error("VLRemoteSocketToWS has exception.",r),Eo(e),Ao(t)}!1===s&&n&&(a("retry"),n())}function xo(e,t,r){let n=!1;const a=void 0;return new ReadableStream({start(a){e.addEventListener("message",e=>{n||a.enqueue(e.data)}),e.addEventListener("close",()=>{Ao(e),n||a.close()}),e.addEventListener("error",e=>{r("webSocketServer has error"),a.error(e)});const{earlyData:o,error:s}=Co(t);s?a.error(s):o&&a.enqueue(o)},pull(e){},cancel(t){n||(r(`ReadableStream was canceled, due to ${t}`),n=!0,Ao(e))}})}function Co(e){if(!e)return{earlyData:null,error:null};try{e=e.replace(/-/g,"+").replace(/_/g,"/");const t=atob(e),r=void 0;return{earlyData:Uint8Array.from(t,e=>e.charCodeAt(0)).buffer,error:null}}catch(e){return{earlyData:null,error:e}}}function Eo(e){if(e)try{e.close()}catch(e){console.error("Failed to close TCP socket:",e)}}function Ao(e){try{1!==e.readyState&&2!==e.readyState||e.close()}catch(e){console.error("safeCloseWebSocket error",e)}}async function Po(e,t){let r=e;if(!A(e)){const{ipv4:t}=await y(e,!0);if(!t.length)throw new Error("Unable to find IPv4 in DNS records");r=t[0]}return To(r,t)}function To(e,t){const r=e.split(".");if(4!==r.length)throw new Error("Invalid IPv4 address");const n=r.map(e=>{const t=parseInt(e,10);if(t<0||t>255)throw new Error("Invalid IPv4 address");return t.toString(16).padStart(2,"0")}),a=t.match(/^\[([0-9A-Fa-f:]+)\]$/);if(a)return`[${a[1]}${n[0]}${n[1]}:${n[2]}${n[3]}]`}async function Do(e){const t=new WebSocketPair,[r,n]=Object.values(t);n.accept(),n.binaryType="arraybuffer";let a="",o="";const s=(e,t)=>{console.log(`[${a}:${o}] ${e}`,t||"")},i=e.headers.get("sec-websocket-protocol")||"",c=xo(n,i,s);let l={value:null},u=null;const d=new WritableStream({async write(e,t){if(null)return u(e);if(l.value){const t=l.value.writable.getWriter();return await t.write(e),void t.releaseLock()}const{hasError:r,message:i,portRemote:c=443,addressRemote:d="",rawClientData:h}=Io(e);if(a=d,o=`${c}--${Math.random()} tcp`,r)throw new Error(i);ko(l,d,c,h,n,null,s)},close(){Eo(l.value)},abort(e){s("readableWebSocketStream is aborted",JSON.stringify(e))}});return c.pipeTo(d).catch(e=>{s("readableWebSocketStream pipeTo error",e),Eo(l.value)}),new Response(null,{status:101,webSocket:r})}function Io(e){if(e.byteLength<56)return{hasError:!0,message:"invalid data"};let t=56;const r=new Uint8Array(e.slice(t,57))[0],n=new Uint8Array(e.slice(57,58))[0];if(13!==r||10!==n)return{hasError:!0,message:"invalid header format (missing CR LF)"};const{trPass:a}=me(),o=void 0;if((new TextDecoder).decode(e.slice(0,t))!==wo("sha224").update(a).digest("hex"))return{hasError:!0,message:"invalid password"};const s=e.slice(58);if(s.byteLength<6)return{hasError:!0,message:"invalid SOCKS5 request data"};const i=new DataView(s),c=void 0;if(1!==i.getUint8(0))return{hasError:!0,message:"unsupported command, only TCP (CONNECT) is allowed"};const l=i.getUint8(1);let u=0,d=2,h="";switch(l){case 1:u=4,h=new Uint8Array(s.slice(d,d+u)).join(".");break;case 3:u=new Uint8Array(s.slice(d,d+1))[0],d+=1,h=(new TextDecoder).decode(s.slice(d,d+u));break;case 4:{u=16;const e=new DataView(s.slice(d,d+u)),t=[];for(let r=0;r<8;r++)t.push(e.getUint16(2*r).toString(16));h=t.join(":");break}default:return{hasError:!0,message:`invalid addressType is ${l}`}}if(!h)return{hasError:!0,message:`address is empty, addressType is ${l}`};const p=d+u,f=s.slice(p,p+2),m=void 0;return{hasError:!1,addressRemote:h,portRemote:new DataView(f).getUint16(0),rawClientData:s.slice(p+4)}}async function Ro(e){const{vlUUID:t}=me(),r=new WebSocketPair,[n,a]=Object.values(r);a.accept(),a.binaryType="arraybuffer";let o="",s="";const i=(e,t)=>{console.log(`[${o}:${s}] ${e}`,t||"")},c=e.headers.get("sec-websocket-protocol")||"",l=xo(a,c,i);let u={value:null},d=null,h=!1;const p=new WritableStream({async write(e){if(h&&d)return d(e);if(u.value){const t=u.value.writable.getWriter();return await t.write(e),void t.releaseLock()}const{hasError:r,message:n,portRemote:c=443,addressRemote:l="",rawDataIndex:p,VLVersion:f=new Uint8Array([0,0]),isUDP:m}=No(e,t);if(o=l,s=`${c}--${Math.random()} ${m?"udp ":"tcp "} `,r)throw new Error(n);const g=new Uint8Array([f[0],0]),y=e.slice(p);if(m){if(53===c){h=!0;const{write:e}=await Lo(a,g,i);return d=e,void await d(y)}throw new Error("UDP proxy only enable for DNS which is port 53")}ko(u,l,c,y,a,g,i)},close(){Eo(u.value)},abort(e){i("readableWebSocketStream is abort",JSON.stringify(e))}});return l.pipeTo(p).catch(e=>{i("readableWebSocketStream pipeTo error",e),Eo(u.value)}),new Response(null,{status:101,webSocket:n})}function No(e,t){if(e.byteLength<24)return{hasError:!0,message:"invalid data"};const r=new Uint8Array(e.slice(0,1)),n=void 0,a=void 0,o=void 0;if(!(Mo(new Uint8Array(e.slice(1,17)))===t))return{hasError:!0,message:"invalid user"};const s=new Uint8Array(e.slice(17,18))[0],i=new Uint8Array(e.slice(18+s,18+s+1))[0];let c=!1;if(1===i);else{if(2!==i)return{hasError:!0,message:`command ${i} is not supported, command 01-tcp,02-udp,03-mux`};c=!0}const l=18+s+1,u=e.slice(l,l+2),d=new DataView(u).getUint16(0);let h=l+2;const p=void 0,f=new Uint8Array(e.slice(h,h+1))[0];let m=0,g=h+1,y="";switch(f){case 1:m=4,y=new Uint8Array(e.slice(g,g+m)).join(".");break;case 2:m=new Uint8Array(e.slice(g,g+1))[0],g+=1,y=(new TextDecoder).decode(e.slice(g,g+m));break;case 3:{m=16;const t=new DataView(e.slice(g,g+m)),r=[];for(let e=0;e<8;e++)r.push(t.getUint16(2*e).toString(16));y=r.join(":");break}default:return{hasError:!0,message:`invalid addressType is ${f}`}}return y?{hasError:!1,addressRemote:y,addressType:f,portRemote:d,rawDataIndex:g+m,VLVersion:r,isUDP:c}:{hasError:!0,message:`addressValue is empty, addressType is ${f}`}}function Uo(e,t=0){const r=[];for(let e=0;e<256;++e)r.push((e+256).toString(16).slice(1));return(r[e[t+0]]+r[e[t+1]]+r[e[t+2]]+r[e[t+3]]+"-"+r[e[t+4]]+r[e[t+5]]+"-"+r[e[t+6]]+r[e[t+7]]+"-"+r[e[t+8]]+r[e[t+9]]+"-"+r[e[t+10]]+r[e[t+11]]+r[e[t+12]]+r[e[t+13]]+r[e[t+14]]+r[e[t+15]]).toLowerCase()}function Mo(e,t=0){const r=Uo(e,t);if(!f(r))throw TypeError("Stringified UUID is invalid");return r}async function Lo(e,t,r){let n=!1;const a=new TransformStream({start(e){},transform(e,t){for(let r=0;r<e.byteLength;){const n=e.slice(r,r+2),a=new DataView(n).getUint16(0),o=new Uint8Array(e.slice(r+2,r+2+a));r=r+2+a,t.enqueue(o)}},flush(e){}});a.readable.pipeTo(new WritableStream({async write(a){const o=await fetch("https://cloudflare-dns.com/dns-query",{method:"POST",headers:{"content-type":"application/dns-message"},body:a}),s=await o.arrayBuffer(),i=s.byteLength,c=new Uint8Array([i>>8&255,255&i]);1===e.readyState&&(r(`doh success and dns message length is ${i}`),n?e.send(await new Blob([c,s]).arrayBuffer()):(e.send(await new Blob([t,c,s]).arrayBuffer()),n=!0))}})).catch(e=>{r("dns udp has error"+e)});const o=a.writable.getWriter();return{async write(e){await o.write(e)}}}async function Oo(e){const{pathname:t}=me(),r=t.split("/")[1];try{switch(r){case"vl":return Ro(e);case"tr":return Do(e);default:return nr(e)}}catch(e){return new Response("Bad Request",{status:400})}}var Bo={async fetch(e,t){try{if(pe(e,t),"websocket"===e.headers.get("Upgrade"))return Oo(e);const{securePath:r,pathname:n}=me(),a=void 0;switch(n.split("/").splice(0,3).join("/")){case`/${r}/panel`:return Yr(e,t);case`/${r}/login`:return ar(e,t);case`/${r}/sub`:return mo(e,t);case`/${r}/telegram`:return yo(e,t);case`/${r}/dns-query`:return Ee(e);case`/${r}/proxy-ip`:return ln(e,t);case`/${r}/qrcode`:return ea(e);default:return nr(e)}}catch(e){return Ae(e)}}};export{Bo as default};
+// مرحله ۵: step4 + نوشتن ترافیک/آمار در D1 (dyj1dp1, xn0iw7z, viwe15t)
+import { connect } from "cloudflare:sockets";
+const GLOBAL_TRAFFIC_CACHE = new Map();
+const eroucn4 = new Map();
+const utza4af = 8000;
+let qb7ahff = { t: 0, v: "", p: null };
+function bbkao4k() {
+	eroucn4.clear();
+	qb7ahff = { t: 0, v: "", p: null };
+}
+function eja0tdx(e) {
+	const m = String((e && e.message) || e || "").toLowerCase();
+	return m.includes("overloaded") || m.includes("network connection lost") || m.includes("timeout") || m.includes("timed out") || m.includes("temporarily") || m.includes("too many") || m.includes("reset") || m.includes("internal error") || m.includes("d1_error");
+}
+async function fz8j64g(fn, tries = 3) {
+	let lastErr;
+	for (let i = 0; i < tries; i++) {
+		try {
+			return await fn();
+		} catch (e) {
+			lastErr = e;
+			if (i === tries - 1 || !eja0tdx(e)) break;
+			await new Promise((r) => setTimeout(r, 120 * (i + 1) + Math.floor(Math.random() * 120)));
+		}
+	}
+	throw lastErr;
+}
+const aja33qy = 10 * 60 * 1000;
+async function vjcnes5(env, sql, key) {
+	const ck = sql.length + "|" + key;
+	const now = Date.now();
+	const hit = eroucn4.get(ck);
+	if (hit && now - hit.t < utza4af) return hit.v;
+	let row;
+	try {
+		row = await fz8j64g(() => env.DB.prepare(sql).bind(key).first(), 2);
+	} catch (e) {
+		if (hit && now - hit.t < aja33qy) return hit.v;
+		throw e;
+	}
+	if (row) {
+		eroucn4.set(ck, { t: Date.now(), v: row });
+		if (eroucn4.size > 500) {
+			const n2 = Date.now();
+			for (const [k, e] of eroucn4) { if (n2 - e.t >= utza4af) eroucn4.delete(k); }
+			if (eroucn4.size > 500) eroucn4.clear();
+		}
+	}
+	return row;
+}
+async function rpsmq65(env, sql, key) {
+	const ck = "L|" + sql.length + "|" + key;
+	const now = Date.now();
+	const hit = eroucn4.get(ck);
+	if (hit && now - hit.t < utza4af) return hit.v;
+	let res;
+	try {
+		res = await fz8j64g(() => env.DB.prepare(sql).bind(key).all(), 2);
+	} catch (e) {
+		if (hit && now - hit.t < aja33qy) return hit.v;
+		throw e;
+	}
+	if (res && res.results && res.results.length > 0) eroucn4.set(ck, { t: Date.now(), v: res });
+	return res;
+}
+const jip804b = new Map();
+const crtlo7f = 12 * 3600 * 1000;
+const iub5ygr = 10 * 60 * 1000;
+const a40qkal = new Map();
+const vcmirtr = new Map();
+const gbd8v13 = new Map();
+const p6gwddb = new Set();
+const orfpjpg = new Map();
+const cchca6z = new Map();
+const gizzyby = new Map();
+const r2x0v6w = new Map();
+const obx6yh7 = new Map();
+const USER_REQ_CACHE = new Map();
+const tp0s2fk = new Map();
+let cwsdrkz = 0;
+let jlvmthl = 0;
+const vac5goc = 5 * 60 * 1000;
+const b2llpoh = "https://cloudflare-dns.com/dns-query";
+const j7gzuyc = 64 * 1024;
+const gd4zjw9 = 6 * 1024 * 1024;
+const sacemxe = 3000;
+const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
+const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
+const DOWNSTREAM_GRAIN_SILENT_MS = 1;
+const jtnyqj4 = 2048;
+const a5g5pwf = new TextEncoder();
+const b1p8pcx = new TextDecoder();
+const m1fqgtq = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
+const j0z7nx7 = 300;
+let n7wooiz = 0;
+const qaq0llp = 30 * 1000;
+let caxaruo = 0;
+function wcjjpz0() {
+	const now = Date.now();
+	if (now - caxaruo < qaq0llp) return;
+	caxaruo = now;
+	for (const uname of cchca6z.keys()) {
+		const active = a40qkal.get(uname) || 0;
+		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
+		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
+		const staleFor = now - (cchca6z.get(uname) || 0);
+		if (active === 0 && cachedBytes === 0 && cachedReqs === 0 && staleFor > qaq0llp) {
+			cchca6z.delete(uname);
+			gizzyby.delete(uname);
+			r2x0v6w.delete(uname);
+			a40qkal.delete(uname);
+			GLOBAL_TRAFFIC_CACHE.delete(uname);
+			USER_REQ_CACHE.delete(uname);
+			vcmirtr.delete(uname);
+			orfpjpg.delete(uname);
+		}
+	}
+	for (const [k, ts] of gbd8v13.entries()) {
+		if (now - ts > 600000) gbd8v13.delete(k);
+	}
+}
+function h0pqirm(uname, ip) {
+	if (!uname || !ip) return;
+	let m = vcmirtr.get(uname);
+	if (!m) { m = new Map(); vcmirtr.set(uname, m); }
+	m.set(ip, (m.get(ip) || 0) + 1);
+}
+function eojgr6y(uname, ip) {
+	const m = vcmirtr.get(uname);
+	if (!m || !ip) return 0;
+	const left = (m.get(ip) || 0) - 1;
+	if (left <= 0) {
+		m.delete(ip);
+		if (m.size === 0) vcmirtr.delete(uname);
+		gbd8v13.delete(uname + "_hb_" + ip);
+		return 0;
+	}
+	m.set(ip, left);
+	return left;
+}
+function c85kz7x(env, ctx, uname, uuid, ip) {
+	if (!uname || !uuid || !ip || ip === "unknown") return;
+	const key = uname + "|" + ip;
+	if (p6gwddb.has(key)) return;
+	p6gwddb.add(key);
+	const task = (async () => {
+		try {
+			await new Promise((r) => setTimeout(r, 8000));
+			const live = vcmirtr.get(uname);
+			if (live && (live.get(ip) || 0) > 0) return;
+			const row = await env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(uuid).first();
+			if (!row) return;
+			let activeIps = {};
+			try { activeIps = JSON.parse(row.active_ips || "{}"); } catch (e) {}
+			if (!activeIps[ip]) return;
+			delete activeIps[ip];
+			await env.DB.prepare("UPDATE users SET active_ips = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), uuid).run();
+		} catch (e) {
+			console.error("[c85kz7x] " + (e && e.message));
+		} finally {
+			p6gwddb.delete(key);
+		}
+	})();
+	if (ctx) ctx.waitUntil(task);
+}
+function mzl8dv2(message) {
+	function x2wdx1j(n, x) { return (x >>> n) | (x << (32 - n)); }
+	function vlz8yee(x, y, z) { return (x & y) ^ (~x & z); }
+	function qdpb8oi(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); }
+	function hhgsaz1(x) { return x2wdx1j(2, x) ^ x2wdx1j(13, x) ^ x2wdx1j(22, x); }
+	function l68cqls(x) { return x2wdx1j(6, x) ^ x2wdx1j(11, x) ^ x2wdx1j(25, x); }
+	function inwzoyn(x) { return x2wdx1j(7, x) ^ x2wdx1j(18, x) ^ (x >>> 3); }
+	function gxwtoj0(x) { return x2wdx1j(17, x) ^ x2wdx1j(19, x) ^ (x >>> 10); }
+	const K = [
+		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+	];
+	let H = [
+		0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
+		0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
+	];
+	const msgBytes = typeof message === 'string' ? new TextEncoder().encode(message) : message;
+	const bitLen = msgBytes.length * 8;
+	const newLen = (((msgBytes.length + 8) >> 6) + 1) << 6;
+	const padded = new Uint8Array(newLen);
+	padded.set(msgBytes);
+	padded[msgBytes.length] = 0x80;
+	const view = new DataView(padded.buffer);
+	view.setUint32(newLen - 4, bitLen, false);
+	const W = new Uint32Array(64);
+	for (let i = 0; i < newLen; i += 64) {
+		for (let t = 0; t < 16; t++) {
+			W[t] = view.getUint32(i + t * 4, false);
+		}
+		for (let t = 16; t < 64; t++) {
+			W[t] = (gxwtoj0(W[t - 2]) + W[t - 7] + inwzoyn(W[t - 15]) + W[t - 16]) >>> 0;
+		}
+		let [a, b, c, d, e, f, g, h] = H;
+		for (let t = 0; t < 64; t++) {
+			const T1 = (h + l68cqls(e) + vlz8yee(e, f, g) + K[t] + W[t]) >>> 0;
+			const T2 = (hhgsaz1(a) + qdpb8oi(a, b, c)) >>> 0;
+			h = g;
+			g = f;
+			f = e;
+			e = (d + T1) >>> 0;
+			d = c;
+			c = b;
+			b = a;
+			a = (T1 + T2) >>> 0;
+		}
+		H[0] = (H[0] + a) >>> 0;
+		H[1] = (H[1] + b) >>> 0;
+		H[2] = (H[2] + c) >>> 0;
+		H[3] = (H[3] + d) >>> 0;
+		H[4] = (H[4] + e) >>> 0;
+		H[5] = (H[5] + f) >>> 0;
+		H[6] = (H[6] + g) >>> 0;
+		H[7] = (H[7] + h) >>> 0;
+	}
+	return H.slice(0, 7).map(w => w.toString(16).padStart(8, '0')).join('');
+}
+function x2xa3du(value) {
+	try {
+		return decodeURIComponent(value);
+	} catch (e) {
+		return value;
+	}
+}
+function le69yqs(user) {
+	const t = String((user && user.connection_type) || "vl" + "e" + "ss").toLowerCase();
+	const trojan = t.includes("trojan");
+	const ss = t.includes("shadowsocks");
+	const vless = t.includes("vl" + "e" + "ss") || (!trojan && !ss);
+	return { vless, trojan, ss };
+}
+function dibojp4(protocols, connectionType, fallback) {
+	let list = [];
+	if (Array.isArray(protocols)) list = protocols;
+	else if (typeof connectionType === "string" && connectionType) list = connectionType.split(",");
+	const allowed = ["vl" + "e" + "ss", "trojan", "shadowsocks"];
+	const out = [];
+	for (const p of list) {
+		const k = String(p || "").trim().toLowerCase();
+		if (allowed.includes(k) && !out.includes(k)) out.push(k);
+	}
+	return out.length > 0 ? out.join(",") : fallback;
+}
+const cxr7ma0 = new Map();
+const bp4qnv1 = {
+	async evpBytesToKey(password, keyLen) {
+		const pass = new TextEncoder().encode(password);
+		const key = new Uint8Array(keyLen);
+		let hash = new Uint8Array(0);
+		let offset = 0;
+		while (offset < keyLen) {
+			const data = new Uint8Array(hash.length + pass.length);
+			data.set(hash);
+			data.set(pass, hash.length);
+			hash = new Uint8Array(await crypto.subtle.digest("MD5", data));
+			const len = Math.min(hash.length, keyLen - offset);
+			key.set(hash.subarray(0, len), offset);
+			offset += len;
+		}
+		return key;
+	},
+	async getMasterKey(password) {
+		let mk = cxr7ma0.get(password);
+		if (!mk) {
+			mk = await this.evpBytesToKey(password, 32);
+			if (cxr7ma0.size > 512) cxr7ma0.clear();
+			cxr7ma0.set(password, mk);
+		}
+		return mk;
+	},
+	async deriveSubkey(password, salt) {
+		const masterKey = await this.getMasterKey(password);
+		const keyMaterial = await crypto.subtle.importKey("raw", masterKey, { name: "HKDF" }, false, ["deriveKey"]);
+		return await crypto.subtle.deriveKey(
+			{ name: "HKDF", hash: "SHA-1", salt: salt, info: new TextEncoder().encode("ss-subkey") },
+			keyMaterial,
+			{ name: "AES-GCM", length: 256 },
+			false,
+			["encrypt", "decrypt"],
+		);
+	},
+	incrementNonce(nonce) {
+		for (let i = 0; i < nonce.length; i++) {
+			nonce[i]++;
+			if (nonce[i] !== 0) break;
+		}
+	},
+	async decryptChunk(key, nonce, data) {
+		try {
+			const out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
+			this.incrementNonce(nonce);
+			return new Uint8Array(out);
+		} catch (e) {
+			return null;
+		}
+	},
+	async encryptChunk(key, nonce, data) {
+		try {
+			const out = await crypto.subtle.encrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
+			this.incrementNonce(nonce);
+			return new Uint8Array(out);
+		} catch (e) {
+			return null;
+		}
+	},
+};
+async function aphb6rr(request) {
+	try {
+		const body = await request.json();
+		return body && typeof body === "object" ? body : {};
+	} catch (e) {
+		return {};
+	}
+}
+async function xd6rvv1(path, options = {}) {
+	if (path !== "ips.txt") return new Response("", { status: 404 });
+	return await fetch("https://subs.alis1.ir/Ip.txt", options);
+}
+async function ert3ro2() {
+	return new Response("", { status: 404 });
+}
+let brwcxvi = 0;
+async function e6bb3cy(env, ctx) {
+	const now = Date.now();
+	if (now - brwcxvi < 3600000) return;
+	try {
+		brwcxvi = now;
+		const todayUtc = Math.floor(now / 86400000) * 86400000;
+		await env.DB.prepare(`UPDATE users SET used_gb = 0, is_active = 1, last_reset_vol_time = ? WHERE auto_reset_vol_days > 0 AND ? >= (last_reset_vol_time + (auto_reset_vol_days * 86400000))`).bind(todayUtc, todayUtc).run();
+		await env.DB.prepare(`UPDATE users SET used_req = 0, is_active = 1, last_reset_req_time = ? WHERE auto_reset_req_days > 0 AND ? >= (last_reset_req_time + (auto_reset_req_days * 86400000))`).bind(todayUtc, todayUtc).run();
+	} catch (e) {}
+}
+let m58hoyq = 0;
+async function e31njoi(env, ctx) {
+	const now = Date.now();
+	if (now - m58hoyq < 60000) return;
+	try {
+		m58hoyq = now;
+		const { results: usersToRotate } = await env.DB.prepare("SELECT * FROM users WHERE auto_rotate_ip = 1 AND ? >= (last_rotate_time + (rotate_time * 60000))").bind(now).all();
+		if (!usersToRotate || usersToRotate.length === 0) return;
+		const res = await xd6rvv1("ips.txt");
+		if (!res.ok) return;
+		const text = await res.text();
+		const blocks = text.split("----------");
+		let l76xmsu = {};
+		blocks.forEach((block) => {
+			const lines = block
+				.trim()
+				.split("\n")
+				.map((l) => l.trim())
+				.filter((l) => l.length > 0);
+			if (lines.length === 0) return;
+			let opName = "Unknown";
+			const ips = [];
+			lines.forEach((line) => {
+				if (line.includes("#")) opName = line.split("#")[1].trim();
+				else if (!line.startsWith("[source")) ips.push(line);
+			});
+			if (ips.length > 0) l76xmsu[opName] = ips;
+		});
+		const stmts = [];
+		for (const u of usersToRotate) {
+			let availableIps = [];
+			if (u.ip_operator === "all") {
+				Object.values(l76xmsu).forEach((ips) => (availableIps = availableIps.concat(ips)));
+			} else {
+				availableIps = l76xmsu[u.ip_operator] || [];
+			}
+			availableIps = [...new Set(availableIps)];
+			let count = u.ip_count || 20;
+			let selectedIps = [];
+			if (count >= availableIps.length) {
+				selectedIps = availableIps;
+			} else {
+				const shuffled = availableIps.slice();
+				for (let i = shuffled.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+				}
+				selectedIps = shuffled.slice(0, count);
+			}
+			if (selectedIps.length > 0) {
+				stmts.push(env.DB.prepare("UPDATE users SET ips = ?, last_rotate_time = ? WHERE id = ?").bind(selectedIps.join("\n"), now, u.id));
+			}
+		}
+		if (stmts.length > 0) {
+			const batchSize = 50;
+			for (let i = 0; i < stmts.length; i += batchSize) {
+				await env.DB.batch(stmts.slice(i, i + batchSize));
+			}
+		}
+	} catch (e) {}
+}
+async function d8fsytq() {
+	return;
+}
+export default {
+	async fetch(request, env, ctx) {
+		if (!env.DB) {
+			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
+		}
+		try {
+			try {
+				await gm37elm.ensureSchema(env.DB);
+			} catch (e) {}
+			xn0iw7z(env, ctx);
+			wcjjpz0();
+			if (ogjh4tu) {
+				ctx.waitUntil(e6bb3cy(env, ctx));
+				ctx.waitUntil(e31njoi(env, ctx));
+			}
+			const url = new URL(request.url);
+			if (cggc6tw.isWebSocketUpgrade(request)) {
+				return await cggc6tw.handleWebSocket(request, env, ctx);
+			}
+			if (cggc6tw.isSubscriptionPath(url.pathname)) {
+				return await cggc6tw.handleSubscription(url, env);
+			}
+			if (url.pathname === "/icon.svg" || url.pathname === "/favicon.ico" || url.pathname === "/icon.png" || url.pathname === "/apple-touch-icon.png") {
+				return new Response(yg6opgi, {
+					headers: { "Content-Type": "image/svg+xml; charset=utf-8", "Cache-Control": "public, max-age=604800, immutable" },
+				});
+			}
+			if (url.pathname === "/manifest.json") {
+				return new Response(vrnrz32, {
+					headers: { "Content-Type": "application/manifest+json; charset=utf-8", "Cache-Control": "public, max-age=86400" },
+				});
+			}
+			if (url.pathname === "/sw.js") {
+				return new Response(w8wy2kr, {
+					headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-cache" },
+				});
+			}
+			if (url.pathname === "/robots.txt") {
+				return new Response("User-agent: *\nDisallow: /", { headers: { "Content-Type": "text/plain; charset=UTF-8" } });
+			}
+			if (url.pathname === "/assets/geo.json") {
+				return await cggc6tw.handleLocations();
+			}
+			if (url.pathname.startsWith("/api/")) {
+				return await cggc6tw.handleApi(request, url, env, ctx);
+			}
+			if (url.pathname === "/adminas" || url.pathname === "/login") {
+				return await cggc6tw.handlePanel(request, env);
+			}
+			if (url.pathname.startsWith("/status/")) {
+				return await cggc6tw.handleUserStatus(url, env);
+			}
+			return new Response(wa42j92.nginx, {
+				headers: { "Content-Type": "text/html; charset=utf-8" },
+			});
+		} catch (err) {
+			return new Response("Internal Server Error", { status: 500 });
+		}
+	},
+};
+/*
+[1.
+*/
+const cggc6tw = {
+	isWebSocketUpgrade(request) {
+		const upgradeHeader = (request.headers.get("Upgrade") || "").toLowerCase();
+		return upgradeHeader === "websocket";
+	},
+	isSubscriptionPath(pathname) {
+		return pathname.startsWith("/sub/") || pathname.startsWith("/feed/") || pathname.startsWith("/singbox/");
+	},
+	async handleLocations() {
+		try {
+			if (!globalThis.__geoCache || Date.now() - globalThis.__geoCacheT > 43200000) {
+				const response = await fetch("https://speed.cloudflare.com/locations");
+				globalThis.__geoCache = await response.text();
+				globalThis.__geoCacheT = Date.now();
+			}
+			return new Response(globalThis.__geoCache, {
+				headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+			});
+		} catch (e) {
+			return new Response("[]", { status: 200, headers: { "Content-Type": "application/json" } });
+		}
+	},
+	async handleWebSocket(request, env, ctx) {
+		try {
+			let proxyIP = "";
+			try {
+				const nowPx = Date.now();
+				if (nowPx - qb7ahff.t < 20000) {
+					proxyIP = qb7ahff.v;
+				} else {
+					const proxyRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
+					proxyIP = proxyRow && proxyRow.value ? proxyRow.value : "";
+					qb7ahff = { t: nowPx, v: proxyIP, p: null };
+				}
+			} catch (e) {}
+			const storedData = { proxy_ip: proxyIP };
+			return bvj1iaf(env, storedData, ctx, request);
+		} catch (e) {
+			return new Response("Internal Server Error", { status: 500 });
+		}
+	},
+	async handleSubscription(url, env) {
+		const isSingbox = url.pathname.startsWith("/singbox/");
+		const isSubPath = url.pathname.startsWith("/sub/");
+		const offset = isSingbox ? 9 : isSubPath ? 5 : 6;
+		let subUser = x2xa3du(url.pathname.slice(offset));
+		const host = url.hostname;
+		try {
+			const user = await env.DB.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE OR uuid = ?").bind(subUser, subUser).first();
+			if (!user) {
+				return new Response("Not Found", { status: 404 });
+			}
+			try {
+				await env.DB.prepare("UPDATE users SET used_req = used_req + 1 WHERE username = ?").bind(user.username).run();
+			} catch (e) {}
+			if (isSingbox) {
+				return await kvkt6ve.generateSingbox(user, host);
+			}
+			let globalIata = "";
+			let showInfoConfigs = false;
+			try {
+				const { results: subSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
+				for (const r of subSettings || []) {
+					if (r.key === "proxy_location_country" && r.value) globalIata = r.value;
+					if (r.key === "sub_info_configs") showInfoConfigs = r.value === "1";
+				}
+			} catch (e) {}
+			return await kvkt6ve.generateText(user, host, globalIata, showInfoConfigs);
+		} catch (err) {
+			return new Response("Error building config: " + err.message, { status: 500 });
+		}
+	},
+	async handlePanel(request, env) {
+		const hasPassword = await gm37elm.getPanelPassword(env.DB);
+		if (!hasPassword) {
+			return new Response(wa42j92.setup, {
+				headers: { "Content-Type": "text/html; charset=utf-8" },
+			});
+		}
+		const authorized = await gm37elm.verifyApiAuth(request, env);
+		if (!authorized) {
+			return new Response(wa42j92.login, {
+				headers: { "Content-Type": "text/html; charset=utf-8" },
+			});
+		}
+		return new Response(wa42j92.panel, {
+			headers: {
+				"Content-Type": "text/html; charset=utf-8",
+				"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+				Pragma: "no-cache",
+				Expires: "0",
+			},
+		});
+	},
+	async handleUserStatus(url, env) {
+		const username = x2xa3du(url.pathname.slice(8));
+		if (!username) {
+			return new Response("Username is required", { status: 400 });
+		}
+		try {
+			const user = await env.DB.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE OR uuid = ?").bind(username, username).first();
+			if (!user) {
+				return new Response("User not found", { status: 404 });
+			}
+			let globalProxyIata = "";
+			let statusInfoConfigs = false;
+			try {
+				const { results: stSettings } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('proxy_location_country', 'sub_info_configs')").all();
+				for (const r of stSettings || []) {
+					if (r.key === "proxy_location_country" && r.value) globalProxyIata = r.value;
+					if (r.key === "sub_info_configs") statusInfoConfigs = r.value === "1";
+				}
+			} catch (e) {}
+			const userJson = JSON.stringify({
+				username: user.username,
+				uuid: user.uuid,
+				limit_gb: user.limit_gb,
+				expiry_days: user.expiry_days,
+				used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
+				limit_req: user.limit_req,
+				used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
+				is_active: user.is_active,
+				online_count: Math.max((vcmirtr.get(user.username) || new Map()).size, hrktmlk(user.active_ips)),
+				ip_limit: user.ip_limit,
+				created_at: user.created_at,
+				tls: user.tls,
+				port: user.port,
+				ips: user.ips,
+				fingerprint: user.fingerprint || "unsafe",
+				user_proxy_iata: user.user_proxy_iata,
+				user_socks5: user.user_socks5,
+				user_proxy_ip: user.user_proxy_ip,
+				global_proxy_iata: globalProxyIata,
+				info_configs: statusInfoConfigs,
+				connection_type: user.connection_type,
+			});
+			const html = wa42j92.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
+			return new Response(html, {
+				headers: { "Content-Type": "text/html; charset=utf-8" },
+			});
+		} catch (err) {
+			return new Response("Error: " + err.message, { status: 500 });
+		}
+	},
+	async handleApi(request, url, env, ctx) {
+		if (request.method !== "GET" && request.method !== "HEAD") bbkao4k();
+		const hasPassword = await gm37elm.getPanelPassword(env.DB);
+		if (url.pathname === "/api/setup-password" && request.method === "POST") {
+			if (hasPassword) {
+				return new Response(JSON.stringify({ error: "رمز عبور از قبل تعریف شده است" }), {
+					status: 400,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			const { password } = await aphb6rr(request);
+			const cleanPassword = (password || "").trim();
+			if (!cleanPassword || cleanPassword.length < 4) {
+				return new Response(JSON.stringify({ error: "رمز عبور باید حداقل ۴ کاراکتر باشد" }), {
+					status: 400,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			const hashed = await gm37elm.sha256(cleanPassword);
+			await gm37elm.setPanelPassword(env.DB, hashed);
+			tp0s2fk.clear();
+			return new Response(JSON.stringify({ success: true }), {
+				headers: {
+					"Content-Type": "application/json; charset=utf-8",
+					"Set-Cookie": "sx_tok=" + hashed + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+				},
+			});
+		}
+		if (url.pathname === "/api/login" && request.method === "POST") {
+			const clientIP = request.headers.get("CF-Connecting-IP") || "unknown";
+			const now = Date.now();
+			if (tp0s2fk.size > 256) {
+				for (const [ip, rec] of tp0s2fk) {
+					if (now - rec.lastAttempt > 900000) tp0s2fk.delete(ip);
+				}
+			}
+			const attemptRecord = tp0s2fk.get(clientIP) || { count: 0, lastAttempt: 0 };
+			if (attemptRecord.count >= 15 && now - attemptRecord.lastAttempt < 900000) {
+				const remaining = Math.ceil((900000 - (now - attemptRecord.lastAttempt)) / 60000);
+				return new Response(JSON.stringify({ error: `دسترسی شما مسدود شد. لطفاً ${remaining} دقیقه دیگر تلاش کنید.` }), {
+					status: 429,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			const { password } = await aphb6rr(request);
+			const cleanPassword = (password || "").trim();
+			const hashedInput = await gm37elm.sha256(cleanPassword);
+			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
+			let isValid = false;
+			if (storedHash === hashedInput) {
+				isValid = true;
+			} else {
+				const oldHashedInput = await gm37elm.oldSha256(cleanPassword);
+				if (storedHash === oldHashedInput) {
+					isValid = true;
+					await gm37elm.setPanelPassword(env.DB, hashedInput);
+				}
+			}
+			if (isValid) {
+				tp0s2fk.delete(clientIP);
+				return new Response(JSON.stringify({ success: true }), {
+					headers: {
+						"Content-Type": "application/json; charset=utf-8",
+						"Set-Cookie": "sx_tok=" + hashedInput + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+					},
+				});
+			} else {
+				attemptRecord.count = now - attemptRecord.lastAttempt > 900000 ? 1 : attemptRecord.count + 1;
+				attemptRecord.lastAttempt = now;
+				tp0s2fk.set(clientIP, attemptRecord);
+				return new Response(JSON.stringify({ error: `رمز عبور اشتباه است (تلاش‌های باقی‌مانده: ${15 - attemptRecord.count})` }), {
+					status: 401,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+		}
+		if (url.pathname === "/api/logout" && request.method === "POST") {
+			return new Response(JSON.stringify({ success: true }), {
+				headers: {
+					"Content-Type": "application/json; charset=utf-8",
+					"Set-Cookie": "sx_tok=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
+				},
+			});
+		}
+		if (url.pathname === "/api/recover" && request.method === "POST") {
+			const { api_token } = await aphb6rr(request);
+			if (!api_token) {
+				return new Response(JSON.stringify({ error: "Token is required" }), {
+					status: 400,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			try {
+				const cfRes = await fetch("https://api.cloudflare.com/client/v4/user/tokens/verify", {
+					headers: { Authorization: "Bearer " + api_token },
+				});
+				const cfData = await cfRes.json();
+				if (!cfRes.ok || !cfData.success) {
+					return new Response(JSON.stringify({ error: "Invalid or expired Cloudflare token" }), {
+						status: 401,
+						headers: { "Content-Type": "application/json; charset=utf-8" },
+					});
+				}
+				const host = url.hostname;
+				let isAuthorized = false;
+				if (host.endsWith(".workers.dev")) {
+					const parts = host.split(".");
+					const targetSubdomain = parts[parts.length - 3];
+					const accountsRes = await fetch("https://api.cloudflare.com/client/v4/accounts", {
+						headers: { Authorization: "Bearer " + api_token },
+					});
+					const accountsData = await accountsRes.json();
+					if (accountsData.success && accountsData.result) {
+						for (const acc of accountsData.result) {
+							const subRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${acc.id}/workers/subdomain`, {
+								headers: { Authorization: "Bearer " + api_token },
+							});
+							const subData = await subRes.json();
+							if (subData.success && subData.result && subData.result.subdomain === targetSubdomain) {
+								isAuthorized = true;
+								break;
+							}
+						}
+					}
+				} else {
+					const zonesRes = await fetch("https://api.cloudflare.com/client/v4/zones", {
+						headers: { Authorization: "Bearer " + api_token },
+					});
+					const zonesData = await zonesRes.json();
+					if (zonesData.success && zonesData.result) {
+						for (const zone of zonesData.result) {
+							if (host === zone.name || host.endsWith("." + zone.name)) {
+								isAuthorized = true;
+								break;
+							}
+						}
+					}
+				}
+				if (!isAuthorized) {
+					return new Response(JSON.stringify({ error: "این توکن متعلق به صاحب پـنـل نیست (ای کــثـــکـــش)" }), {
+						status: 403,
+						headers: { "Content-Type": "application/json; charset=utf-8" },
+					});
+				}
+				await env.DB.prepare("DELETE FROM settings WHERE key = 'panel_password'").run();
+				qwlc8qb = null;
+				tp0s2fk.clear();
+				return new Response(JSON.stringify({ success: true }), {
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			} catch (err) {
+				return new Response(JSON.stringify({ error: "Cloudflare API connection error" }), {
+					status: 500,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+		}
+		const authorized = await gm37elm.verifyApiAuth(request, env);
+		if (!authorized && url.pathname !== "/api/test-proxy") {
+			return new Response(JSON.stringify({ error: "Unauthorized" }), {
+				status: 401,
+				headers: { "Content-Type": "application/json; charset=utf-8" },
+			});
+		}
+		if (url.pathname === "/api/ips-list" && request.method === "GET") {
+			try {
+				const r = await xd6rvv1("ips.txt");
+				if (!r.ok) return new Response("", { status: 502 });
+				return new Response(await r.text(), { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
+			} catch (e) {
+				return new Response("", { status: 502 });
+			}
+		}
+		if (url.pathname === "/api/restart-core" && request.method === "POST") {
+			try {
+				GLOBAL_TRAFFIC_CACHE.clear();
+				a40qkal.clear();
+				cchca6z.clear();
+				gizzyby.clear();
+				r2x0v6w.clear();
+				obx6yh7.clear();
+				USER_REQ_CACHE.clear();
+				vcmirtr.clear();
+				gbd8v13.clear();
+				orfpjpg.clear();
+				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+			} catch (err) {
+				return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+			}
+		}
+		if (url.pathname === "/api/change-password" && request.method === "POST") {
+			const { current_password, new_password } = await aphb6rr(request);
+			const cleanCurrent = (current_password || "").trim();
+			const cleanNew = (new_password || "").trim();
+			if (!cleanCurrent || !cleanNew) {
+				return new Response(JSON.stringify({ error: "رمز عبور فعلی و جدید الزامی هستند" }), {
+					status: 400,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			const currentHash = await gm37elm.sha256(cleanCurrent);
+			const oldCurrentHash = await gm37elm.oldSha256(cleanCurrent);
+			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
+			if (storedHash && storedHash !== currentHash && storedHash !== oldCurrentHash) {
+				return new Response(JSON.stringify({ error: "رمز عبور فعلی اشتباه است" }), {
+					status: 401,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			if (cleanNew.length < 4) {
+				return new Response(JSON.stringify({ error: "رمز عبور جدید باید حداقل ۴ کاراکتر باشد" }), {
+					status: 400,
+					headers: { "Content-Type": "application/json; charset=utf-8" },
+				});
+			}
+			const newHash = await gm37elm.sha256(cleanNew);
+			await gm37elm.setPanelPassword(env.DB, newHash);
+			return new Response(JSON.stringify({ success: true }), {
+				headers: {
+					"Content-Type": "application/json; charset=utf-8",
+					"Set-Cookie": "sx_tok=" + newHash + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+				},
+			});
+		}
+		if (url.pathname === "/api/settings/bulk") {
+			if (request.method === "GET") {
+				try {
+					const { results } = await env.DB.prepare("SELECT * FROM settings").all();
+					const settingsObj = {};
+					if (results) {
+						results.forEach((r) => {
+							if (r.key !== "cf_token" && r.key !== "panel_password") settingsObj[r.key] = r.value;
+						});
+					}
+					return new Response(JSON.stringify(settingsObj), { headers: { "Content-Type": "application/json" } });
+				} catch (e) {
+					return new Response(JSON.stringify({}), { headers: { "Content-Type": "application/json" } });
+				}
+			}
+			if (request.method === "POST") {
+				const body = await aphb6rr(request);
+				if (body.settings && typeof body.settings === "object") {
+					for (const [k, v] of Object.entries(body.settings)) {
+						await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
+					}
+				}
+				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+			}
+		}
+		if (url.pathname === "/api/bulk-advanced" && request.method === "POST") {
+			const b = await aphb6rr(request);
+			const sets = [];
+			const vals = [];
+			for (const f of ["advanced_frag", "cipher_suites", "tls_mask", "ech_config"]) {
+				if (b[f] === undefined) continue;
+				const v = b[f] === null ? "" : String(b[f]).trim();
+				if (f === "advanced_frag" && v) {
+					try { JSON.parse(v); } catch (e) { return new Response(JSON.stringify({ error: "Advanced Fragment JSON is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } }); }
+				}
+				sets.push(f + " = ?");
+				vals.push(v || null);
+			}
+			if (b.fingerprint !== undefined) {
+				const fpv = String(b.fingerprint || "").trim().toLowerCase();
+				if (!["chrome", "firefox", "safari", "ios", "android", "edge", "360", "qq", "random", "randomized", "unsafe"].includes(fpv)) {
+					return new Response(JSON.stringify({ error: "fingerprint is invalid" }), { status: 400, headers: { "Content-Type": "application/json" } });
+				}
+				sets.push("fingerprint = ?");
+				vals.push(fpv);
+			}
+			if (sets.length) await env.DB.prepare("UPDATE users SET " + sets.join(", ")).bind(...vals).run();
+			if (b.patterniha !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', ?)").bind(b.patterniha ? "1" : "0").run();
+			if (b.patterniha_ech !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', ?)").bind(b.patterniha_ech ? "1" : "0").run();
+			if (b.patterniha === true && b.patterniha_ech === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', '0')").run();
+			if (b.patterniha_ech === true && b.patterniha === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', '0')").run();
+			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+		}
+		if (url.pathname === "/api/proxy-ip") {
+			if (request.method === "POST") {
+				const { proxy_ip, iata, socks5, country, info_configs, ech_sni, ech_doh, ech_doh_preset, ech_api } = await aphb6rr(request);
+				{
+					const bad = (m) => new Response(JSON.stringify({ error: m }), { status: 400, headers: { "Content-Type": "application/json" } });
+					if (ech_sni !== undefined && !/^[A-Za-z0-9]([A-Za-z0-9.-]{0,251}[A-Za-z0-9])?$/.test(String(ech_sni))) return bad("ECH SNI نامعتبر است");
+					if (ech_doh !== undefined && !/^(udp|tcp|https|tls):\/\/[^\s"'<>\\+]{1,200}$/i.test(String(ech_doh))) return bad("ECH DoH نامعتبر است");
+					if (ech_doh_preset !== undefined && !/^[a-z0-9-]{1,24}$/.test(String(ech_doh_preset))) return bad("preset نامعتبر است");
+					if (ech_api !== undefined && String(ech_api) !== "" && !/^https?:\/\/[^\s"'<>\\]{1,200}$/i.test(String(ech_api))) return bad("آدرس API مرکزی نامعتبر است");
+					const putSetting = (k, v) => env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
+					if (ech_sni !== undefined) await putSetting("ech_sni", ech_sni);
+					if (ech_doh !== undefined) await putSetting("ech_doh", ech_doh);
+					if (ech_doh_preset !== undefined) await putSetting("ech_doh_preset", ech_doh_preset);
+					if (ech_api !== undefined) await putSetting("ech_api", ech_api);
+				}
+				if (proxy_ip !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_ip', ?)").bind(proxy_ip).run();
+				if (iata !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_iata', ?)").bind(iata).run();
+				if (country !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proxy_location_country', ?)").bind(country).run();
+				if (socks5 !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('socks5', ?)").bind(socks5).run();
+				if (info_configs !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('sub_info_configs', ?)").bind(info_configs ? "1" : "0").run();
+				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+			}
+			if (request.method === "GET") {
+				const rowIp = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
+				const rowIata = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_iata'").first();
+				const rowCountry = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_location_country'").first();
+				const rowSocks = await env.DB.prepare("SELECT value FROM settings WHERE key = 'socks5'").first();
+				const rowInfoCfg = await env.DB.prepare("SELECT value FROM settings WHERE key = 'sub_info_configs'").first();
+				const rowPatt = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_all'").first();
+				const rowPattEch = await env.DB.prepare("SELECT value FROM settings WHERE key = 'patterniha_ech_all'").first();
+				const { results: echRows } = await env.DB.prepare("SELECT key, value FROM settings WHERE key IN ('ech_sni', 'ech_doh', 'ech_doh_preset', 'ech_api')").all();
+				const echMap = {};
+				for (const r of (echRows || [])) echMap[r.key] = r.value;
+				return new Response(
+					JSON.stringify({
+						proxy_ip: rowIp ? rowIp.value : "",
+						iata: rowIata ? rowIata.value : "",
+						country: rowCountry ? rowCountry.value : "",
+						socks5: rowSocks ? rowSocks.value : "",
+						info_configs: rowInfoCfg ? rowInfoCfg.value === "1" : false,
+						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
+						patterniha_ech_all: rowPattEch ? rowPattEch.value === "1" : false,
+						ech_sni: echMap.ech_sni || "cloudflare-ech.com",
+						ech_doh: echMap.ech_doh || "udp://1.1.1.1",
+						ech_doh_preset: echMap.ech_doh_preset || "cf-udp",
+						ech_api: echMap.ech_api || "",
+					}),
+					{ headers: { "Content-Type": "application/json" } },
+				);
+			}
+		}
+		if (url.pathname === "/api/test-proxy" && request.method === "POST") {
+			const { proxy } = await aphb6rr(request);
+			const skip_country = true;
+			if (!proxy) return new Response(JSON.stringify({ error: "پـروکـسـی وارد نشده است" }), { status: 400, headers: { "Content-Type": "application/json" } });
+			if (proxy === "direct") {
+				const startT = Date.now();
+				try {
+					const controller = new AbortController();
+					const tid = setTimeout(() => controller.abort(), 3000);
+					await fetch("https://cp.cloudflare.com/generate_204", { method: "HEAD", signal: controller.signal });
+					clearTimeout(tid);
+					return new Response(JSON.stringify({ success: true, ping: (Date.now() - startT), country: "UN" }), { headers: { "Content-Type": "application/json" } });
+				} catch (e) {
+					return new Response(JSON.stringify({ error: "نت آزاد قطع است" }), { status: 200, headers: { "Content-Type": "application/json" } });
+				}
+			}
+			try {
+				let ip = "";
+				let workingProxy = proxy;
+				if (false) {
+					ip = proxy.match(/server=([^&]+)/)?.[1] || "";
+				} else {
+					let cleanProxy = proxy.replace(/^(socks4|socks5|socks|http|https):\/\//i, "");
+					let remain = cleanProxy;
+					if (remain.includes("@")) remain = remain.substring(remain.lastIndexOf("@") + 1);
+					if (remain.startsWith("[")) {
+						ip = remain.substring(1, remain.indexOf("]"));
+					} else {
+						const lastColon = remain.lastIndexOf(":");
+						if (lastColon !== -1 && remain.indexOf(":") === lastColon) ip = remain.substring(0, lastColon);
+						else ip = remain;
+					}
+				}
+				let country = "UN";
+				const startTime = Date.now();
+				let targetHost = "1.1.1.1";
+				let reqPath = "/";
+				const payload = new TextEncoder().encode("GET " + reqPath + " HTTP/1.1\r\nHost: " + targetHost + "\r\nConnection: close\r\n\r\n");
+				const s = await zbxph7j(proxy, targetHost, 80, payload);
+				const reader = s.readable.getReader();
+				let resStr = "";
+				const dec = new TextDecoder();
+				const timeoutId = setTimeout(() => {
+					try {
+						s.close();
+					} catch (e) {}
+				}, 3000);
+				try {
+					while (true) {
+						const res = await reader.read();
+						if (res.done || !res.value) break;
+						resStr += dec.decode(res.value, { stream: true });
+						if (skip_country) {
+							if (resStr.includes("HTTP/1.")) break;
+						} else {
+							if (resStr.includes("countryCode")) break;
+						}
+					}
+				} finally {
+					clearTimeout(timeoutId);
+					try {
+						s.close();
+					} catch (e) {}
+				}
+				if (!resStr) {
+					throw new Error("تایم‌اوت در دریافت دیتا");
+				}
+				const ping = Date.now() - startTime;
+				return new Response(JSON.stringify({ success: true, ping, country }), { headers: { "Content-Type": "application/json" } });
+			} catch (e) {
+				let msg = e.message;
+				if (msg.includes("Stream was cancelled") || msg.includes("network")) msg = "ارتباط با سرور قطع شد (احتمالاً پـروکـسـی مسدود یا خاموش است)";
+				else if (msg.includes("timeout") || msg.includes("timed out") || msg.includes("تایم‌اوت")) msg = "تایم‌اوت در اتصال (پـروکـسـی در دسترس نیست)";
+				else if (msg.includes("Invalid URL") || msg.includes("Invalid format")) msg = "فرمت وارد شده برای پـروکـسـی اشتباه است";
+				else if (msg === "err") msg = "خطای نامشخص (ارتباط برقرار نشد)";
+				return new Response(JSON.stringify({ error: msg }), { status: 500, headers: { "Content-Type": "application/json" } });
+			}
+		}
+		if (url.pathname.startsWith("/api/users")) {
+			const pathParts = url.pathname.split("/");
+			const isUserAction = pathParts.length > 3;
+			if (isUserAction) {
+				const username = x2xa3du(pathParts.pop());
+				if (request.method === "PUT") {
+					const body = await aphb6rr(request);
+					if (Object.keys(body).length === 0) {
+						return new Response(JSON.stringify({ error: "Invalid request body" }), { status: 400, headers: { "Content-Type": "application/json" } });
+					}
+					if (body.toggle_only !== undefined) {
+						await env.DB.prepare("UPDATE users SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE username = ?").bind(username).run();
+						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+					} else if (body.reset_action !== undefined) {
+						if (body.reset_action === "volume") {
+							await env.DB.prepare("UPDATE users SET used_gb = 0, is_active = 1 WHERE username = ?").bind(username).run();
+							GLOBAL_TRAFFIC_CACHE.set(username, 0);
+						} else if (body.reset_action === "req") {
+							await env.DB.prepare("UPDATE users SET used_req = 0, is_active = 1 WHERE username = ?").bind(username).run();
+							USER_REQ_CACHE.set(username, 0);
+						} else if (body.reset_action === "time") {
+							await env.DB.prepare("UPDATE users SET created_at = CURRENT_TIMESTAMP, is_active = 1 WHERE username = ?").bind(username).run();
+						}
+						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+					} else {
+						const { username: new_username, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = body;
+						if (new_username && new_username !== username) {
+							if (!/^[a-zA-Z0-9_-]+$/.test(new_username)) {
+								return new Response(JSON.stringify({ error: "نام کاربری جدید غیرمجاز است" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
+							}
+							const existing = await env.DB.prepare("SELECT id FROM users WHERE username = ? COLLATE NOCASE").bind(new_username).first();
+							if (existing) {
+								return new Response(JSON.stringify({ error: "این نام کاربری از قبل وجود دارد" }), { status: 400, headers: { "Content-Type": "application/json" } });
+							}
+							if (GLOBAL_TRAFFIC_CACHE.has(username)) {
+								GLOBAL_TRAFFIC_CACHE.set(new_username, GLOBAL_TRAFFIC_CACHE.get(username));
+								GLOBAL_TRAFFIC_CACHE.delete(username);
+							}
+							if (USER_REQ_CACHE.has(username)) {
+								USER_REQ_CACHE.set(new_username, USER_REQ_CACHE.get(username));
+								USER_REQ_CACHE.delete(username);
+							}
+							if (a40qkal.has(username)) {
+								a40qkal.set(new_username, a40qkal.get(username));
+								a40qkal.delete(username);
+							}
+							if (cchca6z.has(username)) {
+								cchca6z.set(new_username, cchca6z.get(username));
+								cchca6z.delete(username);
+							}
+						}
+						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
+						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? mzl8dv2(existingUserForTrojan.uuid) : null;
+						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
+							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, dibojp4(protocols, connection_type, null), username)
+							.run();
+						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+					}
+				}
+				if (request.method === "DELETE") {
+					await env.DB.prepare("DELETE FROM users WHERE username = ?").bind(username).run();
+					return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+				}
+			} else {
+				if (request.method === "GET") {
+					try {
+						await dyj1dp1(env);
+					} catch (e) {}
+					try {
+						const { results } = await env.DB.prepare("SELECT * FROM users ORDER BY id DESC").all();
+						const now = Date.now();
+						const enrichedUsers = (results || []).map((user) => {
+							const liveIpCount = (vcmirtr.get(user.username) || new Map()).size;
+							const currentOnlineCount = Math.max(liveIpCount, hrktmlk(user.active_ips));
+							return {
+								...user,
+								used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
+								used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
+								is_online: currentOnlineCount > 0 ? 1 : 0,
+								online_count: currentOnlineCount,
+							};
+						});
+						let cfReqs = { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+						try {
+							const liveCf = await viwe15t(env);
+							const todayStr = new Date().toISOString().split("T")[0];
+							const dateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
+							const totalRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_total'").first();
+							let dbTotal = totalRow ? parseInt(totalRow.value) || 0 : 0;
+							let dbToday = 0;
+							if (dateRow && dateRow.value === todayStr) {
+								const todayRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_today'").first();
+								dbToday = todayRow ? parseInt(todayRow.value) || 0 : 0;
+							}
+							if (liveCf.today > dbToday) {
+								dbToday = liveCf.today;
+								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(dbToday), String(dbToday)).run();
+								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_last_date', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(todayStr, todayStr).run();
+							}
+							if (liveCf.total > dbTotal) {
+								dbTotal = liveCf.total;
+								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(dbTotal), String(dbTotal)).run();
+							}
+							cfReqs.today = dbToday + cwsdrkz;
+							cfReqs.total = dbTotal + cwsdrkz;
+							cfReqs.d1Reads = liveCf.d1Reads || 0;
+							cfReqs.d1Writes = liveCf.d1Writes || 0;
+						} catch (e) {}
+						return new Response(
+							JSON.stringify({
+								users: enrichedUsers,
+								serverTime: now,
+								cfRequestsToday: cfReqs.today,
+								cfRequestsTotal: cfReqs.total,
+								d1Reads: cfReqs.d1Reads || 0,
+								d1Writes: cfReqs.d1Writes || 0,
+							}),
+							{
+								headers: {
+									"Content-Type": "application/json",
+									"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+								},
+							},
+						);
+					} catch (dbErr) {
+						return new Response(
+							JSON.stringify({
+								users: [],
+								serverTime: Date.now(),
+								cfRequestsToday: 0,
+								cfRequestsTotal: 0,
+								error: dbErr.message,
+							}),
+							{
+								status: 200,
+								headers: {
+									"Content-Type": "application/json",
+									"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+								},
+							},
+						);
+					}
+				}
+				if (request.method === "POST") {
+					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await aphb6rr(request);
+					if (!username) {
+						return new Response(JSON.stringify({ error: "نام کاربری اجباری است" }), { status: 400, headers: { "Content-Type": "application/json" } });
+					}
+					if (username.length > 32) {
+						return new Response(JSON.stringify({ error: "نام کاربری نمی‌تواند بیشتر از ۳۲ کاراکتر باشد" }), { status: 400, headers: { "Content-Type": "application/json" } });
+					}
+					if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+						return new Response(JSON.stringify({ error: "نام کاربری غیرمجاز است (فقط حروف، اعداد، خط تیره و آندرلاین)" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
+					}
+					let finalUuid = uuid;
+					if (!finalUuid) {
+						const randomHex = Array.from(crypto.getRandomValues(new Uint8Array(6)))
+							.map((b) => b.toString(16).padStart(2, "0"))
+							.join("");
+						finalUuid = `50414e45-4c5f-5a45-5553-${randomHex}`;
+					}
+					const parsedUsedGb = parseFloat(used_gb);
+					const finalUsedGb = !isNaN(parsedUsedGb) ? parsedUsedGb : 0;
+					const parsedUsedReq = parseInt(used_req);
+					const finalUsedReq = !isNaN(parsedUsedReq) ? parsedUsedReq : 0;
+					const finalCreatedAt = created_at || new Date().toISOString();
+					const parsedIsActive = parseInt(is_active);
+					const finalIsActive = !isNaN(parsedIsActive) ? parsedIsActive : 1;
+					const existingUser = await env.DB.prepare("SELECT id FROM users WHERE username = ? COLLATE NOCASE").bind(username).first();
+					if (existingUser) {
+						return new Response(JSON.stringify({ error: "این نام کاربری از قبل وجود دارد" }), { status: 400, headers: { "Content-Type": "application/json; charset=utf-8" } });
+					}
+					try {
+						const todayUtc = Math.floor(Date.now() / 86400000) * 86400000;
+						const nowTime = Date.now();
+						const trojanHash = mzl8dv2(finalUuid);
+						const finalConnType = dibojp4(protocols, connection_type, "vl" + "e" + "ss");
+						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, (typeof ech_config === "string" && ech_config.length <= 300 && !/[\s"'<>\\]/.test(ech_config)) ? (ech_config || null) : null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
+							.run();
+						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+					} catch (err) {
+						return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+					}
+				}
+			}
+		}
+		return new Response(JSON.stringify({ error: "Not Found" }), { status: 404, headers: { "Content-Type": "application/json" } });
+	},
+};
+/*
+[1.
+*/
+let ogjh4tu = false;
+let smwyozf = null;
+let bjro08u = 0;
+const a8tmqkm = "3";
+let qwlc8qb = null;
+const gm37elm = {
+	async ensureSchema(db) {
+		if (ogjh4tu) return;
+		if (!smwyozf) {
+			if (Date.now() - bjro08u < 20000) return;
+			bjro08u = Date.now();
+			smwyozf = (async () => {
+				try {
+					const flag = await db.prepare("SELECT value FROM settings WHERE key = 'schema_ver'").first();
+					if (flag && flag.value === a8tmqkm) {
+						ogjh4tu = true;
+						return;
+					}
+				} catch (e) {}
+				try {
+					await db.batch([
+						db.prepare(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, uuid TEXT, limit_gb REAL, expiry_days INTEGER, ips TEXT, connection_type TEXT, tls TEXT, port INTEGER, used_gb REAL DEFAULT 0, is_active INTEGER DEFAULT 1, last_active INTEGER, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`),
+						db.prepare("CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)"),
+					]);
+				} catch (e) {}
+				try {
+					const { results } = await db.prepare("PRAGMA table_info(users)").all();
+					const existingCols = new Set((results || []).map((r) => r.name));
+					const colsToAdd = [
+					{ name: "is_active", def: "INTEGER DEFAULT 1" },
+					{ name: "last_active", def: "INTEGER" },
+					{ name: "fingerprint", def: "TEXT DEFAULT 'chrome'" },
+					{ name: "max_connections", def: "INTEGER" },
+					{ name: "limit_req", def: "INTEGER" },
+					{ name: "used_req", def: "INTEGER DEFAULT 0" },
+					{ name: "ip_limit", def: "INTEGER DEFAULT NULL" },
+					{ name: "active_ips", def: "TEXT DEFAULT NULL" },
+					{ name: "block_porn", def: "INTEGER DEFAULT 0" },
+					{ name: "block_ads", def: "INTEGER DEFAULT 0" },
+					{ name: "frag_len", def: "TEXT DEFAULT '200-3000'" },
+					{ name: "frag_int", def: "TEXT DEFAULT '1-2'" },
+					{ name: "lifetime_used_gb", def: "REAL DEFAULT 0" },
+					{ name: "user_proxy_ip", def: "TEXT DEFAULT NULL" },
+					{ name: "user_proxy_iata", def: "TEXT DEFAULT NULL" },
+					{ name: "trojan_hash", def: "TEXT DEFAULT NULL" },
+					{ name: "user_socks5", def: "TEXT DEFAULT NULL" },
+					{ name: "first_connection_time", def: "INTEGER DEFAULT NULL" },
+					{ name: "start_on_first_connect", def: "INTEGER DEFAULT 0" },
+					{ name: "advanced_frag", def: "TEXT DEFAULT NULL" },
+					{ name: "cipher_suites", def: "TEXT DEFAULT NULL" },
+					{ name: "tls_mask", def: "TEXT DEFAULT NULL" },
+					{ name: "ech_config", def: "TEXT DEFAULT NULL" },
+					{ name: "auto_reset_vol_days", def: "INTEGER DEFAULT 0" },
+					{ name: "auto_reset_req_days", def: "INTEGER DEFAULT 0" },
+					{ name: "last_reset_vol_time", def: "INTEGER DEFAULT 0" },
+					{ name: "last_reset_req_time", def: "INTEGER DEFAULT 0" },
+					{ name: "auto_rotate_ip", def: "INTEGER DEFAULT 1" },
+					{ name: "rotate_time", def: "INTEGER DEFAULT 0" },
+					{ name: "ip_operator", def: "TEXT DEFAULT 'all'" },
+					{ name: "ip_count", def: "INTEGER DEFAULT 15" },
+					{ name: "last_rotate_time", def: "INTEGER DEFAULT 0" },
+					{ name: "auto_rotate_user_proxy", def: "INTEGER DEFAULT 0" },
+					{ name: "enable_direct", def: "INTEGER DEFAULT 1" },
+					{ name: "user_ipv6_enabled", def: "INTEGER DEFAULT 0" },
+				];
+					const stmts = [];
+					for (const col of colsToAdd) {
+						if (!existingCols.has(col.name)) stmts.push(db.prepare(`ALTER TABLE users ADD COLUMN ${col.name} ${col.def}`));
+					}
+					if (stmts.length > 0) await db.batch(stmts);
+				} catch (e) {}
+				try {
+					const migRow = await db.prepare("SELECT value FROM settings WHERE key = 'proto_migrated_v1'").first();
+					const fix = [
+						db.prepare("UPDATE users SET ip_limit = max_connections WHERE ip_limit IS NULL AND max_connections IS NOT NULL"),
+						db.prepare("UPDATE users SET lifetime_used_gb = used_gb WHERE lifetime_used_gb = 0 OR lifetime_used_gb IS NULL"),
+					];
+					if (!migRow) {
+						fix.unshift(db.prepare("UPDATE users SET connection_type = 'vl' || 'e' || 'ss,trojan' WHERE trojan_hash IS NOT NULL AND (connection_type IS NULL OR connection_type NOT LIKE '%trojan%')"));
+						fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('proto_migrated_v1', '1')"));
+					}
+					fix.push(db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(a8tmqkm));
+					await db.batch(fix);
+					ogjh4tu = true;
+				} catch (e) {}
+			})().finally(() => {
+				smwyozf = null;
+			});
+		}
+		await smwyozf;
+	},
+	async getPanelPassword(db, forceRefresh = true) {
+		try {
+			const row = await db.prepare("SELECT value FROM settings WHERE key = 'panel_password'").first();
+			qwlc8qb = row && row.value ? row.value : null;
+			return qwlc8qb;
+		} catch (e) {
+			return null;
+		}
+	},
+	async setPanelPassword(db, password) {
+		await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('panel_password', ?)").bind(password).run();
+		qwlc8qb = password;
+	},
+	async verifyApiAuth(request, env) {
+		const storedPasswordHash = await this.getPanelPassword(env.DB);
+		if (!storedPasswordHash) return true;
+		const cookies = request.headers.get("Cookie") || "";
+		const sessionCookie = cookies.split(";").find((c) => c.trim().startsWith("sx_tok="));
+		if (!sessionCookie) return false;
+		const sessionToken = sessionCookie.split("=")[1].trim();
+		return sessionToken === storedPasswordHash;
+	},
+	async sha256(message) {
+		const msgBuffer = new TextEncoder().encode(message);
+		const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+	},
+	async oldSha256(message) {
+		const msgBuffer = new TextEncoder().encode(message);
+		const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+	},
+};
+function hrktmlk(activeIpsJson) {
+	if (!activeIpsJson) return 0;
+	try {
+		const activeIps = JSON.parse(activeIpsJson);
+		const now = Date.now();
+		let count = 0;
+		for (const [ip, data] of Object.entries(activeIps)) {
+			const lastSeen = data && typeof data === "object" ? data.timestamp : data;
+			if (now - lastSeen <= 180000) {
+				count++;
+			}
+		}
+		return count;
+	} catch (e) {
+		return 0;
+	}
+}
+const kvkt6ve = {
+	async generateText(user, host, globalIata, showInfo = false) {
+		let ips = [host];
+		if (user.ips) {
+			const parsedIps = user.ips
+				.split("\n")
+				.map((ip) => ip.trim())
+				.filter((ip) => ip.length > 0);
+			if (parsedIps.length > 0) ips = parsedIps;
+		}
+		const ports = String(user.port || "443")
+			.split(",")
+			.map((p) => p.trim())
+			.filter((p) => p.length > 0);
+		const fp = user.fingerprint || "unsafe";
+		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
+		const protoFlags = le69yqs(user);
+		const links = [];
+		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
+		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m1));
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m2));
+		let remVol = "Unlimited";
+		if (user.limit_gb) {
+			let rem = user.limit_gb - (user.used_gb || 0);
+			remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
+		}
+		let remTime = "Unlimited";
+		if (user.expiry_days && user.created_at) {
+			const created = new Date(user.created_at);
+			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+			const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+			remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
+		}
+		let remReq = "Unlimited";
+		if (user.limit_req) {
+			let rem = user.limit_req - (user.used_req || 0);
+			remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
+		}
+		const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
+		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+		let proxyList = [];
+		try {
+			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+				proxyList = JSON.parse(user.user_socks5);
+			} else if (user.user_socks5 || user.user_proxy_ip) {
+				proxyList = [user.user_socks5 || user.user_proxy_ip];
+			} else {
+				proxyList = [null];
+			}
+		} catch (e) {
+			proxyList = [user.user_socks5 || user.user_proxy_ip];
+		}
+		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+		const allowDirect = user.enable_direct !== 0;
+		if (allowDirect) {
+			let hasDirect = proxyList.some(p => p === null || p === "");
+			if (!hasDirect) proxyList.push(null);
+		} else {
+			proxyList = proxyList.filter(p => p !== null && p !== "");
+		}
+		if (proxyList.length === 0) proxyList = [null];
+		for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
+			let proxyItem = proxyList[locIdx];
+			let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
+			let countryCode = typeof proxyItem === "object" && proxyItem !== null
+				? proxyItem.country
+				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
+			let countryFromCache = false;
+			if (!countryCode && proxyStr) {
+				const cc = jip804b.get(proxyStr);
+				if (cc && Date.now() - cc.t < (cc.c ? crtlo7f : iub5ygr)) {
+					countryCode = cc.c;
+					countryFromCache = true;
+				}
+			}
+			if (proxyStr && !countryFromCache && typeof proxyItem !== "object") {
+				if (jip804b.size > 300) jip804b.clear();
+				jip804b.set(proxyStr, { c: countryCode || "", t: Date.now() });
+			}
+			let flagEmoji = "🌐";
+			if (countryCode) {
+				const codePoints = countryCode
+					.toUpperCase()
+					.split("")
+					.map((char) => 127397 + char.charCodeAt(0));
+				try {
+					flagEmoji = String.fromCodePoint(...codePoints);
+				} catch (e) {}
+			}
+			const currentDynPath = encodeURIComponent(rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : ""));
+			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			ips.forEach((ip) => {
+				ports.forEach((portStr) => {
+					const isTlsPort = m1fqgtq.has(portStr);
+					const tlsVal = isTlsPort ? "tls" : "none";
+					let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
+					if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
+					if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
+					if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
+					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
+					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
+					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
+					if (protoFlags.vless) links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
+					if (protoFlags.trojan) {
+						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?security=" + tlsVal + "&type=ws&host=" + host + "&path=" + currentDynPath + "&sni=" + host + "&fp=" + fp + userFrag + "#" + encodeURIComponent(remark + " (Trojan)"));
+					}
+					if (protoFlags.ss) {
+						const ssPlugin = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : "");
+						links.push("ss://" + btoa("aes-256-gcm:" + user.uuid) + "@" + ip + ":" + portStr + "/?plugin=" + encodeURIComponent(ssPlugin) + "#" + encodeURIComponent(remark + " (SS)"));
+					}
+				});
+			});
+		}
+		const noise = ["# System Update Feed: OK", "# Sync Code: " + Math.random().toString(36).slice(2, 10), "# Version: 2.10.1", "# Description: Secure Node Configurations", ""].join("\n");
+		const plainContent = noise + links.join("\n");
+		const subContent = btoa(unescape(encodeURIComponent(plainContent)));
+		const downloadBytes = Math.floor((user.used_gb || 0) * 1073741824);
+		const totalBytes = user.limit_gb ? Math.floor(user.limit_gb * 1073741824) : 0;
+		let expireTimestamp = 0;
+		if (user.expiry_days && user.created_at) {
+			expireTimestamp = user.first_connection_time ? Math.floor((user.first_connection_time + user.expiry_days * 86400000) / 1000) : Math.floor((new Date(user.created_at).getTime() + user.expiry_days * 86400000) / 1000);
+		}
+		const subUserInfo = `upload=0; download=${downloadBytes}; total=${totalBytes}; expire=${expireTimestamp}`;
+		return new Response(subContent, {
+			headers: {
+				"Content-Type": "text/plain; charset=utf-8",
+				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-store",
+				"Subscription-Userinfo": subUserInfo,
+			},
+		});
+	},
+	async generateSingbox(user, host) {
+		let ips = [host];
+		if (user.ips) {
+			const parsedIps = user.ips.split("\n").map((ip) => ip.trim()).filter((ip) => ip.length > 0);
+			if (parsedIps.length > 0) ips = parsedIps;
+		}
+		const ports = String(user.port || "443").split(",").map((p) => p.trim()).filter((p) => p.length > 0);
+		const fp = user.fingerprint || "unsafe";
+		const safeFp = fp === "unsafe" ? "chrome" : fp;
+		const sni = user.tls_mask || host;
+		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+
+		let proxyList = [];
+		try {
+			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+				proxyList = JSON.parse(user.user_socks5);
+			} else if (user.user_socks5 || user.user_proxy_ip) {
+				proxyList = [user.user_socks5 || user.user_proxy_ip];
+			} else {
+				proxyList = [null];
+			}
+		} catch (e) {
+			proxyList = [user.user_socks5 || user.user_proxy_ip];
+		}
+		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+		const allowDirect = user.enable_direct !== 0;
+		if (allowDirect) {
+			let hasDirect = proxyList.some((p) => p === null || p === "");
+			if (!hasDirect) proxyList.push(null);
+		} else {
+			proxyList = proxyList.filter((p) => p !== null && p !== "");
+		}
+		if (proxyList.length === 0) proxyList = [null];
+
+		const outbounds = [];
+		const protoFlags = le69yqs(user);
+		const enableTrojan = protoFlags.trojan;
+
+		let locIdx = 0;
+		for (let proxyItem of proxyList) {
+			const currentDynPath = rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			ips.forEach((ip) => {
+				ports.forEach((portStr) => {
+					const isTlsPort = m1fqgtq.has(portStr);
+					let outbound = {
+						type: "vless",
+						tag: `vl-${ip}-${portStr}-loc${locIdx}`,
+						server: ip,
+						server_port: parseInt(portStr),
+						uuid: user.uuid,
+						packet_encoding: "xudp",
+						transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
+					};
+					if (isTlsPort) {
+						outbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
+					}
+					if (protoFlags.vless) outbounds.push(outbound);
+					if (enableTrojan) {
+						let trojanOutbound = {
+							type: "trojan",
+							tag: `tj-${ip}-${portStr}-loc${locIdx}`,
+							server: ip,
+							server_port: parseInt(portStr),
+							password: user.uuid,
+							transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
+						};
+						if (isTlsPort) {
+							trojanOutbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
+						}
+						outbounds.push(trojanOutbound);
+					}
+					if (protoFlags.ss) {
+						outbounds.push({
+							type: "shadowsocks",
+							tag: `sh-${ip}-${portStr}-loc${locIdx}`,
+							server: ip,
+							server_port: parseInt(portStr),
+							method: "aes-256-gcm",
+							password: user.uuid,
+							plugin: "v2ray-plugin",
+							plugin_opts: "mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : ""),
+						});
+					}
+				});
+			});
+			locIdx++;
+		}
+
+		const outboundsList = outbounds.map((o) => o.tag);
+
+		let targetDns = "udp://8.8.8.8";
+		if (user.block_porn === 1 && user.block_ads === 1) {
+			targetDns = "udp://94.140.14.15";
+		} else if (user.block_porn === 1) {
+			targetDns = "udp://1.1.1.3";
+		} else if (user.block_ads === 1) {
+			targetDns = "udp://94.140.14.14";
+		}
+
+		const config = {
+			log: { disabled: false, level: "info" },
+			dns: {
+				servers: [{ tag: "remote-dns", address: targetDns, detour: outboundsList.length > 0 ? "proxy" : "direct" }],
+				final: "remote-dns",
+				independent_cache: true,
+			},
+			inbounds: [
+				{
+					type: "tun",
+					tag: "tun-in",
+					interface_name: "tun0",
+					address: ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+					auto_route: true,
+					strict_route: true,
+					stack: "mixed",
+				},
+			],
+			outbounds: [
+				{ type: "selector", tag: "proxy", outbounds: outboundsList.length > 0 ? outboundsList : ["direct"] },
+				...outbounds,
+				{ type: "direct", tag: "direct" },
+				{ type: "block", tag: "block" },
+			],
+			route: {
+				rules: [
+					{ protocol: "dns", action: "hijack-dns" },
+					{ port: 53, action: "hijack-dns" },
+					{ protocol: "icmp", outbound: "direct" },
+				],
+				auto_detect_interface: true,
+				final: outboundsList.length > 0 ? "proxy" : "direct",
+			},
+		};
+
+		return new Response(JSON.stringify(config, null, 2), {
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-store",
+			},
+		});
+	},
+};
+async function dyj1dp1(env) {
+	const now = Date.now();
+	for (const [key, val] of obx6yh7.entries()) {
+		if (now > val.expires) obx6yh7.delete(key);
+	}
+	for (const [ip, record] of tp0s2fk.entries()) {
+		if (now - record.lastAttempt > 900000) tp0s2fk.delete(ip);
+	}
+	const allUsers = new Set([...GLOBAL_TRAFFIC_CACHE.keys(), ...USER_REQ_CACHE.keys()]);
+	for (const uname of allUsers) {
+		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
+		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
+		const activeCount = a40qkal.get(uname) || 0;
+		if (cachedBytes <= 0 && cachedReqs <= 0) {
+			GLOBAL_TRAFFIC_CACHE.delete(uname);
+			USER_REQ_CACHE.delete(uname);
+			if (activeCount <= 0) {
+				cchca6z.delete(uname);
+				cchca6z.delete(uname + "_hb");
+			}
+			continue;
+		}
+		if (r2x0v6w.get(uname)) continue;
+		const lastActive = cchca6z.get(uname) || 0;
+		if (activeCount <= 0 || now - lastActive > 60000) {
+			r2x0v6w.set(uname, true);
+			GLOBAL_TRAFFIC_CACHE.set(uname, 0);
+			USER_REQ_CACHE.set(uname, 0);
+			const deltaGb = cachedBytes / (1024 * 1024 * 1024);
+			try {
+				await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
+			} catch (e) {
+				console.error(e.message);
+				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
+				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
+			} finally {
+				r2x0v6w.delete(uname);
+				if (activeCount <= 0) {
+					cchca6z.delete(uname);
+					cchca6z.delete(uname + "_hb");
+				}
+			}
+		}
+	}
+}
+/* ================= VLESS relay (vx) — بخش ۱: مسیر، هدر، کاربر، محدودیت‌ها ================= */
+const VX_PATH_RE = /^\/stream\/aaaaaaaaaa\/([^\/]+?)(?:\/loc-(\d+))?\/?$/i;
+const VX_GIB = 1024 * 1024 * 1024;
+const VX_IP_CHECK_TTL = 6000;
+const VX_HB_EVERY = 55000;
+const vxIpCheckCache = new Map();
+
+/* تغییر ۱: تحلیل مسیر WebSocket و ساخت پاسخ 101 */
+function vxParsePath(pathname) {
+	let p = pathname;
+	try { p = decodeURIComponent(pathname); } catch (e) {}
+	if (/\/ss(\/|$)/i.test(p)) return null;
+	const m = VX_PATH_RE.exec(p);
+	if (!m) return null;
+	return { seg: m[1].toLowerCase(), locIdx: m[2] !== undefined ? parseInt(m[2], 10) : -1 };
+}
+function vxClose(ws, code, reason) {
+	try {
+		if (ws.readyState === 1 || ws.readyState === 2) ws.close(code || 1000, String(reason || "").slice(0, 100));
+	} catch (e) {}
+}
+async function bvj1iaf(env, storedData, ctx, request) {
+	const url = new URL(request.url);
+	const route = vxParsePath(url.pathname);
+	if (!route) return new Response("Not Found", { status: 404 });
+	const clientIp = request.headers.get("CF-Connecting-IP") || "unknown";
+	const pair = new WebSocketPair();
+	const client = pair[0];
+	const server = pair[1];
+	server.accept();
+	vxRunSession(env, ctx, storedData || {}, route, clientIp, server, request.headers.get("sec-websocket-protocol") || "");
+	return new Response(null, { status: 101, webSocket: client });
+}
+
+/* تغییر ۲: پارسر هدر VLESS (نسخه، UUID، دستور، پورت، آدرس) */
+function vxParseHeader(buf) {
+	const n = buf.byteLength;
+	if (n < 24) return { err: "short header" };
+	const version = buf[0];
+	let hex = "";
+	for (let i = 1; i < 17; i++) hex += buf[i].toString(16).padStart(2, "0");
+	const uuid = hex.slice(0, 8) + "-" + hex.slice(8, 12) + "-" + hex.slice(12, 16) + "-" + hex.slice(16, 20) + "-" + hex.slice(20);
+	let p = 18 + buf[17];
+	if (n < p + 4) return { err: "short header" };
+	const cmd = buf[p++];
+	const port = (buf[p] << 8) | buf[p + 1];
+	p += 2;
+	const atype = buf[p++];
+	let host = "";
+	if (atype === 1) {
+		if (n < p + 4) return { err: "bad addr" };
+		host = buf[p] + "." + buf[p + 1] + "." + buf[p + 2] + "." + buf[p + 3];
+		p += 4;
+	} else if (atype === 2) {
+		const len = buf[p++];
+		if (!len || n < p + len) return { err: "bad addr" };
+		host = b1p8pcx.decode(buf.subarray(p, p + len));
+		p += len;
+	} else if (atype === 3) {
+		if (n < p + 16) return { err: "bad addr" };
+		const g = [];
+		for (let i = 0; i < 8; i++) g.push(((buf[p + i * 2] << 8) | buf[p + i * 2 + 1]).toString(16));
+		host = g.join(":");
+		p += 16;
+	} else return { err: "bad atype" };
+	if (!host || !port) return { err: "bad target" };
+	return { version, uuid, cmd, port, host, atype, offset: p };
+}
+function vxEarlyData(proto) {
+	if (!proto) return null;
+	try {
+		const s = atob(proto.replace(/-/g, "+").replace(/_/g, "/"));
+		const a = new Uint8Array(s.length);
+		for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i);
+		return a;
+	} catch (e) { return null; }
+}
+function vxToU8(d) {
+	if (d instanceof Uint8Array) return d;
+	if (d instanceof ArrayBuffer) return new Uint8Array(d);
+	if (ArrayBuffer.isView(d)) return new Uint8Array(d.buffer, d.byteOffset, d.byteLength);
+	return null;
+}
+
+/* تغییر ۳: پیدا کردن کاربر با UUID (کش کوتاه‌مدت داخل ایزوله) */
+async function vxFindUser(env, uuid) {
+	const row = await vjcnes5(env, "SELECT * FROM users WHERE lower(uuid) = ? LIMIT 1", uuid.toLowerCase());
+	return row || null;
+}
+
+/* تغییر ۴: اعتبارسنجی کاربر — فعال بودن، انقضا، حجم، تعداد درخواست */
+function vxExpiryMs(user) {
+	const days = parseInt(user.expiry_days) || 0;
+	if (!days) return 0;
+	let base = user.first_connection_time ? Number(user.first_connection_time) : 0;
+	if (!base && !user.start_on_first_connect && user.created_at) base = new Date(user.created_at).getTime();
+	if (!base || isNaN(base)) return 0;
+	return base + days * 86400000;
+}
+function vxCheckUser(user, now) {
+	if (user.is_active === 0 || user.is_active === "0") return { code: "disabled", deact: false };
+	const exp = vxExpiryMs(user);
+	if (exp && now >= exp) return { code: "expired", deact: false };
+	const lim = Number(user.limit_gb) || 0;
+	if (lim > 0) {
+		const used = (user.used_gb || 0) + (GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / VX_GIB;
+		if (used >= lim) return { code: "volume", deact: true };
+	}
+	const lr = parseInt(user.limit_req) || 0;
+	if (lr > 0) {
+		const usedR = (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0);
+		if (usedR >= lr) return { code: "requests", deact: true };
+	}
+	return null;
+}
+function vxDeactivate(env, ctx, user) {
+	const t = (async () => {
+		try {
+			await fz8j64g(() => env.DB.prepare("UPDATE users SET is_active = 0 WHERE username = ?").bind(user.username).run());
+			bbkao4k();
+		} catch (e) {}
+	})();
+	if (ctx) ctx.waitUntil(t);
+}
+function vxMarkFirstConnect(env, ctx, user, now) {
+	if (!user.start_on_first_connect || user.first_connection_time) return;
+	user.first_connection_time = now;
+	const t = (async () => {
+		try {
+			await fz8j64g(() => env.DB.prepare("UPDATE users SET first_connection_time = ? WHERE username = ? AND first_connection_time IS NULL").bind(now, user.username).run());
+		} catch (e) {}
+	})();
+	if (ctx) ctx.waitUntil(t);
+}
+
+/* تغییر ۵: محدودیت تعداد IP همزمان (حافظه ایزوله + active_ips در D1) */
+function vxIpLimit(user) {
+	const v = user.ip_limit !== null && user.ip_limit !== undefined ? user.ip_limit : user.max_connections;
+	return parseInt(v) || 0;
+}
+async function vxFreshActiveIps(env, uuid) {
+	const ck = uuid;
+	const hit = vxIpCheckCache.get(ck);
+	const now = Date.now();
+	if (hit && now - hit.t < VX_IP_CHECK_TTL) return hit.v;
+	let v = {};
+	try {
+		const row = await fz8j64g(() => env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(uuid).first(), 2);
+		if (row && row.active_ips) v = JSON.parse(row.active_ips) || {};
+	} catch (e) {}
+	if (vxIpCheckCache.size > 300) vxIpCheckCache.clear();
+	vxIpCheckCache.set(ck, { t: now, v });
+	return v;
+}
+async function vxAllowIp(env, user, ip) {
+	const limit = vxIpLimit(user);
+	if (limit <= 0 || ip === "unknown") return true;
+	const live = vcmirtr.get(user.username);
+	if (live && live.has(ip)) return true;
+	const others = new Set(live ? live.keys() : []);
+	const stored = await vxFreshActiveIps(env, user.uuid);
+	const now = Date.now();
+	for (const [k, d] of Object.entries(stored)) {
+		const ts = d && typeof d === "object" ? d.timestamp : d;
+		if (k !== ip && now - ts <= 180000) others.add(k);
+	}
+	others.delete(ip);
+	return others.size < limit;
+}
+function vxBeat(env, ctx, user, ip, force) {
+	if (!ip || ip === "unknown") return;
+	const hk = user.username + "_hb_" + ip;
+	const now = Date.now();
+	const last = gbd8v13.get(hk) || 0;
+	if (!force && now - last < VX_HB_EVERY) return;
+	gbd8v13.set(hk, now);
+	const t = (async () => {
+		try {
+			const row = await fz8j64g(() => env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(user.uuid).first(), 2);
+			if (!row) return;
+			let cur = {};
+			try { cur = JSON.parse(row.active_ips || "{}") || {}; } catch (e) {}
+			const keep = {};
+			for (const [k, d] of Object.entries(cur)) {
+				const ts = d && typeof d === "object" ? d.timestamp : d;
+				if (now - ts <= 180000) keep[k] = d;
+			}
+			keep[ip] = now;
+			vxIpCheckCache.delete(user.uuid);
+			await fz8j64g(() => env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(keep), now, user.uuid).run());
+		} catch (e) {}
+	})();
+	if (ctx) ctx.waitUntil(t);
+}
+
+/* تغییر ۶: پارس رشته پروکسی (socks5/http/proxyip) و ساخت لیست پروکسی کاربر */
+function vxParseProxy(raw) {
+	if (raw === null || raw === undefined) return null;
+	let s = typeof raw === "object" ? raw.proxy : raw;
+	s = String(s || "").trim();
+	if (!s) return null;
+	let kind = "";
+	const sm = /^(socks5h?|socks4a?|socks|http|https):\/\//i.exec(s);
+	if (sm) {
+		const sc = sm[1].toLowerCase();
+		kind = sc.startsWith("http") ? "http" : "socks5";
+		s = s.slice(sm[0].length);
+	}
+	s = s.replace(/\/.*$/, "");
+	let user = "", pass = "";
+	const at = s.lastIndexOf("@");
+	if (at !== -1) {
+		const cred = s.slice(0, at);
+		s = s.slice(at + 1);
+		const ci = cred.indexOf(":");
+		try {
+			user = decodeURIComponent(ci === -1 ? cred : cred.slice(0, ci));
+			pass = ci === -1 ? "" : decodeURIComponent(cred.slice(ci + 1));
+		} catch (e) { user = ci === -1 ? cred : cred.slice(0, ci); pass = ci === -1 ? "" : cred.slice(ci + 1); }
+		if (!kind) kind = "socks5";
+	}
+	let host = "", port = 0;
+	if (s.startsWith("[")) {
+		const e = s.indexOf("]");
+		if (e === -1) return null;
+		host = s.slice(1, e);
+		const rest = s.slice(e + 1);
+		if (rest.startsWith(":")) port = parseInt(rest.slice(1)) || 0;
+	} else {
+		const c = s.lastIndexOf(":");
+		if (c !== -1 && s.indexOf(":") === c) { host = s.slice(0, c); port = parseInt(s.slice(c + 1)) || 0; }
+		else host = s;
+	}
+	if (!host) return null;
+	if (!kind) kind = "proxyip";
+	if (kind === "socks5" && !port) port = 1080;
+	if (kind === "http" && !port) port = 8080;
+	return { kind, host, port, user, pass };
+}
+function vxUserProxyList(user) {
+	let list = [];
+	try {
+		if (user.user_socks5 && String(user.user_socks5).trim().startsWith("[")) list = JSON.parse(user.user_socks5);
+		else if (user.user_socks5 || user.user_proxy_ip) list = [user.user_socks5 || user.user_proxy_ip];
+		else list = [null];
+	} catch (e) { list = [user.user_socks5 || user.user_proxy_ip]; }
+	if (!Array.isArray(list) || !list.length) list = [];
+	const allowDirect = user.enable_direct !== 0;
+	if (allowDirect) {
+		if (!list.some((p) => p === null || p === "")) list.push(null);
+	} else list = list.filter((p) => p !== null && p !== "");
+	if (!list.length) list = [null];
+	return list;
+}
+
+/* تغییر ۷: برنامه خروجی (plan) + اتصال مستقیم و ProxyIP */
+function vxGlobalProxyIps(stored) {
+	const v = String((stored && stored.proxy_ip) || "").trim();
+	if (!v) return [];
+	return v.split(/[,\s]+/).filter(Boolean).map(vxParseProxy).filter((p) => p && p.kind === "proxyip");
+}
+function vxBuildPlan(user, stored, locIdx) {
+	const plan = [];
+	const list = vxUserProxyList(user);
+	const chosen = locIdx >= 0 && locIdx < list.length ? vxParseProxy(list[locIdx]) : null;
+	if (chosen) plan.push(chosen);
+	if (user.enable_direct !== 0 || !plan.length) plan.push({ kind: "direct" });
+	if (user.user_proxy_ip) {
+		const up = vxParseProxy(user.user_proxy_ip);
+		if (up && up.kind === "proxyip") plan.push(up);
+	}
+	for (const g of vxGlobalProxyIps(stored)) plan.push(g);
+	return plan;
+}
+async function vxOpenSocket(host, port, timeoutMs) {
+	const sock = connect({ hostname: host, port });
+	const t = new Promise((_, rej) => setTimeout(() => rej(new Error("connect timeout")), timeoutMs || 6000));
+	await Promise.race([sock.opened, t]);
+	return sock;
+}
+async function vxConnectDirect(h) {
+	return vxOpenSocket(h.host, h.port, 6000);
+}
+async function vxConnectProxyIp(p, h) {
+	return vxOpenSocket(p.host, p.port || h.port, 6000);
+}
+
+/* تغییر ۸: پروکسی SOCKS5 و HTTP CONNECT */
+async function vxReadN(reader, state, n) {
+	while (state.buf.length < n) {
+		const r = await reader.read();
+		if (r.done) throw new Error("proxy closed");
+		const c = r.value;
+		const m = new Uint8Array(state.buf.length + c.length);
+		m.set(state.buf); m.set(c, state.buf.length);
+		state.buf = m;
+	}
+	const out = state.buf.subarray(0, n);
+	state.buf = state.buf.subarray(n);
+	return out;
+}
+async function vxConnectSocks5(p, h) {
+	const sock = await vxOpenSocket(p.host, p.port, 6000);
+	const w = sock.writable.getWriter();
+	const rd = sock.readable.getReader();
+	const st = { buf: new Uint8Array(0) };
+	try {
+		const useAuth = !!p.user;
+		await w.write(useAuth ? new Uint8Array([5, 2, 0, 2]) : new Uint8Array([5, 1, 0]));
+		const sel = await vxReadN(rd, st, 2);
+		if (sel[0] !== 5 || sel[1] === 0xff) throw new Error("socks5 method");
+		if (sel[1] === 2) {
+			const u = a5g5pwf.encode(p.user), pw = a5g5pwf.encode(p.pass || "");
+			const m = new Uint8Array(3 + u.length + pw.length);
+			m[0] = 1; m[1] = u.length; m.set(u, 2); m[2 + u.length] = pw.length; m.set(pw, 3 + u.length);
+			await w.write(m);
+			const ar = await vxReadN(rd, st, 2);
+			if (ar[1] !== 0) throw new Error("socks5 auth");
+		}
+		let addr;
+		if (h.atype === 1) addr = new Uint8Array([1, ...h.host.split(".").map(Number)]);
+		else if (h.atype === 3) {
+			const parts = h.host.split(":").map((x) => parseInt(x, 16) || 0);
+			addr = new Uint8Array(17); addr[0] = 4;
+			for (let i = 0; i < 8; i++) { addr[1 + i * 2] = parts[i] >> 8; addr[2 + i * 2] = parts[i] & 255; }
+		} else {
+			const hb = a5g5pwf.encode(h.host);
+			addr = new Uint8Array(2 + hb.length); addr[0] = 3; addr[1] = hb.length; addr.set(hb, 2);
+		}
+		const req = new Uint8Array(4 - 1 + addr.length + 2);
+		req.set([5, 1, 0], 0); req.set(addr, 3);
+		req[req.length - 2] = h.port >> 8; req[req.length - 1] = h.port & 255;
+		await w.write(req);
+		const rep = await vxReadN(rd, st, 4);
+		if (rep[1] !== 0) throw new Error("socks5 refused " + rep[1]);
+		if (rep[3] === 1) await vxReadN(rd, st, 6);
+		else if (rep[3] === 4) await vxReadN(rd, st, 18);
+		else if (rep[3] === 3) { const l = await vxReadN(rd, st, 1); await vxReadN(rd, st, l[0] + 2); }
+	} catch (e) {
+		try { w.releaseLock(); rd.releaseLock(); sock.close(); } catch (e2) {}
+		throw e;
+	}
+	w.releaseLock(); rd.releaseLock();
+	if (st.buf.length) sock._vxLeft = st.buf.slice();
+	return sock;
+}
+async function vxConnectHttp(p, h) {
+	const sock = await vxOpenSocket(p.host, p.port, 6000);
+	const w = sock.writable.getWriter();
+	const rd = sock.readable.getReader();
+	try {
+		const target = (h.atype === 3 ? "[" + h.host + "]" : h.host) + ":" + h.port;
+		let req = "CONNECT " + target + " HTTP/1.1\r\nHost: " + target + "\r\n";
+		if (p.user) req += "Proxy-Authorization: Basic " + btoa(p.user + ":" + (p.pass || "")) + "\r\n";
+		req += "\r\n";
+		await w.write(a5g5pwf.encode(req));
+		let acc = new Uint8Array(0), end = -1;
+		while (end === -1) {
+			const r = await rd.read();
+			if (r.done) throw new Error("http proxy closed");
+			const m = new Uint8Array(acc.length + r.value.length);
+			m.set(acc); m.set(r.value, acc.length); acc = m;
+			for (let i = 3; i < acc.length; i++) if (acc[i - 3] === 13 && acc[i - 2] === 10 && acc[i - 1] === 13 && acc[i] === 10) { end = i + 1; break; }
+			if (acc.length > 16384) throw new Error("http proxy header");
+		}
+		const head = b1p8pcx.decode(acc.subarray(0, end));
+		if (!/^HTTP\/1\.[01] 2\d\d/.test(head)) throw new Error("http proxy refused");
+		if (acc.length > end) sock._vxLeft = acc.slice(end);
+	} catch (e) {
+		try { w.releaseLock(); rd.releaseLock(); sock.close(); } catch (e2) {}
+		throw e;
+	}
+	w.releaseLock(); rd.releaseLock();
+	return sock;
+}
+
+/* تغییر ۹: اجرای برنامه خروجی با fallback ترتیبی */
+async function vxConnectPlan(plan, h) {
+	let lastErr = null;
+	for (const step of plan) {
+		try {
+			let sock;
+			if (step.kind === "direct") sock = await vxConnectDirect(h);
+			else if (step.kind === "proxyip") sock = await vxConnectProxyIp(step, h);
+			else if (step.kind === "socks5") sock = await vxConnectSocks5(step, h);
+			else if (step.kind === "http") sock = await vxConnectHttp(step, h);
+			else continue;
+			return { sock, via: step.kind };
+		} catch (e) { lastErr = e; }
+	}
+	throw lastErr || new Error("no outbound");
+}
+
+/* تغییر ۱۰: شمارش ترافیک و چرخه‌ی عمر نشست (فعال/آنلاین/پاکسازی) */
+function vxSessOpen(user, ip) {
+	a40qkal.set(user.username, (a40qkal.get(user.username) || 0) + 1);
+	h0pqirm(user.username, ip);
+	cchca6z.set(user.username, Date.now());
+}
+function vxSessClose(env, ctx, user, ip) {
+	const left = Math.max(0, (a40qkal.get(user.username) || 0) - 1);
+	if (left === 0) a40qkal.delete(user.username); else a40qkal.set(user.username, left);
+	const remain = eojgr6y(user.username, ip);
+	if (remain === 0) c85kz7x(env, ctx, user.username, user.uuid, ip);
+	cchca6z.set(user.username, Date.now());
+}
+function vxAddBytes(user, n) {
+	if (!n) return;
+	GLOBAL_TRAFFIC_CACHE.set(user.username, (GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) + n);
+	cchca6z.set(user.username, Date.now());
+}
+let vxFlushTimer = 0;
+function vxFlushSoon(env, ctx) {
+	const now = Date.now();
+	if (now - vxFlushTimer < 20000) return;
+	vxFlushTimer = now;
+	const t = (async () => { try { await dyj1dp1(env); } catch (e) {} })();
+	if (ctx) ctx.waitUntil(t);
+}
+
+/* تغییر ۱۱: نشست کامل VLESS — احراز هویت، اتصال خروجی، رله دوطرفه با شمارش ترافیک */
+function vxRunSession(env, ctx, stored, route, clientIp, ws, proto) {
+	let started = false;
+	let closed = false;
+	let user = null;
+	let remote = null;
+	let rw = null;
+	let chain = Promise.resolve();
+	let udp = false;
+	let udpBuf = new Uint8Array(0);
+	let udpHead = null;
+	let lastCheck = Date.now();
+	const fail = (code, why) => { cleanup(); vxClose(ws, code, why); };
+	function cleanup() {
+		if (closed) return;
+		closed = true;
+		if (user) vxSessClose(env, ctx, user, clientIp);
+		try { if (rw) rw.releaseLock(); } catch (e) {}
+		try { if (remote) remote.close(); } catch (e) {}
+		if (user) vxFlushSoon(env, ctx);
+	}
+	function periodic() {
+		const now = Date.now();
+		if (now - lastCheck < 15000) return true;
+		lastCheck = now;
+		const bad = vxCheckUser(user, now);
+		if (bad) { if (bad.deact) vxDeactivate(env, ctx, user); fail(1008, bad.code); return false; }
+		vxBeat(env, ctx, user, clientIp, false);
+		vxFlushSoon(env, ctx);
+		return true;
+	}
+	async function pump(sock, h) {
+		const reader = sock.readable.getReader();
+		let first = true;
+		const head = new Uint8Array([h.version, 0]);
+		try {
+			if (sock._vxLeft && sock._vxLeft.length) {
+				ws.send(first ? vxConcat(head, sock._vxLeft) : sock._vxLeft);
+				vxAddBytes(user, sock._vxLeft.length); first = false;
+			}
+			while (!closed) {
+				const r = await reader.read();
+				if (r.done) break;
+				const v = r.value;
+				if (!v || !v.length) continue;
+				if (ws.readyState !== 1) break;
+				ws.send(first ? vxConcat(head, v) : v);
+				first = false;
+				vxAddBytes(user, v.length);
+				if (!periodic()) return;
+			}
+		} catch (e) {}
+		try { reader.releaseLock(); } catch (e) {}
+		vxClose(ws, 1000, "done");
+		cleanup();
+	}
+	async function udpFeed(chunk) {
+		udpBuf = vxConcat(udpBuf, chunk);
+		while (udpBuf.length >= 2) {
+			const len = (udpBuf[0] << 8) | udpBuf[1];
+			if (udpBuf.length < 2 + len) break;
+			const q = udpBuf.slice(2, 2 + len);
+			udpBuf = udpBuf.subarray(2 + len);
+			const head = udpHead; udpHead = null;
+			vxDoh(q).then((ans) => {
+				if (closed || ws.readyState !== 1 || !ans) return;
+				const fr = new Uint8Array((head ? 2 : 0) + 2 + ans.length);
+				let o = 0;
+				if (head) { fr.set(head, 0); o = 2; }
+				fr[o] = ans.length >> 8; fr[o + 1] = ans.length & 255;
+				fr.set(ans, o + 2);
+				ws.send(fr);
+				vxAddBytes(user, ans.length);
+			}).catch(() => {});
+		}
+	}
+	const onFrame = async (data) => {
+		if (closed) return;
+		const u8 = vxToU8(data);
+		if (!u8) return;
+		if (started) {
+			if (udp) { vxAddBytes(user, u8.length); if (!periodic()) return; await udpFeed(u8); return; }
+			if (!rw) return;
+			vxAddBytes(user, u8.length);
+			if (!periodic()) return;
+			await rw.write(u8);
+			return;
+		}
+		started = true;
+		const h = vxParseHeader(u8);
+		if (h.err) return fail(1008, h.err);
+		const u = await vxFindUser(env, h.uuid);
+		if (!u) return fail(1008, "unauthorized");
+		const segWant = String(u.uuid || "").split("-")[4] || "default";
+		if (route.seg !== segWant.toLowerCase()) return fail(1008, "bad path");
+		const now = Date.now();
+		const bad = vxCheckUser(u, now);
+		if (bad) { if (bad.deact) vxDeactivate(env, ctx, u); return fail(1008, bad.code); }
+		if (!(await vxAllowIp(env, u, clientIp))) return fail(1008, "ip limit");
+		if (h.cmd !== 1 && !(h.cmd === 2 && h.port === 53)) return fail(1008, "unsupported cmd");
+		vxMarkFirstConnect(env, ctx, u, now);
+		user = u;
+		USER_REQ_CACHE.set(u.username, (USER_REQ_CACHE.get(u.username) || 0) + 1);
+		vxSessOpen(u, clientIp);
+		vxBeat(env, ctx, u, clientIp, true);
+		if (h.cmd === 2) {
+			udp = true;
+			udpHead = new Uint8Array([h.version, 0]);
+			const first = u8.subarray(h.offset);
+			if (first.length) { vxAddBytes(u, first.length); await udpFeed(first); }
+			return;
+		}
+		const plan = vxBuildPlan(u, stored, route.locIdx);
+		let out;
+		try { out = await vxConnectPlan(plan, h); } catch (e) { return fail(1011, "outbound failed"); }
+		if (closed) { try { out.sock.close(); } catch (e) {} return; }
+		remote = out.sock;
+		rw = remote.writable.getWriter();
+		const payload = u8.subarray(h.offset);
+		if (payload.length) { vxAddBytes(u, payload.length); await rw.write(payload); }
+		pump(remote, h);
+	};
+	ws.addEventListener("message", (ev) => { chain = chain.then(() => onFrame(ev.data)).catch(() => fail(1011, "err")); });
+	ws.addEventListener("close", () => { cleanup(); });
+	ws.addEventListener("error", () => { cleanup(); });
+	const ed = vxEarlyData(proto);
+	if (ed && ed.byteLength) chain = chain.then(() => onFrame(ed)).catch(() => fail(1011, "err"));
+}
+async function vxDoh(query) {
+	const r = await fetch(b2llpoh, { method: "POST", headers: { "content-type": "application/dns-message", accept: "application/dns-message" }, body: query });
+	if (!r.ok) return null;
+	return new Uint8Array(await r.arrayBuffer());
+}
+function vxConcat(a, b) {
+	const o = new Uint8Array(a.length + b.length);
+	o.set(a); o.set(b, a.length);
+	return o;
+}
+
+async function viwe15t(env) {
+	return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+}
+function xn0iw7z(env, ctx) {
+	cwsdrkz++;
+	const now = Date.now();
+	if ((now - jlvmthl > 900000 || cwsdrkz > 5000) && cwsdrkz > 0) {
+		jlvmthl = now;
+		const countToSave = cwsdrkz;
+		cwsdrkz = 0;
+		const task = async () => {
+			try {
+				const today = new Date().toISOString().split("T")[0];
+				await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
+				const lastDateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
+				if (!lastDateRow || lastDateRow.value !== today) {
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_last_date', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(today, today).run();
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(countToSave), String(countToSave)).run();
+				} else {
+					await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_today', ?) ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + ?").bind(String(countToSave), String(countToSave)).run();
+				}
+			} catch (e) {}
+		};
+		if (ctx) ctx.waitUntil(task());
+		else task();
+	}
+}
+/*
+[1.
+*/
+async function zbxph7j(proxy, host, port, payload) {
+	const p = vxParseProxy(proxy);
+	if (!p) throw new Error("bad proxy");
+	const isIp = /^\d+\.\d+\.\d+\.\d+$/.test(host);
+	const h = { host, port, atype: isIp ? 1 : 2 };
+	let sock;
+	if (p.kind === "socks5") sock = await vxConnectSocks5(p, h);
+	else if (p.kind === "http") sock = await vxConnectHttp(p, h);
+	else sock = await vxOpenSocket(p.host, p.port || port, 6000);
+	const w = sock.writable.getWriter();
+	await w.write(payload);
+	w.releaseLock();
+	return sock;
+}
+const yg6opgi = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e2348"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <filter id="glowFx" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#3b82f6" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="#000000"/>
+  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="16" filter="url(#glowFx)"/>
+  <rect x="56" y="56" width="400" height="400" rx="88" fill="none" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.4"/>
+  <g transform="translate(128, 128) scale(10.666)" filter="url(#glowFx)">
+    <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="#38bdf8" fill-opacity="0.3" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>`;
+const vrnrz32 = JSON.stringify({
+	name: "Alireza Panel",
+	short_name: "Alireza Panel",
+	description: "پنل مدیریت پیشرفته کانفیگ و کاربران علیرضا",
+	start_url: "/adminas",
+	scope: "/",
+	display: "standalone",
+	background_color: "#000000",
+	theme_color: "#000000",
+	dir: "rtl",
+	lang: "fa-IR",
+	orientation: "any",
+	icons: [
+		{ src: "/icon.svg", sizes: "192x192 512x512", type: "image/svg+xml", purpose: "any maskable" }
+	],
+	categories: ["utilities", "productivity"]
+});
+const w8wy2kr = `
+const ejmnvu5 = "app-cache-v3";
+const zd4pw2j = [
+	"https://cdn.tailwindcss.com",
+	"https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js",
+	"https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"
+];
+self.addEventListener("install", (e) => {
+	self.skipWaiting();
+	e.waitUntil(
+		caches.open(ejmnvu5).then((cache) => {
+			return cache.addAll(zd4pw2j).catch(() => {});
+		})
+	);
+});
+self.addEventListener("activate", (e) => {
+	e.waitUntil(
+		caches.keys().then((keys) => {
+			return Promise.all(
+				keys.map((k) => {
+					if (k !== ejmnvu5) return caches.delete(k);
+				})
+			);
+		}).then(() => self.clients.claim())
+	);
+});
+self.addEventListener("fetch", (e) => {
+	const url = new URL(e.request.url);
+	if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/sub/") || url.pathname.startsWith("/feed/") || url.pathname.startsWith("/singbox/") || url.pathname.startsWith("/status/") || url.pathname.startsWith("/stream/")) {
+		return;
+	}
+	if (zd4pw2j.includes(e.request.url)) {
+		e.respondWith(
+			caches.match(e.request).then((cached) => cached || fetch(e.request).then((res) => {
+				const clone = res.clone();
+				caches.open(ejmnvu5).then((cache) => cache.put(e.request, clone));
+				return res;
+			}))
+		);
+	}
+});
+`;
+const avk7j6y = `
+	<script>
+		if (localStorage.getItem('gfx-enabled') === 'false') {
+			document.documentElement.classList.add('gfx-off');
+		}
+		if (localStorage.getItem('color-theme') === 'light') {
+			document.documentElement.classList.remove('dark');
+		} else {
+			document.documentElement.classList.add('dark');
+		}
+		if (localStorage.getItem('grayscale-theme') === 'true') {
+			document.documentElement.classList.add('grayscale-active');
+		}
+		/* پاک‌سازی کش قدیمی پرچم‌ها (نسخه قبلی emoji متنی که در ویندوز خراب بود) */
+		try { localStorage.removeItem('pf_c1'); } catch(e) {}
+	</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
+<script>
+	tailwind.config = {
+		darkMode: 'class',
+		theme: {
+			extend: {
+				fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
+				colors: { amoled: { bg: '#000105', card: '#040914', input: '#081224', border: '#102040' } }
+			}
+		}
+	}
+</script>
+<style>
+	.cursor-wrapper {
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		display: none;
+	}
+	@media (pointer: fine) {
+		html:not(.gfx-off) * {
+			cursor: none !important;
+		}
+		html:not(.gfx-off) .cursor-wrapper {
+			display: block;
+		}
+	}
+	#cursor-dot {
+		width: 6px;
+		height: 6px;
+		background-color: #2563eb;
+		border-radius: 50%;
+		box-shadow: 0 0 8px #2563eb, 0 0 16px #1d4ed8;
+		transform: translate(-50%, -50%);
+	}
+	#cursor-ring-pos {
+		width: 36px;
+		height: 36px;
+		transform: translate(-50%, -50%);
+		transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	#cursor-ring-visual {
+		width: 100%;
+		height: 100%;
+		border: 1.5px dashed rgba(37, 99, 235, 0.9);
+		border-radius: 50%;
+		animation: spinRing 10s linear infinite;
+		transition: border-color 0.2s, background-color 0.2s;
+	}
+	@keyframes spinRing {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+	body.hover-active #cursor-ring-pos {
+		width: 48px;
+		height: 48px;
+	}
+	body.hover-active #cursor-ring-visual {
+		border: 2px solid #2563eb;
+		background-color: rgba(37, 99, 235, 0.2);
+		animation: spinRingFast 3s linear infinite;
+	}
+	@keyframes spinRingFast {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+	#cursor-glow-pos {
+		width: 40px;
+		height: 40px;
+		transform: translate(-50%, -50%);
+		transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	body.hover-active #cursor-glow-pos {
+		width: 54px;
+		height: 54px;
+	}
+	#cursor-glow-visual {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, rgba(29, 78, 216, 0.1) 40%, transparent 70%);
+	}
+		:root {
+			--bg-tint: rgba(59, 130, 246, 0.03);
+			--plane-color: #93c5fd; 
+			--plane-dark: #f9fafb;
+			--plane-opacity: 0.20;
+		}
+		.dark {
+			--bg-tint: rgba(16, 32, 64, 0.4); 
+			--plane-color: #1d4ed8; 
+			--plane-dark: #000105;
+			--plane-opacity: 0.15;
+		}
+		.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+		#waves { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+		.vignette {
+			position: fixed; inset: 0; z-index: 2; pointer-events: none;
+			background: radial-gradient(ellipse at center, transparent 35%, rgba(255,255,255,0.5) 100%);
+		}
+		.dark .vignette {
+			background: radial-gradient(ellipse at center, transparent 35%, rgba(0,1,5,0.85) 100%);
+		}
+		.ambient {
+			position: fixed; inset: 0; z-index: 1; pointer-events: none;
+			background:
+				radial-gradient(700px 500px at 12% 20%, var(--bg-tint), transparent 60%),
+				radial-gradient(800px 600px at 90% 90%, var(--bg-tint), transparent 60%);
+		}
+</style>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		if (window.matchMedia('(pointer: fine)').matches && localStorage.getItem('gfx-enabled') !== 'false') {
+			const glowPos = document.createElement('div');
+			glowPos.id = 'cursor-glow-pos';
+			glowPos.className = 'cursor-wrapper';
+			glowPos.innerHTML = '<div id="cursor-glow-visual"></div>';
+			document.body.appendChild(glowPos);
+			const ringPos = document.createElement('div');
+			ringPos.id = 'cursor-ring-pos';
+			ringPos.className = 'cursor-wrapper';
+			ringPos.innerHTML = '<div id="cursor-ring-visual"></div>';
+			document.body.appendChild(ringPos);
+			const dot = document.createElement('div');
+			dot.id = 'cursor-dot';
+			dot.className = 'cursor-wrapper';
+			document.body.appendChild(dot);
+			let mouseX = window.innerWidth / 2;
+			let mouseY = window.innerHeight / 2;
+			let ringX = mouseX, ringY = mouseY;
+			let glowX = mouseX, glowY = mouseY;
+			let isMoving = false;
+			window.addEventListener('mousemove', (e) => {
+				mouseX = e.clientX;
+				mouseY = e.clientY;
+				dot.style.transform = 'translate3d(' + mouseX + 'px, ' + mouseY + 'px, 0) translate(-50%, -50%)';
+				if (!isMoving) {
+					isMoving = true;
+					requestAnimationFrame(y5rpt2z);
+				}
+			}, { passive: true });
+			function y5rpt2z() {
+				ringX += (mouseX - ringX) * 0.45;
+				ringY += (mouseY - ringY) * 0.45;
+				ringPos.style.transform = 'translate3d(' + ringX + 'px, ' + ringY + 'px, 0) translate(-50%, -50%)';
+				glowX += (mouseX - glowX) * 0.25;
+				glowY += (mouseY - glowY) * 0.25;
+				glowPos.style.transform = 'translate3d(' + glowX + 'px, ' + glowY + 'px, 0) translate(-50%, -50%)';
+				if (Math.abs(mouseX - ringX) < 0.5 && Math.abs(mouseY - ringY) < 0.5) {
+					isMoving = false;
+				} else {
+					requestAnimationFrame(y5rpt2z);
+				}
+			}
+			document.addEventListener('mouseover', (e) => {
+				if (e.target.closest('a, button, input, select, label, [role="button"], textarea')) {
+					document.body.classList.add('hover-active');
+				}
+			});
+			document.addEventListener('mouseout', (e) => {
+				if (e.target.closest('a, button, input, select, label, [role="button"], textarea')) {
+					document.body.classList.remove('hover-active');
+				}
+			});
+		}
+	});
+</script>`;
+const pbfiipq = `<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>`;
+const td8g9qc = `
+	<canvas id="waves" class="bg-canvas"></canvas>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<script>
+	  (function initWaves(){
+		const canvas = document.getElementById('waves');
+		if (!canvas) return;
+		if (document.documentElement.classList.contains('gfx-off')) {
+			canvas.style.display = 'none';
+			return;
+		}
+		const IS_MOBILE = window.innerWidth < 768;
+		const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: false, powerPreference: "default" });
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		
+		const isDarkInit = document.documentElement.classList.contains('dark');
+		renderer.setClearColor(isDarkInit ? 0x000105 : 0xf9fafb, 1);
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 200);
+		camera.position.set(0, 0, IS_MOBILE ? 35 : 14);
+		const segX = IS_MOBILE ? 80 : 80;
+		const segY = IS_MOBILE ? 40 : 40;
+		const geom = new THREE.PlaneGeometry(80, IS_MOBILE ? 90 : 40, segX, segY);
+		const vertShader = "uniform float uTime; uniform float uStrength; varying float vElev; void main(){ vec3 p = position; float x = p.x * 0.2 + uTime * 0.3; float y = p.y * 0.2 + uTime * 0.25; float wave = sin(x)*cos(y)*1.6 + sin(x*2.1 + uTime)*0.7 + cos(y*1.7 - uTime*0.6)*0.7; wave *= uStrength * 1.5; p.z += wave; vElev = wave; gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }";
+		const fragShader = "varying float vElev; uniform vec3 uHigh; uniform vec3 uLow; uniform float uFade; void main(){ float t = clamp((vElev + 2.0) / 4.0, 0.0, 1.0); vec3 col = mix(uLow, uHigh, t); gl_FragColor = vec4(col, uFade); }";
+		function bwtw9pk(px, py, pz, rx, ry, rz, high, low, fade){
+		  const mat = new THREE.ShaderMaterial({
+			wireframe: true, 
+			transparent: true, 
+			depthWrite: false,
+			uniforms:{
+			  uTime:{value:0}, 
+			  uStrength:{value:1.1},
+			  uHigh:{value:new THREE.Color(high)}, 
+			  uLow:{value:new THREE.Color(low)},
+			  uFade:{value:fade}
+			},
+			vertexShader: vertShader, 
+			fragmentShader: fragShader
+		  });
+		  const m = new THREE.Mesh(geom, mat);
+		  m.position.set(px, py, pz);
+		  m.rotation.set(rx, ry, rz);
+		  return m;
+		}
+		const cs = getComputedStyle(document.documentElement);
+		const yOffset = IS_MOBILE ? 14 : 8;
+		
+		const topPlane = bwtw9pk(0, yOffset, -5, -Math.PI/2.4, 0, 0, '#1e40af', '#040914', 0.35);
+		const midPlane = bwtw9pk(
+		  0, 0, -25, 0, 0, 0, 
+		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
+		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
+		  (parseFloat(cs.getPropertyValue('--plane-opacity')) || 0.35) * 0.7
+		);
+		const botPlane = bwtw9pk(
+		  0, -yOffset, -5, Math.PI/2.4, 0, 0, 
+		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
+		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
+		  parseFloat(cs.getPropertyValue('--plane-opacity')) || 0.35
+		);
+		scene.add(topPlane);
+		scene.add(midPlane);
+		scene.add(botPlane);
+		
+		window.__dxTopPlane = topPlane;
+		window.__dxMidPlane = midPlane;
+		window.__dxBotPlane = botPlane;
+		const clock = new THREE.Clock();
+		let lastFrameTime = 0;
+		function animate(timestamp) {
+		  requestAnimationFrame(animate);
+		  if (timestamp - lastFrameTime < 30) return;
+		  lastFrameTime = timestamp;
+		  
+		  const t = clock.getElapsedTime();
+		  topPlane.material.uniforms.uTime.value = t * 0.8; 
+		  midPlane.material.uniforms.uTime.value = t * 0.6;
+		  botPlane.material.uniforms.uTime.value = t * 0.8; 
+		  renderer.render(scene, camera);
+		}
+		requestAnimationFrame(animate);
+		window.addEventListener('resize', function(){
+		  camera.aspect = window.innerWidth/window.innerHeight;
+		  camera.updateProjectionMatrix();
+		  renderer.setSize(window.innerWidth, window.innerHeight);
+		});
+		function hus7ufu(){
+		  const isDark = document.documentElement.classList.contains('dark');
+		  if (renderer) renderer.setClearColor(isDark ? 0x000105 : 0xf9fafb, 1);
+		  const pColor = isDark ? '#1d4ed8' : '#93c5fd';
+		  const pDark = isDark ? '#000105' : '#f9fafb';
+		  const pOpacity = isDark ? 0.15 : 0.20;
+		  if (botPlane) {
+			botPlane.material.uniforms.uHigh.value.set(pColor);
+			botPlane.material.uniforms.uLow.value.set(pDark);
+			botPlane.material.uniforms.uFade.value = pOpacity;
+		  }
+		  if (midPlane) {
+			midPlane.material.uniforms.uHigh.value.set(pColor);
+			midPlane.material.uniforms.uLow.value.set(pDark);
+			midPlane.material.uniforms.uFade.value = pOpacity * 0.7;
+		  }
+		  if (topPlane) {
+			 if (!isDark) {
+				topPlane.material.uniforms.uLow.value.set('#f9fafb');
+				topPlane.material.uniforms.uHigh.value.set('#bfdbfe');
+			 } else {
+				topPlane.material.uniforms.uLow.value.set('#040914');
+				topPlane.material.uniforms.uHigh.value.set('#1e40af');
+			 }
+		  }
+		}
+		
+		const observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				if (mutation.attributeName === 'class') {
+					hus7ufu();
+				}
+			});
+		});
+		observer.observe(document.documentElement, { attributes: true });
+		hus7ufu();
+	  })();
+	</script>
+`;
+const zfne8tu = `
+		function bm3pzm2(message, type = 'success') {
+			const container = document.getElementById('toast-container');
+			const toast = document.createElement('div');
+			const colors = type === 'error' 
+				? 'bg-red-50 dark:bg-red-900/40 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400' 
+				: 'bg-green-50 dark:bg-green-900/40 border-green-200 dark:border-green-800 text-green-700 dark:text-green-500';
+			toast.className = 'px-4 py-3 border rounded-md shadow-lg font-bold text-sm transform transition-all duration-300 -translate-y-full opacity-0 ' + colors;
+			toast.innerText = message;
+			container.appendChild(toast);
+			requestAnimationFrame(() => {
+				toast.classList.remove('-translate-y-full', 'opacity-0');
+			});
+			setTimeout(() => {
+				toast.classList.add('-translate-y-full', 'opacity-0');
+				setTimeout(() => toast.remove(), 300);
+			}, 3000);
+		}
+		window.alert = function(message) {
+			const msgStr = message ? message.toString() : '';
+			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
+				bm3pzm2(msgStr, 'error');
+			} else {
+				bm3pzm2(msgStr, 'success');
+			}
+		};
+`;
+const wa42j92 = {
+	nginx: `<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>دسترسی به پـنـل</title>
+	${avk7j6y}
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-8 text-center flex flex-col items-center gap-4 relative z-10">
+		<div class="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-full mb-2">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+		</div>
+		<h2 class="text-xl font-bold text-gray-900 dark:text-white">ورود به پــنــل مدیریت</h2>
+		<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-2">
+			برای ورود به پـنـل، لطفاً عبارت 
+			<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-amoled-input border border-gray-200 dark:border-zinc-800 rounded-md font-mono text-blue-500 font-bold mx-1 shadow-sm" dir="ltr">/adminas</span> 
+			را به انتهای آدرس مرورگر خود اضافه کنید یا روی دکمه زیر کلیک کنید.
+		</p>
+		<button onclick="window.location.href='/adminas'" class="mt-4 w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition-colors duration-200 shadow-lg font-bold">
+			ورود به پـنـل
+		</button>
+	</div>
+	${td8g9qc}
+</body>
+</html>`,
+	setup: `<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>تعریف رمز عبور پـنـل</title>
+	${avk7j6y}
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
+		<h2 class="text-xl font-bold mb-2 text-center text-blue-600 dark:text-blue-400">تنظیم رمز عبور جدید</h2>
+		<p class="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">این اولین ورود شما به پـنـل مدیریت است. لطفاً رمز عبور خود را تعیین کنید.</p>
+		<form onsubmit="handleSetup(event)" class="space-y-4">
+			<div>
+				<label class="block text-sm font-medium mb-1.5">رمز عبور</label>
+				<input type="password" id="password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required minlength="4">
+			</div>
+			<div>
+				<label class="block text-sm font-medium mb-1.5">تکرار رمز عبور</label>
+				<input type="password" id="confirm-password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required minlength="4">
+			</div>
+			<button type="submit" id="submit-btn" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">ثبت و ورود</button>
+		</form>
+	</div>
+	${pbfiipq}
+	<script>
+		${zfne8tu};
+		async function handleSetup(event) {
+			event.preventDefault();
+			const password = document.getElementById('password').value.trim();
+			const confirmPassword = document.getElementById('confirm-password').value.trim();
+			const btn = document.getElementById('submit-btn');
+			if (password !== confirmPassword) {
+				alert('⚠️ رمز عبور و تکرار آن مطابقت ندارند!');
+				return;
+			}
+			btn.disabled = true;
+			btn.innerText = 'در حال ثبت...';
+			try {
+				const res = await fetch('/api/setup-password', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ password })
+				});
+				const data = await res.json();
+				if (res.ok && data.success) {
+					alert('✅ رمز عبور با موفقیت تنظیم شد. در حال ورود...');
+					setTimeout(() => {
+						window.location.reload();
+					}, 1500);
+				} else {
+					alert('خطا: ' + (data.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				btn.innerText = 'ثبت و ورود';
+			}
+		}
+	</script>
+	${td8g9qc}
+</body>
+</html>`,
+	login: `<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ورود به پــنــل مدیریت</title>
+	${avk7j6y}
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
+		<div id="login-section">
+			<h2 class="text-xl font-bold mb-6 text-center text-blue-600 dark:text-blue-400">ورود به پـنـل مدیریت</h2>
+			<form onsubmit="handleLogin(event)" class="space-y-4">
+				<div>
+					<label class="block text-sm font-medium mb-1.5">رمز عبور</label>
+					<input type="password" id="password" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-center font-mono" required>
+				</div>
+				<button type="submit" id="submit-btn" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">ورود</button>
+			</form>
+			<div class="mt-4 text-center">
+				<button onclick="toggleRecovery(true)" class="text-xs text-blue-500 hover:text-blue-600 transition font-medium">بازیابی رمز پـنـل</button>
+			</div>
+		</div>
+		<div id="recovery-section" class="hidden">
+			<h2 class="text-xl font-bold mb-4 text-center text-orange-600 dark:text-orange-400">بازیابی رمز پـنـل</h2>
+			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300">
+				برای احراز هویت و اثبات مالکیت پـنـل، از طریق دکمه زیر وارد کلودفلر شوید و توکن دریافتی را کپی کرده و در کادر زیر وارد کنید.
+				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+					دریافت توکن
+				</a>
+			</div>
+			<form onsubmit="handleRecovery(event)" class="space-y-4">
+				<div>
+					<input type="password" id="api-token" placeholder="توکن را وارد کنید" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-xs text-center font-mono" required>
+				</div>
+				<div class="flex gap-2 pt-2">
+					<button type="button" onclick="toggleRecovery(false)" class="w-1/3 py-2.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition shadow-sm">انصراف</button>
+					<button type="submit" id="recover-btn" class="w-2/3 py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">بازیابی رمز پـنـل</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	${pbfiipq}
+	<script>
+		${zfne8tu}
+		async function handleLogin(event) {
+			event.preventDefault();
+			const password = document.getElementById('password').value.trim();
+			const btn = document.getElementById('submit-btn');
+			btn.disabled = true;
+			try {
+				const res = await fetch('/api/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ password })
+				});
+				const data = await res.json();
+				if (res.ok && data.success) {
+					window.location.reload();
+				} else {
+					alert(data.error || '❌ رمز عبور اشتباه است');
+				}
+			} catch (err) {
+				alert('خطا در ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+			}
+		}
+		function toggleRecovery(show) {
+			document.getElementById('login-section').classList.toggle('hidden', show);
+			document.getElementById('recovery-section').classList.toggle('hidden', !show);
+		}
+		async function handleRecovery(event) {
+			event.preventDefault();
+			const apiToken = document.getElementById('api-token').value;
+			const btn = document.getElementById('recover-btn');
+			btn.disabled = true;
+			btn.innerText = 'در حال بررسی...';
+			try {
+				const res = await fetch('/api/recover', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ api_token: apiToken })
+				});
+				const data = await res.json();
+				if (res.ok && data.success) {
+					alert('✅ رمز عبور با موفقیت حذف شد. در حال انتقال به صفحه تنظیمات اولیه...');
+					setTimeout(() => {
+						window.location.reload();
+					}, 1500);
+				} else {
+					alert('❌ ' + (data.error || 'خطا در تایید اطلاعات'));
+				}
+			} catch (err) {
+				alert('خطا در ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				btn.innerText = 'بازیابی رمز پـنـل';
+			}
+		}
+	</script>
+	${td8g9qc}
+</body>
+</html>`,
+	panel: `
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A L I R E Z A</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+	<script>
+		const originalWarn = console.warn;
+		console.warn = (...args) => {
+			if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+			originalWarn(...args);
+		};
+	</script>
+	${avk7j6y}
+	<style>
+		body { font-family: 'Vazirmatn', sans-serif; }
+		/* پرچم‌های SVG برای سازگاری با ویندوز */
+		.flg {
+			display: inline-block;
+			width: 1.35em;
+			height: 1em;
+			vertical-align: -0.15em;
+			border-radius: 2px;
+			background-size: cover;
+			background-position: 50%;
+			background-repeat: no-repeat;
+		}
+		.flg-g {
+			font-size: 1.1em;
+			line-height: 1;
+			vertical-align: -0.05em;
+		}
+		.dark input[type="checkbox"] {
+			filter: invert(1) hue-rotate(180deg);
+		}
+		html.grayscale-active {
+			filter: grayscale(100%);
+		}
+		::-webkit-scrollbar {
+			width: 6px;
+			height: 6px;
+		}
+		::-webkit-scrollbar-track {
+			background: #f3f4f6; 
+			border-radius: 4px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: #d1d5db; 
+			border-radius: 4px;
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: #9ca3af;
+		}
+
+		html.dark::-webkit-scrollbar-track,
+		.dark *::-webkit-scrollbar-track {
+			background: #000105 !important;
+		}
+		html.dark::-webkit-scrollbar-thumb,
+		.dark *::-webkit-scrollbar-thumb {
+			background: #102040 !important;
+		}
+		html.dark::-webkit-scrollbar-thumb:hover,
+		.dark *::-webkit-scrollbar-thumb:hover {
+			background: #172e5c !important;
+		}
+
+		html.dark, .dark * {
+			scrollbar-width: thin;
+			scrollbar-color: #102040 #000105 !important;
+		}
+		@media (min-width: 769px) {
+			header, main { zoom: 1.18; }
+		}
+		@media (max-width: 768px) {
+			header, main { zoom: 0.90; }
+		}
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+		:root {
+			--bg-tint: rgba(59, 130, 246, 0.03);
+			--plane-color: #93c5fd; 
+			--plane-dark: #f9fafb;
+			--plane-opacity: 0.20;
+		}
+		.dark {
+			--bg-tint: rgba(16, 32, 64, 0.4); 
+			--plane-color: #1d4ed8; 
+			--plane-dark: #000105;
+			--plane-opacity: 0.15;
+		}
+		.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; will-change: transform; transform: translateZ(0); }
+		#waves { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+		.vignette {
+			position: fixed; inset: 0; z-index: 2; pointer-events: none;
+			background: radial-gradient(ellipse at center, transparent 35%, rgba(255,255,255,0.5) 100%);
+		}
+		.dark .vignette {
+			background: radial-gradient(ellipse at center, transparent 35%, rgba(0,1,5,0.85) 100%);
+		}
+		.ambient {
+			position: fixed; inset: 0; z-index: 1; pointer-events: none;
+			background:
+				radial-gradient(700px 500px at 12% 20%, var(--bg-tint), transparent 60%),
+				radial-gradient(800px 600px at 90% 90%, var(--bg-tint), transparent 60%);
+		}
+	</style>
+</head>
+<body class="bg-gray-50 dark:bg-amoled-bg text-gray-900 dark:text-zinc-100 min-h-screen transition-colors duration-200">
+	<canvas id="waves" class="bg-canvas"></canvas>
+	<header class="border-b border-gray-200 dark:border-amoled-border bg-white/95 dark:bg-amoled-card/95 px-4 py-4 relative z-10">
+		<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+			<div class="flex flex-row flex-wrap justify-center items-center gap-3 w-full md:w-auto">
+				<h1 class="text-lg font-bold flex items-center gap-2" dir="ltr">
+					⚡️ A L I R E Z A
+					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full">v1.11.4</span>
+				</h1>
+				</div>
+			<div class="flex flex-col items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
+			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
+				<button onclick="toggleInfoModal(true)" 
+						class="p-2 rounded-md 
+							   bg-purple-50 dark:bg-purple-950/30 
+							   border border-purple-200 dark:border-purple-900 
+							   hover:bg-purple-100 dark:hover:bg-purple-900/50 
+							   transition-all duration-200 
+							   text-purple-600 dark:text-purple-400 shadow-sm" 
+						title="اطلاعات">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+					</svg>
+				</button>
+				<button onclick="restartCore()"
+						class="p-2 rounded-md 
+							   bg-blue-50 dark:bg-blue-950/30 
+							   border border-blue-200 dark:border-blue-900 
+							   hover:bg-blue-100 dark:hover:bg-blue-900/50 
+							   transition-all duration-200 
+							   text-blue-600 dark:text-blue-400 shadow-sm" 
+						title="ری استارت پـنـل">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+					</svg>
+				</button>
+				<button id="grayscale-toggle"
+						class="p-2 rounded-md
+							   bg-zinc-100 dark:bg-zinc-800/80
+							   border border-zinc-300 dark:border-zinc-700
+							   hover:bg-zinc-200 dark:hover:bg-zinc-700
+							   transition-all duration-200
+							   text-zinc-600 dark:text-zinc-400 shadow-sm"
+						title="حالت سیاه‌سفید">
+					<svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M12 2v20" />
+						<path d="M12 2a10 10 0 0 1 0 20Z" fill="currentColor" opacity="0.3" />
+						<path d="M12 2a10 10 0 0 0 0 20Z" />
+					</svg>
+				</button>
+				<button id="pwa-install-btn" onclick="triggerPwaInstall()"
+						class="p-2 rounded-md
+							   bg-gradient-to-r from-indigo-500 to-purple-500
+							   hover:from-indigo-600 hover:to-purple-600
+							   transition-all duration-300
+							   text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/30"
+						title="دانلود و نصب اپلیکیشن پنل">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+					</svg>
+				</button>
+			</div>
+			<div class="flex items-center justify-center flex-wrap gap-3 w-full md:w-auto">
+				<button id="theme-toggle" 
+						class="p-2 rounded-md 
+							   bg-amber-50 dark:bg-amber-950/30 
+							   border border-amber-200 dark:border-amber-900 
+							   hover:bg-amber-100 dark:hover:bg-amber-900/50 
+							   transition-all duration-200 
+							   text-amber-500 dark:text-amber-400 shadow-sm"
+						title="تغییر تم">
+					<svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z"></path>
+					</svg>
+					<svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+					</svg>
+				</button>
+				<button onclick="toggleSettingsModal(true)" 
+						class="p-2 rounded-md 
+							   bg-gray-50 dark:bg-zinc-800/50 
+							   border border-gray-200 dark:border-zinc-700 
+							   hover:bg-gray-100 dark:hover:bg-zinc-700/80 
+							   transition-all duration-200 
+							   text-gray-600 dark:text-zinc-400 shadow-sm" 
+						title="تنظیمات">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+					</svg>
+				</button>
+				<button onclick="logoutAdmin()"
+					class="p-2 rounded-md 
+						   bg-red-50 dark:bg-red-950/30 
+						   border border-red-200 dark:border-red-900 
+						   hover:bg-red-100 dark:hover:bg-red-900/50 
+						   transition-all duration-200 
+						   text-red-600 dark:text-red-400 
+						   shadow-sm hover:shadow-md"
+					title="خروج">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+					</svg>
+				</button>
+			</div>
+			</div>
+		</div>
+	</header>
+	<main class="max-w-6xl mx-auto px-4 py-8 pb-56 md:pb-32 relative z-10">
+<div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
+	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
+		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+		<div class="flex items-center justify-between relative z-10">
+			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">تعداد کل کاربران</span>
+			<div class="p-1 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-md flex-shrink-0">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+			</div>
+		</div>
+		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
+			<div class="text-lg font-black text-gray-900 dark:text-zinc-100 transition-all leading-none" id="stat-total-users">0</div>
+			<span class="text-[9px] text-indigo-500 dark:text-indigo-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none mb-0.5">
+				<span class="w-1 h-1 bg-indigo-500 rounded-full animate-ping"></span>
+				کل کاربران تعریف شده
+			</span>
+		</div>
+	</div>
+	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-green-400 dark:hover:border-green-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
+		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-green-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+		<div class="flex items-center justify-between relative z-10">
+			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap flex items-center gap-1">
+				<span>کاربران فعال (آنلاین)</span>
+				<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110 cursor-pointer inline-flex items-center" title="هشدار">
+					<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+				</button>
+			</span>
+			<div class="p-1 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 rounded-md flex-shrink-0">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+			</div>
+		</div>
+		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
+			<div class="text-lg font-black text-green-600 dark:text-green-400 transition-all leading-none" id="stat-active-users">0</div>
+			<span class="text-[9px] text-green-500 dark:text-green-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none mb-0.5">
+				<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+				متصل در این لحظه
+			</span>
+		</div>
+	</div>
+	<div id="card-cf-requests" class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-orange-400 dark:hover:border-orange-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
+		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-orange-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+		<div class="flex items-center justify-between relative z-10">
+			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">ریکوئست‌های روزانه</span>
+			<div class="p-1 bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 rounded-md flex-shrink-0">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+			</div>
+		</div>
+		<div class="relative z-10 min-w-0 flex-1 w-full mt-0.5">
+			<div class="flex items-end justify-between w-full mb-1.5">
+				<div class="flex items-baseline gap-1">
+					<span class="text-lg font-black text-orange-600 dark:text-orange-400 transition-all leading-none" id="stat-cf-requests">0</span>
+					<span class="text-[9px] font-bold text-gray-400 mr-0.5 leading-none">/ 100k</span>
+					<button id="cf-warning-btn" onclick="openUsageWarning()" class="hidden flex items-center justify-center w-3 h-3 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full font-bold text-[9px] animate-bounce shadow-sm border border-red-300 dark:border-red-700 mr-1 leading-none">!</button>
+				</div>
+				<span class="text-[9px] text-orange-500 dark:text-orange-400 flex items-center gap-1 font-medium whitespace-nowrap leading-none">
+					<span>Total: <span id="stat-cf-total">0</span></span>
+				</span>
+			</div>
+			<div class="w-full bg-gray-100 dark:bg-zinc-800 rounded-full h-1">
+				<div id="stat-cf-progress" class="bg-orange-500 h-1 rounded-full transition-all duration-500" style="width: 0%"></div>
+			</div>
+		</div>
+	</div>
+	<div id="card-d1-usage" class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-purple-400 dark:hover:border-purple-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
+		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-purple-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+		<div class="flex items-center justify-between relative z-10">
+			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">مصرف دیتابیس D1</span>
+			<div class="p-1 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 rounded-md flex-shrink-0">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+			</div>
+		</div>
+		<div class="relative z-10 min-w-0 flex-1 w-full mt-1">
+			<div class="grid grid-cols-2 gap-2 w-full">
+				<div class="flex flex-col items-start justify-center">
+					<div class="flex items-baseline gap-1">
+						<span class="text-sm font-black text-purple-600 dark:text-purple-400 transition-all leading-none" id="stat-d1-writes">0</span>
+						<span class="text-[9px] font-bold text-gray-400 leading-none">/ 100k</span>
+					</div>
+					<span class="text-[9px] font-medium text-gray-500 dark:text-zinc-400 mt-1">نوشتن</span>
+				</div>
+				<div class="flex flex-col items-end justify-center border-r border-gray-100 dark:border-zinc-800 pr-2">
+					<div class="flex items-baseline gap-1">
+						<span class="text-sm font-black text-purple-600 dark:text-purple-400 transition-all leading-none" id="stat-d1-reads">0</span>
+						<span class="text-[9px] font-bold text-gray-400 leading-none">/ 5M</span>
+					</div>
+					<span class="text-[9px] font-medium text-gray-500 dark:text-zinc-400 mt-1">خواندن</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-blue-400 dark:hover:border-blue-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]">
+		<div class="absolute -right-4 -bottom-4 w-16 h-16 bg-blue-500/10 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+		<div class="flex items-center justify-between relative z-10">
+			<span class="text-[11px] sm:text-xs font-semibold text-gray-500 dark:text-zinc-400 whitespace-nowrap">ترافیک مصرفی سرور</span>
+			<div class="p-1 bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 rounded-md flex-shrink-0">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+			</div>
+		</div>
+		<div class="flex items-end justify-between relative z-10 w-full mt-0.5">
+			<div class="text-lg font-black text-blue-600 dark:text-blue-400 transition-all whitespace-nowrap leading-none" id="stat-total-usage">0 GB</div>
+			<span class="text-[9px] text-blue-500 dark:text-blue-400 flex items-center gap-0.5 font-medium whitespace-nowrap leading-none mb-0.5">
+				<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>
+				مجموع
+			</span>
+		</div>
+	</div>
+</div>
+		<div id="loading-state" class="text-center py-12">
+			<span class="text-gray-500 dark:text-gray-400">در حال بارگذاری کاربران...</span>
+		</div>
+		<div class="mb-5 flex flex-col md:flex-row gap-2 justify-between items-center bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2 shadow-sm">
+			<div class="relative w-full md:w-80">
+				<input type="text" id="search-input" oninput="filterAndRenderUsers()" placeholder="جستجوی نام کاربری یا UUID..." class="w-full pl-3 pr-8 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs">
+				<div class="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none text-gray-400">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+				</div>
+			</div>
+			<div class="flex items-center gap-2 w-full md:w-auto">
+				<select id="filter-status" onchange="filterAndRenderUsers()" class="flex-1 min-w-0 px-2 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer truncate">
+					<option value="all">🔍 همه</option>
+					<option value="active">✅ فعال</option>
+					<option value="inactive">❌ غیرفعال</option>
+					<option value="online">⚡ آنلاین</option>
+					<option value="offline">💤 آفلاین</option>
+					<option value="expired">⏳ منقضی</option>
+				</select>
+				<select id="sort-users" onchange="filterAndRenderUsers()" class="flex-1 min-w-0 px-2 py-1.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer truncate">
+					<option value="newest">📅 جدیدترین</option>
+					<option value="name">🔤 نام کاربری (الفبا)</option>
+					<option value="usage-desc">📊 بیشترین مصرف</option>
+					<option value="usage-asc">📈 کمترین مصرف</option>
+					<option value="expiry-asc">⏳ کمترین زمان باقی‌مانده</option>
+				</select>
+			</div>
+		</div>
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200 shrink-0 whitespace-nowrap">لیست کاربران</h2>
+			<div class="flex flex-col items-end gap-3">
+				<div class="flex items-center justify-end gap-4">
+				<button onclick="quickCreateUser(this)" title="افزودن کاربر سریع (VIP)" class="p-2 rounded-md bg-indigo-50 dark:bg-indigo-950/40 border-2 border-indigo-500 dark:border-indigo-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all duration-300 text-indigo-600 dark:text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] hover:shadow-[0_0_25px_rgba(99,102,241,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
+					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+				</button>
+				<button onclick="copyAllConfigs(this)" title="کپی همه‌ی کانفیگ‌های همه‌ی کاربران (یکجا)" class="p-2 rounded-md bg-fuchsia-50 dark:bg-fuchsia-950/40 border-2 border-fuchsia-500 dark:border-fuchsia-500 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-900/60 transition-all duration-300 text-fuchsia-600 dark:text-fuchsia-400 shadow-[0_0_15px_rgba(217,70,239,0.6)] hover:shadow-[0_0_25px_rgba(217,70,239,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg class="w-6 h-6 drop-shadow-[0_0_6px_rgba(217,70,239,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path><path d="M12 14.5h5M12 17.5h5"></path></svg>
+				</button>
+				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+				</button>
+				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+				</button>
+				</div>
+				<div class="flex items-center justify-end gap-4">
+				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</button>
+				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
+					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
+				</button>
+				</div>
+			</div>
+		</div>
+		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
+		<div class="flex flex-wrap items-center justify-end gap-2">
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
+				<span class="text-[11px] font-bold text-amber-800 dark:text-amber-300">کانفیگ‌های اطلاع‌رسانی (مصرف + رایگان)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="info-configs-toggle" onchange="toggleInfoConfigs(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-amber-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
+			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
+			<button type="button" onclick="openEchModal()" title="تنظیمات ECH (SNI و DoH) که روی کانفیگ‌ها اعمال می‌شود" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">🔐 تنظیمات ECH</button>
+		</div>
+		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
+		<div class="flex flex-wrap items-center justify-end gap-2 mb-3">
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20" title="روشن: تنظیمات پیشرفته بهینه‌سازی (مقادیر Patterniha) روی همه کاربران اعمال می‌شود">
+				<span class="text-[11px] font-bold text-purple-800 dark:text-purple-300">بهینه‌سازی Patterniha (همه کاربران)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="patterniha-all-toggle" onchange="togglePatternihaAll(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-purple-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
+			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-fuchsia-300 dark:border-fuchsia-700/60 bg-fuchsia-50/60 dark:bg-fuchsia-950/20" title="روشن: finalmask (fm) خالی، فینگرپرینت Chrome و ECH روی همه کاربران (Cipher Suites و TLS Mask هم خالی می‌شن)">
+				<span class="text-[11px] font-bold text-fuchsia-800 dark:text-fuchsia-300">بهینه‌سازی Chrome + ECH (همه کاربران)</span>
+				<span class="relative inline-flex items-center">
+					<input type="checkbox" id="patterniha-ech-toggle" onchange="togglePatternihaEchAll(this)" class="sr-only peer">
+					<span class="w-8 h-4 bg-gray-300 dark:bg-zinc-700 rounded-full peer-checked:bg-fuchsia-500 transition-colors"></span>
+					<span class="absolute top-[2px] right-[2px] w-3 h-3 bg-white rounded-full transition-transform peer-checked:-translate-x-4"></span>
+				</span>
+			</label>
+		</div>
+		<div id="users-table-container" class="hidden overflow-x-auto pb-4 px-1">
+			<table class="w-full text-right border-separate" style="border-spacing: 0 8px;">
+				<thead>
+					<tr class="bg-gray-200/90 dark:bg-zinc-800/80 backdrop-blur-md text-xs font-bold text-gray-700 dark:text-zinc-200 text-center leading-tight shadow-md">
+						<th class="py-2 px-1.5 w-10 text-center rounded-r-md border-y border-r border-gray-200 dark:border-zinc-800"><input type="checkbox" id="select-all-users" onchange="toggleSelectAllUsers(this)" class="w-5 h-5 rounded-md border-2 border-gray-300 dark:border-zinc-700 text-blue-600 bg-white dark:bg-zinc-800 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500/50 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"></th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">اطلاعات</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">عملیات</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">لینک ساب</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-1 whitespace-nowrap">
+							<div class="flex items-center justify-center gap-1">
+								<span>تعداد کانفیگ‌ها</span>
+								<button type="button" onclick="openConfigCountWarning();" class="text-amber-500 hover:text-amber-400 transition-transform hover:scale-125 cursor-pointer inline-flex items-center" title="هشدار">
+									<svg class="w-5 h-5 animate-pulse drop-shadow-[0_0_6px_rgba(245,158,11,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+								</button>
+							</div>
+						</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800">پورت</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">حجم</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">ریکوئست</th>
+						<th class="py-2 px-2 border-y border-gray-200 dark:border-zinc-800 w-[115px]">زمان</th>
+						<th class="py-2 px-2 rounded-l-md border-y border-l border-gray-200 dark:border-zinc-800 w-[115px]">
+							<div class="flex items-center justify-center gap-1">
+								<span>متصل</span>
+								<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110 cursor-pointer inline-flex items-center" title="هشدار">
+									<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+								</button>
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody id="users-tbody" class="text-sm"></tbody>
+			</table>
+		</div>
+		<div id="empty-state" class="hidden p-8 border-2 border-dashed border-red-500/60 dark:border-red-500/50 bg-red-50 dark:bg-red-900/10 rounded-md text-center animate-pulse shadow-sm">
+			<p class="text-red-600 dark:text-red-400 font-bold text-lg">کاربری وجود ندارد. برای ساخت اولین کاربر روی دکمه « + » کلیک کنید یا از دکمه ⚡️ برای ایجاد سریع کاربر استفاده کنید.</p>
+		</div>
+	</main>
+<div id="pwa-install-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-green-500/40 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center relative overflow-hidden">
+		<div class="absolute -right-12 -top-12 w-32 h-32 bg-green-500/10 rounded-full blur-2xl pointer-events-none"></div>
+		<div class="flex justify-between items-center mb-4 relative z-10">
+			<h3 class="text-sm font-black text-gray-900 dark:text-white flex items-center gap-2">
+				<span class="text-lg">📲</span>
+				<span id="pwa-modal-title">راهنمای نصب اپلیکیشن علیرضا</span>
+			</h3>
+			<button onclick="togglePwaModal(false)" class="p-1 rounded-md text-gray-400 hover:text-red-500 cursor-pointer transition">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="flex items-center gap-3 p-3 bg-green-50/50 dark:bg-green-900/10 rounded-xl border border-green-200/70 dark:border-green-800/50 mb-4 text-right">
+			<div class="w-11 h-11 rounded-xl bg-green-50 dark:bg-green-950/60 border-2 border-green-500 flex items-center justify-center text-green-600 dark:text-green-400 flex-shrink-0 shadow-md">
+				<svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+			</div>
+			<div>
+				<h4 class="text-xs font-black text-gray-900 dark:text-white">پنل علیرضا</h4>
+				<span class="text-[10px] text-gray-500 dark:text-zinc-400 block">اپلیکیشن پیشرفته و مستقل وب (PWA)</span>
+			</div>
+		</div>
+		<div id="pwa-instructions-list" class="space-y-2.5 text-right text-xs text-gray-700 dark:text-zinc-300 font-medium leading-relaxed select-none mb-5 max-h-48 overflow-y-auto pr-1">
+		</div>
+		<button onclick="togglePwaModal(false)" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-xl text-xs transition shadow-sm cursor-pointer active:scale-95">متوجه شدم</button>
+	</div>
+</div>
+<div id="rocket-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-orange-500/50 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
+		<div class="flex justify-between items-center mb-4">
+			<div class="flex items-center gap-2">
+				<div class="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shadow-sm">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</div>
+				<h3 class="text-sm font-black text-gray-900 dark:text-white">کانفیگ تک لوکیشن</h3>
+			</div>
+			<button onclick="toggleRocketModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm" title="بستن">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<p class="text-[11px] text-gray-600 dark:text-gray-400 mb-5 font-medium leading-relaxed">کشور مورد نظر را انتخاب کنید تا کانفیگ تک لوکیشن پرسرعت ساخته شود.</p>
+		<div class="space-y-4">
+			<div>
+				<select id="rocket-country-select" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 text-gray-800 dark:text-zinc-100 cursor-pointer shadow-sm transition">
+					<option value="">در حال بارگذاری کشورها...</option>
+				</select>
+			</div>
+			<button id="rocket-submit-btn" onclick="executeRocketCreate()" class="w-full py-2.5 bg-transparent border-2 border-orange-600 text-orange-700 hover:bg-orange-900/20 hover:text-orange-800 dark:border-orange-500 dark:text-orange-500 dark:hover:bg-orange-900/40 dark:hover:text-orange-400 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">شروع اسکن و ساخت</button>
+		</div>
+	</div>
+</div>
+<div id="info-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-purple-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col">
+		
+		<div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-500 mb-3 shadow-inner mx-auto flex-shrink-0">
+			<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+			</svg>
+		</div>
+		
+		<h3 class="font-black text-lg text-gray-900 dark:text-white mb-3">اطلاعیه مهم امنیتی و وضعیت پروژه</h3>
+		
+		<div class="text-xs text-gray-600 dark:text-gray-300 mb-4 leading-relaxed font-medium text-justify space-y-2">
+			<p>
+				با کمال تأسف به اطلاع می‌رسانیم که مخزن گیت‌هاب پروژه علیرضا به دلیل گزارش‌های کذب و مغرضانه برخی از افراد سودجو و <strong>فروشندگان کانفیگ</strong> مسدود شده است.
+			</p>
+			<p>
+				این شیادین با انتشار شایعات بی‌اساس مبنی بر ناامن بودن پنل یا سرقت اطلاعات، قصد تخریب این پروژه رایگان را دارند تا منافع مالی خود را حفظ کنند.
+			</p>
+			<p>
+				پروژه علیرضا همواره بر پایه شفافیت مطلق بنا شده است. برای اثبات این موضوع، سورس‌کد کامل پنل در دسترس شماست. لطفاً به شایعات توجه نکنید و برای اطمینان خاطر، کدها را مستقلاً با ابزارهای هوش مصنوعی بررسی کنید تا به سلامت و امنیت کامل پروژه پی ببرید.
+			</p>
+			<p class="text-amber-600 dark:text-amber-400 font-bold text-center mt-2 border-t border-gray-100 dark:border-zinc-800/50 pt-2.5">
+				ادامه این مسیر و مقابله با این تخریب‌ها برای ما بسیار دشوار شده است. حمایت‌های شما تنها دلگرمی ما برای سرپا نگه داشتن این پروژه است.
+			</p>
+		</div>
+		
+		<div class="flex flex-col gap-2 mt-auto">
+			<div class="flex flex-col sm:flex-row gap-2 w-full">
+				</div>
+			
+			<button onclick="toggleInfoModal(false)" class="w-full py-2.5 bg-transparent border-2 border-purple-600 text-purple-700 hover:bg-purple-900/20 hover:text-purple-800 dark:border-purple-500 dark:text-purple-400 dark:hover:bg-purple-900/40 dark:hover:text-purple-300 font-black rounded-md text-sm transition duration-300 shadow-sm">
+				متوجه شدم
+			</button>
+		</div>
+		
+	</div>
+</div>
+<div id="usage-warning-modal" class="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-orange-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">هشدار محدودیت درخواست روزانه</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+			درخواست‌های روزانه کلودفلر شما از ۹۰,۰۰۰ عبور کرده است. در صورت عبور از محدودیت رایگان ۱۰۰,۰۰۰ درخواست، دسترسی به پـنـل و اتصالات تا ساعت ۳:۳۰ بامداد (به وقت ایران) قطع خواهد شد.
+		</p>
+		<button onclick="closeUsageWarning()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			متوجه شدم
+		</button>
+	</div>
+</div>
+<div id="free-panel-warning-modal" class="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border-4 border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">🚨 🛑 اخطار 🛑 🚨</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+این پنل <span class="text-emerald-500 font-bold">اوپن‌سورس</span> می‌باشد و توسط <span class="text-blue-500 font-bold">ALIREZA Tune</span> تغییر یافته است. ✨		</p>
+		<button onclick="closeFreePanelWarning()" class="w-full py-3.5 bg-transparent border-2 border-green-800 text-green-900 hover:bg-green-800 hover:text-white dark:border-green-800 dark:text-green-700 dark:hover:bg-green-900 dark:hover:text-white font-black rounded-md text-sm transition duration-300 shadow-lg">
+			تأیید و موافقت
+		</button>
+	</div>
+</div>
+<div id="global-message-modal" class="fixed inset-0 z-[86] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-blue-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-4">پیام همگانی</h3>
+		<div id="global-message-content" class="mb-6 w-full text-center">
+		</div>
+		<button id="global-message-close-btn" class="w-full py-3.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-900/40 dark:hover:text-blue-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			متوجه شدم
+		</button>
+	</div>
+</div>
+<div id="online-counter-warning-modal" class="fixed inset-0 z-[87] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">هشدار شمارنده آنلاین</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+			به دلیل ماهیت ساختار کلودفلر، آمار شمارنده کاربران آنلاین با دقت مطلق محاسبه نمی‌شود؛ همچنین ارسال پینگ یا بررسی مداوم کانفیگ‌ها توسط کلاینت ممکن است به صورت موقت منجر به نمایش افزایش کاذب تعداد کاربران فعال گردد.		</p>
+		<button onclick="closeOnlineCounterWarning()" class="w-full py-3.5 bg-transparent border-2 border-red-600 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			متوجه شدم
+		</button>
+	</div>
+</div>
+<div id="config-count-warning-modal" class="fixed inset-0 z-[88] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-amber-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">محاسبه تعداد کانفیگ‌ها</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed font-medium">
+			تعداد کل کانفیگ‌های هر کاربر از این فرمول به دست می‌آید
+		</p>
+		<div class="bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-md p-3 mb-4 text-xs font-bold text-gray-800 dark:text-zinc-200 text-center shadow-inner" dir="rtl">
+			تعداد کل = ۳ + (تعداد پروکسی ها + ۱) × (تعداد آی‌پی تمیز) × (تعداد پورت)
+		</div>
+		<div class="text-[11px] text-amber-700 dark:text-amber-500 mb-6 leading-relaxed font-bold bg-amber-50 dark:bg-amber-950/20 p-3 rounded text-right border border-amber-200 dark:border-amber-900/50">
+			⚠️ <b>توصیه مهم:</b> برای جلوگیری از زیاد شدن کانفیگ‌ها و در نتیجه سنگین شدن و هنگ کردن نرم‌افزار کاربر، پیشنهاد می‌شود پورت‌های کمتری انتخاب کنید و تعداد آی‌پی‌های تمیز را در حد معقول نگه دارید.
+		</div>
+		<button onclick="closeConfigCountWarning()" class="w-full py-3.5 bg-transparent border-2 border-amber-600 text-amber-700 hover:bg-amber-900/20 hover:text-amber-800 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-900/40 dark:hover:text-amber-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			متوجه شدم
+		</button>
+	</div>
+</div>
+	<div id="user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+		<div id="user-modal-card" class="w-full max-w-5xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-2xl shadow-2xl overflow-hidden transition-[opacity,transform] duration-200 opacity-0 scale-95 ease-out flex flex-col max-h-[92vh] transform-gpu">
+			<div class="px-5 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50/70 dark:bg-amoled-bg/60">
+				<div class="flex items-center gap-3">
+					<div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+					</div>
+					<div>
+						<h3 id="modal-title" class="font-black text-gray-900 dark:text-zinc-100 text-sm sm:text-base tracking-tight">ایجاد کاربر جدید</h3>
+						<p class="text-[11px] text-gray-500 dark:text-zinc-400 font-medium">مشخصات، دسترسی‌ها و پروتکل‌های اتصال کاربر</p>
+					</div>
+				</div>
+				<button type="button" onclick="toggleModal(false)" class="p-2 rounded-lg bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 shadow-sm" title="بستن">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+				</button>
+			</div>
+			<form id="create-user-form" class="flex flex-col flex-1 min-h-0 overflow-hidden" onsubmit="handleFormSubmit(event)">
+				<input type="hidden" id="hidden-auto-rotate" value="0">
+				<input type="hidden" id="hidden-rotate-time" value="">
+				<input type="hidden" id="hidden-ip-operator" value="all">
+				<input type="hidden" id="hidden-ip-count" value="20">
+				<div class="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden">
+					<div class="w-full md:w-64 bg-gray-50/90 dark:bg-amoled-bg/80 border-b md:border-b-0 md:border-l border-gray-200 dark:border-amoled-border p-3 md:p-4 flex flex-row md:flex-col gap-2 flex-shrink-0 overflow-x-auto md:overflow-x-visible md:justify-between">
+						<div class="flex flex-row md:flex-col gap-2 w-full">
+							<button type="button" onclick="switchUserTab('tab-user-info')" id="tab-btn-user-info" class="user-modal-tab-btn active flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-blue-600/10 dark:bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold shadow-sm">
+								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-blue-500/15 dark:bg-blue-400/20 text-blue-600 dark:text-blue-300">
+									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+								</div>
+								<div class="hidden sm:block text-right">
+									<div class="text-xs font-black">نام کاربری و مشخصات</div>
+									<div class="text-[10px] opacity-75 font-normal">حجم، زمان، محدودیت و تمدید</div>
+								</div>
+								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">مشخصات</span>
+							</button>
+							<button type="button" onclick="switchUserTab('tab-ports-network')" id="tab-btn-ports-network" class="user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium">
+								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400">
+									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+								</div>
+								<div class="hidden sm:block text-right">
+									<div class="text-xs font-black">پورت‌های اتصال و شبکه</div>
+									<div class="text-[10px] opacity-75 font-normal">پورت‌ها، آی‌پی تمیز و فرگمنت</div>
+								</div>
+								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">پورت و IP</span>
+							</button>
+							<button type="button" onclick="switchUserTab('tab-proxy-settings')" id="tab-btn-proxy-settings" class="user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium">
+								<div class="flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400">
+									<svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+								</div>
+								<div class="hidden sm:block text-right">
+									<div class="text-xs font-black">تنظیم پروکسی و کشور</div>
+									<div class="text-[10px] opacity-75 font-normal">آی‌پی ثابت و زنجیره اتصال</div>
+								</div>
+								<span class="sm:hidden text-[10px] sm:text-xs font-bold whitespace-nowrap">پروکسی</span>
+							</button>
+						</div>
+						
+						<div class="hidden md:flex flex-col gap-2 mt-auto pt-4 border-t border-gray-200 dark:border-amoled-border w-full">
+							<button type="submit" id="submit-btn-desktop" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 font-black rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-1.5 cursor-pointer">
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+								<span>ایجاد کاربر</span>
+							</button>
+							<button type="button" onclick="toggleModal(false)" class="w-full py-2 bg-transparent border-2 border-red-600 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold rounded-xl text-xs transition shadow-sm">
+								انصراف
+							</button>
+						</div>
+					</div>
+					<div class="flex-1 p-4 sm:p-6 overflow-y-auto max-h-[72vh] space-y-4 custom-scrollbar overscroll-contain">
+						
+						<div id="tab-user-info" class="user-tab-panel space-y-4">
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<div class="flex items-center justify-between">
+									<label class="block text-xs font-black text-gray-700 dark:text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+										<span>پروتکل‌های اتصال (انتخاب حداقل یک مورد الزامی است)</span>
+									</label>
+								</div>
+								<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-blue-500 dark:hover:border-blue-500 transition select-none">
+										<div class="flex items-center gap-2.5">
+											<div class="w-8 h-8 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-xs">
+												<svg class="w-5 h-5 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+											</div>
+											<div>
+												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل VLESS</span>
+												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل سبک و پرسرعت </span>
+											</div>
+										</div>
+										<input type="checkbox" id="input-proto-vless" checked onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
+									</label>
+									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-purple-500 dark:hover:border-purple-500 transition select-none">
+										<div class="flex items-center gap-2.5">
+											<div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black text-xs">
+												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 11a2 2 0 100-4 2 2 0 000 4z"></path><path d="M12 11v3"></path></svg>
+											</div>
+											<div>
+												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Trojan</span>
+												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امنیتی پیشرفته </span>
+											</div>
+										</div>
+										<input type="checkbox" id="input-proto-trojan" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
+									</label>
+									<label class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-xl cursor-pointer hover:border-yellow-500 dark:hover:border-yellow-500 transition select-none">
+										<div class="flex items-center gap-2.5">
+											<div class="w-8 h-8 rounded-lg bg-yellow-500/10 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 flex items-center justify-center font-black text-xs">
+												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+											</div>
+											<div>
+												<span class="text-xs font-black text-gray-800 dark:text-zinc-200 block">پروتکل Shadowsocks</span>
+												<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal">پروتکل امن سبک</span>
+											</div>
+										</div>
+										<input type="checkbox" id="input-proto-ss" onchange="handleProtocolChange(this)" class="w-4 h-4 rounded focus:ring-green-500/50 bg-white dark:bg-amoled-input border-gray-300 dark:border-amoled-border cursor-pointer text-green-600" style="filter: none !important; accent-color: #16a34a !important;">
+									</label>
+								</div>
+								<div class="mt-2.5 p-2 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
+									<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+									<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed text-justify">هشدار: پروتکل شدوساکس در موبایل فقط روی برنامه <a href="https://www.happ.su/main" target="_blank" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80 transition-opacity">happ</a> پشتیبانی میشود.</span>
+								</div>
+							</div>
+							
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<div class="flex items-center justify-between">
+									<label class="block text-xs font-black text-gray-700 dark:text-zinc-200 uppercase tracking-wider flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+										<span>نام کاربری (الزامی)</span>
+									</label>
+									<button type="button" onclick="generateRandomUsername()" class="px-2.5 py-1 bg-transparent border-2 border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1">
+										<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+										<span>نام تصادفی</span>
+									</button>
+								</div>
+								<div class="relative">
+									<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+									</span>
+									<input type="text" id="input-name" placeholder="my-config" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+								</div>
+							</div>
+							
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-4">
+								<div class="space-y-3">
+									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+										<span>اعتبار حجمی و زمانی</span>
+									</h4>
+									<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+										<div>
+											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">حجم مجاز (گیگابایت)</label>
+											<div class="relative">
+												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+												</span>
+												<input type="number" id="input-limit" step="0.1" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+											</div>
+											<div class="flex items-center gap-1 mt-1.5 flex-wrap">
+												<span class="text-[9px] text-gray-400 dark:text-zinc-500 font-bold ml-1">انتخاب سریع:</span>
+												<button type="button" onclick="setQuickVol(10)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱۰ گیگ</button>
+												<button type="button" onclick="setQuickVol(50)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۵۰ گیگ</button>
+												<button type="button" onclick="setQuickVol(100)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱۰۰ گیگ</button>
+												<button type="button" onclick="setQuickVol('')" class="px-2 py-0.5 rounded bg-transparent border border-gray-500 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-amoled-input text-[10px] font-bold transition cursor-pointer">نامحدود</button>
+											</div>
+										</div>
+										<div>
+											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">مدت زمان اعتبار (روز)</label>
+											<div class="relative">
+												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+												</span>
+												<input type="number" id="input-expiry" min="1" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+											</div>
+											<div class="flex items-center gap-1 mt-1.5 flex-wrap">
+												<span class="text-[9px] text-gray-400 dark:text-zinc-500 font-bold ml-1">انتخاب سریع:</span>
+												<button type="button" onclick="setQuickExp(30)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۱ ماه</button>
+												<button type="button" onclick="setQuickExp(60)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۲ ماه</button>
+												<button type="button" onclick="setQuickExp(90)" class="px-2 py-0.5 rounded bg-transparent border border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-[10px] font-bold transition cursor-pointer">۳ ماه</button>
+												<button type="button" onclick="setQuickExp('')" class="px-2 py-0.5 rounded bg-transparent border border-gray-500 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-amoled-input text-[10px] font-bold transition cursor-pointer">نامحدود</button>
+											</div>
+										</div>
+									</div>
+									<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-900 border border-gray-200/80 dark:border-amoled-border rounded-lg">
+										<div class="flex items-center gap-2">
+											<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">شروع محاسبه زمان از اولین اتصال کاربر</span>
+										</div>
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-start-on-first-connect" class="sr-only peer">
+											<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+										</label>
+									</div>
+								</div>
+								
+								<div class="border-t border-gray-200/70 dark:border-amoled-border"></div>
+								
+								<div class="space-y-3">
+									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+										<span>محدودیت‌های اتصال و امنیت</span>
+									</h4>
+									<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+										<div>
+											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">تعداد درخواست (ریکوئست)</label>
+											<div class="relative">
+												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+												</span>
+												<input type="number" id="input-req-limit" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+											</div>
+										</div>
+										<div>
+											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1 flex items-center gap-1.5">
+												<span>محدودیت کاربر</span>
+												<button type="button" onclick="openOnlineCounterWarning();" class="text-red-500 hover:text-red-400 cursor-pointer inline-flex items-center animate-sym-bounce hover:animate-none transition-transform hover:scale-125" title="هشدار مهم">
+													<svg class="w-4 h-4 drop-shadow-[0_0_6px_rgba(239,68,68,0.9)] dark:drop-shadow-[0_0_8px_rgba(248,113,113,1)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+												</button>
+											</label>
+											<div class="relative">
+												<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+												</span>
+												<input type="number" id="input-ip-limit" min="0" placeholder="نامحدود" class="w-full pl-3 pr-9 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+											</div>
+										</div>
+										<div>
+											<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">فینگرپرینت TLS</label>
+											<div class="relative">
+												<select id="fingerprint-select" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-700 dark:text-zinc-300 cursor-pointer appearance-none shadow-sm">
+													<option value="chrome">🌐 Chrome</option>
+													<option value="firefox">🦊 Firefox</option>
+													<option value="safari">🧭 Safari</option>
+													<option value="ios">📱 iOS</option>
+													<option value="android">🤖 Android</option>
+													<option value="edge">🌀 Edge</option>
+													<option value="360">🔒 360 Browser</option>
+													<option value="qq">💬 QQ Browser</option>
+													<option value="random">🎲 Random</option>
+													<option value="randomized">🎭 Dynamic</option>
+													<option value="unsafe" selected>🚀 Unsafe (پیشنهادی)</option>
+												</select>
+												<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">
+													<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+										<div>
+											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تمدید خودکار ترافیک</span>
+											<span class="text-[10px] text-gray-400 block font-normal">ریست اتوماتیک در ساعت ۳:۳۰ بامداد</span>
+										</div>
+									</div>
+									<label class="relative inline-flex items-center cursor-pointer select-none">
+										<input type="checkbox" id="input-auto-reset-toggle" onchange="toggleAutoResetInputs(this.checked)" class="sr-only peer">
+										<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+									</label>
+								</div>
+								<div id="auto-reset-inputs-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-200/60 dark:border-amoled-border opacity-50 pointer-events-none transition-all duration-200">
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">دوره تمدید حجم (روز)</label>
+										<input type="number" id="input-auto-reset-vol" min="1" placeholder="خالی = بدون تمدید" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition" dir="ltr" disabled>
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">دوره تمدید ریکوئست (روز)</label>
+										<input type="number" id="input-auto-reset-req" min="1" placeholder="خالی = بدون تمدید" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition" dir="ltr" disabled>
+									</div>
+								</div>
+							</div>
+							
+							<div>
+								<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+									<div class="flex items-center justify-between p-3.5 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl">
+										<div class="flex items-center gap-2">
+											<span class="text-base">🔞</span>
+											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">مسدودسازی سایت‌های غیراخلاقی</span>
+										</div>
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-block-porn" class="sr-only peer">
+											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-red-500 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+										</label>
+									</div>
+									<div class="flex items-center justify-between p-3.5 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl">
+										<div class="flex items-center gap-2">
+											<span class="text-base">🚫</span>
+											<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">مسدودسازی تبلیغات اینترنتی</span>
+										</div>
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-block-ads" class="sr-only peer">
+											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-amber-500 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+										</label>
+									</div>
+								</div>
+								<div class="mt-2.5 p-2 bg-red-50/80 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-2 shadow-sm">
+									<svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+									<span class="text-[10px] font-bold text-red-700 dark:text-red-400 leading-relaxed text-justify">هشدار: در صورت روشن بودن فرگمنت (Fragment) گزینه های مسدودسازی عملاً کار نخواهند کرد.</span>
+								</div>
+							</div>
+						</div>
+						
+						<div id="tab-ports-network" class="user-tab-panel hidden space-y-4">
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
+									<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+									<span>پورت‌های اتصال VLESS</span>
+								</h4>
+								<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+									<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg flex flex-col">
+										<div class="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-gray-100 dark:border-amoled-border">
+											<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+											<span class="text-[11px] font-bold text-blue-600 dark:text-blue-400">TLS PORT (رمزنگاری شده)</span>
+										</div>
+										<div class="grid grid-cols-3 gap-1.5 flex-1 content-start" id="tls-ports-list"></div>
+									</div>
+									<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg flex flex-col">
+										<div class="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-gray-100 dark:border-amoled-border">
+											<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+											<span class="text-[11px] font-bold text-amber-600 dark:text-amber-400">Non-TLS PORT (بدون رمزنگاری)</span>
+										</div>
+										<div class="grid grid-cols-3 gap-1.5 flex-1 content-start" id="nontls-ports-list"></div>
+									</div>
+								</div>
+								<div class="p-3 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg space-y-1.5">
+									<label class="block text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+										<span>پورت‌های دلخواه و سفارشی (با فاصله جدا کنید)</span>
+									</label>
+									<input type="text" id="input-custom-ports" placeholder="مثال: 8080 2096 8443 5000" dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-gray-800 dark:text-zinc-100 transition shadow-sm">
+								</div>
+							</div>
+							
+							<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<div class="flex items-center justify-between flex-wrap gap-2">
+									<h4 class="text-xs font-black text-gray-700 dark:text-zinc-300 flex items-center gap-1.5">
+										<span class="w-2 h-2 rounded-full bg-sky-500"></span>
+										<span>آی‌پی‌های تمیز کلودفلر (Clean IPs)</span>
+									</h4>
+									<div class="flex items-center gap-1.5">
+										<button type="button" onclick="openIpSelectorModal()" class="px-2.5 py-1 bg-transparent border-2 border-amber-500 text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1 shadow-sm">
+											<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+										<span>مخزن آی‌پی</span>
+										</button>
+									</div>
+								</div>
+								<textarea id="input-ips" placeholder="104.16.0.1&#10;104.17.0.1&#10;162.159.192.1" class="w-full h-24 px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition resize-none shadow-sm"></textarea>
+	
+								<div class="flex items-center justify-between p-3 mt-2 bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-200/60 dark:border-emerald-800/40 rounded-lg shadow-sm">
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4 text-emerald-600 dark:text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+										<div>
+											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تعویض خودکار آی‌پی (توصیه می‌شود)</span>
+											<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">جابجایی آی‌پی‌ها با هر بار رفرش کلاینت</span>
+										</div>
+									</div>
+									<label class="relative inline-flex items-center cursor-pointer select-none">
+										<input type="checkbox" id="input-auto-rotate-ip-toggle" class="sr-only peer" checked>
+										<div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+									</label>
+								</div>
+							</div>
+							
+							<div class="bg-gradient-to-b from-blue-50/50 to-indigo-50/20 dark:from-amoled-input/50 dark:to-amoled-bg/50 border border-blue-200/70 dark:border-amoled-border rounded-2xl overflow-hidden shadow-sm">
+								<div class="flex items-center justify-between p-4 cursor-pointer" onclick="document.getElementById('input-frag-toggle').click()">
+									<div class="flex items-center gap-2.5">
+										<div class="w-8 h-8 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold shadow-sm">
+											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+										</div>
+										<div>
+											<span class="text-xs font-black text-gray-900 dark:text-zinc-100 flex items-center gap-1.5">
+												<span>فرگمنت ضد فیلترینگ</span>
+											</span>
+											<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">تجزیه پکت‌های اتصال برای عبور تضمینی</span>
+										</div>
+									</div>
+									<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-frag-toggle" onchange="toggleFragInputs(this.checked)" checked class="sr-only peer">
+											<div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[20px]"></div>
+										</label>
+										<svg id="frag-settings-icon" class="w-4 h-4 text-blue-600 dark:text-blue-400 transition-transform duration-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+									</div>
+								</div>
+								<div id="frag-inputs-container" class="p-4 pt-0 space-y-3.5 transition-all duration-300">
+									<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2.5 border-t border-blue-100 dark:border-amoled-border transition-all duration-200">
+										<div>
+											<label class="block text-[10px] font-bold text-gray-600 dark:text-zinc-300 mb-1 flex items-center justify-between">
+												<span>طول فرگمنت (Length)</span>
+												<span class="text-[9px] text-gray-400">بایت‌های تقسیم پکت</span>
+											</label>
+											<input type="text" id="input-frag-len" value="200-3000" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition shadow-sm" dir="ltr" placeholder="مثال: 10-30 یا 200-3000">
+										</div>
+										<div>
+											<label class="block text-[10px] font-bold text-gray-600 dark:text-zinc-300 mb-1 flex items-center justify-between">
+												<span>بازه فرگمنت (Interval ms)</span>
+												<span class="text-[9px] text-gray-400">تاخیر میلی‌ثانیه</span>
+											</label>
+											<input type="text" id="input-frag-int" value="1-2" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-mono text-center text-gray-800 dark:text-zinc-100 transition shadow-sm" dir="ltr" placeholder="مثال: 1-2 یا 2-5">
+										</div>
+									</div>
+									<div class="pt-2 border-t border-blue-100/80 dark:border-amoled-border space-y-2">
+										<div class="flex items-center justify-between">
+											<span class="text-[11px] font-black text-gray-800 dark:text-zinc-200 flex items-center gap-1.5">
+												<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+												<span>تنظیمات پیشنهادی فرگمنت برای اپراتورها (کلیک برای اعمال خودکار):</span>
+											</span>
+										</div>
+										<div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+											<button type="button" onclick="applyFragPreset('mci', this)" class="frag-preset-card group p-2.5 rounded-xl border border-teal-300/80 dark:border-teal-800/70 bg-white dark:bg-slate-950 hover:border-teal-500 dark:hover:border-teal-500 hover:shadow-md hover:shadow-teal-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
+												<div class="flex items-center justify-between mb-1.5">
+													<span class="text-xs font-black text-teal-700 dark:text-teal-300 flex items-center gap-1.5">
+														<span class="w-2 h-2 rounded-full bg-teal-500"></span>
+														همراه اول (MCI)
+													</span>
+													<span class="text-[9px] px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono font-bold whitespace-nowrap">10-30</span>
+												</div>
+												<p class="text-[10px] text-teal-600/90 dark:text-teal-400/80 font-medium leading-tight">شکستن پکت + تاخیر ۲-۵ ms</p>
+											</button>
+											<button type="button" onclick="applyFragPreset('irancell', this)" class="frag-preset-card group p-2.5 rounded-xl border border-amber-300/80 dark:border-amber-800/70 bg-white dark:bg-slate-950 hover:border-amber-500 dark:hover:border-amber-500 hover:shadow-md hover:shadow-amber-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
+												<div class="flex items-center justify-between mb-1.5">
+													<span class="text-xs font-black text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+														<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+														ایرانسل (MTN)
+													</span>
+													<span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono font-bold whitespace-nowrap">100-200</span>
+												</div>
+												<p class="text-[10px] text-amber-600/90 dark:text-amber-400/80 font-medium leading-tight">پایداری 4G/5G + تاخیر ۵-۱۰ ms</p>
+											</button>
+											<button type="button" onclick="applyFragPreset('rightel', this)" class="frag-preset-card group p-2.5 rounded-xl border border-fuchsia-300/80 dark:border-fuchsia-800/70 bg-white dark:bg-slate-950 hover:border-fuchsia-500 dark:hover:border-fuchsia-500 hover:shadow-md hover:shadow-fuchsia-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
+												<div class="flex items-center justify-between mb-1.5">
+													<span class="text-xs font-black text-fuchsia-700 dark:text-fuchsia-300 flex items-center gap-1.5">
+														<span class="w-2 h-2 rounded-full bg-fuchsia-500"></span>
+														رایتل (Rightel)
+													</span>
+													<span class="text-[9px] px-1.5 py-0.5 rounded bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400 font-mono font-bold whitespace-nowrap">50-100</span>
+												</div>
+												<p class="text-[10px] text-fuchsia-600/90 dark:text-fuchsia-400/80 font-medium leading-tight">بهینه ۳G/4G + تاخیر ۲-۵ ms</p>
+											</button>
+											<button type="button" onclick="applyFragPreset('tci', this)" class="frag-preset-card group p-2.5 rounded-xl border border-indigo-300/80 dark:border-indigo-800/70 bg-white dark:bg-slate-950 hover:border-indigo-500 dark:hover:border-indigo-500 hover:shadow-md hover:shadow-indigo-500/10 text-right transition-all flex flex-col justify-between cursor-pointer">
+												<div class="flex items-center justify-between mb-1.5">
+													<span class="text-xs font-black text-indigo-700 dark:text-indigo-300 flex items-center gap-1.5">
+														<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+														مخابرات / ثابت
+													</span>
+													<span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono font-bold whitespace-nowrap">50-200</span>
+												</div>
+												<p class="text-[10px] text-indigo-600/90 dark:text-indigo-400/80 font-medium leading-tight">آسیاتک، فیبر و ... + تاخیر ۱-۳ ms</p>
+											</button>
+										</div>
+										<button type="button" onclick="applyFragPreset('gaming', this)" class="frag-preset-card w-full p-2.5 rounded-xl border border-emerald-300/80 dark:border-emerald-800/70 bg-white dark:bg-slate-950 hover:border-emerald-500 dark:hover:border-emerald-500 hover:shadow-md hover:shadow-emerald-500/10 transition-all flex items-center justify-between text-xs font-bold text-emerald-700 dark:text-emerald-300 cursor-pointer">
+											<div class="flex items-center gap-2">
+												<span class="text-base">🚀</span>
+												<span>حالت فوق سریع (طول ۲۰۰-۳۰۰۰ | تاخیر ۱-۲ ms)</span>
+											</div>
+											<span class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black whitespace-nowrap">پینگ پایین</span>
+										</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="border border-purple-200 dark:border-amoled-border rounded-xl overflow-hidden shadow-sm">
+								<div class="flex items-center justify-between p-3.5 bg-purple-50/60 dark:bg-amoled-input/30 cursor-pointer" onclick="document.getElementById('input-advanced-settings-toggle').click()">
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+										<span class="text-xs font-black text-purple-900 dark:text-purple-300">تنظیمات پیشرفته بهینه سازی</span>
+										<span onclick="event.stopPropagation(); togglePattNgModal(true)" class="mr-2 px-1.5 py-0.5 bg-[#33FB1F]/10 text-[#33FB1F] border border-[#33FB1F]/30 rounded text-[10px] hover:bg-[#33FB1F]/20 transition-colors shadow-[0_0_8px_rgba(51,251,31,0.3)] animate-pulse cursor-pointer">مهم🚨</span>
+									</div>
+									<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-advanced-settings-toggle" onchange="toggleAdvancedSettingsInputs(this.checked)" class="sr-only peer">
+											<div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-purple-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+										</label>
+										<svg id="advanced-settings-icon" class="w-4 h-4 text-purple-600 dark:text-purple-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+									</div>
+								</div>
+								<div id="advanced-settings-container" class="hidden opacity-50 pointer-events-none transition-opacity duration-300 p-4 border-t border-purple-100 dark:border-amoled-border space-y-3 bg-white dark:bg-slate-900">
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Advanced Fragment (fm JSON)</label>
+										<input type="text" id="input-advanced-frag" placeholder="{&quot;tcp&quot;: [{&quot;type&quot;: &quot;fragment&quot;..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Cipher Suites (cs)</label>
+										<input type="text" id="input-cipher-suites" placeholder="TLS_AES_256_GCM_SHA384..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
+									</div>
+									<div>
+										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">TLS Mask (Custom SNI / Host)</label>
+										<input type="text" id="input-tls-mask" placeholder="www.speedtest.net" dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
+									</div>
+									<button type="button" onclick="fillPatternihaValues()" class="w-full py-2 bg-transparent border-2 border-purple-500 text-purple-600 dark:text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 mt-1 shadow-sm">
+										<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+										<span>پر کردن خودکار مقادیر بهینه ساز Patterniha</span>
+									</button>
+								</div>
+							</div>
+							
+							<div class="mt-1 p-2.5 bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg flex items-start gap-2 shadow-sm">
+								<svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+								<span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed">هشدار: این تنظیمات روی پروتکل شدوساکس (Shadowsocks) اعمال نمی‌شوند.</span>
+							</div>
+						</div>
+						
+						<div id="tab-proxy-settings" class="user-tab-panel hidden space-y-4">
+							<div class="p-3 bg-red-50/80 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl flex items-start gap-2 shadow-sm">
+							<svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+							<span class="text-[11px] font-bold text-red-700 dark:text-red-400 leading-relaxed">سایت‌هایی مثل <span class="text-emerald-600 dark:text-emerald-400 font-black">ChatGPT</span>، <span class="text-amber-600 dark:text-amber-400 font-black">Claude</span> و <span class="text-purple-600 dark:text-purple-400 font-black">Speedtest</span> پشت کلودفلر هستند؛ برای باز کردن این سایت‌ها حتماً باید <span class="text-blue-600 dark:text-blue-400 font-black">پـروکـسـی</span> تنظیم کنید.</span>
+						</div>
+
+						<div class="p-4 bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/60 dark:border-sky-900/40 rounded-xl flex flex-col gap-3 shadow-sm">
+							<div class="flex items-center justify-between">
+								<div class="flex items-center gap-2">
+									<svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+									<div>
+										<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تست اتصال مستقیم (بدون پروکسی)</span>
+										<span class="text-[10px] text-gray-500 dark:text-zinc-400 block font-normal mt-0.5">تست ارتباط شما با کلودفلر و کلودفلر با نت آزاد</span>
+									</div>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-2 bg-white/60 dark:bg-amoled-bg/50 p-2.5 rounded-lg border border-sky-100 dark:border-sky-900/30">
+								<div class="flex flex-col items-center justify-center gap-1 border-l border-gray-200 dark:border-zinc-800">
+									<span class="text-[9px] font-bold text-gray-400">☁️ پینگ شما به کلودفلر</span>
+									<span id="client-to-server-ping" class="text-[10px] font-bold text-gray-600 dark:text-zinc-300">-</span>
+								</div>
+								<div class="flex flex-col items-center justify-center gap-1">
+									<span class="text-[9px] font-bold text-gray-400">🌍 پینگ کلودفلر به اینترنت آزاد</span>
+									<span id="server-to-net-ping" class="text-[10px] font-bold text-gray-600 dark:text-zinc-300">-</span>
+								</div>
+							</div>
+							<button type="button" id="test-direct-btn" onclick="testDirectPing()" class="w-full py-2 bg-transparent border-2 border-sky-500 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
+								<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+								<span>تست اتصال مستقیم</span>
+							</button>
+						</div>
+						<div class="flex items-center justify-between p-3.5 bg-blue-50/80 dark:bg-amoled-input/30 border border-blue-500/40 dark:border-amoled-border rounded-xl shadow-sm">
+							<div class="flex items-center gap-2">
+								<span class="text-lg drop-shadow-sm">🌐</span>
+								<span class="text-xs font-black text-blue-900 dark:text-blue-300">اتصال مستقیم (بدون پروکسی خروجی)</span>
+							</div>
+							<label class="relative inline-flex items-center cursor-pointer select-none">
+								<input type="checkbox" id="input-enable-direct" checked class="sr-only peer">
+								<div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+							</label>
+						</div>
+
+						<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+								<div class="flex items-center justify-between border-b pb-3 border-gray-200/50 dark:border-amoled-border">
+									<div class="flex items-center gap-2">
+										<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+										<div>
+											<span class="text-xs font-black text-gray-800 dark:text-zinc-200">تنظیم کشور و ثابت کردن آیپی</span>
+											<span class="text-[10px] text-gray-400 block font-normal">زنجیره اتصال خروجی جهت عبور از تحریم‌ها و تغییر لوکیشن</span>
+										</div>
+									</div>
+									<label class="relative inline-flex items-center cursor-pointer select-none">
+										<input type="checkbox" id="user-proxy-mode-toggle" onchange="toggleUserProxyMode(this.checked)" class="sr-only peer">
+										<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+									</label>
+								</div>
+								<div class="transition-opacity duration-300 opacity-50 pointer-events-none space-y-3 pt-1" id="user-socks5-container">
+									<div id="proxies-fields-wrapper" class="flex flex-col gap-2 w-full"></div>
+									<button type="button" id="add-proxy-field-btn" onclick="addProxyFieldUI()" class="w-full py-2.5 bg-transparent border-2 border-emerald-500 text-emerald-600 dark:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm">
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+										<span>+ افزودن کشور</span>
+									</button>
+									<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+										<button type="button" onclick="testUserSocksProxy()" id="test-user-proxy-btn" class="w-full py-2.5 bg-transparent border-2 border-sky-500 text-sky-600 dark:text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
+											<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+											<span>تست پـروکـسـی</span>
+										</button>
+										<button type="button" onclick="openProxySelectorModal()" class="w-full py-2.5 bg-transparent border-2 border-amber-500 text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg text-xs font-bold transition shadow-sm flex items-center justify-center gap-1">
+											<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+											<span>مخزن پـروکـسـی</span>
+										</button>
+									</div>
+									<div class="flex items-center justify-between gap-2 p-3.5 bg-sky-50/80 dark:bg-amoled-input/30 border border-sky-500/40 dark:border-amoled-border rounded-xl shadow-sm">
+										<div class="flex items-center gap-2 flex-shrink-0">
+											<label class="relative inline-flex items-center cursor-pointer select-none flex-shrink-0">
+												<input type="checkbox" id="input-user-iata-toggle" onchange="window.toggleUserIataLock(this.checked)" class="sr-only peer">
+												<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-sky-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+											</label>
+											<span id="user-iata-flag-preview" class="text-base leading-none">🌐</span>
+											<span class="text-xs font-black text-sky-800 dark:text-sky-400 whitespace-nowrap">ثابت کردن کشور (IATA)</span>
+										</div>
+										<input type="text" id="input-user-proxy-iata" maxlength="2" placeholder="مثلا DE" dir="ltr" disabled oninput="this.value=this.value.toUpperCase(); window.userProxyIata=this.value||null; window.updateUserIataPreview();" class="w-20 px-2 py-1.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-zinc-700 rounded-lg text-xs font-mono text-center uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 text-gray-800 dark:text-zinc-100 disabled:opacity-50 transition">
+									</div>
+									<div class="flex items-center justify-between gap-2 p-3.5 bg-indigo-50/80 dark:bg-amoled-input/30 border border-indigo-500/40 dark:border-amoled-border rounded-xl shadow-sm">
+										<div class="flex items-center gap-2 flex-shrink-0">
+											<label class="relative inline-flex items-center cursor-pointer select-none flex-shrink-0">
+												<input type="checkbox" id="input-user-ipv6-toggle" class="sr-only peer">
+												<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-indigo-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+											</label>
+											<span class="text-xs font-black text-indigo-800 dark:text-indigo-400 whitespace-nowrap">پشتیبانی از IPv6</span>
+										</div>
+										<span class="text-[10px] text-indigo-600 dark:text-indigo-500 font-medium">روشن = هم IPv4 هم IPv6 مجازن (گوشی خودش انتخاب می‌کنه) / خاموش = فقط IPv4</span>
+									</div>
+									<div class="flex items-center justify-between p-3.5 bg-emerald-50/80 dark:bg-amoled-input/30 border border-emerald-500/40 dark:border-amoled-border rounded-xl shadow-sm">
+										<div class="flex items-center gap-2">
+											<svg class="w-4 h-4 text-emerald-600 dark:text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+											<div>
+												<span class="text-xs font-black text-emerald-800 dark:text-emerald-400">تعویض خودکار پـروکـسـی (پیشنهادی)</span>
+												<span class="text-[10px] text-emerald-600 dark:text-emerald-500 block font-medium">جایگزینی هوشمند در صورت قطع شدن پروکسی</span>
+											</div>
+										</div>
+										<label class="relative inline-flex items-center cursor-pointer select-none">
+											<input type="checkbox" id="input-auto-rotate-user-proxy" class="sr-only peer">
+											<div class="w-8 h-4 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="px-5 py-3.5 border-t border-gray-150 dark:border-amoled-border bg-gray-50/70 dark:bg-amoled-bg/60 flex md:hidden items-center justify-between gap-3">
+					<button type="button" onclick="toggleModal(false)" class="px-5 py-2.5 bg-transparent border-2 border-red-600 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold rounded-xl text-xs sm:text-sm transition shadow-sm">
+						انصراف
+					</button>
+					<div class="flex items-center gap-2">
+						<button type="submit" id="submit-btn" class="px-7 py-2.5 bg-transparent border-2 border-green-600 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 font-black rounded-xl text-xs sm:text-sm transition shadow-lg flex items-center gap-1.5 cursor-pointer">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+							<span>ایجاد کاربر</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<div id="ip-selector-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
+			<h3 class="font-bold text-gray-900 dark:text-zinc-100 text-sm">مخزن آیپی تمیز</h3>
+			<button type="button" onclick="toggleIpSelectorModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="p-6 space-y-4">
+			<div id="ip-loading-state" class="text-center text-sm text-gray-500 dark:text-zinc-400 hidden">
+				Loading IPs...
+			</div>
+			<div id="ip-selection-form" class="space-y-4">
+				<div>
+					<label class="block text-xs font-medium mb-1.5 text-gray-700 dark:text-zinc-300">اوپراتور</label>
+					<select id="ip-operator-select" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
+						<option value="all">همه (توصیه شده)</option>
+					</select>
+				</div>
+				<div>
+					<label class="block text-xs font-medium mb-1.5 text-gray-700 dark:text-zinc-300">تعداد</label>
+					<input type="number" id="ip-count-input" min="1" value="20" dir="ltr" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
+				</div>
+				<div class="flex flex-col gap-2 border-t border-gray-100 dark:border-zinc-800/60 pt-3 mt-2">
+					<div class="flex items-center justify-between">
+						<span class="text-xs font-bold text-gray-700 dark:text-zinc-300">تعویض خودکار آیپی(توصیه میشود)</span>
+						<label class="relative inline-flex items-center cursor-pointer select-none">
+							<input type="checkbox" id="input-auto-rotate-ip-toggle" onchange="toggleAutoRotateIpInputs(this.checked)" class="sr-only peer">
+							<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-green-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[18px]"></div>
+						</label>
+					</div>
+					<div id="auto-rotate-ip-inputs-container" class="hidden transition-all duration-300 pt-1">
+						<label class="block text-[11px] font-bold text-gray-500 dark:text-zinc-400 mb-1">زمان تعویض (دقیقه)</label>
+						<input type="number" id="input-auto-rotate-ip-time" min="1" placeholder="توصیه شده 5" onblur="if(this.value === '' || parseInt(this.value) < 1) this.value = '5';" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center" dir="ltr">
+					</div>
+				</div>
+			</div>
+			<div class="pt-4 flex gap-3">
+				<button type="button" onclick="toggleIpSelectorModal(false)" class="flex-1 py-2 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">لغو</button>
+				<button type="button" onclick="applySelectedIps()" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-xs transition">دریافت</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="proxy-selector-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
+			<h3 class="font-bold text-gray-900 dark:text-zinc-100 text-sm">مخزن پـروکـسـی‌های آی‌پی ثابت</h3>
+			<button type="button" onclick="toggleProxySelectorModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="p-5 space-y-4">
+			<div class="p-4 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-500/30 rounded-md relative">
+				<h4 class="text-[13px] font-black text-green-700 dark:text-green-400 mb-2 flex items-center gap-1.5">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+					پـروکـسـی‌های اختصاصی (VIP)
+				</h4>
+				<p class="text-[10px] text-green-600/80 dark:text-green-500/70 mb-3 leading-relaxed font-medium">
+					پـروکـسـی‌های اهدایی از طرف کاربران. کیفیت بالا و بدون نیاز به اسکن.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-2">
+					<select id="vip-country-select" class="flex-1 px-3 py-2 bg-white dark:bg-amoled-input border border-green-200 dark:border-green-800/50 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
+						<option value="">در حال بررسی مخزن...</option>
+					</select>
+					<button type="button" onclick="loadVipProxy()" id="vip-fetch-btn" class="sm:w-auto w-full px-4 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-xs transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap" disabled>
+						دریافت
+					</button>
+				</div>
+			</div>
+			<div class="relative py-1 flex items-center justify-center">
+				<span class="absolute w-full border-t border-gray-200 dark:border-zinc-800"></span>
+				<span class="bg-white dark:bg-amoled-card px-3 text-[10px] font-bold text-gray-400 relative">یا اسکن عمومی</span>
+			</div>
+			<div class="p-4 bg-gray-50 dark:bg-zinc-900/40 border border-gray-200 dark:border-amoled-border rounded-md">
+				<h4 class="text-[13px] font-black text-gray-700 dark:text-zinc-300 mb-2 flex items-center gap-1.5">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+					پـروکـسـی های عمومی
+				</h4>
+				<p class="text-[10px] text-gray-500 dark:text-zinc-500 mb-3 leading-relaxed font-medium">
+					جستجو در منابع رایگان؛ به دلیل نیاز به تست کیفیت زمان‌بر است.
+				</p>
+				<div id="proxy-loading-state" class="text-center text-[11px] text-blue-500 font-bold hidden my-3 whitespace-pre-line leading-relaxed">
+					در حال اسکن...
+				</div>
+				<div id="proxy-selection-form" class="flex flex-col gap-2">
+					<select id="proxy-country-select" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-zinc-700 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-300 cursor-pointer">
+						<option value="">در حال آماده‌سازی...</option>
+					</select>
+					<button type="button" onclick="fetchAndLoadProxy()" id="proxy-fetch-btn" class="w-full py-2.5 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-900/40 dark:hover:text-blue-400 font-bold rounded-md text-xs transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+						شروع اسکن و یافتن پـروکـسـی
+					</button>
+				</div>
+			</div>
+			<div class="pt-1">
+				<button type="button" onclick="toggleProxySelectorModal(false)" class="w-full py-2.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">انصراف و بستن</button>
+			</div>
+		</div>
+	</div>
+</div>
+	<div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col max-h-[90vh]">
+			<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
+				<h3 class="font-bold text-gray-900 dark:text-zinc-100">تنظیمات پـنـل</h3>
+				<button onclick="toggleSettingsModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+				</button>
+			</div>
+			<div class="p-6 space-y-4 overflow-y-auto flex-1 overscroll-contain">
+				<div class="pt-2">
+					<label class="block text-sm font-medium mb-1.5 text-gray-700 dark:text-zinc-300">نرخ رفرش خودکار پـنـل</label>
+					<div class="relative">
+						<select id="refresh-rate-select" onchange="changeRefreshRate(this.value)" class="w-full pl-8 pr-3 py-2.5 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer appearance-none">
+							<option value="1000">۱ ثانیه</option>
+							<option value="2000">۲ ثانیه</option>
+							<option value="5000">۵ ثانیه</option>
+							<option value="10000" selected>۱۰ ثانیه (پیش‌فرض)</option>
+							<option value="30000">۳۰ ثانیه</option>
+							<option value="60000">۱ دقیقه</option>
+							<option value="300000">۵ دقیقه</option>
+							<option value="600000">۱۰ دقیقه</option>
+						</select>
+						<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-zinc-400">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+						</div>
+					</div>
+				</div>
+				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
+					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">📍 ثابت کردن کشور (Cloudflare)</h4>
+					<div class="space-y-2">
+						<input type="text" id="global-location-search" oninput="filterGlobalLocations()" placeholder="جستجوی شهر، کشور یا IATA" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 transition">
+						<div class="relative">
+							<select id="location-select" class="w-full pl-8 pr-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 dark:text-zinc-200 cursor-pointer appearance-none">
+								<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-zinc-400">
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+							</div>
+						</div>
+						<p class="text-[11px] text-gray-500 dark:text-gray-400">این تنظیم روی کل پنل اثر می‌گذارد؛ کشور انتخابی به یک IP ثابت resolve و ذخیره می‌شود.</p>
+					</div>
+				</div>
+								<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700 flex items-center justify-between">
+					<div class="flex items-center gap-2">
+						<span class="text-sm font-bold text-gray-800 dark:text-zinc-200 flex items-center gap-1.5">
+							<svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+							پس زمینه متحرک و افکت موس
+						</span>
+					</div>
+					<label class="relative inline-flex items-center cursor-pointer select-none">
+						<input type="checkbox" id="gfx-toggle" onchange="toggleGfx(this.checked)" class="sr-only peer">
+						<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-500"></div>
+					</label>
+				</div>
+				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
+					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">🔒 تغییر رمز عبور مدیریت</h4>
+					<div class="space-y-3">
+						<div>
+							<label class="block text-[11px] text-gray-500 dark:text-gray-400 font-medium mb-1">رمز عبور فعلی</label>
+							<input type="password" id="change-pwd-current" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
+						</div>
+						<div>
+							<label class="block text-[11px] text-gray-500 dark:text-gray-400 font-medium mb-1">رمز عبور جدید</label>
+							<input type="password" id="change-pwd-new" class="w-full px-3 py-2 bg-white dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono text-center">
+						</div>
+						<button type="button" onclick="changeAdminPassword()" id="change-pwd-btn" class="w-full py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-semibold rounded-md text-xs transition-all shadow-sm">تغییر رمز عبور</button>
+					</div>
+				</div>
+				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700">
+					<h4 class="text-sm font-bold mb-3 text-gray-800 dark:text-zinc-200">💾 پشتیبان‌گیری و بازیابی</h4>
+					<div class="grid grid-cols-2 gap-3">
+						<button type="button" onclick="exportUsersBackup()" class="py-2.5 bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:border-orange-500/60 dark:hover:bg-orange-500/10 rounded-md text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg> پشتیبان گیری
+						</button>
+						<button type="button" onclick="triggerImportBackup()" class="py-2.5 bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:border-blue-500/60 dark:hover:bg-blue-500/10 rounded-md text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> بازیابی
+						</button>
+					</div>
+					<input type="file" id="backup-file-input" onchange="importUsersBackup(event)" accept=".json" class="hidden">
+				</div>
+				<div class="pt-4 flex gap-3">
+					<button type="button" onclick="toggleSettingsModal(false)" class="flex-1 py-2 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition shadow-sm">انصراف</button>
+					<button type="button" onclick="saveSettings()" id="save-settings-btn" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition">ذخیره تنظیمات</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="update-modal" class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">بروزرسانی پـنـل</h3>
+		<p id="update-modal-text" class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+			نسخه جدید در دسترس است. اگر آپدیت خودکار جواب نداد، حتماً از طریق لینک زیر آپدیت دستی را انجام دهید.
+		</p>
+		<div class="space-y-3">
+			<button onclick="applyUpdate()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+				آپدیت خودکار (توصیه شده)
+			</button>
+			<div class="relative py-2">
+				<div class="absolute inset-0 flex items-center">
+					<div class="w-full border-t border-gray-200 dark:border-zinc-800"></div>
+				</div>
+				<div class="relative flex justify-center text-xs">
+					<span class="bg-white dark:bg-amoled-card px-2 text-gray-400">یا</span>
+				</div>
+			</div>
+			</div>
+		<button onclick="toggleUpdateModal(false)" class="mt-5 w-full py-3.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center">
+			انصراف
+		</button>
+	</div>
+</div>
+	<div id="token-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+		<div id="token-modal-card" class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
+			<div class="flex justify-between items-center mb-6">
+				<div class="flex items-center gap-2">
+					<div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
+					<h3 class="text-lg font-bold text-gray-900 dark:text-white">تنظیم توکن کلودفلر</h3>
+				</div>
+				<button onclick="toggleTokenModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+				</button>
+			</div>
+			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300 font-medium">
+				توکن کلودفلر شما در این پـنـل ذخیره نشده است. برای فعال‌سازی آپدیت خودکار از داخل پـنـل، لطفاً توکن خود را دریافت کرده و در کادر زیر وارد کنید.
+			</div>
+			<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#d94800] hover:bg-[#e35802] text-white font-bold rounded-md text-sm transition duration-300 mb-4 shadow-md shadow-orange-500/20">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+				دریافت توکن کلودفلر
+			</a>
+			<div class="space-y-4">
+				<input type="password" id="update-token-input" placeholder="توکن را اینجا وارد کنید" class="w-full px-4 py-3 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm font-mono text-center text-gray-900 dark:text-zinc-100 transition" dir="auto">
+				<button id="submit-token-btn" onclick="submitTokenForUpdate()" class="w-full py-3 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-300 shadow-lg">
+					ثبت و آپدیت پـنـل
+				</button>
+			</div>
+		</div>
+	</div>
+<div id="qr-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+	<div id="qr-modal-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center">
+		<div class="flex justify-between items-center mb-4">
+			<h3 class="text-lg font-bold text-gray-900 dark:text-white">QR Code</h3>
+			<button onclick="toggleQrModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="flex justify-center bg-gray-100 dark:bg-amoled-bg p-4 rounded-md mb-4 border border-gray-200 dark:border-zinc-800">
+			<div id="qrcode-container"></div>
+		</div>
+		<button onclick="downloadQrCode()" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-sm flex items-center justify-center gap-2">
+			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+			دانلود تصویر QR
+		</button>
+	</div>
+</div>
+	<div id="bulk-actions-bar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[40] bg-white dark:bg-zinc-900/90 border border-gray-200 dark:border-zinc-800/80 px-6 py-4 rounded-md shadow-2xl flex flex-wrap items-center justify-between gap-4 w-[95%] max-w-4xl transition-all duration-300 transform translate-y-28 opacity-0 pointer-events-none ">
+		<div class="flex items-center gap-2">
+			<span class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-sm shadow-blue-500/50"></span>
+			<span id="bulk-selected-count" class="text-sm font-bold text-gray-800 dark:text-zinc-200">۰ کاربر انتخاب شده</span>
+		</div>
+		<div class="flex flex-wrap gap-2 justify-end">
+			<button onclick="bulkToggleStatus(1)" class="px-3 py-1.5 bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-md text-xs font-bold transition border border-green-200 dark:border-green-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> فعال‌سازی
+			</button>
+			<button onclick="bulkToggleStatus(0)" class="px-3 py-1.5 bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-md text-xs font-bold transition border border-amber-200 dark:border-amber-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> غیرفعال‌سازی
+			</button>
+			<button onclick="bulkReset('volume')" class="px-3 py-1.5 bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-md text-xs font-bold transition border border-blue-200 dark:border-blue-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg> ریست حجم
+			</button>
+			<button onclick="bulkReset('req')" class="px-3 py-1.5 bg-sky-50 dark:bg-sky-950/20 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 rounded-md text-xs font-bold transition border border-sky-200 dark:border-sky-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> ریست ریکوئست
+			</button>
+			<button onclick="bulkReset('time')" class="px-3 py-1.5 bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-md text-xs font-bold transition border border-purple-200 dark:border-purple-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ریست زمان
+			</button>
+			<button onclick="bulkDelete()" class="px-3 py-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-450 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-md text-xs font-bold transition border border-red-200 dark:border-red-900/50 flex items-center gap-1">
+				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg> حذف گروهی
+			</button>
+		</div>
+	</div>
+	<div id="update-success-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-green-600/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+			<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 mb-4 shadow-inner">
+				<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+			</div>
+			<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">آپدیت موفقیت‌آمیز</h3>
+			<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+				آپدیت موفق بود لطفا صفحه را 10 ثانیه دیگر رفرش کنید تا نسخه جدید لود شود
+			</p>
+			<button onclick="sessionStorage.setItem('lu_k3', Date.now()); window.location.href = window.location.pathname + '?t=' + Date.now()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+				رفرش صفحه
+			</button>
+		</div>
+	</div>
+${pbfiipq}
+<div id="custom-confirm-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div id="custom-confirm-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transform transition-all scale-95 duration-300">
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">تأیید عملیات</h3>
+		<p id="custom-confirm-message" class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium"></p>
+		<div class="flex gap-3">
+			<button id="custom-confirm-cancel" class="flex-1 py-3 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition duration-200 shadow-sm">انصراف</button>
+			<button id="custom-confirm-ok" class="flex-1 py-3 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-lg">تأیید</button>
+		</div>
+	</div>
+</div>
+	<script>
+		async function kc5inhw(path, options = {}) {
+			if (path !== 'ips.txt') return new Response('', { status: 404 });
+			return await fetch('/api/ips-list');
+		}
+		async function ggsyffs() {
+			return new Response('', { status: 404 });
+		}
+		function bm3pzm2(message, type = 'success') {
+			const container = document.getElementById('toast-container');
+			const toast = document.createElement('div');
+			const colors = type === 'error' 
+				? 'bg-red-50 dark:bg-red-900/40 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400' 
+				: 'bg-green-50 dark:bg-green-900/40 border-green-200 dark:border-green-800 text-green-700 dark:text-green-500';
+			toast.className = 'px-4 py-3 border rounded-md shadow-lg font-bold text-sm transform transition-all duration-300 -translate-y-full opacity-0 ' + colors;
+			toast.innerText = message;
+			container.appendChild(toast);
+			requestAnimationFrame(() => {
+				toast.classList.remove('-translate-y-full', 'opacity-0');
+			});
+			setTimeout(() => {
+				toast.classList.add('-translate-y-full', 'opacity-0');
+				setTimeout(() => toast.remove(), 300);
+			}, 3000);
+		}
+		function pw6sr5c(message) {
+			return new Promise((resolve) => {
+				const modal = document.getElementById('custom-confirm-modal');
+				const card = document.getElementById('custom-confirm-card');
+				const msgEl = document.getElementById('custom-confirm-message');
+				const btnOk = document.getElementById('custom-confirm-ok');
+				const btnCancel = document.getElementById('custom-confirm-cancel');
+				msgEl.innerText = message;
+				modal.classList.remove('opacity-0', 'pointer-events-none');
+				modal.classList.add('opacity-100', 'pointer-events-auto');
+				card.classList.remove('scale-95');
+				card.classList.add('scale-100');
+				const cleanup = () => {
+					modal.classList.remove('opacity-100', 'pointer-events-auto');
+					modal.classList.add('opacity-0', 'pointer-events-none');
+					card.classList.remove('scale-100');
+					card.classList.add('scale-95');
+					btnOk.removeEventListener('click', onOk);
+					btnCancel.removeEventListener('click', onCancel);
+				};
+				const onOk = () => { cleanup(); resolve(true); };
+				const onCancel = () => { cleanup(); resolve(false); };
+				btnOk.addEventListener('click', onOk);
+				btnCancel.addEventListener('click', onCancel);
+			});
+		}
+		window.alert = function(message) {
+			const msgStr = message ? message.toString() : '';
+			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
+				bm3pzm2(msgStr, 'error');
+			} else {
+				bm3pzm2(msgStr, 'success');
+			}
+		};
+		window.selectedUsernames = new Set();
+		function toggleSelectAllUsers(el) {
+			const checkboxes = document.querySelectorAll('input[name="select-user"]');
+			checkboxes.forEach(cb => {
+				cb.checked = el.checked;
+				const username = decodeURIComponent(cb.value);
+				if (el.checked) {
+					window.selectedUsernames.add(username);
+				} else {
+					window.selectedUsernames.delete(username);
+				}
+			});
+			i5ta7ay();
+		}
+		function onUserSelectChange(el) {
+			const username = decodeURIComponent(el.value);
+			if (el.checked) {
+				window.selectedUsernames.add(username);
+			} else {
+				window.selectedUsernames.delete(username);
+			}
+			i5ta7ay();
+		}
+		function i5ta7ay() {
+			const bar = document.getElementById('bulk-actions-bar');
+			const countSpan = document.getElementById('bulk-selected-count');
+			const selectAllCheckbox = document.getElementById('select-all-users');
+			const selectedCount = window.selectedUsernames.size;
+			if (countSpan) {
+				countSpan.innerText = selectedCount + ' کاربر انتخاب شده';
+			}
+			const checkboxes = document.querySelectorAll('input[name="select-user"]');
+			if (checkboxes.length > 0) {
+				const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+				if (selectAllCheckbox) selectAllCheckbox.checked = allChecked;
+			} else {
+				if (selectAllCheckbox) selectAllCheckbox.checked = false;
+			}
+			if (selectedCount > 0) {
+				bar.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-28');
+				bar.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+			} else {
+				bar.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+				bar.classList.add('opacity-0', 'pointer-events-none', 'translate-y-28');
+			}
+		}
+		async function bulkDelete() {
+			const usernames = Array.from(window.selectedUsernames);
+			if (usernames.length === 0) return;
+			if (await pw6sr5c('⚠️ آیا از حذف گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟ این عمل غیرقابل بازگشت است.')) {
+				const bar = document.getElementById('bulk-actions-bar');
+				const buttons = bar.querySelectorAll('button');
+				buttons.forEach(btn => btn.disabled = true);
+				try {
+					let successCount = 0;
+					await Promise.all(usernames.map(async (uname) => {
+						try {
+							const res = await fetch('/api/users/' + encodeURIComponent(uname), { method: 'DELETE' });
+							if (res.ok) {
+								successCount++;
+								window.selectedUsernames.delete(uname);
+							}
+						} catch(e) {}
+					}));
+					alert('✅ عملیات حذف گروهی انجام شد. ' + successCount + ' کاربر با موفقیت حذف شدند.');
+				} finally {
+					buttons.forEach(btn => btn.disabled = false);
+					i5ta7ay();
+					await axmsbp4(true);
+				}
+			}
+		}
+		async function bulkToggleStatus(targetActive) {
+			const usernames = Array.from(window.selectedUsernames);
+			if (usernames.length === 0) return;
+			const actionText = targetActive === 1 ? 'فعال‌سازی' : 'غیرفعال‌سازی';
+			if (await pw6sr5c('آیا از ' + actionText + ' گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
+				const bar = document.getElementById('bulk-actions-bar');
+				const buttons = bar.querySelectorAll('button');
+				buttons.forEach(btn => btn.disabled = true);
+				try {
+					let successCount = 0;
+					await Promise.all(usernames.map(async (uname) => {
+						const user = window.allUsers.find(u => u.username === uname);
+						if (!user) return;
+						const isCurrentActive = user.is_active !== 0;
+						const shouldToggle = (targetActive === 1 && !isCurrentActive) || (targetActive === 0 && isCurrentActive);
+						if (shouldToggle) {
+							try {
+								const res = await fetch('/api/users/' + encodeURIComponent(uname), {
+									method: 'PUT',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify({ toggle_only: true })
+								});
+								if (res.ok) successCount++;
+							} catch(e) {}
+						} else {
+							successCount++;
+						}
+					}));
+					alert('✅ عملیات ' + actionText + ' با موفقیت برای تمامی کاربران واجد شرایط اعمال شد.');
+				} finally {
+					buttons.forEach(btn => btn.disabled = false);
+					i5ta7ay();
+					await axmsbp4(true);
+				}
+			}
+		}
+		async function bulkReset(actionType) {
+			const usernames = Array.from(window.selectedUsernames);
+			if (usernames.length === 0) return;
+			let actionName = '';
+			if (actionType === 'volume') actionName = 'حجم مصرفی';
+			else if (actionType === 'req') actionName = 'تعداد ریکوئست‌ها';
+			else if (actionType === 'time') actionName = 'زمان اشتراک';
+			if (await pw6sr5c('آیا از ریست کردن گروهی ' + actionName + ' برای ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
+				const bar = document.getElementById('bulk-actions-bar');
+				const buttons = bar.querySelectorAll('button');
+				buttons.forEach(btn => btn.disabled = true);
+				try {
+					let successCount = 0;
+					await Promise.all(usernames.map(async (uname) => {
+						try {
+							const res = await fetch('/api/users/' + encodeURIComponent(uname), {
+								method: 'PUT',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({ reset_action: actionType })
+							});
+							if (res.ok) successCount++;
+						} catch(e) {}
+					}));
+					alert('✅ عملیات ریست گروهی ' + actionName + ' با موفقیت برای ' + successCount + ' کاربر اعمال شد.');
+				} finally {
+					buttons.forEach(btn => btn.disabled = false);
+					i5ta7ay();
+					await axmsbp4(true);
+				}
+			}
+		}
+		const tlsPorts = ['443', '2053', '2083', '2087', '2096', '8443'];
+		const nonTlsPorts = ['80', '8080', '8880', '2052', '2082', '2086', '2095'];
+		let isEditMode = false;
+		let editingUsername = '';
+		function yok43r5() {
+			const tlsContainer = document.getElementById('tls-ports-list');
+			const nonTlsContainer = document.getElementById('nontls-ports-list');
+			if (nonTlsContainer) {
+				nonTlsContainer.className = "grid grid-cols-12 gap-1.5 flex-1 content-start";
+			}
+			tlsContainer.innerHTML = tlsPorts.map(function(port) {
+				const isCheckedDefault = port === '443' ? 'checked' : '';
+				return '<label class="relative cursor-pointer">' +
+					'<input type="checkbox" name="ports" value="' + port + '" ' + isCheckedDefault + ' class="peer sr-only">' +
+					'<div class="flex items-center justify-center gap-1 px-1.5 py-1 border border-gray-200 dark:border-zinc-800/80 rounded-md text-[11px] font-semibold select-none transition-all duration-200 hover:bg-gray-50 dark:hover:bg-zinc-800/40 text-gray-700 dark:text-zinc-300 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-950/25 peer-checked:border-blue-500 dark:peer-checked:border-blue-500/70 peer-checked:text-blue-600 dark:peer-checked:text-blue-400 shadow-sm">' +
+						'<span>' + port + '</span>' +
+						'<svg class="w-3 h-3 hidden peer-checked:block text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>' +
+					'</div>' +
+				'</label>';
+			}).join('');
+			nonTlsContainer.innerHTML = nonTlsPorts.map(function(port, index) {
+				const isCheckedDefault = port === '80' ? 'checked' : '';
+				const colSpanClass = index < 3 ? 'col-span-4' : 'col-span-3';
+				return '<label class="relative cursor-pointer ' + colSpanClass + '">' +
+					'<input type="checkbox" name="ports" value="' + port + '" ' + isCheckedDefault + ' class="peer sr-only">' +
+					'<div class="flex items-center justify-center gap-1 px-1.5 py-1 border border-gray-200 dark:border-zinc-800/80 rounded-md text-[11px] font-semibold select-none transition-all duration-200 hover:bg-gray-50 dark:hover:bg-zinc-800/40 text-gray-700 dark:text-zinc-300 peer-checked:bg-amber-50 dark:peer-checked:bg-amber-950/25 peer-checked:border-amber-500 dark:peer-checked:border-amber-500/70 peer-checked:text-amber-600 dark:peer-checked:text-amber-400 shadow-sm">' +
+						'<span>' + port + '</span>' +
+						'<svg class="w-3 h-3 hidden peer-checked:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>' +
+					'</div>' +
+				'</label>';
+			}).join('');
+		}
+		setTimeout(function() {
+			const cb443 = document.querySelector('input[name="ports"][value="443"]');
+			if (cb443) cb443.checked = true;
+			const cb80 = document.querySelector('input[name="ports"][value="80"]');
+			if (cb80) cb80.checked = true;
+		}, 100);
+		function toggleSettingsModal(show) { ys5v6m0('settings-modal', show); if (show && typeof jyfwoo1 === 'function') jyfwoo1(); }
+		window.toggleAutoResetInputs = function(show) {
+			const container = document.getElementById('auto-reset-inputs-container');
+			const volInput = document.getElementById('input-auto-reset-vol');
+			const reqInput = document.getElementById('input-auto-reset-req');
+			if (container) {
+				if (show) {
+					container.classList.remove('opacity-50', 'pointer-events-none');
+					if (volInput) volInput.disabled = false;
+					if (reqInput) reqInput.disabled = false;
+				} else {
+					container.classList.add('opacity-50', 'pointer-events-none');
+					if (volInput) volInput.disabled = true;
+					if (reqInput) reqInput.disabled = true;
+				}
+			}
+		};
+		window.toggleAutoRotateIpInputs = function(show) {
+			const container = document.getElementById('auto-rotate-ip-inputs-container');
+			if (container) {
+				if (show) container.classList.remove('hidden');
+				else container.classList.add('hidden');
+			}
+		};
+		window.toggleFragInputs = function(show) {
+			const container = document.getElementById('frag-inputs-container');
+			if (container) {
+				if (show) {
+					container.classList.remove('hidden');
+				} else {
+					container.classList.add('hidden');
+				}
+			}
+		};
+		window.toggleAdvancedSettingsInputs = function(show) {
+			const container = document.getElementById('advanced-settings-container');
+			const icon = document.getElementById('advanced-settings-icon');
+			if (container) {
+				if (show) {
+					container.classList.remove('opacity-50', 'pointer-events-none', 'hidden');
+					if (icon) icon.classList.add('rotate-180');
+					const fragToggle = document.getElementById('input-frag-toggle');
+					if (fragToggle && fragToggle.checked) {
+						fragToggle.checked = false;
+						if (typeof window.toggleFragInputs === 'function') window.toggleFragInputs(false);
+					}
+				} else {
+					container.classList.add('opacity-50', 'pointer-events-none', 'hidden');
+					if (icon) icon.classList.remove('rotate-180');
+				}
+			}
+		};
+		window.applyFragPreset = function(op, btnEl) {
+			const presets = {
+				'mci': { len: '10-30', int: '2-5', name: 'همراه اول' },
+				'irancell': { len: '100-200', int: '5-10', name: 'ایرانسل' },
+				'rightel': { len: '50-100', int: '2-5', name: 'رایتل' },
+				'tci': { len: '50-200', int: '1-3', name: 'مخابرات و اینترنت ثابت' },
+				'gaming': { len: '200-3000', int: '1-2', name: 'پینگ پایین' }
+			};
+			const p = presets[op];
+			if (!p) return;
+			const lenInput = document.getElementById('input-frag-len');
+			const intInput = document.getElementById('input-frag-int');
+			const isActive = btnEl && btnEl.classList.contains('ring-2');
+			document.querySelectorAll('.frag-preset-card').forEach(card => {
+				card.classList.remove('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40');
+			});
+			if (isActive) {
+				if (lenInput) lenInput.value = '200-3000';
+				if (intInput) intInput.value = '1-2';
+				if (typeof bm3pzm2 === 'function') bm3pzm2('🔄 تنظیمات فرگمنت به حالت پیش‌فرض بازگشت.', 'success');
+				return;
+			}
+			const toggle = document.getElementById('input-frag-toggle');
+			if (toggle && !toggle.checked) {
+				toggle.checked = true;
+				if (typeof window.toggleFragInputs === 'function') window.toggleFragInputs(true);
+			}
+			if (lenInput) lenInput.value = p.len;
+			if (intInput) intInput.value = p.int;
+			if (btnEl) btnEl.classList.add('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40');
+			if (typeof bm3pzm2 === 'function') bm3pzm2('⚡ تنظیمات فرگمنت ' + p.name + ' با موفقیت اعمال شد.', 'success');
+		};
+		window.setQuickVol = function(val) {
+			const input = document.getElementById('input-limit');
+			if (input) input.value = val;
+		};
+		window.setQuickExp = function(val) {
+			const input = document.getElementById('input-expiry');
+			if (input) input.value = val;
+		};
+		window.fillPatternihaValues = function() {
+			const fragInput = document.getElementById('input-advanced-frag');
+			const csInput = document.getElementById('input-cipher-suites');
+			if (fragInput) fragInput.value = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
+			if (csInput) csInput.value = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
+			if (typeof bm3pzm2 === 'function') bm3pzm2('✅ مقادیر پیش‌فرض Patterniha با موفقیت اعمال شد.', 'success');
+		};
+		window.generateRandomUsername = function() {
+			const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
+			const nouns = ['falcon','tiger','wolf','phoenix','viper','hawk','dragon','panther','eagle','cobra'];
+			const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+			const noun = nouns[Math.floor(Math.random() * nouns.length)];
+			const num = Math.floor(100 + Math.random() * 900);
+			const nameInput = document.getElementById('input-name');
+			if (nameInput) nameInput.value = adj + '_' + noun + num;
+		};
+		/* مثل پرچمی که از روی کشور ثابت‌شده (IATA) ساخته می‌شه، نام کاربری پیش‌فرض هم از اسم انگلیسی همون کشور ساخته می‌شه */
+		window.autoFillUsernameFromCountry = function() {
+			const nameInput = document.getElementById('input-name');
+			if (!nameInput) return;
+			const cca2 = window._globalActiveCountry || '';
+			let base = '';
+			if (cca2 && typeof m79lr3o === 'function') {
+				const enName = m79lr3o(cca2);
+				base = (enName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+			}
+			if (!base) {
+				const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
+				const nouns = ['falcon','tiger','wolf','phoenix','viper','hawk','dragon','panther','eagle','cobra'];
+				base = adjectives[Math.floor(Math.random() * adjectives.length)] + '_' + nouns[Math.floor(Math.random() * nouns.length)];
+			}
+			const num = Math.floor(100 + Math.random() * 900);
+			nameInput.value = base + num;
+		};
+		window.handleProtocolChange = function(changedInput) {
+			const vlessCb = document.getElementById('input-proto-vless');
+			const trojanCb = document.getElementById('input-proto-trojan');
+			const ssCb = document.getElementById('input-proto-ss');
+			const anyChecked = (vlessCb && vlessCb.checked) || (trojanCb && trojanCb.checked) || (ssCb && ssCb.checked);
+			if (!anyChecked && changedInput) {
+				changedInput.checked = true;
+				if (typeof bm3pzm2 === 'function') bm3pzm2('⚠️ حداقل یک پروتکل باید فعال باشد.', 'error');
+			}
+		};
+		function jutlx8s(text, disable = null) {
+			const btnMob = document.getElementById('submit-btn');
+			const btnDesk = document.getElementById('submit-btn-desktop');
+			if (btnMob) {
+				const span = btnMob.querySelector('span');
+				if (span) span.innerText = text; else btnMob.innerText = text;
+				if (disable !== null) btnMob.disabled = disable;
+			}
+			if (btnDesk) {
+				const span = btnDesk.querySelector('span');
+				if (span) span.innerText = text; else btnDesk.innerText = text;
+				if (disable !== null) btnDesk.disabled = disable;
+			}
+		}
+		function toggleModal(show) {
+			ys5v6m0('user-modal', show);
+			if (typeof window.switchUserTab === 'function') window.switchUserTab('tab-user-info');
+			if (!show) {
+				isEditMode = false;
+				editingUsername = '';
+				document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
+				jutlx8s('ایجاد کاربر', false);
+				document.getElementById('input-name').disabled = false;
+				document.getElementById('create-user-form').reset();
+				const vlessCb1 = document.getElementById('input-proto-vless');
+				const trojanCb1 = document.getElementById('input-proto-trojan');
+				const ssCb1 = document.getElementById('input-proto-ss');
+				if (vlessCb1) vlessCb1.checked = true;
+				if (trojanCb1) trojanCb1.checked = false;
+				if (ssCb1) ssCb1.checked = true;
+				const cb443 = document.querySelector('input[name="ports"][value="443"]');
+				if (cb443) cb443.checked = true;
+				const cb80 = document.querySelector('input[name="ports"][value="80"]');
+				if (cb80) cb80.checked = true;
+				const fpSelect = document.getElementById('fingerprint-select');
+				if (fpSelect) fpSelect.value = 'unsafe';
+				const bpCheck = document.getElementById('input-block-porn');
+				if (bpCheck) bpCheck.checked = false;
+				const baCheck = document.getElementById('input-block-ads');
+				if (baCheck) baCheck.checked = false;
+				const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
+				if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = false;
+				const fragLenInput = document.getElementById('input-frag-len');
+				if (fragLenInput) fragLenInput.value = '200-3000';
+				const fragIntInput = document.getElementById('input-frag-int');
+				if (fragIntInput) fragIntInput.value = '1-2';
+				document.querySelectorAll('.frag-preset-card').forEach(card => card.classList.remove('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40'));
+				const fragToggle = document.getElementById('input-frag-toggle');
+				if (fragToggle) fragToggle.checked = true;
+				window.toggleFragInputs(true);
+				const customPortInput = document.getElementById('input-custom-ports');
+				if (customPortInput) customPortInput.value = '';
+				document.getElementById('hidden-auto-rotate').value = '0';
+				document.getElementById('hidden-rotate-time').value = '';
+				document.getElementById('hidden-ip-operator').value = 'all';
+				document.getElementById('hidden-ip-count').value = '15';
+				const autoResetToggle = document.getElementById('input-auto-reset-toggle');
+				if (autoResetToggle) autoResetToggle.checked = false;
+				document.getElementById('input-auto-reset-vol').value = '';
+				document.getElementById('input-auto-reset-req').value = '';
+				window.toggleAutoResetInputs(false);
+				const advToggleReset = document.getElementById('input-advanced-settings-toggle');
+				if (advToggleReset) advToggleReset.checked = false;
+				if (typeof window.toggleAdvancedSettingsInputs === 'function') window.toggleAdvancedSettingsInputs(false);
+			}
+		}
+		function toggleUpdateModal(show, version = '') {
+			if (show && version) document.getElementById('update-modal-text').innerHTML = 'نسخه جدید (<b>v' + version + '</b>) در دسترس است.<br>اگر آپدیت خودکار عمل نکرد لطفا از ربات استفاده کنید.';
+			ys5v6m0('update-modal', show);
+		}
+		let activeRocketBtn = null;
+		function toggleRocketModal(show) {
+			ys5v6m0('rocket-modal', show);
+		}
+		async function openRocketModal(btn) {
+			activeRocketBtn = btn;
+			toggleRocketModal(true);
+			const select = document.getElementById('rocket-country-select');
+			const submitBtn = document.getElementById('rocket-submit-btn');
+			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
+			submitBtn.disabled = true;
+			try {
+				const resVipList = await ggsyffs('vip-list?t=' + Date.now());
+				if (resVipList.ok) {
+					const files = await resVipList.json();
+					const vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
+					if (vipCountries.length > 0) {
+						select.innerHTML = '<option value="">یک کشور انتخاب کنید...</option>';
+						vipCountries.forEach(function(country) {
+							const option = document.createElement('option');
+							option.value = country;
+							const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
+							option.textContent = flag + ' ' + country;
+							select.appendChild(option);
+						});
+						submitBtn.disabled = false;
+					} else {
+						select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
+					}
+				} else {
+					select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
+				}
+			} catch (e) {
+				select.innerHTML = '<option value="">خطا در دریافت لیست کشورها</option>';
+			}
+		}
+		async function executeRocketCreate() {
+			const select = document.getElementById('rocket-country-select');
+			const country = select.value;
+			if (!country) {
+				alert('لطفاً یک کشور انتخاب کنید.');
+				return;
+			}
+			toggleRocketModal(false);
+			const btn = activeRocketBtn;
+			if (btn) btn.disabled = true;
+			const icon = btn ? btn.querySelector('svg') : null;
+			if (icon) {
+				icon.classList.add('animate-spin');
+				icon.classList.remove('group-hover:-translate-y-1', 'group-hover:translate-x-1');
+			}
+			try {
+				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+				let randStr = '';
+				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
+				const username = 'Alireza-' + randStr;
+
+				const resVip = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
+				if (!resVip.ok) {
+					alert('هیچ پروکسی در این کشور یافت نشد.');
+					return;
+				}
+				const text = await resVip.text();
+				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+				if (lines.length === 0) {
+					alert('هیچ پروکسی در این کشور یافت نشد.');
+					return;
+				}
+
+				bm3pzm2('🚀 در حال اسکن پینگ ' + lines.length + ' پروکسی از کشور ' + country + '...');
+
+				const controller = new AbortController();
+				let successProxies = [];
+				const testPromises = lines.map(async (proxyLine) => {
+					await new Promise(r => setTimeout(r, Math.floor(Math.random() * 200)));
+					try {
+						const res = await fetch('/api/test-proxy', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ proxy: proxyLine, skip_country: true }),
+							signal: controller.signal
+						});
+						const data = await res.json();
+						if (data.success && data.ping) {
+							successProxies.push({ proxy: proxyLine, ping: data.ping });
+						}
+					} catch (e) {}
+				});
+				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 12000));
+				await Promise.race([Promise.all(testPromises), timeoutPromise]);
+				controller.abort();
+
+				if (successProxies.length === 0) {
+					alert('خطا: هیچ پروکسی سالمی با پینگ موفق در این کشور یافت نشد.');
+					return;
+				}
+				successProxies.sort((a, b) => a.ping - b.ping);
+				const bestProxy = successProxies[0].proxy;
+
+				let availableIps = [];
+				if (Object.keys(l76xmsu).length === 0) {
+					try {
+						const resIps = await kc5inhw('ips.txt');
+						if (resIps.ok) {
+							const text2 = await resIps.text();
+							const blocks = text2.split('----------');
+							blocks.forEach(block => {
+								const l = block.trim().split('\\n').map(x => x.trim()).filter(x => x.length > 0);
+								l.forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
+				}
+				availableIps = [...new Set(availableIps)];
+				let selectedIps = [];
+				if (availableIps.length > 0) {
+					const shuffledIps = availableIps.slice();
+					for (let i = shuffledIps.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[shuffledIps[i], shuffledIps[j]] = [shuffledIps[j], shuffledIps[i]];
+					}
+					selectedIps = shuffledIps.slice(0, 10);
+				}
+				const ipsStr = selectedIps.join('\\n');
+				const finalSocks5 = JSON.stringify([{ proxy: bestProxy, country: country }]);
+
+				const response = await fetch('/api/users', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+						auto_reset_vol_days: 0, auto_reset_req_days: 0, frag_len: "", frag_int: "",
+						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
+						ips: ipsStr, ip_operator: "all", ip_count: 10, auto_rotate_ip: 1, rotate_time: 5,
+						user_socks5: finalSocks5, auto_rotate_user_proxy: 1
+					})
+				});
+				if (response.ok) {
+					bm3pzm2('🚀 کاربر تک کشوره با بهترین پینگ با موفقیت ایجاد شد.');
+					await axmsbp4(true);
+				} else {
+					const errData = await response.json();
+					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				if (btn) btn.disabled = false;
+				if (icon) {
+					icon.classList.remove('animate-spin');
+					icon.classList.add('group-hover:-translate-y-1', 'group-hover:translate-x-1');
+				}
+			}
+		}
+		window.copyAllConfigs = function(btn) {
+			const users = Array.isArray(window.allUsers) ? window.allUsers : [];
+			if (users.length === 0) {
+				alert('کاربری برای کپی کردن وجود ندارد!');
+				return;
+			}
+			const prevInfo = window._infoConfigsEnabled;
+			window._infoConfigsEnabled = false;
+			const all = [];
+			let usersCount = 0;
+			try {
+				users.forEach(function(u) {
+					let text = '';
+					try { text = fv9a4g0(u.username); } catch (e) { text = ''; }
+					if (!text) return;
+					usersCount++;
+					text.split('\\n').forEach(function(l) { l = l.trim(); if (l) all.push(l); });
+				});
+			} finally {
+				window._infoConfigsEnabled = prevInfo;
+			}
+			if (all.length === 0) {
+				alert('کانفیگی برای کپی کردن پیدا نشد!');
+				return;
+			}
+			const text = all.join('\\n');
+			const done = function() {
+				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
+				else alert('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
+			};
+			const fallback = function() {
+				try {
+					const ta = document.createElement('textarea');
+					ta.value = text;
+					ta.style.position = 'fixed';
+					ta.style.opacity = '0';
+					document.body.appendChild(ta);
+					ta.select();
+					const ok = document.execCommand('copy');
+					ta.remove();
+					if (ok) done(); else alert('خطا در کپی کردن کانفیگ‌ها!');
+				} catch (e) {
+					alert('خطا در کپی کردن کانفیگ‌ها!');
+				}
+			};
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(text).then(done).catch(fallback);
+			} else {
+				fallback();
+			}
+		};
+		window.applyInfoConfigsState = function(on) {
+			window._infoConfigsEnabled = !!on;
+			const cb = document.getElementById('info-configs-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.toggleInfoConfigs = async function(cb) {
+			const want = cb.checked;
+			cb.disabled = true;
+			try {
+				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ info_configs: want }) });
+				if (!r.ok) throw new Error('save failed');
+				window._infoConfigsEnabled = want;
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ کانفیگ‌های اطلاع‌رسانی فعال شد.' : '✅ کانفیگ‌های اطلاع‌رسانی غیرفعال شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
+		window.PATTERNIHA_FM = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
+		window.PATTERNIHA_CS = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
+		window.applyPatternihaState = function(on) {
+			const cb = document.getElementById('patterniha-all-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.PATTERNIHA_ECH = 'cloudflare-ech.com+udp://1.1.1.1';
+		window.ECH_PRESETS = { 'cf-udp': 'udp://1.1.1.1', 'google-udp': 'udp://8.8.8.8', 'quad9-udp': 'udp://9.9.9.9', 'cf-doh': 'https://1.1.1.1/dns-query', 'google-doh': 'https://8.8.8.8/dns-query' };
+		window._ech = { sni: 'cloudflare-ech.com', doh: 'udp://1.1.1.1', preset: 'cf-udp', api: '' };
+		window.getEchString = function() { return window._ech.sni + '+' + window._ech.doh; };
+		window.refreshEchPreview = function() {
+			const el = document.getElementById('ech-preview');
+			const sni = (document.getElementById('ech-sni-input') || {}).value || '';
+			const doh = (document.getElementById('ech-doh-input') || {}).value || '';
+			if (el) el.textContent = 'ech=' + sni.trim() + '+' + doh.trim();
+		};
+		window.applyEchSettings = function(d) {
+			if (!d) return;
+			window._ech = { sni: d.ech_sni || 'cloudflare-ech.com', doh: d.ech_doh || 'udp://1.1.1.1', preset: d.ech_doh_preset || 'cf-udp', api: d.ech_api || '' };
+			const a = document.getElementById('ech-sni-input'); if (a) a.value = window._ech.sni;
+			const b = document.getElementById('ech-doh-input'); if (b) b.value = window._ech.doh;
+			const c = document.getElementById('ech-doh-preset'); if (c) c.value = window._ech.preset;
+			const e = document.getElementById('ech-api-input'); if (e) e.value = window._ech.api;
+			window.refreshEchPreview();
+		};
+		window.onEchPresetChange = function(v) {
+			if (window.ECH_PRESETS[v]) document.getElementById('ech-doh-input').value = window.ECH_PRESETS[v];
+			window.refreshEchPreview();
+		};
+		window.onEchDohInput = function() {
+			const v = document.getElementById('ech-doh-input').value.trim();
+			const hit = Object.keys(window.ECH_PRESETS).find(function(k) { return window.ECH_PRESETS[k] === v; });
+			document.getElementById('ech-doh-preset').value = hit || 'custom';
+			window.refreshEchPreview();
+		};
+		window.closeEchModal = function() {
+			const m = document.getElementById('ech-modal');
+			if (m) m.remove();
+		};
+		window.openEchModal = async function() {
+			window.closeEchModal();
+			try {
+				const r = await fetch('/api/proxy-ip');
+				if (r.ok) window.applyEchSettings(await r.json());
+			} catch (e) {}
+			const inputCls = 'w-full px-3 py-2.5 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-xl text-sm text-gray-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
+			const lblCls = 'block text-[11px] font-bold text-gray-600 dark:text-zinc-400 mb-1.5';
+			const wrap = document.createElement('div');
+			wrap.id = 'ech-modal';
+			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
+			wrap.innerHTML =
+				'<div class="w-full max-w-md rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border overflow-hidden" style="max-height:90vh;overflow:auto" dir="rtl">' +
+				'<div class="px-4 py-3 border-b border-gray-200 dark:border-amoled-border text-sm font-bold text-gray-800 dark:text-zinc-100">ECH و مرکزی</div>' +
+				'<div class="p-4 space-y-3">' +
+				'<div><label class="' + lblCls + '">ECH SNI</label><input type="text" id="ech-sni-input" dir="ltr" placeholder="cloudflare-ech.com" oninput="refreshEchPreview()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH preset</label><select id="ech-doh-preset" onchange="onEchPresetChange(this.value)" class="' + inputCls + ' cursor-pointer">' +
+				'<option value="custom">Custom</option>' +
+				'<option value="cf-udp">Cloudflare (udp://1.1.1.1)</option>' +
+				'<option value="google-udp">Google (udp://8.8.8.8)</option>' +
+				'<option value="quad9-udp">Quad9 (udp://9.9.9.9)</option>' +
+				'<option value="cf-doh">Cloudflare DoH (https://1.1.1.1/dns-query)</option>' +
+				'<option value="google-doh">Google DoH (https://8.8.8.8/dns-query)</option>' +
+				'</select></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="udp://1.1.1.1" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">API مرکزی (اختیاری)</label><input type="text" id="ech-api-input" dir="ltr" placeholder="https://your-central-server" class="' + inputCls + '">' +
+				'<p class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1">فعلاً فقط ذخیره می‌شود و در ساخت کانفیگ استفاده نمی‌شود.</p></div>' +
+				'<p class="text-[10px] text-gray-500 dark:text-zinc-500" dir="ltr" id="ech-preview"></p>' +
+				'<div class="flex gap-2">' +
+				'<button type="button" id="ech-save-btn" class="flex-1 py-2.5 rounded-xl bg-fuchsia-600 text-white text-xs font-bold">ذخیره تنظیمات ECH</button>' +
+				'<button type="button" id="ech-close-btn" class="px-4 py-2.5 rounded-xl border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
+				'</div></div></div>';
+			document.body.appendChild(wrap);
+			document.getElementById('ech-sni-input').value = window._ech.sni;
+			document.getElementById('ech-doh-input').value = window._ech.doh;
+			document.getElementById('ech-doh-preset').value = window._ech.preset;
+			document.getElementById('ech-api-input').value = window._ech.api;
+			window.refreshEchPreview();
+			document.getElementById('ech-close-btn').onclick = window.closeEchModal;
+			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeEchModal(); });
+			document.getElementById('ech-save-btn').onclick = async function() {
+				const ok = await window.saveEchSettings(this);
+				if (ok) window.closeEchModal();
+			};
+		};
+		window.saveEchSettings = async function(btn) {
+			const sni = document.getElementById('ech-sni-input').value.trim();
+			const doh = document.getElementById('ech-doh-input').value.trim();
+			const preset = document.getElementById('ech-doh-preset').value;
+			const api = document.getElementById('ech-api-input').value.trim();
+			if (!sni || !doh) { alert('ECH SNI و ECH DoH نباید خالی باشند.'); return false; }
+			btn.disabled = true;
+			try {
+				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ech_sni: sni, ech_doh: doh, ech_doh_preset: preset, ech_api: api }) });
+				if (!r.ok) {
+					let m = 'خطا در ذخیره تنظیمات ECH';
+					try { const j = await r.json(); if (j && j.error) m = j.error; } catch (e) {}
+					alert(m);
+					return false;
+				}
+				window._ech = { sni: sni, doh: doh, preset: preset, api: api };
+				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ تنظیمات ECH ذخیره شد. برای اعمال روی کاربران، تاگل Chrome + ECH را دوباره بزن.');
+				return true;
+			} catch (e) {
+				alert('خطا در برقراری ارتباط با سرور');
+				return false;
+			} finally {
+				btn.disabled = false;
+			}
+		};
+		window.applyPatternihaEchState = function(on) {
+			const cb = document.getElementById('patterniha-ech-toggle');
+			if (cb) cb.checked = !!on;
+		};
+		window.togglePatternihaEchAll = async function(cb) {
+			const want = cb.checked;
+			const msg = want
+				? 'بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شود؟ (finalmask خالی، فینگرپرینت Chrome، ECH اضافه؛ Cipher Suites و TLS Mask هم خالی می‌شن و مقادیر فعلی جایگزین می‌شن)'
+				: 'ECH و finalmask و Cipher Suites همه کاربران پاک شود و فینگرپرینت به Unsafe برگردد؟';
+			if (!confirm(msg)) { cb.checked = !want; return; }
+			cb.disabled = true;
+			try {
+				await window.bulkAdvancedRequest(want
+					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.getEchString(), fingerprint: 'chrome', patterniha_ech: true }
+					: { advanced_frag: '', cipher_suites: '', ech_config: '', fingerprint: 'unsafe', patterniha_ech: false });
+				if (want) window.applyPatternihaState(false);
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
+		window.bulkAdvancedRequest = async function(payload) {
+			const r = await fetch('/api/bulk-advanced', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+			if (!r.ok) throw new Error('bulk failed');
+			if (typeof axmsbp4 === 'function') { try { await axmsbp4(true); } catch (e) {} }
+		};
+		window.togglePatternihaAll = async function(cb) {
+			const want = cb.checked;
+			const msg = want
+				? 'مقادیر بهینه‌ساز Patterniha (Advanced Fragment و Cipher Suites) روی همه کاربران اعمال شود؟ مقادیر فعلی جایگزین می‌شود.'
+				: 'Advanced Fragment و Cipher Suites همه کاربران پاک شود؟ (TLS Mask دست‌نخورده می‌ماند)';
+			if (!confirm(msg)) { cb.checked = !want; return; }
+			cb.disabled = true;
+			try {
+				await window.bulkAdvancedRequest(want
+					? { advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS, patterniha: true }
+					: { advanced_frag: '', cipher_suites: '', patterniha: false });
+				if (want) window.applyPatternihaEchState(false);
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+			} catch (e) {
+				cb.checked = !want;
+				alert('خطا در ذخیره تنظیمات');
+			} finally {
+				cb.disabled = false;
+			}
+		};
+		window.closeBulkAdvancedModal = function() {
+			const m = document.getElementById('bulk-advanced-modal');
+			if (m) m.remove();
+		};
+		window.openBulkAdvancedModal = function() {
+			window.closeBulkAdvancedModal();
+			const inputCls = 'w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg text-xs text-gray-800 dark:text-zinc-100 focus:outline-none';
+			const lblCls = 'block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1';
+			const clsSm = 'text-[10px] text-gray-500 dark:text-zinc-400';
+			const wrap = document.createElement('div');
+			wrap.id = 'bulk-advanced-modal';
+			wrap.setAttribute('style', 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:12px');
+			wrap.innerHTML =
+				'<div class="w-full max-w-lg rounded-2xl bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border p-4 space-y-3" style="max-height:90vh;overflow:auto" dir="rtl">' +
+				'<div class="text-sm font-black text-gray-800 dark:text-zinc-100">⚙️ تنظیم یکجای پیشرفته برای همه کاربران</div>' +
+				'<div class="' + clsSm + '">فیلدی که خالی بماند تغییر نمی‌کند. برای پاک کردن یک مقدار از همه کاربران، تیک «پاک کن» کنارش را بزن.</div>' +
+				'<div><label class="' + lblCls + '">Advanced Fragment (fm JSON)</label><textarea id="bulk-adv-frag" rows="3" dir="ltr" class="' + inputCls + '"></textarea>' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-frag-clear"> پاک کن</label></div>' +
+				'<div><label class="' + lblCls + '">Cipher Suites (cs)</label><input type="text" id="bulk-adv-cs" dir="ltr" class="' + inputCls + '">' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-cs-clear"> پاک کن</label></div>' +
+				'<div><label class="' + lblCls + '">TLS Mask (Custom SNI / Host)</label><input type="text" id="bulk-adv-mask" dir="ltr" class="' + inputCls + '">' +
+				'<label class="' + clsSm + '"><input type="checkbox" id="bulk-adv-mask-clear"> پاک کن</label></div>' +
+				'<div class="flex gap-2">' +
+				'<button type="button" id="bulk-adv-apply" class="flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold">اعمال روی همه کاربران</button>' +
+				'<button type="button" id="bulk-adv-fill" class="px-3 py-2 rounded-lg border border-purple-500 text-purple-600 text-xs font-bold">مقادیر Patterniha</button>' +
+				'<button type="button" id="bulk-adv-close" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-600 dark:text-zinc-300 text-xs font-bold">بستن</button>' +
+				'</div></div>';
+			document.body.appendChild(wrap);
+			document.getElementById('bulk-adv-close').onclick = window.closeBulkAdvancedModal;
+			wrap.addEventListener('click', function(e) { if (e.target === wrap) window.closeBulkAdvancedModal(); });
+			document.getElementById('bulk-adv-fill').onclick = function() {
+				document.getElementById('bulk-adv-frag').value = window.PATTERNIHA_FM;
+				document.getElementById('bulk-adv-cs').value = window.PATTERNIHA_CS;
+			};
+			document.getElementById('bulk-adv-apply').onclick = async function() {
+				const btn = this;
+				const payload = {};
+				const pick = function(inputId, clearId, key) {
+					const v = document.getElementById(inputId).value.trim();
+					if (document.getElementById(clearId).checked) payload[key] = '';
+					else if (v) payload[key] = v;
+				};
+				pick('bulk-adv-frag', 'bulk-adv-frag-clear', 'advanced_frag');
+				pick('bulk-adv-cs', 'bulk-adv-cs-clear', 'cipher_suites');
+				pick('bulk-adv-mask', 'bulk-adv-mask-clear', 'tls_mask');
+				if (Object.keys(payload).length === 0) { alert('هیچ مقداری وارد نشده.'); return; }
+				if (payload.advanced_frag) {
+					try { JSON.parse(payload.advanced_frag); } catch (e) { alert('Advanced Fragment باید JSON معتبر باشد.'); return; }
+				}
+				if (!confirm('این مقادیر روی همه کاربران اعمال شود؟')) return;
+				btn.disabled = true;
+				try {
+					await window.bulkAdvancedRequest(payload);
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ روی همه کاربران اعمال شد.');
+					window.closeBulkAdvancedModal();
+				} catch (e) {
+					alert('خطا در ذخیره تنظیمات');
+					btn.disabled = false;
+				}
+			};
+		};
+		window.createDualCountryConfigs = async function(btn) {
+			if (btn.disabled) return;
+			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
+			if (!cca2) {
+				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
+				return;
+			}
+			btn.disabled = true;
+			const icon = btn.querySelector('svg');
+			if (icon) icon.classList.add('animate-spin');
+			try {
+				let base = '';
+				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (!base) base = cca2.toLowerCase();
+				base = base.slice(0, 18);
+				const num = Math.floor(100 + Math.random() * 900);
+				let allIps = [];
+				if (Object.keys(l76xmsu).length === 0) {
+					try {
+						const resIps = await kc5inhw('ips.txt');
+						if (resIps.ok) {
+							const text = await resIps.text();
+							text.split('----------').forEach(block => {
+								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
+				}
+				allIps = [...new Set(allIps)];
+				const pickIps = function() {
+					const arr = allIps.slice();
+					for (let i = arr.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					return arr.slice(0, 2).join('\\n');
+				};
+				const defs = [
+					{ username: base + num, frag_len: '200-3000', frag_int: '1-2' },
+					{ username: 'Hard-' + base + num, frag_len: '50-200', frag_int: '1-3' }
+				];
+				let created = 0;
+				for (const d of defs) {
+					const response = await fetch('/api/users', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
+							fingerprint: 'unsafe', block_ads: 0, block_porn: 0, port: '443', tls: 'on',
+							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
+							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
+							user_socks5: null, auto_rotate_user_proxy: 0,
+							protocols: ['vl' + 'e' + 'ss']
+						})
+					});
+					if (response.ok) {
+						created++;
+					} else {
+						let msg = 'عملیات ناموفق بود';
+						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
+						alert('خطا در ساخت ' + d.username + ': ' + msg);
+						break;
+					}
+				}
+				if (created > 0) {
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await axmsbp4(true);
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				if (icon) icon.classList.remove('animate-spin');
+			}
+		};
+		window.createNoFilteringConfigs = async function(btn) {
+			if (btn.disabled) return;
+			const cca2 = String(window._globalActiveCountry || '').toUpperCase();
+			if (!cca2) {
+				alert('اول از تنظیمات پنل یک کشور ثابت کن (IATA)، بعد این دکمه رو بزن.');
+				return;
+			}
+			btn.disabled = true;
+			const icon = btn.querySelector('svg');
+			if (icon) icon.classList.add('animate-spin');
+			try {
+				let base = '';
+				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (!base) base = cca2.toLowerCase();
+				base = base.slice(0, 18);
+				const num = Math.floor(100 + Math.random() * 900);
+				let allIps = [];
+				if (Object.keys(l76xmsu).length === 0) {
+					try {
+						const resIps = await kc5inhw('ips.txt');
+						if (resIps.ok) {
+							const text = await resIps.text();
+							text.split('----------').forEach(block => {
+								block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0).forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) allIps.push(line);
+								});
+							});
+						}
+					} catch (e) {}
+				} else {
+					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
+				}
+				allIps = [...new Set(allIps)];
+				const pickIps = function() {
+					const arr = allIps.slice();
+					for (let i = arr.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					return arr.slice(0, 2).join('\\n');
+				};
+				const echStr = window.getEchString();
+				const FRAG_N = { frag_len: '200-3000', frag_int: '1-2' };
+				const FRAG_H = { frag_len: '50-200', frag_int: '1-3' };
+				const defs = [
+					Object.assign({ username: base + num + '-1', ech_config: echStr, fingerprint: 'chrome' }, FRAG_N),
+					Object.assign({ username: 'Hard-' + base + num + '-2', ech_config: echStr, fingerprint: 'chrome' }, FRAG_H),
+					Object.assign({ username: base + num + '-3', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_N),
+					Object.assign({ username: 'Hard-' + base + num + '-4', advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS }, FRAG_H)
+				];
+				let created = 0;
+				for (const d of defs) {
+					const response = await fetch('/api/users', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							username: d.username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+							auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: d.frag_len, frag_int: d.frag_int,
+							fingerprint: d.fingerprint || 'unsafe', advanced_frag: d.advanced_frag || null, cipher_suites: d.cipher_suites || null, ech_config: d.ech_config || null, block_ads: 0, block_porn: 0, port: '443', tls: 'on',
+							ips: pickIps(), ip_operator: 'all', ip_count: 2, auto_rotate_ip: 1, rotate_time: 1,
+							user_proxy_iata: cca2, user_ipv6_enabled: 1, enable_direct: 1,
+							user_socks5: null, auto_rotate_user_proxy: 0,
+							protocols: ['vl' + 'e' + 'ss']
+						})
+					});
+					if (response.ok) {
+						created++;
+					} else {
+						let msg = 'عملیات ناموفق بود';
+						try { const errData = await response.json(); if (errData && errData.error) msg = errData.error; } catch (e) {}
+						alert('خطا در ساخت ' + d.username + ': ' + msg);
+						break;
+					}
+				}
+				if (created > 0) {
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await axmsbp4(true);
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				if (icon) icon.classList.remove('animate-spin');
+			}
+		};
+		async function quickCreateUser(btn) {
+			btn.disabled = true;
+			const icon = btn.querySelector('svg');
+			if (icon) {
+				icon.classList.add('animate-spin');
+				icon.classList.remove('group-hover:rotate-12');
+			}
+			try {
+				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+				let randStr = '';
+				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
+				const username = 'Alireza-' + randStr;
+				
+				let vipCountries = [];
+				try {
+					const resVipList = await ggsyffs('vip-list?t=' + Date.now());
+					if (resVipList.ok) {
+						const files = await resVipList.json();
+						vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
+					}
+				} catch (e) {}
+
+				if (vipCountries.length < 2) {
+					alert('خطا: مخزن VIP شما در دسترس نیست یا کمتر از 2 کشور دارد.');
+					btn.disabled = false;
+					if (icon) {
+						icon.classList.remove('animate-spin');
+						icon.classList.add('group-hover:rotate-12');
+					}
+					return;
+				}
+
+				for (let i = vipCountries.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[vipCountries[i], vipCountries[j]] = [vipCountries[j], vipCountries[i]];
+				}
+
+				const selectedCountries = vipCountries.slice(0, 5);
+				const fastestPerCountry = [];
+				const controller = new AbortController();
+
+				const findTwoProxiesPromise = new Promise((resolveFast) => {
+					let successCount = 0;
+					const countryPromises = selectedCountries.map(async (country) => {
+						try {
+							const resVip = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
+							if (!resVip.ok) return;
+							const text = await resVip.text();
+							let lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+							if (lines.length === 0) return;
+
+							for (let i = lines.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								[lines[i], lines[j]] = [lines[j], lines[i]];
+							}
+
+							const proxiesToTest = lines.slice(0, 4);
+							const firstSuccessProxy = await Promise.any(proxiesToTest.map(proxyStr => {
+								return new Promise((resolveProxy, rejectProxy) => {
+									fetch('/api/test-proxy', {
+										method: 'POST',
+										headers: { 'Content-Type': 'application/json' },
+										body: JSON.stringify({ proxy: proxyStr, skip_country: true }),
+										signal: controller.signal
+									})
+									.then(res => res.json())
+									.then(data => {
+										if (data.success) resolveProxy({ proxy: proxyStr, ping: data.ping });
+										else rejectProxy();
+									})
+									.catch(rejectProxy);
+								});
+							}));
+
+							if (firstSuccessProxy) {
+								fastestPerCountry.push(firstSuccessProxy);
+								successCount++;
+								if (successCount >= 2) resolveFast();
+							}
+						} catch(e) {}
+					});
+					Promise.allSettled(countryPromises).then(() => resolveFast());
+				});
+
+				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
+				await Promise.race([findTwoProxiesPromise, timeoutPromise]);
+				controller.abort();
+
+				if (fastestPerCountry.length < 2) {
+					alert('خطا: پروکسی سالم از حداقل 2 کشور مختلف در زمان مجاز یافت نشد.');
+					btn.disabled = false;
+					if (icon) {
+						icon.classList.remove('animate-spin');
+						icon.classList.add('group-hover:rotate-12');
+					}
+					return;
+				}
+
+				fastestPerCountry.sort((a, b) => a.ping - b.ping);
+				const fastestProxies = [fastestPerCountry[0].proxy, fastestPerCountry[1].proxy];
+
+				const userSocks5 = JSON.stringify(fastestProxies);
+				
+				let availableIps = [];
+				if (Object.keys(l76xmsu).length === 0) {
+					try {
+						const resIps = await kc5inhw('ips.txt');
+						if (resIps.ok) {
+							const text = await resIps.text();
+							const blocks = text.split('----------');
+							blocks.forEach(block => {
+								const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
+								lines.forEach(line => {
+									if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
+								});
+							});
+						}
+					} catch(e) {}
+				} else {
+					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
+				}
+				availableIps = [...new Set(availableIps)];
+				let selectedIps = [];
+				if (availableIps.length > 0) {
+					const shuffledIps = availableIps.slice();
+					for (let i = shuffledIps.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[shuffledIps[i], shuffledIps[j]] = [shuffledIps[j], shuffledIps[i]];
+					}
+					selectedIps = shuffledIps.slice(0, 15);
+				}
+				const ipsStr = selectedIps.join('\\n');
+				
+				const response = await fetch('/api/users', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						username: username, limit_gb: null, expiry_days: null, limit_req: null, ip_limit: null,
+						auto_reset_vol_days: 0, auto_reset_req_days: 1, frag_len: "200-3000", frag_int: "1-2",
+						fingerprint: "unsafe", block_ads: 1, block_porn: 0, port: "443", tls: "on",
+						ips: ipsStr, ip_operator: "all", ip_count: 15, auto_rotate_ip: 1, rotate_time: 1,
+						user_socks5: userSocks5, auto_rotate_user_proxy: 1
+					})
+				});
+				if (response.ok) {
+					bm3pzm2('✅ کاربر سریع با موفقیت ایجاد شد.');
+					await axmsbp4(true);
+				} else {
+					const errData = await response.json();
+					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				if (icon) {
+					icon.classList.remove('animate-spin');
+					icon.classList.add('group-hover:rotate-12');
+				}
+			}
+		}
+		window.switchUserTab = function(tabId) {
+			const tabs = [
+				{ id: 'tab-user-info', btn: 'tab-btn-user-info' },
+				{ id: 'tab-ports-network', btn: 'tab-btn-ports-network' },
+				{ id: 'tab-proxy-settings', btn: 'tab-btn-proxy-settings' }
+			];
+			tabs.forEach(t => {
+				const panel = document.getElementById(t.id);
+				const btn = document.getElementById(t.btn);
+				if (panel) panel.classList.toggle('hidden', t.id !== tabId);
+				if (btn) {
+					if (t.id === tabId) {
+						btn.className = 'user-modal-tab-btn active flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-blue-600/10 dark:bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold shadow-sm';
+						const iconBox = btn.querySelector('div.flex-shrink-0');
+						if (iconBox) iconBox.className = 'flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-blue-500/15 dark:bg-blue-400/20 text-blue-600 dark:text-blue-300';
+					} else {
+						btn.className = 'user-modal-tab-btn flex-1 md:flex-initial flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 p-1.5 sm:p-3 rounded-xl transition text-center sm:text-right cursor-pointer select-none bg-transparent hover:bg-gray-100 dark:hover:bg-amoled-input/50 border border-transparent text-gray-600 dark:text-zinc-400 font-medium';
+						const iconBox = btn.querySelector('div.flex-shrink-0');
+						if (iconBox) iconBox.className = 'flex-shrink-0 w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg flex items-center justify-center bg-gray-200/60 dark:bg-slate-900 text-gray-500 dark:text-zinc-400';
+					}
+				}
+			});
+		}
+		function openCreateModal() {
+			isEditMode = false;
+			editingUsername = '';
+			if (typeof window.switchUserTab === 'function' || typeof switchUserTab === 'function') switchUserTab('tab-user-info');
+			document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
+			jutlx8s('ایجاد کاربر', false);
+			document.getElementById('input-name').disabled = false;
+			document.getElementById('create-user-form').reset();
+			const vlessCbC = document.getElementById('input-proto-vless');
+			const trojanCbC = document.getElementById('input-proto-trojan');
+			const ssCbC = document.getElementById('input-proto-ss');
+			if (vlessCbC) vlessCbC.checked = true;
+			if (trojanCbC) trojanCbC.checked = false;
+			if (ssCbC) ssCbC.checked = true;
+			if (typeof window.autoFillUsernameFromCountry === 'function') window.autoFillUsernameFromCountry();
+			if (typeof window.autoFillCleanIps === 'function') window.autoFillCleanIps(2);
+			const cb443 = document.querySelector('input[name="ports"][value="443"]');
+			if (cb443) cb443.checked = true;
+			const cb80 = document.querySelector('input[name="ports"][value="80"]');
+			if (cb80) cb80.checked = true;
+			const fpSelect = document.getElementById('fingerprint-select');
+			if (fpSelect) fpSelect.value = 'unsafe';
+			const fragToggle = document.getElementById('input-frag-toggle');
+			if (fragToggle) fragToggle.checked = true;
+			window.toggleFragInputs(true);
+			const autoResetToggle = document.getElementById('input-auto-reset-toggle');
+			if (autoResetToggle) autoResetToggle.checked = false;
+			document.getElementById('input-auto-reset-vol').value = '';
+			document.getElementById('input-auto-reset-req').value = '';
+			window.toggleAutoResetInputs(false);
+			const blockAdsToggle = document.getElementById('input-block-ads');
+			if (blockAdsToggle) blockAdsToggle.checked = false;
+			const enableDirectToggleReset = document.getElementById('input-enable-direct');
+			if (enableDirectToggleReset) enableDirectToggleReset.checked = true;
+			const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
+			if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = false;
+			const userProxyToggle = document.getElementById('user-proxy-mode-toggle');
+			if (userProxyToggle) userProxyToggle.checked = true;
+			if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
+			window.proxyFieldsData = [""];
+			window.activeProxyIndex = 0;
+			const defaultIataCode = window._globalActiveCountry || '';
+			window.userProxyIata = defaultIataCode || null;
+			const iataToggleReset = document.getElementById('input-user-iata-toggle');
+			if (iataToggleReset) iataToggleReset.checked = true;
+			const iataInputReset = document.getElementById('input-user-proxy-iata');
+			if (iataInputReset) { iataInputReset.disabled = false; iataInputReset.value = defaultIataCode; }
+			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
+			if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
+			document.getElementById('hidden-auto-rotate').value = '0';
+			document.getElementById('hidden-rotate-time').value = '';
+			document.getElementById('hidden-ip-operator').value = 'all';
+			document.getElementById('hidden-ip-count').value = '15';
+			toggleModal(true);
+		}
+		
+		const themeToggleBtn = document.getElementById('theme-toggle');
+		themeToggleBtn.addEventListener('click', () => {
+			if (document.documentElement.classList.contains('dark')) {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+			} else {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+			}
+		});
+		const grayscaleToggleBtn = document.getElementById('grayscale-toggle');
+		if (grayscaleToggleBtn) {
+			grayscaleToggleBtn.addEventListener('click', () => {
+				if (document.documentElement.classList.contains('grayscale-active')) {
+					document.documentElement.classList.remove('grayscale-active');
+					localStorage.setItem('grayscale-theme', 'false');
+				} else {
+					document.documentElement.classList.add('grayscale-active');
+					localStorage.setItem('grayscale-theme', 'true');
+				}
+			});
+		}
+		async function dkulmtc(actionType, token = null) {
+			window.pendingCoreAction = actionType;
+			const isUpdate = actionType === 'update';
+			if (!isUpdate && !await pw6sr5c('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
+			if (isUpdate && !token) toggleUpdateModal(false);
+			const btn = isUpdate ? document.getElementById('update-toggle') : document.querySelector('button[title="ری استارت پـنـل"]');
+			if (btn) {
+				btn.disabled = true;
+				if (!isUpdate) btn.classList.add('animate-pulse');
+			}
+			if (isUpdate && !token) alert('در حال دریافت و اعمال آپدیت... لطفاً چند ثانیه صبر کنید.');
+			try {
+				const reqBody = token ? JSON.stringify({ cf_token: token }) : "{}";
+				const res = await fetch(isUpdate ? '/api/update-panel' : '/api/restart-core', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: isUpdate ? reqBody : undefined
+				});
+				const data = await res.json();
+				if (res.status === 400 && data.error === "TOKEN_REQUIRED") {
+					toggleTokenModal(true);
+					if (btn) {
+						btn.disabled = false;
+						if (!isUpdate) btn.classList.remove('animate-pulse');
+					}
+					return;
+				}
+				if (res.ok && data.success) {
+					if (isUpdate) {
+						const successModal = document.getElementById('update-success-modal');
+						const successCard = successModal.querySelector('div');
+						successModal.classList.remove('opacity-0', 'pointer-events-none');
+						successModal.classList.add('opacity-100', 'pointer-events-auto');
+						successCard.classList.remove('opacity-0', 'scale-95');
+						successCard.classList.add('opacity-100', 'scale-100');
+						setTimeout(() => {
+							sessionStorage.setItem('lu_k3', Date.now());
+							window.location.href = window.location.pathname + '?t=' + Date.now();
+						}, 10000);
+					} else {
+						alert('پـنـل ری استارت شد صفحه رفرش می شود.');
+						window.location.href = window.location.pathname + '?t=' + Date.now();
+					}
+				} else {
+					alert(isUpdate ? 'خطا در بروزرسانی. لطفاً با استفاده از " ربات" اقدام کنید.' : 'خطا در ری‌استارت پـنـل: ' + (data.error || 'ناشناخته'));
+					if (btn) {
+						btn.disabled = false;
+						if (!isUpdate) btn.classList.remove('animate-pulse');
+					}
+				}
+			} catch (err) {
+				alert(isUpdate ? 'خطا در ارتباط با سرور. لطفاً از گزینه آپدیت دستی استفاده کنید.' : 'خطا در ارتباط با سرور.');
+				if (btn) {
+					btn.disabled = false;
+					if (!isUpdate) btn.classList.remove('animate-pulse');
+				}
+			}
+		}
+		async function restartCore() {
+			await dkulmtc('restart');
+		}
+		async function axmsbp4(silent = false) {
+			if (window.isDraggingRow) return; 
+			const loadingState = document.getElementById('loading-state');
+			const tableContainer = document.getElementById('users-table-container');
+			const emptyState = document.getElementById('empty-state');
+			if (!silent) {
+				loadingState.classList.remove('hidden');
+				tableContainer.classList.add('hidden');
+				emptyState.classList.add('hidden');
+			}
+			try {
+				const res = await fetch('/api/users?t=' + Date.now());
+				if (!res.ok) throw new Error();
+				const data = await res.json();
+				aisb7wy(data);
+			} catch (err) {
+				if (!silent) {
+					loadingState.innerHTML = '<span class="text-red-500">خطا در دریافت اطلاعات از سرور</span>';
+				}
+			}
+		}
+		function aisb7wy(data) {
+			try {
+				const users = data.users || [];
+				window.allUsers = users;
+				const serverTime = data.serverTime || Date.now();
+				window.lastServerTime = serverTime;
+				const totalUsersCount = users.length;
+				const activeUsersCount = users.reduce((sum, u) => sum + (u.online_count || 0), 0);
+				const totalGbUsage = users.reduce((sum, u) => sum + (u.lifetime_used_gb || u.used_gb || 0), 0);
+				document.getElementById('stat-total-users').innerText = totalUsersCount;
+				document.getElementById('stat-active-users').innerText = activeUsersCount;
+				document.getElementById('stat-total-usage').innerText = totalGbUsage < 1 ? (totalGbUsage * 1024).toFixed(0) + ' MB' : totalGbUsage.toFixed(2) + ' GB';
+				const d1Reads = data.d1Reads || 0;
+				const d1Writes = data.d1Writes || 0;
+				const d1WritesEl = document.getElementById('stat-d1-writes');
+				if (d1WritesEl) d1WritesEl.innerText = d1Writes >= 1000 ? (d1Writes / 1000).toFixed(1) + 'k' : d1Writes;
+				const d1ReadsEl = document.getElementById('stat-d1-reads');
+				if (d1ReadsEl) d1ReadsEl.innerText = d1Reads >= 1000000 ? (d1Reads / 1000000).toFixed(2) + 'M' : (d1Reads >= 1000 ? (d1Reads / 1000).toFixed(1) + 'k' : d1Reads);
+				const cfRequests = data.cfRequestsToday || 0;
+				const reqCard = document.getElementById('card-cf-requests');
+				const warningBtn = document.getElementById('cf-warning-btn');
+				if (cfRequests >= 90000) {
+					if (reqCard) {
+						reqCard.className = "bg-red-50 dark:bg-red-950/20 border border-red-500 rounded-md p-2.5 shadow-[0_0_15px_rgba(239,68,68,0.4)] flex flex-col justify-center gap-1 hover:shadow-md transition duration-300 relative overflow-hidden group min-h-[64px] animate-pulse";
+					}
+					if (warningBtn) {
+						warningBtn.classList.remove('hidden');
+					}
+					if (!window.hasShownUsageWarning) {
+						openUsageWarning();
+						window.hasShownUsageWarning = true;
+					}
+				} else {
+					if (reqCard) {
+						reqCard.className = "bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md p-2.5 shadow-sm flex flex-col justify-center gap-1 hover:shadow-md hover:border-orange-400 dark:hover:border-orange-500/50 transition duration-300 relative overflow-hidden group min-h-[64px]";
+					}
+					if (warningBtn) {
+						warningBtn.classList.add('hidden');
+					}
+				}
+				const cfTotal = data.cfRequestsTotal || 0;
+				document.getElementById('stat-cf-requests').innerText = cfRequests >= 1000 ? (cfRequests / 1000).toFixed(1) + 'k' : cfRequests;
+				document.getElementById('stat-cf-total').innerText = cfTotal >= 1000000 ? (cfTotal / 1000000).toFixed(2) + 'M' : (cfTotal >= 1000 ? (cfTotal / 1000).toFixed(1) + 'k' : cfTotal);
+				const progressPercent = Math.min((cfRequests / 100000) * 100, 100);
+				document.getElementById('stat-cf-progress').style.width = progressPercent + '%';
+				filterAndRenderUsers();
+			} catch (err) {
+				document.getElementById('loading-state').innerHTML = '<span class="text-red-500">خطا در پردازش اطلاعات کاربران</span>';
+			}
+		}
+		function filterAndRenderUsers() {
+			if (!window.allUsers) return;
+			const searchQuery = (document.getElementById('search-input').value || '').toLowerCase().trim();
+			const filterStatus = document.getElementById('filter-status').value;
+			const sortVal = document.getElementById('sort-users').value;
+			const serverTime = window.lastServerTime || Date.now();
+			let filtered = [...window.allUsers];
+			if (searchQuery) {
+				filtered = filtered.filter(u => 
+					(u.username || '').toLowerCase().includes(searchQuery) || 
+					(u.uuid || '').toLowerCase().includes(searchQuery)
+				);
+			}
+			if (filterStatus !== 'all') {
+				filtered = filtered.filter(u => {
+					const isOnline = u.is_online === 1;
+					const isActive = u.is_active === 1;
+					let isExpired = false;
+					if (u.limit_gb && u.used_gb >= u.limit_gb) isExpired = true;
+					if (u.expiry_days && u.created_at) {
+						const created = new Date(u.created_at);
+						const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
+						if (new Date(serverTime) > expiryDate) isExpired = true;
+					}
+					if (filterStatus === 'active') return isActive && !isExpired;
+					if (filterStatus === 'inactive') return !isActive;
+					if (filterStatus === 'online') return isOnline;
+					if (filterStatus === 'offline') return !isOnline;
+					if (filterStatus === 'expired') return isExpired || !isActive;
+					return true;
+				});
+			}
+			const customOrderStr = localStorage.getItem('uo_k3');
+			let customOrder = [];
+			try { customOrder = JSON.parse(customOrderStr || '[]'); } catch(e) {}
+			filtered.sort((a, b) => {
+				if (sortVal === 'newest' && customOrder.length > 0) {
+					const indexA = customOrder.indexOf(a.username);
+					const indexB = customOrder.indexOf(b.username);
+					if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+					if (indexA !== -1) return -1;
+					if (indexB !== -1) return 1;
+				}
+				if (sortVal === 'newest') {
+					return b.id - a.id;
+				}
+				if (sortVal === 'name') {
+					return (a.username || '').localeCompare(b.username || '');
+				}
+				if (sortVal === 'usage-desc') {
+					return (b.used_gb || 0) - (a.used_gb || 0);
+				}
+				if (sortVal === 'usage-asc') {
+					return (a.used_gb || 0) - (b.used_gb || 0);
+				}
+				if (sortVal === 'expiry-asc') {
+					const getRemaining = (u) => {
+						if (!u.expiry_days) return Infinity;
+						if (!u.created_at) return Infinity;
+						const created = new Date(u.created_at);
+						const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
+						return expiryDate - new Date(serverTime);
+					};
+					return getRemaining(a) - getRemaining(b);
+				}
+				return 0;
+			});
+			hn4ik24(filtered, serverTime);
+		}
+		function hn4ik24(users, serverTime) {
+			const loadingState = document.getElementById('loading-state');
+			const tableContainer = document.getElementById('users-table-container');
+			const emptyState = document.getElementById('empty-state');
+			const tbody = document.getElementById('users-tbody');
+			if (users.length === 0) {
+				loadingState.classList.add('hidden');
+				emptyState.classList.remove('hidden');
+				tableContainer.classList.add('hidden');
+				if (window.allUsers && window.allUsers.length > 0) {
+					emptyState.querySelector('p').innerText = 'کاربری با مشخصات جستجو شده یافت نشد.';
+				} else {
+					emptyState.querySelector('p').innerText = 'کاربری وجود ندارد. برای ساخت اولین کاربر روی دکمه « + » کلیک کنید یا از دکمه ⚡️ برای ایجاد سریع کاربر استفاده کنید.';
+				}
+			} else {
+				loadingState.classList.add('hidden');
+				emptyState.classList.add('hidden');
+				tableContainer.classList.remove('hidden');
+				let proxyFlagCache = {};
+				try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
+				tbody.innerHTML = users.map(user => {
+					let daysRemaining = 'نامحدود';
+					let daysPercent = 100;
+					let isTimerPending = false;
+					if (user.expiry_days) {
+						if (user.start_on_first_connect === 1) {
+							if (!user.first_connection_time) {
+								daysRemaining = user.expiry_days;
+								daysPercent = 100;
+								isTimerPending = true;
+							} else {
+								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
+								const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
+								daysRemaining = diffDays > 0 ? diffDays : 0;
+								daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
+							}
+						} else if (user.created_at) {
+							const created = new Date(user.created_at);
+							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
+							const diffDays = Math.ceil((expiryDate - new Date(serverTime)) / (1000 * 60 * 60 * 24));
+							daysRemaining = diffDays > 0 ? diffDays : 0;
+							daysPercent = Math.max(0, Math.min(100, (daysRemaining / user.expiry_days) * 100));
+						} else {
+							daysRemaining = user.expiry_days;
+						}
+					}
+					const usedGb = user.used_gb || 0;
+					const formattedUsed = usedGb < 1 ? (usedGb * 1024).toFixed(0) + ' MB' : usedGb.toFixed(2) + ' GB';
+					const usedReq = user.used_req || 0;
+					let reqHtml = '';
+					if (user.limit_req) {
+						const reqPercent = Math.min((usedReq / user.limit_req) * 100, 100);
+						const reqHue = 120 - (reqPercent * 1.2);
+						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none font-bold" dir="ltr">' + user.limit_req.toLocaleString() + '</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + reqPercent + '%; background-color: hsl(' + reqHue + ', 80%, 45%)"></div>' +
+							'</div>' +
+						'</div>';
+					} else {
+						reqHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + usedReq.toLocaleString() + '</span>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"req\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none text-[12px] font-bold">∞</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
+							'</div>' +
+						'</div>';
+					}
+					let volumeHtml = '';
+					if (user.limit_gb) {
+						const limitPercent = Math.min((usedGb / user.limit_gb) * 100, 100);
+						const limitHue = 120 - (limitPercent * 1.2);
+						const formattedLimit = user.limit_gb < 1 ? (user.limit_gb * 1024).toFixed(0) + 'MB' : user.limit_gb + 'GB';
+						const formattedUsedClean = usedGb < 1 ? (usedGb * 1024).toFixed(0) + 'MB' : usedGb.toFixed(2) + 'GB';
+						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none font-bold" dir="ltr">' + formattedLimit + '</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + limitPercent + '%; background-color: hsl(' + limitHue + ', 80%, 45%)"></div>' +
+							'</div>' +
+						'</div>';
+					} else {
+						const formattedUsedClean = usedGb < 1 ? (usedGb * 1024).toFixed(0) + 'MB' : usedGb.toFixed(2) + 'GB';
+						volumeHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + formattedUsedClean + '</span>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"volume\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none text-[12px] font-bold">∞</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
+							'</div>' +
+						'</div>';
+					}
+					let expiryHtml = '';
+					if (user.expiry_days) {
+						const expiryHue = daysPercent * 1.2;
+						const remainingLabel = isTimerPending ? '<span class="text-blue-600 dark:text-blue-400 leading-none font-bold text-[8px]" dir="rtl" title="شمارش پس از اولین اتصال آغاز می‌شود">' + daysRemaining + ' روز (اولین اتصال)</span>' : '<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="rtl">' + daysRemaining + ' روز</span>';
+						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								remainingLabel +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none font-bold" dir="rtl">' + user.expiry_days + ' روز</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden flex justify-end">' +
+								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + daysPercent + '%; background-color: ' + (isTimerPending ? '#3b82f6' : 'hsl(' + expiryHue + ', 80%, 45%)') + '"></div>' +
+							'</div>' +
+						'</div>';
+					} else {
+						expiryHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold text-[12px]">∞</span>' +
+								'<button data-user=\"' + encodeURIComponent(user.username) + '\" data-action=\"time\" onclick=\"resetUserData(this.dataset.user, this.dataset.action)\" title=\"ریست\" class=\"mx-1.5 w-3.5 h-3.5 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full border border-amber-200 dark:border-amber-800 transition shadow-sm cursor-pointer flex-shrink-0\"><svg class=\"w-2.5 h-2.5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\"></path></svg></button>' +
+								'<span class="leading-none text-[12px] font-bold">∞</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="w-full h-full bg-blue-500 rounded-full transition-all duration-500"></div>' +
+							'</div>' +
+						'</div>';
+					}
+					const onlineCount = user.online_count || 0;
+					const limit = user.ip_limit !== undefined ? user.ip_limit : user.max_connections;
+					let onlineHtml = '';
+					if (limit) {
+						const onlinePercent = Math.min((onlineCount / limit) * 100, 100);
+						const onlineHue = 120 - (onlinePercent * 1.2);
+						onlineHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + onlineCount + '</span>' +
+								'<span class="leading-none font-bold" dir="ltr">' + limit + '</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="h-full rounded-full transition-all duration-500" style="width: ' + onlinePercent + '%; background-color: hsl(' + onlineHue + ', 80%, 45%)"></div>' +
+							'</div>' +
+						'</div>';
+					} else {
+						onlineHtml = '<div class="flex flex-col gap-1.5 w-full min-w-[65px] max-w-[90px] mx-auto select-none">' +
+							'<div class="flex flex-row items-center justify-between text-[9px] text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">' +
+								'<span class="text-gray-800 dark:text-zinc-200 leading-none font-bold" dir="ltr">' + onlineCount + '</span>' +
+								'<span class="leading-none text-[12px] font-bold">∞</span>' +
+							'</div>' +
+							'<div class="w-full h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">' +
+								'<div class="h-full ' + (onlineCount > 0 ? 'bg-green-600' : 'bg-gray-400') + ' rounded-full transition-all duration-500" style="width: 100%"></div>' +
+							'</div>' +
+						'</div>';
+					}
+					let isExpired = false;
+					if (user.limit_gb && (user.used_gb || 0) >= user.limit_gb) isExpired = true;
+					if (user.limit_req && (user.used_req || 0) >= user.limit_req) isExpired = true;
+					if (user.expiry_days) {
+						if (user.start_on_first_connect === 1) {
+							if (user.first_connection_time) {
+								const expiryDate = new Date(user.first_connection_time + (user.expiry_days * 24 * 60 * 60 * 1000));
+								if (new Date(serverTime) > expiryDate) isExpired = true;
+							}
+						} else if (user.created_at) {
+							const created = new Date(user.created_at);
+							const expiryDate = new Date(created.getTime() + (user.expiry_days * 24 * 60 * 60 * 1000));
+							if (new Date(serverTime) > expiryDate) isExpired = true;
+						}
+					}
+					const isEffectivelyActive = user.is_active !== 0 && !isExpired;
+					const statusBtnColor = user.is_active === 0 ? 'text-green-700 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/30' : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30';
+					const statusBtnTitle = user.is_active === 0 ? 'فعال کردن کاربر' : 'قطع کردن کاربر';
+					const statusBtnIcon = user.is_active === 0 
+						? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
+						: '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+					const isChecked = (window.selectedUsernames && window.selectedUsernames.has(user.username)) ? 'checked' : '';
+					let locBadge = '';
+					if (user.user_proxy_iata) {
+						const iata = user.user_proxy_iata.toUpperCase();
+						const flag = typeof b00aqjk === 'function' ? b00aqjk(iata) : '🌐';
+						locBadge = '<div class="flex justify-center mt-1"><span title="کشور: ' + iata + '" class="text-base leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + flag + '</span></div>';
+					} else if (user.user_socks5 || user.user_proxy_ip) {
+						let proxyList = [];
+						try {
+							if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+								proxyList = JSON.parse(user.user_socks5);
+							} else {
+								proxyList = [user.user_socks5 || user.user_proxy_ip];
+							}
+						} catch(e) {
+							proxyList = [user.user_socks5 || user.user_proxy_ip];
+						}
+
+						let numFlags = proxyList.length;
+						let layout = [];
+						if (numFlags === 1) layout = [1];
+						else if (numFlags === 2) layout = [2];
+						else if (numFlags === 3) layout = [3];
+						else if (numFlags === 4) layout = [2, 2];
+						else if (numFlags === 5) layout = [3, 2];
+						else if (numFlags === 6) layout = [3, 3];
+						else if (numFlags === 7) layout = [4, 3];
+						else if (numFlags === 8) layout = [4, 4];
+						else if (numFlags === 9) layout = [5, 4];
+						else if (numFlags === 10) layout = [4, 4, 2];
+						else if (numFlags === 11) layout = [4, 4, 3];
+						else if (numFlags === 12) layout = [4, 4, 4];
+						else if (numFlags === 13) layout = [5, 5, 3];
+						else if (numFlags === 14) layout = [5, 5, 4];
+						else {
+							let remaining = numFlags;
+							while (remaining > 0) {
+								layout.push(Math.min(remaining, 5));
+								remaining -= 5;
+							}
+						}
+
+						let flagSizeClass = 'text-base';
+						if (numFlags > 12) flagSizeClass = 'text-[9px]';
+						else if (numFlags >= 9) flagSizeClass = 'text-[10px]';
+						else if (numFlags > 4) flagSizeClass = 'text-xs';
+
+						const flagsHtmlArray = proxyList.map(item => {
+							const targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
+							const targetCountry = typeof item === 'object' && item !== null ? item.country : null;
+							if (targetCountry && typeof b00aqjk === 'function') {
+								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(targetCountry) + '</span>';
+							}
+							const cachedFlag = proxyFlagCache[targetProxy];
+							if (cachedFlag && typeof cachedFlag === 'string' && /^[a-zA-Z]{2}$/.test(cachedFlag) && typeof b00aqjk === 'function') {
+								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(cachedFlag) + '</span>';
+							} else {
+								return '<span data-proxy="' + targetProxy + '" title="پـروکـسـی اختصاصی" class="async-proxy-flag ' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">⏳</span>';
+							}
+						});
+
+						let rowsHtml = '';
+						let startIndex = 0;
+						for (let r = 0; r < layout.length; r++) {
+							let rowCount = layout[r];
+							let rowItems = flagsHtmlArray.slice(startIndex, startIndex + rowCount).join('');
+							rowsHtml += '<div class="flex justify-center gap-0.5">' + rowItems + '</div>';
+							startIndex += rowCount;
+						}
+						locBadge = '<div class="flex flex-col gap-0.5 justify-center items-center mt-1 w-max mx-auto" dir="ltr">' + rowsHtml + '</div>';
+					}
+					let proxyListConfig = [];
+					try {
+						if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+							proxyListConfig = JSON.parse(user.user_socks5);
+						} else if (user.user_socks5 || user.user_proxy_ip) {
+							proxyListConfig = [user.user_socks5 || user.user_proxy_ip];
+						} else {
+							proxyListConfig = [null];
+						}
+					} catch(e) {
+						proxyListConfig = [user.user_socks5 || user.user_proxy_ip];
+					}
+					if (!Array.isArray(proxyListConfig) || proxyListConfig.length === 0) proxyListConfig = [null];
+					let hasDir = proxyListConfig.some(function(p) { return p === null || p === ""; });
+					if (!hasDir) proxyListConfig.push(null);
+					let numProxies = proxyListConfig.length;
+					let numIps = user.ips ? user.ips.split('\\n').filter(function(ip) { return ip.trim().length > 0; }).length : 1;
+					if (numIps === 0) numIps = 1;
+					let numPorts = String(user.port || '443').split(',').filter(function(p) { return p.trim().length > 0; }).length;
+					if (numPorts === 0) numPorts = 1;
+					let pfCount = wbfdlk4(user);
+					let protoCount = (pfCount.vless ? 1 : 0) + (pfCount.trojan ? 1 : 0) + (pfCount.ss ? 1 : 0);
+					if (protoCount === 0) protoCount = 1;
+					let totalConfigs = numProxies * numIps * numPorts * protoCount;
+					let configColorClass = 'text-green-800 dark:text-green-700';
+					if (totalConfigs > 100) configColorClass = 'text-red-600 dark:text-red-500';
+					else if (totalConfigs > 80) configColorClass = 'text-orange-500';
+					else if (totalConfigs > 50) configColorClass = 'text-amber-500';
+					else if (totalConfigs > 20) configColorClass = 'text-green-500';
+					let configsCountHtml = '<span class="font-black text-base ' + configColorClass + '" dir="ltr">' + totalConfigs + '</span>';
+					return '<tr class="group transition-all drop-shadow-sm bg-white/40 dark:bg-zinc-900/20" data-username="' + user.username + '">' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 rounded-r-md border-y border-r border-gray-200 dark:border-zinc-800 text-center select-none">' +
+									'<div class="flex items-center justify-center gap-1">' +
+										'<input type="checkbox" name="select-user" value="' + encodeURIComponent(user.username) + '" onchange="onUserSelectChange(this)" ' + isChecked + ' class="w-4 h-4 rounded-md border-2 border-gray-300 dark:border-zinc-700 text-blue-600 bg-white dark:bg-zinc-800 checked:bg-blue-600 checked:border-blue-600 focus:ring-blue-500/50 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95">' +
+										'<span class="drag-handle text-gray-400 hover:text-gray-600 dark:hover:text-zinc-200 cursor-grab active:cursor-grabbing font-bold text-base select-none px-1" title="جابجایی">☰</span>' +
+									'</div>' +
+								'</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800 text-center">' +
+									'<div class="flex flex-col items-center justify-center gap-1.5 w-full max-w-[120px] mx-auto select-none">' +
+										'<div class="flex flex-row items-center justify-center gap-1">' +
+											(!isEffectivelyActive ? '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 rounded">غیرفعال</span>' : '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded">فعال</span>') +
+											(user.is_online === 1 ? '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-green-600 text-white rounded animate-pulse" dir="rtl">' + user.online_count + '</span>' : '<span class="px-1 py-0 h-3.5 inline-flex items-center justify-center leading-none text-[9px] font-medium bg-gray-200 text-gray-600 dark:bg-zinc-800 dark:text-zinc-400 rounded">آفلاین</span>') +
+										'</div>' +
+										'<span class="font-bold text-gray-900 dark:text-zinc-100 text-xs truncate max-w-full pt-0.5 leading-normal">' + user.username + '</span>' +
+										locBadge +
+									'</div>' +
+								'</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800 text-center">' +
+									'<div class="grid grid-cols-2 gap-1 w-max mx-auto">' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyConfig(this.dataset.user)" title="کپی کـانفـیگ" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-blue-50 dark:bg-blue-950/40 border border-blue-300 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-600 dark:text-blue-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="editUser(this.dataset.user)" title="ویرایش" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-green-50 dark:bg-green-950/40 border border-green-300 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/60 text-green-600 dark:text-green-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="deleteUser(this.dataset.user)" title="حذف" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 rounded-full transition shadow-sm"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="toggleUserStatus(this.dataset.user)" title="' + statusBtnTitle + '" class="w-[24px] h-[24px] p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 ' + statusBtnColor + ' rounded-full transition shadow-sm">' + statusBtnIcon + '</button>' +
+									'</div>' +
+								'</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' +
+									'<div class="flex flex-col gap-1 w-[100px] mx-auto">' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySubLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-full text-[9px] font-bold transition border border-indigo-200 dark:border-indigo-800">' +
+											'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>' +
+											'ساب متنی' +
+										'</button>' +
+										'<div class="flex flex-row gap-1 w-full h-[24px]">' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copySingboxLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-full text-[9px] font-bold transition border border-purple-200 dark:border-purple-800 whitespace-nowrap">' +
+												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>' +
+												'Sing-box' +
+											'</button>' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSingboxQr(this.dataset.user)" title="QR Sing-box" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-full transition border border-purple-200 dark:border-purple-800">' +
+												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>' +
+											'</button>' +
+										'</div>' +
+										'<div class="flex flex-row gap-1 w-full h-[24px]">' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyStatusLink(this.dataset.user)" class="flex-1 h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-full text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
+												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' +
+												'وضعیت' +
+											'</button>' +
+											'<button data-user="' + encodeURIComponent(user.username) + '" onclick="showSubQr(this.dataset.user)" title="QR ساب" class="w-[24px] h-[24px] flex-shrink-0 p-0 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 rounded-full transition border border-amber-200 dark:border-amber-800">' +
+												'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>' +
+											'</button>' +
+										'</div>' +
+									'</div>' +
+								'</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 border-y border-gray-200 dark:border-zinc-800 text-center">' + configsCountHtml + '</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1 border-y border-gray-200 dark:border-zinc-800 text-xs">' +
+									(function() {
+										var pts = String(user.port || "").split(",").map(function(p){ return p.trim(); }).filter(function(p){ return p !== ""; });
+										if (pts.length === 0) return "";
+										var r = Math.min(pts.length, 3);
+										return '<div class="grid grid-flow-col gap-1 w-max mx-auto items-center" style="grid-template-rows: repeat(' + r + ', auto);">' +
+											pts.map(function(p) {
+												var isTls = tlsPorts.includes(p);
+												var isNonTls = nonTlsPorts.includes(p);
+												var colorClass = isTls ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' : 
+																 isNonTls ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400' : 
+																 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
+												return '<span class="inline-flex items-center justify-center px-1.5 h-[18px] text-[10px] font-semibold rounded ' + colorClass + '">' + p + '</span>';
+											}).join("") +
+										'</div>';
+									})() +
+								'</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + volumeHtml + '</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + reqHtml + '</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' + expiryHtml + '</td>' +
+								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 rounded-l-md border-y border-l border-gray-200 dark:border-zinc-800">' + onlineHtml + '</td>' +
+								'</tr>';
+				}).join('');
+				i5ta7ay();
+				if (typeof y9x0sl1 === 'function') {
+					setTimeout(y9x0sl1, 50);
+				}
+				if (window.usersSortable) {
+					window.usersSortable.destroy();
+				}
+				window.usersSortable = new Sortable(document.getElementById('users-tbody'), {
+					handle: '.drag-handle',
+					animation: 250,
+					ghostClass: "opacity-30",
+					delay: 200,
+					delayOnTouchOnly: true,
+					touchStartThreshold: 5,
+					onChoose: function () {
+						window.isDraggingRow = true;
+					},
+					onUnchoose: function () {
+						window.isDraggingRow = false;
+					},
+					onStart: function () {
+						window.isDraggingRow = true;
+					},
+					onEnd: function (evt) {
+						window.isDraggingRow = false;
+						const newOrder = Array.from(evt.to.children).map(tr => tr.getAttribute('data-username')).filter(Boolean);
+						localStorage.setItem('uo_k3', JSON.stringify(newOrder));
+					}
+				});
+			}
+		}
+		async function resetUserData(encodedUsername, actionType) {
+			const username = decodeURIComponent(encodedUsername);
+			let actionName = '';
+			if (actionType === 'volume') actionName = 'حجم';
+			else if (actionType === 'req') actionName = 'ریکوئست';
+			else if (actionType === 'time') actionName = 'زمان';
+			if (await pw6sr5c('آیا از ریست کردن ' + actionName + ' کاربر ' + username + ' مطمئن هستید؟')) {
+				try {
+					const response = await fetch('/api/users/' + encodeURIComponent(username), {
+						method: 'PUT',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ reset_action: actionType })
+					});
+					if (response.ok) {
+						alert('عملیات با موفقیت انجام شد.');
+						await axmsbp4(true);
+					} else {
+						const errData = await response.json();
+						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+					}
+				} catch (err) {
+					alert('خطا در برقراری ارتباط با سرور');
+				}
+			}
+		}
+		async function toggleUserStatus(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			try {
+				const response = await fetch('/api/users/' + encodeURIComponent(username), {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ toggle_only: true })
+				});
+				if (response.ok) {
+					await axmsbp4(true);
+				} else {
+					const errData = await response.json();
+					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			}
+		}
+		async function handleFormSubmit(event) {
+			event.preventDefault();
+			jutlx8s(isEditMode ? 'در حال ذخیره تغییرات...' : 'در حال ایجاد...', true);
+			const username = document.getElementById('input-name').value;
+			const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+			if (!usernameRegex.test(username)) {
+				alert('⚠️ نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد، خط تیره (-) و آندرلاین (_) باشد!');
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+				return;
+			}
+			const limit = document.getElementById('input-limit').value || null;
+			const expiry = document.getElementById('input-expiry').value || null;
+			const reqLimit = document.getElementById('input-req-limit').value || null;
+			const ipLimit = document.getElementById('input-ip-limit').value || null;
+			if (limit !== null && parseFloat(limit) < 0) { alert('⚠️ حجم نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			if (expiry !== null && parseInt(expiry) < 0) { alert('⚠️ زمان (روز) نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			if ((reqLimit !== null && parseInt(reqLimit) < 0) || (ipLimit !== null && parseInt(ipLimit) < 0)) { alert('⚠️ محدودیت‌ها نمی‌توانند منفی باشند!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			const autoResetToggle = document.getElementById('input-auto-reset-toggle').checked;
+			const autoResetVolDays = document.getElementById('input-auto-reset-vol').value;
+			const autoResetReqDays = document.getElementById('input-auto-reset-req').value;
+			if (autoResetToggle) {
+				const volDays = parseInt(autoResetVolDays) || 0;
+				const reqDays = parseInt(autoResetReqDays) || 0;
+				if (volDays <= 0 && reqDays <= 0) {
+					alert('⚠️ وقتی تیک تمدید خودکار روشن است، باید حداقل یکی از فیلدها (زمان تمدید حجم یا ریکوئست) را پر کنید!');
+					jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+					return;
+				}
+			}
+			const customPortsRaw = document.getElementById('input-custom-ports') ? document.getElementById('input-custom-ports').value : '';
+			const customPortsArray = customPortsRaw.replace(/ +/g, ',').split(',').map(p => p.trim()).filter(p => p.length > 0);
+			const checkedPorts = Array.from(document.querySelectorAll('input[name="ports"]:checked')).map(cb => cb.value).concat(customPortsArray);
+			const block_porn = document.getElementById('input-block-porn').checked ? 1 : 0;
+			const block_ads = document.getElementById('input-block-ads').checked ? 1 : 0;
+			const enable_direct = document.getElementById('input-enable-direct') ? (document.getElementById('input-enable-direct').checked ? 1 : 0) : 1;
+			const isFragEnabled = document.getElementById('input-frag-toggle').checked;
+			const frag_len = isFragEnabled ? (document.getElementById('input-frag-len').value || "200-3000") : "";
+			const frag_int = isFragEnabled ? (document.getElementById('input-frag-int').value || "1-2") : "";
+			const isAutoReset = document.getElementById('input-auto-reset-toggle').checked;
+			const auto_reset_vol_days = isAutoReset ? parseInt(document.getElementById('input-auto-reset-vol').value) || 0 : 0;
+			const auto_reset_req_days = isAutoReset ? parseInt(document.getElementById('input-auto-reset-req').value) || 0 : 0;
+			const auto_rotate_ip = parseInt(document.getElementById('hidden-auto-rotate').value) || 0;
+			const rotate_time = parseInt(document.getElementById('hidden-rotate-time').value) || 0;
+			const ip_operator = document.getElementById('hidden-ip-operator').value || 'all';
+			const ip_count = parseInt(document.getElementById('hidden-ip-count').value) || 20;
+			const userProxyMode = document.getElementById('user-proxy-mode-toggle') ? document.getElementById('user-proxy-mode-toggle').checked : false;
+			let userSocks5 = null;
+			if (userProxyMode && window.proxyFieldsData && window.proxyFieldsData.length > 0) {
+				const cleanProxies = window.proxyFieldsData.map(p => p ? p.trim() : "").filter(p => p !== "");
+				if (cleanProxies.length === 1) {
+					userSocks5 = cleanProxies[0];
+				} else if (cleanProxies.length > 1) {
+					userSocks5 = JSON.stringify(cleanProxies);
+				}
+			}
+			const auto_rotate_user_proxy = document.getElementById('input-auto-rotate-user-proxy') ? (document.getElementById('input-auto-rotate-user-proxy').checked ? 1 : 0) : 0;
+			const start_on_first_connect = document.getElementById('input-start-on-first-connect') ? (document.getElementById('input-start-on-first-connect').checked ? 1 : 0) : 0;
+			const isAdvancedSettingsOn = document.getElementById('input-advanced-settings-toggle') ? document.getElementById('input-advanced-settings-toggle').checked : false;
+			const advanced_frag = (isAdvancedSettingsOn && document.getElementById('input-advanced-frag')) ? document.getElementById('input-advanced-frag').value.trim() : "";
+			const cipher_suites = (isAdvancedSettingsOn && document.getElementById('input-cipher-suites')) ? document.getElementById('input-cipher-suites').value.trim() : "";
+			const tls_mask = (isAdvancedSettingsOn && document.getElementById('input-tls-mask')) ? document.getElementById('input-tls-mask').value.trim() : "";
+			if (checkedPorts.length === 0) {
+				alert('⚠️ لطفا حداقل یک پورت را برای اتصال انتخاب کنید!');
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+				return;
+			}
+			const port = checkedPorts.join(',');
+			const tls = checkedPorts.some(p => tlsPorts.includes(p)) ? 'on' : 'off';
+			const ips = document.getElementById('input-ips').value;
+			const fingerprint = document.getElementById('fingerprint-select').value;
+			const selectedProtocols = [];
+			const cbV = document.getElementById('input-proto-vless');
+			const cbT = document.getElementById('input-proto-trojan');
+			const cbS = document.getElementById('input-proto-ss');
+			if (!cbV || cbV.checked) selectedProtocols.push('vl' + 'e' + 'ss');
+			if (cbT && cbT.checked) selectedProtocols.push('trojan');
+			if (cbS && cbS.checked) selectedProtocols.push('shadowsocks');
+			if (selectedProtocols.length === 0) selectedProtocols.push('vl' + 'e' + 'ss');
+			const url = isEditMode ? '/api/users/' + encodeURIComponent(editingUsername) : '/api/users';
+			const method = isEditMode ? 'PUT' : 'POST';
+			try {
+				const response = await fetch(url, {
+					method: method,
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ 
+						username, limit_gb: limit, expiry_days: expiry, limit_req: reqLimit, tls, port, ips, fingerprint, ip_limit: ipLimit, block_porn: block_porn, block_ads: block_ads, enable_direct: enable_direct, frag_len: frag_len, frag_int: frag_int,
+						user_proxy_iata: (userProxyMode && document.getElementById('input-user-iata-toggle') && document.getElementById('input-user-iata-toggle').checked) ? ((document.getElementById('input-user-proxy-iata') && document.getElementById('input-user-proxy-iata').value.trim().toUpperCase()) || window.userProxyIata || null) : null,
+						user_ipv6_enabled: (document.getElementById('input-user-ipv6-toggle') && document.getElementById('input-user-ipv6-toggle').checked) ? 1 : 0,
+						user_socks5: userSocks5 || null,
+						user_proxy_ip: null,
+						auto_reset_vol_days: auto_reset_vol_days,
+						auto_reset_req_days: auto_reset_req_days,
+						auto_rotate_ip: auto_rotate_ip,
+						rotate_time: rotate_time,
+						ip_operator: ip_operator,
+						ip_count: ip_count,
+						auto_rotate_user_proxy: auto_rotate_user_proxy,
+						start_on_first_connect: start_on_first_connect,
+						advanced_frag: advanced_frag || null,
+						cipher_suites: cipher_suites || null,
+						tls_mask: tls_mask || null,
+						protocols: selectedProtocols
+					})
+				});
+				if (response.ok) {
+					toggleModal(false);
+					await axmsbp4(true);
+				} else {
+					const errData = await response.json();
+					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+			}
+		}
+window.activeProxyIndex = 0;
+window.proxyFieldsData = [""];
+window.userProxyIata = null;
+window.updateUserIataPreview = function() {
+	const input = document.getElementById('input-user-proxy-iata');
+	const preview = document.getElementById('user-iata-flag-preview');
+	if (!preview) return;
+	const code = (input && input.value ? input.value : (window.userProxyIata || '')).trim().toUpperCase();
+	if (code && /^[A-Z]{2}$/.test(code) && typeof b00aqjk === 'function') {
+		preview.innerText = b00aqjk(code);
+	} else {
+		preview.innerText = '🌐';
+	}
+};
+window.renderProxyFieldsUI = function() {
+	const wrapper = document.getElementById("proxies-fields-wrapper");
+	const addBtn = document.getElementById("add-proxy-field-btn");
+	if (!wrapper) return;
+	wrapper.innerHTML = "";
+	window.proxyFieldsData.forEach((val, idx) => {
+		const isFocused = idx === window.activeProxyIndex;
+		const borderClass = isFocused ? "ring-2 ring-blue-500 border-blue-500" : "border-gray-200 dark:border-amoled-border";
+		const row = document.createElement("div");
+		row.className = "flex flex-col gap-0.5 w-full";
+		const proxyStr = (val || "").trim();
+		const pingObj = proxyStr ? (window.proxyPingMap && window.proxyPingMap[proxyStr]) : null;
+		const pingClass = pingObj ? pingObj.className : "text-[10px] font-bold text-center empty:hidden min-h-[0px] transition-colors";
+		const pingText = pingObj ? pingObj.text : "";
+		let inputRow = '<div class="flex items-center gap-1 w-full">' +
+			'<button type="button" onclick="swapProxyFieldUI(' + idx + ')" class="w-7 h-7 flex-shrink-0 bg-transparent border-2 border-green-500 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded flex items-center justify-center font-bold text-xs shadow-sm transition-all" title="جا به جایی پروکسی"><svg id="swap-icon-' + idx + '" class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></button>' +
+			'<input type="text" value="' + (val || "") + '" onfocus="setActiveProxyField(' + idx + ')" onclick="setActiveProxyField(' + idx + ')" oninput="updateProxyFieldData(' + idx + ', this.value)" placeholder="socks5:// یا http:// (کشور ' + (idx + 1) + ')" dir="ltr" class="flex-1 px-2 py-1.5 bg-gray-50 dark:bg-slate-900 border ' + borderClass + ' rounded text-xs font-mono focus:outline-none text-gray-800 dark:text-zinc-100 transition">';
+		if (idx > 0) {
+			inputRow += '<button type="button" onclick="removeProxyFieldUI(' + idx + ')" class="w-7 h-7 flex-shrink-0 bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded flex items-center justify-center font-bold text-xs shadow-sm" title="حذف"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>';
+		}
+		inputRow += '</div><span id="proxy-ping-label-' + idx + '" class="' + pingClass + '">' + pingText + '</span>';
+		row.innerHTML = inputRow;
+		wrapper.appendChild(row);
+	});
+	if (addBtn) {
+		addBtn.style.display = window.proxyFieldsData.length >= 5 ? "none" : "flex";
+	}
+};
+window.setActiveProxyField = function(idx) {
+	if (window.activeProxyIndex === idx) return;
+	window.activeProxyIndex = idx;
+	const wrapper = document.getElementById("proxies-fields-wrapper");
+	if (wrapper) {
+		const inputs = wrapper.querySelectorAll("input[type='text']");
+		inputs.forEach((inp, i) => {
+			if (i === idx) {
+				inp.classList.remove("border-gray-200", "dark:border-amoled-border");
+				inp.classList.add("ring-2", "ring-blue-500", "border-blue-500");
+			} else {
+				inp.classList.remove("ring-2", "ring-blue-500", "border-blue-500");
+				inp.classList.add("border-gray-200", "dark:border-amoled-border");
+			}
+		});
+	}
+};
+window.updateProxyFieldData = function(idx, val) {
+	window.proxyFieldsData[idx] = val;
+	const span = document.getElementById('proxy-ping-label-' + idx);
+	if (span) {
+		span.innerText = '';
+		span.className = 'text-[10px] font-bold text-center empty:hidden transition-colors';
+	}
+};
+window.addProxyFieldUI = function() {
+	if (window.proxyFieldsData.length < 5) {
+		window.proxyFieldsData.push("");
+		window.activeProxyIndex = window.proxyFieldsData.length - 1;
+		window.renderProxyFieldsUI();
+		setTimeout(() => {
+			const wrapper = document.getElementById("proxies-fields-wrapper");
+			if (wrapper) {
+				const inputs = wrapper.querySelectorAll("input[type='text']");
+				if (inputs[window.activeProxyIndex]) inputs[window.activeProxyIndex].focus();
+			}
+		}, 10);
+	}
+};
+window.removeProxyFieldUI = function(idx) {
+	if (window.proxyFieldsData.length > 1) {
+		window.proxyFieldsData.splice(idx, 1);
+		if (window.activeProxyIndex >= window.proxyFieldsData.length) {
+			window.activeProxyIndex = window.proxyFieldsData.length - 1;
+		}
+		window.renderProxyFieldsUI();
+	}
+};
+window.swapProxyFieldUI = async function(idx) {
+	const currentProxy = (window.proxyFieldsData[idx] || "").trim();
+	if (!currentProxy) {
+		alert("⚠️ ابتدا یک پروکسی در این فیلد وارد کنید!");
+		return;
+	}
+	const icon = document.getElementById('swap-icon-' + idx);
+	if (icon) icon.classList.add('animate-spin');
+	
+	let countryCode = "UN";
+	try {
+		const controller = new AbortController();
+		const timeoutId = setTimeout(() => controller.abort(), 2000);
+		const res = await fetch('/api/test-proxy', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ proxy: currentProxy }),
+			signal: controller.signal
+		});
+		clearTimeout(timeoutId);
+		const data = await res.json();
+		if (res.ok && data.success && data.country && data.country !== "UN") {
+			countryCode = data.country.toUpperCase();
+		}
+	} catch(e) {}
+	let candidateProxies = [];
+	let isRandomFallback = false;
+	if (countryCode !== "UN") {
+		try {
+			const resVip = await ggsyffs('proxy_vip/' + countryCode + '.txt?t=' + Date.now());
+			if (resVip.ok) {
+				const text = await resVip.text();
+				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+				candidateProxies = candidateProxies.concat(lines);
+			}
+		} catch(e) {}
+	}
+	if (candidateProxies.length <= 1 || countryCode === "UN") {
+		isRandomFallback = true;
+		let fallbackCountries = ["DE", "US", "GB", "NL", "FR", "TR"];
+		try {
+			const resVipList = await ggsyffs('vip-list?t=' + Date.now());
+			if (resVipList.ok) {
+				const files = await resVipList.json();
+				const parsed = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
+				if (parsed.length > 0) fallbackCountries = parsed;
+			}
+		} catch(e) {}
+		const randomCountry = fallbackCountries[Math.floor(Math.random() * fallbackCountries.length)];
+		try {
+			const resVip = await ggsyffs('proxy_vip/' + randomCountry + '.txt?t=' + Date.now());
+			if (resVip.ok) {
+				const text = await resVip.text();
+				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+				candidateProxies = candidateProxies.concat(lines);
+			}
+		} catch(e) {}
+	}
+	candidateProxies = [...new Set(candidateProxies)];
+	const alternatives = candidateProxies.filter(p => p !== currentProxy);
+	if (alternatives.length > 0) {
+		const newProxy = alternatives[Math.floor(Math.random() * alternatives.length)];
+		window.proxyFieldsData[idx] = newProxy;
+		if (countryCode !== "UN" && !isRandomFallback) {
+			bm3pzm2('✅ پروکسی اختصاصی (VIP) از کشور ' + countryCode + ' جایگزین شد.');
+		} else {
+			bm3pzm2('✅ یک پروکسی اختصاصی (VIP) سالم به صورت رندوم جایگزین شد.');
+		}
+		if (countryCode && countryCode !== "UN") {
+			window.userProxyIata = countryCode;
+			const iataInput = document.getElementById('input-user-proxy-iata');
+			if (iataInput) iataInput.value = countryCode;
+			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
+		}
+	} else {
+		window.proxyFieldsData[idx] = currentProxy;
+		bm3pzm2('⚠️ هیچ پروکسی اختصاصی جایگزینی در مخزن VIP یافت نشد!');
+	}
+	if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
+	testUserSocksProxy();
+};
+function ys5v6m0(modalId, show) {
+			const modal = document.getElementById(modalId);
+			if (!modal) return;
+			const card = modal.querySelector('div');
+			if (show) {
+				modal.classList.remove('opacity-0', 'pointer-events-none');
+				modal.classList.add('opacity-100', 'pointer-events-auto');
+				card.classList.remove('opacity-0', 'scale-95');
+				card.classList.add('opacity-100', 'scale-100');
+			} else {
+				modal.classList.remove('opacity-100', 'pointer-events-auto');
+				modal.classList.add('opacity-0', 'pointer-events-none');
+				card.classList.remove('opacity-100', 'scale-100');
+				card.classList.add('opacity-0', 'scale-95');
+			}
+		}
+function toggleInfoModal(show) {
+	const modal = document.getElementById('info-modal');
+	if (!modal) return;
+	const innerBox = modal.querySelector('div');
+	
+	if (show) {
+		modal.classList.remove('opacity-0', 'pointer-events-none');
+		if (innerBox) innerBox.classList.remove('opacity-0', 'scale-95');
+	} else {
+		modal.classList.add('opacity-0', 'pointer-events-none');
+		if (innerBox) innerBox.classList.add('opacity-0', 'scale-95');
+	}
+}
+
+window.deferredPwaPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+	e.preventDefault();
+	window.deferredPwaPrompt = e;
+});
+window.addEventListener('appinstalled', () => {
+	window.deferredPwaPrompt = null;
+	bm3pzm2('✅ اپلیکیشن علیرضا با موفقیت روی دستگاه شما نصب شد!');
+});
+function pok6r0g() {
+	return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function lg6eyuo() {
+	return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+function togglePwaModal(show) {
+	ys5v6m0('pwa-install-modal', show);
+}
+function d3g0pzj() {
+	const ua = navigator.userAgent;
+	const isOpera = ua.includes('OPR') || ua.includes('Opera') || ua.includes('OPT/');
+	const isEdge = ua.includes('Edg');
+	const isChrome = ua.includes('Chrome') && !isEdge && !isOpera;
+	const isFirefox = ua.includes('Firefox');
+	const isSafari = ua.includes('Safari') && !isChrome && !isEdge && !isOpera;
+	const isAndroid = /Android/i.test(ua);
+	const isIos = pok6r0g();
+	return { isOpera, isEdge, isChrome, isFirefox, isSafari, isAndroid, isIos };
+}
+function caalpq9() {
+	const info = d3g0pzj();
+	const list = document.getElementById('pwa-instructions-list');
+	const title = document.getElementById('pwa-modal-title');
+	if (!list) return;
+	list.innerHTML = '';
+	if (info.isIos) {
+		if (title) title.innerText = 'نصب روی آیفون / iOS';
+		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
+			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
+			'<span>در نوار پایین سافاری، دکمه <b>اشتراک‌گذاری (Share 📤)</b> را لمس کنید.</span>' +
+		'</div>' +
+		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
+			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
+			'<span>گزینه <b>«Add to Home Screen» (افزودن به صفحه اصلی ➕)</b> را انتخاب کنید.</span>' +
+		'</div>' +
+		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
+			'<span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۳</span>' +
+			'<span>در گوشه بالا دکمه <b>«Add» (افزودن)</b> را بزنید تا آیکون برنامه ایجاد شود.</span>' +
+		'</div>';
+	} else if (info.isOpera) {
+		if (title) title.innerText = 'نصب در مرورگر اپرا (Opera)';
+		if (info.isAndroid) {
+			list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
+				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
+				'<span>در نوار پایین اپرا، روی منوی <b>سه نقطه (⋮) یا لوگوی اپرا</b> کلیک کنید.</span>' +
+			'</div>' +
+			'<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
+				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
+				'<span>گزینه <b>«صفحه اصلی» (Home screen)</b> یا <b>«نصب برنامه»</b> را انتخاب کنید.</span>' +
+			'</div>';
+		} else {
+			list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
+				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
+				'<span>در نوار آدرس بالای اپرا (سمت راست آدرس)، روی آیکون <b>📥 (نصب)</b> کلیک کنید.</span>' +
+			'</div>' +
+			'<div class="flex items-start gap-2.5 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-200/50 dark:border-red-900/30">' +
+				'<span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
+				'<span>یا روی منوی تنظیمات سریع (Easy Setup) یا منوی سه نقطه کلیک کرده و گزینه <b>Install</b> را انتخاب کنید.</span>' +
+			'</div>';
+		}
+	} else if (info.isAndroid) {
+		if (title) title.innerText = 'نصب روی گوشی اندروید';
+		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-green-50/50 dark:bg-green-950/20 rounded-lg border border-green-200/50 dark:border-green-900/30">' +
+			'<span class="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۱</span>' +
+			'<span>روی منوی <b>سه نقطه (⋮)</b> در بالای مرورگر کلیک کنید.</span>' +
+		'</div>' +
+		'<div class="flex items-start gap-2.5 p-2.5 bg-green-50/50 dark:bg-green-950/20 rounded-lg border border-green-200/50 dark:border-green-900/30">' +
+			'<span class="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-[10px] flex-shrink-0 mt-0.5">۲</span>' +
+			'<span>گزینه <b>«نصب برنامه» (Install app)</b> یا <b>«افزودن به صفحه اصلی»</b> را انتخاب کنید.</span>' +
+		'</div>';
+	} else {
+		if (title) title.innerText = 'نصب در مرورگر دسکتاپ';
+		list.innerHTML = '<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
+			'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
+			'<span>در نوار آدرس بالای مرورگر، روی آیکون <b>نصب برنامه (🖥️ یا ➕)</b> کلیک کنید.</span>' +
+		'</div>' +
+		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
+			'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
+			'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install Alireza Panel»</b> را انتخاب نمایید.</span>' +
+		'</div>';
+	}
+}
+async function triggerPwaInstall() {
+	if (lg6eyuo()) {
+		bm3pzm2('✅ اپلیکیشن هم‌اکنون روی دستگاه شما نصب است و در حال اجرا می‌باشد.');
+		return;
+	}
+	if (window.deferredPwaPrompt) {
+		try {
+			window.deferredPwaPrompt.prompt();
+			const vlz8yee = await window.deferredPwaPrompt.userChoice;
+			if (vlz8yee.outcome === 'accepted') {
+				bm3pzm2('✅ در حال نصب اپلیکیشن...');
+			}
+			window.deferredPwaPrompt = null;
+			return;
+		} catch (err) {}
+	}
+	caalpq9();
+	togglePwaModal(true);
+}
+if ('serviceWorker' in navigator) {
+	try {
+		navigator.serviceWorker.register('/sw.js').catch(() => {});
+	} catch(e) {}
+}
+
+function downloadSrcFile() {
+	return;
+}
+		function closeUsageWarning() { ys5v6m0('usage-warning-modal', false); }
+		function openUsageWarning() { ys5v6m0('usage-warning-modal', true); }
+		function closeFreePanelWarning() { ys5v6m0('free-panel-warning-modal', false); }
+		function closeOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', false); }
+		function openOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', true); }
+		function closeConfigCountWarning() { ys5v6m0('config-count-warning-modal', false); }
+		function openConfigCountWarning() { ys5v6m0('config-count-warning-modal', true); }
+	async function cjk8rv3() {
+		return;
+	}
+		function wbfdlk4(user) {
+			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
+			var trojan = t.indexOf('trojan') !== -1;
+			var ss = t.indexOf('shadowsocks') !== -1;
+			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
+			return { vless: vless, trojan: trojan, ss: ss };
+		}
+		function fv9a4g0(username) {
+			const user = window.allUsers.find(u => u.username === username);
+			if (!user) return '';
+			const host = window.location.hostname;
+			var ips = [host];
+			if (user.ips) {
+				const parsedIps = user.ips.split('\\n').map(function(ip) { return ip.trim(); }).filter(function(ip) { return ip.length > 0; });
+				if (parsedIps.length > 0) ips = parsedIps;
+			}
+			var ports = String(user.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+			var fp = user.fingerprint || 'unsafe';
+			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
+			const pf = wbfdlk4(user);
+			const links = [];
+		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
+		const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
+		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
+		if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
+			let remVol = "Unlimited";
+			if (user.limit_gb) {
+				let rem = user.limit_gb - (user.used_gb || 0);
+				remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
+			}
+			let remTime = "Unlimited";
+			if (user.expiry_days && user.created_at) {
+				const created = new Date(user.created_at);
+				const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+				const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+				remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
+			}
+			let remReq = "Unlimited";
+			if (user.limit_req) {
+				let rem = user.limit_req - (user.used_req || 0);
+				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
+			}
+			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
+			if (window._infoConfigsEnabled) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
+			const rawPath = "/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default");
+			let proxyList = [];
+			try {
+				if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+					proxyList = JSON.parse(user.user_socks5);
+				} else if (user.user_socks5 || user.user_proxy_ip) {
+					proxyList = [user.user_socks5 || user.user_proxy_ip];
+				} else {
+					proxyList = [null];
+				}
+			} catch (e) {
+				proxyList = [user.user_socks5 || user.user_proxy_ip];
+			}
+			if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+			const allowDirect = user.enable_direct !== 0;
+			if (allowDirect) {
+				let hasDirect = proxyList.some(function(p) { return p === null || p === ""; });
+				if (!hasDirect) proxyList.push(null);
+			} else {
+				proxyList = proxyList.filter(function(p) { return p !== null && p !== ""; });
+			}
+			if (proxyList.length === 0) proxyList = [null];
+			let proxyFlagCache = {};
+			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
+			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
+				let proxyItem = proxyList[locIdx];
+				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null
+					? proxyItem.country
+					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveCountry || ""));
+				let flagEmoji = "🌐";
+				if (countryCode && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(countryCode);
+				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
+				}
+				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
+				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
+				ips.forEach((ip) => {
+					ports.forEach((portStr) => {
+						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
+						const tlsVal = isTlsPort ? "tls" : "none";
+						let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
+						if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
+						if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
+						if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
+					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
+						const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
+						if (pf.vless) links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
+						if (pf.trojan) {
+							links.push('trojan://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
+						}
+						if (pf.ss) {
+							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
+							links.push('ss://' + btoa('aes-256-gcm:' + (user.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
+						}
+					});
+				});
+			}
+			return links.join('\\n');
+		}
+		function lvwv8je(username) {
+			return window.location.origin + '/feed/' + encodeURIComponent(username);
+		}
+		function k4jgpcl(username) {
+			return window.location.origin + '/singbox/' + encodeURIComponent(username);
+		}
+		function dtzt6zg(username) {
+			return window.location.origin + '/status/' + encodeURIComponent(username);
+		}
+		function copySubLink(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			navigator.clipboard.writeText(lvwv8je(username)).then(() => {
+				alert('✅ لینک ساب متنی با موفقیت کپی شد!');
+			}).catch(() => {
+				alert('خطا در کپی کردن لینک ساب!');
+			});
+		}
+		function copySingboxLink(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			navigator.clipboard.writeText(k4jgpcl(username)).then(() => {
+				alert('✅ لینک ساب Sing-box با موفقیت کپی شد!');
+			}).catch(() => {
+				alert('خطا در کپی کردن لینک ساب Sing-box!');
+			});
+		}
+		function toggleQrModal(show, text) {
+			const container = document.getElementById('qrcode-container');
+			if (show) {
+				container.innerHTML = '';
+				const isDark = document.documentElement.classList.contains('dark');
+				const qrCode = new QRCodeStyling({
+					width: 220,
+					height: 220,
+					data: text,
+					margin: 5,
+					qrOptions: { errorCorrectionLevel: 'M' },
+					dotsOptions: {
+						color: isDark ? "#bfdbfe" : "#1e3a8a",
+						type: "rounded"
+					},
+					backgroundOptions: {
+						color: isDark ? "#0f172a" : "#ffffff"
+					},
+					cornersSquareOptions: {
+						color: isDark ? "#60a5fa" : "#1e40af",
+						type: "extra-rounded"
+					},
+					cornersDotOptions: {
+						color: isDark ? "#60a5fa" : "#1d4ed8",
+						type: "dot"
+					}
+				});
+				qrCode.append(container);
+			}
+			ys5v6m0('qr-modal', show);
+		}
+		function downloadQrCode() {
+			const container = document.getElementById('qrcode-container');
+			if (!container) return;
+			const canvas = container.querySelector('canvas');
+			const img = container.querySelector('img');
+			let dataUrl = '';
+			if (canvas) {
+				dataUrl = canvas.toDataURL("image/png");
+			} else if (img && img.src) {
+				dataUrl = img.src;
+			}
+			if (!dataUrl) {
+				alert('⚠️ تصویر QR برای دانلود یافت نشد!');
+				return;
+			}
+			const downloadAnchor = document.createElement('a');
+			downloadAnchor.href = dataUrl;
+			downloadAnchor.download = "qr_" + Date.now() + ".png";
+			document.body.appendChild(downloadAnchor);
+			downloadAnchor.click();
+			downloadAnchor.remove();
+		}
+		function showSubQr(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			const link = lvwv8je(username);
+			toggleQrModal(true, link);
+		}
+		function showSingboxQr(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			const link = k4jgpcl(username);
+			toggleQrModal(true, link);
+		}
+		function copyStatusLink(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			navigator.clipboard.writeText(dtzt6zg(username)).then(() => {
+				alert('✅ لینک صفحه وضعیت با موفقیت کپی شد!');
+			}).catch(() => {
+				alert('خطا در کپی کردن لینک صفحه وضعیت!');
+			});
+		}
+		function copyConfig(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			const link = fv9a4g0(username);
+			if (!link) return;
+			navigator.clipboard.writeText(link).then(() => {
+				alert('✅ کـانفـیگ vIees با موفقیت کپی شد!');
+			}).catch(() => {
+				alert('خطا در کپی کردن کـانفـیگ!');
+			});
+		}
+function editUser(encodedUsername) {
+	const username = decodeURIComponent(encodedUsername);
+	const user = window.allUsers.find(u => u.username === username);
+	if (!user) {
+		alert('کاربر یافت نشد!');
+		return;
+	}
+	isEditMode = true;
+	editingUsername = username;
+	if (typeof switchUserTab === 'function') switchUserTab('tab-user-info');
+	document.getElementById('modal-title').innerText = 'ویرایش کاربر: ' + username;
+	jutlx8s('ذخیره تغییرات', false);
+	const nameInput = document.getElementById('input-name');
+	nameInput.value = username;
+	nameInput.disabled = false;
+	const vlessCbE = document.getElementById('input-proto-vless');
+	const trojanCbE = document.getElementById('input-proto-trojan');
+	const ssCbE = document.getElementById('input-proto-ss');
+	const userConnType = String(user.connection_type || 'vless');
+	if (vlessCbE) vlessCbE.checked = userConnType.includes('vless') || userConnType === 'vl' + 'e' + 'ss' || (!userConnType.includes('trojan') && !userConnType.includes('shadowsocks'));
+	if (trojanCbE) trojanCbE.checked = userConnType.includes('trojan');
+	if (ssCbE) ssCbE.checked = userConnType.includes('shadowsocks');
+	document.getElementById('input-limit').value = user.limit_gb || '';
+	document.getElementById('input-expiry').value = user.expiry_days || '';
+	document.getElementById('input-start-on-first-connect').checked = user.start_on_first_connect === 1;
+	document.getElementById('input-req-limit').value = user.limit_req || '';
+	document.getElementById('input-ip-limit').value = (user.ip_limit !== undefined && user.ip_limit !== null) ? user.ip_limit : (user.max_connections || '');
+	document.getElementById('input-ips').value = user.ips || '';
+	document.getElementById('fingerprint-select').value = user.fingerprint || 'unsafe';
+	document.getElementById('hidden-auto-rotate').value = user.auto_rotate_ip || '0';
+	document.getElementById('hidden-rotate-time').value = user.rotate_time || '';
+	document.getElementById('hidden-ip-operator').value = user.ip_operator || 'all';
+	document.getElementById('hidden-ip-count').value = user.ip_count || '20';
+	document.getElementById('input-block-porn').checked = (user.block_porn === 1);
+	if (document.getElementById('input-enable-direct')) document.getElementById('input-enable-direct').checked = (user.enable_direct !== 0);
+	document.getElementById('input-block-ads').checked = (user.block_ads === 1);
+	const autoRotateUserProxyCheck = document.getElementById('input-auto-rotate-user-proxy');
+	if (autoRotateUserProxyCheck) autoRotateUserProxyCheck.checked = (user.auto_rotate_user_proxy === 1);
+	const hasAutoReset = Boolean((user.auto_reset_vol_days && user.auto_reset_vol_days > 0) || (user.auto_reset_req_days && user.auto_reset_req_days > 0));
+	const autoResetToggle = document.getElementById('input-auto-reset-toggle');
+	if (autoResetToggle) autoResetToggle.checked = hasAutoReset;
+	document.getElementById('input-auto-reset-vol').value = hasAutoReset && user.auto_reset_vol_days > 0 ? user.auto_reset_vol_days : '';
+	document.getElementById('input-auto-reset-req').value = hasAutoReset && user.auto_reset_req_days > 0 ? user.auto_reset_req_days : '';
+	window.toggleAutoResetInputs(hasAutoReset);
+	const hasFrag = Boolean(user.frag_len && user.frag_len !== "" && user.frag_int && user.frag_int !== "");
+	const fragToggle = document.getElementById('input-frag-toggle');
+	if (fragToggle) fragToggle.checked = hasFrag;
+	document.getElementById('input-frag-len').value = hasFrag ? user.frag_len : '200-3000';
+	document.getElementById('input-frag-int').value = hasFrag ? user.frag_int : '1-2';
+	window.toggleFragInputs(hasFrag);
+	const hasAdvancedSettings = Boolean(user.advanced_frag || user.cipher_suites || user.tls_mask);
+	const advancedToggle = document.getElementById('input-advanced-settings-toggle');
+	if (advancedToggle) advancedToggle.checked = hasAdvancedSettings;
+	document.getElementById('input-advanced-frag').value = user.advanced_frag || '';
+	document.getElementById('input-cipher-suites').value = user.cipher_suites || '';
+	document.getElementById('input-tls-mask').value = user.tls_mask || '';
+	window.toggleAdvancedSettingsInputs(hasAdvancedSettings);
+	const userPorts = String(user.port || '').split(',').map(p => p.trim());
+	const predefinedPorts = [...tlsPorts, ...nonTlsPorts];
+	const customPorts = userPorts.filter(p => !predefinedPorts.includes(p) && p !== '');
+	document.querySelectorAll('input[name="ports"]').forEach(cb => {
+		cb.checked = userPorts.includes(cb.value);
+	});
+	const customPortInput = document.getElementById('input-custom-ports');
+	if (customPortInput) customPortInput.value = customPorts.join(' ');
+	const userProxyToggle = document.getElementById('user-proxy-mode-toggle');
+	const userSocksInput = document.getElementById('user-socks5-input');
+	const targetProxy = user.user_socks5 || user.user_proxy_ip;
+	const userProxyResult = document.getElementById('test-user-proxy-result');
+	if (userProxyResult) userProxyResult.innerText = '';
+	window.proxyFieldsData = [""];
+	window.activeProxyIndex = 0;
+	window.userProxyIata = user.user_proxy_iata || null;
+	const iataInput = document.getElementById('input-user-proxy-iata');
+	const iataToggle = document.getElementById('input-user-iata-toggle');
+	const hasIata = Boolean(user.user_proxy_iata);
+	if (iataToggle) iataToggle.checked = hasIata;
+	if (iataInput) {
+		iataInput.value = user.user_proxy_iata || '';
+		iataInput.disabled = !hasIata;
+	}
+	if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
+	const ipv6Toggle = document.getElementById('input-user-ipv6-toggle');
+	if (ipv6Toggle) ipv6Toggle.checked = (user.user_ipv6_enabled === 1);
+	if (user.user_socks5) {
+		if (userProxyToggle) userProxyToggle.checked = true;
+		if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(true);
+		try {
+			if (user.user_socks5.trim().startsWith("[")) {
+				const arr = JSON.parse(user.user_socks5);
+				window.proxyFieldsData = arr.map(x => typeof x === "object" && x !== null ? x.proxy : x);
+			} else {
+				window.proxyFieldsData = [user.user_socks5];
+			}
+		} catch(e) {
+			window.proxyFieldsData = [user.user_socks5];
+		}
+	} else {
+		if (userProxyToggle) userProxyToggle.checked = false;
+		if (typeof window.toggleUserProxyMode === 'function') window.toggleUserProxyMode(false);
+	}
+	if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
+	toggleModal(true);
+}
+		async function deleteUser(encodedUsername) {
+			const username = decodeURIComponent(encodedUsername);
+			if (await pw6sr5c('آیا از حذف کاربر ' + username + ' مطمئن هستید؟')) {
+				try {
+					const response = await fetch('/api/users/' + encodeURIComponent(username), { method: 'DELETE' });
+					if (response.ok) {
+						alert('✅ کاربر با موفقیت حذف شد.');
+						window.selectedUsernames.delete(username);
+						await axmsbp4(true);
+					} else {
+						const errData = await response.json();
+						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
+					}
+				} catch (err) {
+					alert('خطا در برقراری ارتباط با سرور');
+				}
+			}
+		}
+		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
+		function b00aqjk(countryCode) {
+			if (!countryCode) return '<span class="flg-g">🌐</span>';
+			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
+			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
+			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
+		}
+		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS - کلاینت‌های v2ray HTML رندر نمی‌کنند */
+		function nkis0ps(countryCode) {
+			if (!countryCode) return '🌐';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return '🌐';
+			try {
+				return String.fromCodePoint(...cc.split('').map(char => 127397 + char.charCodeAt(0)));
+			} catch (e) {
+				return '🌐';
+			}
+		}
+		/* نام فارسی کشور از روی کد دو حرفی؛ داخل <option> فقط متن ساده (نه SVG) قابل نمایشه */
+		function k6io158(countryCode) {
+			if (!countryCode) return '';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return String(countryCode).toUpperCase();
+			try {
+				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
+					const dn = new Intl.DisplayNames(['fa'], { type: 'region' });
+					const name = dn.of(cc);
+					if (name && name.toUpperCase() !== cc) return name;
+				}
+			} catch (e) {}
+			return cc;
+		}
+		/* نام انگلیسی کشور از روی کد دو حرفی؛ برای چیدمان a تا z و نمایش قبل از نام فارسی */
+		function m79lr3o(countryCode) {
+			if (!countryCode) return '';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return String(countryCode).toUpperCase();
+			try {
+				if (typeof Intl !== 'undefined' && Intl.DisplayNames) {
+					const dn = new Intl.DisplayNames(['en'], { type: 'region' });
+					const name = dn.of(cc);
+					if (name && name.toUpperCase() !== cc) return name;
+				}
+			} catch (e) {}
+			return cc;
+		}
+/* --- بخش ثابت کردن کشور/آی‌پی پنل (Cloudflare) --- */
+window._globalLocationsList = window._globalLocationsList || [];
+function bturbdj(locations, activeIata) {
+	const select = document.getElementById('location-select');
+	if (!select) return;
+	const sorted = locations.slice().sort((a, b) => m79lr3o(a.cca2).localeCompare(m79lr3o(b.cca2)));
+	let html = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
+	sorted.forEach(loc => {
+		if (loc.iata && loc.city) {
+			const isSelected = activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase() ? 'selected' : '';
+			const flag = nkis0ps(loc.cca2);
+			const countryNameEn = m79lr3o(loc.cca2);
+			const countryName = k6io158(loc.cca2);
+			html += '<option value="' + loc.iata + '" data-cca2="' + (loc.cca2 || '') + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
+		}
+	});
+	select.innerHTML = html;
+}
+function filterGlobalLocations() {
+	const q = (document.getElementById('global-location-search').value || '').toLowerCase().trim();
+	const select = document.getElementById('location-select');
+	if (!select) return;
+	const activeIata = select.value;
+	if (!q) { bturbdj(window._globalLocationsList, activeIata); return; }
+	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + m79lr3o(loc.cca2) + ' ' + k6io158(loc.cca2)).toLowerCase().includes(q));
+	bturbdj(filtered, activeIata);
+}
+async function jyfwoo1() {
+	const select = document.getElementById('location-select');
+	if (!select) return;
+	try {
+		const statusRes = await fetch('/api/proxy-ip');
+		let activeIata = '';
+		if (statusRes.ok) {
+			const statusData = await statusRes.json();
+			activeIata = statusData.iata || '';
+			window._globalActiveIata = activeIata;
+			window._globalActiveCountry = statusData.country || '';
+			if (typeof window.applyInfoConfigsState === 'function') window.applyInfoConfigsState(!!statusData.info_configs);
+			if (typeof window.applyPatternihaState === 'function') window.applyPatternihaState(!!statusData.patterniha_all);
+			if (typeof window.applyPatternihaEchState === 'function') window.applyPatternihaEchState(!!statusData.patterniha_ech_all);
+			if (typeof window.applyEchSettings === 'function') window.applyEchSettings(statusData);
+		}
+		const res = await fetch('/assets/geo.json');
+		if (!res.ok) throw new Error();
+		const locations = await res.json();
+		window._globalLocationsList = Array.isArray(locations) ? locations : [];
+		bturbdj(window._globalLocationsList, activeIata);
+	} catch (err) {
+		select.innerHTML = '<option value="">⚠️ خطا در دریافت لوکیشن‌ها</option>';
+	}
+}
+async function saveSettings() {
+	const btn = document.getElementById('save-settings-btn');
+	const select = document.getElementById('location-select');
+	const iata = select ? select.value : '';
+	const selectedOption = select && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
+	const cca2 = selectedOption ? (selectedOption.dataset.cca2 || '') : '';
+	if (btn) { btn.disabled = true; btn.innerText = 'در حال ذخیره...'; }
+	try {
+		let resolvedIp = '';
+		let countryResolveFailed = false;
+		if (iata) {
+			const domain = iata.toLowerCase() + '.' + ['pro' + 'xy' + 'ip', 'cm' + 'liu' + 'ssss', 'ne' + 't'].join('.');
+			let ips = [];
+			try {
+				const dnsRes = await fetch('https://cloudflare-dns.com/dns-query?name=' + domain + '&type=A', {
+					headers: { 'accept': 'application/dns-json' }
+				});
+				if (dnsRes.ok) {
+					const dnsData = await dnsRes.json();
+					if (dnsData.Answer && dnsData.Answer.length > 0) {
+						ips = dnsData.Answer.filter(ans => ans.type === 1).map(ans => ans.data);
+					}
+				}
+			} catch (e) {}
+			if (ips.length > 0) {
+				/* همیشه اولین IP لیست انتخاب می‌شود (نه رندوم) تا هر کشوری، فارغ از تعداد IPهاش، ثابت بماند */
+				resolvedIp = ips[0];
+			} else {
+				countryResolveFailed = true;
+			}
+		}
+		const response = await fetch('/api/proxy-ip', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ proxy_ip: resolvedIp, iata: countryResolveFailed ? '' : (iata ? iata.toUpperCase() : ''), country: countryResolveFailed ? '' : (cca2 ? cca2.toUpperCase() : '') })
+		});
+		if (response.ok) {
+			if (countryResolveFailed) {
+				bm3pzm2('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
+			} else {
+				window._globalActiveIata = iata ? iata.toUpperCase() : '';
+				window._globalActiveCountry = cca2 ? cca2.toUpperCase() : '';
+				toggleSettingsModal(false);
+				bm3pzm2('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
+			}
+		} else {
+			bm3pzm2('❌ خطا در ذخیره تنظیمات');
+		}
+	} catch (err) {
+		bm3pzm2('❌ خطا در برقراری ارتباط با سرور');
+	} finally {
+		if (btn) { btn.disabled = false; btn.innerText = 'ذخیره تنظیمات'; }
+	}
+}
+window.toggleUserProxyMode = function(isSocksMode) {
+	const socksContainer = document.getElementById('user-socks5-container');
+	const socksInput = document.getElementById('user-socks5-input');
+	if (isSocksMode) {
+		if (socksContainer) socksContainer.classList.remove('opacity-50', 'pointer-events-none');
+		if (socksInput) socksInput.disabled = false;
+	} else {
+		if (socksContainer) socksContainer.classList.add('opacity-50', 'pointer-events-none');
+		if (socksInput) socksInput.disabled = true;
+	}
+};
+window.toggleUserIataLock = function(isEnabled) {
+	const iataInput = document.getElementById('input-user-proxy-iata');
+	if (iataInput) {
+		iataInput.disabled = !isEnabled;
+		if (!isEnabled) {
+			iataInput.value = '';
+			window.userProxyIata = null;
+			if (typeof window.updateUserIataPreview === 'function') window.updateUserIataPreview();
+		}
+	}
+};
+async function y9x0sl1() {
+	const badges = document.querySelectorAll('.async-proxy-flag');
+	if (badges.length === 0) return;
+	let cache = {};
+	try { cache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
+	for (let badge of badges) {
+		const proxyStr = badge.getAttribute('data-proxy');
+		if (!proxyStr) continue;
+		if (cache[proxyStr]) {
+			/* کش کد کشور (۲ حرف) را ذخیره می‌کند؛ برای نمایش SVG می‌سازیم */
+			const cachedCc = cache[proxyStr];
+			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof b00aqjk === 'function') ? b00aqjk(cachedCc) : '<span class="flg-g">🌐</span>';
+			badge.classList.remove('async-proxy-flag');
+			continue;
+		}
+		badge.classList.remove('async-proxy-flag');
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 4000);
+			const res = await fetch('/api/test-proxy', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ proxy: proxyStr }),
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			const data = await res.json();
+			let flagSvg = '<span class="flg-g">🌐</span>';
+			if (res.ok && data.success && data.country) {
+				flagSvg = typeof b00aqjk === 'function' ? b00aqjk(data.country) : flagSvg;
+				/* کش کد کشور (۲ حرف بزرگ) را ذخیره می‌کند تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
+				cache[proxyStr] = data.country.toUpperCase();
+				localStorage.setItem('pf_c2', JSON.stringify(cache));
+			}
+			badge.innerHTML = flagSvg;
+		} catch (e) {
+			badge.innerHTML = '<span class="flg-g">🌐</span>';
+		}
+	}
+}
+window.testDirectPing = async function() {
+	const btn = document.getElementById('test-direct-btn');
+	const clientPingEl = document.getElementById('client-to-server-ping');
+	const serverPingEl = document.getElementById('server-to-net-ping');
+	if (!clientPingEl || !serverPingEl) return;
+
+	if (btn) {
+		btn.disabled = true;
+		btn.innerHTML = '<svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span> در حال تست...</span>';
+	}
+	clientPingEl.innerText = 'تست...';
+	clientPingEl.className = 'text-[10px] font-bold text-amber-500';
+	serverPingEl.innerText = 'تست...';
+	serverPingEl.className = 'text-[10px] font-bold text-amber-500';
+
+	try {
+		const startClient = Date.now();
+		await fetch('/icon.svg?t=' + startClient, { method: 'HEAD', cache: 'no-store' });
+		const elapsed = Date.now() - startClient;
+		let cColor = "text-red-500";
+		if (elapsed <= 150) cColor = "text-green-500";
+		else if (elapsed <= 300) cColor = "text-amber-500";
+		clientPingEl.innerText = elapsed + ' ms';
+		clientPingEl.className = 'text-[10px] font-bold ' + cColor;
+	} catch (e) {
+		clientPingEl.innerText = 'خطا';
+		clientPingEl.className = 'text-[10px] font-bold text-red-500';
+	}
+
+	try {
+		const controller = new AbortController();
+		const timeoutId = setTimeout(() => controller.abort(), 6000);
+		const res = await fetch('/api/test-proxy', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ proxy: 'direct', skip_country: true }),
+			signal: controller.signal
+		});
+		clearTimeout(timeoutId);
+		const data = await res.json();
+		if (res.ok && data.success) {
+			const sPing = data.ping;
+			let sColor = "text-red-500";
+			if (sPing <= 50) sColor = "text-green-500";
+			else if (sPing <= 150) sColor = "text-amber-500";
+			serverPingEl.innerText = sPing + ' ms';
+			serverPingEl.className = 'text-[10px] font-bold ' + sColor;
+		} else {
+			serverPingEl.innerText = 'خطا';
+			serverPingEl.className = 'text-[10px] font-bold text-red-500 text-center';
+		}
+	} catch (e) {
+		serverPingEl.innerText = 'خطا';
+		serverPingEl.className = 'text-[10px] font-bold text-red-500 text-center';
+	}
+
+	if (btn) {
+		btn.disabled = false;
+		btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg><span>تست اتصال مستقیم</span>';
+	}
+};
+async function testUserSocksProxy() {
+	const btn = document.getElementById('test-user-proxy-btn');
+	if (btn) {
+		btn.disabled = true;
+		btn.innerText = 'صبر کنید...';
+	}
+	window.proxyPingMap = {};
+	const promises = window.proxyFieldsData.map(async (val, idx) => {
+		const resultSpan = document.getElementById('proxy-ping-label-' + idx);
+		const proxyStr = (val || "").trim();
+		if (!proxyStr) {
+			if (resultSpan) {
+				resultSpan.innerText = 'وارد نشده!';
+				resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 text-center';
+			}
+			return;
+		}
+		if (resultSpan) {
+			resultSpan.innerText = 'در حال تست...';
+			resultSpan.className = 'text-[10px] font-bold text-amber-500 block mt-0.5 text-center';
+		}
+		const controller = new AbortController();
+		const timeoutId = setTimeout(() => controller.abort(), 5000);
+		try {
+			const res = await fetch('/api/test-proxy', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ proxy: proxyStr }),
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			const data = await res.json();
+			if (res.ok && data.success) {
+				const flag = typeof b00aqjk === 'function' ? b00aqjk(data.country) : '🌐';
+				if (resultSpan) {
+					resultSpan.innerHTML = flag + ' پینگ: ' + data.ping + 'ms';
+					resultSpan.className = 'text-[10px] font-bold text-green-600 block mt-0.5 text-center';
+					window.proxyPingMap[proxyStr] = { text: resultSpan.innerHTML, className: resultSpan.className };
+				}
+			} else {
+				if (resultSpan) {
+					resultSpan.innerText = 'خطا: ' + (data.error || 'ناموفق');
+					resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 break-words text-center';
+					window.proxyPingMap[proxyStr] = { text: resultSpan.innerText, className: resultSpan.className };
+				}
+			}
+		} catch (e) {
+			clearTimeout(timeoutId);
+			if (resultSpan) {
+				if (e.name === 'AbortError') resultSpan.innerText = 'تایم‌اوت (خراب)';
+				else resultSpan.innerText = 'خطا در ارتباط';
+				resultSpan.className = 'text-[10px] font-bold text-red-500 block mt-0.5 text-center';
+				window.proxyPingMap[proxyStr] = { text: resultSpan.innerText, className: resultSpan.className };
+			}
+		}
+	});
+	await Promise.all(promises);
+	if (btn) {
+		btn.disabled = false;
+		btn.innerText = 'تست پـروکـسـی';
+	}
+}
+		async function exportUsersBackup() {
+			if (!window.allUsers || window.allUsers.length === 0) {
+				alert('⚠️ کاربری برای پشتیبان‌گیری وجود ندارد!');
+				return;
+			}
+			try {
+				const settingsRes = await fetch('/api/settings/bulk');
+				const settingsData = await settingsRes.json();
+				const backupData = {
+					users: window.allUsers,
+					settings: settingsData
+				};
+				const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+				const downloadAnchor = document.createElement('a');
+				const host = window.location.hostname;
+				const now = new Date();
+				const dateTimeStr = now.getFullYear() + '-' + 
+					String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+					String(now.getDate()).padStart(2, '0') + '_' + 
+					String(now.getHours()).padStart(2, '0') + '-' + 
+					String(now.getMinutes()).padStart(2, '0') + '-' + 
+					String(now.getSeconds()).padStart(2, '0');
+				downloadAnchor.setAttribute("href", dataStr);
+				downloadAnchor.setAttribute("download", "bk_" + host + "_" + dateTimeStr + ".json");
+				document.body.appendChild(downloadAnchor);
+				downloadAnchor.click();
+				downloadAnchor.remove();
+			} catch (err) {
+				alert('❌ خطا در دریافت تنظیمات برای بک‌آپ.');
+			}
+		}
+		function triggerImportBackup() {
+			document.getElementById('backup-file-input').click();
+		}
+		async function importUsersBackup(event) {
+			const file = event.target.files[0];
+			if (!file) return;
+			const reader = new FileReader();
+			reader.onload = async function(e) {
+				const importBtn = document.querySelector('button[onclick="triggerImportBackup()"]');
+				const exportBtn = document.querySelector('button[onclick="exportUsersBackup()"]');
+				const closeBtn = document.querySelector('#settings-modal button[onclick="toggleSettingsModal(false)"]');
+				try {
+					const parsedData = JSON.parse(e.target.result);
+					let backupUsers = [];
+					let backupSettings = null;
+					if (Array.isArray(parsedData)) {
+						backupUsers = parsedData;
+					} else if (parsedData && parsedData.users && Array.isArray(parsedData.users)) {
+						backupUsers = parsedData.users;
+						backupSettings = parsedData.settings;
+					} else {
+						alert('❌ فایل پشتیبان نامعتبر است!');
+						return;
+					}
+					const validBackupUsers = backupUsers.filter(u => u && typeof u === 'object' && u.username);
+					if (validBackupUsers.length === 0 && !backupSettings) {
+						alert('❌ هیچ داده معتبری در فایل یافت نشد!');
+						return;
+					}
+					if (backupSettings && Object.keys(backupSettings).length > 0) {
+						const restoreSettings = await pw6sr5c('⚙️ فایل بک‌آپ شامل تنظیمات پـنـل نیز می‌باشد. آیا می‌خواهید تنظیمات هم بازگردانی شوند؟');
+						if (restoreSettings) {
+							try {
+								await fetch('/api/settings/bulk', {
+									method: 'POST',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify({ settings: backupSettings })
+								});
+							} catch (err) {}
+						}
+					}
+					const existingUsernames = new Set((window.allUsers || []).map(u => u.username));
+					const duplicates = validBackupUsers.filter(u => existingUsernames.has(u.username));
+					let overwrite = false;
+					if (duplicates.length > 0) {
+						overwrite = await pw6sr5c('⚠️ تعداد ' + duplicates.length + ' کاربر تکراری شناسایی شد. آیا می‌خواهید اطلاعات آن‌ها بازنویسی شود؟');
+					}
+					if (importBtn) importBtn.disabled = true;
+					if (exportBtn) exportBtn.disabled = true;
+					if (closeBtn) closeBtn.disabled = true;
+					let successCount = 0;
+					let currentStep = 0;
+					for (const u of validBackupUsers) {
+						currentStep++;
+						if (importBtn) {
+							importBtn.innerText = '⏳ بازیابی (' + currentStep + '/' + validBackupUsers.length + ')';
+						}
+						const exists = existingUsernames.has(u.username);
+						if (exists) {
+							if (overwrite) {
+								try {
+									await fetch('/api/users/' + encodeURIComponent(u.username), { method: 'DELETE' });
+									const res = await fetch('/api/users', {
+										method: 'POST',
+										headers: { 'Content-Type': 'application/json' },
+										body: JSON.stringify({
+											username: u.username,
+											uuid: u.uuid,
+											limit_gb: u.limit_gb,
+											expiry_days: u.expiry_days,
+											limit_req: u.limit_req,
+											ips: u.ips,
+											tls: u.tls,
+											port: u.port,
+											fingerprint: u.fingerprint,
+											ip_limit: u.ip_limit !== undefined ? u.ip_limit : u.max_connections,
+											used_gb: u.used_gb,
+											used_req: u.used_req,
+											created_at: u.created_at,
+											is_active: u.is_active,
+											block_porn: u.block_porn,
+											block_ads: u.block_ads,
+											enable_direct: u.enable_direct !== undefined ? u.enable_direct : 1,
+											frag_len: u.frag_len,
+											frag_int: u.frag_int,
+											user_proxy_iata: u.user_proxy_iata,
+											user_socks5: u.user_socks5,
+											user_proxy_ip: u.user_proxy_ip,
+											auto_reset_vol_days: u.auto_reset_vol_days,
+											auto_reset_req_days: u.auto_reset_req_days,
+											auto_rotate_ip: u.auto_rotate_ip,
+											rotate_time: u.rotate_time,
+											ip_operator: u.ip_operator,
+											ip_count: u.ip_count,
+											auto_rotate_user_proxy: u.auto_rotate_user_proxy,
+											connection_type: u.connection_type
+										})
+									});
+									if (res.ok) successCount++;
+								} catch(err) {}
+							}
+						} else {
+							try {
+								const res = await fetch('/api/users', {
+									method: 'POST',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify({
+										username: u.username,
+										uuid: u.uuid,
+										limit_gb: u.limit_gb,
+										expiry_days: u.expiry_days,
+										limit_req: u.limit_req,
+										ips: u.ips,
+										tls: u.tls,
+										port: u.port,
+										fingerprint: u.fingerprint,
+										ip_limit: u.ip_limit !== undefined ? u.ip_limit : u.max_connections,
+										used_gb: u.used_gb,
+										used_req: u.used_req,
+										created_at: u.created_at,
+										is_active: u.is_active,
+										block_porn: u.block_porn,
+										block_ads: u.block_ads,
+										enable_direct: u.enable_direct !== undefined ? u.enable_direct : 1,
+										frag_len: u.frag_len,
+										frag_int: u.frag_int,
+										user_proxy_iata: u.user_proxy_iata,
+										user_socks5: u.user_socks5,
+										user_proxy_ip: u.user_proxy_ip,
+										auto_reset_vol_days: u.auto_reset_vol_days,
+										auto_reset_req_days: u.auto_reset_req_days,
+										auto_rotate_ip: u.auto_rotate_ip,
+										rotate_time: u.rotate_time,
+										ip_operator: u.ip_operator,
+										ip_count: u.ip_count,
+										auto_rotate_user_proxy: u.auto_rotate_user_proxy,
+										connection_type: u.connection_type
+									})
+								});
+								if (res.ok) successCount++;
+							} catch(err) {}
+						}
+					}
+					alert('✅ عملیات بازیابی با موفقیت انجام شد. صفحه رفرش می‌شود...');
+					setTimeout(() => { window.location.reload(); }, 1500);
+				} catch(err) {
+					alert('❌ خطا در خواندن یا پردازش فایل پشتیبان!');
+				} finally {
+					if (importBtn) {
+						importBtn.disabled = false;
+						importBtn.innerText = '📥 بازیابی';
+					}
+					if (exportBtn) exportBtn.disabled = false;
+					if (closeBtn) closeBtn.disabled = false;
+					event.target.value = '';
+				}
+			};
+			reader.readAsText(file);
+		}
+		async function changeAdminPassword() {
+			const currentPwd = document.getElementById('change-pwd-current').value.trim();
+			const newPwd = document.getElementById('change-pwd-new').value.trim();
+			const btn = document.getElementById('change-pwd-btn');
+			if (!currentPwd || !newPwd) {
+				alert('⚠️ وارد کردن رمز عبور فعلی و جدید الزامی است!');
+				return;
+			}
+			if (newPwd.length < 4) {
+				alert('⚠️ رمز عبور جدید باید حداقل ۴ کاراکتر باشد!');
+				return;
+			}
+			btn.disabled = true;
+			btn.innerText = 'در حال تغییر...';
+			try {
+				const response = await fetch('/api/change-password', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ current_password: currentPwd, new_password: newPwd })
+				});
+				const data = await response.json();
+				if (response.ok && data.success) {
+					alert('✅ رمز عبور با موفقیت تغییر کرد.');
+					document.getElementById('change-pwd-current').value = '';
+					document.getElementById('change-pwd-new').value = '';
+					toggleSettingsModal(false);
+				} else {
+					alert('❌ خطا: ' + (data.error || 'عملیات ناموفق بود'));
+				}
+			} catch (err) {
+				alert('خطا در برقراری ارتباط با سرور');
+			} finally {
+				btn.disabled = false;
+				btn.innerText = 'تغییر رمز عبور';
+			}
+		}
+		async function logoutAdmin() {
+			if (await pw6sr5c('آیا می‌خواهید از پـنـل خارج شوید؟ ⚠️ ')) {
+				try {
+					await fetch('/api/logout', { method: 'POST' });
+				} catch (err) {}
+				window.location.reload();
+			}
+		}
+const yxb4u9v = '2.3.3';
+const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
+		window.autoUpdateStatusCache = false;
+		async function nf57w1c() {
+			return null;
+		}
+		async function toggleGfx(isChecked) {
+			document.documentElement.classList.toggle('gfx-off', !isChecked);
+			localStorage.setItem('gfx-enabled', isChecked ? 'true' : 'false');
+			try {
+				await fetch('/api/settings/bulk', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ settings: { gfx_enabled: isChecked ? '1' : '0' } })
+				});
+			} catch (e) {}
+			bm3pzm2('⚙️ تنظیمات گرافیکی تغییر کرد. در حال بارگذاری مجدد...');
+			setTimeout(() => window.location.reload(), 1200);
+		}
+		async function handleAutoUpdateToggle(el) {
+			el.checked = false;
+		}
+		async function checkForUpdates() {
+			return;
+		}
+		function toggleTokenModal(show) {
+			ys5v6m0('token-modal', show);
+			if (!show) document.getElementById('update-token-input').value = '';
+		}
+		async function submitTokenForUpdate() {
+			const token = document.getElementById('update-token-input').value.trim();
+			if (!token) {
+				alert('لطفاً توکن را وارد کنید.');
+				return;
+			}
+			toggleTokenModal(false);
+			if (window.pendingCoreAction === 'enable_auto_update') {
+				try {
+					const res = await fetch('/api/auto-update-setup', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ action: 'enable', token: token })
+					});
+					const data = await res.json();
+					if (res.ok && data.success) {
+						bm3pzm2('✅ آپدیت خودکار با موفقیت فعال شد.');
+						window.autoUpdateStatusCache = true;
+						const toggle = document.getElementById('auto-update-toggle');
+						if (toggle) toggle.checked = true;
+					} else {
+						alert('❌ خطا در بررسی توکن: ' + (data.error || 'ناشناخته'));
+					}
+				} catch(e) {
+					alert('❌ خطا در ارتباط با سرور');
+				}
+				window.pendingCoreAction = null;
+				return;
+			}
+			dkulmtc(window.pendingCoreAction || 'update', token);
+		}
+		async function applyUpdate(token = null) {
+			await dkulmtc('update', token);
+		}
+let l76xmsu = {};
+async function nbfm495() {
+	try {
+		const response = await kc5inhw('ips.txt');
+		if (!response.ok) throw new Error('Fetch failed');
+		const text = await response.text();
+		const blocks = text.split('----------');
+		l76xmsu = {};
+		blocks.forEach(block => {
+			const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
+			if (lines.length === 0) return;
+			let opName = "Unknown";
+			const ips = [];
+			lines.forEach(line => {
+				if (line.includes('#')) {
+					opName = line.split('#')[1].trim();
+				} else if (!line.startsWith('[source')) {
+					ips.push(line);
+				}
+			});
+			if (ips.length > 0) {
+				l76xmsu[opName] = ips;
+			}
+		});
+		umfeacy();
+	} catch (err) {
+		alert('Failed to load IP list.');
+		toggleIpSelectorModal(false);
+	}
+}
+/* پر کردن خودکار چند آی‌پی تمیز از همون آدرس (ips.txt) بدون نیاز به باز کردن اسکنر/مخزن آی‌پی */
+window.autoFillCleanIps = async function(count) {
+	const n = count || 2;
+	const ipsInput = document.getElementById('input-ips');
+	if (!ipsInput) return;
+	try {
+		let availableIps = [];
+		if (!l76xmsu || Object.keys(l76xmsu).length === 0) {
+			const response = await kc5inhw('ips.txt');
+			if (response.ok) {
+				const text = await response.text();
+				const blocks = text.split('----------');
+				blocks.forEach(block => {
+					const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
+					lines.forEach(line => {
+						if (!line.includes('#') && !line.startsWith('[source')) availableIps.push(line);
+					});
+				});
+			}
+		} else {
+			Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
+		}
+		availableIps = [...new Set(availableIps)];
+		if (availableIps.length === 0) return;
+		const shuffled = availableIps.slice();
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		const selected = shuffled.slice(0, n);
+		if (selected.length > 0) ipsInput.value = selected.join('\\n');
+	} catch (e) {}
+};
+function umfeacy() {
+	const select = document.getElementById('ip-operator-select');
+	select.innerHTML = '<option value="all">همه (توصیه شده)</option>';
+	Object.keys(l76xmsu).forEach(op => {
+		const option = document.createElement('option');
+		option.value = op;
+		option.textContent = op;
+		select.appendChild(option);
+	});
+}
+function toggleIpSelectorModal(show) {
+	ys5v6m0('ip-selector-modal', show);
+	if (!show) {
+		const rotateToggle = document.getElementById('input-auto-rotate-ip-toggle');
+		if (rotateToggle) rotateToggle.checked = false;
+		const rotateTime = document.getElementById('input-auto-rotate-ip-time');
+		if (rotateTime) rotateTime.value = '';
+		if (typeof window.toggleAutoRotateIpInputs === 'function') window.toggleAutoRotateIpInputs(false);
+	}
+}
+function toggleIpScannerModal(show) {
+	ys5v6m0('ip-scanner-modal', show);
+}
+
+function openIpScannerModal() {
+	toggleIpScannerModal(true);
+}
+
+function copyScannerCode(text, btn) {
+	navigator.clipboard.writeText(text).then(() => {
+		const originalHtml = btn.innerHTML;
+		const originalClasses = btn.className;
+		
+		btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span>کپی شد!</span>';
+		btn.className = 'w-full flex items-center justify-center gap-1.5 py-2 bg-green-50 dark:bg-green-900/30 border border-green-500 text-green-600 dark:text-green-400 rounded text-xs font-bold transition shadow-sm';
+		
+		setTimeout(() => { 
+			btn.innerHTML = originalHtml;
+			btn.className = originalClasses;
+		}, 2000);
+	}).catch(() => {
+		alert('خطا در کپی متن!');
+	});
+}
+async function openIpSelectorModal() {
+	toggleIpSelectorModal(true);
+	document.getElementById('ip-loading-state').classList.remove('hidden');
+	document.getElementById('ip-selection-form').classList.add('hidden');
+	await nbfm495();
+	const op = document.getElementById('hidden-ip-operator').value;
+	const selectOp = document.getElementById('ip-operator-select');
+	if (selectOp.querySelector('option[value="' + op + '"]')) {
+		selectOp.value = op;
+	} else {
+		selectOp.value = 'all';
+	}
+	document.getElementById('ip-count-input').value = document.getElementById('hidden-ip-count').value || 20;
+	const isAuto = document.getElementById('hidden-auto-rotate').value === '1';
+	document.getElementById('input-auto-rotate-ip-toggle').checked = isAuto;
+	document.getElementById('input-auto-rotate-ip-time').value = document.getElementById('hidden-rotate-time').value;
+	if (typeof window.toggleAutoRotateIpInputs === 'function') window.toggleAutoRotateIpInputs(isAuto);
+	document.getElementById('ip-loading-state').classList.add('hidden');
+	document.getElementById('ip-selection-form').classList.remove('hidden');
+}
+function applySelectedIps() {
+	const operator = document.getElementById('ip-operator-select').value;
+	let count = parseInt(document.getElementById('ip-count-input').value, 10);
+	if (isNaN(count) || count < 1) count = 10;
+	let availableIps = [];
+	if (operator === 'all') {
+		Object.values(l76xmsu).forEach(ips => {
+			availableIps = availableIps.concat(ips);
+		});
+	} else {
+		availableIps = l76xmsu[operator] || [];
+	}
+	availableIps = [...new Set(availableIps)];
+	let selectedIps = [];
+	if (count >= availableIps.length) {
+		selectedIps = availableIps;
+	} else {
+		const shuffled = availableIps.slice();
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		selectedIps = shuffled.slice(0, count);
+	}
+	document.getElementById('input-ips').value = selectedIps.join('\\n');
+	document.getElementById('hidden-auto-rotate').value = document.getElementById('input-auto-rotate-ip-toggle').checked ? '1' : '0';
+	document.getElementById('hidden-rotate-time').value = document.getElementById('input-auto-rotate-ip-time').value || '';
+	document.getElementById('hidden-ip-operator').value = operator;
+	document.getElementById('hidden-ip-count').value = count;
+	toggleIpSelectorModal(false);
+}
+document.addEventListener('DOMContentLoaded', () => {
+			setTimeout(() => {
+				if (typeof toggleInfoModal === 'function') {
+					toggleInfoModal(true);
+				}
+			}, 36000000);
+
+			setTimeout(() => {
+   			 const freeModal = document.getElementById('free-panel-warning-modal');
+				const freeCard = freeModal.querySelector('div');
+				freeModal.classList.remove('opacity-0', 'pointer-events-none');
+				freeModal.classList.add('opacity-100', 'pointer-events-auto');
+				freeCard.classList.remove('opacity-0', 'scale-95');
+				freeCard.classList.add('opacity-100', 'scale-100');
+			}, 23000);
+			const versionBadge = document.getElementById('panel-version');
+			if (versionBadge) versionBadge.innerText = 'v' + yxb4u9v;
+			yok43r5();
+			axmsbp4();
+			if (typeof jyfwoo1 === 'function') jyfwoo1();
+			window.usersRefreshIntervalId = null;
+			window.startRefreshInterval = function(intervalMs) {
+				if (window.usersRefreshIntervalId) {
+					clearInterval(window.usersRefreshIntervalId);
+				}
+				window.usersRefreshIntervalId = setInterval(() => {
+					if (!document.hidden) axmsbp4(true);
+				}, intervalMs);
+			};
+			window.changeRefreshRate = function(val) {
+				const ms = parseInt(val, 10);
+				localStorage.setItem('rr_k3', ms);
+				window.startRefreshInterval(ms);
+				bm3pzm2('نرخ رفرش پـنـل تغییر کرد');
+			};
+			const savedRate = localStorage.getItem('rr_k3');
+			const initialRate = savedRate ? parseInt(savedRate, 10) : 10000;
+			const selectEl = document.getElementById('refresh-rate-select');
+			if (selectEl) {
+				selectEl.value = String(initialRate);
+			}
+			window.startRefreshInterval(initialRate);
+			const gfxToggleEl = document.getElementById('gfx-toggle');
+			if (gfxToggleEl) gfxToggleEl.checked = localStorage.getItem('gfx-enabled') !== 'false';
+			setTimeout(() => cjk8rv3(), 3000);
+			setInterval(() => {
+				if (!document.hidden) cjk8rv3();
+			}, 60000);
+			window.addEventListener('mousedown', (e) => {
+				window._modalMouseDownTarget = e.target;
+			});
+			window.addEventListener('click', (e) => {
+				if (window._modalMouseDownTarget && window._modalMouseDownTarget !== e.target) return;
+				if (e.target.id === 'user-modal') toggleModal(false);
+				if (e.target.id === 'ip-selector-modal') toggleIpSelectorModal(false);
+				if (e.target.id === 'ip-scanner-modal') toggleIpScannerModal(false);
+				if (e.target.id === 'settings-modal') toggleSettingsModal(false);
+			if (e.target.id === 'rocket-modal') toggleRocketModal(false);
+				if (e.target.id === 'update-modal') toggleUpdateModal(false);
+				if (e.target.id === 'token-modal') toggleTokenModal(false);
+				if (e.target.id === 'qr-modal') toggleQrModal(false);
+				if (e.target.id === 'usage-warning-modal') closeUsageWarning();
+				if (e.target.id === 'free-panel-warning-modal') closeFreePanelWarning();
+				if (e.target.id === 'online-counter-warning-modal') closeOnlineCounterWarning();
+				if (e.target.id === 'config-count-warning-modal') closeConfigCountWarning();
+				if (e.target.id === 'global-message-modal') {
+					const closeBtn = document.getElementById('global-message-close-btn');
+					if (closeBtn) closeBtn.click();
+				}
+				if (e.target.id === 'custom-confirm-modal') {
+					const cancelBtn = document.getElementById('custom-confirm-cancel');
+					if (cancelBtn) cancelBtn.click();
+				}
+			});
+		});
+function toggleProxySelectorModal(show) { ys5v6m0('proxy-selector-modal', show); }
+		async function bvxhocm() {
+			const select = document.getElementById('vip-country-select');
+			const btn = document.getElementById('vip-fetch-btn');
+			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
+			try {
+				const res = await ggsyffs('vip-list');
+				if (!res.ok) throw new Error('API Error');
+				const data = await res.json();
+				const validCountries = data
+					.filter(function(file) { return file.name.endsWith('.txt'); })
+					.map(function(file) { return file.name.replace('.txt', '').toUpperCase(); });
+				if (validCountries.length === 0) throw new Error('Empty');
+				validCountries.sort(function(a, b) {
+					const nameA = typeof m79lr3o === 'function' ? m79lr3o(a) : a;
+					const nameB = typeof m79lr3o === 'function' ? m79lr3o(b) : b;
+					return nameA.localeCompare(nameB);
+				});
+				select.innerHTML = '<option value="">یک کشور VIP انتخاب کنید...</option>';
+				validCountries.forEach(function(country) {
+					const option = document.createElement('option');
+					option.value = country;
+					/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
+					const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
+					const nameFa = typeof k6io158 === 'function' ? k6io158(country) : '';
+					option.textContent = flag + ' ' + country + (nameFa ? ' - ' + nameFa : '');
+					select.appendChild(option);
+				});
+				btn.disabled = false;
+			} catch (err) {
+				select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
+				btn.disabled = true;
+			}
+		}
+		async function loadVipProxy() {
+			const select = document.getElementById('vip-country-select');
+			const country = select.value;
+			const btn = document.getElementById('vip-fetch-btn');
+			if (!country) return;
+			btn.disabled = true;
+			btn.innerText = '...';
+			try {
+				const res = await ggsyffs('proxy_vip/' + country + '.txt?t=' + Date.now());
+				if (!res.ok) throw new Error('فایل یافت نشد');
+				const text = await res.text();
+				const lines = text.split('\\n').map(function(l) { return l.trim(); }).filter(function(l) { return l.length > 5; });
+				if (lines.length > 0) {
+					const randomProxy = lines[Math.floor(Math.random() * lines.length)];
+					window.proxyFieldsData[window.activeProxyIndex || 0] = randomProxy;
+					if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
+					const userProxyResult = document.getElementById('test-user-proxy-result');
+					if (userProxyResult) {
+						userProxyResult.innerText = '';
+					}
+					toggleProxySelectorModal(false);
+					bm3pzm2('✅ پـروکـسـی اختصاصی با موفقیت اعمال شد.');
+					testUserSocksProxy();
+				} else {
+					alert('فایل پـروکـسـی این کشور خالی است.');
+				}
+			} catch (e) {
+				alert('خطا در دریافت پـروکـسـی اختصاصی.');
+			} finally {
+				btn.disabled = false;
+				btn.innerText = 'دریافت';
+			}
+		}
+		async function openProxySelectorModal() {
+			toggleProxySelectorModal(true);
+			const select = document.getElementById('proxy-country-select');
+			const fetchBtn = document.getElementById('proxy-fetch-btn');
+			const countriesList = [
+		  "AA", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR",
+		  "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE",
+		  "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ",
+		  "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD",
+		  "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR",
+		  "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM",
+		  "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI",
+		  "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF",
+		  "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS",
+		  "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU",
+		  "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT",
+		  "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN",
+		  "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK",
+		  "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME",
+		  "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ",
+		  "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+		  "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU",
+		  "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM",
+		  "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS",
+		  "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
+		  "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV",
+		  "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK",
+		  "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA",
+		  "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
+		  "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
+			];
+			select.innerHTML = '';
+			countriesList.forEach(function(country) {
+				const option = document.createElement('option');
+				option.value = country;
+				/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
+				const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
+				option.textContent = flag + ' ' + country;
+				select.appendChild(option);
+			});
+			fetchBtn.disabled = false;
+			bvxhocm();
+		}
+async function fetchAndLoadProxy() {
+	const select = document.getElementById("proxy-country-select");
+	const country = select.value;
+	if (!country) return;
+	const loadingState = document.getElementById("proxy-loading-state");
+	const formState = document.getElementById("proxy-selection-form");
+	const fetchBtn = document.getElementById("proxy-fetch-btn");
+	loadingState.classList.remove("hidden");
+	loadingState.innerText = "در حال دریافت لیست پـروکـسـی‌ها...";
+	formState.classList.add("hidden");
+	fetchBtn.disabled = true;
+	try {
+		const sources = [
+			{ url: "proxy/" + country.toUpperCase() + ".txt", prefix: "" }
+		];
+		const responses = await Promise.allSettled(sources.map(src => 
+			kc5inhw(src.url).then(async res => {
+				if (!res.ok) throw new Error();
+				const text = await res.text();
+				return { text: text, prefix: src.prefix };
+			})
+		));
+		let combinedProxies = [];
+		for (const res of responses) {
+			if (res.status === "fulfilled" && res.value && res.value.text) {
+				const rawLines = res.value.text.split("\\n");
+				for (let line of rawLines) {
+					line = line.trim();
+					if (line.length > 5) {
+						combinedProxies.push(line);
+					}
+				}
+			}
+		}
+		let lines = [...new Set(combinedProxies.map(l => {
+			if (l.match(/^(socks4|socks5|socks|http|https|tg):\\/\\//i)) {
+				return l;
+			}
+			return "socks5://" + l;
+		}))];
+		if (lines.length > 0) {
+			for (let i = lines.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[lines[i], lines[j]] = [lines[j], lines[i]];
+			}
+			let bestProxy = null;
+			let fallbackProxy = null;
+			const BATCH_SIZE = 5;
+			for (let i = 0; i < lines.length; i += BATCH_SIZE) {
+				const batch = lines.slice(i, i + BATCH_SIZE);
+				loadingState.innerText = "تعداد " + lines.length + " پـروکـسـی پیدا شد درحال اسکن\\nاسکن گروه " + (Math.floor(i / BATCH_SIZE) + 1) + " (۵ تست برای هر کدام)...";
+				const testResults = await Promise.allSettled(batch.map(async (candidate) => {
+					let successCount = 0;
+					let totalPing = 0;
+					let failCount = 0;
+					for(let t = 0; t < 5; t++) {
+						const controller = new AbortController();
+						const timeoutId = setTimeout(() => controller.abort(), 3500);
+						try {
+							const testRes = await fetch("/api/test-proxy", {
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify({ proxy: candidate }),
+								signal: controller.signal
+							});
+							clearTimeout(timeoutId);
+							const testData = await testRes.json();
+							if (testRes.ok && testData.success) {
+								successCount++;
+								totalPing += testData.ping;
+							} else {
+								failCount++;
+							}
+						} catch (err) {
+							clearTimeout(timeoutId);
+							failCount++;
+						}
+						if (failCount > 2) break;
+					}
+					if (successCount > 0) {
+						return { proxy: candidate, successCount: successCount, avgPing: totalPing / successCount };
+					}
+					throw new Error();
+				}));
+				const successfulProxies = testResults
+					.filter(r => r.status === "fulfilled")
+					.map(r => r.value)
+					.sort((a, b) => {
+						if (b.successCount !== a.successCount) {
+							return b.successCount - a.successCount;
+						}
+						return a.avgPing - b.avgPing;
+					});
+				if (successfulProxies.length > 0) {
+					const topCandidate = successfulProxies[0];
+					if (topCandidate.successCount >= 3) {
+						bestProxy = topCandidate.proxy;
+						break;
+					} else if (!fallbackProxy || topCandidate.successCount > fallbackProxy.successCount) {
+						fallbackProxy = topCandidate;
+					}
+				}
+			}
+			if (!bestProxy && fallbackProxy) {
+				bestProxy = fallbackProxy.proxy;
+			}
+			if (bestProxy) {
+				window.proxyFieldsData[window.activeProxyIndex || 0] = bestProxy;
+				if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
+				const userProxyResult = document.getElementById("test-user-proxy-result");
+				if (userProxyResult) {
+					userProxyResult.innerText = "";
+				}
+				toggleProxySelectorModal(false);
+				bm3pzm2("پـروکـسـی با بهترین امتیاز لود شد.");
+				testUserSocksProxy();
+			} else {
+				alert("هیچ پـروکـسـی سالمی (حتی با یک پینگ موفق) یافت نشد.");
+			}
+		} else {
+			alert("پـروکـسـی برای این کشور یافت نشد.");
+		}
+	} catch (e) {
+		alert("خطا در دریافت لیست پـروکـسـی‌ها از سرور.");
+	} finally {
+		loadingState.classList.add("hidden");
+		formState.classList.remove("hidden");
+		fetchBtn.disabled = false;
+	}
+}
+		function toggleSupportModal(show) {
+			const modal = document.getElementById('support-modal');
+			const content = modal.firstElementChild;
+			if (show) {
+				modal.classList.remove('opacity-0', 'pointer-events-none');
+				content.classList.remove('opacity-0', 'scale-95');
+			} else {
+				modal.classList.add('opacity-0', 'pointer-events-none');
+				content.classList.add('opacity-0', 'scale-95');
+			}
+		}
+window.addEventListener('click', (e) => {
+	if (window._modalMouseDownTarget && window._modalMouseDownTarget !== e.target) return;
+	if (e.target.id === 'proxy-selector-modal') toggleProxySelectorModal(false);
+});
+	</script>
+	${td8g9qc}
+	  </body>
+</html>`,
+	status: `<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>وضعیت اشتراک کاربر</title>
+	${avk7j6y}
+	<style>
+		body { font-family: 'Vazirmatn', sans-serif; }
+		.glass {
+			background: rgba(10, 10, 10, 0.6);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+		}
+		/* پرچم‌های SVG برای سازگاری با ویندوز */
+		.flg {
+			display: inline-block;
+			width: 1.35em;
+			height: 1em;
+			vertical-align: -0.15em;
+			border-radius: 2px;
+			background-size: cover;
+			background-position: 50%;
+			background-repeat: no-repeat;
+		}
+		.flg-g {
+			font-size: 1.1em;
+			line-height: 1;
+			vertical-align: -0.05em;
+		}
+	</style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex flex-col items-center py-12 px-4 overflow-x-hidden">
+	<div class="w-full max-w-xl glass rounded-md shadow-2xl p-6 md:p-8 relative overflow-hidden z-10">
+		<div class="absolute -left-12 -top-12 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+		<div class="absolute -right-12 -bottom-12 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+		<div class="text-center mb-8 relative z-10">
+			<div class="inline-flex items-center justify-center p-3 bg-blue-950/60 border border-blue-500 text-blue-400 rounded-md mb-4 shadow-[0_0_15px_rgba(59,130,246,0.4)]">
+				<svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+			</div>
+			<h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-1">پـنـل زئــوس - وضعیت اشتراک</h1>
+			<p id="display-username" class="text-sm font-bold text-blue-500 tracking-wide font-mono mb-2"></p>
+			<p id="display-flag" class="text-2xl font-bold tracking-wide mb-3" style="display:none;"></p>
+			<div id="live-connections-badge" style="display: none !important;">
+				<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+				<span id="live-connections-text" dir="rtl">۰ دستگاه متصل</span>
+			</div>
+		</div>
+		<div id="status-card" class="mb-6 rounded-md p-4 text-center border font-bold relative z-10 transition duration-300">
+			<span id="status-text" class="text-sm">در حال بارگذاری وضعیت...</span>
+		</div>
+		<div class="grid grid-cols-2 gap-3 mb-8 relative z-10">
+			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
+				<div class="flex justify-between items-center mb-2">
+					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
+						<svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+						حجم مصرفی
+					</span>
+					<span id="volume-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
+				</div>
+				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
+					<div id="volume-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+				</div>
+				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
+					<span id="used-vol" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
+					<span id="limit-vol" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
+				</div>
+			</div>
+			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
+				<div class="flex justify-between items-center mb-2">
+					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
+						<svg class="w-3.5 h-3.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+						زمان باقی‌مانده
+					</span>
+					<span id="expiry-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
+				</div>
+				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2 flex justify-end">
+					<div id="expiry-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+				</div>
+				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
+					<span id="days-remaining" class="font-bold text-gray-800 dark:text-zinc-200" dir="rtl">-</span>
+					<span id="total-days" class="font-bold text-gray-800 dark:text-zinc-200" dir="rtl">-</span>
+				</div>
+			</div>
+			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
+				<div class="flex justify-between items-center mb-2">
+					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
+						<svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+						ریکوئست‌ها
+					</span>
+					<span id="req-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
+				</div>
+				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
+					<div id="req-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+				</div>
+				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
+					<span id="used-req" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
+					<span id="limit-req" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
+				</div>
+			</div>
+			<div class="bg-white/40 dark:bg-zinc-900/30 border border-gray-200 dark:border-amoled-border rounded-md p-3 shadow-sm flex flex-col justify-between">
+				<div class="flex justify-between items-center mb-2">
+					<span class="text-[10px] font-semibold text-gray-600 dark:text-zinc-400 flex items-center gap-1">
+						<svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+						دستگاه متصل
+					</span>
+					<span id="online-pct" class="text-[10px] font-bold text-gray-800 dark:text-zinc-200">۰٪</span>
+				</div>
+				<div class="w-full bg-gray-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden mb-2">
+					<div id="online-progress" class="h-1.5 rounded-full transition-all duration-1000" style="width: 0%"></div>
+				</div>
+				<div class="flex justify-between text-[9px] text-gray-500 dark:text-zinc-400 font-medium">
+					<span id="online-count" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">۰</span>
+					<span id="limit-online" class="font-bold text-gray-800 dark:text-zinc-200" dir="ltr">-</span>
+				</div>
+			</div>
+		</div>
+		<div class="border-t border-gray-100 dark:border-zinc-800 pt-6 relative z-10">
+			<h2 class="text-sm font-bold mb-4 flex items-center gap-2">
+				<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+				دریافت کـانفـیگ و اشتراک‌ها
+			</h2>
+			<div class="space-y-3">
+				<button onclick="copyTextSub()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-indigo-500 dark:hover:border-indigo-500 rounded-md text-xs font-medium transition shadow-sm">
+					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg> کپی لینک ساب‌اسکریپشن متنی</span>
+					<span class="text-indigo-500">کپی</span>
+				</button>
+				<button onclick="showSubQr()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-amber-500 dark:hover:border-amber-500 rounded-md text-xs font-medium transition shadow-sm">
+					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg> دریافت کیوآر کد ساب</span>
+					<span class="text-amber-500">نمایش</span>
+				</button>
+				<button onclick="copyvIeesConfig()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-blue-500 dark:hover:border-blue-500 rounded-md text-xs font-medium transition shadow-sm">
+					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> کپی کـانفـیگ vIees (مستقیم)</span>
+					<span class="text-blue-500">کپی</span>
+				</button>
+				<button onclick="copySingboxSub()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-purple-500 dark:hover:border-purple-500 rounded-md text-xs font-medium transition shadow-sm">
+					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg> کپی لینک ساب Sing-box</span>
+					<span class="text-purple-500">کپی</span>
+				</button>
+				<button onclick="showSingboxQr()" class="w-full flex justify-between items-center px-4 py-3 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border hover:border-purple-500 dark:hover:border-purple-500 rounded-md text-xs font-medium transition shadow-sm">
+					<span class="flex items-center gap-2"><svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 19h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg> دریافت کیوآر کد Sing-box</span>
+					<span class="text-purple-500">نمایش</span>
+				</button>
+			</div>
+		</div>
+		<div class="border-t border-gray-100 dark:border-zinc-800 pt-6 mt-6 relative z-10 w-full">
+			<button onclick="document.getElementById('software-downloads-content').classList.toggle('hidden'); document.getElementById('software-downloads-icon').classList.toggle('rotate-180');" class="w-full flex items-center justify-between text-sm font-bold mb-4 cursor-pointer focus:outline-none">
+				<div class="flex items-center gap-2">
+					<svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+					<span>دانلود نرم افزار ها</span>
+				</div>
+				<svg id="software-downloads-icon" class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+			</button>
+			<div id="software-downloads-content" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3">
+				<!-- Android -->
+				<div class="bg-green-50/50 dark:bg-green-950/20 border border-green-200/50 dark:border-green-800/30 rounded-md p-2.5">
+					<div class="flex items-center gap-1.5 mb-2.5 text-green-700 dark:text-green-500 font-bold text-[11px]">
+						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02L19.695 6.183c.1568-.2716.0637-.6182-.2079-.7754-.2716-.1564-.6183-.0633-.775.2082l-1.8584 3.2185c-1.3853-.6328-2.9697-.9881-4.6644-.9881-1.6946 0-3.279.3553-4.664.9881L5.6664 5.6158c-.1567-.2715-.5038-.3646-.775-.2082-.2716.1572-.3647.5038-.2079.7754l1.8136 3.1385C2.963 11.2384 1.1571 14.5422 1 18.4234h22c-.1572-3.8812-1.963-7.185-5.4955-9.102"/></svg>
+						اندروید
+					</div>
+					<div class="flex flex-col gap-1.5">
+						<a href="https://play.google.com/store/apps/details?id=com.napsternetlabs.napsternetv" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-green-400 dark:hover:border-green-500 transition shadow-sm"><span>Npv Tunnel</span><span class="text-green-500 text-[12px]">📥</span></a>
+						<a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-green-400 dark:hover:border-green-500 transition shadow-sm"><span>V2Box</span><span class="text-green-500 text-[12px]">📥</span></a>
+						</div>
+				</div>
+				<!-- Windows -->
+				<div class="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/50 dark:border-blue-800/30 rounded-md p-2.5">
+					<div class="flex items-center gap-1.5 mb-2.5 text-blue-700 dark:text-blue-500 font-bold text-[11px]">
+						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.801"/></svg>
+						ویندوز
+					</div>
+					<div class="flex flex-col gap-1.5">
+						</div>
+				</div>
+				<!-- iOS -->
+				<div class="bg-gray-50/50 dark:bg-zinc-800/30 border border-gray-200/50 dark:border-gray-700/50 rounded-md p-2.5">
+					<div class="flex items-center gap-1.5 mb-2.5 text-gray-700 dark:text-gray-300 font-bold text-[11px]">
+						<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.05 2.95.72 3.88 1.84-3.46 2.06-2.89 6.18.54 7.42-.85 1.58-1.54 2.82-3.07 3.75zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+						آیفون
+					</div>
+					<div class="flex flex-col gap-1.5">
+						<a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>V2Box</span><span class="text-gray-500 text-[12px]">📥</span></a>
+						<a href="https://apps.apple.com/us/app/streisand/id6450534064" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>Streisand</span><span class="text-gray-500 text-[12px]">📥</span></a>
+						<a href="https://apps.apple.com/us/app/npv-tunnel/id1629465476" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>NapsternetV</span><span class="text-gray-500 text-[12px]">📥</span></a>
+						<a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>happ</span><span class="text-gray-500 text-[12px]">📥</span></a>
+						<a href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" class="flex justify-between items-center bg-white dark:bg-amoled-card border border-gray-100 dark:border-zinc-800 px-2 py-1.5 rounded text-[10px] font-semibold text-gray-700 dark:text-zinc-300 hover:border-gray-400 dark:hover:border-gray-500 transition shadow-sm"><span>Hiddify</span><span class="text-gray-500 text-[12px]">📥</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="qr-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+	<div id="qr-modal-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center">
+		<div class="flex justify-between items-center mb-4">
+			<h3 class="text-lg font-bold text-gray-900 dark:text-white">QR Code</h3>
+			<button onclick="toggleQrModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="flex justify-center bg-gray-100 dark:bg-amoled-bg p-4 rounded-md mb-4 border border-gray-200 dark:border-zinc-800">
+			<div id="qrcode-container"></div>
+		</div>
+		<button onclick="downloadQrCode()" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-200 shadow-sm flex items-center justify-center gap-2">
+			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+			دانلود تصویر QR
+		</button>
+	</div>
+</div>
+<div class="flex flex-col gap-4 mt-6 relative z-10">
+	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
+		</div>
+	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
+		</div>
+</div>
+${pbfiipq}
+	<script>
+		/* {{USER_DATA_PLACEHOLDER}} */
+		${zfne8tu}
+		function mash75l() {
+			return window.location.host;
+		}
+		function wbfdlk4(user) {
+			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
+			var trojan = t.indexOf('trojan') !== -1;
+			var ss = t.indexOf('shadowsocks') !== -1;
+			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
+			return { vless: vless, trojan: trojan, ss: ss };
+		}
+		function fv9a4g0() {
+			const u = window.statusUser;
+			if (!u) return '';
+			const host = mash75l();
+			var ips = [host];
+			if (u.ips) {
+				const parsedIps = u.ips.split('\\n').map(function(ip) { return ip.trim(); }).filter(function(ip) { return ip.length > 0; });
+				if (parsedIps.length > 0) ips = parsedIps;
+			}
+			var ports = String(u.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+			var fp = u.fingerprint || 'unsafe';
+			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
+			const pf = wbfdlk4(u);
+			const links = [];
+			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
+			const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m1));
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&security=none&type=ws&host=' + host + '&path=' + dynPath + '#' + encodeURIComponent(m2));
+			let remVol = "Unlimited";
+			if (u.limit_gb) {
+				let rem = u.limit_gb - (u.used_gb || 0);
+				remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
+			}
+			let remTime = "Unlimited";
+			if (u.expiry_days && u.created_at) {
+				const created = new Date(u.created_at);
+				const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
+				const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+				remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
+			}
+			let remReq = "Unlimited";
+			if (u.limit_req) {
+				let rem = u.limit_req - (u.used_req || 0);
+				remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
+			}
+			const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
+			if (window.statusUser && window.statusUser.info_configs) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + host + ':80?path=' + dynPath + '&security=none&encryption=none&host=' + host + '&fp=' + fp + '&type=ws#' + encodeURIComponent(infoRemark));
+			const rawPath = "/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default");
+			let proxyList = [];
+			try {
+				if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
+					proxyList = JSON.parse(u.user_socks5);
+				} else if (u.user_socks5 || u.user_proxy_ip) {
+					proxyList = [u.user_socks5 || u.user_proxy_ip];
+				} else {
+					proxyList = [null];
+				}
+			} catch (e) {
+				proxyList = [u.user_socks5 || u.user_proxy_ip];
+			}
+			if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+			const allowDirect = u.enable_direct !== 0;
+			if (allowDirect) {
+				let hasDirect = proxyList.some(function(p) { return p === null || p === ""; });
+				if (!hasDirect) proxyList.push(null);
+			} else {
+				proxyList = proxyList.filter(function(p) { return p !== null && p !== ""; });
+			}
+			if (proxyList.length === 0) proxyList = [null];
+			let proxyFlagCache = {};
+			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
+			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
+				let proxyItem = proxyList[locIdx];
+				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
+				let countryCode = typeof proxyItem === "object" && proxyItem !== null
+					? proxyItem.country
+					: (proxyStr ? (proxyStr === u.user_proxy_ip ? (u.user_proxy_iata || "") : "") : (u.global_proxy_iata || ""));
+				let flagEmoji = "🌐";
+				if (countryCode && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(countryCode);
+				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
+				}
+				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
+				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
+				ips.forEach((ip) => {
+					ports.forEach((portStr) => {
+						const isTlsPort = ["443", "2053", "2083", "2087", "2096", "8443"].includes(portStr);
+						const tlsVal = isTlsPort ? "tls" : "none";
+						let userFrag = u.frag_len && u.frag_int ? "&fragment=" + u.frag_len + "," + u.frag_int : "";
+						if (u.advanced_frag) userFrag += "&fm=" + encodeURIComponent(u.advanced_frag);
+						if (u.cipher_suites) userFrag += "&cs=" + encodeURIComponent(u.cipher_suites);
+						if (u.tls_mask) userFrag += "&mask=" + encodeURIComponent(u.tls_mask);
+						if (u.ech_config) userFrag += "&ech=" + encodeURIComponent(u.ech_config);
+						const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
+						const remark = tagPrefix + " | " + flagEmoji + " | " + u.username;
+						if (pf.vless) links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + currentDynPath + '&security=' + tlsVal + '&encryption=none&insecure=0&host=' + host + '&fp=' + fp + '&type=ws&allowInsecure=0&sni=' + host + userFrag + '#' + encodeURIComponent(remark));
+						if (pf.trojan) {
+							links.push('trojan://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?security=' + tlsVal + '&type=ws&host=' + host + '&path=' + currentDynPath + '&sni=' + host + '&fp=' + fp + userFrag + '#' + encodeURIComponent(remark + ' (Trojan)'));
+						}
+						if (pf.ss) {
+							const ssPlugin = 'v2ray-plugin;mode=websocket;host=' + host + ';path=' + ssPlainPath + (isTlsPort ? ';tls' : '');
+							links.push('ss://' + btoa('aes-256-gcm:' + (u.uuid || '')) + '@' + ip + ':' + portStr + '/?plugin=' + encodeURIComponent(ssPlugin) + '#' + encodeURIComponent(remark + ' (SS)'));
+						}
+					});
+				});
+			}
+			return links.join('\\n');
+		}
+		function copyvIeesConfig() {
+			navigator.clipboard.writeText(fv9a4g0()).then(() => alert('✅ کـانفـیگ vIees با موفقیت کپی شد!'));
+		}
+		function copyTextSub() {
+			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
+			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب متنی کپی شد!'));
+		}
+		function copySingboxSub() {
+			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
+			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب Sing-box کپی شد!'));
+		}
+		function toggleQrModal(show, text) {
+			const modal = document.getElementById('qr-modal');
+			const card = document.getElementById('qr-modal-card');
+			const container = document.getElementById('qrcode-container');
+			if (show) {
+				container.innerHTML = '';
+				const isDark = document.documentElement.classList.contains('dark');
+				const qrCode = new QRCodeStyling({
+					width: 220,
+					height: 220,
+					data: text,
+					margin: 5,
+					qrOptions: { errorCorrectionLevel: 'M' },
+					dotsOptions: {
+						color: isDark ? "#bfdbfe" : "#1e3a8a",
+						type: "rounded"
+					},
+					backgroundOptions: {
+						color: isDark ? "#0f172a" : "#ffffff"
+					},
+					cornersSquareOptions: {
+						color: isDark ? "#60a5fa" : "#1e40af",
+						type: "extra-rounded"
+					},
+					cornersDotOptions: {
+						color: isDark ? "#60a5fa" : "#1d4ed8",
+						type: "dot"
+					}
+				});
+				qrCode.append(container);
+				modal.classList.remove('opacity-0', 'pointer-events-none');
+				modal.classList.add('opacity-100', 'pointer-events-auto');
+				card.classList.remove('opacity-0', 'scale-95');
+				card.classList.add('opacity-100', 'scale-100');
+			} else {
+				modal.classList.remove('opacity-100', 'pointer-events-auto');
+				modal.classList.add('opacity-0', 'pointer-events-none');
+				card.classList.remove('opacity-100', 'scale-100');
+				card.classList.add('opacity-0', 'scale-95');
+			}
+		}
+		function downloadQrCode() {
+			const container = document.getElementById('qrcode-container');
+			if (!container) return;
+			const canvas = container.querySelector('canvas');
+			const img = container.querySelector('img');
+			let dataUrl = '';
+			if (canvas) {
+				dataUrl = canvas.toDataURL("image/png");
+			} else if (img && img.src) {
+				dataUrl = img.src;
+			}
+			if (!dataUrl) {
+				alert('⚠️ تصویر QR برای دانلود یافت نشد!');
+				return;
+			}
+			const downloadAnchor = document.createElement('a');
+			downloadAnchor.href = dataUrl;
+			downloadAnchor.download = "qr_" + Date.now() + ".png";
+			document.body.appendChild(downloadAnchor);
+			downloadAnchor.click();
+			downloadAnchor.remove();
+		}
+		function showSubQr() {
+			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
+			toggleQrModal(true, link);
+		}
+		function showSingboxQr() {
+			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
+			toggleQrModal(true, link);
+		}
+		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
+		function b00aqjk(countryCode) {
+			if (!countryCode) return '<span class="flg-g">🌐</span>';
+			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
+			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
+			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
+		}
+		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS */
+		function nkis0ps(countryCode) {
+			if (!countryCode) return '🌐';
+			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
+			if (cc.length !== 2) return '🌐';
+			try {
+				return String.fromCodePoint(...cc.split('').map(char => 127397 + char.charCodeAt(0)));
+			} catch (e) {
+				return '🌐';
+			}
+		}
+		document.addEventListener('DOMContentLoaded', () => {
+			const u = window.statusUser;
+			if (!u) return;
+			const limit = u.ip_limit !== undefined ? u.ip_limit : u.max_connections;
+			document.getElementById('display-username').innerText = u.username;
+const rkjjcq8 = document.getElementById('display-flag');
+	if (u.user_proxy_iata) {
+		const flag = b00aqjk(u.user_proxy_iata);
+		rkjjcq8.innerHTML = flag + " " + u.user_proxy_iata.toUpperCase();
+		rkjjcq8.style.display = 'block';
+} else if (u.user_socks5 || u.user_proxy_ip) {
+	rkjjcq8.style.display = 'block';
+	let proxyList = [];
+	try {
+		if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
+			proxyList = JSON.parse(u.user_socks5);
+		} else {
+			proxyList = [u.user_socks5 || u.user_proxy_ip];
+		}
+	} catch(e) {
+		proxyList = [u.user_socks5 || u.user_proxy_ip];
+	}
+	let initialFlags = proxyList.map(item => {
+		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
+		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
+		if (targetCountry) return b00aqjk(targetCountry);
+		try {
+			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
+			/* کش همیشه کد کشور (۲ حرف) را ذخیره می‌کند */
+			const cached = proxyFlagCache[targetProxy];
+			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return b00aqjk(cached);
+		} catch(e) {}
+		return '⏳';
+	});
+	rkjjcq8.innerHTML = initialFlags.join(' ');
+	Promise.all(proxyList.map((item, index) => {
+		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
+		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
+		if (targetCountry) return Promise.resolve(b00aqjk(targetCountry));
+		try {
+			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
+			const cached = proxyFlagCache[targetProxy];
+			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return Promise.resolve(b00aqjk(cached));
+		} catch(e) {}
+		return fetch('/api/test-proxy', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ proxy: targetProxy })
+		})
+		.then(res => res.json())
+		.then(data => {
+			if (data.success && data.country) {
+				const flagSvg = b00aqjk(data.country);
+				try {
+					const cache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
+					/* کد کشور را کش می‌کنیم تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
+					cache[targetProxy] = data.country.toUpperCase();
+					localStorage.setItem('pf_c2', JSON.stringify(cache));
+				} catch(e) {}
+				return flagSvg;
+			}
+			return '<span class="flg-g">🌐</span>';
+		})
+		.catch(() => '<span class="flg-g">🌐</span>');
+	})).then(flags => {
+		rkjjcq8.innerHTML = flags.join(' ');
+	});
+}
+			const badge = document.getElementById('live-connections-badge');
+			badge.classList.remove('hidden');
+			if (u.online_count && u.online_count > 0) {
+				document.getElementById('live-connections-text').innerText = u.online_count + (limit ? '/' + limit : '') + ' دستگاه متصل';
+				badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-green-600/10 border border-green-600/20 text-green-600 rounded-full text-xs font-bold shadow-sm';
+				badge.querySelector('span.w-2').className = 'w-2 h-2 rounded-full bg-green-600 animate-pulse';
+			} else {
+				document.getElementById('live-connections-text').innerText = '۰ دستگاه متصل';
+				badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-gray-500/10 border border-gray-500/20 text-gray-500 dark:text-zinc-400 rounded-full text-xs font-bold shadow-sm';
+				badge.querySelector('span.w-2').className = 'w-2 h-2 rounded-full bg-gray-500';
+			}
+			const usedGb = u.used_gb || 0;
+			const limitGb = u.limit_gb;
+			const formattedUsed = usedGb < 1 ? (usedGb * 1024).toFixed(0) + ' MB' : usedGb.toFixed(2) + ' GB';
+			document.getElementById('used-vol').innerText = formattedUsed;
+			let isVolumeExpired = false;
+			if (limitGb) {
+				document.getElementById('limit-vol').innerText = limitGb + ' GB';
+				const pct = Math.min((usedGb / limitGb) * 100, 100);
+				document.getElementById('volume-pct').innerText = pct.toFixed(0) + '٪';
+				document.getElementById('volume-progress').style.width = pct + '%';
+				const hue = 120 - (pct * 1.2);
+				document.getElementById('volume-progress').style.backgroundColor = 'hsl(' + hue + ', 80%, 45%)';
+				if (usedGb >= limitGb) isVolumeExpired = true;
+			} else {
+				document.getElementById('limit-vol').innerText = 'نامحدود';
+				document.getElementById('volume-pct').innerText = '۰٪';
+				document.getElementById('volume-progress').style.width = '100%';
+				document.getElementById('volume-progress').style.backgroundColor = '#3b82f6';
+			}
+			let daysRemaining = 'نامحدود';
+			let totalDays = 'نامحدود';
+			let isTimeExpired = false;
+			if (u.expiry_days) {
+				totalDays = u.expiry_days + ' روز';
+				if (u.created_at) {
+					const created = new Date(u.created_at);
+					const expiryDate = u.first_connection_time ? new Date(u.first_connection_time + u.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + u.expiry_days * 24 * 60 * 60 * 1000);
+					const diffDays = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
+					daysRemaining = diffDays > 0 ? diffDays : 0;
+					const pct = Math.max(0, Math.min(100, (daysRemaining / u.expiry_days) * 100));
+					document.getElementById('expiry-pct').innerText = pct.toFixed(0) + '٪';
+					document.getElementById('expiry-progress').style.width = pct + '%';
+					const hue = pct * 1.2;
+					document.getElementById('expiry-progress').style.backgroundColor = 'hsl(' + hue + ', 80%, 45%)';
+					if (new Date() > expiryDate) isTimeExpired = true;
+				}
+			} else {
+				document.getElementById('expiry-pct').innerText = '۰٪';
+				document.getElementById('expiry-progress').style.width = '100%';
+				document.getElementById('expiry-progress').style.backgroundColor = '#3b82f6';
+			}
+			document.getElementById('days-remaining').innerText = daysRemaining === 'نامحدود' ? 'نامحدود' : daysRemaining + ' روز';
+			document.getElementById('total-days').innerText = totalDays;
+			const usedReq = u.used_req || 0;
+			const limitReq = u.limit_req;
+			document.getElementById('used-req').innerText = usedReq.toLocaleString();
+			let isReqExpired = false;
+			if (limitReq) {
+				document.getElementById('limit-req').innerText = limitReq.toLocaleString();
+				const rPct = Math.min((usedReq / limitReq) * 100, 100);
+				document.getElementById('req-pct').innerText = rPct.toFixed(0) + '٪';
+				document.getElementById('req-progress').style.width = rPct + '%';
+				const rHue = 120 - (rPct * 1.2);
+				document.getElementById('req-progress').style.backgroundColor = 'hsl(' + rHue + ', 80%, 45%)';
+				if (usedReq >= limitReq) isReqExpired = true;
+			} else {
+				document.getElementById('limit-req').innerText = 'نامحدود';
+				document.getElementById('req-pct').innerText = '۰٪';
+				document.getElementById('req-progress').style.width = '100%';
+				document.getElementById('req-progress').style.backgroundColor = '#3b82f6';
+			}
+			const onlineCount = u.online_count || 0;
+			document.getElementById('online-count').innerText = onlineCount;
+			if (limit) {
+				document.getElementById('limit-online').innerText = limit;
+				const oPct = Math.min((onlineCount / limit) * 100, 100);
+				document.getElementById('online-pct').innerText = oPct.toFixed(0) + '٪';
+				document.getElementById('online-progress').style.width = oPct + '%';
+				const oHue = 120 - (oPct * 1.2);
+				document.getElementById('online-progress').style.backgroundColor = 'hsl(' + oHue + ', 80%, 45%)';
+			} else {
+				document.getElementById('limit-online').innerText = 'نامحدود';
+				document.getElementById('online-pct').innerText = '۰٪';
+				document.getElementById('online-progress').style.width = '100%';
+				document.getElementById('online-progress').style.backgroundColor = onlineCount > 0 ? '#16a34a' : '#9ca3af'; 
+			}
+			const statusCard = document.getElementById('status-card');
+			const statusText = document.getElementById('status-text');
+			if (u.is_active === 0) {
+				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-red-500/10 border-red-500/30 text-red-500 shadow-md shadow-red-500/5';
+				statusCard.style.boxShadow = 'inset 0 0 12px rgba(239, 68, 68, 0.1)';
+				statusText.innerText = '❌ وضعیت اشتراک: غیرفعال / مسدود دستی';
+			} else if (isVolumeExpired || isReqExpired || isTimeExpired) {
+				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-yellow-500/10 border-yellow-500/30 text-yellow-500 shadow-md shadow-yellow-500/5';
+				if (isVolumeExpired) statusText.innerText = '⚠️ وضعیت اشتراک: تمام شدن حجم مجاز';
+				else if (isReqExpired) statusText.innerText = '📈 وضعیت اشتراک: تمام شدن ریکوئست مجاز';
+				else if (isTimeExpired) statusText.innerText = '⏳ وضعیت اشتراک: منقضی شده (پایان زمان اعتبار)';
+			} else {
+				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-green-600/10 border-green-600/30 text-green-600 shadow-md shadow-green-600/5';
+				statusText.innerText = '✅ وضعیت اشتراک: فعال و متصل';
+			}
+		});
+		window.addEventListener('click', (e) => {
+			if (e.target.id === 'qr-modal') toggleQrModal(false);
+		});
+	</script>
+	${td8g9qc}
+</body>
+</html>`,
+};
