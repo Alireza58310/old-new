@@ -1,4 +1,4 @@
-// مرحله ۹: step8 + نوشتن first_connection/active_ips موقع اتصال هم خاموش
+// مرحله ۱۰: step9 + خطای v18gj84 (pipe دانلود) دیگه unhandled rejection نمیشه
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -2289,7 +2289,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 						}
 						remoteConnWrapper.socket = s;
 						s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-						v18gj84(s, serverSock, respHeader, null, s749df7);
+						v18gj84(s, serverSock, respHeader, null, s749df7).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
 					})();
 					remoteConnWrapper.connectingPromise = task;
 					try {
@@ -2456,7 +2456,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				}
 				remoteConnWrapper.socket = s;
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
-				v18gj84(s, serverSock, null, null, s749df7);
+				v18gj84(s, serverSock, null, null, s749df7).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2748,7 +2748,7 @@ async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
 				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
 				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
 				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
-				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
+				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt }).catch(() => { try { grmlvmk(serverSock); } catch (_) {} });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
