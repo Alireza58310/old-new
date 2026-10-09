@@ -1,4 +1,4 @@
-// مرحله ۱۳: step12 + تشخیصی: مسیر /dbgx9 و نمایش متن واقعی خطا به‌جای Internal Server Error (موقت - بعد از عیب‌یابی حذف شود)
+// مرحله ۱۴: step13 + سقف حافظه صف‌ها پایین: صف هر اتصال 6MB→768KB، تعداد آیتم 3000→400، اتصال هم‌زمان 300→80
 const __t0 = Date.now();
 const __errs = new Map();
 let __wsOpened = 0, __wsPeak = 0;
@@ -108,8 +108,8 @@ let jlvmthl = 0;
 const vac5goc = 5 * 60 * 1000;
 const b2llpoh = "https://cloudflare-dns.com/dns-query";
 const j7gzuyc = 64 * 1024;
-const gd4zjw9 = 6 * 1024 * 1024;
-const sacemxe = 3000;
+const gd4zjw9 = 768 * 1024;
+const sacemxe = 400;
 const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
 const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
 const DOWNSTREAM_GRAIN_SILENT_MS = 1;
@@ -117,7 +117,7 @@ const jtnyqj4 = 2048;
 const a5g5pwf = new TextEncoder();
 const b1p8pcx = new TextDecoder();
 const m1fqgtq = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
-const j0z7nx7 = 300;
+const j0z7nx7 = 80;
 let n7wooiz = 0;
 const qaq0llp = 30 * 1000;
 let caxaruo = 0;
