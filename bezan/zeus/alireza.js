@@ -408,13 +408,13 @@ export default {
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
-		return new Response("T3 ok (after DB binding check)");
 		try {
 			try {
 				await gm37elm.ensureSchema(env.DB);
 			} catch (e) {}
 			xn0iw7z(env, ctx);
 			wcjjpz0();
+		return new Response("T4 ok (after ensureSchema + background tasks)");
 			if (ogjh4tu) {
 				ctx.waitUntil(e6bb3cy(env, ctx));
 				ctx.waitUntil(e31njoi(env, ctx));
