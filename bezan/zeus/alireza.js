@@ -1,4 +1,4 @@
-const connect = () => { throw new Error("stub"); };
+import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
 const utza4af = 8000;
@@ -405,10 +405,10 @@ async function d8fsytq() {
 }
 export default {
 	async fetch(request, env, ctx) {
-		return new Response("T2 ok (top of fetch, import stubbed)");
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing in Cloudflare Workers settings.", { status: 500 });
 		}
+		return new Response("T3 ok (after DB binding check)");
 		try {
 			try {
 				await gm37elm.ensureSchema(env.DB);
