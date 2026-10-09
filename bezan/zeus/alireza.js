@@ -1,4 +1,4 @@
-// مرحله ۵: step4 + نوشتن ترافیک/آمار در D1 (dyj1dp1, xn0iw7z, viwe15t)
+// مرحله ۶: step5 + همه توابع کمکی پروکسی (DNS, صف آپلود, pipe, UDP, socks/http) - هندلر اصلی bvj1iaf هنوز خاموش
 import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
@@ -1676,9 +1676,669 @@ async function dyj1dp1(env) {
 		}
 	}
 }
+function depvumf(userSocks5, request) {
+	if (!userSocks5) return "";
+	let proxyList = [];
+	try {
+		if (userSocks5.trim().startsWith("[")) {
+			proxyList = JSON.parse(userSocks5);
+		} else {
+			proxyList = [userSocks5];
+		}
+	} catch (e) {
+		proxyList = [userSocks5];
+	}
+	if (!Array.isArray(proxyList) || proxyList.length === 0) return "";
+	
+	let idx = -1; 
+	if (request) {
+		try {
+			const url = new URL(request.url);
+			const pathMatch = url.pathname.match(/\/loc-(\d+)/);
+			if (pathMatch) {
+				idx = parseInt(pathMatch[1], 10);
+			} else {
+				const locParam = url.searchParams.get("loc");
+				if (locParam !== null && !isNaN(Number(locParam))) {
+					idx = parseInt(locParam, 10);
+				}
+			}
+		} catch (e) {}
+	}
+	
+	if (idx === -1) return "";
+	
+	const selected = proxyList[idx] || proxyList[0];
+	return typeof selected === "object" ? selected.proxy || "" : String(selected || "");
+}
 async function bvj1iaf() { return new Response("Not Found", { status: 404 }); }
+let zkhivud = null;
+let wgu3fns = 0;
+let b4075e1 = "";
 async function viwe15t(env) {
 	return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+}
+function uppwjdo(value) {
+	const parts = String(value || "").split(".");
+	return parts.length === 4 && parts.every((part) => /^\d{1,3}$/.test(part) && Number(part) >= 0 && Number(part) <= 255);
+}
+function zqv9d9o(data) {
+	if (data instanceof Uint8Array) return data;
+	if (data instanceof ArrayBuffer) return new Uint8Array(data);
+	if (ArrayBuffer.isView(data)) return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+	return new Uint8Array(data || 0);
+}
+/*
+[1.
+*/
+function o6qjwnj(...chunkList) {
+	if (chunkList.length === 2) {
+		const a = zqv9d9o(chunkList[0]);
+		const b = zqv9d9o(chunkList[1]);
+		if (!a.byteLength) return b;
+		if (!b.byteLength) return a;
+		const merged = new Uint8Array(a.byteLength + b.byteLength);
+		merged.set(a, 0);
+		merged.set(b, a.byteLength);
+		return merged;
+	}
+	const chunks = chunkList.map(zqv9d9o);
+	let total = 0;
+	for (const c of chunks) total += c.byteLength;
+	const result = new Uint8Array(total);
+	let offset = 0;
+	for (const c of chunks) {
+		result.set(c, offset);
+		offset += c.byteLength;
+	}
+	return result;
+}
+function grmlvmk(socket) {
+	try {
+		if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CLOSING) {
+			socket.close();
+		}
+	} catch (e) {}
+}
+async function xrts5qo(domain, recordType, targetDoh = b2llpoh) {
+	const cacheKey = `${domain}:${recordType}:${targetDoh}`;
+	if (obx6yh7.has(cacheKey)) {
+		const cached = obx6yh7.get(cacheKey);
+		if (Date.now() < cached.expires) return cached.data;
+		obx6yh7.delete(cacheKey);
+		if (cached.data && cached.data.length > 0) {
+			sskrq5v(domain, recordType, targetDoh, cacheKey).catch(() => {});
+			return cached.data;
+		}
+	}
+	return await sskrq5v(domain, recordType, targetDoh, cacheKey);
+}
+async function sskrq5v(domain, recordType, targetDoh, cacheKey) {
+	let dohTimer = null;
+	const cacheNegative = () => {
+		if (obx6yh7.size >= jtnyqj4) {
+			const oldestKey = obx6yh7.keys().next().value;
+			if (oldestKey !== undefined) obx6yh7.delete(oldestKey);
+		}
+		obx6yh7.set(cacheKey, { data: [], expires: Date.now() + 30000 });
+	};
+	try {
+		const typeMap = { A: 1, AAAA: 28 };
+		const qtype = typeMap[recordType.toUpperCase()] || 1;
+		const encodeDomain = (name) => {
+			const parts = name.endsWith(".") ? name.slice(0, -1).split(".") : name.split(".");
+			const bufs = [];
+			for (const label of parts) {
+				const enc = a5g5pwf.encode(label);
+				bufs.push(new Uint8Array([enc.length]), enc);
+			}
+			bufs.push(new Uint8Array([0]));
+			return o6qjwnj(...bufs);
+		};
+		const qname = encodeDomain(domain);
+		const query = new Uint8Array(12 + qname.length + 4);
+		const qview = new DataView(query.buffer);
+		qview.setUint16(0, crypto.getRandomValues(new Uint16Array(1))[0]);
+		qview.setUint16(2, 0x0100);
+		qview.setUint16(4, 1);
+		query.set(qname, 12);
+		qview.setUint16(12 + qname.length, qtype);
+		qview.setUint16(12 + qname.length + 2, 1);
+		const dohAbort = new AbortController();
+		dohTimer = setTimeout(() => dohAbort.abort(), 1500);
+		const response = await fetch(targetDoh, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/dns-message",
+				Accept: "application/dns-message",
+			},
+			body: query,
+			signal: dohAbort.signal,
+		});
+		if (!response.ok) {
+			clearTimeout(dohTimer);
+			cacheNegative();
+			return [];
+		}
+		const buf = new Uint8Array(await response.arrayBuffer());
+		clearTimeout(dohTimer);
+		const dv = new DataView(buf.buffer);
+		const qdcount = dv.getUint16(4);
+		const ancount = dv.getUint16(6);
+		const parseName = (pos) => {
+			const labels = [];
+			let p = pos,
+				jumped = false,
+				endPos = -1,
+				safe = 128;
+			while (p < buf.length && safe-- > 0) {
+				const len = buf[p];
+				if (len === 0) {
+					if (!jumped) endPos = p + 1;
+					break;
+				}
+				if ((len & 0xc0) === 0xc0) {
+					if (!jumped) endPos = p + 2;
+					p = ((len & 0x3f) << 8) | buf[p + 1];
+					jumped = true;
+					continue;
+				}
+				labels.push(b1p8pcx.decode(buf.slice(p + 1, p + 1 + len)));
+				p += len + 1;
+			}
+			if (endPos === -1) endPos = p + 1;
+			return [labels.join("."), endPos];
+		};
+		let offset = 12;
+		for (let i = 0; i < qdcount; i++) {
+			const [, end] = parseName(offset);
+			offset = Number(end) + 4;
+		}
+		const answers = [];
+		for (let i = 0; i < ancount && offset < buf.length; i++) {
+			const [name, nameEnd] = parseName(offset);
+			offset = Number(nameEnd);
+			const type = dv.getUint16(offset);
+			offset += 2;
+			offset += 2;
+			const ttl = dv.getUint32(offset);
+			offset += 4;
+			const rdlen = dv.getUint16(offset);
+			offset += 2;
+			const rdata = buf.slice(offset, offset + rdlen);
+			offset += rdlen;
+			let data;
+			if (type === 1 && rdlen === 4) {
+				data = `${rdata[0]}.${rdata[1]}.${rdata[2]}.${rdata[3]}`;
+			} else if (type === 28 && rdlen === 16) {
+				const segs = [];
+				for (let j = 0; j < 16; j += 2) segs.push(((rdata[j] << 8) | rdata[j + 1]).toString(16));
+				data = segs.join(":");
+			} else {
+				data = Array.from(rdata)
+					.map((b) => b.toString(16).padStart(2, "0"))
+					.join("");
+			}
+			answers.push({ name, type, TTL: ttl, data });
+		}
+		if (obx6yh7.size >= jtnyqj4) {
+			const oldestKey = obx6yh7.keys().next().value;
+			if (oldestKey !== undefined) obx6yh7.delete(oldestKey);
+		}
+		obx6yh7.set(cacheKey, { data: answers, expires: Date.now() + vac5goc });
+		return answers;
+	} catch (e) {
+		if (dohTimer) clearTimeout(dohTimer);
+		cacheNegative();
+		return [];
+	}
+}
+function tasyh7l({ getWriter, releaseWriter, retryConnect, closeConnection, name = "UpstreamQueue" }) {
+	let chunks = [];
+	let head = 0;
+	let queuedBytes = 0;
+	let draining = false;
+	let closed = false;
+	let bundleBuffer = null;
+	let idleResolvers = [];
+	let activeCompletions = null;
+	const settleCompletions = (completions, err = null) => {
+		if (!completions) return;
+		for (const comp of completions) {
+			if (comp) {
+				if (err) comp.reject(err);
+				else comp.resolve();
+			}
+		}
+	};
+	const rejectQueued = (err) => {
+		for (let i = head; i < chunks.length; i++) {
+			const item = chunks[i];
+			if (item && item.completions) settleCompletions(item.completions, err);
+		}
+	};
+	const compact = () => {
+		if (head > 32 && head * 2 >= chunks.length) {
+			chunks = chunks.slice(head);
+			head = 0;
+		}
+	};
+	const resolveIdle = () => {
+		if (queuedBytes || draining || !idleResolvers.length) return;
+		const resolvers = idleResolvers;
+		idleResolvers = [];
+		for (const resolve of resolvers) resolve();
+	};
+	const clear = (err = null) => {
+		const closeErr = err || (closed ? new Error(`${name}: queue closed`) : null);
+		if (closeErr) {
+			rejectQueued(closeErr);
+			settleCompletions(activeCompletions, closeErr);
+			activeCompletions = null;
+		}
+		chunks = [];
+		head = 0;
+		queuedBytes = 0;
+		resolveIdle();
+	};
+	const shift = () => {
+		if (head >= chunks.length) return null;
+		const item = chunks[head];
+		chunks[head++] = undefined;
+		queuedBytes -= item.chunk.byteLength;
+		compact();
+		return item;
+	};
+	const bundle = () => {
+		const first = shift();
+		if (!first) return null;
+		if (head >= chunks.length || first.chunk.byteLength >= j7gzuyc) return first;
+		let byteLength = first.chunk.byteLength;
+		let end = head;
+		let allowRetry = first.allowRetry;
+		let completions = first.completions || null;
+		while (end < chunks.length) {
+			const next = chunks[end];
+			const nextLength = byteLength + next.chunk.byteLength;
+			if (nextLength > j7gzuyc) break;
+			byteLength = nextLength;
+			allowRetry = allowRetry && next.allowRetry;
+			if (next.completions) completions = completions ? completions.concat(next.completions) : next.completions;
+			end++;
+		}
+		if (end === head) return first;
+		const output = (bundleBuffer ||= new Uint8Array(j7gzuyc));
+		output.set(first.chunk);
+		let offset = first.chunk.byteLength;
+		while (head < end) {
+			const next = chunks[head];
+			chunks[head++] = undefined;
+			queuedBytes -= next.chunk.byteLength;
+			output.set(next.chunk, offset);
+			offset += next.chunk.byteLength;
+		}
+		compact();
+		return { chunk: output.subarray(0, byteLength), allowRetry, completions };
+	};
+	const drain = async () => {
+		if (draining || closed) return;
+		draining = true;
+		try {
+			let batchCount = 0;
+			for (;;) {
+				if (closed) break;
+				const item = bundle();
+				if (!item) break;
+				let writer = getWriter();
+				if (!writer) throw new Error(`${name}: remote writer unavailable`);
+				const completions = item.completions || null;
+				activeCompletions = completions;
+				try {
+					try {
+						await writer.write(item.chunk);
+					} catch (err) {
+						releaseWriter?.();
+						if (!item.allowRetry || typeof retryConnect !== "function") throw err;
+						await retryConnect();
+						writer = getWriter();
+						if (!writer) throw err;
+						await writer.write(item.chunk);
+					}
+					settleCompletions(completions);
+				} catch (err) {
+					settleCompletions(completions, err);
+					throw err;
+				} finally {
+					if (activeCompletions === completions) activeCompletions = null;
+				}
+				batchCount++;
+				if (batchCount >= 16) {
+					await Promise.resolve();
+					batchCount = 0;
+				}
+			}
+		} catch (err) {
+			closed = true;
+			clear(err);
+			try {
+				closeConnection?.(err);
+			} catch (_) {}
+		} finally {
+			draining = false;
+			if (!closed && head < chunks.length) queueMicrotask(drain);
+			else resolveIdle();
+		}
+	};
+	const enqueue = (data, allowRetry = true, waitForFlush = false) => {
+		if (closed) return false;
+		if (!getWriter()) return false;
+		const chunk = zqv9d9o(data);
+		if (!chunk.byteLength) return true;
+		const nextBytes = queuedBytes + chunk.byteLength;
+		const nextItems = chunks.length - head + 1;
+		if (nextBytes > gd4zjw9 || nextItems > sacemxe) {
+			closed = true;
+			const err = Object.assign(new Error(`${name}: upload queue overflow (${nextBytes}B/${nextItems})`), { isQueueOverflow: true });
+			clear(err);
+			try {
+				closeConnection?.(err);
+			} catch (_) {}
+			throw err;
+		}
+		let completionPromise = null;
+		let completions = null;
+		if (waitForFlush) {
+			completions = [];
+			completionPromise = new Promise((resolve, reject) => completions.push({ resolve, reject }));
+		}
+		chunks.push({ chunk, allowRetry, completions });
+		queuedBytes = nextBytes;
+		if (!draining) queueMicrotask(drain);
+		return waitForFlush ? completionPromise.then(() => true) : true;
+	};
+	return {
+		writeAndAwait(data, allowRetry = true) {
+			return enqueue(data, allowRetry, true);
+		},
+		async write(data, allowRetry = true) {
+			const result = enqueue(data, allowRetry, false);
+			if (result === false || result === true) {
+				if (queuedBytes > gd4zjw9 * 0.7) {
+					const softLimit = gd4zjw9 * 0.5;
+					while (!closed && queuedBytes > softLimit) {
+						await new Promise((r) => setTimeout(r, 15));
+					}
+				}
+				return result;
+			}
+			return result;
+		},
+		async awaitEmpty() {
+			if (!queuedBytes && !draining) return;
+			await new Promise((resolve) => idleResolvers.push(resolve));
+		},
+		clear() {
+			closed = true;
+			clear();
+		},
+	};
+}
+function o8p7n6h(webSocket, headerData = null) {
+	const MAX_CAP = 256 * 1024;
+	const MIN_CAP = 16 * 1024;
+	let currentPacketCap = 128 * 1024;
+	const tailBytes = 512;
+	let header = headerData;
+	let pendingBuffer = null;
+	let pendingBytes = 0;
+	let flushPromise = null;
+	let microtaskQueued = false;
+	const adjustSmartBuffer = () => {
+		const buffered = webSocket.bufferedAmount || 0;
+		if (buffered > 256 * 1024) {
+			currentPacketCap = Math.max(MIN_CAP, Math.floor(currentPacketCap / 2));
+		} else if (buffered < 32 * 1024) {
+			currentPacketCap = Math.min(MAX_CAP, currentPacketCap * 2);
+		}
+	};
+	const sendRawChunk = async (chunk) => {
+		if (webSocket.readyState !== 1) throw new Error("ws.readyState is not open");
+		webSocket.send(chunk);
+		if (typeof webSocket.bufferedAmount === "number" && webSocket.bufferedAmount > 1024 * 1024) {
+			await au0sjg5(webSocket);
+		}
+	};
+	const attachResponseHeader = (chunk) => {
+		if (!header) return chunk;
+		const merged = new Uint8Array(header.length + chunk.byteLength);
+		merged.set(header, 0);
+		merged.set(chunk, header.length);
+		header = null;
+		return merged;
+	};
+	const flush = async () => {
+		microtaskQueued = false;
+		while (flushPromise) await flushPromise;
+		if (!pendingBytes) return;
+		const output = pendingBuffer.slice(0, pendingBytes);
+		adjustSmartBuffer();
+		pendingBytes = 0;
+		flushPromise = sendRawChunk(output).finally(() => {
+			flushPromise = null;
+		});
+		return flushPromise;
+	};
+	return {
+		async sendDirect(data) {
+			let chunk = zqv9d9o(data);
+			if (!chunk.byteLength) return;
+			chunk = attachResponseHeader(chunk);
+			await sendRawChunk(chunk);
+		},
+		async send(data) {
+			let chunk = zqv9d9o(data);
+			if (!chunk.byteLength) return;
+			chunk = attachResponseHeader(chunk);
+			let offset = 0;
+			const totalBytes = chunk.byteLength;
+			while (offset < totalBytes) {
+				if (!pendingBytes && totalBytes - offset >= currentPacketCap) {
+					const sendBytes = Math.min(currentPacketCap, totalBytes - offset);
+					const view = offset || sendBytes !== totalBytes ? chunk.subarray(offset, offset + sendBytes) : chunk;
+					await sendRawChunk(view);
+					offset += sendBytes;
+					adjustSmartBuffer();
+					continue;
+				}
+				const copyBytes = Math.min(currentPacketCap - pendingBytes, totalBytes - offset);
+				if (!pendingBuffer) pendingBuffer = new Uint8Array(MAX_CAP);
+				pendingBuffer.set(chunk.subarray(offset, offset + copyBytes), pendingBytes);
+				pendingBytes += copyBytes;
+				offset += copyBytes;
+				if (pendingBytes >= currentPacketCap || currentPacketCap - pendingBytes < tailBytes) {
+					await flush();
+				} else if (!microtaskQueued) {
+					microtaskQueued = true;
+					queueMicrotask(() => {
+						if (pendingBytes) flush().catch(() => grmlvmk(webSocket));
+					});
+				}
+			}
+		},
+		flush,
+	};
+}
+async function au0sjg5(ws) {
+	if (typeof ws.bufferedAmount === "number") {
+		let lastAmount = ws.bufferedAmount;
+		let lastProgress = Date.now();
+		while (ws.bufferedAmount > 1024 * 1024) {
+			if (ws.readyState !== WebSocket.OPEN) break;
+			if (ws.bufferedAmount < lastAmount) lastProgress = Date.now();
+			lastAmount = ws.bufferedAmount;
+			if (Date.now() - lastProgress > 60000) {
+				grmlvmk(ws);
+				break;
+			}
+			await new Promise((r) => setTimeout(r, 5));
+		}
+	}
+}
+async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, aeadCtx = null) {
+	let header = headerData,
+		hasData = false;
+	if (aeadCtx) {
+		header = header ? o6qjwnj(aeadCtx.salt, header) : aeadCtx.salt;
+	}
+	const sealChunk = async (chunk) => {
+		const parts = [];
+		let offset = 0;
+		while (offset < chunk.byteLength) {
+			const sliceLen = Math.min(chunk.byteLength - offset, 16383);
+			const lenBuf = new Uint8Array([(sliceLen >> 8) & 0xff, sliceLen & 0xff]);
+			const encLen = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, lenBuf);
+			const encPayload = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, chunk.subarray(offset, offset + sliceLen));
+			if (!encLen || !encPayload) throw new Error("ss encrypt failed");
+			parts.push(encLen, encPayload);
+			offset += sliceLen;
+		}
+		return o6qjwnj(...parts);
+	};
+	const downstreamSender = o8p7n6h(webSocket, header);
+	header = null;
+	try {
+		let reader = remoteSocket.readable.getReader({ mode: "byob" });
+		let useBYOB = true;
+		reader.releaseLock();
+		if (useBYOB) {
+			const transformStream = new TransformStream({
+				async transform(chunk, controller) {
+					hasData = true;
+					if (typeof onBytes === "function") onBytes(chunk.byteLength);
+					controller.enqueue(aeadCtx ? await sealChunk(chunk) : chunk);
+				}
+			}, new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }), new ByteLengthQueuingStrategy({ highWaterMark: 128 * 1024 }));
+			const writePromise = transformStream.readable.pipeTo(new WritableStream({
+				async write(chunk) {
+					await downstreamSender.send(chunk);
+				}
+			}));
+			await remoteSocket.readable.pipeTo(transformStream.writable);
+			await writePromise;
+		}
+	} catch (e) {
+		let reader = null;
+		try { reader = remoteSocket.readable.getReader(); } catch (_) { reader = null; }
+		if (reader) try {
+			while (true) {
+				if (webSocket.bufferedAmount > 1024 * 1024) await au0sjg5(webSocket);
+				const { done, value } = await reader.read();
+				if (done) break;
+				if (!value || value.byteLength === 0) continue;
+				hasData = true;
+				if (typeof onBytes === "function") onBytes(value.byteLength);
+				await downstreamSender.send(aeadCtx ? await sealChunk(value) : value);
+			}
+		} finally {
+			try { reader.cancel(); } catch (err) {}
+			try { reader.releaseLock(); } catch (err) {}
+		}
+	} finally {
+		await downstreamSender.flush();
+		grmlvmk(webSocket);
+	}
+	if (!hasData && retryFunc) await retryFunc();
+}
+function cmlmh7c(host) {
+	if (typeof host !== "string" || !host) return false;
+	const bare = host.startsWith("[") && host.endsWith("]") ? host.slice(1, -1) : host;
+	return bare.includes(":");
+}
+function kcqbs1g(host) {
+	if (cmlmh7c(host) && !host.startsWith("[")) return `[${host}]`;
+	return host;
+}
+async function ndhpogz(address, port, initialData = null, targetDoh = "https://cloudflare-dns.com/dns-query") {
+	const socket = connect({ hostname: kcqbs1g(address), port: port });
+	let openTimer = null;
+	try {
+		await Promise.race([socket.opened, new Promise((_, reject) => { openTimer = setTimeout(() => reject(new Error("timeout")), 5000); })]);
+	} catch (e) {
+		try { socket.close(); } catch (_) {}
+		const connErr = e instanceof Error ? e : new Error(String(e));
+		connErr.connectPhase = true;
+		throw connErr;
+	} finally {
+		if (openTimer) clearTimeout(openTimer);
+	}
+	if (initialData && initialData.byteLength > 0) {
+		const w = socket.writable.getWriter();
+		await w.write(zqv9d9o(initialData));
+		w.releaseLock();
+	}
+	return socket;
+}
+async function sf3jqd6(udpChunk, webSocket, respHeader, onBytes, dnsServer = "8.8.4.4") {
+	const requestData = zqv9d9o(udpChunk);
+	let expected = 0;
+	for (let o = 0; o + 2 <= requestData.byteLength; ) {
+		const l = (requestData[o] << 8) | requestData[o + 1];
+		expected++;
+		o += 2 + l;
+	}
+	if (expected < 1) expected = 1;
+	let tcpSocket = null;
+	let reader = null;
+	let timeoutId = null;
+	try {
+		tcpSocket = connect({ hostname: kcqbs1g(dnsServer), port: 53 });
+		timeoutId = setTimeout(() => {
+			try { tcpSocket.close(); } catch (e) {}
+		}, 4000);
+		const writer = tcpSocket.writable.getWriter();
+		await writer.write(requestData);
+		writer.releaseLock();
+		reader = tcpSocket.readable.getReader();
+		let vIeesHeader = respHeader;
+		let buf = new Uint8Array(0);
+		let got = 0;
+		while (got < expected) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			if (!value || !value.byteLength) continue;
+			buf = buf.byteLength ? o6qjwnj(buf, value) : value;
+			let off = 0;
+			while (buf.byteLength - off >= 2) {
+				const l = (buf[off] << 8) | buf[off + 1];
+				if (buf.byteLength - off < 2 + l) break;
+				const frame = buf.subarray(off, off + 2 + l);
+				off += 2 + l;
+				got++;
+				if (typeof onBytes === "function") onBytes(frame.byteLength);
+				if (webSocket.readyState !== WebSocket.OPEN) return;
+				if (vIeesHeader) {
+					const merged = new Uint8Array(vIeesHeader.length + frame.byteLength);
+					merged.set(vIeesHeader, 0);
+					merged.set(frame, vIeesHeader.length);
+					webSocket.send(merged.buffer);
+					vIeesHeader = null;
+				} else {
+					webSocket.send(frame);
+				}
+			}
+			if (off > 0) buf = buf.slice(off);
+		}
+	} catch (e) {
+	} finally {
+		if (timeoutId) clearTimeout(timeoutId);
+		try { if (reader) reader.releaseLock(); } catch (e) {}
+		try { if (tcpSocket) tcpSocket.close(); } catch (e) {}
+	}
+}
+function g5gydre(data) {
+	if (data.byteLength < 17) return null;
+	const hex = [...data.slice(1, 17)].map((b) => b.toString(16).padStart(2, "0")).join("");
+	return `${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}`;
 }
 function xn0iw7z(env, ctx) {
 	cwsdrkz++;
@@ -1707,7 +2367,246 @@ function xn0iw7z(env, ctx) {
 /*
 [1.
 */
-async function zbxph7j() { throw new Error("disabled"); }
+async function zbxph7j(proxyStr, destAddr, destPort, initialData) {
+	let normalized = proxyStr;
+	if (false) {
+		const server = proxyStr.match(/server=([^&]+)/)?.[1];
+		const port = proxyStr.match(/port=([^&]+)/)?.[1];
+		const user = proxyStr.match(/user=([^&]+)/)?.[1];
+		const pass = proxyStr.match(/pass=([^&]+)/)?.[1];
+		if (server && port) {
+			normalized = user && pass ? `socks5://${user}:${pass}@${server}:${port}` : `socks5://${server}:${port}`;
+		}
+	}
+	const isHttp = normalized.toLowerCase().startsWith("http://") || normalized.toLowerCase().startsWith("https://");
+	const isSocks4 = normalized.toLowerCase().startsWith("socks4://");
+	let cleanStr = normalized.replace(/^(socks4|socks5|socks|http|https):\/\//i, "");
+	if (isHttp) {
+		return await meelg9i(cleanStr, destAddr, destPort, initialData);
+	}
+	if (isSocks4) {
+		return await njxkihq(cleanStr, destAddr, destPort, initialData);
+	}
+	return await c7saicn(cleanStr, destAddr, destPort, initialData);
+}
+async function njxkihq(proxyStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(proxyStr, 1080);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
+	const reader = socket.readable.getReader();
+	const writer = socket.writable.getWriter();
+	try {
+		const portHigh = (destPort >> 8) & 0xff;
+		const portLow = destPort & 0xff;
+		let req;
+		if (uppwjdo(destAddr)) {
+			const ipBytes = destAddr.split(".").map(Number);
+			req = new Uint8Array([0x04, 0x01, portHigh, portLow, ipBytes[0], ipBytes[1], ipBytes[2], ipBytes[3], 0x00]);
+		} else {
+			const hostBytes = new TextEncoder().encode(destAddr);
+			req = new Uint8Array(9 + hostBytes.length + 1);
+			req[0] = 0x04;
+			req[1] = 0x01;
+			req[2] = portHigh;
+			req[3] = portLow;
+			req[4] = 0x00;
+			req[5] = 0x00;
+			req[6] = 0x00;
+			req[7] = 0x01;
+			req[8] = 0x00;
+			req.set(hostBytes, 9);
+			req[9 + hostBytes.length] = 0x00;
+		}
+		await writer.write(req);
+		let res = await reader.read();
+		if (res.done || !res.value || res.value[0] !== 0x00 || res.value[1] !== 0x5a) {
+			throw new Error("پـروکـسـی SOCKS4 وصل نشد یا اتصال را رد کرد");
+		}
+		if (initialData && initialData.byteLength > 0) {
+			await writer.write(zqv9d9o(initialData));
+		}
+		writer.releaseLock();
+		reader.releaseLock();
+		return socket;
+	} catch (e) {
+		try {
+			writer.releaseLock();
+		} catch (err) {}
+		try {
+			reader.releaseLock();
+		} catch (err) {}
+		try {
+			socket.close();
+		} catch (err) {}
+		throw e;
+	}
+}
+function k7jz7p6(proxyStr, defaultPort) {
+	let user = "",
+		pass = "",
+		host = "",
+		port = defaultPort;
+	let auth = false,
+		remain = proxyStr;
+	if (remain.includes("@")) {
+		const atIdx = remain.lastIndexOf("@");
+		const authPart = remain.substring(0, atIdx);
+		remain = remain.substring(atIdx + 1);
+		const colonIdx = authPart.indexOf(":");
+		if (colonIdx !== -1) {
+			user = authPart.substring(0, colonIdx);
+			pass = authPart.substring(colonIdx + 1);
+		} else {
+			user = authPart;
+		}
+		auth = true;
+	}
+	if (remain.startsWith("[")) {
+		const closeIdx = remain.indexOf("]");
+		if (closeIdx !== -1) {
+			host = remain.substring(1, closeIdx);
+			if (remain.length > closeIdx + 1 && remain[closeIdx + 1] === ":") port = parseInt(remain.substring(closeIdx + 2)) || defaultPort;
+		}
+	} else {
+		const lastColon = remain.lastIndexOf(":");
+		if (lastColon !== -1 && remain.indexOf(":") === lastColon) {
+			host = remain.substring(0, lastColon);
+			port = parseInt(remain.substring(lastColon + 1)) || defaultPort;
+		} else {
+			host = remain;
+		}
+	}
+	return { user, pass, host, port, auth };
+}
+async function c7saicn(socksStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(socksStr, 1080);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
+	const reader = socket.readable.getReader();
+	const writer = socket.writable.getWriter();
+	const readWithTimeout = (r, ms) => Promise.race([
+		r.read(),
+		new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ms))
+	]);
+	try {
+		if (auth) {
+			await writer.write(new Uint8Array([0x05, 0x02, 0x00, 0x02]));
+		} else {
+			await writer.write(new Uint8Array([0x05, 0x01, 0x00]));
+		}
+		let res = await readWithTimeout(reader, 4000);
+		if (res.done || !res.value || res.value[0] !== 0x05) throw new Error("پاسخ نامعتبر از سرور (پـروکـسـی SOCKS5 نیست یا خاموش است)");
+		const method = res.value[1];
+		if (method === 0x02) {
+			const uEnc = new TextEncoder().encode(user);
+			const pEnc = new TextEncoder().encode(pass);
+			const authReq = new Uint8Array(1 + 1 + uEnc.length + 1 + pEnc.length);
+			authReq[0] = 0x01;
+			authReq[1] = uEnc.length;
+			authReq.set(uEnc, 2);
+			authReq[2 + uEnc.length] = pEnc.length;
+			authReq.set(pEnc, 3 + uEnc.length);
+			await writer.write(authReq);
+			let authRes = await readWithTimeout(reader, 4000);
+			if (authRes.done || !authRes.value || authRes.value[1] !== 0x00) throw new Error("نام کاربری یا رمز عبور پـروکـسـی اشتباه است");
+		}
+		let addrType = 0x03;
+		let addrBytes;
+		if (uppwjdo(destAddr)) {
+			addrType = 0x01;
+			addrBytes = new Uint8Array(destAddr.split(".").map(Number));
+		} else if (destAddr.includes(":")) {
+			addrType = 0x04;
+			addrBytes = new Uint8Array(16);
+			const blocks = destAddr.split(":");
+			for (let i = 0; i < 8; i++) {
+				const val = parseInt(blocks[i] || "0", 16);
+				addrBytes[i * 2] = (val >> 8) & 0xff;
+				addrBytes[i * 2 + 1] = val & 0xff;
+			}
+		} else {
+			const enc = new TextEncoder().encode(destAddr);
+			addrBytes = new Uint8Array(1 + enc.length);
+			addrBytes[0] = enc.length;
+			addrBytes.set(enc, 1);
+		}
+		const req = new Uint8Array(4 + addrBytes.length + 2);
+		req[0] = 0x05;
+		req[1] = 0x01;
+		req[2] = 0x00;
+		req[3] = addrType;
+		req.set(addrBytes, 4);
+		const portOffset = 4 + addrBytes.length;
+		req[portOffset] = (destPort >> 8) & 0xff;
+		req[portOffset + 1] = destPort & 0xff;
+		await writer.write(req);
+		let connRes = await readWithTimeout(reader, 4000);
+		if (connRes.done || !connRes.value || connRes.value[1] !== 0x00) throw new Error("پـروکـسـی وصل شد اما دسترسی به اینترنت آزاد ندارد");
+		if (initialData && initialData.byteLength > 0) {
+			await writer.write(zqv9d9o(initialData));
+		}
+		writer.releaseLock();
+		reader.releaseLock();
+		return socket;
+	} catch (e) {
+		try {
+			writer.releaseLock();
+		} catch (err) {}
+		try {
+			reader.releaseLock();
+		} catch (err) {}
+		try {
+			socket.close();
+		} catch (err) {}
+		throw e;
+	}
+}
+async function meelg9i(proxyStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(proxyStr, 80);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
+	const reader = socket.readable.getReader();
+	const writer = socket.writable.getWriter();
+	try {
+		const safeDest = destAddr.includes(":") ? `[${destAddr}]` : destAddr;
+		let req = `CONNECT ${safeDest}:${destPort} HTTP/1.1\r\nHost: ${safeDest}:${destPort}\r\n`;
+		if (auth) {
+			const authBase64 = btoa(`${user}:${pass}`);
+			req += `Proxy-Authorization: Basic ${authBase64}\r\n`;
+		}
+		req += "\r\n";
+		await writer.write(new TextEncoder().encode(req));
+		let resStr = "";
+		const dec = new TextDecoder();
+		while (true) {
+			const res = await reader.read();
+			if (res.done || !res.value) throw new Error("proxy_closed");
+			resStr += dec.decode(res.value, { stream: true });
+			if (resStr.includes("\r\n\r\n")) {
+				const match = resStr.match(/^HTTP\/\d\.\d\s+(\d+)/);
+				if (match && match[1] === "200") {
+					break;
+				} else {
+					throw new Error("proxy_error_" + (match ? match[1] : "unknown"));
+				}
+			}
+		}
+		if (initialData && initialData.byteLength > 0) {
+			await writer.write(zqv9d9o(initialData));
+		}
+		writer.releaseLock();
+		reader.releaseLock();
+		return socket;
+	} catch (e) {
+		try {
+			writer.releaseLock();
+		} catch (err) {}
+		try {
+			reader.releaseLock();
+		} catch (err) {}
+		try {
+			socket.close();
+		} catch (err) {}
+		throw e;
+	}
+}
 const yg6opgi = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
