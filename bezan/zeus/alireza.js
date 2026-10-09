@@ -414,14 +414,13 @@ export default {
 			} catch (e) {}
 			xn0iw7z(env, ctx);
 			wcjjpz0();
-		return new Response("T4 ok (after ensureSchema + background tasks)");
 			if (ogjh4tu) {
 				ctx.waitUntil(e6bb3cy(env, ctx));
 				ctx.waitUntil(e31njoi(env, ctx));
 			}
 			const url = new URL(request.url);
 			if (cggc6tw.isWebSocketUpgrade(request)) {
-				return await cggc6tw.handleWebSocket(request, env, ctx);
+				return new Response("T5 ws disabled",{status:404});
 			}
 			if (cggc6tw.isSubscriptionPath(url.pathname)) {
 				return await cggc6tw.handleSubscription(url, env);
