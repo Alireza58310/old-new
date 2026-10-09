@@ -1,3 +1,5 @@
+// مرحله ۴: step3 + import cloudflare:sockets + رمزنگاری SS + تولیدکننده ساب (kvkt6ve)
+import { connect } from "cloudflare:sockets";
 const GLOBAL_TRAFFIC_CACHE = new Map();
 const eroucn4 = new Map();
 const utza4af = 8000;
@@ -250,6 +252,68 @@ function dibojp4(protocols, connectionType, fallback) {
 	return out.length > 0 ? out.join(",") : fallback;
 }
 const cxr7ma0 = new Map();
+const bp4qnv1 = {
+	async evpBytesToKey(password, keyLen) {
+		const pass = new TextEncoder().encode(password);
+		const key = new Uint8Array(keyLen);
+		let hash = new Uint8Array(0);
+		let offset = 0;
+		while (offset < keyLen) {
+			const data = new Uint8Array(hash.length + pass.length);
+			data.set(hash);
+			data.set(pass, hash.length);
+			hash = new Uint8Array(await crypto.subtle.digest("MD5", data));
+			const len = Math.min(hash.length, keyLen - offset);
+			key.set(hash.subarray(0, len), offset);
+			offset += len;
+		}
+		return key;
+	},
+	async getMasterKey(password) {
+		let mk = cxr7ma0.get(password);
+		if (!mk) {
+			mk = await this.evpBytesToKey(password, 32);
+			if (cxr7ma0.size > 512) cxr7ma0.clear();
+			cxr7ma0.set(password, mk);
+		}
+		return mk;
+	},
+	async deriveSubkey(password, salt) {
+		const masterKey = await this.getMasterKey(password);
+		const keyMaterial = await crypto.subtle.importKey("raw", masterKey, { name: "HKDF" }, false, ["deriveKey"]);
+		return await crypto.subtle.deriveKey(
+			{ name: "HKDF", hash: "SHA-1", salt: salt, info: new TextEncoder().encode("ss-subkey") },
+			keyMaterial,
+			{ name: "AES-GCM", length: 256 },
+			false,
+			["encrypt", "decrypt"],
+		);
+	},
+	incrementNonce(nonce) {
+		for (let i = 0; i < nonce.length; i++) {
+			nonce[i]++;
+			if (nonce[i] !== 0) break;
+		}
+	},
+	async decryptChunk(key, nonce, data) {
+		try {
+			const out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
+			this.incrementNonce(nonce);
+			return new Uint8Array(out);
+		} catch (e) {
+			return null;
+		}
+	},
+	async encryptChunk(key, nonce, data) {
+		try {
+			const out = await crypto.subtle.encrypt({ name: "AES-GCM", iv: new Uint8Array(nonce) }, key, data);
+			this.incrementNonce(nonce);
+			return new Uint8Array(out);
+		} catch (e) {
+			return null;
+		}
+	},
+};
 async function aphb6rr(request) {
 	try {
 		const body = await request.json();
@@ -1290,8 +1354,282 @@ function hrktmlk(activeIpsJson) {
 	}
 }
 const kvkt6ve = {
-	async generateText() { return ""; },
-	async generateSingbox() { return "{}"; },
+	async generateText(user, host, globalIata, showInfo = false) {
+		let ips = [host];
+		if (user.ips) {
+			const parsedIps = user.ips
+				.split("\n")
+				.map((ip) => ip.trim())
+				.filter((ip) => ip.length > 0);
+			if (parsedIps.length > 0) ips = parsedIps;
+		}
+		const ports = String(user.port || "443")
+			.split(",")
+			.map((p) => p.trim())
+			.filter((p) => p.length > 0);
+		const fp = user.fingerprint || "unsafe";
+		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
+		const protoFlags = le69yqs(user);
+		const links = [];
+		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
+		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m1));
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@0.0.0.0:1?encryption=none&security=none&type=ws&host=" + host + "&path=" + dynPath + "#" + encodeURIComponent(m2));
+		let remVol = "Unlimited";
+		if (user.limit_gb) {
+			let rem = user.limit_gb - (user.used_gb || 0);
+			remVol = rem > 0 ? rem.toFixed(2) + "GB" : "0GB";
+		}
+		let remTime = "Unlimited";
+		if (user.expiry_days && user.created_at) {
+			const created = new Date(user.created_at);
+			const expiryDate = user.first_connection_time ? new Date(user.first_connection_time + user.expiry_days * 24 * 60 * 60 * 1000) : new Date(created.getTime() + user.expiry_days * 24 * 60 * 60 * 1000);
+			const diffDays = Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+			remTime = diffDays > 0 ? diffDays + "Days" : "0Days";
+		}
+		let remReq = "Unlimited";
+		if (user.limit_req) {
+			let rem = user.limit_req - (user.used_req || 0);
+			remReq = rem > 0 ? rem.toLocaleString() + "Req" : "0Req";
+		}
+		const infoRemark = "📊 remaining | \u200E" + remVol + " | \u200E" + remTime + " | \u200E" + remReq;
+		if (showInfo) links.push("vl" + "e" + "ss://" + user.uuid + "@" + host + ":80?path=" + dynPath + "&security=none&encryption=none&host=" + host + "&fp=" + fp + "&type=ws#" + encodeURIComponent(infoRemark));
+		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+		let proxyList = [];
+		try {
+			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+				proxyList = JSON.parse(user.user_socks5);
+			} else if (user.user_socks5 || user.user_proxy_ip) {
+				proxyList = [user.user_socks5 || user.user_proxy_ip];
+			} else {
+				proxyList = [null];
+			}
+		} catch (e) {
+			proxyList = [user.user_socks5 || user.user_proxy_ip];
+		}
+		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+		const allowDirect = user.enable_direct !== 0;
+		if (allowDirect) {
+			let hasDirect = proxyList.some(p => p === null || p === "");
+			if (!hasDirect) proxyList.push(null);
+		} else {
+			proxyList = proxyList.filter(p => p !== null && p !== "");
+		}
+		if (proxyList.length === 0) proxyList = [null];
+		for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
+			let proxyItem = proxyList[locIdx];
+			let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
+			let countryCode = typeof proxyItem === "object" && proxyItem !== null
+				? proxyItem.country
+				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
+			let countryFromCache = false;
+			if (!countryCode && proxyStr) {
+				const cc = jip804b.get(proxyStr);
+				if (cc && Date.now() - cc.t < (cc.c ? crtlo7f : iub5ygr)) {
+					countryCode = cc.c;
+					countryFromCache = true;
+				}
+			}
+			if (proxyStr && !countryFromCache && typeof proxyItem !== "object") {
+				if (jip804b.size > 300) jip804b.clear();
+				jip804b.set(proxyStr, { c: countryCode || "", t: Date.now() });
+			}
+			let flagEmoji = "🌐";
+			if (countryCode) {
+				const codePoints = countryCode
+					.toUpperCase()
+					.split("")
+					.map((char) => 127397 + char.charCodeAt(0));
+				try {
+					flagEmoji = String.fromCodePoint(...codePoints);
+				} catch (e) {}
+			}
+			const currentDynPath = encodeURIComponent(rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : ""));
+			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			ips.forEach((ip) => {
+				ports.forEach((portStr) => {
+					const isTlsPort = m1fqgtq.has(portStr);
+					const tlsVal = isTlsPort ? "tls" : "none";
+					let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
+					if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
+					if (user.cipher_suites) userFrag += "&cs=" + encodeURIComponent(user.cipher_suites);
+					if (user.tls_mask) userFrag += "&mask=" + encodeURIComponent(user.tls_mask);
+					if (user.ech_config) userFrag += "&ech=" + encodeURIComponent(user.ech_config);
+					const tagPrefix = (String(countryCode || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2)) || "NONE";
+					const remark = tagPrefix + " | " + flagEmoji + " | " + user.username;
+					if (protoFlags.vless) links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + currentDynPath + "&security=" + tlsVal + "&encryption=none&insecure=0&host=" + host + "&fp=" + fp + "&type=ws&allowInsecure=0&sni=" + host + userFrag + "#" + encodeURIComponent(remark));
+					if (protoFlags.trojan) {
+						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?security=" + tlsVal + "&type=ws&host=" + host + "&path=" + currentDynPath + "&sni=" + host + "&fp=" + fp + userFrag + "#" + encodeURIComponent(remark + " (Trojan)"));
+					}
+					if (protoFlags.ss) {
+						const ssPlugin = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : "");
+						links.push("ss://" + btoa("aes-256-gcm:" + user.uuid) + "@" + ip + ":" + portStr + "/?plugin=" + encodeURIComponent(ssPlugin) + "#" + encodeURIComponent(remark + " (SS)"));
+					}
+				});
+			});
+		}
+		const noise = ["# System Update Feed: OK", "# Sync Code: " + Math.random().toString(36).slice(2, 10), "# Version: 2.10.1", "# Description: Secure Node Configurations", ""].join("\n");
+		const plainContent = noise + links.join("\n");
+		const subContent = btoa(unescape(encodeURIComponent(plainContent)));
+		const downloadBytes = Math.floor((user.used_gb || 0) * 1073741824);
+		const totalBytes = user.limit_gb ? Math.floor(user.limit_gb * 1073741824) : 0;
+		let expireTimestamp = 0;
+		if (user.expiry_days && user.created_at) {
+			expireTimestamp = user.first_connection_time ? Math.floor((user.first_connection_time + user.expiry_days * 86400000) / 1000) : Math.floor((new Date(user.created_at).getTime() + user.expiry_days * 86400000) / 1000);
+		}
+		const subUserInfo = `upload=0; download=${downloadBytes}; total=${totalBytes}; expire=${expireTimestamp}`;
+		return new Response(subContent, {
+			headers: {
+				"Content-Type": "text/plain; charset=utf-8",
+				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-store",
+				"Subscription-Userinfo": subUserInfo,
+			},
+		});
+	},
+	async generateSingbox(user, host) {
+		let ips = [host];
+		if (user.ips) {
+			const parsedIps = user.ips.split("\n").map((ip) => ip.trim()).filter((ip) => ip.length > 0);
+			if (parsedIps.length > 0) ips = parsedIps;
+		}
+		const ports = String(user.port || "443").split(",").map((p) => p.trim()).filter((p) => p.length > 0);
+		const fp = user.fingerprint || "unsafe";
+		const safeFp = fp === "unsafe" ? "chrome" : fp;
+		const sni = user.tls_mask || host;
+		const rawPath = "/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default");
+
+		let proxyList = [];
+		try {
+			if (user.user_socks5 && user.user_socks5.trim().startsWith("[")) {
+				proxyList = JSON.parse(user.user_socks5);
+			} else if (user.user_socks5 || user.user_proxy_ip) {
+				proxyList = [user.user_socks5 || user.user_proxy_ip];
+			} else {
+				proxyList = [null];
+			}
+		} catch (e) {
+			proxyList = [user.user_socks5 || user.user_proxy_ip];
+		}
+		if (!Array.isArray(proxyList) || proxyList.length === 0) proxyList = [];
+		const allowDirect = user.enable_direct !== 0;
+		if (allowDirect) {
+			let hasDirect = proxyList.some((p) => p === null || p === "");
+			if (!hasDirect) proxyList.push(null);
+		} else {
+			proxyList = proxyList.filter((p) => p !== null && p !== "");
+		}
+		if (proxyList.length === 0) proxyList = [null];
+
+		const outbounds = [];
+		const protoFlags = le69yqs(user);
+		const enableTrojan = protoFlags.trojan;
+
+		let locIdx = 0;
+		for (let proxyItem of proxyList) {
+			const currentDynPath = rawPath + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
+			ips.forEach((ip) => {
+				ports.forEach((portStr) => {
+					const isTlsPort = m1fqgtq.has(portStr);
+					let outbound = {
+						type: "vless",
+						tag: `vl-${ip}-${portStr}-loc${locIdx}`,
+						server: ip,
+						server_port: parseInt(portStr),
+						uuid: user.uuid,
+						packet_encoding: "xudp",
+						transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
+					};
+					if (isTlsPort) {
+						outbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
+					}
+					if (protoFlags.vless) outbounds.push(outbound);
+					if (enableTrojan) {
+						let trojanOutbound = {
+							type: "trojan",
+							tag: `tj-${ip}-${portStr}-loc${locIdx}`,
+							server: ip,
+							server_port: parseInt(portStr),
+							password: user.uuid,
+							transport: { type: "ws", path: currentDynPath, headers: { Host: host } },
+						};
+						if (isTlsPort) {
+							trojanOutbound.tls = { enabled: true, server_name: sni, insecure: false, utls: { enabled: true, fingerprint: safeFp } };
+						}
+						outbounds.push(trojanOutbound);
+					}
+					if (protoFlags.ss) {
+						outbounds.push({
+							type: "shadowsocks",
+							tag: `sh-${ip}-${portStr}-loc${locIdx}`,
+							server: ip,
+							server_port: parseInt(portStr),
+							method: "aes-256-gcm",
+							password: user.uuid,
+							plugin: "v2ray-plugin",
+							plugin_opts: "mode=websocket;host=" + host + ";path=" + ssPlainPath + (isTlsPort ? ";tls" : ""),
+						});
+					}
+				});
+			});
+			locIdx++;
+		}
+
+		const outboundsList = outbounds.map((o) => o.tag);
+
+		let targetDns = "udp://8.8.8.8";
+		if (user.block_porn === 1 && user.block_ads === 1) {
+			targetDns = "udp://94.140.14.15";
+		} else if (user.block_porn === 1) {
+			targetDns = "udp://1.1.1.3";
+		} else if (user.block_ads === 1) {
+			targetDns = "udp://94.140.14.14";
+		}
+
+		const config = {
+			log: { disabled: false, level: "info" },
+			dns: {
+				servers: [{ tag: "remote-dns", address: targetDns, detour: outboundsList.length > 0 ? "proxy" : "direct" }],
+				final: "remote-dns",
+				independent_cache: true,
+			},
+			inbounds: [
+				{
+					type: "tun",
+					tag: "tun-in",
+					interface_name: "tun0",
+					address: ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+					auto_route: true,
+					strict_route: true,
+					stack: "mixed",
+				},
+			],
+			outbounds: [
+				{ type: "selector", tag: "proxy", outbounds: outboundsList.length > 0 ? outboundsList : ["direct"] },
+				...outbounds,
+				{ type: "direct", tag: "direct" },
+				{ type: "block", tag: "block" },
+			],
+			route: {
+				rules: [
+					{ protocol: "dns", action: "hijack-dns" },
+					{ port: 53, action: "hijack-dns" },
+					{ protocol: "icmp", outbound: "direct" },
+				],
+				auto_detect_interface: true,
+				final: outboundsList.length > 0 ? "proxy" : "direct",
+			},
+		};
+
+		return new Response(JSON.stringify(config, null, 2), {
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "no-store",
+			},
+		});
+	},
 };
 async function dyj1dp1() {}
 async function bvj1iaf() { return new Response("Not Found", { status: 404 }); }
