@@ -56,11 +56,11 @@ assets.pop("SOURCE_CONTENT", None)           # self-update source is not needed 
 
 # ---- 3. code patches -------------------------------------------------------
 code = must_replace(code, "var Bo={async fetch(e,t){try{if(pe(e,t),",
-                          "var Bo={async fetch(e,t){try{if(t=__zInitEnv(t),pe(e,t),", "entry: D1 env")
+                          "var Bo={async fetch(e,t){try{if(t=await __zInitEnv(t,e),pe(e,t),", "entry: D1 env")
 code = must_replace(code, "case`/${r}/qrcode`:return ea(e);",
                           "case`/${r}/zeus`:return __zRoute(e,t);case`/${r}/qrcode`:return ea(e);", "route /zeus")
 code = must_replace(code, 'function pe(e,t){if(t.UUID||t.TR_PASS||"undefined"==typeof EMBEDED_SETTINGS)throw',
-                          'function pe(e,t){if("undefined"==typeof EMBEDED_SETTINGS&&(globalThis.EMBEDED_SETTINGS=__zDefaultEmbedded(t,e.url)),!1)throw', "env fallback")
+                          'function pe(e,t){if("undefined"==typeof EMBEDED_SETTINGS)throw', "env fallback")
 code = must_replace(code, "async function en(e,t){",
                           'async function en(e,t){return m(!1,403,"Updates are disabled in this build (manual updates only).");', "update-panel off")
 code = must_replace(code, "async function fe(e){const t=await ue(e);Ce=t.settings,ke=t.warpAccounts}",

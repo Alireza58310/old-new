@@ -63,21 +63,29 @@ function __zKV(db) {
     },
   };
 }
-function __zInitEnv(t) {
+async function __zInitEnv(t, req) {
   const db = t.DB || t.D1 || t.zeus_db;
   const w = Object.assign({}, t);
   if (db) { w.kv = __zKV(db); w.DB = db; }
   else if (!t.kv) throw new Error("No D1 database is bound. Add a D1 binding named DB.");
   globalThis.__zenv = w;
+  if (typeof EMBEDED_SETTINGS === "undefined") globalThis.EMBEDED_SETTINGS = await __zBoot(w, req.url);
   return w;
 }
-// Used only when nothing injected EMBEDED_SETTINGS (BPB Wizard normally does that).
-function __zDefaultEmbedded(env, url) {
-  const need = (k) => { const v = env[k]; if (!v) throw new Error(`Missing environment variable ${k}`); return String(v); };
+// Used only when nothing injected EMBEDED_SETTINGS (the wizard normally does that).
+// Every value can be forced with an environment variable; anything missing gets a safe default.
+// The UUID / Trojan password are generated once and kept in D1 so they never change by accident.
+async function __zBoot(env, url) {
+  let b = await env.kv.get("zeus:boot", { type: "json" });
+  if (!b) {
+    const rnd = (n) => Array.from(crypto.getRandomValues(new Uint8Array(n)), (x) => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"[x % 62]).join("");
+    b = { vlUUID: crypto.randomUUID(), trPass: rnd(18) };
+    await env.kv.put("zeus:boot", JSON.stringify(b));
+  }
   const list = (k) => String(env[k] || "").split(/[\n,]+/).map((s) => s.trim()).filter(Boolean);
   return {
-    accID: env.ACC_ID || "", accEmail: need("ACC_EMAIL"), apiToken: env.API_TOKEN || "",
-    vlUUID: need("VL_UUID"), trPass: need("TR_PASS"), securePath: need("SECURE_PATH"),
+    accID: env.ACC_ID || "", accEmail: env.ACC_EMAIL || "admin", apiToken: env.API_TOKEN || "",
+    vlUUID: env.VL_UUID || env.UUID || b.vlUUID, trPass: env.TR_PASS || b.trPass, securePath: env.SECURE_PATH || "admin",
     proxyIpMode: env.PROXY_IP_MODE || "proxyip", proxyIPs: list("PROXY_IPS"), prefixes: list("PREFIXES"),
     mainDomain: new URL(url).hostname, fallback: env.FALLBACK || "", dohUrl: env.DOH_URL || "",
   };
