@@ -35,7 +35,7 @@
                         </span>
                     </a>
                 </div>
-                <p class="subtitle">Install BPB Zeus Panel (D1) efficiently</p>
+                <p class="subtitle">Install, manage &amp; update BPB Zeus Panel (D1) efficiently</p>
                 <h4 id="user" style="display: none;"></h4>
                 <ol id="steps">
                     <li>
@@ -82,6 +82,47 @@
                         keyboard_arrow_down
                     </span>
                 </div>
+
+                <!-- ============ Deploy source · سورس دیپلوی ============ -->
+                <section class="box" id="sourceBox">
+                    <div class="box-title">📦 Deploy Source <span class="fa">سورس دیپلوی</span></div>
+                    <select id="sourceSelect" class="select-plain mono" dir="ltr"></select>
+                    <div class="row">
+                        <button type="button" id="srcAdd" class="btn-mini ok">＋ Add</button>
+                        <button type="button" id="srcEdit" class="btn-mini">✏️ Edit</button>
+                        <button type="button" id="srcTest" class="btn-mini">✅ Test</button>
+                        <button type="button" id="srcDelete" class="btn-mini danger">🗑 Delete</button>
+                    </div>
+                    <div id="srcEditor" class="editor hidden">
+                        <input id="srcName" class="input-plain" placeholder="Name · اسم دلخواه (optional)" autocomplete="off" dir="auto" />
+                        <input id="srcUrl" class="input-plain mono" placeholder="https://raw.githubusercontent.com/user/repo/refs/heads/main/worker.js" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <div class="row">
+                            <button type="button" id="srcSave" class="btn-mini ok">Save</button>
+                            <button type="button" id="srcCancel" class="btn-mini">Cancel</button>
+                            <button type="button" id="srcReset" class="btn-mini">↺ Restore default</button>
+                        </div>
+                    </div>
+                    <p id="srcStatus" class="hint">Used for both <b>Install</b> and <b>Update</b>. Raw GitHub / Gist / GitLab / jsDelivr links (GitHub “blob” links are converted automatically). The list is saved in this browser.</p>
+                </section>
+
+                <!-- ============ Runtime Placement · منطقه اجرای ورکر ============ -->
+                <section class="box" id="placementBox">
+                    <div class="box-title">🌍 Runtime Placement <span class="fa">منطقه اجرای ورکر</span></div>
+                    <div id="placementPicker"></div>
+                    <p class="hint">Where the Worker runs, near a cloud data-center region: the same setting as <i>Settings → Runtime → Placement</i> in the Cloudflare dashboard. It is applied automatically.</p>
+                </section>
+
+                <!-- ============ Panel link name · نام لینک پنل ============ -->
+                <section class="box" id="nameBox">
+                    <div class="box-title">🔗 Panel Link Name <span class="fa">نام لینک پنل</span></div>
+                    <div class="seg" id="nameSeg">
+                        <button type="button" data-mode="random" class="active">🎲 Random · تصادفی</button>
+                        <button type="button" data-mode="custom">✏️ Custom · دلخواه</button>
+                    </div>
+                    <input id="customName" class="input-plain mono hidden" placeholder="my-panel" maxlength="50" autocomplete="off" spellcheck="false" dir="ltr" />
+                    <p id="nameHint" class="hint">Random: a long unguessable name. Custom: lowercase Latin letters, digits and “-” only; this name is used in the panel link (<code>name.&lt;your-subdomain&gt;.workers.dev</code>).</p>
+                    <input id="panelLabel" class="input-plain" placeholder="Label · برچسب (optional, for your saved links)" autocomplete="off" dir="auto" />
+                </section>
 
                 <button type="submit" class="btn-primary">
                     <span class="material-symbols-rounded">
@@ -142,11 +183,43 @@
 
             </form>
 
+            <!-- ============ Manage & update panels · مدیریت و آپدیت پنل‌ها ============ -->
+            <section class="box manage" id="manageBox">
+                <div class="box-title">🛠 Manage &amp; Update Panels <span class="fa">مدیریت و آپدیت پنل‌ها</span></div>
+                <p class="hint">Finds every BPB Zeus panel in the account by looking <b>inside</b> the Workers (embedded settings + D1 binding), so it works even when the Worker has a completely different name.</p>
+                <div class="row">
+                    <button type="button" id="scanBtn" class="btn-mini ok wide">🔍 Scan account</button>
+                </div>
+                <div class="row">
+                    <input id="checkName" class="input-plain mono" placeholder="Check one Worker by name" autocomplete="off" spellcheck="false" dir="ltr" />
+                    <button type="button" id="checkBtn" class="btn-mini">Check</button>
+                </div>
+                <div id="scanProgress" class="progress hidden"><div id="scanBar"></div><span id="scanText"></span></div>
+                <div id="panelList" class="panel-list"></div>
+
+                <details id="savedBox" class="saved">
+                    <summary>💾 Saved links · لینک‌های ذخیره‌شده <span id="savedCount"></span></summary>
+                    <label class="switch-row"><input type="checkbox" id="autoSave" checked /> Save the link automatically after every install</label>
+                    <div id="savedList" class="panel-list"></div>
+                </details>
+            </section>
+
             <pre id="output" class="terminal">●●● Standby
             </pre>
 
         </div>
     </div>
+
+    <dialog id="confirmDialog" class="dlg">
+        <form method="dialog">
+            <p id="confirmText"></p>
+            <label id="confirmOptRow" class="switch-row hidden"><input type="checkbox" id="confirmOpt" /> <span id="confirmOptText"></span></label>
+            <div class="row end">
+                <button value="cancel" class="btn-mini">Cancel</button>
+                <button value="ok" id="confirmOk" class="btn-mini ok">OK</button>
+            </div>
+        </form>
+    </dialog>
 
     <script src="app.js" defer></script>
 </body>
