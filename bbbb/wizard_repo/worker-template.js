@@ -12,6 +12,7 @@
 //   - Panel link name: random or custom worker name
 //   - Manage: scan the account (Workers + Pages), see D1 bindings, update in place without losing
 //     bindings / settings, change placement, delete (the D1 database is deleted together with it)
+//   - Download: pick any Workers of the account (filter + checkboxes) and download their scripts, no dashboard needed
 // ===========================================================================
 const WORKER_URL = 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bbbb/worker.js';
 const CF_API = 'https://api.cloudflare.com/client/v4';
@@ -428,6 +429,22 @@ class CFAccount {
         return { text: await res.text(), parts: 1 };
     }
 
+    // every module of the deployed Worker as base64 (ES modules come back multipart, a service worker as plain text)
+    async getScriptParts(name) {
+        const res = await fetch(`${CF_API}/accounts/${this.id}/workers/scripts/${name}`, { headers: { Authorization: `Bearer ${this.token}` } });
+        if (!res.ok) { const e = new Error(`Cannot read Worker "${name}" (HTTP ${res.status}).`); e.status = res.status; throw e; }
+        const b64 = (buf) => { const u = new Uint8Array(buf); let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000)); return btoa(s); };
+        if (/multipart\/form-data/i.test(res.headers.get('content-type') || '')) {
+            try {
+                const fd = await res.clone().formData();
+                const parts = [];
+                for (const [key, v] of fd) parts.push({ name: String(typeof v === 'string' ? key : (v.name || key)), data: b64(typeof v === 'string' ? enc.encode(v) : await v.arrayBuffer()) });
+                if (parts.length) return parts;
+            } catch { }
+        }
+        return [{ name: 'worker.js', data: b64(await res.arrayBuffer()) }];
+    }
+
     // bindings + the settings we must carry over when the script is uploaded again
     async scriptSettings(name) {
         let s = null;
@@ -833,6 +850,18 @@ export default {
             const d1Names = body.d1Names && typeof body.d1Names === 'object' ? body.d1Names : {};
             const panels = (await Promise.all(names.map(n => inspectWorker(account, n, devSub, d1Names)))).filter(Boolean);
             return { checked: names.length, panels };
+        });
+
+        // download the script(s) of Workers straight from the account (a few per request: each one costs API calls)
+        if (url.pathname === '/api/panels/download' && post) return api(request, url, env, async (body) => {
+            const account = await withAccount(url, env, body);
+            const names = [...new Set((Array.isArray(body.names) ? body.names : []).map(scriptName))].slice(0, 5);
+            if (!names.length) throw new Error('No Worker selected.');
+            const files = await Promise.all(names.map(async (name) => {
+                try { return { name, parts: await account.getScriptParts(name) }; }
+                catch (err) { return { name, error: err.message ?? String(err) }; }
+            }));
+            return { files };
         });
 
         if (url.pathname === '/api/panels/update' && post) return api(request, url, env, async (body) => {
