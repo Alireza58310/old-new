@@ -5,6 +5,11 @@ export const SOURCES = {
     'https://raw.githubusercontent.com/me/repo/main/v1.js': PANEL_V1,
     'https://raw.githubusercontent.com/me/repo/refs/heads/main/v2.js': PANEL_V2,
     'https://raw.githubusercontent.com/me/repo/main/notpanel.js': 'console.log("hello")',
+    'https://cdn.example.com/generic.js': 'export default { fetch(req, env) { return new Response("generic " + typeof env.DB); } };',
+    'https://cdn.example.com/classic-sw.js': 'addEventListener("fetch", e => e.respondWith(new Response("sw")));',
+    'https://cdn.example.com/truncated.js': 'export default { fetch(req, env) { const s = "}}}"; return new Response(s); ',
+    'https://cdn.example.com/tricky.js': 'const a = "{{"; const re = /[}]+/g; const t = `${ {k:1}.k }}`; // {\nexport default { fetch() { return new Response(`ok ${ a }`) } };',
+    'https://cdn.example.com/page.js': '<!DOCTYPE html><html><body>404</body></html>',
     'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bbbb/worker.js': PANEL_V1
 };
 
@@ -43,6 +48,7 @@ globalThis.fetch = async (input, init = {}) => {
         }
         if (m === 'DELETE') { delete st.scripts[name]; st.deleted.push(name); return J(null); }
     }
+    if (p.startsWith(A + '/d1/database?') && m === 'GET') return J(Object.entries(st.d1).map(([uuid, name]) => ({ uuid, name })));
     if (p === A + '/d1/database' && m === 'POST') {
         const name = JSON.parse(init.body).name;
         if (st.d1Taken.has(name)) return J('A database with that name already exists', 400, 7502);
