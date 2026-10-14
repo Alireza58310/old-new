@@ -92,7 +92,7 @@ async function checkAutoResets(env, ctx) {
 	if (now - localLastAutoResetCheck < 3600000) return;
 	try {
 		const cache = caches.default;
-		const cacheReq = new Request("https://internal.alireza/auto_reset");
+		const cacheReq = new Request("https://internal.zeus/auto_reset");
 		if (await cache.match(cacheReq)) return;
 		const row = await env.DB.prepare("SELECT value FROM settings WHERE key = 'last_auto_reset_check'").first();
 		const dbLastCheck = row ? parseInt(row.value) || 0 : 0;
@@ -430,7 +430,7 @@ export default {
 				return await Router.handleSubscription(url, env);
 			}
 			if (url.pathname === "/icon.svg" || url.pathname === "/favicon.ico" || url.pathname === "/icon.png" || url.pathname === "/apple-touch-icon.png") {
-				return new Response(ALIREZA_ICON_SVG, {
+				return new Response(ZEUS_ICON_SVG, {
 					headers: {
 						"Content-Type": "image/svg+xml; charset=utf-8",
 						"Cache-Control": "public, max-age=604800, immutable",
@@ -485,27 +485,27 @@ export default {
 		}
 	},
 };
-const ALIREZA_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+const ZEUS_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <radialGradient id="alirezaBg" cx="50%" cy="50%" r="50%">
+    <radialGradient id="zeusBg" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#0e2348"/>
       <stop offset="100%" stop-color="#020617"/>
     </radialGradient>
-    <filter id="alirezaGlow" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="zeusGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#3b82f6" flood-opacity="0.6"/>
     </filter>
   </defs>
   <rect width="512" height="512" rx="128" fill="#000000"/>
-  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#alirezaBg)" stroke="#3b82f6" stroke-width="16" filter="url(#alirezaGlow)"/>
+  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#zeusBg)" stroke="#3b82f6" stroke-width="16" filter="url(#zeusGlow)"/>
   <rect x="56" y="56" width="400" height="400" rx="88" fill="none" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.4"/>
-  <g transform="translate(128, 128) scale(10.666)" filter="url(#alirezaGlow)">
+  <g transform="translate(128, 128) scale(10.666)" filter="url(#zeusGlow)">
     <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="#38bdf8" fill-opacity="0.3" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>`;
 const PWA_MANIFEST = JSON.stringify({
-	name: "ALIREZA Panel",
-	short_name: "ALIREZA Panel",
-	description: "پنل مدیریت پیشرفته کانفیگ و کاربران علیرضا",
+	name: "ZEUS Panel",
+	short_name: "ZEUS Panel",
+	description: "پنل مدیریت پیشرفته کانفیگ و کاربران زئوس",
 	start_url: "/panel",
 	scope: "/",
 	display: "standalone",
@@ -522,7 +522,7 @@ const PWA_MANIFEST = JSON.stringify({
 			purpose: "any maskable"
 		},
 		{
-			src: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22alirezaBg%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230e2348%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23020617%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22alirezaGlow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%20%20%3CfeDropShadow%20dx%3D%220%22%20dy%3D%220%22%20stdDeviation%3D%2216%22%20flood-color%3D%22%233b82f6%22%20flood-opacity%3D%220.6%22%2F%3E%0A%20%20%20%20%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22128%22%20fill%3D%22%23000000%22%2F%3E%0A%20%20%3Crect%20x%3D%2248%22%20y%3D%2248%22%20width%3D%22416%22%20height%3D%22416%22%20rx%3D%2296%22%20fill%3D%22url(%23alirezaBg)%22%20stroke%3D%22%233b82f6%22%20stroke-width%3D%2216%22%20filter%3D%22url(%23alirezaGlow)%22%2F%3E%0A%20%20%3Crect%20x%3D%2256%22%20y%3D%2256%22%20width%3D%22400%22%20height%3D%22400%22%20rx%3D%2288%22%20fill%3D%22none%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%224%22%20stroke-opacity%3D%220.4%22%2F%3E%0A%20%20%3Cg%20transform%3D%22translate(128%2C%20128)%20scale(10.666)%22%20filter%3D%22url(%23alirezaGlow)%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M13%2010V3L4%2014h7v7l9-11h-7z%22%20fill%3D%22%2338bdf8%22%20fill-opacity%3D%220.3%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
+			src: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22zeusBg%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230e2348%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23020617%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22zeusGlow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%20%20%3CfeDropShadow%20dx%3D%220%22%20dy%3D%220%22%20stdDeviation%3D%2216%22%20flood-color%3D%22%233b82f6%22%20flood-opacity%3D%220.6%22%2F%3E%0A%20%20%20%20%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22128%22%20fill%3D%22%23000000%22%2F%3E%0A%20%20%3Crect%20x%3D%2248%22%20y%3D%2248%22%20width%3D%22416%22%20height%3D%22416%22%20rx%3D%2296%22%20fill%3D%22url(%23zeusBg)%22%20stroke%3D%22%233b82f6%22%20stroke-width%3D%2216%22%20filter%3D%22url(%23zeusGlow)%22%2F%3E%0A%20%20%3Crect%20x%3D%2256%22%20y%3D%2256%22%20width%3D%22400%22%20height%3D%22400%22%20rx%3D%2288%22%20fill%3D%22none%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%224%22%20stroke-opacity%3D%220.4%22%2F%3E%0A%20%20%3Cg%20transform%3D%22translate(128%2C%20128)%20scale(10.666)%22%20filter%3D%22url(%23zeusGlow)%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M13%2010V3L4%2014h7v7l9-11h-7z%22%20fill%3D%22%2338bdf8%22%20fill-opacity%3D%220.3%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
 			sizes: "192x192 512x512",
 			type: "image/svg+xml",
 			purpose: "any maskable"
@@ -531,7 +531,7 @@ const PWA_MANIFEST = JSON.stringify({
 	categories: ["utilities", "productivity"]
 });
 const PWA_SERVICE_WORKER = `
-const CACHE_NAME = "alireza-pwa-cache-v1";
+const CACHE_NAME = "zeus-pwa-cache-v1";
 const STATIC_ASSETS = [
 	"https://cdn.tailwindcss.com",
 	"https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js",
@@ -869,6 +869,39 @@ const Router = {
 				headers: { "Content-Type": "application/json; charset=utf-8" },
 			});
 		}
+		if (url.pathname === "/api/auto-update-setup" && request.method === "POST") {
+			const body = await readJsonBody(request);
+			if (body.action === "check") {
+				const dbTokenRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'cf_token'").first();
+				const hasToken = !!env.CF_API_TOKEN || !!(dbTokenRow && dbTokenRow.value);
+				const autoUpdateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'auto_update'").first();
+				const isAutoUpdateEnabled = autoUpdateRow ? autoUpdateRow.value === "1" : true;
+				return new Response(JSON.stringify({ has_token: hasToken, auto_update: isAutoUpdateEnabled }), { headers: { "Content-Type": "application/json" } });
+			}
+			if (body.action === "enable") {
+				const dbTokenRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'cf_token'").first();
+				let token = body.token || env.CF_API_TOKEN || (dbTokenRow ? dbTokenRow.value : null);
+				if (!token) return new Response(JSON.stringify({ error: "TOKEN_MISSING" }), { status: 400, headers: { "Content-Type": "application/json" } });
+				try {
+					const cfRes = await fetch("https://api.cloudflare.com/client/v4/user/tokens/verify", {
+						headers: { Authorization: "Bearer " + token },
+					});
+					const cfData = await cfRes.json();
+					if (!cfRes.ok || !cfData.success) {
+						return new Response(JSON.stringify({ error: "INVALID_TOKEN" }), { status: 400, headers: { "Content-Type": "application/json" } });
+					}
+					await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('cf_token', ?)").bind(token).run();
+					await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('auto_update', '1')").run();
+					return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+				} catch (e) {
+					return new Response(JSON.stringify({ error: "خطا در بررسی توکن با کلودفلر" }), { status: 500, headers: { "Content-Type": "application/json" } });
+				}
+			}
+			if (body.action === "disable") {
+				await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('auto_update', '0')").run();
+				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+			}
+		}
 		if (url.pathname === "/api/restart-core" && request.method === "POST") {
 			try {
 				GLOBAL_TRAFFIC_CACHE.clear();
@@ -895,6 +928,84 @@ const Router = {
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			} catch (err) {
 				return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+			}
+		}
+		if (url.pathname === "/api/update-panel" && request.method === "POST") {
+			const body = await request.json().catch(() => ({}));
+			const dbTokenRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'cf_token'").first();
+			let currentToken = env.CF_API_TOKEN || (dbTokenRow ? dbTokenRow.value : null) || body.cf_token || null;
+			let currentAccountId = env.CF_ACCOUNT_ID;
+			if (!currentToken) {
+				return new Response(JSON.stringify({ error: "TOKEN_REQUIRED" }), { status: 400, headers: { "Content-Type": "application/json" } });
+			}
+			try {
+				const cfHeaders = {
+					Authorization: "Bearer " + currentToken,
+					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ZeusPanel/1.0",
+				};
+				if (!currentAccountId) {
+					const accRes = await fetch("https://api.cloudflare.com/client/v4/accounts", { headers: cfHeaders });
+					if (!accRes.ok) throw new Error("کلودفلر درخواست اکانت را رد کرد (وضعیت: " + accRes.status + ")");
+					const accData = await accRes.json().catch(() => ({}));
+					if (!accData.success || !accData.result || accData.result.length === 0) throw new Error("توکن نامعتبر است یا اکانتی یافت نشد.");
+					currentAccountId = accData.result[0].id;
+				}
+				const githubRes = await fetchWithFallback("zeus.obfuscated.js?t=" + Date.now(), {
+					headers: {
+						"User-Agent": "Mozilla/5.0",
+						"Cache-Control": "no-cache",
+					},
+				});
+				if (!githubRes.ok) throw new Error("خطا در دریافت سورس جدید از گیت‌هاب (وضعیت: " + githubRes.status + ")");
+				const newCode = await githubRes.text();
+				const scriptName = env.WORKER_NAME || url.hostname.split(".")[0];
+				const bindingsRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${currentAccountId}/workers/scripts/${scriptName}/bindings`, {
+					headers: cfHeaders,
+				});
+				if (!bindingsRes.ok) throw new Error("عدم دسترسی به تنظیمات ورکر. کلودفلر خطا داد (وضعیت: " + bindingsRes.status + ")");
+				const bindingsData = await bindingsRes.json().catch(() => ({}));
+				if (!bindingsData.success) throw new Error("توکن فاقد دسترسی ویرایش ورکر است.");
+				const newBindings = [];
+				for (const b of bindingsData.result || []) {
+					if (b.name === "CF_API_TOKEN" || b.name === "CF_ACCOUNT_ID") continue;
+					if (b.type === "d1") {
+						newBindings.push({ type: "d1", name: b.name, id: b.database_id || b.id });
+					} else if (b.type === "kv_namespace") {
+						newBindings.push({ type: "kv_namespace", name: b.name, namespace_id: b.namespace_id || b.id });
+					} else if (b.type === "plain_text") {
+						newBindings.push({ type: "plain_text", name: b.name, text: b.text || "" });
+					} else if (b.type !== "secret_text") {
+						newBindings.push(b);
+					}
+				}
+				newBindings.push({ type: "secret_text", name: "CF_API_TOKEN", text: currentToken });
+				newBindings.push({ type: "secret_text", name: "CF_ACCOUNT_ID", text: currentAccountId });
+				const metadata = {
+					main_module: "zeus.js",
+					compatibility_date: "2026-07-10",
+					compatibility_flags: ["nodejs_compat"],
+					bindings: newBindings,
+				};
+				const formData = new FormData();
+				formData.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }), "metadata.json");
+				formData.append("zeus.js", new Blob([newCode], { type: "application/javascript+module" }), "zeus.js");
+				const deployRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${currentAccountId}/workers/scripts/${scriptName}`, {
+					method: "PUT",
+					headers: cfHeaders,
+					body: formData,
+				});
+				if (!deployRes.ok) {
+					const errText = await deployRes.text().catch(() => "");
+					throw new Error("خطای کلودفلر هنگام دیپلوی (" + deployRes.status + "): " + errText.substring(0, 150));
+				}
+				const deployData = await deployRes.json().catch(() => ({}));
+				if (!deployData.success) {
+					const cfError = deployData.errors && deployData.errors.length > 0 ? deployData.errors[0].message : "خطا در اعمال آپدیت.";
+					throw new Error(cfError);
+				}
+				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+			} catch (err) {
+				return new Response(JSON.stringify({ error: err.message }), { status: 400, headers: { "Content-Type": "application/json" } });
 			}
 		}
 		if (url.pathname === "/api/change-password" && request.method === "POST") {
@@ -1449,7 +1560,7 @@ const SubscriptionService = {
 		const dynPath = encodeURIComponent("/stream/PANEL_ZEUS/" + ((user.uuid || "").split("-")[4] || "default"));
 		const links = [];
 		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%20%D9%88%20%D8%BA%DB%8C%D8%B1%20%D9%82%D8%A7%D8%A8%D9%84%20%D9%81%D8%B1%D9%88%D8%B4%E2%9A%A0%EF%B8%8F");
-		const m2 = decodeURIComponent("%F0%9F%9A%80%40PANEL_ALIREZA%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80");
+		const m2 = decodeURIComponent("%F0%9F%9A%80%40PANEL_ZEUS%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80");
 		let remVol = "Unlimited";
 		if (user.limit_gb) {
 			let liveUsedGb = (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024));
@@ -1578,15 +1689,15 @@ const SubscriptionService = {
 						
 					const tlsParams = isTlsPort ? ("&insecure=0&fp=" + fp + "&allowInsecure=0&sni=" + host) : "";
 					if (enableVless) {
-						const remark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+						const remark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 						links.push("vl" + "e" + "ss://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + proxy.currentDynPath + "&security=" + tlsVal + "&encryption=none&host=" + host + "&type=ws" + tlsParams + userFrag + "#" + encodeURIComponent(remark));
 					}
 					if (enableTrojan) {
-						const trojanRemark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+						const trojanRemark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 						links.push("trojan://" + user.uuid + "@" + ip + ":" + portStr + "?path=" + proxy.currentDynPath + "&security=" + tlsVal + "&host=" + host + "&type=ws" + tlsParams + userFrag + "#" + encodeURIComponent(trojanRemark));
 					}
 					if (enableSS) {
-						const ssRemark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+						const ssRemark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 						const methodPass = btoa("aes-256-gcm:" + user.uuid);
 						let pluginOpts = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + decodeURIComponent(proxy.currentDynPath) + (isTlsPort ? ";tls" : "");
 						let pluginStr = encodeURIComponent(pluginOpts);
@@ -1731,7 +1842,7 @@ const SubscriptionService = {
 			ports.forEach((portStr) => {
 				resolvedProxies.forEach((proxy) => {
 					const isTlsPort = TLS_PORTS.has(portStr);
-					let baseName = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+					let baseName = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 					
 					if (enableVless) {
 						nameCounter[baseName] = (nameCounter[baseName] || 0) + 1;
@@ -3949,7 +4060,7 @@ const COMMON_HEAD = `
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta name="apple-mobile-web-app-title" content="ALIREZA Panel">
+	<meta name="apple-mobile-web-app-title" content="ZEUS Panel">
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css">
 <script>
@@ -4322,7 +4433,7 @@ const HTML_TEMPLATES = {
 				<svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 				</svg>
-				PANEL_ALIREZA@
+				PANEL_ZEUS@
 			</a>
 		</div>
 		<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
@@ -4331,6 +4442,12 @@ const HTML_TEMPLATES = {
 					<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
 				</svg>
 				ساخت رایگان پـنـل
+			</a>
+			<a href="https://donatonion.ir-netlify.workers.dev" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300 group">
+				<svg class="w-5 h-5 text-red-500 dark:text-red-400 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+				</svg>
+				دونیت
 			</a>
 		</div>
 	</div>
@@ -4373,7 +4490,7 @@ const HTML_TEMPLATES = {
 				<svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 				</svg>
-				PANEL_ALIREZA@
+				PANEL_ZEUS@
 			</a>
 		</div>
 		<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
@@ -4382,6 +4499,12 @@ const HTML_TEMPLATES = {
 					<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
 				</svg>
 				ساخت رایگان پـنـل
+			</a>
+			<a href="https://donatonion.ir-netlify.workers.dev" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300 group">
+				<svg class="w-5 h-5 text-red-500 dark:text-red-400 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+				</svg>
+				دونیت
 			</a>
 		</div>
 	</div>
@@ -4452,7 +4575,7 @@ const HTML_TEMPLATES = {
 			<h2 class="text-xl font-bold mb-4 text-center text-orange-600 dark:text-orange-400">بازیابی رمز پـنـل</h2>
 			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300">
 				برای احراز هویت و اثبات مالکیت پـنـل، از طریق دکمه زیر وارد کلودفلر شوید و توکن دریافتی را کپی کرده و در کادر زیر وارد کنید.
-				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Alireza-Deployer-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
+				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
 					دریافت توکن
 				</a>
@@ -4480,7 +4603,7 @@ const HTML_TEMPLATES = {
 				<svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 				</svg>
-				PANEL_ALIREZA@
+				PANEL_ZEUS@
 			</a>
 		</div>
 		<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
@@ -4489,6 +4612,12 @@ const HTML_TEMPLATES = {
 					<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
 				</svg>
 				ساخت رایگان پـنـل
+			</a>
+			<a href="https://donatonion.ir-netlify.workers.dev" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300 group">
+				<svg class="w-5 h-5 text-red-500 dark:text-red-400 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+				</svg>
+				دونیت
 			</a>
 		</div>
 	</div>
@@ -4560,7 +4689,7 @@ const HTML_TEMPLATES = {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>A L I R E Z A</title>
+	<title>Z E U S</title>
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 	<script>
 		const originalWarn = console.warn;
@@ -4572,7 +4701,7 @@ const HTML_TEMPLATES = {
 	${COMMON_HEAD}
 	<style>
 		body { font-family: 'Vazirmatn', sans-serif; }
-		.alireza-flag {
+		.zeus-flag {
 			display: inline-block;
 			width: 1.35em;
 			height: 1em;
@@ -4582,7 +4711,7 @@ const HTML_TEMPLATES = {
 			background-position: 50%;
 			background-repeat: no-repeat;
 		}
-		.alireza-flag-globe {
+		.zeus-flag-globe {
 			font-size: 1.1em;
 			line-height: 1;
 			vertical-align: -0.05em;
@@ -4696,7 +4825,7 @@ const HTML_TEMPLATES = {
 			
 			<div class="flex flex-row justify-between items-center w-full md:w-auto gap-2">
 				<h1 class="text-lg font-bold flex items-center gap-2 flex-shrink-0" dir="ltr">
-					⚡️ A L I R E Z A
+					⚡️ Z E U S
 					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full"></span>
 				</h1>
 				
@@ -4741,6 +4870,9 @@ const HTML_TEMPLATES = {
 					<button id="pwa-install-btn" onclick="triggerPwaInstall()" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/30 transform hover:scale-110 cursor-pointer border-none" title="دانلود و نصب اپلیکیشن پنل">
 						<svg class="w-5 h-5 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
 					</button>
+					<button onclick="toggleSupportModal(true)" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-red-50 dark:bg-red-950/30 border border-red-300 dark:border-red-900 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 text-red-600 dark:text-red-400 shadow-sm" title="حمایت از ما">
+						<svg class="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+					</button>
 					<button onclick="toggleInfoModal(true)" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-purple-50 dark:bg-purple-950/30 border border-purple-300 dark:border-purple-900 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all duration-200 text-purple-600 dark:text-purple-400 shadow-sm" title="اطلاعات">
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
 					</button>
@@ -4753,6 +4885,10 @@ const HTML_TEMPLATES = {
 					<button id="theme-toggle" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-900 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-all duration-200 text-amber-500 dark:text-amber-400 shadow-sm" title="تغییر تم">
 						<svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 						<svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+					</button>
+					<button id="update-toggle" onclick="checkForUpdates(true)" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-green-50 dark:bg-green-950/30 border border-green-300 dark:border-green-900 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-200 text-green-700 dark:text-green-500 relative shadow-sm" title="آپدیت">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+						<span id="update-badge" class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 border-2 border-green-50 dark:border-green-900 rounded-full hidden animate-pulse"></span>
 					</button>
 					<button onclick="toggleSettingsModal(true)" class="w-9 h-9 rounded-full inline-flex items-center justify-center bg-gray-50 dark:bg-zinc-800/50 border border-gray-300 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-700/80 transition-all duration-200 text-gray-600 dark:text-zinc-400 shadow-sm" title="تنظیمات">
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -4767,7 +4903,7 @@ const HTML_TEMPLATES = {
 	</header>
 	<main class="max-w-6xl mx-auto px-4 py-8 pb-56 md:pb-32 relative z-10">
 <div class="bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-300 dark:border-amoled-border rounded-xl mb-6 shadow-sm flex flex-col overflow-hidden">
-	<button onclick="const w = document.getElementById('stats-accordion-wrapper'); const i = document.getElementById('stats-accordion-icon'); w.classList.toggle('max-h-0'); w.classList.toggle('opacity-0'); w.classList.toggle('max-h-[500px]'); w.classList.toggle('opacity-100'); i.classList.toggle('rotate-180'); localStorage.setItem('alireza_stats_hidden', w.classList.contains('max-h-0'));" class="w-full flex items-center justify-between text-xs font-bold cursor-pointer outline-none focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] px-4 py-2 hover:bg-gray-100/50 dark:hover:bg-zinc-800/30 transition-all duration-300 relative z-20">
+	<button onclick="const w = document.getElementById('stats-accordion-wrapper'); const i = document.getElementById('stats-accordion-icon'); w.classList.toggle('max-h-0'); w.classList.toggle('opacity-0'); w.classList.toggle('max-h-[500px]'); w.classList.toggle('opacity-100'); i.classList.toggle('rotate-180'); localStorage.setItem('zeus_stats_hidden', w.classList.contains('max-h-0'));" class="w-full flex items-center justify-between text-xs font-bold cursor-pointer outline-none focus:outline-none focus:ring-0 [-webkit-tap-highlight-color:transparent] px-4 py-2 hover:bg-gray-100/50 dark:hover:bg-zinc-800/30 transition-all duration-300 relative z-20">
 		<div class="flex items-center gap-2">
 			<div class="p-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-500 rounded-md">
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
@@ -4871,7 +5007,7 @@ const HTML_TEMPLATES = {
 </div>
 </div>
 <script>
-	if(localStorage.getItem('alireza_stats_hidden') === 'true') {
+	if(localStorage.getItem('zeus_stats_hidden') === 'true') {
 		const w = document.getElementById('stats-accordion-wrapper');
 		if(w) {
 			w.classList.remove('max-h-[500px]', 'opacity-100');
@@ -5044,7 +5180,7 @@ const HTML_TEMPLATES = {
 		<div class="flex justify-between items-center mb-4 relative z-10">
 			<h3 class="text-sm font-black text-gray-900 dark:text-white flex items-center gap-2">
 				<span class="text-lg">📲</span>
-				<span id="pwa-modal-title">راهنمای نصب اپلیکیشن علیرضا</span>
+				<span id="pwa-modal-title">راهنمای نصب اپلیکیشن زئوس</span>
 			</h3>
 			<button onclick="togglePwaModal(false)" class="p-1 rounded-md text-gray-400 hover:text-red-500 cursor-pointer transition">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -5056,7 +5192,7 @@ const HTML_TEMPLATES = {
 				<svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
 			</div>
 			<div>
-				<h4 class="text-xs font-black text-gray-900 dark:text-white">پنل علیرضا</h4>
+				<h4 class="text-xs font-black text-gray-900 dark:text-white">پنل زئوس</h4>
 				<span class="text-[10px] text-gray-500 dark:text-zinc-400 block">اپلیکیشن پیشرفته و مستقل وب (PWA)</span>
 			</div>
 		</div>
@@ -5080,26 +5216,30 @@ const HTML_TEMPLATES = {
 		
 		<div class="text-xs text-gray-600 dark:text-gray-300 mb-4 leading-relaxed font-medium text-justify space-y-2">
 			<p>
-				همراهان گرامی؛ با وجود مسدود شدن مکرر مخازن گیت‌هاب علیرضا بر اثر گزارش‌های کذب و مغرضانه <strong>فروشندگان کانفیگ</strong>، ما مخزن جدیدی را برای دسترسی شما ایجاد کرده‌ایم؛ هرچند متاسفانه احتمال مسدود شدن مجدد آن همچنان وجود دارد.
+				همراهان گرامی؛ با وجود مسدود شدن مکرر مخازن گیت‌هاب زئوس بر اثر گزارش‌های کذب و مغرضانه <strong>فروشندگان کانفیگ</strong>، ما مخزن جدیدی را برای دسترسی شما ایجاد کرده‌ایم؛ هرچند متاسفانه احتمال مسدود شدن مجدد آن همچنان وجود دارد.
 			</p>
 			<p>
 				این افراد سودجو با انتشار شایعات بی‌اساس مبنی بر ناامن بودن پنل، در تلاشند تا این پروژه کاملاً رایگان را تخریب کنند و منافع مالی خود را نجات دهند. اما ما تسلیم این کارشکنی‌ها نخواهیم شد.
 			</p>
 			<p>
-				پروژه علیرضا همواره بر پایه شفافیت مطلق بنا شده است. سورس‌کد کامل در اختیار شماست تا بتوانید مستقلاً و حتی به کمک ابزارهای هوش مصنوعی آن را بررسی کرده و از سلامت و امنیت قطعی پروژه اطمینان حاصل کنید.
+				پروژه زئوس همواره بر پایه شفافیت مطلق بنا شده است. سورس‌کد کامل در اختیار شماست تا بتوانید مستقلاً و حتی به کمک ابزارهای هوش مصنوعی آن را بررسی کرده و از سلامت و امنیت قطعی پروژه اطمینان حاصل کنید.
 			</p>
 			<p class="text-amber-600 dark:text-amber-400 font-bold text-center mt-2 border-t border-gray-100 dark:border-amoled-border/50 pt-2.5">
-				ادامه این مسیر پرفراز و نشیب و مقابله با این تخریب‌های سازمان‌یافته، بدون همراهی شما دشوار است. حمایت‌های شما، تنها پشتوانه ما برای زنده نگه داشتن علیرضا است.
+				ادامه این مسیر پرفراز و نشیب و مقابله با این تخریب‌های سازمان‌یافته، بدون همراهی شما دشوار است. حمایت‌های شما، تنها پشتوانه ما برای زنده نگه داشتن زئوس است.
 			</p>
 		</div>
 		
 		<div class="flex flex-col gap-2 mt-auto">
 			<div class="flex flex-col sm:flex-row gap-2 w-full">
-				<button onclick="downloadAlirezaSource()" class="flex-1 py-2 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/40 dark:hover:text-blue-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
+				<button onclick="downloadZeusSource()" class="flex-1 py-2 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/40 dark:hover:text-blue-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
 					دریافت سورس‌کد
 				</button>
 				
+				<button onclick="window.open('https://donatonion.ir-netlify.workers.dev/', '_blank')" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-900/40 dark:hover:text-green-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+					حمایت از پروژه
+				</button>
 			</div>
 			
 			<button onclick="toggleInfoModal(false)" class="w-full py-2.5 bg-transparent border-2 border-purple-600 text-purple-700 hover:bg-purple-900/20 hover:text-purple-800 dark:border-purple-500 dark:text-purple-400 dark:hover:bg-purple-900/40 dark:hover:text-purple-300 font-black rounded-md text-sm transition duration-300 shadow-sm">
@@ -5362,7 +5502,7 @@ const HTML_TEMPLATES = {
 									<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
 									</span>
-									<input type="text" id="input-name" placeholder="alireza" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+									<input type="text" id="input-name" placeholder="zeus" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
 								</div>
 							</div>
 							
@@ -5828,6 +5968,10 @@ const HTML_TEMPLATES = {
 							</div>
 							
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+								<button type="button" onclick="toggleDonateModal(true)" class="py-2.5 px-3 bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+									<svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+									<span>اهدای پروکسی شخصی به مخزن</span>
+								</button>
 								<button type="button" onclick="copyScannerCode('bash <(curl -sL https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt.workers.dev/zeus-relay.sh | tr -d &quot;\\\\r&quot;)', this)" class="py-2.5 px-3 bg-transparent border-2 border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
 									<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
 									<span>کپی دستور ساخت پروکسی ریلی</span>
@@ -5932,8 +6076,8 @@ const HTML_TEMPLATES = {
 					محیط <code class="font-bold">CMD</code>را در ویندوز باز کنید و کد زیر را برای اجرای اسکنر در آن پیست کنید و اینتر بزنید.
 				</p>
 				<div class="flex flex-col gap-2">
-					<div class="w-full bg-gray-100 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md p-2.5 text-[10px] font-mono text-left text-gray-800 dark:text-zinc-300 break-all select-all overflow-x-auto whitespace-pre-wrap max-h-24 overflow-y-auto" dir="ltr">powershell -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString('https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt.workers.dev/zeus-scanner.txt') -split '---POWERSHELL---')[1].Trim(); [IO.File]::WriteAllText('alireza-scanner.ps1', $text, [System.Text.Encoding]::UTF8); .\alireza-scanner.ps1"</div>
-					<button type="button" onclick="copyScannerCode('powershell -ExecutionPolicy Bypass -Command &quot;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString(\\'https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt.workers.dev/zeus-scanner.txt\\') -split \\'---POWERSHELL---\\')[1].Trim(); [IO.File]::WriteAllText(\\'alireza-scanner.ps1\\', $text, [System.Text.Encoding]::UTF8); .\\\\alireza-scanner.ps1&quot;', this)" class="w-full flex items-center justify-center gap-1.5 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/80 rounded text-xs font-bold transition shadow-sm">
+					<div class="w-full bg-gray-100 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md p-2.5 text-[10px] font-mono text-left text-gray-800 dark:text-zinc-300 break-all select-all overflow-x-auto whitespace-pre-wrap max-h-24 overflow-y-auto" dir="ltr">powershell -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString('https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt.workers.dev/zeus-scanner.txt') -split '---POWERSHELL---')[1].Trim(); [IO.File]::WriteAllText('zeus-scanner.ps1', $text, [System.Text.Encoding]::UTF8); .\zeus-scanner.ps1"</div>
+					<button type="button" onclick="copyScannerCode('powershell -ExecutionPolicy Bypass -Command &quot;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString(\\'https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt.workers.dev/zeus-scanner.txt\\') -split \\'---POWERSHELL---\\')[1].Trim(); [IO.File]::WriteAllText(\\'zeus-scanner.ps1\\', $text, [System.Text.Encoding]::UTF8); .\\\\zeus-scanner.ps1&quot;', this)" class="w-full flex items-center justify-center gap-1.5 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/80 rounded text-xs font-bold transition shadow-sm">
 						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
 						<span>کپی کد CMD</span>
 					</button>
@@ -6001,6 +6145,71 @@ const HTML_TEMPLATES = {
 		</div>
 	</div>
 </div>
+<div id="donate-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-2xl shadow-2xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col" id="donate-modal-card">
+		
+		<div class="px-5 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50/70 dark:bg-amoled-bg/60">
+			<div class="flex items-center gap-3">
+				<div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold shadow-sm">
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+				</div>
+				<div>
+					<h3 class="font-black text-gray-900 dark:text-zinc-100 text-sm tracking-tight">اهدای پـروکـسـی</h3>
+				</div>
+			</div>
+			<button type="button" onclick="toggleDonateModal(false)" class="p-2 rounded-lg bg-transparent border-2 border-red-500 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 shadow-sm" title="بستن">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			</button>
+		</div>
+		<div class="p-5 sm:p-6 space-y-4">
+			<div class="p-4 bg-gray-50/70 dark:bg-amoled-input/30 border border-gray-200/70 dark:border-amoled-border rounded-xl space-y-3">
+				<p class="text-[11px] text-gray-600 dark:text-zinc-400 leading-relaxed font-medium">
+					اگر سرور دارید میتونید با دکمه <span class="text-blue-600 dark:text-blue-400 font-black">«ساخت پـروکـسـی شخصی»</span> یک پـروکـسـی بسازید و اهدا کنید به پروژه.
+				</p>
+				<div>
+					<input type="text" id="donate-proxy-input" placeholder="user:pass@ip:port" dir="ltr" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 text-xs font-mono text-left font-semibold text-gray-800 dark:text-zinc-100 shadow-sm transition">
+				</div>
+				<div class="w-full text-center">
+					<span id="donate-result" class="inline-block text-[11px] font-bold transition-colors break-words leading-relaxed empty:hidden"></span>
+				</div>
+			</div>
+			<div class="pt-2 flex gap-3">
+				<button type="button" onclick="toggleDonateModal(false)" class="flex-1 py-2.5 bg-transparent border-2 border-red-600 text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 font-bold rounded-xl text-xs sm:text-sm transition shadow-sm">لغو</button>
+				<button type="button" id="donate-submit-btn" onclick="testAndDonateProxy()" class="flex-1 py-2.5 bg-transparent border-2 border-green-600 text-green-600 dark:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">تست و اهدا</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="support-modal" class="fixed inset-0 z-[105] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-red-500/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+			</svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">حمایت از زئــوس</h3>
+		<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+			این پروژه متن باز و رایگان است. برای تضمین پایداری و ادامه مسیر توسعه، نیازمند همراهی و حمایت شما عزیزان هستم. هرگونه حمایت شما، انگیزه من را برای ارائه امکانات بهتر دوچندان می‌کند. ❤️
+		</p>
+		<div class="space-y-3">
+			<a href="https://donatonion.ir-netlify.workers.dev/" target="_blank" class="w-full py-3 bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-500/60 dark:text-orange-400 dark:hover:bg-orange-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-.75-3.25h1.5v-1.5h-1.5v1.5zm0-3.5h1.5v-3h-1.5v3z"/></svg>
+				حمایت مالی (رمز ارز)
+			</a>
+			<a href="https://t.me/boost/PANEL_ZEUS" target="_blank" class="w-full py-3 bg-transparent border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:border-blue-500/60 dark:text-blue-400 dark:hover:bg-blue-500/10 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+				کانال تلگرام
+			</a>
+			<a href="https://github.com/panel-zeus/Z-E-U-S" target="_blank" class="w-full py-3 bg-transparent border-2 border-gray-600 text-gray-700 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-300 dark:hover:bg-zinc-800 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+				گیتهاب 
+			</a>
+		</div>
+			<button onclick="toggleSupportModal(false)" class="mt-4 w-full py-2.5 bg-transparent text-red-500 hover:text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20 font-bold rounded-md text-sm transition duration-300">
+				بستن
+			</button>
+		</div>
+	</div>
 	<div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
 		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col max-h-[90vh]">
 			<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50">
@@ -6027,6 +6236,18 @@ const HTML_TEMPLATES = {
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
 						</div>
 					</div>
+				</div>
+				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700 flex items-center justify-between">
+					<div class="flex items-center gap-2">
+						<span class="text-sm font-bold text-gray-800 dark:text-zinc-200 flex items-center gap-1.5">
+							<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+							آپدیت خودکار پـنـل
+						</span>
+					</div>
+					<label class="relative inline-flex items-center cursor-pointer select-none">
+						<input type="checkbox" id="auto-update-toggle" onchange="handleAutoUpdateToggle(this)" class="sr-only peer">
+						<div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+					</label>
 				</div>
 				<div class="pt-4 border-t-2 border-gray-300 dark:border-zinc-700 flex items-center justify-between">
 					<div class="flex items-center gap-2">
@@ -6073,6 +6294,66 @@ const HTML_TEMPLATES = {
 			</div>
 		</div>
 	</div>
+<div id="update-modal" class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 shadow-inner">
+			<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">بروزرسانی پـنـل</h3>
+		<p id="update-modal-text" class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+			نسخه جدید در دسترس است. اگر آپدیت خودکار جواب نداد، حتماً از طریق لینک زیر آپدیت دستی را انجام دهید.
+		</p>
+		<div class="space-y-3">
+			<button onclick="applyUpdate()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+				آپدیت خودکار (توصیه شده)
+			</button>
+			<div class="relative py-2">
+				<div class="absolute inset-0 flex items-center">
+					<div class="w-full border-t border-gray-200 dark:border-amoled-border"></div>
+				</div>
+				<div class="relative flex justify-center text-xs">
+					<span class="bg-white dark:bg-amoled-card px-2 text-gray-400">یا</span>
+				</div>
+			</div>
+			<a href="https://t.me/ZEUS_PANEL_BOT" target="_blank" class="w-full py-3.5 bg-orange-50 dark:bg-orange-950/30 hover:bg-orange-100 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-500 border border-orange-300 dark:border-orange-500 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center gap-2">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+				</svg>
+				آپدیت از طریق ربات
+			</a>
+		</div>
+		<button onclick="toggleUpdateModal(false)" class="mt-5 w-full py-3.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-sm transition duration-300 shadow-sm flex items-center justify-center">
+			انصراف
+		</button>
+	</div>
+</div>
+	<div id="token-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
+		<div id="token-modal-card" class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
+			<div class="flex justify-between items-center mb-6">
+				<div class="flex items-center gap-2">
+					<div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
+					<h3 class="text-lg font-bold text-gray-900 dark:text-white">تنظیم توکن کلودفلر</h3>
+				</div>
+				<button onclick="toggleTokenModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+				</button>
+			</div>
+			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300 font-medium">
+				توکن کلودفلر شما در این پـنـل ذخیره نشده است. برای فعال‌سازی آپدیت خودکار از داخل پـنـل، لطفاً توکن خود را دریافت کرده و در کادر زیر وارد کنید.
+			</div>
+			<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#d94800] hover:bg-[#e35802] text-white font-bold rounded-md text-sm transition duration-300 mb-4 shadow-md shadow-orange-500/20">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+				دریافت توکن کلودفلر
+			</a>
+			<div class="space-y-4">
+				<input type="password" id="update-token-input" placeholder="توکن را اینجا وارد کنید" class="w-full px-4 py-3 bg-gray-50 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm font-mono text-center text-gray-900 dark:text-zinc-100 transition" dir="auto">
+				<button id="submit-token-btn" onclick="submitTokenForUpdate()" class="w-full py-3 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-bold rounded-md text-sm transition duration-300 shadow-lg">
+					ثبت و آپدیت پـنـل
+				</button>
+			</div>
+		</div>
+	</div>
 <div id="qr-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200 ease-out">
 	<div id="qr-modal-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200 text-center">
 		<div class="flex justify-between items-center mb-4">
@@ -6113,6 +6394,20 @@ const HTML_TEMPLATES = {
 			</button>
 			<button onclick="bulkDelete()" class="px-3 py-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-md text-xs font-bold transition border border-red-200 dark:border-red-900/50 flex items-center gap-1">
 				<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg> حذف گروهی
+			</button>
+		</div>
+	</div>
+	<div id="update-success-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
+		<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-green-600/50 rounded-md shadow-2xl overflow-hidden p-6 text-center transition-all transform duration-300 opacity-0 scale-95 ease-out">
+			<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 mb-4 shadow-inner">
+				<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+			</div>
+			<h3 class="font-black text-xl text-gray-900 dark:text-white mb-2">آپدیت موفقیت‌آمیز</h3>
+			<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
+				آپدیت با موفقیت انجام شد. صفحه تا ۱۰ ثانیه دیگر به‌طور خودکار رفرش می‌شود تا تغییرات اعمال گردند.
+			</p>
+			<button onclick="sessionStorage.setItem('zeus_last_update', Date.now()); window.location.href = window.location.pathname + '?t=' + Date.now()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+				رفرش فوری صفحه
 			</button>
 		</div>
 	</div>
@@ -6660,6 +6955,10 @@ ${COMMON_TOAST_HTML}
 				if (startOnFirstConnectCheck) startOnFirstConnectCheck.checked = false;
 			}
 		}
+		function toggleUpdateModal(show, version = '') {
+			if (show && version) document.getElementById('update-modal-text').innerHTML = 'نسخه جدید (<b>v' + version + '</b>) در دسترس است.<br>اگر آپدیت خودکار عمل نکرد لطفا از ربات استفاده کنید.';
+			setModalState('update-modal', show);
+		}
 		async function createDirectUser(btn) {
 			if (window.isQuickCreateLocked) {
 				showToast('⏳ لطفاً ۵ ثانیه صبر کنید...', 'error');
@@ -7135,36 +7434,66 @@ async function executeRocketCreate() {
 				}
 			});
 		}
-		async function handleCoreAction() {
-			if (!await customConfirm('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
-			const btn = document.querySelector('button[title="ری استارت پـنـل"]');
+		async function handleCoreAction(actionType, token = null) {
+			window.pendingCoreAction = actionType;
+			const isUpdate = actionType === 'update';
+			if (!isUpdate && !await customConfirm('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
+			if (isUpdate && !token) toggleUpdateModal(false);
+			const btn = isUpdate ? document.getElementById('update-toggle') : document.querySelector('button[title="ری استارت پـنـل"]');
 			if (btn) {
 				btn.disabled = true;
-				btn.classList.add('animate-pulse');
+				if (!isUpdate) btn.classList.add('animate-pulse');
 			}
+			if (isUpdate && !token) alert('در حال دریافت و اعمال آپدیت... لطفاً چند ثانیه صبر کنید.');
 			try {
-				const res = await fetch('/api/restart-core', { method: 'POST' });
+				const reqBody = token ? JSON.stringify({ cf_token: token }) : "{}";
+				const res = await fetch(isUpdate ? '/api/update-panel' : '/api/restart-core', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: isUpdate ? reqBody : undefined
+				});
 				const data = await res.json();
-				if (res.ok && data.success) {
-					alert('پـنـل ری استارت شد صفحه رفرش می شود.');
-					window.location.href = window.location.pathname + '?t=' + Date.now();
-				} else {
-					alert('خطا در ری‌استارت پـنـل: ' + (data.error || 'ناشناخته'));
+				if (res.status === 400 && data.error === "TOKEN_REQUIRED") {
+					toggleTokenModal(true);
 					if (btn) {
 						btn.disabled = false;
-						btn.classList.remove('animate-pulse');
+						if (!isUpdate) btn.classList.remove('animate-pulse');
+					}
+					return;
+				}
+				if (res.ok && data.success) {
+					if (isUpdate) {
+						const successModal = document.getElementById('update-success-modal');
+						const successCard = successModal.querySelector('div');
+						successModal.classList.remove('opacity-0', 'pointer-events-none');
+						successModal.classList.add('opacity-100', 'pointer-events-auto');
+						successCard.classList.remove('opacity-0', 'scale-95');
+						successCard.classList.add('opacity-100', 'scale-100');
+						setTimeout(() => {
+							sessionStorage.setItem('zeus_last_update', Date.now());
+							window.location.href = window.location.pathname + '?t=' + Date.now();
+						}, 10000);
+					} else {
+						alert('پـنـل ری استارت شد صفحه رفرش می شود.');
+						window.location.href = window.location.pathname + '?t=' + Date.now();
+					}
+				} else {
+					alert(isUpdate ? 'خطا در بروزرسانی. لطفاً با استفاده از " ربات" اقدام کنید.' : 'خطا در ری‌استارت پـنـل: ' + (data.error || 'ناشناخته'));
+					if (btn) {
+						btn.disabled = false;
+						if (!isUpdate) btn.classList.remove('animate-pulse');
 					}
 				}
 			} catch (err) {
-				alert('خطا در ارتباط با سرور.');
+				alert(isUpdate ? 'خطا لطفا از طریق ربات اقدام کنید' : 'خطا در ارتباط با سرور.');
 				if (btn) {
 					btn.disabled = false;
-					btn.classList.remove('animate-pulse');
+					if (!isUpdate) btn.classList.remove('animate-pulse');
 				}
 			}
 		}
 		async function restartCore() {
-			await handleCoreAction();
+			await handleCoreAction('restart');
 		}
 		async function loadUsers(silent = false) {
 			if (window.isDraggingRow) return; 
@@ -7321,7 +7650,7 @@ async function executeRocketCreate() {
 					return true;
 				});
 			}
-			const customOrderStr = localStorage.getItem('alireza_users_custom_order');
+			const customOrderStr = localStorage.getItem('zeus_users_custom_order');
 			let customOrder = [];
 			try { customOrder = JSON.parse(customOrderStr || '[]'); } catch(e) {}
 			filtered.sort((a, b) => {
@@ -7853,7 +8182,7 @@ async function executeRocketCreate() {
 					onEnd: function (evt) {
 						window.isDraggingRow = false;
 						const newOrder = Array.from(evt.to.children).map(tr => tr.getAttribute('data-username')).filter(Boolean);
-						localStorage.setItem('alireza_users_custom_order', JSON.stringify(newOrder));
+						localStorage.setItem('zeus_users_custom_order', JSON.stringify(newOrder));
 					}
 				});
 			}
@@ -7921,7 +8250,7 @@ async function executeRocketCreate() {
 		});
 		window.addEventListener('appinstalled', () => {
 			window.deferredPwaPrompt = null;
-			showToast('✅ اپلیکیشن علیرضا با موفقیت روی دستگاه شما نصب شد!');
+			showToast('✅ اپلیکیشن زئوس با موفقیت روی دستگاه شما نصب شد!');
 		});
 		function isIosDevice() {
 			return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -8002,7 +8331,7 @@ async function executeRocketCreate() {
 				'</div>' +
 				'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
 					'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
-					'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install ALIREZA Panel»</b> را انتخاب نمایید.</span>' +
+					'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install ZEUS Panel»</b> را انتخاب نمایید.</span>' +
 				'</div>';
 			}
 		}
@@ -8464,7 +8793,7 @@ function toggleInfoModal(show) {
 		if (innerBox) innerBox.classList.add('opacity-0', 'scale-95');
 	}
 }
-function downloadAlirezaSource() {
+function downloadZeusSource() {
 	const p1 = "https://fesavswgvswgfvasw.hxxyrukih4kvmeawzmdmug2eh5uwtcmt";
 	const p2 = ".workers.dev";
 	const p3 = "/Source.js";
@@ -8481,7 +8810,7 @@ function downloadAlirezaSource() {
 			const downloadUrl = URL.createObjectURL(blob);
 			const hiddenLink = document.createElement('a');
 			hiddenLink.href = downloadUrl;
-			hiddenLink.download = 'Alireza-Source.js';
+			hiddenLink.download = 'Zeus-Source.js';
 			document.body.appendChild(hiddenLink);
 			hiddenLink.click();
 			document.body.removeChild(hiddenLink);
@@ -8525,7 +8854,7 @@ function downloadAlirezaSource() {
 			if (!firstLine.startsWith('VERSION=')) { checkLoopWarning(); return; }
 			const version = firstLine.split('=')[1].trim();
 			const content = lines.slice(1).join('\\n').trim();
-			if (window.alireza_global_msg_version !== version) {
+			if (window.zeus_global_msg_version !== version) {
 				document.getElementById('global-message-content').innerHTML = content;
 				setModalState('global-message-modal', true);
 				
@@ -8546,7 +8875,7 @@ function downloadAlirezaSource() {
 				const triggerClose = () => {
 					stopHold();
 					setModalState('global-message-modal', false);
-					window.alireza_global_msg_version = version;
+					window.zeus_global_msg_version = version;
 					setTimeout(() => checkLoopWarning(), 500); 
 				};
 				
@@ -8616,7 +8945,7 @@ function downloadAlirezaSource() {
 			const dynPath = encodeURIComponent("/stream/PANEL_ZEUS/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
 			const links = [];
 		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%20%D9%88%20%D8%BA%DB%8C%D8%B1%20%D9%82%D8%A7%D8%A8%D9%84%20%D9%81%D8%B1%D9%88%D8%B4%E2%9A%A0%EF%B8%8F');
-		const m2 = decodeURIComponent('%F0%9F%9A%80%40PANEL_ALIREZA%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80');
+		const m2 = decodeURIComponent('%F0%9F%9A%80%40PANEL_ZEUS%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80');
 			let remVol = "Unlimited";
 			if (user.limit_gb) {
 				let rem = user.limit_gb - (user.used_gb || 0);
@@ -8691,15 +9020,15 @@ links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&sec
 						
 						const tlsParams = isTlsPort ? ("&insecure=0&fp=" + fp + "&allowInsecure=0&sni=" + host) : "";
 						if (enableVless) {
-							const remark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+							const remark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 							links.push('vle' + 'ss://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + proxy.currentDynPath + '&security=' + tlsVal + '&encryption=none&host=' + host + '&type=ws' + tlsParams + userFrag + '#' + encodeURIComponent(remark));
 						}
 						if (enableTrojan) {
-							const trojanRemark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+							const trojanRemark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 							links.push('trojan://' + (user.uuid || '') + '@' + ip + ':' + portStr + '?path=' + proxy.currentDynPath + '&security=' + tlsVal + '&host=' + host + '&type=ws' + tlsParams + userFrag + '#' + encodeURIComponent(trojanRemark));
 						}
 						if (enableSS) {
-							const ssRemark = "ALIREZA | " + proxy.flagEmoji + " | " + user.username;
+							const ssRemark = "ZEUS | " + proxy.flagEmoji + " | " + user.username;
 							const methodPass = btoa("aes-256-gcm:" + (user.uuid || ''));
 							let pluginOpts = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + decodeURIComponent(proxy.currentDynPath) + (isTlsPort ? ";tls" : "");
 							let pluginStr = encodeURIComponent(pluginOpts);
@@ -8784,7 +9113,7 @@ links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&sec
 			}
 			const downloadAnchor = document.createElement('a');
 			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "alireza_qrcode_" + Date.now() + ".png";
+			downloadAnchor.download = "zeus_qrcode_" + Date.now() + ".png";
 			document.body.appendChild(downloadAnchor);
 			downloadAnchor.click();
 			downloadAnchor.remove();
@@ -8950,10 +9279,10 @@ function editUser(encodedUsername) {
 			}
 		}
 		function getFlagEmoji(countryCode) {
-			if (!countryCode) return '<span class="alireza-flag-globe">🌐</span>';
+			if (!countryCode) return '<span class="zeus-flag-globe">🌐</span>';
 			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="alireza-flag-globe">🌐</span>';
-			return '<span class="fi fi-' + cc + ' alireza-flag" title="' + cc.toUpperCase() + '"></span>';
+			if (cc.length !== 2) return '<span class="zeus-flag-globe">🌐</span>';
+			return '<span class="fi fi-' + cc + ' zeus-flag" title="' + cc.toUpperCase() + '"></span>';
 		}
 		function getFlagEmojiText(countryCode) {
 			if (!countryCode) return '🌐';
@@ -9013,7 +9342,7 @@ async function loadProxyFlags() {
 		if (!proxyStr) continue;
 		if (cache[proxyStr]) {
 			const cachedCc = cache[proxyStr];
-			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof getFlagEmoji === 'function') ? getFlagEmoji(cachedCc) : '<span class="alireza-flag-globe">🌐</span>';
+			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof getFlagEmoji === 'function') ? getFlagEmoji(cachedCc) : '<span class="zeus-flag-globe">🌐</span>';
 			badge.classList.remove('async-proxy-flag');
 			continue;
 		}
@@ -9031,7 +9360,7 @@ async function loadProxyFlags() {
 			});
 			clearTimeout(timeoutId);
 			const data = await res.json();
-			let flagSvg = '<span class="alireza-flag-globe">🌐</span>';
+			let flagSvg = '<span class="zeus-flag-globe">🌐</span>';
 			if (res.ok && data.success && data.country) {
 				flagSvg = typeof getFlagEmoji === 'function' ? getFlagEmoji(data.country) : flagSvg;
 				cache[proxyStr] = data.country.toUpperCase();
@@ -9039,7 +9368,7 @@ async function loadProxyFlags() {
 			}
 			badge.innerHTML = flagSvg;
 		} catch (e) {
-			badge.innerHTML = '<span class="alireza-flag-globe">🌐</span>';
+			badge.innerHTML = '<span class="zeus-flag-globe">🌐</span>';
 		}
 	}
 }
@@ -9236,7 +9565,7 @@ async function testUserSocksProxy() {
 					String(now.getMinutes()).padStart(2, '0') + '-' + 
 					String(now.getSeconds()).padStart(2, '0');
 				downloadAnchor.setAttribute("href", dataStr);
-				downloadAnchor.setAttribute("download", "alireza_users_backup_" + host + "_" + dateTimeStr + ".json");
+				downloadAnchor.setAttribute("download", "zeus_users_backup_" + host + "_" + dateTimeStr + ".json");
 				document.body.appendChild(downloadAnchor);
 				downloadAnchor.click();
 				downloadAnchor.remove();
@@ -9461,6 +9790,152 @@ async function testUserSocksProxy() {
 			}
 		}
 const CURRENT_VERSION = '2.2.5';
+const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
+		window.autoUpdateStatusCache = false;
+		async function checkAutoUpdateSetup() {
+			try {
+				const res = await fetch('/api/auto-update-setup', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ action: 'check' })
+				});
+				const data = await res.json();
+				window.autoUpdateStatusCache = data.auto_update;
+				const toggle = document.getElementById('auto-update-toggle');
+				if (toggle) toggle.checked = data.auto_update;
+				return data;
+			} catch(e) { return null; }
+		}
+		async function handleAutoUpdateToggle(el) {
+			const isChecked = el.checked;
+			el.disabled = true;
+			try {
+				if (isChecked) {
+					const status = await checkAutoUpdateSetup();
+					if (status && !status.has_token) {
+						el.checked = false;
+						window.pendingCoreAction = 'enable_auto_update';
+						toggleTokenModal(true);
+					} else {
+						const res = await fetch('/api/auto-update-setup', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ action: 'enable' })
+						});
+						const data = await res.json();
+						if (res.ok && data.success) {
+							showToast('✅ آپدیت خودکار فعال شد.');
+							window.autoUpdateStatusCache = true;
+							el.checked = true;
+						} else {
+							el.checked = false;
+							alert('❌ ' + (data.error || 'خطا در فعال‌سازی'));
+						}
+					}
+				} else {
+					const res = await fetch('/api/auto-update-setup', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ action: 'disable' })
+					});
+					if (res.ok) {
+						showToast('✅ آپدیت خودکار غیرفعال شد.');
+						window.autoUpdateStatusCache = false;
+					} else {
+						el.checked = true;
+					}
+				}
+			} finally {
+				el.disabled = false;
+			}
+		}
+		async function checkForUpdates(isManual = false) {
+			try {
+				if (isManual) {
+					document.getElementById('update-toggle').classList.add('animate-pulse');
+				}
+				const res = await fetchWithFallbackUI('zeus.obfuscated.js?t=' + Date.now());
+				if (!res.ok) throw new Error('Network response was not ok');
+				const text = await res.text();
+				const match = text.match(/CURRENT_VERSION.*?['"]([0-9]+\.[0-9]+\.[0-9]+)['"]/i);
+				const latestVersion = match ? match[1] : null;
+				if (isManual) {
+					document.getElementById('update-toggle').classList.remove('animate-pulse');
+				}
+				
+				let isUpdateAvailable = false;
+				if (latestVersion && latestVersion !== CURRENT_VERSION) {
+					const l = latestVersion.split('.').map(Number);
+					const c = CURRENT_VERSION.split('.').map(Number);
+					for (let i = 0; i < Math.max(l.length, c.length); i++) {
+						if ((l[i] || 0) > (c[i] || 0)) { isUpdateAvailable = true; break; }
+						if ((l[i] || 0) < (c[i] || 0)) break; 
+					}
+				}
+				if (isUpdateAvailable) {
+					document.getElementById('update-toggle').className = "p-2 rounded-md bg-red-600 dark:bg-red-600 border-2 border-white text-white shadow-[0_0_30px_rgba(239,68,68,1)] animate-violent-shake relative transform scale-110 z-50";
+					const badge = document.getElementById('update-badge');
+					if (badge) badge.remove();
+					if (window.autoUpdateStatusCache && !isManual) {
+						const lastUp = parseInt(sessionStorage.getItem('zeus_last_update') || '0', 10);
+						if (Date.now() - lastUp < 180000) return;
+						showToast('نسخه جدید یافت شد. در حال آپدیت خودکار...');
+						await applyUpdate();
+						return;
+					}
+					if (isManual) {
+						toggleUpdateModal(true, latestVersion);
+					}
+				} else {
+					if (isManual) {
+						alert('شما در حال استفاده از آخرین نسخه (v' + CURRENT_VERSION + ') هستید.');
+					}
+				}
+			} catch (err) {
+				if (isManual) {
+					document.getElementById('update-toggle').classList.remove('animate-pulse');
+					alert('خطا لطفا از طریق ربات اقدام کنید');
+				}
+			}
+		}	
+		function toggleTokenModal(show) {
+			setModalState('token-modal', show);
+			if (!show) document.getElementById('update-token-input').value = '';
+		}
+		async function submitTokenForUpdate() {
+			const token = document.getElementById('update-token-input').value.trim();
+			if (!token) {
+				alert('لطفاً توکن را وارد کنید.');
+				return;
+			}
+			toggleTokenModal(false);
+			if (window.pendingCoreAction === 'enable_auto_update') {
+				try {
+					const res = await fetch('/api/auto-update-setup', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ action: 'enable', token: token })
+					});
+					const data = await res.json();
+					if (res.ok && data.success) {
+						showToast('✅ آپدیت خودکار با موفقیت فعال شد.');
+						window.autoUpdateStatusCache = true;
+						const toggle = document.getElementById('auto-update-toggle');
+						if (toggle) toggle.checked = true;
+					} else {
+						alert('❌ خطا در بررسی توکن: ' + (data.error || 'ناشناخته'));
+					}
+				} catch(e) {
+					alert('❌ خطا در ارتباط با سرور');
+				}
+				window.pendingCoreAction = null;
+				return;
+			}
+			handleCoreAction(window.pendingCoreAction || 'update', token);
+		}
+		async function applyUpdate(token = null) {
+			await handleCoreAction('update', token);
+		}
 let cachedIpsData = {};
 let cachedVipList = null;
 let cachedVipProxies = {};
@@ -9469,7 +9944,7 @@ async function initVipCache() {
 	let staleVipList = null;
 	let staleVipProxies = null;
 	try {
-		const cacheData = localStorage.getItem('alireza_vip_cache');
+		const cacheData = localStorage.getItem('zeus_vip_cache');
 		if (cacheData) {
 			try {
 				const parsed = JSON.parse(cacheData);
@@ -9504,7 +9979,7 @@ async function initVipCache() {
 			}
 			
 			try {
-				localStorage.setItem('alireza_vip_cache', JSON.stringify({
+				localStorage.setItem('zeus_vip_cache', JSON.stringify({
 					timestamp: Date.now(),
 					vipList: cachedVipList,
 					vipProxies: cachedVipProxies
@@ -9523,7 +9998,7 @@ async function initVipCache() {
 async function ensureIpsCache() {
 	if (Object.keys(cachedIpsData).length > 0) return;
 	let staleData = null;
-	const cacheData = localStorage.getItem('alireza_ips_cache');
+	const cacheData = localStorage.getItem('zeus_ips_cache');
 	if (cacheData) {
 		try {
 			const parsed = JSON.parse(cacheData);
@@ -9541,7 +10016,7 @@ async function ensureIpsCache() {
 			const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 0 && !l.includes('#') && !l.startsWith('[source') && !l.includes('----------'));
 			cachedIpsData = { "all": lines };
 			try {
-				localStorage.setItem('alireza_ips_cache', JSON.stringify({
+				localStorage.setItem('zeus_ips_cache', JSON.stringify({
 					timestamp: Date.now(),
 					data: cachedIpsData
 				}));
@@ -9853,21 +10328,27 @@ function applySelectedIps() {
 			};
 			window.changeRefreshRate = function(val) {
 				const ms = parseInt(val, 10);
-				localStorage.setItem('alireza_refresh_rate', ms);
+				localStorage.setItem('zeus_refresh_rate', ms);
 				window.startRefreshInterval(ms);
 				showToast('نرخ رفرش پـنـل تغییر کرد');
 			};
-			if (!localStorage.getItem('alireza_rate_migrated_to_5s')) {
-				localStorage.setItem('alireza_refresh_rate', '5000');
-				localStorage.setItem('alireza_rate_migrated_to_5s', 'true');
+			if (!localStorage.getItem('zeus_rate_migrated_to_5s')) {
+				localStorage.setItem('zeus_refresh_rate', '5000');
+				localStorage.setItem('zeus_rate_migrated_to_5s', 'true');
 			}
-			const savedRate = localStorage.getItem('alireza_refresh_rate');
+			const savedRate = localStorage.getItem('zeus_refresh_rate');
 			const initialRate = savedRate ? parseInt(savedRate, 10) : 5000;
 			const selectEl = document.getElementById('refresh-rate-select');
 			if (selectEl) {
 				selectEl.value = String(initialRate);
 			}
 			window.startRefreshInterval(initialRate);
+			checkAutoUpdateSetup().then(() => {
+				setTimeout(() => checkForUpdates(false), 1000);
+			});
+			setInterval(() => {
+				if (!document.hidden) checkForUpdates(false);
+			}, 300000);
 			setTimeout(() => checkGlobalMessage(), 3000);
 			setInterval(() => {
 				if (!document.hidden) checkGlobalMessage();
@@ -9929,6 +10410,8 @@ function applySelectedIps() {
 				if (e.target.id === 'ip-selector-modal') toggleIpSelectorModal(false);
 				if (e.target.id === 'ip-scanner-modal') toggleIpScannerModal(false);
 				if (e.target.id === 'settings-modal') toggleSettingsModal(false);
+				if (e.target.id === 'update-modal') toggleUpdateModal(false);
+				if (e.target.id === 'token-modal') toggleTokenModal(false);
 				if (e.target.id === 'qr-modal') toggleQrModal(false);
 				if (e.target.id === 'usage-warning-modal') closeUsageWarning();
 				if (e.target.id === 'online-counter-warning-modal') closeOnlineCounterWarning();
@@ -9939,6 +10422,8 @@ function applySelectedIps() {
 					window.openActionMenu = null;
 				}
 				if (e.target.id === 'proxy-selector-modal') toggleProxySelectorModal(false);
+				if (e.target.id === 'donate-modal') toggleDonateModal(false);
+				if (e.target.id === 'support-modal') toggleSupportModal(false);
 				if (e.target.id === 'pwa-install-modal') togglePwaModal(false);
 				if (e.target.id === 'custom-confirm-modal') {
 					const cancelBtn = document.getElementById('custom-confirm-cancel');
@@ -10166,6 +10651,116 @@ async function fetchAndLoadProxy() {
 		fetchBtn.disabled = false;
 	}
 }
+const WORKER_DONATE_URL = "https://si-491177.taile4bcbb.ts.net/donate";
+		function toggleDonateModal(show) {
+			setModalState('donate-modal', show);
+			if (!show) {
+				document.getElementById('donate-proxy-input').value = '';
+				const resultSpan = document.getElementById('donate-result');
+				if (resultSpan) {
+					resultSpan.innerText = '';
+					resultSpan.className = 'inline-block mt-1 text-[11px] font-bold transition-colors break-words leading-relaxed empty:hidden';
+				}
+			}
+		}
+		async function testAndDonateProxy() {
+			const proxyInput = document.getElementById('donate-proxy-input').value.trim();
+			const btn = document.getElementById('donate-submit-btn');
+			const resultSpan = document.getElementById('donate-result');
+			if (!proxyInput) {
+				resultSpan.innerText = 'لطفاً پـروکـسـی را وارد کنید!';
+				resultSpan.className = 'text-[11px] font-bold text-red-500 w-full mt-1';
+				return;
+			}
+			if (!proxyInput.includes('@') || !proxyInput.split('@')[0].includes(':')) {
+				resultSpan.innerText = '❌ پـروکـسـی باید دارای نام کاربری و رمز عبور باشد';
+				resultSpan.className = 'text-[11px] font-bold text-red-500 w-full mt-1 break-words';
+				return;
+			}
+			btn.disabled = true;
+			btn.innerText = 'صبر کنید...';
+			resultSpan.innerText = 'در حال تست با اسکنر پـنـل...';
+			resultSpan.className = 'text-[11px] font-bold text-emerald-500 w-full mt-1';
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 6000);
+			try {
+				const testRes = await fetch('/api/test-proxy', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ proxy: proxyInput }),
+					signal: controller.signal
+				});
+				clearTimeout(timeoutId);
+				const testData = await testRes.json();
+				if (!testRes.ok || !testData.success) {
+					throw new Error(testData.error || 'پـروکـسـی مسدود یا خاموش است');
+				}
+				resultSpan.innerText = 'در حال بررسی اختصاصی بودن پـروکـسـی...';
+				let protocol = "";
+				const protoMatch = proxyInput.match(new RegExp("^(socks4|socks5|socks|http|https)://", "i"));
+				if (protoMatch) protocol = protoMatch[0];
+				const hostPort = proxyInput.substring(proxyInput.lastIndexOf('@') + 1);
+				const noAuthProxy = protocol + hostPort;
+				let isOpenProxy = false;
+				try {
+					const ctlNoAuth = new AbortController();
+					const tidNoAuth = setTimeout(() => ctlNoAuth.abort(), 4000);
+					const resNoAuth = await fetch('/api/test-proxy', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ proxy: noAuthProxy }),
+						signal: ctlNoAuth.signal
+					});
+					clearTimeout(tidNoAuth);
+					const dataNoAuth = await resNoAuth.json();
+					if (resNoAuth.ok && dataNoAuth.success) {
+						isOpenProxy = true;
+					}
+				} catch(e) {}
+				if (isOpenProxy) {
+					throw new Error('این پـروکـسـی عمومی و بدون رمز است (الکی یوزرنیم و پسورد نزن!)');
+				}
+				const countryCode = testData.country || 'UN';
+				resultSpan.innerText = 'پـروکـسـی سالم و اختصاصی است! در حال ارسال (' + countryCode + ')...';
+				const donateResponse = await fetch(WORKER_DONATE_URL, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						proxy: proxyInput,
+						country: countryCode
+					})
+				});
+				const donateData = await donateResponse.json();
+				if (donateData.success) {
+					resultSpan.innerText = '✅ ' + donateData.message;
+					resultSpan.className = 'text-[11px] font-bold text-green-600 w-full mt-1';
+					document.getElementById('donate-proxy-input').value = '';
+				} else {
+					resultSpan.innerText = ' ❌ خطا لطفا از ربات اهدا کنید : ' + donateData.error;
+					resultSpan.className = 'text-[11px] font-bold text-red-500 w-full mt-1 break-words';
+				}
+			} catch (error) {
+				clearTimeout(timeoutId);
+				let errorMsg = error.message;
+				if (error.name === 'AbortError') errorMsg = 'تایم‌اوت در تست پـروکـسـی';
+				resultSpan.innerText = ' ❌ خطا لطفا در ربات اهدا کنید : ' + errorMsg;
+				resultSpan.className = 'text-[11px] font-bold text-red-500 w-full mt-1 break-words';
+			} finally {
+				btn.disabled = false;
+				btn.innerText = 'تست و اهدا';
+			}
+		}
+		function toggleSupportModal(show) {
+			const modal = document.getElementById('support-modal');
+			const content = modal.firstElementChild;
+			if (show) {
+				modal.classList.remove('opacity-0', 'pointer-events-none');
+				content.classList.remove('opacity-0', 'scale-95');
+			} else {
+				modal.classList.add('opacity-0', 'pointer-events-none');
+				content.classList.add('opacity-0', 'scale-95');
+			}
+		}
 		window.testDirectPing = async function() {
 			const btn = document.getElementById('test-direct-btn');
 			const clientPingEl = document.getElementById('client-to-server-ping');
@@ -10253,7 +10848,7 @@ async function fetchAndLoadProxy() {
 			border: 1px solid rgba(255, 255, 255, 0.05);
 			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 		}
-		.alireza-flag {
+		.zeus-flag {
 			display: inline-block;
 			width: 1.35em;
 			height: 1em;
@@ -10263,7 +10858,7 @@ async function fetchAndLoadProxy() {
 			background-position: 50%;
 			background-repeat: no-repeat;
 		}
-		.alireza-flag-globe {
+		.zeus-flag-globe {
 			font-size: 1.1em;
 			line-height: 1;
 			vertical-align: -0.05em;
@@ -10278,7 +10873,7 @@ async function fetchAndLoadProxy() {
 			<div class="inline-flex items-center justify-center p-3 bg-blue-100 dark:bg-blue-950/60 border border-blue-300 dark:border-blue-500 text-blue-600 dark:text-blue-400 rounded-md mb-4 shadow-md dark:shadow-[0_0_15px_rgba(59,130,246,0.4)]">
 				<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
 			</div>
-			<h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-1">پـنـل علیرضا - وضعیت اشتراک</h1>
+			<h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-1">پـنـل زئــوس - وضعیت اشتراک</h1>
 			<p id="display-username" class="text-sm font-bold text-blue-500 tracking-wide font-mono mb-2"></p>
 			<p id="display-flag" class="text-2xl font-bold tracking-wide mb-3" style="display:none;"></p>
 			<div id="live-connections-badge" class="hidden">
@@ -10475,7 +11070,7 @@ async function fetchAndLoadProxy() {
 			<svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
 			</svg>
-			PANEL_ALIREZA@
+			PANEL_ZEUS@
 		</a>
 	</div>
 	<div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-center">
@@ -10484,6 +11079,12 @@ async function fetchAndLoadProxy() {
 				<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
 			</svg>
 			ساخت رایگان پـنـل
+		</a>
+		<a href="https://donatonion.ir-netlify.workers.dev" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-full shadow-sm hover:shadow-md transition text-sm font-bold text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300 group">
+			<svg class="w-5 h-5 text-red-500 dark:text-red-400 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
+				<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+			</svg>
+			دونیت
 		</a>
 	</div>
 </div>
@@ -10508,7 +11109,7 @@ ${COMMON_TOAST_HTML}
 			const dynPath = encodeURIComponent("/stream/PANEL_ZEUS/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
 			const links = [];
 			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%20%D9%88%20%D8%BA%DB%8C%D8%B1%20%D9%82%D8%A7%D8%A8%D9%84%20%D9%81%D8%B1%D9%88%D8%B4%E2%9A%A0%EF%B8%8F');
-			const m2 = decodeURIComponent('%F0%9F%9A%80%40PANEL_ALIREZA%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80');
+			const m2 = decodeURIComponent('%F0%9F%9A%80%40PANEL_ZEUS%20%D8%B3%D8%A7%D8%AE%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%9A%80');
 			let remVol = "Unlimited";
 			if (u.limit_gb) {
 				let rem = u.limit_gb - (u.used_gb || 0);
@@ -10583,15 +11184,15 @@ links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&securi
 						
 						const tlsParams = isTlsPort ? ("&insecure=0&fp=" + fp + "&allowInsecure=0&sni=" + host) : "";
 						if (enableVless) {
-							const remark = "ALIREZA | " + proxy.flagEmoji + " | " + u.username;
+							const remark = "ZEUS | " + proxy.flagEmoji + " | " + u.username;
 							links.push('vle' + 'ss://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + proxy.currentDynPath + '&security=' + tlsVal + '&encryption=none&host=' + host + '&type=ws' + tlsParams + userFrag + '#' + encodeURIComponent(remark));
 						}
 						if (enableTrojan) {
-							const trojanRemark = "ALIREZA | " + proxy.flagEmoji + " | " + u.username;
+							const trojanRemark = "ZEUS | " + proxy.flagEmoji + " | " + u.username;
 							links.push('trojan://' + (u.uuid || '') + '@' + ip + ':' + portStr + '?path=' + proxy.currentDynPath + '&security=' + tlsVal + '&host=' + host + '&type=ws' + tlsParams + userFrag + '#' + encodeURIComponent(trojanRemark));
 						}
 						if (enableSS) {
-							const ssRemark = "ALIREZA | " + proxy.flagEmoji + " | " + u.username;
+							const ssRemark = "ZEUS | " + proxy.flagEmoji + " | " + u.username;
 							const methodPass = btoa("aes-256-gcm:" + (u.uuid || ''));
 							let pluginOpts = "v2ray-plugin;mode=websocket;host=" + host + ";path=" + decodeURIComponent(proxy.currentDynPath) + (isTlsPort ? ";tls" : "");
 							let pluginStr = encodeURIComponent(pluginOpts);
@@ -10673,7 +11274,7 @@ links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&securi
 			}
 			const downloadAnchor = document.createElement('a');
 			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "alireza_qrcode_" + Date.now() + ".png";
+			downloadAnchor.download = "zeus_qrcode_" + Date.now() + ".png";
 			document.body.appendChild(downloadAnchor);
 			downloadAnchor.click();
 			downloadAnchor.remove();
@@ -10683,10 +11284,10 @@ links.push('vle' + 'ss://' + (u.uuid || '') + '@0.0.0.0:1?encryption=none&securi
 			toggleQrModal(true, link);
 		}
 		function getFlagEmoji(countryCode) {
-			if (!countryCode) return '<span class="alireza-flag-globe">🌐</span>';
+			if (!countryCode) return '<span class="zeus-flag-globe">🌐</span>';
 			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="alireza-flag-globe">🌐</span>';
-			return '<span class="fi fi-' + cc + ' alireza-flag" title="' + cc.toUpperCase() + '"></span>';
+			if (cc.length !== 2) return '<span class="zeus-flag-globe">🌐</span>';
+			return '<span class="fi fi-' + cc + ' zeus-flag" title="' + cc.toUpperCase() + '"></span>';
 		}
 		function getFlagEmojiText(countryCode) {
 			if (!countryCode) return '🌐';
@@ -10757,9 +11358,9 @@ const flagContainer = document.getElementById('display-flag');
 				} catch(e) {}
 				return flagSvg;
 			}
-			return '<span class="alireza-flag-globe">🌐</span>';
+			return '<span class="zeus-flag-globe">🌐</span>';
 		})
-		.catch(() => '<span class="alireza-flag-globe">🌐</span>');
+		.catch(() => '<span class="zeus-flag-globe">🌐</span>');
 	})).then(flags => {
 		flagContainer.innerHTML = flags.join(' ');
 	});
