@@ -11606,7 +11606,7 @@ const flagContainer = document.getElementById('display-flag');
 			} else {
 				statusCard.className = 'mb-6 rounded-md p-4 text-center border font-bold relative z-10 bg-green-50 dark:bg-green-600/10 border-green-300 dark:border-green-600/30 text-green-700 dark:text-green-500 shadow-sm';
 				statusCard.style.boxShadow = 'none';
-				statusText.innerText = '✅ وضعیت اشتراک: فعال و متصل';
+				statusText.innerText = '✅ وضعیت اشتراک: فال و متصل';
 			}
 		});
 		window.addEventListener('click', (e) => {
