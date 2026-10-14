@@ -1,179 +1,259 @@
 import { connect } from "cloudflare:sockets";
+const _k3x9 =
+"PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImZhIiBkaXI9InJ0bCI+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CjxtZXRhIG5hbWU9InZpZXdwb3J0IiBj" +
+"b250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+Cjx0aXRsZT7ZhdmG2LjZiNmF2Ycg2LTZhdiz24wg2KrYudin2YXZhNuMPC90aXRsZT4K" +
+"PHN0eWxlPgogICp7bWFyZ2luOjA7cGFkZGluZzowO2JveC1zaXppbmc6Ym9yZGVyLWJveH0KICBib2R5e2JhY2tncm91bmQ6IzAwMDtvdmVyZmxvdzpoaWRkZW47Zm9u" +
+"dC1mYW1pbHk6J1NlZ29lIFVJJyxUYWhvbWEsc2Fucy1zZXJpZjtjb2xvcjojZmZmfQogICNje2Rpc3BsYXk6YmxvY2s7cG9zaXRpb246Zml4ZWQ7aW5zZXQ6MDt0b3Vj" +
+"aC1hY3Rpb246bm9uZX0KICAjaW5mb3twb3NpdGlvbjpmaXhlZDt0b3A6MjBweDtyaWdodDoyNHB4O3otaW5kZXg6NTt0ZXh0LWFsaWduOnJpZ2h0O3RleHQtc2hhZG93" +
+"OjAgMCAxMHB4ICMwMDA7cG9pbnRlci1ldmVudHM6bm9uZX0KICAjaW5mbyBoMXtmb250LXNpemU6MjJweDtjb2xvcjojZmZkMjNmfQogICNpbmZvIHB7b3BhY2l0eTou" +
+"NjU7Zm9udC1zaXplOjEyLjVweDttYXJnaW4tdG9wOjRweH0KICAjcGFuZWx7cG9zaXRpb246Zml4ZWQ7Ym90dG9tOjIwcHg7bGVmdDoyNHB4O3JpZ2h0OjI0cHg7ei1p" +
+"bmRleDo1O2Rpc3BsYXk6ZmxleDtnYXA6OHB4O2ZsZXgtd3JhcDp3cmFwO2p1c3RpZnktY29udGVudDpjZW50ZXJ9CiAgI3BhbmVsIGJ1dHRvbntiYWNrZ3JvdW5kOnJn" +
+"YmEoMjU1LDI1NSwyNTUsLjA4KTtib3JkZXI6MXB4IHNvbGlkIHJnYmEoMjU1LDI1NSwyNTUsLjI1KTtjb2xvcjojZmZmOwogICAgcGFkZGluZzo3cHggMTRweDtib3Jk" +
+"ZXItcmFkaXVzOjIwcHg7Y3Vyc29yOnBvaW50ZXI7Zm9udC1zaXplOjEyLjVweDtiYWNrZHJvcC1maWx0ZXI6Ymx1cig2cHgpfQogICNwYW5lbCBidXR0b246aG92ZXJ7" +
+"YmFja2dyb3VuZDpyZ2JhKDI1NSwyMTAsNjMsLjMpfQogICNob2xkYmFye3Bvc2l0aW9uOmZpeGVkO3RvcDoxNHB4O2xlZnQ6NTAlO3RyYW5zZm9ybTp0cmFuc2xhdGVY" +
+"KC01MCUpO3otaW5kZXg6NjtkaXNwbGF5Om5vbmU7Z2FwOjE4cHg7YWxpZ24taXRlbXM6Y2VudGVyOwogICAgYmFja2dyb3VuZDpyZ2JhKDI1NSwyNTUsMjU1LC4wOCk7" +
+"Ym9yZGVyOjFweCBzb2xpZCByZ2JhKDI1NSwyMTAsNjMsLjQ1KTtib3JkZXItcmFkaXVzOjIycHg7cGFkZGluZzo4cHggMjBweDtiYWNrZHJvcC1maWx0ZXI6Ymx1cig2" +
+"cHgpOwogICAgZm9udC1zaXplOjEzcHg7dGV4dC1zaGFkb3c6MCAwIDhweCAjMDAwO2RpcmVjdGlvbjpydGw7d2hpdGUtc3BhY2U6bm93cmFwfQogICNob2xkYmFyIGJ7" +
+"Y29sb3I6I2ZmZDIzZjtmb250LXZhcmlhbnQtbnVtZXJpYzp0YWJ1bGFyLW51bXM7ZGlyZWN0aW9uOmx0cjtkaXNwbGF5OmlubGluZS1ibG9jazttYXJnaW46MCA0cHg7" +
+"Zm9udC1zaXplOjE1cHh9Cjwvc3R5bGU+CjwvaGVhZD4KPGJvZHk+CjxjYW52YXMgaWQ9ImMiPjwvY2FudmFzPgo8ZGl2IGlkPSJpbmZvIj48aDE+8J+qkCDZhdmG2LjZ" +
+"iNmF2Ycg2LTZhdiz24w8L2gxPjxwPtmF2YjYsy/ZhNmF2LM6INqG2LHYrti0IHwg2KfYs9qp2LHZiNmEL9iv2Ygg2KfZhtqv2LTYqjog2LLZiNmFIHwg2LHZiNuMINiz" +
+"24zYp9ix2Ycg2qnZhNuM2qkg2qnZhjwvcD48L2Rpdj4KPGRpdiBpZD0iaG9sZGJhciI+PHNwYW4+4o+xINiy2YXYp9mGINqv2LDYtNiq2Yc6PGIgaWQ9ImhFbCI+MDA6" +
+"MDA6MDA8L2I+PC9zcGFuPjxzcGFuPuKPsyDYqNin2YLbjOKAjNmF2KfZhtiv2Ycg2KrYpyDZgdi52KfZhOKAjNiz2KfYstuMINm+2YbZhDo8YiBpZD0iaExlZnQiPjAw" +
+"OjAwOjAwPC9iPjwvc3Bhbj48L2Rpdj4KPGRpdiBpZD0icGFuZWwiPjwvZGl2Pgo8c2NyaXB0PgooZnVuY3Rpb24oKXsKdmFyIGN2PWRvY3VtZW50LmdldEVsZW1lbnRC" +
+"eUlkKCdjJyksY3R4PWN2LmdldENvbnRleHQoJzJkJyk7CnZhciBXPTAsVkg9MCxGPTE7CmZ1bmN0aW9uIHJlc2l6ZSgpewogIHZhciBkPU1hdGgubWluKHdpbmRvdy5k" +
+"ZXZpY2VQaXhlbFJhdGlvfHwxLDIpOwogIFc9aW5uZXJXaWR0aDtWSD1pbm5lckhlaWdodDtGPVZIKjAuODY2OwogIGN2LndpZHRoPVcqZDtjdi5oZWlnaHQ9VkgqZDtj" +
+"di5zdHlsZS53aWR0aD1XKydweCc7Y3Yuc3R5bGUuaGVpZ2h0PVZIKydweCc7CiAgY3R4LnNldFRyYW5zZm9ybShkLDAsMCxkLDAsMCk7Cn0KcmVzaXplKCk7YWRkRXZl" +
+"bnRMaXN0ZW5lcigncmVzaXplJyxyZXNpemUpOwoKZnVuY3Rpb24gc3ViKGEsYil7cmV0dXJuIFthWzBdLWJbMF0sYVsxXS1iWzFdLGFbMl0tYlsyXV19CmZ1bmN0aW9u" +
+"IGRvdChhLGIpe3JldHVybiBhWzBdKmJbMF0rYVsxXSpiWzFdK2FbMl0qYlsyXX0KZnVuY3Rpb24gY3Jvc3MoYSxiKXtyZXR1cm4gW2FbMV0qYlsyXS1hWzJdKmJbMV0s" +
+"YVsyXSpiWzBdLWFbMF0qYlsyXSxhWzBdKmJbMV0tYVsxXSpiWzBdXX0KZnVuY3Rpb24gbm9ybShhKXt2YXIgbD1NYXRoLnNxcnQoZG90KGEsYSkpfHwxO3JldHVybiBb" +
+"YVswXS9sLGFbMV0vbCxhWzJdL2xdfQp2YXIgY2FtPXtwOlswLDI2MCw1MjBdLHI6WzEsMCwwXSx1OlswLDEsMF0sZjpbMCwwLC0xXX07CmZ1bmN0aW9uIGxvb2socCx0" +
+"KXsKICB2YXIgZj1ub3JtKHN1Yih0LHApKSxyPWNyb3NzKGYsWzAsMSwwXSk7CiAgcj0oZG90KHIscik8MWUtOCk/WzEsMCwwXTpub3JtKHIpOwogIGNhbS5wPXA7Y2Ft" +
+"LmY9ZjtjYW0ucj1yO2NhbS51PWNyb3NzKHIsZik7Cn0KZnVuY3Rpb24gcHJvaihQKXsKICB2YXIgZD1zdWIoUCxjYW0ucCksej1kb3QoZCxjYW0uZik7CiAgaWYoejwx" +
+"KXJldHVybiBudWxsOwogIHJldHVybiBbVy8yK2RvdChkLGNhbS5yKS96KkYsVkgvMi1kb3QoZCxjYW0udSkveipGLHpdOwp9CmZ1bmN0aW9uIHNoYWRlKGgsayl7CiAg" +
+"dmFyIG49cGFyc2VJbnQoaC5zbGljZSgxKSwxNikscj1NYXRoLm1pbigyNTUsKG4+PjE2JjI1NSkqayksZz1NYXRoLm1pbigyNTUsKG4+PjgmMjU1KSprKSxiPU1hdGgu" +
+"bWluKDI1NSwobiYyNTUpKmspOwogIHJldHVybiAncmdiKCcrKHJ8MCkrJywnKyhnfDApKycsJysoYnwwKSsnKSc7Cn0KCnZhciBzdGFycz1bXTsKZm9yKHZhciBpPTA7" +
+"aTw3MDA7aSsrKXN0YXJzLnB1c2goWyhNYXRoLnJhbmRvbSgpLS41KSozMDAwLChNYXRoLnJhbmRvbSgpLS41KSozMDAwLChNYXRoLnJhbmRvbSgpLS41KSozMDAwXSk7" +
+"Cgp2YXIgcGxhbmV0RGF0YT1bCiAge25hbWU6J9i52LfYp9ix2K8nLGNvbG9yOicjYWFhYWFhJyxzaXplOjMuMixkaXN0OjUwLHNwZWVkOjAuMDEyLGluZm86J9mG2LLY" +
+"r9uM2qnigIzYqtix24zZhiDYs9uM2KfYsdmHINio2Ycg2K7ZiNix2LTbjNivJ30sCiAge25hbWU6J9iy2YfYsdmHJyxjb2xvcjonI2U4YzI3ZScsc2l6ZTo1LjUsZGlz" +
+"dDo3MixzcGVlZDowLjAwOSxpbmZvOifYr9in2LrigIzYqtix24zZhiDYs9uM2KfYsdmHINmF2YbYuNmI2YXZhyd9LAogIHtuYW1lOifYstmF24zZhicsY29sb3I6JyMz" +
+"ZmE3ZmYnLHNpemU6NixkaXN0OjEwMCxzcGVlZDowLjAwNzUsaW5mbzon2K7Yp9mG2YfigIzbjCDZhdinIPCfjI0nfSwKICB7bmFtZTon2YXYsduM2K4nLGNvbG9yOicj" +
+"ZmY1NTMzJyxzaXplOjQuMixkaXN0OjEzMCxzcGVlZDowLjAwNixpbmZvOifYs9uM2KfYsdmH4oCM24wg2LPYsdiuJ30sCiAge25hbWU6J9mF2LTYqtix24wnLGNvbG9y" +
+"OicjZDliMzgyJyxzaXplOjE1LGRpc3Q6MTkwLHNwZWVkOjAuMDAzMixpbmZvOifYqNiy2LHar9iq2LHbjNmGINiz24zYp9ix2Ycg2YXZhti42YjZhdmHJ30sCiAge25h" +
+"bWU6J9iy2K3ZhCcsY29sb3I6JyNlY2NmOWMnLHNpemU6MTMsZGlzdDoyNTAsc3BlZWQ6MC4wMDI0LGluZm86J9mF2LTZh9mI2LEg2KjZhyDYrdmE2YLZh+KAjNmH2Kfb" +
+"jNi0J30sCiAge25hbWU6J9in2YjYsdin2YbZiNizJyxjb2xvcjonIzhmZDllOCcsc2l6ZTo5LGRpc3Q6MzAwLHNwZWVkOjAuMDAxNyxpbmZvOifahtix2K7YtCDZhdit" +
+"2YjYsduMINi52KzbjNioJ30sCiAge25hbWU6J9mG2b7YqtmI2YYnLGNvbG9yOicjM2Y2ZmUwJyxzaXplOjguNixkaXN0OjM0NSxzcGVlZDowLjAwMTMsaW5mbzon2K/Z" +
+"iNix2KrYsduM2YYg2LPbjNin2LHZhyDYtNmG2KfYrtiq2YfigIzYtNiv2YcnfQpdOwp2YXIgcGFuZWw9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3BhbmVsJyksaW5m" +
+"b0JveD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaW5mbycpOwp2YXIgcm90WD0uMzUscm90WT0wLGRpc3Q9NTIwLGZvY3VzPWZhbHNlLGN1clBvcz1bMCwyNjAsNTIw" +
+"XSx0Q2FtPVswLDAsMF0sdExvb2s9WzAsMCwwXTsKcGxhbmV0RGF0YS5mb3JFYWNoKGZ1bmN0aW9uKHApewogIHAuYT1NYXRoLnJhbmRvbSgpKk1hdGguUEkqMjtwLnBv" +
+"cz1bMCwwLDBdO3Auc3g9MDtwLnN5PTA7cC5zcj0wO3Auc3o9MDsKICB2YXIgYj1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdidXR0b24nKTtiLnRleHRDb250ZW50PXAu" +
+"bmFtZTsKICBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxmdW5jdGlvbigpe2ZvY3VzUGxhbmV0KHApfSk7CiAgcGFuZWwuYXBwZW5kQ2hpbGQoYik7Cn0pOwpmdW5j" +
+"dGlvbiBmb2N1c1BsYW5ldChwKXsKICBpbmZvQm94LmlubmVySFRNTD0nPGgxPicrcC5uYW1lKyc8L2gxPjxwPicrcC5pbmZvKyc8L3A+JzsKICB2YXIgdz1wLnBvczsK" +
+"ICB0Q2FtPVt3WzBdLHdbMV0rcC5zaXplKjIuNSs4LHdbMl0rcC5zaXplKjUrMThdO3RMb29rPVt3WzBdLHdbMV0sd1syXV07CiAgZm9jdXM9dHJ1ZTsKfQoKdmFyIHB0" +
+"cnM9e30sbW92ZWQ9MCxwaW5jaD0wLHBjPTA7CmZ1bmN0aW9uIGNsYW1wKHYsYSxiKXtyZXR1cm4gTWF0aC5tYXgoYSxNYXRoLm1pbihiLHYpKX0KY3YuYWRkRXZlbnRM" +
+"aXN0ZW5lcigncG9pbnRlcmRvd24nLGZ1bmN0aW9uKGUpewogIHRyeXtjdi5zZXRQb2ludGVyQ2FwdHVyZShlLnBvaW50ZXJJZCl9Y2F0Y2goXyl7fQogIHB0cnNbZS5w" +
+"b2ludGVySWRdPVtlLmNsaWVudFgsZS5jbGllbnRZXTtwYz1PYmplY3Qua2V5cyhwdHJzKS5sZW5ndGg7CiAgaWYocGM9PT0xKW1vdmVkPTA7cGluY2g9MDsKfSk7CmN2" +
+"LmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJtb3ZlJyxmdW5jdGlvbihlKXsKICB2YXIgbz1wdHJzW2UucG9pbnRlcklkXTtpZighbylyZXR1cm47CiAgdmFyIGtzPU9i" +
+"amVjdC5rZXlzKHB0cnMpOwogIGlmKGtzLmxlbmd0aD49Mil7CiAgICB2YXIgYT1wdHJzW2tzWzBdXSxiPXB0cnNba3NbMV1dOwogICAgdmFyIG49W2UuY2xpZW50WCxl" +
+"LmNsaWVudFldOwogICAgaWYoZS5wb2ludGVySWQ9PWtzWzBdKWE9bjtlbHNlIGI9bjsKICAgIHZhciBkZD1NYXRoLmh5cG90KGFbMF0tYlswXSxhWzFdLWJbMV0pOwog" +
+"ICAgaWYocGluY2g+MCYmZGQ+MCl7ZGlzdD1jbGFtcChkaXN0KnBpbmNoL2RkLDgwLDE0MDApO2ZvY3VzPWZhbHNlfQogICAgcGluY2g9ZGQ7bW92ZWQ9OTk7CiAgfWVs" +
+"c2V7CiAgICB2YXIgZHg9ZS5jbGllbnRYLW9bMF0sZHk9ZS5jbGllbnRZLW9bMV07CiAgICBtb3ZlZCs9TWF0aC5hYnMoZHgpK01hdGguYWJzKGR5KTsKICAgIGlmKG1v" +
+"dmVkPjQpe2ZvY3VzPWZhbHNlO3JvdFkrPWR4KjAuMDA1O3JvdFg9Y2xhbXAocm90WCtkeSowLjAwNSwtMS4yLDEuMil9CiAgfQogIHB0cnNbZS5wb2ludGVySWRdPVtl" +
+"LmNsaWVudFgsZS5jbGllbnRZXTsKfSk7CmZ1bmN0aW9uIHVwKGUpewogIGlmKCFwdHJzW2UucG9pbnRlcklkXSlyZXR1cm47CiAgdmFyIHdhc1NpbmdsZT1PYmplY3Qu" +
+"a2V5cyhwdHJzKS5sZW5ndGg9PT0xOwogIGRlbGV0ZSBwdHJzW2UucG9pbnRlcklkXTtwaW5jaD0wOwogIGlmKHdhc1NpbmdsZSYmbW92ZWQ8PTQpewogICAgdmFyIGJl" +
+"c3Q9bnVsbDsKICAgIHBsYW5ldERhdGEuZm9yRWFjaChmdW5jdGlvbihwKXsKICAgICAgaWYoIXAuc3opcmV0dXJuOwogICAgICBpZihNYXRoLmh5cG90KGUuY2xpZW50" +
+"WC1wLnN4LGUuY2xpZW50WS1wLnN5KTw9TWF0aC5tYXgocC5zciwxNCkmJighYmVzdHx8cC5zejxiZXN0LnN6KSliZXN0PXA7CiAgICB9KTsKICAgIGlmKGJlc3QpZm9j" +
+"dXNQbGFuZXQoYmVzdCk7CiAgfQp9CmN2LmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJ1cCcsdXApO2N2LmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJjYW5jZWwnLHVw" +
+"KTsKY3YuYWRkRXZlbnRMaXN0ZW5lcignd2hlZWwnLGZ1bmN0aW9uKGUpe2UucHJldmVudERlZmF1bHQoKTtkaXN0PWNsYW1wKGRpc3QrZS5kZWx0YVkqMC40LDgwLDE0" +
+"MDApO2ZvY3VzPWZhbHNlfSx7cGFzc2l2ZTpmYWxzZX0pOwoKZnVuY3Rpb24gZGlzYyh4LHkscixmaWxsKXtjdHguYmVnaW5QYXRoKCk7Y3R4LmFyYyh4LHksciwwLDYu" +
+"MjgzMik7Y3R4LmZpbGxTdHlsZT1maWxsO2N0eC5maWxsKCl9CmZ1bmN0aW9uIHJpbmdRdWFkcyhwLEEpewogIHZhciBOPTQwLGlubj1wLnNpemUrMyxvdXQ9cC5zaXpl" +
+"KzksY2E9TWF0aC5jb3MoQSksc2E9TWF0aC5zaW4oQSksST1bXSxPPVtdLHE9W107CiAgZm9yKHZhciBpPTA7aTw9TjtpKyspewogICAgdmFyIHQ9aS9OKjYuMjgzMixj" +
+"PU1hdGguY29zKHQpLHM9TWF0aC5zaW4odCk7CiAgICBJLnB1c2gocHJvaihbcC5wb3NbMF0raW5uKmMscC5wb3NbMV0raW5uKnMqY2EscC5wb3NbMl0raW5uKnMqc2Fd" +
+"KSk7CiAgICBPLnB1c2gocHJvaihbcC5wb3NbMF0rb3V0KmMscC5wb3NbMV0rb3V0KnMqY2EscC5wb3NbMl0rb3V0KnMqc2FdKSk7CiAgfQogIGZvcihpPTA7aTxOO2kr" +
+"Kyl7CiAgICBpZighSVtpXXx8IUlbaSsxXXx8IU9baV18fCFPW2krMV0pY29udGludWU7CiAgICBxLnB1c2goe3Y6W09baV0sT1tpKzFdLElbaSsxXSxJW2ldXSx6OihP" +
+"W2ldWzJdK09baSsxXVsyXStJW2ldWzJdK0lbaSsxXVsyXSkvNH0pOwogIH0KICByZXR1cm4gcTsKfQpmdW5jdGlvbiBkcmF3UXVhZHMocSxiYWNrLHB6KXsKICBjdHgu" +
+"ZmlsbFN0eWxlPSdyZ2JhKDIxNiwxOTYsMTM4LC43KSc7Y3R4LnN0cm9rZVN0eWxlPSdyZ2JhKDIxNiwxOTYsMTM4LC43KSc7Y3R4LmxpbmVXaWR0aD0uNjsKICBmb3Io" +
+"dmFyIGk9MDtpPHEubGVuZ3RoO2krKyl7CiAgICBpZigocVtpXS56PnB6KSE9PWJhY2spY29udGludWU7CiAgICB2YXIgdj1xW2ldLnY7Y3R4LmJlZ2luUGF0aCgpO2N0" +
+"eC5tb3ZlVG8odlswXVswXSx2WzBdWzFdKTsKICAgIGZvcih2YXIgaj0xO2o8NDtqKyspY3R4LmxpbmVUbyh2W2pdWzBdLHZbal1bMV0pOwogICAgY3R4LmNsb3NlUGF0" +
+"aCgpO2N0eC5maWxsKCk7Y3R4LnN0cm9rZSgpOwogIH0KfQoKZnVuY3Rpb24gZnJhbWUoKXsKICByZXF1ZXN0QW5pbWF0aW9uRnJhbWUoZnJhbWUpOwogIGZvcih2YXIg" +
+"aT0wO2k8cGxhbmV0RGF0YS5sZW5ndGg7aSsrKXsKICAgIHZhciBwPXBsYW5ldERhdGFbaV07cC5hKz1wLnNwZWVkOwogICAgcC5wb3M9W01hdGguY29zKHAuYSkqcC5k" +
+"aXN0LDAsLU1hdGguc2luKHAuYSkqcC5kaXN0XTsKICB9CiAgaWYoZm9jdXMpewogICAgZm9yKHZhciBrPTA7azwzO2srKyljdXJQb3Nba10rPSh0Q2FtW2tdLWN1clBv" +
+"c1trXSkqMC4wNDsKICAgIGxvb2soY3VyUG9zLnNsaWNlKCksdExvb2spOwogIH1lbHNlewogICAgY3VyUG9zPVtNYXRoLnNpbihyb3RZKSpNYXRoLmNvcyhyb3RYKSpk" +
+"aXN0LE1hdGguc2luKHJvdFgpKmRpc3QqMC42KzEwMCxNYXRoLmNvcyhyb3RZKSpNYXRoLmNvcyhyb3RYKSpkaXN0XTsKICAgIGxvb2soY3VyUG9zLnNsaWNlKCksWzAs" +
+"MCwwXSk7CiAgfQogIGN0eC5maWxsU3R5bGU9JyMwMDAnO2N0eC5maWxsUmVjdCgwLDAsVyxWSCk7CiAgY3R4LmZpbGxTdHlsZT0ncmdiYSgyNTUsMjU1LDI1NSwuOCkn" +
+"OwogIGZvcihpPTA7aTxzdGFycy5sZW5ndGg7aSsrKXsKICAgIHZhciBzPXByb2ooc3RhcnNbaV0pO2lmKHMpY3R4LmZpbGxSZWN0KHNbMF0sc1sxXSwxLjMsMS4zKTsK" +
+"ICB9CiAgY3R4LnN0cm9rZVN0eWxlPSdyZ2JhKDY4LDY4LDEwMiwuMzUpJztjdHgubGluZVdpZHRoPTE7CiAgZm9yKGk9MDtpPHBsYW5ldERhdGEubGVuZ3RoO2krKyl7" +
+"CiAgICB2YXIgZD1wbGFuZXREYXRhW2ldLmRpc3QscHJldj1udWxsOwogICAgY3R4LmJlZ2luUGF0aCgpOwogICAgZm9yKHZhciBqPTA7ajw9NzI7aisrKXsKICAgICAg" +
+"dmFyIHQ9ai83Mio2LjI4MzIscT1wcm9qKFtNYXRoLmNvcyh0KSpkLDAsTWF0aC5zaW4odCkqZF0pOwogICAgICBpZihxJiZwcmV2KWN0eC5saW5lVG8ocVswXSxxWzFd" +
+"KTtlbHNlIGlmKHEpY3R4Lm1vdmVUbyhxWzBdLHFbMV0pOwogICAgICBwcmV2PXE7CiAgICB9CiAgICBjdHguc3Ryb2tlKCk7CiAgfQogIHZhciBzdW5TPXByb2ooWzAs" +
+"MCwwXSksaXRlbXM9W107CiAgaWYoc3VuUylpdGVtcy5wdXNoKHtzdW46MSx6OnN1blNbMl19KTsKICBmb3IoaT0wO2k8cGxhbmV0RGF0YS5sZW5ndGg7aSsrKXsKICAg" +
+"IHZhciBwcD1wbGFuZXREYXRhW2ldLHBzPXByb2oocHAucG9zKTsKICAgIGlmKCFwcyl7cHAuc3o9MDtjb250aW51ZX0KICAgIHBwLnN4PXBzWzBdO3BwLnN5PXBzWzFd" +
+"O3BwLnN6PXBzWzJdO3BwLnNyPU1hdGgubWF4KHBwLnNpemUvcHNbMl0qRiwuOCk7CiAgICBpdGVtcy5wdXNoKHtwOnBwLHo6cHNbMl19KTsKICB9CiAgaXRlbXMuc29y" +
+"dChmdW5jdGlvbihhLGIpe3JldHVybiBiLnotYS56fSk7CiAgZm9yKGk9MDtpPGl0ZW1zLmxlbmd0aDtpKyspewogICAgdmFyIGl0PWl0ZW1zW2ldOwogICAgaWYoaXQu" +
+"c3VuKXsKICAgICAgdmFyIHI9Mjgvc3VuU1syXSpGLGc9Y3R4LmNyZWF0ZVJhZGlhbEdyYWRpZW50KHN1blNbMF0sc3VuU1sxXSxyKi44LHN1blNbMF0sc3VuU1sxXSxy" +
+"KjIuNCk7CiAgICAgIGcuYWRkQ29sb3JTdG9wKDAsJ3JnYmEoMjU1LDE3MCwwLC40KScpO2cuYWRkQ29sb3JTdG9wKDEsJ3JnYmEoMjU1LDE3MCwwLDApJyk7CiAgICAg" +
+"IGRpc2Moc3VuU1swXSxzdW5TWzFdLHIqMi40LGcpOwogICAgICBkaXNjKHN1blNbMF0sc3VuU1sxXSxyKjEuMjEsJ3JnYmEoMjU1LDE3MCwwLC4yNSknKTsKICAgICAg" +
+"ZGlzYyhzdW5TWzBdLHN1blNbMV0sciwnI2ZmY2MzMycpOwogICAgICBjb250aW51ZTsKICAgIH0KICAgIHZhciBQPWl0LnAscnE9bnVsbDsKICAgIGlmKFAubmFtZT09" +
+"PSfYstit2YQnKXtycT1yaW5nUXVhZHMoUCxNYXRoLlBJLzIuNCk7ZHJhd1F1YWRzKHJxLHRydWUsUC5zeil9CiAgICB2YXIgb3g9MCxveT0wOwogICAgaWYoc3VuUyl7" +
+"dmFyIGx4PXN1blNbMF0tUC5zeCxseT1zdW5TWzFdLVAuc3ksbGw9TWF0aC5oeXBvdChseCxseSl8fDE7b3g9bHgvbGwqUC5zciouMzU7b3k9bHkvbGwqUC5zciouMzV9" +
+"CiAgICBlbHNle294PS1QLnNyKi4zO295PS1QLnNyKi4zfQogICAgdmFyIGdyPWN0eC5jcmVhdGVSYWRpYWxHcmFkaWVudChQLnN4K294LFAuc3krb3ksUC5zciouMDUs" +
+"UC5zeCxQLnN5LFAuc3IqMS4wNSk7CiAgICBnci5hZGRDb2xvclN0b3AoMCxzaGFkZShQLmNvbG9yLDEuMikpO2dyLmFkZENvbG9yU3RvcCguNTUsc2hhZGUoUC5jb2xv" +
+"ciwuODUpKTtnci5hZGRDb2xvclN0b3AoMSxzaGFkZShQLmNvbG9yLC4yKSk7CiAgICBkaXNjKFAuc3gsUC5zeSxQLnNyLGdyKTsKICAgIGlmKHJxKWRyYXdRdWFkcyhy" +
+"cSxmYWxzZSxQLnN6KTsKICB9Cn0KZnJhbWUoKTsKfSkoKTsKKGZ1bmN0aW9uKCl7CiAgdmFyIEg9d2luZG93Ll9fSE9MRDsgaWYoIUgpIHJldHVybjsKICB2YXIgYmFy" +
+"PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdob2xkYmFyJyk7IGJhci5zdHlsZS5kaXNwbGF5PSdmbGV4JzsKICB2YXIgb2ZmPUgubm93LURhdGUubm93KCk7CiAgZnVu" +
+"Y3Rpb24gcDIobil7cmV0dXJuIChuPDEwPycwJzonJykrbn0KICBmdW5jdGlvbiBmbXQobXMpe21zPU1hdGgubWF4KDAsbXMpO3ZhciB0PU1hdGguZmxvb3IobXMvMTAw" +
+"MCk7cmV0dXJuIHAyKE1hdGguZmxvb3IodC8zNjAwKSkrJzonK3AyKE1hdGguZmxvb3IodC82MCklNjApKyc6JytwMih0JTYwKX0KICB2YXIgaXY9MCxkb25lPWZhbHNl" +
+"OwogIGZ1bmN0aW9uIHRpY2soKXsKICAgIHZhciBlbD1EYXRlLm5vdygpK29mZi1ILnN0YXJ0OwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hFbCcpLnRleHRD" +
+"b250ZW50PWZtdChlbCk7CiAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaExlZnQnKS50ZXh0Q29udGVudD1mbXQoSC5ob2xkLWVsKTsKICAgIGlmKGVsPj1ILmhv" +
+"bGQmJiFkb25lKXsgZG9uZT10cnVlOyBpZihpdiljbGVhckludGVydmFsKGl2KTsgc2V0VGltZW91dChmdW5jdGlvbigpeyBsb2NhdGlvbi5yZWxvYWQoKTsgfSwgTWF0" +
+"aC5mbG9vcihNYXRoLnJhbmRvbSgpKjE1MDApKTsgfQogIH0KICB0aWNrKCk7IGlmKCFkb25lKSBpdj1zZXRJbnRlcnZhbCh0aWNrLDEwMDApOwp9KSgpOwo8L3Njcmlw" +
+"dD4KPC9ib2R5Pgo8L2h0bWw+Cg==";
 const GLOBAL_TRAFFIC_CACHE = new Map();
-// کش کوتاه‌مدت ردیف کاربر و تنظیم proxy_ip برای مسیر اتصال (WebSocket).
-// قبلاً هر کانکشن جدید یه SELECT روی users (و یکی روی settings) می‌زد؛ یه تست سرعت با ده‌ها کانکشن موازی
-// همه‌شون رو هم‌زمان می‌ریخت روی D1. حالا کانکشن‌های هم‌زمان یه کوئری مشترک استفاده می‌کنن (TTL کوتاه).
-const USER_ROW_CACHE = new Map();
-const USER_ROW_CACHE_TTL = 8000;
-let PROXY_IP_CACHE = { t: 0, v: "", p: null };
-function invalidateHotCaches() {
-	USER_ROW_CACHE.clear();
-	PROXY_IP_CACHE = { t: 0, v: "", p: null };
+const eroucn4 = new Map();
+const utza4af = 8000;
+let qb7ahff = { t: 0, v: "", p: null };
+function bbkao4k() {
+	eroucn4.clear();
+	qb7ahff = { t: 0, v: "", p: null };
 }
-// مهم: فقط «نتیجه‌ی آماده» کش می‌شه، نه Promise. توی Workers یه Promise/I-O که تو ریکوئست A ساخته شده رو
-// نمی‌شه توی ریکوئست B await کرد ("Cannot perform I/O on behalf of a different request").
-// خطاهای گذرای D1 (شلوغی، قطع لحظه‌ای شبکه، تایم‌اوت) رو یکی-دو بار با تأخیر کوتاه دوباره امتحان می‌کنیم
-// تا یه لحظه شلوغی دیتابیس مستقیم تبدیل به خطای ۱۱۰۱ یا قطع کانکشن نشه.
-function isTransientD1Error(e) {
+function eja0tdx(e) {
 	const m = String((e && e.message) || e || "").toLowerCase();
 	return m.includes("overloaded") || m.includes("network connection lost") || m.includes("timeout") || m.includes("timed out") || m.includes("temporarily") || m.includes("too many") || m.includes("reset") || m.includes("internal error") || m.includes("d1_error");
 }
-async function d1Retry(fn, tries = 3) {
+async function fz8j64g(fn, tries = 3) {
 	let lastErr;
 	for (let i = 0; i < tries; i++) {
 		try {
 			return await fn();
 		} catch (e) {
 			lastErr = e;
-			if (i === tries - 1 || !isTransientD1Error(e)) break;
+			if (i === tries - 1 || !eja0tdx(e)) break;
 			await new Promise((r) => setTimeout(r, 120 * (i + 1) + Math.floor(Math.random() * 120)));
 		}
 	}
 	throw lastErr;
 }
-const USER_ROW_STALE_MAX = 10 * 60 * 1000;
-async function getCachedUserRow(env, sql, key) {
+const aja33qy = 10 * 60 * 1000;
+async function vjcnes5(env, sql, key) {
 	const ck = sql.length + "|" + key;
 	const now = Date.now();
-	const hit = USER_ROW_CACHE.get(ck);
-	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
+	const hit = eroucn4.get(ck);
+	if (hit && now - hit.t < utza4af) return hit.v;
 	let row;
 	try {
-		row = await d1Retry(() => env.DB.prepare(sql).bind(key).first(), 2);
+		row = await fz8j64g(() => env.DB.prepare(sql).bind(key).first(), 2);
 	} catch (e) {
-		// اگه D1 موقتاً جواب نداد ولی تا ۱۰ دقیقه پیش همین کاربر رو داشتیم، به‌جای قطع کردن اتصال از نسخه‌ی قبلی استفاده می‌کنیم
-		if (hit && now - hit.t < USER_ROW_STALE_MAX) return hit.v;
+		if (hit && now - hit.t < aja33qy) return hit.v;
 		throw e;
 	}
 	if (row) {
-		USER_ROW_CACHE.set(ck, { t: Date.now(), v: row });
-		if (USER_ROW_CACHE.size > 500) {
+		eroucn4.set(ck, { t: Date.now(), v: row });
+		if (eroucn4.size > 500) {
 			const n2 = Date.now();
-			for (const [k, e] of USER_ROW_CACHE) { if (n2 - e.t >= USER_ROW_CACHE_TTL) USER_ROW_CACHE.delete(k); }
-			if (USER_ROW_CACHE.size > 500) USER_ROW_CACHE.clear();
+			for (const [k, e] of eroucn4) { if (n2 - e.t >= utza4af) eroucn4.delete(k); }
+			if (eroucn4.size > 500) eroucn4.clear();
 		}
 	}
 	return row;
 }
-async function getCachedUserRowsLike(env, sql, key) {
+async function rpsmq65(env, sql, key) {
 	const ck = "L|" + sql.length + "|" + key;
 	const now = Date.now();
-	const hit = USER_ROW_CACHE.get(ck);
-	if (hit && now - hit.t < USER_ROW_CACHE_TTL) return hit.v;
+	const hit = eroucn4.get(ck);
+	if (hit && now - hit.t < utza4af) return hit.v;
 	let res;
 	try {
-		res = await d1Retry(() => env.DB.prepare(sql).bind(key).all(), 2);
+		res = await fz8j64g(() => env.DB.prepare(sql).bind(key).all(), 2);
 	} catch (e) {
-		if (hit && now - hit.t < USER_ROW_STALE_MAX) return hit.v;
+		if (hit && now - hit.t < aja33qy) return hit.v;
 		throw e;
 	}
-	if (res && res.results && res.results.length > 0) USER_ROW_CACHE.set(ck, { t: Date.now(), v: res });
+	if (res && res.results && res.results.length > 0) eroucn4.set(ck, { t: Date.now(), v: res });
 	return res;
 }
-// کش کشور پروکسی‌ها برای ساخت ساب؛ قبلاً هر بار رفرش ساب، برای هر پروکسی بدون کشور یه اتصال به ip-api.com از راه همون پروکسی می‌زد
-const SUB_COUNTRY_CACHE = new Map();
-const SUB_COUNTRY_TTL_OK = 12 * 3600 * 1000;
-const SUB_COUNTRY_TTL_FAIL = 10 * 60 * 1000;
-const ACTIVE_CONNECTIONS_COUNT = new Map();
-// آی‌پی‌های کلاینتِ کانکشن‌های زنده‌ی هر کاربر، فقط توی حافظه‌ی همین ایزوله: username -> Map(ip -> تعداد کانکشن).
-// قبلاً برای هر بسته شدن کانکشن یه SELECT و UPDATE روی D1 می‌زدیم؛ بعد یه دانلود/تست سرعت سنگین که
-// ده‌ها کانکشن هم‌زمان بسته می‌شن، این‌ها یهو رو D1 می‌ریخت و ورکر با ارور ۱۱۰۱ می‌بست.
-const GLOBAL_ACTIVE_IPS = new Map();
-// زمان آخرین چک هارتبیت هر (کاربر+آی‌پی)؛ جدا از GLOBAL_LAST_ACTIVE_WRITE چون اون توی sweep پاک می‌شه
-const GLOBAL_HB_CHECK = new Map();
-// حذف‌های در انتظارِ آی‌پی از D1 (برای جلوگیری از تکرار)
-const PENDING_IP_REMOVALS = new Set();
-// زمان آخرین نوشتن active_ips/last_active روی D1 برای هر کاربر (جدا از زمان‌بندی نوشتن ترافیک)
-const GLOBAL_IP_WRITE_TS = new Map();
-const GLOBAL_LAST_ACTIVE_WRITE = new Map();
-const GLOBAL_LAST_DB_WRITE = new Map();
-const GLOBAL_WRITE_LOCK = new Map();
-const DNS_CACHE = new Map();
+const jip804b = new Map();
+const crtlo7f = 12 * 3600 * 1000;
+const iub5ygr = 10 * 60 * 1000;
+const a40qkal = new Map();
+const vcmirtr = new Map();
+const gbd8v13 = new Map();
+const p6gwddb = new Set();
+const orfpjpg = new Map();
+const cchca6z = new Map();
+const gizzyby = new Map();
+const r2x0v6w = new Map();
+const obx6yh7 = new Map();
 const USER_REQ_CACHE = new Map();
-const LOGIN_ATTEMPTS = new Map();
-let GLOBAL_REQ_COUNT = 0;
-let GLOBAL_LAST_REQ_WRITE = 0;
-const DNS_CACHE_TTL = 5 * 60 * 1000;
-const DOH_RESOLVER = "https://cloudflare-dns.com/dns-query";
-// این سه عدد قبلاً ۱۲۸KB/۱۶MB/۴۰۹۶ بودن که باعث می‌شد صف آپلود هر کانکشن خیلی بزرگ بشه؛
-// زیر فشار (تست اسپید، چند کانکشن هم‌زمان) این باعث فشار حافظه و گیر کردن/تیک‌زدن نزدیک پایان
-// آپلود می‌شد. با ۶۴KB/۶MB/۳۰۰۰ (هماهنگ با نسخه‌ی قدیمی‌تر و پایدار) صف زودتر و نرم‌تر خالی می‌شه.
-const UPSTREAM_BUNDLE_TARGET_BYTES = 64 * 1024;
-const UPSTREAM_QUEUE_MAX_BYTES = 6 * 1024 * 1024;
-const UPSTREAM_QUEUE_MAX_ITEMS = 3000;
+const tp0s2fk = new Map();
+let cwsdrkz = 0;
+let jlvmthl = 0;
+const vac5goc = 5 * 60 * 1000;
+const b2llpoh = "https://cloudflare-dns.com/dns-query";
+const j7gzuyc = 64 * 1024;
+const gd4zjw9 = 6 * 1024 * 1024;
+const sacemxe = 3000;
 const DOWNSTREAM_GRAIN_BYTES = 32 * 1024;
 const DOWNSTREAM_GRAIN_TAIL_THRESHOLD = 512;
 const DOWNSTREAM_GRAIN_SILENT_MS = 1;
-const DNS_CACHE_MAX_ENTRIES = 2048;
-const TEXT_ENCODER = new TextEncoder();
-const TEXT_DECODER = new TextDecoder();
-const TLS_PORTS = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
-// سقف تعداد کانکشن هم‌زمان روی این ایزوله. هر کانکشن می‌تونه تا چند مگابایت بافر آپلود/دانلود بگیره؛
-// بدون سقف، یه موج ناگهانی کانکشن (مثلاً تست اسپید با چند stream موازی، یا حتی رفتار غیرعادی)
-// می‌تونه حافظه‌ی ۱۲۸MB ایزوله رو پر کنه و کل Worker کرش کنه. این عدد شیر اطمینانه، نه چیزی که
-// تو مصرف عادی (چند کاربر، چند دستگاه) بهش برسید.
-const MAX_ISOLATE_CONNECTIONS = 300;
-let CURRENT_ISOLATE_CONNECTIONS = 0;
-// فاصله‌ی پاک‌سازی دوره‌ای Mapهای ردیابی ترافیک/کانکشن (GLOBAL_TRAFFIC_CACHE و بقیه). این Mapها
-// کلیدشون username هست و در طول عمر ایزوله فقط اضافه می‌شن مگه یه‌جا صریحاً پاک بشن؛ این تابع
-// دوره‌ای اون یوزرهایی که نه کانکشن فعال دارن نه ترافیک/ریکوئست کش‌شده، رو حذف می‌کنه.
-const GLOBAL_MAP_SWEEP_INTERVAL = 30 * 1000;
-let lastGlobalMapSweep = 0;
-function sweepGlobalTrafficMaps() {
+const jtnyqj4 = 2048;
+const a5g5pwf = new TextEncoder();
+const b1p8pcx = new TextDecoder();
+const m1fqgtq = new Set(["443", "2053", "2083", "2087", "2096", "8443"]);
+const j0z7nx7 = 300;
+let n7wooiz = 0;
+const qaq0llp = 30 * 1000;
+let caxaruo = 0;
+function wcjjpz0() {
 	const now = Date.now();
-	if (now - lastGlobalMapSweep < GLOBAL_MAP_SWEEP_INTERVAL) return;
-	lastGlobalMapSweep = now;
-	for (const uname of GLOBAL_LAST_ACTIVE_WRITE.keys()) {
-		const active = ACTIVE_CONNECTIONS_COUNT.get(uname) || 0;
+	if (now - caxaruo < qaq0llp) return;
+	caxaruo = now;
+	for (const uname of cchca6z.keys()) {
+		const active = a40qkal.get(uname) || 0;
 		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
 		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
-		const staleFor = now - (GLOBAL_LAST_ACTIVE_WRITE.get(uname) || 0);
-		if (active === 0 && cachedBytes === 0 && cachedReqs === 0 && staleFor > GLOBAL_MAP_SWEEP_INTERVAL) {
-			GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
-			GLOBAL_LAST_DB_WRITE.delete(uname);
-			GLOBAL_WRITE_LOCK.delete(uname);
-			ACTIVE_CONNECTIONS_COUNT.delete(uname);
+		const staleFor = now - (cchca6z.get(uname) || 0);
+		if (active === 0 && cachedBytes === 0 && cachedReqs === 0 && staleFor > qaq0llp) {
+			cchca6z.delete(uname);
+			gizzyby.delete(uname);
+			r2x0v6w.delete(uname);
+			a40qkal.delete(uname);
 			GLOBAL_TRAFFIC_CACHE.delete(uname);
 			USER_REQ_CACHE.delete(uname);
-			GLOBAL_ACTIVE_IPS.delete(uname);
-			GLOBAL_IP_WRITE_TS.delete(uname);
+			vcmirtr.delete(uname);
+			orfpjpg.delete(uname);
 		}
 	}
-	for (const [k, ts] of GLOBAL_HB_CHECK.entries()) {
-		if (now - ts > 600000) GLOBAL_HB_CHECK.delete(k);
+	for (const [k, ts] of gbd8v13.entries()) {
+		if (now - ts > 600000) gbd8v13.delete(k);
 	}
 }
-// ثبت/حذف آی‌پی کلاینت توی حافظه. untrackActiveIp تعداد کانکشن‌های باقی‌مونده‌ی همون آی‌پی رو برمی‌گردونه.
-function trackActiveIp(uname, ip) {
+function h0pqirm(uname, ip) {
 	if (!uname || !ip) return;
-	let m = GLOBAL_ACTIVE_IPS.get(uname);
-	if (!m) { m = new Map(); GLOBAL_ACTIVE_IPS.set(uname, m); }
+	let m = vcmirtr.get(uname);
+	if (!m) { m = new Map(); vcmirtr.set(uname, m); }
 	m.set(ip, (m.get(ip) || 0) + 1);
 }
-function untrackActiveIp(uname, ip) {
-	const m = GLOBAL_ACTIVE_IPS.get(uname);
+function eojgr6y(uname, ip) {
+	const m = vcmirtr.get(uname);
 	if (!m || !ip) return 0;
 	const left = (m.get(ip) || 0) - 1;
 	if (left <= 0) {
 		m.delete(ip);
-		if (m.size === 0) GLOBAL_ACTIVE_IPS.delete(uname);
-		GLOBAL_HB_CHECK.delete(uname + "_hb_" + ip);
+		if (m.size === 0) vcmirtr.delete(uname);
+		gbd8v13.delete(uname + "_hb_" + ip);
 		return 0;
 	}
 	m.set(ip, left);
 	return left;
 }
-// حذف آی‌پی از active_ips توی D1، با تأخیر ۸ ثانیه‌ای و فقط وقتی همون آی‌پی دیگه هیچ کانکشن زنده‌ای نداره.
-// یعنی به‌جای N بار SELECT+UPDATE (یه بار برای هر کانکشن)، حداکثر یه بار برای هر آی‌پی بعد از آروم شدن اوضاع.
-function scheduleIpRemoval(env, ctx, uname, uuid, ip) {
+function c85kz7x(env, ctx, uname, uuid, ip) {
 	if (!uname || !uuid || !ip || ip === "unknown") return;
 	const key = uname + "|" + ip;
-	if (PENDING_IP_REMOVALS.has(key)) return;
-	PENDING_IP_REMOVALS.add(key);
+	if (p6gwddb.has(key)) return;
+	p6gwddb.add(key);
 	const task = (async () => {
 		try {
 			await new Promise((r) => setTimeout(r, 8000));
-			const live = GLOBAL_ACTIVE_IPS.get(uname);
+			const live = vcmirtr.get(uname);
 			if (live && (live.get(ip) || 0) > 0) return;
 			const row = await env.DB.prepare("SELECT active_ips FROM users WHERE uuid = ?").bind(uuid).first();
 			if (!row) return;
@@ -183,21 +263,21 @@ function scheduleIpRemoval(env, ctx, uname, uuid, ip) {
 			delete activeIps[ip];
 			await env.DB.prepare("UPDATE users SET active_ips = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), uuid).run();
 		} catch (e) {
-			console.error("[scheduleIpRemoval] " + (e && e.message));
+			console.error("[c85kz7x] " + (e && e.message));
 		} finally {
-			PENDING_IP_REMOVALS.delete(key);
+			p6gwddb.delete(key);
 		}
 	})();
 	if (ctx) ctx.waitUntil(task);
 }
-function sha224Pure(message) {
-	function rotateRight(n, x) { return (x >>> n) | (x << (32 - n)); }
-	function choice(x, y, z) { return (x & y) ^ (~x & z); }
-	function majority(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); }
-	function sigma0(x) { return rotateRight(2, x) ^ rotateRight(13, x) ^ rotateRight(22, x); }
-	function sigma1(x) { return rotateRight(6, x) ^ rotateRight(11, x) ^ rotateRight(25, x); }
-	function gamma0(x) { return rotateRight(7, x) ^ rotateRight(18, x) ^ (x >>> 3); }
-	function gamma1(x) { return rotateRight(17, x) ^ rotateRight(19, x) ^ (x >>> 10); }
+function mzl8dv2(message) {
+	function x2wdx1j(n, x) { return (x >>> n) | (x << (32 - n)); }
+	function vlz8yee(x, y, z) { return (x & y) ^ (~x & z); }
+	function qdpb8oi(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); }
+	function hhgsaz1(x) { return x2wdx1j(2, x) ^ x2wdx1j(13, x) ^ x2wdx1j(22, x); }
+	function l68cqls(x) { return x2wdx1j(6, x) ^ x2wdx1j(11, x) ^ x2wdx1j(25, x); }
+	function inwzoyn(x) { return x2wdx1j(7, x) ^ x2wdx1j(18, x) ^ (x >>> 3); }
+	function gxwtoj0(x) { return x2wdx1j(17, x) ^ x2wdx1j(19, x) ^ (x >>> 10); }
 	const K = [
 		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -226,12 +306,12 @@ function sha224Pure(message) {
 			W[t] = view.getUint32(i + t * 4, false);
 		}
 		for (let t = 16; t < 64; t++) {
-			W[t] = (gamma1(W[t - 2]) + W[t - 7] + gamma0(W[t - 15]) + W[t - 16]) >>> 0;
+			W[t] = (gxwtoj0(W[t - 2]) + W[t - 7] + inwzoyn(W[t - 15]) + W[t - 16]) >>> 0;
 		}
 		let [a, b, c, d, e, f, g, h] = H;
 		for (let t = 0; t < 64; t++) {
-			const T1 = (h + sigma1(e) + choice(e, f, g) + K[t] + W[t]) >>> 0;
-			const T2 = (sigma0(a) + majority(a, b, c)) >>> 0;
+			const T1 = (h + l68cqls(e) + vlz8yee(e, f, g) + K[t] + W[t]) >>> 0;
+			const T2 = (hhgsaz1(a) + qdpb8oi(a, b, c)) >>> 0;
 			h = g;
 			g = f;
 			f = e;
@@ -252,21 +332,21 @@ function sha224Pure(message) {
 	}
 	return H.slice(0, 7).map(w => w.toString(16).padStart(8, '0')).join('');
 }
-function safeDecodeURI(value) {
+function x2xa3du(value) {
 	try {
 		return decodeURIComponent(value);
 	} catch (e) {
 		return value;
 	}
 }
-function getUserProtocols(user) {
+function le69yqs(user) {
 	const t = String((user && user.connection_type) || "vl" + "e" + "ss").toLowerCase();
 	const trojan = t.includes("trojan");
 	const ss = t.includes("shadowsocks");
 	const vless = t.includes("vl" + "e" + "ss") || (!trojan && !ss);
 	return { vless, trojan, ss };
 }
-function normalizeConnectionType(protocols, connectionType, fallback) {
+function dibojp4(protocols, connectionType, fallback) {
 	let list = [];
 	if (Array.isArray(protocols)) list = protocols;
 	else if (typeof connectionType === "string" && connectionType) list = connectionType.split(",");
@@ -278,8 +358,8 @@ function normalizeConnectionType(protocols, connectionType, fallback) {
 	}
 	return out.length > 0 ? out.join(",") : fallback;
 }
-const SS_MASTER_KEY_CACHE = new Map();
-const SSCrypto = {
+const cxr7ma0 = new Map();
+const bp4qnv1 = {
 	async evpBytesToKey(password, keyLen) {
 		const pass = new TextEncoder().encode(password);
 		const key = new Uint8Array(keyLen);
@@ -297,11 +377,11 @@ const SSCrypto = {
 		return key;
 	},
 	async getMasterKey(password) {
-		let mk = SS_MASTER_KEY_CACHE.get(password);
+		let mk = cxr7ma0.get(password);
 		if (!mk) {
 			mk = await this.evpBytesToKey(password, 32);
-			if (SS_MASTER_KEY_CACHE.size > 512) SS_MASTER_KEY_CACHE.clear();
-			SS_MASTER_KEY_CACHE.set(password, mk);
+			if (cxr7ma0.size > 512) cxr7ma0.clear();
+			cxr7ma0.set(password, mk);
 		}
 		return mk;
 	},
@@ -341,7 +421,7 @@ const SSCrypto = {
 		}
 	},
 };
-async function readJsonBody(request) {
+async function aphb6rr(request) {
 	try {
 		const body = await request.json();
 		return body && typeof body === "object" ? body : {};
@@ -349,10 +429,9 @@ async function readJsonBody(request) {
 		return {};
 	}
 }
-async function fetchWithFallback(path, options = {}) {
-	// لیست آی‌پی‌ها از مخزن جدید گرفته می‌شه؛ بقیه‌ی فایل‌ها مثل قبل
+async function xd6rvv1(path, options = {}) {
 	const isIpsList = path === "ips.txt";
-	const primaryUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
+	const primaryUrl = isIpsList ? "https://subs.alis1.ir/ip.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
 	const fallbackUrl = primaryUrl;
 	try {
 		const res = await fetch(primaryUrl, options);
@@ -360,65 +439,65 @@ async function fetchWithFallback(path, options = {}) {
 	} catch (e) {}
 	return await fetch(fallbackUrl, options);
 }
-async function fetchWithFallbackVIP(path, options = {}) {
-	const primaryUrl = `https://hoplimit.shop/${path}`;
-	const fallbackUrl = `https://raw.githubusercontent.com/panel-zeus/Z-E-U-S/main/${path}`;
+async function ert3ro2(path, options = {}) {
+	const primaryUrl = `https://subs.alis1.ir/vipprox.txt`;
+	const fallbackUrl = `https://subs.alis1.ir/vipprox.txt`;
 	try {
 		const res = await fetch(primaryUrl, options);
 		if (res.ok) return res;
 	} catch (e) {}
 	return await fetch(fallbackUrl, options);
 }
-let localLastAutoResetCheck = 0;
-async function checkAutoResets(env, ctx) {
+let brwcxvi = 0;
+async function e6bb3cy(env, ctx) {
 	const now = Date.now();
-	if (now - localLastAutoResetCheck < 3600000) return;
+	if (now - brwcxvi < 3600000) return;
 	try {
 		const cache = caches.default;
-		const cacheReq = new Request("https://internal.zeus/auto_reset");
+		const cacheReq = new Request("https://int.cache.local/auto_reset");
 		if (await cache.match(cacheReq)) return;
 		const row = await env.DB.prepare("SELECT value FROM settings WHERE key = 'last_auto_reset_check'").first();
 		const dbLastCheck = row ? parseInt(row.value) || 0 : 0;
 		if (now - dbLastCheck < 3600000) {
-			localLastAutoResetCheck = dbLastCheck;
+			brwcxvi = dbLastCheck;
 			const ttl = Math.floor((3600000 - (now - dbLastCheck)) / 1000);
 			if (ttl > 0 && ctx) ctx.waitUntil(cache.put(cacheReq, new Response("1", { headers: { "Cache-Control": `max-age=${ttl}` } })));
 			return;
 		}
 		await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('last_auto_reset_check', ?)").bind(String(now)).run();
-		localLastAutoResetCheck = now;
+		brwcxvi = now;
 		if (ctx) ctx.waitUntil(cache.put(cacheReq, new Response("1", { headers: { "Cache-Control": "max-age=3600" } })));
 		const todayUtc = Math.floor(now / 86400000) * 86400000;
 		await env.DB.prepare(`UPDATE users SET used_gb = 0, is_active = 1, last_reset_vol_time = ? WHERE auto_reset_vol_days > 0 AND ? >= (last_reset_vol_time + (auto_reset_vol_days * 86400000))`).bind(todayUtc, todayUtc).run();
 		await env.DB.prepare(`UPDATE users SET used_req = 0, is_active = 1, last_reset_req_time = ? WHERE auto_reset_req_days > 0 AND ? >= (last_reset_req_time + (auto_reset_req_days * 86400000))`).bind(todayUtc, todayUtc).run();
 	} catch (e) {}
 }
-let localLastIpRotateCheck = 0;
-async function checkAutoRotates(env, ctx) {
+let m58hoyq = 0;
+async function e31njoi(env, ctx) {
 	const now = Date.now();
-	if (now - localLastIpRotateCheck < 60000) return;
+	if (now - m58hoyq < 60000) return;
 	try {
 		const cache = caches.default;
-		const cacheReq = new Request("https://internal.zeus/auto_rotate");
+		const cacheReq = new Request("https://int.cache.local/auto_rotate");
 		if (await cache.match(cacheReq)) return;
 		const row = await env.DB.prepare("SELECT value FROM settings WHERE key = 'last_ip_rotate_check'").first();
 		const dbLastCheck = row ? parseInt(row.value) || 0 : 0;
 		if (now - dbLastCheck < 60000) {
-			localLastIpRotateCheck = dbLastCheck;
+			m58hoyq = dbLastCheck;
 			const ttl = Math.floor((60000 - (now - dbLastCheck)) / 1000);
 			if (ttl > 0 && ctx) ctx.waitUntil(cache.put(cacheReq, new Response("1", { headers: { "Cache-Control": `max-age=${ttl}` } })));
 			return;
 		}
 		await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('last_ip_rotate_check', ?)").bind(String(now)).run();
-		localLastIpRotateCheck = now;
+		m58hoyq = now;
 		if (ctx) ctx.waitUntil(cache.put(cacheReq, new Response("1", { headers: { "Cache-Control": "max-age=60" } })));
 		const { results: usersToRotate } = await env.DB.prepare("SELECT * FROM users WHERE auto_rotate_ip = 1 AND ? >= (last_rotate_time + (rotate_time * 60000))").bind(now).all();
 		if (!usersToRotate || usersToRotate.length === 0) return;
-		const res = await fetchWithFallback("ips.txt");
+		const res = await xd6rvv1("ips.txt");
 		if (!res.ok) return;
 		const text = await res.text();
 		const blocks = text.split("----------");
-		let cachedIpsData = {};
+		let l76xmsu = {};
 		blocks.forEach((block) => {
 			const lines = block
 				.trim()
@@ -432,15 +511,15 @@ async function checkAutoRotates(env, ctx) {
 				if (line.includes("#")) opName = line.split("#")[1].trim();
 				else if (!line.startsWith("[source")) ips.push(line);
 			});
-			if (ips.length > 0) cachedIpsData[opName] = ips;
+			if (ips.length > 0) l76xmsu[opName] = ips;
 		});
 		const stmts = [];
 		for (const u of usersToRotate) {
 			let availableIps = [];
 			if (u.ip_operator === "all") {
-				Object.values(cachedIpsData).forEach((ips) => (availableIps = availableIps.concat(ips)));
+				Object.values(l76xmsu).forEach((ips) => (availableIps = availableIps.concat(ips)));
 			} else {
-				availableIps = cachedIpsData[u.ip_operator] || [];
+				availableIps = l76xmsu[u.ip_operator] || [];
 			}
 			availableIps = [...new Set(availableIps)];
 			let count = u.ip_count || 20;
@@ -467,15 +546,14 @@ async function checkAutoRotates(env, ctx) {
 		}
 	} catch (e) {}
 }
-let cachedVipCountries = [];
-let lastVipCountriesFetch = 0;
-async function replaceBrokenProxy(username, env, oldProxy) {
+
+async function d8fsytq(username, env, oldProxy) {
 	try {
-		if (GLOBAL_WRITE_LOCK.get(username + "_proxy_rotate")) return;
-		GLOBAL_WRITE_LOCK.set(username + "_proxy_rotate", true);
+		if (r2x0v6w.get(username + "_proxy_rotate")) return;
+		r2x0v6w.set(username + "_proxy_rotate", true);
 		const user = await env.DB.prepare("SELECT id, user_socks5, auto_rotate_user_proxy FROM users WHERE username = ?").bind(username).first();
 		if (!user || user.auto_rotate_user_proxy !== 1 || !user.user_socks5) {
-			GLOBAL_WRITE_LOCK.delete(username + "_proxy_rotate");
+			r2x0v6w.delete(username + "_proxy_rotate");
 			return;
 		}
 		let proxyList = [];
@@ -499,13 +577,13 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 			}
 		}
 		if (matchIndex === -1) {
-			GLOBAL_WRITE_LOCK.delete(username + "_proxy_rotate");
+			r2x0v6w.delete(username + "_proxy_rotate");
 			return;
 		}
 		let countryCode = typeof proxyList[matchIndex] === "object" && proxyList[matchIndex] !== null && proxyList[matchIndex].country ? proxyList[matchIndex].country : "all";
 		try {
 			const payload = new TextEncoder().encode("GET /json/?fields=countryCode HTTP/1.1\r\nHost: ip-api.com\r\nConnection: close\r\n\r\n");
-			const s = await connectProxy(oldProxy, "ip-api.com", 80, payload);
+			const s = await zbxph7j(oldProxy, "ip-api.com", 80, payload);
 			const reader = s.readable.getReader();
 			let resStr = "";
 			const dec = new TextDecoder();
@@ -545,31 +623,7 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 		const upperCountry = countryCode.toUpperCase();
 		const sources = [];
 		const isOldProxyVIP = oldProxy.includes("@");
-		if (cachedVipCountries.length === 0 || Date.now() - lastVipCountriesFetch > 3600000) {
-			try {
-				const ghRes = await fetchWithFallbackVIP("vip-list", {
-					headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
-				});
-				if (ghRes.ok) {
-					const files = await ghRes.json();
-					cachedVipCountries = files.filter((f) => f.name.endsWith(".txt")).map((f) => f.name.replace(".txt", "").toUpperCase());
-					lastVipCountriesFetch = Date.now();
-				}
-			} catch (e) {}
-		}
-		let fallbackVIPs = cachedVipCountries.length > 0 ? [...cachedVipCountries] : ["DE", "US", "GB", "NL", "FR", "TR"];
-		for (let i = fallbackVIPs.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[fallbackVIPs[i], fallbackVIPs[j]] = [fallbackVIPs[j], fallbackVIPs[i]];
-		}
-		if (upperCountry !== "ALL" && upperCountry !== "UN") {
-			sources.push({ url: `proxy_vip/${upperCountry}.txt`, type: "repo" });
-		}
-		for (const fc of fallbackVIPs) {
-			if (fc !== upperCountry) {
-				sources.push({ url: `proxy_vip/${fc}.txt`, type: "repo" });
-			}
-		}
+		sources.push({ url: `proxy_vip/all`, type: "repo" });
 		if (!isOldProxyVIP) {
 			if (upperCountry !== "ALL" && upperCountry !== "UN") {
 				sources.push({ url: `proxy/${upperCountry}.txt`, type: "repo" });
@@ -578,7 +632,7 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 		}
 		for (const src of sources) {
 			try {
-				const res = src.url.startsWith("proxy_vip/") ? await fetchWithFallbackVIP(src.url) : await fetchWithFallback(src.url);
+				const res = src.url.startsWith("proxy_vip/") ? await ert3ro2(src.url) : await xd6rvv1(src.url);
 				if (!res.ok) continue;
 				const text = await res.text();
 				const lines = text
@@ -610,8 +664,8 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 										reject(new Error("timeout"));
 									}, 3000);
 									try {
-										const payload = TEXT_ENCODER.encode("GET / HTTP/1.1\r\nHost: 1.1.1.1\r\nConnection: close\r\n\r\n");
-										sock = await connectProxy(p, "1.1.1.1", 80, payload);
+										const payload = a5g5pwf.encode("GET / HTTP/1.1\r\nHost: 1.1.1.1\r\nConnection: close\r\n\r\n");
+										sock = await zbxph7j(p, "1.1.1.1", 80, payload);
 										const reader = sock.readable.getReader();
 										const res = await reader.read();
 										clearTimeout(timeoutId);
@@ -653,60 +707,115 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 		}
 	} catch (e) {
 	} finally {
-		GLOBAL_WRITE_LOCK.delete(username + "_proxy_rotate");
+		r2x0v6w.delete(username + "_proxy_rotate");
 	}
+}
+// ===== Startup hold: until the timer ends, EVERYTHING returns only the solar-system page =====
+// Hold length is fixed at 2 min per BUILD_ID, stored in DB so all isolates agree.
+// To restart the timer on a new deploy, change BUILD_ID to any new value.
+const BUILD_ID = "build-3";
+const HOLD_MIN_MS = 2 * 60 * 1000;
+const HOLD_MAX_MS = 2 * 60 * 1000;
+const HOLD_RETRY_MS = 30 * 1000;
+let __holdCache = null;
+let __holdDone = false;
+async function loadHold(env) {
+	await env.DB.prepare("CREATE TABLE IF NOT EXISTS boot_gate (id TEXT PRIMARY KEY, started_at INTEGER)").run();
+	const rnd = HOLD_MIN_MS + Math.floor(Math.random() * (HOLD_MAX_MS - HOLD_MIN_MS + 1));
+	const res = await env.DB.batch([
+		env.DB.prepare("INSERT OR IGNORE INTO boot_gate (id, started_at) VALUES (?, ?)").bind(BUILD_ID, Date.now()),
+		env.DB.prepare("INSERT OR IGNORE INTO boot_gate (id, started_at) VALUES (?, ?)").bind(BUILD_ID + ":len", rnd),
+		env.DB.prepare("SELECT id, started_at FROM boot_gate WHERE id IN (?, ?)").bind(BUILD_ID, BUILD_ID + ":len"),
+	]);
+	const rows = (res && res[2] && res[2].results) || [];
+	let start = 0, len = 0;
+	for (const r of rows) {
+		if (r.id === BUILD_ID) start = Number(r.started_at);
+		else if (r.id === BUILD_ID + ":len") len = Number(r.started_at);
+	}
+	if (!(start > 0) || !(len > 0)) throw new Error("boot_gate unreadable");
+	return { start: start, hold: Math.min(HOLD_MAX_MS, Math.max(HOLD_MIN_MS, len)) };
+}
+// Returns null when the hold is over, otherwise {start, hold}. Fails CLOSED: if the DB
+// can't be read, the hold page is served (and nothing is cached) until it can.
+async function holdActive(env) {
+	if (__holdDone) return null;
+	if (!__holdCache) {
+		try {
+			if (!env || !env.DB) throw new Error("no DB");
+			__holdCache = await loadHold(env);
+		} catch (e) {
+			return { start: Date.now(), hold: HOLD_RETRY_MS };
+		}
+	}
+	if (Date.now() - __holdCache.start >= __holdCache.hold) {
+		__holdDone = true;
+		return null;
+	}
+	return __holdCache;
+}
+function solarHoldPage(h) {
+	const inject = "<script>window.__HOLD=" + JSON.stringify({ start: h.start, hold: h.hold, now: Date.now() }) + ";</script>";
+	return new Response(getSolar().replace("</head>", inject + "</head>"), {
+		headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" },
+	});
 }
 export default {
 	async fetch(request, env, ctx) {
+		const __hs = await holdActive(env);
+		if (__hs) return solarHoldPage(__hs);
 		if (!env.DB) {
 			return new Response("Database binding 'DB' is missing. In Cloudflare Pages go to Settings > Bindings > add D1 database with variable name DB, then redeploy.", { status: 500 });
 		}
 		try {
 			try {
-				await DbService.ensureSchema(env.DB);
+				await gm37elm.ensureSchema(env.DB);
 			} catch (e) {}
-			trackRequest(env, ctx);
-			sweepGlobalTrafficMaps();
-			if (schemaEnsured) {
-				ctx.waitUntil(checkAutoResets(env, ctx));
-				ctx.waitUntil(checkAutoRotates(env, ctx));
+			xn0iw7z(env, ctx);
+			wcjjpz0();
+			if (ogjh4tu) {
+				ctx.waitUntil(e6bb3cy(env, ctx));
+				ctx.waitUntil(e31njoi(env, ctx));
 			}
 			const url = new URL(request.url);
-			if (Router.isWebSocketUpgrade(request)) {
-				return await Router.handleWebSocket(request, env, ctx);
+			if (cggc6tw.isWebSocketUpgrade(request)) {
+				return await cggc6tw.handleWebSocket(request, env, ctx);
 			}
-			if (Router.isSubscriptionPath(url.pathname)) {
-				return await Router.handleSubscription(url, env);
+			if (cggc6tw.isSubscriptionPath(url.pathname)) {
+				return await cggc6tw.handleSubscription(url, env);
 			}
 			if (url.pathname === "/icon.svg" || url.pathname === "/favicon.ico" || url.pathname === "/icon.png" || url.pathname === "/apple-touch-icon.png") {
-				return new Response(ZEUS_ICON_SVG, {
+				return new Response(yg6opgi, {
 					headers: { "Content-Type": "image/svg+xml; charset=utf-8", "Cache-Control": "public, max-age=604800, immutable" },
 				});
 			}
 			if (url.pathname === "/manifest.json") {
-				return new Response(PWA_MANIFEST, {
+				return new Response(vrnrz32, {
 					headers: { "Content-Type": "application/manifest+json; charset=utf-8", "Cache-Control": "public, max-age=86400" },
 				});
 			}
 			if (url.pathname === "/sw.js") {
-				return new Response(PWA_SERVICE_WORKER, {
+				return new Response(w8wy2kr, {
 					headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-cache" },
 				});
 			}
+			if (url.pathname === "/robots.txt") {
+				return new Response("User-agent: *\nDisallow: /", { headers: { "Content-Type": "text/plain; charset=UTF-8" } });
+			}
 			if (url.pathname === "/locations") {
-				return await Router.handleLocations();
+				return await cggc6tw.handleLocations();
 			}
 			if (url.pathname.startsWith("/api/")) {
-				return await Router.handleApi(request, url, env, ctx);
+				return await cggc6tw.handleApi(request, url, env, ctx);
 			}
-			if (url.pathname === "/panel" || url.pathname === "/login") {
-				return await Router.handlePanel(request, env);
+			if (url.pathname === "/adminas" || url.pathname === "/adminaslogin") {
+				return await cggc6tw.handlePanel(request, env);
 			}
 			if (url.pathname.startsWith("/status/")) {
-				return await Router.handleUserStatus(url, env);
+				return await cggc6tw.handleUserStatus(url, env);
 			}
-			return new Response(HTML_TEMPLATES.nginx, {
-				headers: { "Content-Type": "text/html; charset=utf-8" },
+			return new Response(getSolar(), {
+				headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=3600" },
 			});
 		} catch (err) {
 			return new Response("Internal Server Error", { status: 500 });
@@ -716,7 +825,7 @@ export default {
 /*
 [1.
 */
-const Router = {
+const cggc6tw = {
 	isWebSocketUpgrade(request) {
 		const upgradeHeader = (request.headers.get("Upgrade") || "").toLowerCase();
 		return upgradeHeader === "websocket";
@@ -742,16 +851,16 @@ const Router = {
 			let proxyIP = "";
 			try {
 				const nowPx = Date.now();
-				if (nowPx - PROXY_IP_CACHE.t < 20000) {
-					proxyIP = PROXY_IP_CACHE.v;
+				if (nowPx - qb7ahff.t < 20000) {
+					proxyIP = qb7ahff.v;
 				} else {
 					const proxyRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'proxy_ip'").first();
 					proxyIP = proxyRow && proxyRow.value ? proxyRow.value : "";
-					PROXY_IP_CACHE = { t: nowPx, v: proxyIP, p: null };
+					qb7ahff = { t: nowPx, v: proxyIP, p: null };
 				}
 			} catch (e) {}
 			const storedData = { proxy_ip: proxyIP };
-			return handlevIees(env, storedData, ctx, request);
+			return bvj1iaf(env, storedData, ctx, request);
 		} catch (e) {
 			return new Response("Internal Server Error", { status: 500 });
 		}
@@ -760,7 +869,7 @@ const Router = {
 		const isSingbox = url.pathname.startsWith("/singbox/");
 		const isSubPath = url.pathname.startsWith("/sub/");
 		const offset = isSingbox ? 9 : isSubPath ? 5 : 6;
-		let subUser = safeDecodeURI(url.pathname.slice(offset));
+		let subUser = x2xa3du(url.pathname.slice(offset));
 		const host = url.hostname;
 		try {
 			const user = await env.DB.prepare("SELECT * FROM users WHERE username = ? COLLATE NOCASE OR uuid = ?").bind(subUser, subUser).first();
@@ -771,7 +880,7 @@ const Router = {
 				await env.DB.prepare("UPDATE users SET used_req = used_req + 1 WHERE username = ?").bind(user.username).run();
 			} catch (e) {}
 			if (isSingbox) {
-				return await SubscriptionService.generateSingbox(user, host);
+				return await kvkt6ve.generateSingbox(user, host);
 			}
 			let globalIata = "";
 			let showInfoConfigs = false;
@@ -782,25 +891,25 @@ const Router = {
 					if (r.key === "sub_info_configs") showInfoConfigs = r.value === "1";
 				}
 			} catch (e) {}
-			return await SubscriptionService.generateText(user, host, globalIata, showInfoConfigs);
+			return await kvkt6ve.generateText(user, host, globalIata, showInfoConfigs);
 		} catch (err) {
 			return new Response("Error building config: " + err.message, { status: 500 });
 		}
 	},
 	async handlePanel(request, env) {
-		const hasPassword = await DbService.getPanelPassword(env.DB);
+		const hasPassword = await gm37elm.getPanelPassword(env.DB);
 		if (!hasPassword) {
-			return new Response(HTML_TEMPLATES.setup, {
+			return new Response(wa42j92.setup, {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
 		}
-		const authorized = await DbService.verifyApiAuth(request, env);
+		const authorized = await gm37elm.verifyApiAuth(request, env);
 		if (!authorized) {
-			return new Response(HTML_TEMPLATES.login, {
+			return new Response(wa42j92.login, {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
 		}
-		return new Response(HTML_TEMPLATES.panel, {
+		return new Response(wa42j92.panel, {
 			headers: {
 				"Content-Type": "text/html; charset=utf-8",
 				"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
@@ -810,7 +919,7 @@ const Router = {
 		});
 	},
 	async handleUserStatus(url, env) {
-		const username = safeDecodeURI(url.pathname.slice(8));
+		const username = x2xa3du(url.pathname.slice(8));
 		if (!username) {
 			return new Response("Username is required", { status: 400 });
 		}
@@ -837,7 +946,7 @@ const Router = {
 				limit_req: user.limit_req,
 				used_req: (user.used_req || 0) + (USER_REQ_CACHE.get(user.username) || 0),
 				is_active: user.is_active,
-				online_count: Math.max((GLOBAL_ACTIVE_IPS.get(user.username) || new Map()).size, getActiveIpCount(user.active_ips)),
+				online_count: Math.max((vcmirtr.get(user.username) || new Map()).size, hrktmlk(user.active_ips)),
 				ip_limit: user.ip_limit,
 				created_at: user.created_at,
 				tls: user.tls,
@@ -851,7 +960,7 @@ const Router = {
 				info_configs: statusInfoConfigs,
 				connection_type: user.connection_type,
 			});
-			const html = HTML_TEMPLATES.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
+			const html = wa42j92.status.replace("/* {{USER_DATA_PLACEHOLDER}} */", `window.statusUser = ${userJson};`);
 			return new Response(html, {
 				headers: { "Content-Type": "text/html; charset=utf-8" },
 			});
@@ -860,8 +969,8 @@ const Router = {
 		}
 	},
 	async handleApi(request, url, env, ctx) {
-		if (request.method !== "GET" && request.method !== "HEAD") invalidateHotCaches();
-		const hasPassword = await DbService.getPanelPassword(env.DB);
+		if (request.method !== "GET" && request.method !== "HEAD") bbkao4k();
+		const hasPassword = await gm37elm.getPanelPassword(env.DB);
 		if (url.pathname === "/api/setup-password" && request.method === "POST") {
 			if (hasPassword) {
 				return new Response(JSON.stringify({ error: "رمز عبور از قبل تعریف شده است" }), {
@@ -869,7 +978,7 @@ const Router = {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
 			}
-			const { password } = await readJsonBody(request);
+			const { password } = await aphb6rr(request);
 			const cleanPassword = (password || "").trim();
 			if (!cleanPassword || cleanPassword.length < 4) {
 				return new Response(JSON.stringify({ error: "رمز عبور باید حداقل ۴ کاراکتر باشد" }), {
@@ -877,25 +986,25 @@ const Router = {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
 			}
-			const hashed = await DbService.sha256(cleanPassword);
-			await DbService.setPanelPassword(env.DB, hashed);
-			LOGIN_ATTEMPTS.clear();
+			const hashed = await gm37elm.sha256(cleanPassword);
+			await gm37elm.setPanelPassword(env.DB, hashed);
+			tp0s2fk.clear();
 			return new Response(JSON.stringify({ success: true }), {
 				headers: {
 					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "panel_session=" + hashed + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+					"Set-Cookie": "sx_tok=" + hashed + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
 				},
 			});
 		}
 		if (url.pathname === "/api/login" && request.method === "POST") {
 			const clientIP = request.headers.get("CF-Connecting-IP") || "unknown";
 			const now = Date.now();
-			if (LOGIN_ATTEMPTS.size > 256) {
-				for (const [ip, rec] of LOGIN_ATTEMPTS) {
-					if (now - rec.lastAttempt > 900000) LOGIN_ATTEMPTS.delete(ip);
+			if (tp0s2fk.size > 256) {
+				for (const [ip, rec] of tp0s2fk) {
+					if (now - rec.lastAttempt > 900000) tp0s2fk.delete(ip);
 				}
 			}
-			const attemptRecord = LOGIN_ATTEMPTS.get(clientIP) || { count: 0, lastAttempt: 0 };
+			const attemptRecord = tp0s2fk.get(clientIP) || { count: 0, lastAttempt: 0 };
 			if (attemptRecord.count >= 15 && now - attemptRecord.lastAttempt < 900000) {
 				const remaining = Math.ceil((900000 - (now - attemptRecord.lastAttempt)) / 60000);
 				return new Response(JSON.stringify({ error: `دسترسی شما مسدود شد. لطفاً ${remaining} دقیقه دیگر تلاش کنید.` }), {
@@ -903,32 +1012,32 @@ const Router = {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
 			}
-			const { password } = await readJsonBody(request);
+			const { password } = await aphb6rr(request);
 			const cleanPassword = (password || "").trim();
-			const hashedInput = await DbService.sha256(cleanPassword);
-			const storedHash = await DbService.getPanelPassword(env.DB, true);
+			const hashedInput = await gm37elm.sha256(cleanPassword);
+			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
 			let isValid = false;
 			if (storedHash === hashedInput) {
 				isValid = true;
 			} else {
-				const oldHashedInput = await DbService.oldSha256(cleanPassword);
+				const oldHashedInput = await gm37elm.oldSha256(cleanPassword);
 				if (storedHash === oldHashedInput) {
 					isValid = true;
-					await DbService.setPanelPassword(env.DB, hashedInput);
+					await gm37elm.setPanelPassword(env.DB, hashedInput);
 				}
 			}
 			if (isValid) {
-				LOGIN_ATTEMPTS.delete(clientIP);
+				tp0s2fk.delete(clientIP);
 				return new Response(JSON.stringify({ success: true }), {
 					headers: {
 						"Content-Type": "application/json; charset=utf-8",
-						"Set-Cookie": "panel_session=" + hashedInput + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+						"Set-Cookie": "sx_tok=" + hashedInput + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
 					},
 				});
 			} else {
 				attemptRecord.count = now - attemptRecord.lastAttempt > 900000 ? 1 : attemptRecord.count + 1;
 				attemptRecord.lastAttempt = now;
-				LOGIN_ATTEMPTS.set(clientIP, attemptRecord);
+				tp0s2fk.set(clientIP, attemptRecord);
 				return new Response(JSON.stringify({ error: `رمز عبور اشتباه است (تلاش‌های باقی‌مانده: ${15 - attemptRecord.count})` }), {
 					status: 401,
 					headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -939,12 +1048,12 @@ const Router = {
 			return new Response(JSON.stringify({ success: true }), {
 				headers: {
 					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "panel_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
+					"Set-Cookie": "sx_tok=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
 				},
 			});
 		}
 		if (url.pathname === "/api/recover" && request.method === "POST") {
-			const { api_token } = await readJsonBody(request);
+			const { api_token } = await aphb6rr(request);
 			if (!api_token) {
 				return new Response(JSON.stringify({ error: "Token is required" }), {
 					status: 400,
@@ -1023,8 +1132,8 @@ const Router = {
 					});
 				}
 				await env.DB.prepare("DELETE FROM settings WHERE key = 'panel_password'").run();
-				cachedPanelPassword = null;
-				LOGIN_ATTEMPTS.clear();
+				qwlc8qb = null;
+				tp0s2fk.clear();
 				return new Response(JSON.stringify({ success: true }), {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
@@ -1035,7 +1144,7 @@ const Router = {
 				});
 			}
 		}
-		const authorized = await DbService.verifyApiAuth(request, env);
+		const authorized = await gm37elm.verifyApiAuth(request, env);
 		if (!authorized && url.pathname !== "/api/test-proxy") {
 			return new Response(JSON.stringify({ error: "Unauthorized" }), {
 				status: 401,
@@ -1043,7 +1152,7 @@ const Router = {
 			});
 		}
 		if (url.pathname === "/api/auto-update-setup" && request.method === "POST") {
-			const body = await readJsonBody(request);
+			const body = await aphb6rr(request);
 			if (body.action === "check") {
 				const dbTokenRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'cf_token'").first();
 				const hasToken = !!env.CF_API_TOKEN || !!(dbTokenRow && dbTokenRow.value);
@@ -1078,15 +1187,15 @@ const Router = {
 		if (url.pathname === "/api/restart-core" && request.method === "POST") {
 			try {
 				GLOBAL_TRAFFIC_CACHE.clear();
-				ACTIVE_CONNECTIONS_COUNT.clear();
-				GLOBAL_LAST_ACTIVE_WRITE.clear();
-				GLOBAL_LAST_DB_WRITE.clear();
-				GLOBAL_WRITE_LOCK.clear();
-				DNS_CACHE.clear();
+				a40qkal.clear();
+				cchca6z.clear();
+				gizzyby.clear();
+				r2x0v6w.clear();
+				obx6yh7.clear();
 				USER_REQ_CACHE.clear();
-				GLOBAL_ACTIVE_IPS.clear();
-				GLOBAL_HB_CHECK.clear();
-				GLOBAL_IP_WRITE_TS.clear();
+				vcmirtr.clear();
+				gbd8v13.clear();
+				orfpjpg.clear();
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 			} catch (err) {
 				return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Content-Type": "application/json" } });
@@ -1103,7 +1212,7 @@ const Router = {
 			try {
 				const cfHeaders = {
 					Authorization: "Bearer " + currentToken,
-					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ZeusPanel/1.0",
+					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
 				};
 				if (!currentAccountId) {
 					const accRes = await fetch("https://api.cloudflare.com/client/v4/accounts", { headers: cfHeaders });
@@ -1112,7 +1221,7 @@ const Router = {
 					if (!accData.success || !accData.result || accData.result.length === 0) throw new Error("توکن نامعتبر است یا اکانتی یافت نشد.");
 					currentAccountId = accData.result[0].id;
 				}
-				const githubRes = await fetchWithFallback("thisone.js?t=" + Date.now(), {
+				const githubRes = await xd6rvv1("thisone.js?t=" + Date.now(), {
 					headers: {
 						"User-Agent": "Mozilla/5.0",
 						"Cache-Control": "no-cache",
@@ -1134,11 +1243,11 @@ const Router = {
 				});
 				if (!deployRes.ok) {
 					const errText = await deployRes.text().catch(() => "");
-					throw new Error("خطای کلودفلر هنگام دیپلوی Pages (" + deployRes.status + "): " + errText.substring(0, 150));
+					throw new Error("Pages deploy error (" + deployRes.status + "): " + errText.substring(0, 150));
 				}
 				const deployData = await deployRes.json().catch(() => ({}));
 				if (!deployData.success) {
-					const cfError = deployData.errors && deployData.errors.length > 0 ? deployData.errors[0].message : "خطا در اعمال آپدیت.";
+					const cfError = deployData.errors && deployData.errors.length > 0 ? deployData.errors[0].message : "Update failed.";
 					throw new Error(cfError);
 				}
 				return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
@@ -1147,7 +1256,7 @@ const Router = {
 			}
 		}
 		if (url.pathname === "/api/change-password" && request.method === "POST") {
-			const { current_password, new_password } = await readJsonBody(request);
+			const { current_password, new_password } = await aphb6rr(request);
 			const cleanCurrent = (current_password || "").trim();
 			const cleanNew = (new_password || "").trim();
 			if (!cleanCurrent || !cleanNew) {
@@ -1156,9 +1265,9 @@ const Router = {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
 			}
-			const currentHash = await DbService.sha256(cleanCurrent);
-			const oldCurrentHash = await DbService.oldSha256(cleanCurrent);
-			const storedHash = await DbService.getPanelPassword(env.DB, true);
+			const currentHash = await gm37elm.sha256(cleanCurrent);
+			const oldCurrentHash = await gm37elm.oldSha256(cleanCurrent);
+			const storedHash = await gm37elm.getPanelPassword(env.DB, true);
 			if (storedHash && storedHash !== currentHash && storedHash !== oldCurrentHash) {
 				return new Response(JSON.stringify({ error: "رمز عبور فعلی اشتباه است" }), {
 					status: 401,
@@ -1171,12 +1280,12 @@ const Router = {
 					headers: { "Content-Type": "application/json; charset=utf-8" },
 				});
 			}
-			const newHash = await DbService.sha256(cleanNew);
-			await DbService.setPanelPassword(env.DB, newHash);
+			const newHash = await gm37elm.sha256(cleanNew);
+			await gm37elm.setPanelPassword(env.DB, newHash);
 			return new Response(JSON.stringify({ success: true }), {
 				headers: {
 					"Content-Type": "application/json; charset=utf-8",
-					"Set-Cookie": "panel_session=" + newHash + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
+					"Set-Cookie": "sx_tok=" + newHash + "; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000",
 				},
 			});
 		}
@@ -1196,7 +1305,7 @@ const Router = {
 				}
 			}
 			if (request.method === "POST") {
-				const body = await readJsonBody(request);
+				const body = await aphb6rr(request);
 				if (body.settings && typeof body.settings === "object") {
 					for (const [k, v] of Object.entries(body.settings)) {
 						await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)").bind(k, String(v)).run();
@@ -1206,7 +1315,7 @@ const Router = {
 			}
 		}
 		if (url.pathname === "/api/bulk-advanced" && request.method === "POST") {
-			const b = await readJsonBody(request);
+			const b = await aphb6rr(request);
 			const sets = [];
 			const vals = [];
 			for (const f of ["advanced_frag", "cipher_suites", "tls_mask", "ech_config"]) {
@@ -1229,14 +1338,13 @@ const Router = {
 			if (sets.length) await env.DB.prepare("UPDATE users SET " + sets.join(", ")).bind(...vals).run();
 			if (b.patterniha !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', ?)").bind(b.patterniha ? "1" : "0").run();
 			if (b.patterniha_ech !== undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', ?)").bind(b.patterniha_ech ? "1" : "0").run();
-			// دو حالت همزمان فعال نیستن: روشن‌شدن هرکدوم، اون یکی رو خاموش می‌کنه
 			if (b.patterniha === true && b.patterniha_ech === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', '0')").run();
 			if (b.patterniha_ech === true && b.patterniha === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', '0')").run();
 			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
-				const { proxy_ip, iata, socks5, country, info_configs, ech_sni, ech_doh, ech_doh_preset, ech_api } = await readJsonBody(request);
+				const { proxy_ip, iata, socks5, country, info_configs, ech_sni, ech_doh, ech_doh_preset, ech_api } = await aphb6rr(request);
 				{
 					const bad = (m) => new Response(JSON.stringify({ error: m }), { status: 400, headers: { "Content-Type": "application/json" } });
 					if (ech_sni !== undefined && !/^[A-Za-z0-9]([A-Za-z0-9.-]{0,251}[A-Za-z0-9])?$/.test(String(ech_sni))) return bad("ECH SNI نامعتبر است");
@@ -1286,7 +1394,7 @@ const Router = {
 			}
 		}
 		if (url.pathname === "/api/test-proxy" && request.method === "POST") {
-			const { proxy, skip_country } = await readJsonBody(request);
+			const { proxy, skip_country } = await aphb6rr(request);
 			if (!proxy) return new Response(JSON.stringify({ error: "پـروکـسـی وارد نشده است" }), { status: 400, headers: { "Content-Type": "application/json" } });
 			if (proxy === "direct") {
 				const startT = Date.now();
@@ -1322,7 +1430,7 @@ const Router = {
 				let targetHost = skip_country ? "1.1.1.1" : "ip-api.com";
 				let reqPath = skip_country ? "/" : "/json/?fields=countryCode";
 				const payload = new TextEncoder().encode("GET " + reqPath + " HTTP/1.1\r\nHost: " + targetHost + "\r\nConnection: close\r\n\r\n");
-				const s = await connectProxy(proxy, targetHost, 80, payload);
+				const s = await zbxph7j(proxy, targetHost, 80, payload);
 				const reader = s.readable.getReader();
 				let resStr = "";
 				const dec = new TextDecoder();
@@ -1379,9 +1487,9 @@ const Router = {
 			const pathParts = url.pathname.split("/");
 			const isUserAction = pathParts.length > 3;
 			if (isUserAction) {
-				const username = safeDecodeURI(pathParts.pop());
+				const username = x2xa3du(pathParts.pop());
 				if (request.method === "PUT") {
-					const body = await readJsonBody(request);
+					const body = await aphb6rr(request);
 					if (Object.keys(body).length === 0) {
 						return new Response(JSON.stringify({ error: "Invalid request body" }), { status: 400, headers: { "Content-Type": "application/json" } });
 					}
@@ -1417,19 +1525,19 @@ const Router = {
 								USER_REQ_CACHE.set(new_username, USER_REQ_CACHE.get(username));
 								USER_REQ_CACHE.delete(username);
 							}
-							if (ACTIVE_CONNECTIONS_COUNT.has(username)) {
-								ACTIVE_CONNECTIONS_COUNT.set(new_username, ACTIVE_CONNECTIONS_COUNT.get(username));
-								ACTIVE_CONNECTIONS_COUNT.delete(username);
+							if (a40qkal.has(username)) {
+								a40qkal.set(new_username, a40qkal.get(username));
+								a40qkal.delete(username);
 							}
-							if (GLOBAL_LAST_ACTIVE_WRITE.has(username)) {
-								GLOBAL_LAST_ACTIVE_WRITE.set(new_username, GLOBAL_LAST_ACTIVE_WRITE.get(username));
-								GLOBAL_LAST_ACTIVE_WRITE.delete(username);
+							if (cchca6z.has(username)) {
+								cchca6z.set(new_username, cchca6z.get(username));
+								cchca6z.delete(username);
 							}
 						}
 						const existingUserForTrojan = await env.DB.prepare("SELECT uuid FROM users WHERE username = ?").bind(username).first();
-						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? sha224Pure(existingUserForTrojan.uuid) : null;
+						const trojanHashForUpdate = existingUserForTrojan && existingUserForTrojan.uuid ? mzl8dv2(existingUserForTrojan.uuid) : null;
 						await env.DB.prepare("UPDATE users SET username = ?, limit_gb = ?, expiry_days = ?, limit_req = ?, ips = ?, tls = ?, port = ?, fingerprint = ?, max_connections = ?, ip_limit = ?, block_porn = ?, block_ads = ?, frag_len = ?, frag_int = ?, advanced_frag = ?, cipher_suites = ?, tls_mask = ?, user_proxy_iata = ?, user_socks5 = ?, user_proxy_ip = ?, auto_reset_vol_days = ?, auto_reset_req_days = ?, auto_rotate_ip = ?, rotate_time = ?, ip_operator = ?, ip_count = ?, auto_rotate_user_proxy = ?, start_on_first_connect = ?, enable_direct = ?, user_ipv6_enabled = ?, trojan_hash = COALESCE(trojan_hash, ?), connection_type = COALESCE(?, connection_type) WHERE username = ?")
-							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, normalizeConnectionType(protocols, connection_type, null), username)
+							.bind(new_username || username, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0, trojanHashForUpdate, dibojp4(protocols, connection_type, null), username)
 							.run();
 						return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
 					}
@@ -1441,14 +1549,14 @@ const Router = {
 			} else {
 				if (request.method === "GET") {
 					try {
-						await flushExpiredTraffic(env);
+						await dyj1dp1(env);
 					} catch (e) {}
 					try {
 						const { results } = await env.DB.prepare("SELECT * FROM users ORDER BY id DESC").all();
 						const now = Date.now();
 						const enrichedUsers = (results || []).map((user) => {
-							const liveIpCount = (GLOBAL_ACTIVE_IPS.get(user.username) || new Map()).size;
-							const currentOnlineCount = Math.max(liveIpCount, getActiveIpCount(user.active_ips));
+							const liveIpCount = (vcmirtr.get(user.username) || new Map()).size;
+							const currentOnlineCount = Math.max(liveIpCount, hrktmlk(user.active_ips));
 							return {
 								...user,
 								used_gb: (user.used_gb || 0) + ((GLOBAL_TRAFFIC_CACHE.get(user.username) || 0) / (1024 * 1024 * 1024)),
@@ -1459,7 +1567,7 @@ const Router = {
 						});
 						let cfReqs = { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
 						try {
-							const liveCf = await getCfUsage(env);
+							const liveCf = await viwe15t(env);
 							const todayStr = new Date().toISOString().split("T")[0];
 							const dateRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_last_date'").first();
 							const totalRow = await env.DB.prepare("SELECT value FROM settings WHERE key = 'req_total'").first();
@@ -1478,8 +1586,8 @@ const Router = {
 								dbTotal = liveCf.total;
 								await env.DB.prepare("INSERT INTO settings (key, value) VALUES ('req_total', ?) ON CONFLICT(key) DO UPDATE SET value = ?").bind(String(dbTotal), String(dbTotal)).run();
 							}
-							cfReqs.today = dbToday + GLOBAL_REQ_COUNT;
-							cfReqs.total = dbTotal + GLOBAL_REQ_COUNT;
+							cfReqs.today = dbToday + cwsdrkz;
+							cfReqs.total = dbTotal + cwsdrkz;
 							cfReqs.d1Reads = liveCf.d1Reads || 0;
 							cfReqs.d1Writes = liveCf.d1Writes || 0;
 						} catch (e) {}
@@ -1519,7 +1627,7 @@ const Router = {
 					}
 				}
 				if (request.method === "POST") {
-					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await readJsonBody(request);
+					const { username, uuid, limit_gb, expiry_days, limit_req, ips, tls, port, fingerprint, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, auto_rotate_ip, rotate_time, ip_operator, ip_count, auto_rotate_user_proxy, start_on_first_connect, enable_direct, connection_type, protocols, user_ipv6_enabled } = await aphb6rr(request);
 					if (!username) {
 						return new Response(JSON.stringify({ error: "نام کاربری اجباری است" }), { status: 400, headers: { "Content-Type": "application/json" } });
 					}
@@ -1550,8 +1658,8 @@ const Router = {
 					try {
 						const todayUtc = Math.floor(Date.now() / 86400000) * 86400000;
 						const nowTime = Date.now();
-						const trojanHash = sha224Pure(finalUuid);
-						const finalConnType = normalizeConnectionType(protocols, connection_type, "vl" + "e" + "ss");
+						const trojanHash = mzl8dv2(finalUuid);
+						const finalConnType = dibojp4(protocols, connection_type, "vl" + "e" + "ss");
 						await env.DB.prepare("INSERT INTO users (username, uuid, limit_gb, expiry_days, limit_req, ips, connection_type, tls, port, fingerprint, max_connections, ip_limit, used_gb, used_req, created_at, is_active, block_porn, block_ads, frag_len, frag_int, advanced_frag, cipher_suites, tls_mask, ech_config, user_proxy_iata, user_socks5, user_proxy_ip, auto_reset_vol_days, auto_reset_req_days, last_reset_vol_time, last_reset_req_time, auto_rotate_ip, rotate_time, ip_operator, ip_count, last_rotate_time, auto_rotate_user_proxy, start_on_first_connect, trojan_hash, enable_direct, user_ipv6_enabled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 							.bind(username, finalUuid, limit_gb ? parseFloat(limit_gb) : null, expiry_days ? parseInt(expiry_days) : null, limit_req ? parseInt(limit_req) : null, ips || null, finalConnType, tls, port, fingerprint || "unsafe", ip_limit ? parseInt(ip_limit) : null, ip_limit ? parseInt(ip_limit) : null, finalUsedGb, finalUsedReq, finalCreatedAt, finalIsActive, block_porn ? 1 : 0, block_ads ? 1 : 0, frag_len !== undefined ? frag_len : "200-3000", frag_int !== undefined ? frag_int : "1-2", advanced_frag || null, cipher_suites || null, tls_mask || null, (typeof ech_config === "string" && ech_config.length <= 300 && !/[\s"'<>\\]/.test(ech_config)) ? (ech_config || null) : null, user_proxy_iata || null, user_socks5 || null, user_proxy_ip || null, auto_reset_vol_days ? parseInt(auto_reset_vol_days) : 0, auto_reset_req_days ? parseInt(auto_reset_req_days) : 0, todayUtc, todayUtc, auto_rotate_ip || 0, rotate_time || 0, ip_operator || "all", ip_count || 20, nowTime, auto_rotate_user_proxy ? 1 : 0, start_on_first_connect ? 1 : 0, trojanHash, enable_direct !== undefined ? (enable_direct ? 1 : 0) : 1, user_ipv6_enabled ? 1 : 0)
 							.run();
@@ -1568,27 +1676,24 @@ const Router = {
 /*
 [1.
 */
-let schemaEnsured = false;
-let schemaPromise = null;
-let schemaStartedAt = 0;
-const SCHEMA_VERSION = "3";
-let cachedPanelPassword = null;
-const DbService = {
+let ogjh4tu = false;
+let smwyozf = null;
+let bjro08u = 0;
+const a8tmqkm = "3";
+let qwlc8qb = null;
+const gm37elm = {
 	async ensureSchema(db) {
-		if (schemaEnsured) return;
-		// Promise ساخته‌شده توی یه ریکوئست رو توی ریکوئست دیگه await نمی‌کنیم (ارور "I/O on behalf of a different request")،
-		// و اگه یه ریکوئست وسط مهاجرت قطع شد، قفل بعد از ۲۰ ثانیه خودش آزاد می‌شه.
-		if (schemaPromise && Date.now() - schemaStartedAt < 20000) return;
-		schemaStartedAt = Date.now();
-		// اگه قبلاً مهاجرت کامل شده، فقط یه SELECT ساده و تمام (به‌جای ده‌ها کوئری/UPDATE کل جدول روی هر کلد‌استارت)
+		if (ogjh4tu) return;
+		if (smwyozf && Date.now() - bjro08u < 20000) return;
+		bjro08u = Date.now();
 		try {
 			const flag = await db.prepare("SELECT value FROM settings WHERE key = 'schema_ver'").first();
-			if (flag && flag.value === SCHEMA_VERSION) {
-				schemaEnsured = true;
+			if (flag && flag.value === a8tmqkm) {
+				ogjh4tu = true;
 				return;
 			}
 		} catch (e) {}
-		schemaPromise = (async () => {
+		smwyozf = (async () => {
 			try {
 				await db.prepare(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, uuid TEXT, limit_gb REAL, expiry_days INTEGER, ips TEXT, connection_type TEXT, tls TEXT, port INTEGER, used_gb REAL DEFAULT 0, is_active INTEGER DEFAULT 1, last_active INTEGER, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`).run();
 			} catch (e) {}
@@ -1646,7 +1751,6 @@ const DbService = {
 				}
 			} catch (e) {}
 			try {
-				// یک‌بار: کاربرهای قدیمی که تروجان داشتن (trojan_hash پر بود) تو لیست پروتکل هم تروجان بگیرن تا رفتارشون عوض نشه
 				const migRow = await db.prepare("SELECT value FROM settings WHERE key = 'proto_migrated_v1'").first();
 				if (!migRow) {
 					await db.prepare("UPDATE users SET connection_type = 'vl' || 'e' || 'ss,trojan' WHERE trojan_hash IS NOT NULL AND (connection_type IS NULL OR connection_type NOT LIKE '%trojan%')").run();
@@ -1660,34 +1764,34 @@ const DbService = {
 				await db.prepare("UPDATE users SET lifetime_used_gb = used_gb WHERE lifetime_used_gb = 0 OR lifetime_used_gb IS NULL").run();
 			} catch (e) {}
 			try {
-				await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(SCHEMA_VERSION).run();
+				await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('schema_ver', ?)").bind(a8tmqkm).run();
 			} catch (e) {}
 		})();
 		try {
-			await schemaPromise;
-			schemaEnsured = true;
+			await smwyozf;
+			ogjh4tu = true;
 		} finally {
-			schemaPromise = null;
+			smwyozf = null;
 		}
 	},
 	async getPanelPassword(db, forceRefresh = true) {
 		try {
 			const row = await db.prepare("SELECT value FROM settings WHERE key = 'panel_password'").first();
-			cachedPanelPassword = row && row.value ? row.value : null;
-			return cachedPanelPassword;
+			qwlc8qb = row && row.value ? row.value : null;
+			return qwlc8qb;
 		} catch (e) {
 			return null;
 		}
 	},
 	async setPanelPassword(db, password) {
 		await db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('panel_password', ?)").bind(password).run();
-		cachedPanelPassword = password;
+		qwlc8qb = password;
 	},
 	async verifyApiAuth(request, env) {
 		const storedPasswordHash = await this.getPanelPassword(env.DB);
 		if (!storedPasswordHash) return true;
 		const cookies = request.headers.get("Cookie") || "";
-		const sessionCookie = cookies.split(";").find((c) => c.trim().startsWith("panel_session="));
+		const sessionCookie = cookies.split(";").find((c) => c.trim().startsWith("sx_tok="));
 		if (!sessionCookie) return false;
 		const sessionToken = sessionCookie.split("=")[1].trim();
 		return sessionToken === storedPasswordHash;
@@ -1705,7 +1809,7 @@ const DbService = {
 		return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 	},
 };
-function getActiveIpCount(activeIpsJson) {
+function hrktmlk(activeIpsJson) {
 	if (!activeIpsJson) return 0;
 	try {
 		const activeIps = JSON.parse(activeIpsJson);
@@ -1722,7 +1826,7 @@ function getActiveIpCount(activeIpsJson) {
 		return 0;
 	}
 }
-const SubscriptionService = {
+const kvkt6ve = {
 	async generateText(user, host, globalIata, showInfo = false) {
 		let ips = [host];
 		if (user.ips) {
@@ -1738,7 +1842,7 @@ const SubscriptionService = {
 			.filter((p) => p.length > 0);
 		const fp = user.fingerprint || "unsafe";
 		const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + ((user.uuid || "").split("-")[4] || "default"));
-		const protoFlags = getUserProtocols(user);
+		const protoFlags = le69yqs(user);
 		const links = [];
 		const m1 = decodeURIComponent("%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F");
 		const m2 = decodeURIComponent("%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80");
@@ -1793,8 +1897,8 @@ const SubscriptionService = {
 				: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (globalIata || ""));
 			let countryFromCache = false;
 			if (!countryCode && proxyStr) {
-				const cc = SUB_COUNTRY_CACHE.get(proxyStr);
-				if (cc && Date.now() - cc.t < (cc.c ? SUB_COUNTRY_TTL_OK : SUB_COUNTRY_TTL_FAIL)) {
+				const cc = jip804b.get(proxyStr);
+				if (cc && Date.now() - cc.t < (cc.c ? crtlo7f : iub5ygr)) {
 					countryCode = cc.c;
 					countryFromCache = true;
 				}
@@ -1802,7 +1906,7 @@ const SubscriptionService = {
 			if (!countryCode && proxyStr && !countryFromCache) {
 				try {
 					const payload = new TextEncoder().encode("GET /json/?fields=countryCode HTTP/1.1\r\nHost: ip-api.com\r\nConnection: close\r\n\r\n");
-					const s = await connectProxy(proxyStr, "ip-api.com", 80, payload);
+					const s = await zbxph7j(proxyStr, "ip-api.com", 80, payload);
 					const reader = s.readable.getReader();
 					let resStr = "";
 					const dec = new TextDecoder();
@@ -1849,8 +1953,8 @@ const SubscriptionService = {
 				}
 			}
 			if (proxyStr && !countryFromCache && typeof proxyItem !== "object") {
-				if (SUB_COUNTRY_CACHE.size > 300) SUB_COUNTRY_CACHE.clear();
-				SUB_COUNTRY_CACHE.set(proxyStr, { c: countryCode || "", t: Date.now() });
+				if (jip804b.size > 300) jip804b.clear();
+				jip804b.set(proxyStr, { c: countryCode || "", t: Date.now() });
 			}
 			let flagEmoji = "🌐";
 			if (countryCode) {
@@ -1866,7 +1970,7 @@ const SubscriptionService = {
 			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
 			ips.forEach((ip) => {
 				ports.forEach((portStr) => {
-					const isTlsPort = TLS_PORTS.has(portStr);
+					const isTlsPort = m1fqgtq.has(portStr);
 					const tlsVal = isTlsPort ? "tls" : "none";
 					let userFrag = user.frag_len && user.frag_int ? "&fragment=" + user.frag_len + "," + user.frag_int : "";
 					if (user.advanced_frag) userFrag += "&fm=" + encodeURIComponent(user.advanced_frag);
@@ -1940,7 +2044,7 @@ const SubscriptionService = {
 		if (proxyList.length === 0) proxyList = [null];
 
 		const outbounds = [];
-		const protoFlags = getUserProtocols(user);
+		const protoFlags = le69yqs(user);
 		const enableTrojan = protoFlags.trojan;
 
 		let locIdx = 0;
@@ -1949,10 +2053,10 @@ const SubscriptionService = {
 			const ssPlainPath = rawPath + "/ss" + (proxyItem !== null && proxyItem !== "" ? `/loc-${locIdx}` : "");
 			ips.forEach((ip) => {
 				ports.forEach((portStr) => {
-					const isTlsPort = TLS_PORTS.has(portStr);
+					const isTlsPort = m1fqgtq.has(portStr);
 					let outbound = {
 						type: "vless",
-						tag: `ZEUS-VLESS-${ip}-${portStr}-loc${locIdx}`,
+						tag: `vl-${ip}-${portStr}-loc${locIdx}`,
 						server: ip,
 						server_port: parseInt(portStr),
 						uuid: user.uuid,
@@ -1966,7 +2070,7 @@ const SubscriptionService = {
 					if (enableTrojan) {
 						let trojanOutbound = {
 							type: "trojan",
-							tag: `ZEUS-Trojan-${ip}-${portStr}-loc${locIdx}`,
+							tag: `tj-${ip}-${portStr}-loc${locIdx}`,
 							server: ip,
 							server_port: parseInt(portStr),
 							password: user.uuid,
@@ -1980,7 +2084,7 @@ const SubscriptionService = {
 					if (protoFlags.ss) {
 						outbounds.push({
 							type: "shadowsocks",
-							tag: `ZEUS-SS-${ip}-${portStr}-loc${locIdx}`,
+							tag: `sh-${ip}-${portStr}-loc${locIdx}`,
 							server: ip,
 							server_port: parseInt(portStr),
 							method: "aes-256-gcm",
@@ -2049,53 +2153,52 @@ const SubscriptionService = {
 		});
 	},
 };
-async function flushExpiredTraffic(env) {
+async function dyj1dp1(env) {
 	const now = Date.now();
-	for (const [key, val] of DNS_CACHE.entries()) {
-		if (now > val.expires) DNS_CACHE.delete(key);
+	for (const [key, val] of obx6yh7.entries()) {
+		if (now > val.expires) obx6yh7.delete(key);
 	}
-	for (const [ip, record] of LOGIN_ATTEMPTS.entries()) {
-		if (now - record.lastAttempt > 900000) LOGIN_ATTEMPTS.delete(ip);
+	for (const [ip, record] of tp0s2fk.entries()) {
+		if (now - record.lastAttempt > 900000) tp0s2fk.delete(ip);
 	}
 	const allUsers = new Set([...GLOBAL_TRAFFIC_CACHE.keys(), ...USER_REQ_CACHE.keys()]);
 	for (const uname of allUsers) {
 		const cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
 		const cachedReqs = USER_REQ_CACHE.get(uname) || 0;
-		const activeCount = ACTIVE_CONNECTIONS_COUNT.get(uname) || 0;
+		const activeCount = a40qkal.get(uname) || 0;
 		if (cachedBytes <= 0 && cachedReqs <= 0) {
 			GLOBAL_TRAFFIC_CACHE.delete(uname);
 			USER_REQ_CACHE.delete(uname);
 			if (activeCount <= 0) {
-				GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
-				GLOBAL_LAST_ACTIVE_WRITE.delete(uname + "_hb");
+				cchca6z.delete(uname);
+				cchca6z.delete(uname + "_hb");
 			}
 			continue;
 		}
-		if (GLOBAL_WRITE_LOCK.get(uname)) continue;
-		const lastActive = GLOBAL_LAST_ACTIVE_WRITE.get(uname) || 0;
+		if (r2x0v6w.get(uname)) continue;
+		const lastActive = cchca6z.get(uname) || 0;
 		if (activeCount <= 0 || now - lastActive > 60000) {
-			GLOBAL_WRITE_LOCK.set(uname, true);
+			r2x0v6w.set(uname, true);
 			GLOBAL_TRAFFIC_CACHE.set(uname, 0);
 			USER_REQ_CACHE.set(uname, 0);
 			const deltaGb = cachedBytes / (1024 * 1024 * 1024);
 			try {
-				await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
+				await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
 			} catch (e) {
 				console.error(e.message);
-				// نوشتن شکست خورد: حجم/ریکوئست از دست نره، برای دور بعدی برگرده
 				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
 				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
 			} finally {
-				GLOBAL_WRITE_LOCK.delete(uname);
+				r2x0v6w.delete(uname);
 				if (activeCount <= 0) {
-					GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
-					GLOBAL_LAST_ACTIVE_WRITE.delete(uname + "_hb");
+					cchca6z.delete(uname);
+					cchca6z.delete(uname + "_hb");
 				}
 			}
 		}
 	}
 }
-function getSelectedUserProxy(userSocks5, request) {
+function depvumf(userSocks5, request) {
 	if (!userSocks5) return "";
 	let proxyList = [];
 	try {
@@ -2109,7 +2212,6 @@ function getSelectedUserProxy(userSocks5, request) {
 	}
 	if (!Array.isArray(proxyList) || proxyList.length === 0) return "";
 	
-	// مقدار پیش‌فرض را -1 می‌گذاریم تا مسیرهای بدون loc را تشخیص دهیم
 	let idx = -1; 
 	if (request) {
 		try {
@@ -2126,15 +2228,13 @@ function getSelectedUserProxy(userSocks5, request) {
 		} catch (e) {}
 	}
 	
-	// اگر ایندکس -1 ماند، یعنی مسیر دقیقاً همان Base Path (دایرکت) است
 	if (idx === -1) return "";
 	
 	const selected = proxyList[idx] || proxyList[0];
 	return typeof selected === "object" ? selected.proxy || "" : String(selected || "");
 }
-async function handlevIees(env, storedData = null, ctx = null, request = null) {
-	// اگه تعداد کانکشن هم‌زمان روی این ایزوله از سقف رد بشه، کانکشن جدید رو رد می‌کنیم تا حافظه پر نشه.
-	if (CURRENT_ISOLATE_CONNECTIONS >= MAX_ISOLATE_CONNECTIONS) {
+async function bvj1iaf(env, storedData = null, ctx = null, request = null) {
+	if (n7wooiz >= j0z7nx7) {
 		return new Response(null, { status: 503 });
 	}
 	const proxyIP = storedData?.proxy_ip || "";
@@ -2157,12 +2257,12 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	const [clientSock, serverSock] = Object.values(socketPair);
 	serverSock.accept();
 	serverSock.binaryType = "arraybuffer";
-	CURRENT_ISOLATE_CONNECTIONS++;
+	n7wooiz++;
 	let isolateSlotReleased = false;
 	const releaseIsolateSlot = () => {
 		if (isolateSlotReleased) return;
 		isolateSlotReleased = true;
-		CURRENT_ISOLATE_CONNECTIONS = Math.max(0, CURRENT_ISOLATE_CONNECTIONS - 1);
+		n7wooiz = Math.max(0, n7wooiz - 1);
 	};
 	serverSock.addEventListener("close", releaseIsolateSlot);
 	serverSock.addEventListener("error", releaseIsolateSlot);
@@ -2170,7 +2270,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	let validUUID = null;
 	let targetDns = "8.8.4.4";
 	let targetDoh = "https://cloudflare-dns.com/dns-query";
-	function addBytes(bytes) {
+	function s749df7(bytes) {
 		if (bytes <= 0) return;
 		if (!username) {
 			uncountedBytes += bytes;
@@ -2182,32 +2282,32 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		}
 		let current = GLOBAL_TRAFFIC_CACHE.get(username) || 0;
 		GLOBAL_TRAFFIC_CACHE.set(username, current + bytes);
-		GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
-		if (GLOBAL_WRITE_LOCK.get(username)) return;
-		let lastDbWrite = GLOBAL_LAST_DB_WRITE.get(username) || 0;
+		cchca6z.set(username, Date.now());
+		if (r2x0v6w.get(username)) return;
+		let lastDbWrite = gizzyby.get(username) || 0;
 		let now = Date.now();
 		let thresholdBytes = 500 * 1024 * 1024;
 		if ((current >= thresholdBytes && now - lastDbWrite > 180000) || (current > 0 && now - lastDbWrite > 900000)) {
-			GLOBAL_WRITE_LOCK.set(username, true);
+			r2x0v6w.set(username, true);
 			let toCommit = GLOBAL_TRAFFIC_CACHE.get(username) || 0;
 			let toCommitReq = USER_REQ_CACHE.get(username) || 0;
 			if (toCommit <= 0 && toCommitReq <= 0) {
-				GLOBAL_WRITE_LOCK.set(username, false);
+				r2x0v6w.set(username, false);
 				return;
 			}
 			GLOBAL_TRAFFIC_CACHE.set(username, (GLOBAL_TRAFFIC_CACHE.get(username) || 0) - toCommit);
 			USER_REQ_CACHE.set(username, (USER_REQ_CACHE.get(username) || 0) - toCommitReq);
-			GLOBAL_LAST_DB_WRITE.set(username, now);
+			gizzyby.set(username, now);
 			let deltaGb = toCommit / (1024 * 1024 * 1024);
 			let writeTask = async () => {
 				try {
-					await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ?, last_active = ? WHERE username = ?").bind(deltaGb, deltaGb, toCommitReq, now, username).run());
+					await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ?, last_active = ? WHERE username = ?").bind(deltaGb, deltaGb, toCommitReq, now, username).run());
 				} catch (e) {
 					console.error(e.message);
 					GLOBAL_TRAFFIC_CACHE.set(username, (GLOBAL_TRAFFIC_CACHE.get(username) || 0) + toCommit);
 					USER_REQ_CACHE.set(username, (USER_REQ_CACHE.get(username) || 0) + toCommitReq);
 				} finally {
-					GLOBAL_WRITE_LOCK.set(username, false);
+					r2x0v6w.set(username, false);
 				}
 			};
 			if (ctx) ctx.waitUntil(writeTask());
@@ -2217,42 +2317,40 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	let isOfflineSet = false;
 	let hasCountedAsActive = false;
 	const setOffline = () => {
-		// اسلات کانکشن ایزوله حتماً آزاد بشه (اگه event بسته‌شدن نیومد، شمارنده برای همیشه بالا می‌موند و بعد از ۳۰۰ کانکشن همه ۵۰۳ می‌گرفتن)
 		releaseIsolateSlot();
 		if (isOfflineSet) return;
 		isOfflineSet = true;
 		const uname = username;
 		if (!uname) return;
-		let activeCount = ACTIVE_CONNECTIONS_COUNT.get(uname) || 0;
+		let activeCount = a40qkal.get(uname) || 0;
 		if (hasCountedAsActive) {
 			activeCount = Math.max(0, activeCount - 1);
-			const ipLeft = untrackActiveIp(uname, clientIP);
-			if (ipLeft <= 0) scheduleIpRemoval(env, ctx, uname, validUUID, clientIP);
+			const ipLeft = eojgr6y(uname, clientIP);
+			if (ipLeft <= 0) c85kz7x(env, ctx, uname, validUUID, clientIP);
 		}
 		if (activeCount <= 0) {
-			ACTIVE_CONNECTIONS_COUNT.delete(uname);
+			a40qkal.delete(uname);
 			let cachedBytes = GLOBAL_TRAFFIC_CACHE.get(uname) || 0;
 			let cachedReqs = USER_REQ_CACHE.get(uname) || 0;
 			const nowOff = Date.now();
-			const lastTrafficWrite = GLOBAL_LAST_DB_WRITE.get(uname) || 0;
-			// مثل Source.js: با هر آروم شدن کاربر نمی‌نویسیم؛ فقط اگه حجم/ریکوئست کش‌شده به حد رسیده یا مدت زیادی گذشته
+			const lastTrafficWrite = gizzyby.get(uname) || 0;
 			const shouldCommit = (cachedBytes >= 20 * 1024 * 1024) || (nowOff - lastTrafficWrite > 600000) || (cachedReqs >= 20);
-			if (shouldCommit && (cachedBytes > 0 || cachedReqs > 0) && !GLOBAL_WRITE_LOCK.get(uname)) {
-				GLOBAL_WRITE_LOCK.set(uname, true);
-				GLOBAL_LAST_DB_WRITE.set(uname, nowOff);
+			if (shouldCommit && (cachedBytes > 0 || cachedReqs > 0) && !r2x0v6w.get(uname)) {
+				r2x0v6w.set(uname, true);
+				gizzyby.set(uname, nowOff);
 				GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) - cachedBytes);
 				USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) - cachedReqs);
 				const deltaGb = cachedBytes / (1024 * 1024 * 1024);
 				const writeTask = async () => {
 					try {
-						await d1Retry(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
+						await fz8j64g(() => env.DB.prepare("UPDATE users SET used_gb = used_gb + ?, lifetime_used_gb = lifetime_used_gb + ?, used_req = used_req + ? WHERE username = ?").bind(deltaGb, deltaGb, cachedReqs, uname).run());
 					} catch (e) {
 						console.error(e.message);
 						GLOBAL_TRAFFIC_CACHE.set(uname, (GLOBAL_TRAFFIC_CACHE.get(uname) || 0) + cachedBytes);
 						USER_REQ_CACHE.set(uname, (USER_REQ_CACHE.get(uname) || 0) + cachedReqs);
 					} finally {
-						GLOBAL_WRITE_LOCK.delete(uname);
-						GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
+						r2x0v6w.delete(uname);
+						cchca6z.delete(uname);
 					}
 				};
 				if (ctx) {
@@ -2261,10 +2359,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					writeTask();
 				}
 			} else {
-				GLOBAL_LAST_ACTIVE_WRITE.delete(uname);
+				cchca6z.delete(uname);
 			}
 		} else {
-			ACTIVE_CONNECTIONS_COUNT.set(uname, activeCount);
+			a40qkal.set(uname, activeCount);
 		}
 	};
 	let heartbeat;
@@ -2278,11 +2376,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				}
 				const nowTime = Date.now();
 				const hbKey = username + "_hb_" + (clientIP || "");
-				const lastCheck = GLOBAL_HB_CHECK.get(hbKey) || 0;
-				// قبلاً هر ۲۰ ثانیه برای هر آی‌پیِ هر کاربر یه SELECT+UPDATE؛ الان هر ۲ دقیقه (ضربان keep-alive همچنان هر ~۲۰ ثانیه‌ست)
+				const lastCheck = gbd8v13.get(hbKey) || 0;
 				if (nowTime - lastCheck >= 120000) {
-					GLOBAL_HB_CHECK.set(hbKey, nowTime);
-					const user = await d1Retry(() => env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, first_connection_time, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first(), 2);
+					gbd8v13.set(hbKey, nowTime);
+					const user = await fz8j64g(() => env.DB.prepare("SELECT is_active, limit_gb, used_gb, limit_req, used_req, expiry_days, created_at, first_connection_time, ip_limit, active_ips FROM users WHERE uuid = ?").bind(validUUID).first(), 2);
 					let isExpired = false;
 					let isIpLimitExpired = false;
 					let updatedActiveIps = null;
@@ -2304,14 +2401,12 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 							let hasChanges = false;
 							for (const [ip, data] of Object.entries(activeIps)) {
 								const lastSeen = data && typeof data === "object" ? data.timestamp : data;
-							// رکورد آی‌پیِ همین اتصال زنده هیچ‌وقت به‌خاطر کهنگی پاک نمی‌شه (قبلاً بعد ۲۰ ثانیه پاک می‌شد و اتصال بسته می‌شد)
 								if (ip !== clientIP && nowTime - lastSeen > 180000) {
 									delete activeIps[ip];
 									hasChanges = true;
 								}
 							}
 							if (!activeIps[clientIP]) {
-								// اتصال هنوز زنده‌ست ولی رکوردش پریده (تداخل نوشتن‌ها)؛ اگه جا باشه دوباره ثبتش می‌کنیم، وگرنه سقف آی‌پی اعمال می‌شه
 								if (user.ip_limit && user.ip_limit > 0 && Object.keys(activeIps).length >= user.ip_limit) {
 									isIpLimitExpired = true;
 								} else {
@@ -2327,7 +2422,6 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 								if (user.ip_limit && user.ip_limit > 0 && sortedIps.indexOf(clientIP) >= user.ip_limit) {
 									isIpLimitExpired = true;
 								} else {
-									// «آخرین زمان دیده‌شدن» این آی‌پی رو فقط وقتی داره کهنه می‌شه تازه می‌کنیم (تا اتصال طولانی قطع نشه، ولی بی‌دلیل ننویسیم)
 									const curData = activeIps[clientIP];
 									const curSeen = typeof curData === "object" ? curData.timestamp : curData;
 									if (nowTime - curSeen > 100000) {
@@ -2346,19 +2440,19 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					if (isExpired) {
 						await env.DB.prepare("UPDATE users SET is_active = 0, last_active = 0 WHERE uuid = ?").bind(validUUID).run();
 						clearTimeout(heartbeat);
-						closeSocketQuietly(serverSock);
+						grmlvmk(serverSock);
 						return;
 					}
 					if (isIpLimitExpired) {
 						clearTimeout(heartbeat);
-						closeSocketQuietly(serverSock);
+						grmlvmk(serverSock);
 						return;
 					}
 					if (updatedActiveIps !== null) {
-						GLOBAL_IP_WRITE_TS.set(username, nowTime);
+						orfpjpg.set(username, nowTime);
 						await env.DB.prepare("UPDATE users SET last_active = ?, active_ips = ? WHERE username = ?").bind(nowTime, updatedActiveIps, username).run();
-					} else if (nowTime - (GLOBAL_IP_WRITE_TS.get(username) || 0) >= 900000) {
-						GLOBAL_IP_WRITE_TS.set(username, nowTime);
+					} else if (nowTime - (orfpjpg.get(username) || 0) >= 900000) {
+						orfpjpg.set(username, nowTime);
 						await env.DB.prepare("UPDATE users SET last_active = ? WHERE username = ?").bind(nowTime, username).run();
 					}
 				}
@@ -2376,7 +2470,6 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	let isDnsQuery = false;
 	let chunkBuffer = new Uint8Array(0);
 	let uncountedBytes = 0;
-	// Shadowsocks روی مسیر /ss/ تشخیص داده می‌شه (نه حدس روی بایت اول)، پس هیچ تداخلی با VLESS/Trojan نداره
 	let ssPathKey = null;
 	if (request) {
 		try {
@@ -2415,7 +2508,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		}
 		return activeRemoteWriter;
 	};
-	const upstreamQueue = createUpstreamQueue({
+	const upstreamQueue = tasyh7l({
 		getWriter: getRemoteWriter,
 		releaseWriter: releaseRemoteWriter,
 		retryConnect: async () => {
@@ -2427,15 +2520,12 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			try {
 				remoteConnWrapper.socket?.close();
 			} catch (e) {}
-			closeSocketQuietly(serverSock);
+			grmlvmk(serverSock);
 		},
 		name: "vIeesWSQueue",
 	});
 	let hasRemoteWriteSucceeded = false;
 	const writeToRemote = async (chunk, allowRetry = true) => {
-		// بعد از اولین نوشتن موفق روی سوکت مقصد، retry خودکار رو خاموش می‌کنیم: عوض کردن بی‌صدای
-		// سوکت TCP وسط یه آپلود بزرگ (که میلیون‌ها بایتش قبلاً رفته)، از دید سرور مقصد یعنی یه
-		// کانکشن کاملاً متفاوت و session سطح بالا (TLS/HTTP) خراب می‌شه؛ بهتره خطای واقعی تمیز باشه.
 		const effectiveAllowRetry = allowRetry && !hasRemoteWriteSucceeded;
 		const result = await upstreamQueue.write(chunk, effectiveAllowRetry);
 		if (result === true) hasRemoteWriteSucceeded = true;
@@ -2443,9 +2533,9 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	};
 	const processWsMessage = async (chunk) => {
 		const bytes = chunk.byteLength || 0;
-		addBytes(bytes);
+		s749df7(bytes);
 		if (isDnsQuery) {
-			await forwardvIeesUDP(chunk, serverSock, null, addBytes, targetDns);
+			await sf3jqd6(chunk, serverSock, null, s749df7, targetDns);
 			return;
 		}
 		if (isHeaderParsed) {
@@ -2460,16 +2550,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			return;
 		}
 		if (!isHeaderParsed) {
-			chunkBuffer = concatBytes(chunkBuffer, chunk);
+			chunkBuffer = o6qjwnj(chunkBuffer, chunk);
 			if (ssPathKey) {
 				await processShadowsocksMessage();
 				return;
 			}
-			// تشخیص پروتکل بدون هیچ ریسکی برای مسیر VLESS فعلی: کلاینت‌های واقعی VLESS
-			// همیشه بایت اول رو ورژن (۰) می‌فرستن. اگه بایت اول صفر نبود، یا تروجانه
-			// (۵۶ کاراکتر hex پسورد + CRLF) یا یه هدر ناشناخته که قبلاً هم همینجا با
-			// شکست extractUUIDFromvIees یا addrType نامعتبر بسته می‌شد؛ پس این شاخه‌ی
-			// جدید فقط ترافیکی رو می‌گیره که قبلاً هم موفق نمی‌شد.
 			if (chunkBuffer.byteLength > 0 && chunkBuffer[0] !== 0) {
 				if (chunkBuffer.byteLength < 58) return;
 				let isHexHash = true;
@@ -2507,34 +2592,30 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			if (chunkBuffer.byteLength < requiredLen) return;
 			if (isHeaderParsing) return;
 			isHeaderParsing = true;
-			reqUUID = extractUUIDFromvIees(chunkBuffer);
+			reqUUID = g5gydre(chunkBuffer);
 			if (!reqUUID) {
 				serverSock.close();
 				return;
 			}
-			// UDP غیر-DNS (مثل QUIC/HTTP3 اینستاگرام) روی این بستر عبور داده نمی‌شه؛ همین‌جا و قبل از هر کوئری D1،
-			// ثبت آی‌پی و شمارش ریکوئست بسته می‌شه (قبلاً هر تلاش QUIC یه SELECT + آپدیت دیتابیس و یک ریکوئست حساب می‌شد)
 			if (chunkBuffer[18 + optLen] === 2 && ((chunkBuffer[19 + optLen] << 8) | chunkBuffer[20 + optLen]) !== 53) {
 				serverSock.close();
 				return;
 			}
 			let user = null;
 			try {
-				user = await getCachedUserRow(env, "SELECT * FROM users WHERE uuid = ? COLLATE NOCASE", reqUUID);
+				user = await vjcnes5(env, "SELECT * FROM users WHERE uuid = ? COLLATE NOCASE", reqUUID);
 			} catch (e) {}
 			if (!user) {
 				serverSock.close();
 				return;
 			}
-			if (!getUserProtocols(user).vless) {
+			if (!le69yqs(user).vless) {
 				serverSock.close();
 				return;
 			}
 			reqUUID = user.uuid;
 			if (request) {
 				const reqUrl = new URL(request.url);
-				// پیشوند بعد از /stream/ هرچی باشه قبول می‌شه؛ فقط کلید کاربر (بخش آخر uuid) باید تو مسیر باشه.
-				// (قبلاً پیشوند ثابت بود و کانفیگ‌های قدیمی/ساب‌های کش‌شده‌ی کلاینت با پیشوند فرق داشتن → بسته می‌شدن)
 				const pathKey = ((user.uuid || "").split("-")[4] || "default").toLowerCase();
 				const pathOk = /^\/stream\/[^\/]+\//.test(reqUrl.pathname) && reqUrl.pathname.toLowerCase().split("/")[3] === pathKey;
 				if (!pathOk) {
@@ -2544,10 +2625,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			username = user.username;
 			validUUID = reqUUID;
-			// اگه کاربر روی «شمارش انقضا از اولین اتصال» تنظیم شده و این اولین بارشه که وصل می‌شه،
-			// همین الان first_connection_time رو ثبت می‌کنیم تا محاسبه‌ی انقضا از این لحظه شروع بشه، نه از created_at.
-			if (user.start_on_first_connect === 1 && !user.first_connection_time && !GLOBAL_WRITE_LOCK.get(reqUUID + "_first_conn")) {
-				GLOBAL_WRITE_LOCK.set(reqUUID + "_first_conn", true);
+			if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(reqUUID + "_first_conn")) {
+				r2x0v6w.set(reqUUID + "_first_conn", true);
 				const firstConnectNow = Date.now();
 				user.first_connection_time = firstConnectNow;
 				const firstConnTask = async () => {
@@ -2626,10 +2705,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 						activeIps[clientIP] = { timestamp: now, count: 1 };
 					}
 				}
-				const lastIpWrite = GLOBAL_IP_WRITE_TS.get(username) || 0;
+				const lastIpWrite = orfpjpg.get(username) || 0;
 				if (isNewIp || now - lastIpWrite > 900000) {
-					GLOBAL_LAST_ACTIVE_WRITE.set(username, now);
-					GLOBAL_IP_WRITE_TS.set(username, now);
+					cchca6z.set(username, now);
+					orfpjpg.set(username, now);
 					const updateTask = async () => {
 						try {
 							await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), now, reqUUID).run();
@@ -2640,11 +2719,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				}
 			}
 			isHeaderParsed = true;
-			let activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
-			ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
+			let activeCount = a40qkal.get(username) || 0;
+			a40qkal.set(username, activeCount + 1);
 			hasCountedAsActive = true;
-			trackActiveIp(username, clientIP);
-			GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
+			h0pqirm(username, clientIP);
+			cchca6z.set(username, Date.now());
 			try {
 				let offset = 17;
 				const optLen = chunkBuffer[offset++];
@@ -2657,7 +2736,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					addr = `${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}.${chunkBuffer[offset++]}`;
 				} else if (addrType === 2) {
 					const domainLen = chunkBuffer[offset++];
-					addr = TEXT_DECODER.decode(chunkBuffer.slice(offset, offset + domainLen));
+					addr = b1p8pcx.decode(chunkBuffer.slice(offset, offset + domainLen));
 					offset += domainLen;
 				} else if (addrType === 3) {
 					const v6 = [];
@@ -2670,7 +2749,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				const respHeader = new Uint8Array([chunkBuffer[0], 0]);
 				if ((user.block_ads === 1 || user.block_porn === 1) && addrType === 2 && port !== 53) {
 					try {
-						const dnsCheck = await dohQuery(addr, "A", targetDoh);
+						const dnsCheck = await xrts5qo(addr, "A", targetDoh);
 						const isBlocked = dnsCheck.some((r) => r.data === "0.0.0.0" || r.data === "::" || r.data === "176.103.130.130");
 						if (isBlocked) {
 							serverSock.close();
@@ -2685,7 +2764,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				if (cmd === 2) {
 					if (port === 53) {
 						isDnsQuery = true;
-						await forwardvIeesUDP(rawData, serverSock, respHeader, addBytes, targetDns);
+						await sf3jqd6(rawData, serverSock, respHeader, s749df7, targetDns);
 					} else {
 						serverSock.close();
 					}
@@ -2695,8 +2774,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					serverSock.close();
 					return;
 				}
-				// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
-				if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
+				if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
 					serverSock.close();
 					return;
 				}
@@ -2707,13 +2785,13 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					}
 					const task = (async () => {
 						let s = null;
-						const socks5 = getSelectedUserProxy(user?.user_socks5, request);
+						const socks5 = depvumf(user?.user_socks5, request);
 						if (socks5) {
 							try {
-								s = await connectProxy(socks5, addr, port, dataPayload);
+								s = await zbxph7j(socks5, addr, port, dataPayload);
 							} catch (proxyErr) {
 								if (user.auto_rotate_user_proxy === 1) {
-									const replaceTask = replaceBrokenProxy(user.username, env, socks5);
+									const replaceTask = d8fsytq(user.username, env, socks5);
 									if (ctx) ctx.waitUntil(replaceTask);
 									else replaceTask.catch(() => {});
 								}
@@ -2721,15 +2799,15 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 							}
 						} else {
 							try {
-								s = await connectDirect(addr, port, dataPayload, targetDoh);
+								s = await ndhpogz(addr, port, dataPayload, targetDoh);
 							} catch (directErr) {
 								if (useFallback && proxyIP) {
 									/* اتصال مستقیم شکست خورد؛ روی proxyIP ثابتی که تو تنظیمات پنل انتخاب شده retry می‌کنیم
 									   (همون مکانیزم کشور/آی‌پی ثابت — بدون دست‌زدن به مسیر socks5 کاربر) */
-									s = await connectDirect(proxyIP, port, dataPayload, targetDoh);
+									s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
 								} else if (useFallback && directErr && directErr.connectPhase) {
 									try {
-										s = await connectDirect(addr, port, dataPayload, targetDoh);
+										s = await ndhpogz(addr, port, dataPayload, targetDoh);
 									} catch (retryErr) {
 										throw directErr;
 									}
@@ -2739,8 +2817,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 							}
 						}
 						remoteConnWrapper.socket = s;
-						s.closed.catch(() => {}).finally(() => closeSocketQuietly(serverSock));
-						connectStreams(s, serverSock, respHeader, null, addBytes);
+						s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
+						v18gj84(s, serverSock, respHeader, null, s749df7);
 					})();
 					remoteConnWrapper.connectingPromise = task;
 					try {
@@ -2758,18 +2836,15 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 		}
 	};
-	// پارسر مستقل تروجان: کاملاً جدا از منطق VLESS بالا نوشته شده تا هیچ ریسکی برای
-	// اون مسیر نداشته باشه. فقط وقتی صدا زده می‌شه که تشخیص پروتکل (بایت اول != ۰)
-	// از قبل توی processWsMessage انجام و تأیید شده.
 	const processTrojanMessage = async () => {
 		if (isHeaderParsing) return;
 		isHeaderParsing = true;
-		const passHash = TEXT_DECODER.decode(chunkBuffer.slice(0, 56));
+		const passHash = b1p8pcx.decode(chunkBuffer.slice(0, 56));
 		let user = null;
 		try {
-			user = await getCachedUserRow(env, "SELECT * FROM users WHERE trojan_hash = ?", passHash);
+			user = await vjcnes5(env, "SELECT * FROM users WHERE trojan_hash = ?", passHash);
 		} catch (e) {}
-		if (!user || !getUserProtocols(user).trojan) {
+		if (!user || !le69yqs(user).trojan) {
 			serverSock.close();
 			return;
 		}
@@ -2797,7 +2872,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				isHeaderParsing = false;
 				return;
 			}
-			addr = TEXT_DECODER.decode(chunkBuffer.slice(offset, offset + domainLen));
+			addr = b1p8pcx.decode(chunkBuffer.slice(offset, offset + domainLen));
 			offset += domainLen;
 		} else if (addrType === 4) {
 			if (chunkBuffer.byteLength < offset + 16) {
@@ -2851,15 +2926,14 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 			return;
 		}
-		// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
-		if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
+		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
 			serverSock.close();
 			return;
 		}
 		username = user.username;
 		validUUID = user.uuid || null;
-		if (user.start_on_first_connect === 1 && !user.first_connection_time && !GLOBAL_WRITE_LOCK.get(user.uuid + "_first_conn")) {
-			GLOBAL_WRITE_LOCK.set(user.uuid + "_first_conn", true);
+		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
+			r2x0v6w.set(user.uuid + "_first_conn", true);
 			const firstConnectNow = Date.now();
 			const firstConnTask = async () => {
 				try {
@@ -2875,11 +2949,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			GLOBAL_TRAFFIC_CACHE.set(username, 0);
 		}
 		isHeaderParsed = true;
-		let activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
-		ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
+		let activeCount = a40qkal.get(username) || 0;
+		a40qkal.set(username, activeCount + 1);
 		hasCountedAsActive = true;
-		trackActiveIp(username, clientIP);
-		GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
+		h0pqirm(username, clientIP);
+		cchca6z.set(username, Date.now());
 		const trojanConnectTCP = async (dataPayload = null) => {
 			if (remoteConnWrapper.connectingPromise) {
 				await remoteConnWrapper.connectingPromise;
@@ -2887,13 +2961,13 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			const task = (async () => {
 				let s = null;
-				const socks5 = getSelectedUserProxy(user?.user_socks5, request);
+				const socks5 = depvumf(user?.user_socks5, request);
 				if (socks5) {
 					try {
-						s = await connectProxy(socks5, addr, port, dataPayload);
+						s = await zbxph7j(socks5, addr, port, dataPayload);
 					} catch (proxyErr) {
 						if (user.auto_rotate_user_proxy === 1) {
-							const replaceTask = replaceBrokenProxy(user.username, env, socks5);
+							const replaceTask = d8fsytq(user.username, env, socks5);
 							if (ctx) ctx.waitUntil(replaceTask);
 							else replaceTask.catch(() => {});
 						}
@@ -2901,19 +2975,18 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					}
 				} else {
 					try {
-						s = await connectDirect(addr, port, dataPayload, targetDoh);
+						s = await ndhpogz(addr, port, dataPayload, targetDoh);
 					} catch (directErr) {
 						if (proxyIP) {
-							s = await connectDirect(proxyIP, port, dataPayload, targetDoh);
+							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
 						} else {
 							throw directErr;
 						}
 					}
 				}
 				remoteConnWrapper.socket = s;
-				s.closed.catch(() => {}).finally(() => closeSocketQuietly(serverSock));
-				// تروجان برخلاف VLESS هیچ هدر پاسخی جلوی دیتا نمی‌ذاره؛ respHeader اینجا null‌ه.
-				connectStreams(s, serverSock, null, null, addBytes);
+				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
+				v18gj84(s, serverSock, null, null, s749df7);
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -2931,17 +3004,14 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 		}
 	};
-	// ================= Shadowsocks (AEAD، aes-256-gcm) روی WebSocket =================
-	// پسورد = uuid کاربر؛ کاربر از روی بخش آخر uuid داخل مسیر (/stream/aaaaaaaaaa/<کلید>/ss/...) پیدا می‌شه.
 	const SS_SALT_LEN = 32;
 	const SS_MAX_PAYLOAD = 0x3fff;
-	// همه‌ی فریم‌های کامل داخل ssUpBuffer رو رمزگشایی می‌کنه؛ اگه احراز هویت فریم خراب باشه null برمی‌گردونه
 	const ssDrainFrames = async () => {
 		const out = [];
 		while (true) {
 			if (ssUpExpectedLen === null) {
 				if (ssUpBuffer.byteLength < 18) break;
-				const decLen = await SSCrypto.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, 18));
+				const decLen = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, 18));
 				if (!decLen) return null;
 				const l = (decLen[0] << 8) | decLen[1];
 				if (l > SS_MAX_PAYLOAD) return null;
@@ -2949,7 +3019,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				ssUpBuffer = ssUpBuffer.slice(18);
 			}
 			if (ssUpBuffer.byteLength < ssUpExpectedLen + 16) break;
-			const dec = await SSCrypto.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, ssUpExpectedLen + 16));
+			const dec = await bp4qnv1.decryptChunk(ssUpCtx.key, ssUpCtx.nonce, ssUpBuffer.subarray(0, ssUpExpectedLen + 16));
 			if (!dec) return null;
 			ssUpBuffer = ssUpBuffer.slice(ssUpExpectedLen + 16);
 			ssUpExpectedLen = null;
@@ -2958,14 +3028,14 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		return out;
 	};
 	const processShadowsocksUplink = async (chunk) => {
-		ssUpBuffer = concatBytes(ssUpBuffer, chunk);
+		ssUpBuffer = o6qjwnj(ssUpBuffer, chunk);
 		if (ssUpBuffer.byteLength > 2 * 1024 * 1024) {
-			closeSocketQuietly(serverSock);
+			grmlvmk(serverSock);
 			return;
 		}
 		const frames = await ssDrainFrames();
 		if (frames === null) {
-			closeSocketQuietly(serverSock);
+			grmlvmk(serverSock);
 			return;
 		}
 		for (const f of frames) await writeToRemote(f);
@@ -2979,10 +3049,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		if (!ssUser) {
 			let found = null;
 			try {
-				const { results } = await getCachedUserRowsLike(env, "SELECT * FROM users WHERE uuid LIKE ? LIMIT 8", "%-" + ssPathKey);
+				const { results } = await rpsmq65(env, "SELECT * FROM users WHERE uuid LIKE ? LIMIT 8", "%-" + ssPathKey);
 				found = (results || []).find((r) => String(String(r.uuid || "").split("-")[4] || "").toLowerCase() === ssPathKey) || null;
 			} catch (e) {}
-			if (!found || !getUserProtocols(found).ss) {
+			if (!found || !le69yqs(found).ss) {
 				serverSock.close();
 				return;
 			}
@@ -2990,9 +3060,9 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		}
 		const user = ssUser;
 		const upSalt = chunkBuffer.slice(0, SS_SALT_LEN);
-		const upKey = await SSCrypto.deriveSubkey(user.uuid, upSalt);
+		const upKey = await bp4qnv1.deriveSubkey(user.uuid, upSalt);
 		const upCtx = { key: upKey, nonce: new Uint8Array(12) };
-		const decLenBuf = await SSCrypto.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN, SS_SALT_LEN + 18));
+		const decLenBuf = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN, SS_SALT_LEN + 18));
 		if (!decLenBuf) {
 			serverSock.close();
 			return;
@@ -3003,9 +3073,8 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			return;
 		}
 		const frameEnd = SS_SALT_LEN + 18 + payloadLen + 16;
-		// هدر هنوز کامل نرسیده؛ صبر می‌کنیم (nonce دفعه‌ی بعد از اول ساخته می‌شه)
 		if (chunkBuffer.byteLength < frameEnd) return;
-		const first = await SSCrypto.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN + 18, frameEnd));
+		const first = await bp4qnv1.decryptChunk(upCtx.key, upCtx.nonce, chunkBuffer.subarray(SS_SALT_LEN + 18, frameEnd));
 		if (!first) {
 			serverSock.close();
 			return;
@@ -3025,7 +3094,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				serverSock.close();
 				return;
 			}
-			addr = TEXT_DECODER.decode(first.subarray(off, off + domainLen));
+			addr = b1p8pcx.decode(first.subarray(off, off + domainLen));
 			off += domainLen;
 		} else if (atyp === 4) {
 			if (first.byteLength < off + 16 + 2) {
@@ -3050,7 +3119,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 			return;
 		}
-		if (moreFrames.length > 0) rawData = concatBytes(rawData, ...moreFrames);
+		if (moreFrames.length > 0) rawData = o6qjwnj(rawData, ...moreFrames);
 		if (isHeaderParsing) return;
 		isHeaderParsing = true;
 		if (user.is_active === 0) {
@@ -3076,15 +3145,14 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			serverSock.close();
 			return;
 		}
-		// جدید: مقصد IPv6 فقط اگه برای این کاربر توی تنظیمات فعال شده باشه اجازه‌ی اتصال داره
-		if (isIPv6Literal(addr) && !(user && user.user_ipv6_enabled === 1)) {
+		if (cmlmh7c(addr) && !(user && user.user_ipv6_enabled === 1)) {
 			serverSock.close();
 			return;
 		}
 		username = user.username;
 		validUUID = user.uuid || null;
-		if (user.start_on_first_connect === 1 && !user.first_connection_time && !GLOBAL_WRITE_LOCK.get(user.uuid + "_first_conn")) {
-			GLOBAL_WRITE_LOCK.set(user.uuid + "_first_conn", true);
+		if (user.start_on_first_connect === 1 && !user.first_connection_time && !r2x0v6w.get(user.uuid + "_first_conn")) {
+			r2x0v6w.set(user.uuid + "_first_conn", true);
 			const firstConnectNow = Date.now();
 			user.first_connection_time = firstConnectNow;
 			const firstConnTask = async () => {
@@ -3117,7 +3185,6 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			targetDns = "94.140.14.14";
 			targetDoh = "https://dns.adguard-dns.com/dns-query";
 		}
-		// سقف آی‌پی و ثبت آی‌پی‌های فعال (مثل مسیر VLESS)
 		if (clientIP && clientIP !== "unknown") {
 			let activeIps = {};
 			try {
@@ -3142,10 +3209,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			} else {
 				activeIps[clientIP] = { timestamp: nowIp, count: 1 };
 			}
-			const lastIpWrite = GLOBAL_IP_WRITE_TS.get(username) || 0;
+			const lastIpWrite = orfpjpg.get(username) || 0;
 			if (isNewIp || nowIp - lastIpWrite > 900000) {
-				GLOBAL_LAST_ACTIVE_WRITE.set(username, nowIp);
-				GLOBAL_IP_WRITE_TS.set(username, nowIp);
+				cchca6z.set(username, nowIp);
+				orfpjpg.set(username, nowIp);
 				const updateTask = async () => {
 					try {
 						await env.DB.prepare("UPDATE users SET active_ips = ?, last_active = ? WHERE uuid = ?").bind(JSON.stringify(activeIps), nowIp, user.uuid).run();
@@ -3157,7 +3224,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		}
 		if ((user.block_ads === 1 || user.block_porn === 1) && atyp === 3 && port !== 53) {
 			try {
-				const dnsCheck = await dohQuery(addr, "A", targetDoh);
+				const dnsCheck = await xrts5qo(addr, "A", targetDoh);
 				const isBlocked = dnsCheck.some((r) => r.data === "0.0.0.0" || r.data === "::" || r.data === "176.103.130.130");
 				if (isBlocked) {
 					serverSock.close();
@@ -3168,11 +3235,11 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			} catch (e) {}
 		}
 		isHeaderParsed = true;
-		const activeCount = ACTIVE_CONNECTIONS_COUNT.get(username) || 0;
-		ACTIVE_CONNECTIONS_COUNT.set(username, activeCount + 1);
+		const activeCount = a40qkal.get(username) || 0;
+		a40qkal.set(username, activeCount + 1);
 		hasCountedAsActive = true;
-		trackActiveIp(username, clientIP);
-		GLOBAL_LAST_ACTIVE_WRITE.set(username, Date.now());
+		h0pqirm(username, clientIP);
+		cchca6z.set(username, Date.now());
 		const ssConnectTCP = async (dataPayload = null) => {
 			if (remoteConnWrapper.connectingPromise) {
 				await remoteConnWrapper.connectingPromise;
@@ -3180,13 +3247,13 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 			}
 			const task = (async () => {
 				let s = null;
-				const socks5 = getSelectedUserProxy(user?.user_socks5, request);
+				const socks5 = depvumf(user?.user_socks5, request);
 				if (socks5) {
 					try {
-						s = await connectProxy(socks5, addr, port, dataPayload);
+						s = await zbxph7j(socks5, addr, port, dataPayload);
 					} catch (proxyErr) {
 						if (user.auto_rotate_user_proxy === 1) {
-							const replaceTask = replaceBrokenProxy(user.username, env, socks5);
+							const replaceTask = d8fsytq(user.username, env, socks5);
 							if (ctx) ctx.waitUntil(replaceTask);
 							else replaceTask.catch(() => {});
 						}
@@ -3194,13 +3261,13 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					}
 				} else {
 					try {
-						s = await connectDirect(addr, port, dataPayload, targetDoh);
+						s = await ndhpogz(addr, port, dataPayload, targetDoh);
 					} catch (directErr) {
 						if (proxyIP) {
-							s = await connectDirect(proxyIP, port, dataPayload, targetDoh);
+							s = await ndhpogz(proxyIP, port, dataPayload, targetDoh);
 						} else if (directErr && directErr.connectPhase) {
 							try {
-								s = await connectDirect(addr, port, dataPayload, targetDoh);
+								s = await ndhpogz(addr, port, dataPayload, targetDoh);
 							} catch (retryErr) {
 								throw directErr;
 							}
@@ -3210,11 +3277,10 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 					}
 				}
 				remoteConnWrapper.socket = s;
-				s.closed.catch(() => {}).finally(() => closeSocketQuietly(serverSock));
-				// جهت برگشت هم AEAD ه: salt تازه + فریم‌های رمزشده (salt همراه اولین تکه‌ی داده ارسال می‌شه)
+				s.closed.catch(() => {}).finally(() => grmlvmk(serverSock));
 				const downSalt = crypto.getRandomValues(new Uint8Array(SS_SALT_LEN));
-				const downKey = await SSCrypto.deriveSubkey(user.uuid, downSalt);
-				connectStreams(s, serverSock, null, null, addBytes, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
+				const downKey = await bp4qnv1.deriveSubkey(user.uuid, downSalt);
+				v18gj84(s, serverSock, null, null, s749df7, { key: downKey, nonce: new Uint8Array(12), salt: downSalt });
 			})();
 			remoteConnWrapper.connectingPromise = task;
 			try {
@@ -3225,7 +3291,6 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				}
 			}
 		};
-		// وسط استریم رمزشده نمی‌شه سوکت مقصد رو عوض کرد (salt/nonce جهت برگشت خراب می‌شه)؛ پس retry = بستن تمیز
 		remoteConnWrapper.retryConnect = async () => {
 			throw new Error("shadowsocks: reconnect not supported");
 		};
@@ -3244,7 +3309,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		wsQueueItems = 0;
 		upstreamQueue.clear();
 		releaseRemoteWriter();
-		closeSocketQuietly(serverSock);
+		grmlvmk(serverSock);
 		setOffline();
 	};
 	const pushToChain = (task) => {
@@ -3256,7 +3321,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 		const size = event.data.byteLength || 0;
 		const nextBytes = wsQueueBytes + size;
 		const nextItems = wsQueueItems + 1;
-		if (nextBytes > UPSTREAM_QUEUE_MAX_BYTES || nextItems > UPSTREAM_QUEUE_MAX_ITEMS) {
+		if (nextBytes > gd4zjw9 || nextItems > sacemxe) {
 			handleWsError(new Error("ws queue overflow"));
 			return;
 		}
@@ -3271,7 +3336,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	});
 	serverSock.addEventListener("close", () => {
 		clearTimeout(heartbeat);
-		closeSocketQuietly(serverSock);
+		grmlvmk(serverSock);
 		setOffline();
 		if (wsFinished) return;
 		wsFinished = true;
@@ -3287,15 +3352,15 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 	});
 	return new Response(null, { status: 101, webSocket: clientSock });
 }
-let CF_USAGE_CACHE = null;
-let CF_USAGE_LAST_FETCH = 0;
-let CF_USAGE_CACHE_DATE = "";
-async function getCfUsage(env) {
+let zkhivud = null;
+let wgu3fns = 0;
+let b4075e1 = "";
+async function viwe15t(env) {
 	if (!env.CF_API_TOKEN || !env.CF_ACCOUNT_ID) return { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
 	const nowTime = Date.now();
 	const todayStr = new Date().toISOString().split("T")[0];
-	if (CF_USAGE_CACHE && (nowTime - CF_USAGE_LAST_FETCH < 15000) && CF_USAGE_CACHE_DATE === todayStr) {
-		return CF_USAGE_CACHE;
+	if (zkhivud && (nowTime - wgu3fns < 15000) && b4075e1 === todayStr) {
+		return zkhivud;
 	}
 	try {
 		const now = new Date();
@@ -3327,19 +3392,19 @@ async function getCfUsage(env) {
 		const totalReqs = acc?.total?.[0]?.sum?.requests || todayReqs;
 		const d1Reads = acc?.d1?.[0]?.sum?.rowsRead || 0;
 		const d1Writes = acc?.d1?.[0]?.sum?.rowsWritten || 0;
-		CF_USAGE_CACHE = { today: todayReqs, total: totalReqs, d1Reads, d1Writes };
-		CF_USAGE_LAST_FETCH = nowTime;
-		CF_USAGE_CACHE_DATE = todayStr;
-		return CF_USAGE_CACHE;
+		zkhivud = { today: todayReqs, total: totalReqs, d1Reads, d1Writes };
+		wgu3fns = nowTime;
+		b4075e1 = todayStr;
+		return zkhivud;
 	} catch (e) {
-		return CF_USAGE_CACHE || { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
+		return zkhivud || { today: 0, total: 0, d1Reads: 0, d1Writes: 0 };
 	}
 }
-function isIPv4(value) {
+function uppwjdo(value) {
 	const parts = String(value || "").split(".");
 	return parts.length === 4 && parts.every((part) => /^\d{1,3}$/.test(part) && Number(part) >= 0 && Number(part) <= 255);
 }
-function convertToUint8Array(data) {
+function zqv9d9o(data) {
 	if (data instanceof Uint8Array) return data;
 	if (data instanceof ArrayBuffer) return new Uint8Array(data);
 	if (ArrayBuffer.isView(data)) return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
@@ -3348,10 +3413,10 @@ function convertToUint8Array(data) {
 /*
 [1.
 */
-function concatBytes(...chunkList) {
+function o6qjwnj(...chunkList) {
 	if (chunkList.length === 2) {
-		const a = convertToUint8Array(chunkList[0]);
-		const b = convertToUint8Array(chunkList[1]);
+		const a = zqv9d9o(chunkList[0]);
+		const b = zqv9d9o(chunkList[1]);
 		if (!a.byteLength) return b;
 		if (!b.byteLength) return a;
 		const merged = new Uint8Array(a.byteLength + b.byteLength);
@@ -3359,7 +3424,7 @@ function concatBytes(...chunkList) {
 		merged.set(b, a.byteLength);
 		return merged;
 	}
-	const chunks = chunkList.map(convertToUint8Array);
+	const chunks = chunkList.map(zqv9d9o);
 	let total = 0;
 	for (const c of chunks) total += c.byteLength;
 	const result = new Uint8Array(total);
@@ -3370,38 +3435,34 @@ function concatBytes(...chunkList) {
 	}
 	return result;
 }
-function closeSocketQuietly(socket) {
+function grmlvmk(socket) {
 	try {
 		if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CLOSING) {
 			socket.close();
 		}
 	} catch (e) {}
 }
-async function dohQuery(domain, recordType, targetDoh = DOH_RESOLVER) {
+async function xrts5qo(domain, recordType, targetDoh = b2llpoh) {
 	const cacheKey = `${domain}:${recordType}:${targetDoh}`;
-	if (DNS_CACHE.has(cacheKey)) {
-		const cached = DNS_CACHE.get(cacheKey);
+	if (obx6yh7.has(cacheKey)) {
+		const cached = obx6yh7.get(cacheKey);
 		if (Date.now() < cached.expires) return cached.data;
-		// کش منقضی شده (بعد از DNS_CACHE_TTL=۵ دقیقه): قبلاً همینجا منتظر یه DoH زنده‌ی جدید می‌موندیم
-		// و همین باعث می‌شد دقیقاً هر ۵ دقیقه یه‌بار (مثلاً وسط پخش ریلز) یه اتصال جدید چند ثانیه گیر کنه.
-		// حالا اگه جواب قبلی (هر چند کهنه) داریم، همونو فوری برمی‌گردونیم و رفرش واقعی رو پس‌زمینه انجام می‌دیم؛
-		// دفعه‌ی بعد جواب تازه از قبل توی کشه.
-		DNS_CACHE.delete(cacheKey);
+		obx6yh7.delete(cacheKey);
 		if (cached.data && cached.data.length > 0) {
-			fetchDohFresh(domain, recordType, targetDoh, cacheKey).catch(() => {});
+			sskrq5v(domain, recordType, targetDoh, cacheKey).catch(() => {});
 			return cached.data;
 		}
 	}
-	return await fetchDohFresh(domain, recordType, targetDoh, cacheKey);
+	return await sskrq5v(domain, recordType, targetDoh, cacheKey);
 }
-async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
+async function sskrq5v(domain, recordType, targetDoh, cacheKey) {
 	let dohTimer = null;
 	const cacheNegative = () => {
-		if (DNS_CACHE.size >= DNS_CACHE_MAX_ENTRIES) {
-			const oldestKey = DNS_CACHE.keys().next().value;
-			if (oldestKey !== undefined) DNS_CACHE.delete(oldestKey);
+		if (obx6yh7.size >= jtnyqj4) {
+			const oldestKey = obx6yh7.keys().next().value;
+			if (oldestKey !== undefined) obx6yh7.delete(oldestKey);
 		}
-		DNS_CACHE.set(cacheKey, { data: [], expires: Date.now() + 30000 });
+		obx6yh7.set(cacheKey, { data: [], expires: Date.now() + 30000 });
 	};
 	try {
 		const typeMap = { A: 1, AAAA: 28 };
@@ -3410,11 +3471,11 @@ async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 			const parts = name.endsWith(".") ? name.slice(0, -1).split(".") : name.split(".");
 			const bufs = [];
 			for (const label of parts) {
-				const enc = TEXT_ENCODER.encode(label);
+				const enc = a5g5pwf.encode(label);
 				bufs.push(new Uint8Array([enc.length]), enc);
 			}
 			bufs.push(new Uint8Array([0]));
-			return concatBytes(...bufs);
+			return o6qjwnj(...bufs);
 		};
 		const qname = encodeDomain(domain);
 		const query = new Uint8Array(12 + qname.length + 4);
@@ -3425,7 +3486,6 @@ async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 		query.set(qname, 12);
 		qview.setUint16(12 + qname.length, qtype);
 		qview.setUint16(12 + qname.length + 2, 1);
-		// بدون تایم‌اوت، یک DoH کند/گیرکرده کل اتصال جدید رو معطل می‌کرد
 		const dohAbort = new AbortController();
 		dohTimer = setTimeout(() => dohAbort.abort(), 1500);
 		const response = await fetch(targetDoh, {
@@ -3465,7 +3525,7 @@ async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 					jumped = true;
 					continue;
 				}
-				labels.push(TEXT_DECODER.decode(buf.slice(p + 1, p + 1 + len)));
+				labels.push(b1p8pcx.decode(buf.slice(p + 1, p + 1 + len)));
 				p += len + 1;
 			}
 			if (endPos === -1) endPos = p + 1;
@@ -3503,11 +3563,11 @@ async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 			}
 			answers.push({ name, type, TTL: ttl, data });
 		}
-		if (DNS_CACHE.size >= DNS_CACHE_MAX_ENTRIES) {
-			const oldestKey = DNS_CACHE.keys().next().value;
-			if (oldestKey !== undefined) DNS_CACHE.delete(oldestKey);
+		if (obx6yh7.size >= jtnyqj4) {
+			const oldestKey = obx6yh7.keys().next().value;
+			if (oldestKey !== undefined) obx6yh7.delete(oldestKey);
 		}
-		DNS_CACHE.set(cacheKey, { data: answers, expires: Date.now() + DNS_CACHE_TTL });
+		obx6yh7.set(cacheKey, { data: answers, expires: Date.now() + vac5goc });
 		return answers;
 	} catch (e) {
 		if (dohTimer) clearTimeout(dohTimer);
@@ -3515,7 +3575,7 @@ async function fetchDohFresh(domain, recordType, targetDoh, cacheKey) {
 		return [];
 	}
 }
-function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConnection, name = "UpstreamQueue" }) {
+function tasyh7l({ getWriter, releaseWriter, retryConnect, closeConnection, name = "UpstreamQueue" }) {
 	let chunks = [];
 	let head = 0;
 	let queuedBytes = 0;
@@ -3574,7 +3634,7 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 	const bundle = () => {
 		const first = shift();
 		if (!first) return null;
-		if (head >= chunks.length || first.chunk.byteLength >= UPSTREAM_BUNDLE_TARGET_BYTES) return first;
+		if (head >= chunks.length || first.chunk.byteLength >= j7gzuyc) return first;
 		let byteLength = first.chunk.byteLength;
 		let end = head;
 		let allowRetry = first.allowRetry;
@@ -3582,14 +3642,14 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 		while (end < chunks.length) {
 			const next = chunks[end];
 			const nextLength = byteLength + next.chunk.byteLength;
-			if (nextLength > UPSTREAM_BUNDLE_TARGET_BYTES) break;
+			if (nextLength > j7gzuyc) break;
 			byteLength = nextLength;
 			allowRetry = allowRetry && next.allowRetry;
 			if (next.completions) completions = completions ? completions.concat(next.completions) : next.completions;
 			end++;
 		}
 		if (end === head) return first;
-		const output = (bundleBuffer ||= new Uint8Array(UPSTREAM_BUNDLE_TARGET_BYTES));
+		const output = (bundleBuffer ||= new Uint8Array(j7gzuyc));
 		output.set(first.chunk);
 		let offset = first.chunk.byteLength;
 		while (head < end) {
@@ -3654,11 +3714,11 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 	const enqueue = (data, allowRetry = true, waitForFlush = false) => {
 		if (closed) return false;
 		if (!getWriter()) return false;
-		const chunk = convertToUint8Array(data);
+		const chunk = zqv9d9o(data);
 		if (!chunk.byteLength) return true;
 		const nextBytes = queuedBytes + chunk.byteLength;
 		const nextItems = chunks.length - head + 1;
-		if (nextBytes > UPSTREAM_QUEUE_MAX_BYTES || nextItems > UPSTREAM_QUEUE_MAX_ITEMS) {
+		if (nextBytes > gd4zjw9 || nextItems > sacemxe) {
 			closed = true;
 			const err = Object.assign(new Error(`${name}: upload queue overflow (${nextBytes}B/${nextItems})`), { isQueueOverflow: true });
 			clear(err);
@@ -3682,14 +3742,11 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 		writeAndAwait(data, allowRetry = true) {
 			return enqueue(data, allowRetry, true);
 		},
-		// نسخه‌ی غیربلاکه: مثل writeAndAwait تیکه رو صف می‌کنه ولی منتظر تموم‌شدن نوشتن واقعی روی سوکت نمی‌مونه،
-		// پس آپلود سریع باقی می‌مونه. وقتی صف به ~۷۰٪ سقفش نزدیک می‌شه، به‌جای این‌که بذاریم پر بشه و کل
-		// کانکشن با خطای overflow قطع بشه، یه فشار برگشتی نرم اعمال می‌کنیم: کمی صبر می‌کنیم تا خالی‌تر بشه.
 		async write(data, allowRetry = true) {
 			const result = enqueue(data, allowRetry, false);
 			if (result === false || result === true) {
-				if (queuedBytes > UPSTREAM_QUEUE_MAX_BYTES * 0.7) {
-					const softLimit = UPSTREAM_QUEUE_MAX_BYTES * 0.5;
+				if (queuedBytes > gd4zjw9 * 0.7) {
+					const softLimit = gd4zjw9 * 0.5;
 					while (!closed && queuedBytes > softLimit) {
 						await new Promise((r) => setTimeout(r, 15));
 					}
@@ -3708,7 +3765,7 @@ function createUpstreamQueue({ getWriter, releaseWriter, retryConnect, closeConn
 		},
 	};
 }
-function createDownstreamSender(webSocket, headerData = null) {
+function o8p7n6h(webSocket, headerData = null) {
 	const MAX_CAP = 256 * 1024;
 	const MIN_CAP = 16 * 1024;
 	let currentPacketCap = 128 * 1024;
@@ -3729,9 +3786,8 @@ function createDownstreamSender(webSocket, headerData = null) {
 	const sendRawChunk = async (chunk) => {
 		if (webSocket.readyState !== 1) throw new Error("ws.readyState is not open");
 		webSocket.send(chunk);
-		// فشار برگشتی واقعی: تا وقتی بافر وب‌سوکت خالی نشده، خوندن از سوکت مقصد (و در نتیجه ویدیو) متوقف می‌شه
 		if (typeof webSocket.bufferedAmount === "number" && webSocket.bufferedAmount > 1024 * 1024) {
-			await waitForBackpressure(webSocket);
+			await au0sjg5(webSocket);
 		}
 	};
 	const attachResponseHeader = (chunk) => {
@@ -3756,13 +3812,13 @@ function createDownstreamSender(webSocket, headerData = null) {
 	};
 	return {
 		async sendDirect(data) {
-			let chunk = convertToUint8Array(data);
+			let chunk = zqv9d9o(data);
 			if (!chunk.byteLength) return;
 			chunk = attachResponseHeader(chunk);
 			await sendRawChunk(chunk);
 		},
 		async send(data) {
-			let chunk = convertToUint8Array(data);
+			let chunk = zqv9d9o(data);
 			if (!chunk.byteLength) return;
 			chunk = attachResponseHeader(chunk);
 			let offset = 0;
@@ -3786,7 +3842,7 @@ function createDownstreamSender(webSocket, headerData = null) {
 				} else if (!microtaskQueued) {
 					microtaskQueued = true;
 					queueMicrotask(() => {
-						if (pendingBytes) flush().catch(() => closeSocketQuietly(webSocket));
+						if (pendingBytes) flush().catch(() => grmlvmk(webSocket));
 					});
 				}
 			}
@@ -3794,14 +3850,8 @@ function createDownstreamSender(webSocket, headerData = null) {
 		flush,
 	};
 }
-async function waitForBackpressure(ws) {
+async function au0sjg5(ws) {
 	if (typeof ws.bufferedAmount === "number") {
-		// قبلاً فقط از لحظه‌ی ورود به این تابع ۶۰ ثانیه می‌شمرد و اگه توی کل این ۶۰ ثانیه بافر بالای ۱MB
-		// مونده بود (که توی یه دانلود سنگین و پرسرعت کاملاً عادیه - بافر مدام پر و خالی می‌شه و ممکنه
-		// همیشه بالای ۱MB بمونه چون داده به همون سرعت که خالی می‌شه دوباره پر می‌شه) سوکت رو "مرده" فرض
-		// می‌کرد و می‌بست. همین باعث می‌شد وسط یه دانلود کاملاً سالم، دقیقاً حدود ۱ دقیقه بعد قطع بشه.
-		// حالا فقط وقتی می‌بندیم که بافر واقعاً گیر کرده باشه: یعنی ۶۰ ثانیه پشت‌سرهم هیچ کاهشی توی
-		// bufferedAmount نبینیم (پس واقعاً هیچی به سمت کلاینت نرفته و اتصال مرده‌ست)، نه صرفاً بالای ۱MB بودنش.
 		let lastAmount = ws.bufferedAmount;
 		let lastProgress = Date.now();
 		while (ws.bufferedAmount > 1024 * 1024) {
@@ -3809,43 +3859,40 @@ async function waitForBackpressure(ws) {
 			if (ws.bufferedAmount < lastAmount) lastProgress = Date.now();
 			lastAmount = ws.bufferedAmount;
 			if (Date.now() - lastProgress > 60000) {
-				closeSocketQuietly(ws);
+				grmlvmk(ws);
 				break;
 			}
 			await new Promise((r) => setTimeout(r, 5));
 		}
 	}
 }
-async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, onBytes, aeadCtx = null) {
+async function v18gj84(remoteSocket, webSocket, headerData, retryFunc, onBytes, aeadCtx = null) {
 	let header = headerData,
 		hasData = false;
 	if (aeadCtx) {
-		header = header ? concatBytes(aeadCtx.salt, header) : aeadCtx.salt;
+		header = header ? o6qjwnj(aeadCtx.salt, header) : aeadCtx.salt;
 	}
-	// Shadowsocks AEAD: هر تکه به فریم‌های حداکثر ۱۶۳۸۳ بایتی [len+tag][payload+tag] تبدیل می‌شه
 	const sealChunk = async (chunk) => {
 		const parts = [];
 		let offset = 0;
 		while (offset < chunk.byteLength) {
 			const sliceLen = Math.min(chunk.byteLength - offset, 16383);
 			const lenBuf = new Uint8Array([(sliceLen >> 8) & 0xff, sliceLen & 0xff]);
-			const encLen = await SSCrypto.encryptChunk(aeadCtx.key, aeadCtx.nonce, lenBuf);
-			const encPayload = await SSCrypto.encryptChunk(aeadCtx.key, aeadCtx.nonce, chunk.subarray(offset, offset + sliceLen));
+			const encLen = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, lenBuf);
+			const encPayload = await bp4qnv1.encryptChunk(aeadCtx.key, aeadCtx.nonce, chunk.subarray(offset, offset + sliceLen));
 			if (!encLen || !encPayload) throw new Error("ss encrypt failed");
 			parts.push(encLen, encPayload);
 			offset += sliceLen;
 		}
-		return concatBytes(...parts);
+		return o6qjwnj(...parts);
 	};
-	const downstreamSender = createDownstreamSender(webSocket, header);
+	const downstreamSender = o8p7n6h(webSocket, header);
 	header = null;
 	try {
 		let reader = remoteSocket.readable.getReader({ mode: "byob" });
 		let useBYOB = true;
 		reader.releaseLock();
 		if (useBYOB) {
-			// بافر واسط: تا وقتی ارسال به کلاینت مشغوله، خوندن از سوکت مقصد کاملاً متوقف نشه (قبلاً فقط ۱ تکه جا داشت
-			// و هر توقف کوتاه، خوندن رو هم قطع می‌کرد و جریان ویدیو حالت stop-and-go پیدا می‌کرد)
 			const transformStream = new TransformStream({
 				async transform(chunk, controller) {
 					hasData = true;
@@ -3866,7 +3913,7 @@ async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, on
 		try { reader = remoteSocket.readable.getReader(); } catch (_) { reader = null; }
 		if (reader) try {
 			while (true) {
-				if (webSocket.bufferedAmount > 1024 * 1024) await waitForBackpressure(webSocket);
+				if (webSocket.bufferedAmount > 1024 * 1024) await au0sjg5(webSocket);
 				const { done, value } = await reader.read();
 				if (done) break;
 				if (!value || value.byteLength === 0) continue;
@@ -3880,30 +3927,25 @@ async function connectStreams(remoteSocket, webSocket, headerData, retryFunc, on
 		}
 	} finally {
 		await downstreamSender.flush();
-		closeSocketQuietly(webSocket);
+		grmlvmk(webSocket);
 	}
 	if (!hasData && retryFunc) await retryFunc();
 }
-// یه هاست IPv6 خامه یا نه (دامنه/IPv4 => false، آدرس IPv6 با یا بدون [] => true)
-function isIPv6Literal(host) {
+function cmlmh7c(host) {
 	if (typeof host !== "string" || !host) return false;
 	const bare = host.startsWith("[") && host.endsWith("]") ? host.slice(1, -1) : host;
 	return bare.includes(":");
 }
-// باگ workerd: connect() داخلش hostname و port رو با ":" بهم می‌چسبونه (hostname:port)؛ برای IPv6 باید
-// hostname توی [] باشه وگرنه چندتا ":" با ":" جداکننده‌ی پورت قاطی می‌شه و اتصال fail می‌کنه.
-// (رفرنس: PR شماره‌ی ۵۰۶ ریپوی byJoey/cfnew و ۴۳۷ ریپوی yonggekkk/Cloudflare-vless-trojan)
-function bracketizeHost(host) {
-	if (isIPv6Literal(host) && !host.startsWith("[")) return `[${host}]`;
+function kcqbs1g(host) {
+	if (cmlmh7c(host) && !host.startsWith("[")) return `[${host}]`;
 	return host;
 }
-async function connectDirect(address, port, initialData = null, targetDoh = "https://cloudflare-dns.com/dns-query") {
-	const socket = connect({ hostname: bracketizeHost(address), port: port });
+async function ndhpogz(address, port, initialData = null, targetDoh = "https://cloudflare-dns.com/dns-query") {
+	const socket = connect({ hostname: kcqbs1g(address), port: port });
 	let openTimer = null;
 	try {
 		await Promise.race([socket.opened, new Promise((_, reject) => { openTimer = setTimeout(() => reject(new Error("timeout")), 5000); })]);
 	} catch (e) {
-		// سوکتِ نیمه‌باز رو ببند (قبلاً نشت می‌کرد) و مشخص کن خطا مربوط به مرحله‌ی اتصاله، نه ارسال دیتا
 		try { socket.close(); } catch (_) {}
 		const connErr = e instanceof Error ? e : new Error(String(e));
 		connErr.connectPhase = true;
@@ -3913,15 +3955,13 @@ async function connectDirect(address, port, initialData = null, targetDoh = "htt
 	}
 	if (initialData && initialData.byteLength > 0) {
 		const w = socket.writable.getWriter();
-		await w.write(convertToUint8Array(initialData));
+		await w.write(zqv9d9o(initialData));
 		w.releaseLock();
 	}
 	return socket;
 }
-async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServer = "8.8.4.4") {
-	const requestData = convertToUint8Array(udpChunk);
-	// هر پیام UDP توی VLESS با پیشوند ۲بایتی طول میاد (دقیقاً فرمت DNS-over-TCP). تعداد کوئری‌های داخل این تکه رو
-	// می‌شماریم تا بدونیم دقیقاً چند تا پاسخ باید برگرده و بعد از دریافت همون‌ها سوکت رو ببندیم.
+async function sf3jqd6(udpChunk, webSocket, respHeader, onBytes, dnsServer = "8.8.4.4") {
+	const requestData = zqv9d9o(udpChunk);
 	let expected = 0;
 	for (let o = 0; o + 2 <= requestData.byteLength; ) {
 		const l = (requestData[o] << 8) | requestData[o + 1];
@@ -3933,9 +3973,7 @@ async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServ
 	let reader = null;
 	let timeoutId = null;
 	try {
-		tcpSocket = connect({ hostname: bracketizeHost(dnsServer), port: 53 });
-		// قبلاً تا بسته‌شدن سوکت از سمت سرور DNS (یا ۱۰ ثانیه تایم‌اوت) صبر می‌کرد؛ چون پیام‌های هر وب‌سوکت پشت‌سرهم
-		// پردازش می‌شن، یه DNS کند باعث می‌شد همه‌ی کوئری‌های بعدی (و در نتیجه باز شدن اتصال‌های جدید یوتیوب) گیر کنن.
+		tcpSocket = connect({ hostname: kcqbs1g(dnsServer), port: 53 });
 		timeoutId = setTimeout(() => {
 			try { tcpSocket.close(); } catch (e) {}
 		}, 4000);
@@ -3950,8 +3988,7 @@ async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServ
 			const { done, value } = await reader.read();
 			if (done) break;
 			if (!value || !value.byteLength) continue;
-			buf = buf.byteLength ? concatBytes(buf, value) : value;
-			// فریم‌های کامل (۲ بایت طول + بدنه) رو جدا و ارسال می‌کنیم
+			buf = buf.byteLength ? o6qjwnj(buf, value) : value;
 			let off = 0;
 			while (buf.byteLength - off >= 2) {
 				const l = (buf[off] << 8) | buf[off + 1];
@@ -3980,18 +4017,18 @@ async function forwardvIeesUDP(udpChunk, webSocket, respHeader, onBytes, dnsServ
 		try { if (tcpSocket) tcpSocket.close(); } catch (e) {}
 	}
 }
-function extractUUIDFromvIees(data) {
+function g5gydre(data) {
 	if (data.byteLength < 17) return null;
 	const hex = [...data.slice(1, 17)].map((b) => b.toString(16).padStart(2, "0")).join("");
 	return `${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}`;
 }
-function trackRequest(env, ctx) {
-	GLOBAL_REQ_COUNT++;
+function xn0iw7z(env, ctx) {
+	cwsdrkz++;
 	const now = Date.now();
-	if ((now - GLOBAL_LAST_REQ_WRITE > 900000 || GLOBAL_REQ_COUNT > 5000) && GLOBAL_REQ_COUNT > 0) {
-		GLOBAL_LAST_REQ_WRITE = now;
-		const countToSave = GLOBAL_REQ_COUNT;
-		GLOBAL_REQ_COUNT = 0;
+	if ((now - jlvmthl > 900000 || cwsdrkz > 5000) && cwsdrkz > 0) {
+		jlvmthl = now;
+		const countToSave = cwsdrkz;
+		cwsdrkz = 0;
 		const task = async () => {
 			try {
 				const today = new Date().toISOString().split("T")[0];
@@ -4012,7 +4049,7 @@ function trackRequest(env, ctx) {
 /*
 [1.
 */
-async function connectProxy(proxyStr, destAddr, destPort, initialData) {
+async function zbxph7j(proxyStr, destAddr, destPort, initialData) {
 	let normalized = proxyStr;
 	if (proxyStr.includes("t.me/socks") || proxyStr.includes("tg://socks")) {
 		const server = proxyStr.match(/server=([^&]+)/)?.[1];
@@ -4027,23 +4064,23 @@ async function connectProxy(proxyStr, destAddr, destPort, initialData) {
 	const isSocks4 = normalized.toLowerCase().startsWith("socks4://");
 	let cleanStr = normalized.replace(/^(socks4|socks5|socks|http|https):\/\//i, "");
 	if (isHttp) {
-		return await connectHttp(cleanStr, destAddr, destPort, initialData);
+		return await meelg9i(cleanStr, destAddr, destPort, initialData);
 	}
 	if (isSocks4) {
-		return await connectSocks4(cleanStr, destAddr, destPort, initialData);
+		return await njxkihq(cleanStr, destAddr, destPort, initialData);
 	}
-	return await connectSocks5(cleanStr, destAddr, destPort, initialData);
+	return await c7saicn(cleanStr, destAddr, destPort, initialData);
 }
-async function connectSocks4(proxyStr, destAddr, destPort, initialData) {
-	const { user, pass, host, port, auth } = parseProxyConfig(proxyStr, 1080);
-	const socket = connect({ hostname: bracketizeHost(host), port: port });
+async function njxkihq(proxyStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(proxyStr, 1080);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	try {
 		const portHigh = (destPort >> 8) & 0xff;
 		const portLow = destPort & 0xff;
 		let req;
-		if (isIPv4(destAddr)) {
+		if (uppwjdo(destAddr)) {
 			const ipBytes = destAddr.split(".").map(Number);
 			req = new Uint8Array([0x04, 0x01, portHigh, portLow, ipBytes[0], ipBytes[1], ipBytes[2], ipBytes[3], 0x00]);
 		} else {
@@ -4067,7 +4104,7 @@ async function connectSocks4(proxyStr, destAddr, destPort, initialData) {
 			throw new Error("پـروکـسـی SOCKS4 وصل نشد یا اتصال را رد کرد");
 		}
 		if (initialData && initialData.byteLength > 0) {
-			await writer.write(convertToUint8Array(initialData));
+			await writer.write(zqv9d9o(initialData));
 		}
 		writer.releaseLock();
 		reader.releaseLock();
@@ -4085,7 +4122,7 @@ async function connectSocks4(proxyStr, destAddr, destPort, initialData) {
 		throw e;
 	}
 }
-function parseProxyConfig(proxyStr, defaultPort) {
+function k7jz7p6(proxyStr, defaultPort) {
 	let user = "",
 		pass = "",
 		host = "",
@@ -4122,9 +4159,9 @@ function parseProxyConfig(proxyStr, defaultPort) {
 	}
 	return { user, pass, host, port, auth };
 }
-async function connectSocks5(socksStr, destAddr, destPort, initialData) {
-	const { user, pass, host, port, auth } = parseProxyConfig(socksStr, 1080);
-	const socket = connect({ hostname: bracketizeHost(host), port: port });
+async function c7saicn(socksStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(socksStr, 1080);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	const readWithTimeout = (r, ms) => Promise.race([
@@ -4155,7 +4192,7 @@ async function connectSocks5(socksStr, destAddr, destPort, initialData) {
 		}
 		let addrType = 0x03;
 		let addrBytes;
-		if (isIPv4(destAddr)) {
+		if (uppwjdo(destAddr)) {
 			addrType = 0x01;
 			addrBytes = new Uint8Array(destAddr.split(".").map(Number));
 		} else if (destAddr.includes(":")) {
@@ -4186,7 +4223,7 @@ async function connectSocks5(socksStr, destAddr, destPort, initialData) {
 		let connRes = await readWithTimeout(reader, 4000);
 		if (connRes.done || !connRes.value || connRes.value[1] !== 0x00) throw new Error("پـروکـسـی وصل شد اما دسترسی به اینترنت آزاد ندارد");
 		if (initialData && initialData.byteLength > 0) {
-			await writer.write(convertToUint8Array(initialData));
+			await writer.write(zqv9d9o(initialData));
 		}
 		writer.releaseLock();
 		reader.releaseLock();
@@ -4204,9 +4241,10 @@ async function connectSocks5(socksStr, destAddr, destPort, initialData) {
 		throw e;
 	}
 }
-async function connectHttp(proxyStr, destAddr, destPort, initialData) {
-	const { user, pass, host, port, auth } = parseProxyConfig(proxyStr, 80);
-	const socket = connect({ hostname: bracketizeHost(host), port: port });
+
+async function meelg9i(proxyStr, destAddr, destPort, initialData) {
+	const { user, pass, host, port, auth } = k7jz7p6(proxyStr, 80);
+	const socket = connect({ hostname: kcqbs1g(host), port: port });
 	const reader = socket.readable.getReader();
 	const writer = socket.writable.getWriter();
 	try {
@@ -4234,7 +4272,7 @@ async function connectHttp(proxyStr, destAddr, destPort, initialData) {
 			}
 		}
 		if (initialData && initialData.byteLength > 0) {
-			await writer.write(convertToUint8Array(initialData));
+			await writer.write(zqv9d9o(initialData));
 		}
 		writer.releaseLock();
 		reader.releaseLock();
@@ -4252,28 +4290,28 @@ async function connectHttp(proxyStr, destAddr, destPort, initialData) {
 		throw e;
 	}
 }
-const ZEUS_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+const yg6opgi = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <radialGradient id="zeusBg" cx="50%" cy="50%" r="50%">
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#0e2348"/>
       <stop offset="100%" stop-color="#020617"/>
     </radialGradient>
-    <filter id="zeusGlow" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="glowFx" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#3b82f6" flood-opacity="0.6"/>
     </filter>
   </defs>
   <rect width="512" height="512" rx="128" fill="#000000"/>
-  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#zeusBg)" stroke="#3b82f6" stroke-width="16" filter="url(#zeusGlow)"/>
+  <rect x="48" y="48" width="416" height="416" rx="96" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="16" filter="url(#glowFx)"/>
   <rect x="56" y="56" width="400" height="400" rx="88" fill="none" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.4"/>
-  <g transform="translate(128, 128) scale(10.666)" filter="url(#zeusGlow)">
+  <g transform="translate(128, 128) scale(10.666)" filter="url(#glowFx)">
     <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="#38bdf8" fill-opacity="0.3" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>`;
-const PWA_MANIFEST = JSON.stringify({
-	name: "ZEUS Panel",
-	short_name: "ZEUS Panel",
+const vrnrz32 = JSON.stringify({
+	name: "Alireza Panel",
+	short_name: "Alireza Panel",
 	description: "پنل مدیریت پیشرفته کانفیگ و کاربران زئوس",
-	start_url: "/panel",
+	start_url: "/adminas",
 	scope: "/",
 	display: "standalone",
 	background_color: "#000000",
@@ -4286,9 +4324,9 @@ const PWA_MANIFEST = JSON.stringify({
 	],
 	categories: ["utilities", "productivity"]
 });
-const PWA_SERVICE_WORKER = `
-const CACHE_NAME = "zeus-pwa-cache-v1";
-const STATIC_ASSETS = [
+const w8wy2kr = `
+const ejmnvu5 = "app-cache-v3";
+const zd4pw2j = [
 	"https://cdn.tailwindcss.com",
 	"https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js",
 	"https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"
@@ -4296,8 +4334,8 @@ const STATIC_ASSETS = [
 self.addEventListener("install", (e) => {
 	self.skipWaiting();
 	e.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			return cache.addAll(STATIC_ASSETS).catch(() => {});
+		caches.open(ejmnvu5).then((cache) => {
+			return cache.addAll(zd4pw2j).catch(() => {});
 		})
 	);
 });
@@ -4306,7 +4344,7 @@ self.addEventListener("activate", (e) => {
 		caches.keys().then((keys) => {
 			return Promise.all(
 				keys.map((k) => {
-					if (k !== CACHE_NAME) return caches.delete(k);
+					if (k !== ejmnvu5) return caches.delete(k);
 				})
 			);
 		}).then(() => self.clients.claim())
@@ -4317,18 +4355,18 @@ self.addEventListener("fetch", (e) => {
 	if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/sub/") || url.pathname.startsWith("/feed/") || url.pathname.startsWith("/singbox/") || url.pathname.startsWith("/status/") || url.pathname.startsWith("/stream/")) {
 		return;
 	}
-	if (STATIC_ASSETS.includes(e.request.url)) {
+	if (zd4pw2j.includes(e.request.url)) {
 		e.respondWith(
 			caches.match(e.request).then((cached) => cached || fetch(e.request).then((res) => {
 				const clone = res.clone();
-				caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+				caches.open(ejmnvu5).then((cache) => cache.put(e.request, clone));
 				return res;
 			}))
 		);
 	}
 });
 `;
-const COMMON_HEAD = `
+const avk7j6y = `
 	<script>
 		if (localStorage.getItem('gfx-enabled') === 'false') {
 			document.documentElement.classList.add('gfx-off');
@@ -4342,7 +4380,7 @@ const COMMON_HEAD = `
 			document.documentElement.classList.add('grayscale-active');
 		}
 		/* پاک‌سازی کش قدیمی پرچم‌ها (نسخه قبلی emoji متنی که در ویندوز خراب بود) */
-		try { localStorage.removeItem('proxy_flag_cache'); } catch(e) {}
+		try { localStorage.removeItem('pf_c1'); } catch(e) {}
 	</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
@@ -4488,10 +4526,10 @@ const COMMON_HEAD = `
 				dot.style.transform = 'translate3d(' + mouseX + 'px, ' + mouseY + 'px, 0) translate(-50%, -50%)';
 				if (!isMoving) {
 					isMoving = true;
-					requestAnimationFrame(animatePhysics);
+					requestAnimationFrame(y5rpt2z);
 				}
 			}, { passive: true });
-			function animatePhysics() {
+			function y5rpt2z() {
 				ringX += (mouseX - ringX) * 0.45;
 				ringY += (mouseY - ringY) * 0.45;
 				ringPos.style.transform = 'translate3d(' + ringX + 'px, ' + ringY + 'px, 0) translate(-50%, -50%)';
@@ -4501,7 +4539,7 @@ const COMMON_HEAD = `
 				if (Math.abs(mouseX - ringX) < 0.5 && Math.abs(mouseY - ringY) < 0.5) {
 					isMoving = false;
 				} else {
-					requestAnimationFrame(animatePhysics);
+					requestAnimationFrame(y5rpt2z);
 				}
 			}
 			document.addEventListener('mouseover', (e) => {
@@ -4517,8 +4555,8 @@ const COMMON_HEAD = `
 		}
 	});
 </script>`;
-const COMMON_TOAST_HTML = `<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>`;
-const COMMON_WAVES_SCRIPT = `
+const pbfiipq = `<div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>`;
+const td8g9qc = `
 	<canvas id="waves" class="bg-canvas"></canvas>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 	<script>
@@ -4544,7 +4582,7 @@ const COMMON_WAVES_SCRIPT = `
 		const geom = new THREE.PlaneGeometry(80, IS_MOBILE ? 90 : 40, segX, segY);
 		const vertShader = "uniform float uTime; uniform float uStrength; varying float vElev; void main(){ vec3 p = position; float x = p.x * 0.2 + uTime * 0.3; float y = p.y * 0.2 + uTime * 0.25; float wave = sin(x)*cos(y)*1.6 + sin(x*2.1 + uTime)*0.7 + cos(y*1.7 - uTime*0.6)*0.7; wave *= uStrength * 1.5; p.z += wave; vElev = wave; gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }";
 		const fragShader = "varying float vElev; uniform vec3 uHigh; uniform vec3 uLow; uniform float uFade; void main(){ float t = clamp((vElev + 2.0) / 4.0, 0.0, 1.0); vec3 col = mix(uLow, uHigh, t); gl_FragColor = vec4(col, uFade); }";
-		function makePlane(px, py, pz, rx, ry, rz, high, low, fade){
+		function bwtw9pk(px, py, pz, rx, ry, rz, high, low, fade){
 		  const mat = new THREE.ShaderMaterial({
 			wireframe: true, 
 			transparent: true, 
@@ -4567,14 +4605,14 @@ const COMMON_WAVES_SCRIPT = `
 		const cs = getComputedStyle(document.documentElement);
 		const yOffset = IS_MOBILE ? 14 : 8;
 		
-		const topPlane = makePlane(0, yOffset, -5, -Math.PI/2.4, 0, 0, '#1e40af', '#040914', 0.35);
-		const midPlane = makePlane(
+		const topPlane = bwtw9pk(0, yOffset, -5, -Math.PI/2.4, 0, 0, '#1e40af', '#040914', 0.35);
+		const midPlane = bwtw9pk(
 		  0, 0, -25, 0, 0, 0, 
 		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
 		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
 		  (parseFloat(cs.getPropertyValue('--plane-opacity')) || 0.35) * 0.7
 		);
-		const botPlane = makePlane(
+		const botPlane = bwtw9pk(
 		  0, -yOffset, -5, Math.PI/2.4, 0, 0, 
 		  cs.getPropertyValue('--plane-color').trim() || '#1d4ed8', 
 		  cs.getPropertyValue('--plane-dark').trim() || '#000105', 
@@ -4606,7 +4644,7 @@ const COMMON_WAVES_SCRIPT = `
 		  camera.updateProjectionMatrix();
 		  renderer.setSize(window.innerWidth, window.innerHeight);
 		});
-		function retintScene(){
+		function hus7ufu(){
 		  const isDark = document.documentElement.classList.contains('dark');
 		  if (renderer) renderer.setClearColor(isDark ? 0x000105 : 0xf9fafb, 1);
 		  const pColor = isDark ? '#1d4ed8' : '#93c5fd';
@@ -4636,17 +4674,17 @@ const COMMON_WAVES_SCRIPT = `
 		const observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
 				if (mutation.attributeName === 'class') {
-					retintScene();
+					hus7ufu();
 				}
 			});
 		});
 		observer.observe(document.documentElement, { attributes: true });
-		retintScene();
+		hus7ufu();
 	  })();
 	</script>
 `;
-const COMMON_TOAST_JS = `
-		function showToast(message, type = 'success') {
+const zfne8tu = `
+		function bm3pzm2(message, type = 'success') {
 			const container = document.getElementById('toast-container');
 			const toast = document.createElement('div');
 			const colors = type === 'error' 
@@ -4666,20 +4704,20 @@ const COMMON_TOAST_JS = `
 		window.alert = function(message) {
 			const msgStr = message ? message.toString() : '';
 			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
-				showToast(msgStr, 'error');
+				bm3pzm2(msgStr, 'error');
 			} else {
-				showToast(msgStr, 'success');
+				bm3pzm2(msgStr, 'success');
 			}
 		};
 `;
-const HTML_TEMPLATES = {
+const wa42j92 = {
 	nginx: `<!DOCTYPE html>
 <html lang="fa" dir="rtl" class="dark">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>دسترسی به پـنـل</title>
-	${COMMON_HEAD}
+	${avk7j6y}
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
 	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-8 text-center flex flex-col items-center gap-4 relative z-10">
@@ -4692,11 +4730,11 @@ const HTML_TEMPLATES = {
 			<span class="inline-block px-2 py-1 bg-gray-100 dark:bg-amoled-input border border-gray-200 dark:border-zinc-800 rounded-md font-mono text-blue-500 font-bold mx-1 shadow-sm" dir="ltr">/panel</span> 
 			را به انتهای آدرس مرورگر خود اضافه کنید یا روی دکمه زیر کلیک کنید.
 		</p>
-		<button onclick="window.location.href='/panel'" class="mt-4 w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition-colors duration-200 shadow-lg font-bold">
+		<button onclick="window.location.href='/adminas'" class="mt-4 w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition-colors duration-200 shadow-lg font-bold">
 			ورود به پـنـل
 		</button>
 	</div>
-	${COMMON_WAVES_SCRIPT}
+	${td8g9qc}
 </body>
 </html>`,
 	setup: `<!DOCTYPE html>
@@ -4705,7 +4743,7 @@ const HTML_TEMPLATES = {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>تعریف رمز عبور پـنـل</title>
-	${COMMON_HEAD}
+	${avk7j6y}
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
 	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
@@ -4723,9 +4761,9 @@ const HTML_TEMPLATES = {
 			<button type="submit" id="submit-btn" class="w-full py-2.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-sm transition font-bold">ثبت و ورود</button>
 		</form>
 	</div>
-	${COMMON_TOAST_HTML}
+	${pbfiipq}
 	<script>
-		${COMMON_TOAST_JS};
+		${zfne8tu};
 		async function handleSetup(event) {
 			event.preventDefault();
 			const password = document.getElementById('password').value.trim();
@@ -4760,7 +4798,7 @@ const HTML_TEMPLATES = {
 			}
 		}
 	</script>
-	${COMMON_WAVES_SCRIPT}
+	${td8g9qc}
 </body>
 </html>`,
 	login: `<!DOCTYPE html>
@@ -4769,7 +4807,7 @@ const HTML_TEMPLATES = {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ورود به پــنــل مدیریت</title>
-	${COMMON_HEAD}
+	${avk7j6y}
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-amoled-bg dark:text-zinc-100 min-h-screen flex items-center justify-center p-4">
 	<div class="w-full max-w-md bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl p-6 relative z-10">
@@ -4790,7 +4828,7 @@ const HTML_TEMPLATES = {
 			<h2 class="text-xl font-bold mb-4 text-center text-orange-600 dark:text-orange-400">بازیابی رمز پـنـل</h2>
 			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300">
 				برای احراز هویت و اثبات مالکیت پـنـل، از طریق دکمه زیر وارد کلودفلر شوید و توکن دریافتی را کپی کرده و در کادر زیر وارد کنید.
-				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
+				<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="mt-3 w-full flex items-center justify-center gap-2 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 rounded-md font-bold transition shadow-md">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
 					دریافت توکن
 				</a>
@@ -4806,9 +4844,9 @@ const HTML_TEMPLATES = {
 			</form>
 		</div>
 	</div>
-	${COMMON_TOAST_HTML}
+	${pbfiipq}
 	<script>
-		${COMMON_TOAST_JS}
+		${zfne8tu}
 		async function handleLogin(event) {
 			event.preventDefault();
 			const password = document.getElementById('password').value.trim();
@@ -4865,7 +4903,7 @@ const HTML_TEMPLATES = {
 			}
 		}
 	</script>
-	${COMMON_WAVES_SCRIPT}
+	${td8g9qc}
 </body>
 </html>`,
 	panel: `
@@ -4883,11 +4921,11 @@ const HTML_TEMPLATES = {
 			originalWarn(...args);
 		};
 	</script>
-	${COMMON_HEAD}
+	${avk7j6y}
 	<style>
 		body { font-family: 'Vazirmatn', sans-serif; }
 		/* پرچم‌های SVG برای سازگاری با ویندوز */
-		.zeus-flag {
+		.flg {
 			display: inline-block;
 			width: 1.35em;
 			height: 1em;
@@ -4897,7 +4935,7 @@ const HTML_TEMPLATES = {
 			background-position: 50%;
 			background-repeat: no-repeat;
 		}
-		.zeus-flag-globe {
+		.flg-g {
 			font-size: 1.1em;
 			line-height: 1;
 			vertical-align: -0.05em;
@@ -4990,8 +5028,8 @@ const HTML_TEMPLATES = {
 		<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
 			<div class="flex flex-row flex-wrap justify-center items-center gap-3 w-full md:w-auto">
 				<h1 class="text-lg font-bold flex items-center gap-2" dir="ltr">
-					⚡️ Z E U S
-					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full">v1.11.4</span>
+					⚡️ A L I R E Z A
+					<span id="panel-version" class="text-xs px-2 py-0.5 font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full">v3.4.1</span>
 				</h1>
 				<div class="flex items-center gap-3 bg-gray-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-800/80 shadow-sm flex-shrink-0 w-fit">
 					<a href="https://github.com/aaaaaaaaaa" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-all transform hover:scale-125 duration-200 flex-shrink-0" title="GitHub">
@@ -5276,16 +5314,9 @@ const HTML_TEMPLATES = {
 			</div>
 		</div>
 		<div class="flex items-center justify-between mb-4">
-			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200">لیست کاربران</h2>
-			<div class="flex items-center gap-5">
-				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
-					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-					</svg>
-				</button>
+			<h2 class="text-lg font-bold text-gray-800 dark:text-zinc-200 shrink-0 whitespace-nowrap">لیست کاربران</h2>
+			<div class="flex flex-col items-end gap-3">
+				<div class="flex items-center justify-end gap-4">
 				<button onclick="quickCreateUser(this)" title="افزودن کاربر سریع (VIP)" class="p-2 rounded-md bg-indigo-50 dark:bg-indigo-950/40 border-2 border-indigo-500 dark:border-indigo-500 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all duration-300 text-indigo-600 dark:text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.6)] hover:shadow-[0_0_25px_rgba(99,102,241,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<span class="absolute -inset-1 rounded-md bg-indigo-500/20 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
 					<svg id="quick-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 drop-shadow-[0_0_6px_rgba(99,102,241,0.8)] relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -5296,13 +5327,24 @@ const HTML_TEMPLATES = {
 				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 				</button>
+				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+				</button>
+				</div>
+				<div class="flex items-center justify-end gap-4">
+				<button onclick="openRocketModal(this)" title="افزودن کاربر تک لوکیشن (VIP)" class="p-2 rounded-md bg-orange-50 dark:bg-orange-950/40 border-2 border-orange-500 dark:border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/60 transition-all duration-300 text-orange-600 dark:text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.6)] hover:shadow-[0_0_25px_rgba(249,115,22,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
+					<svg id="rocket-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 drop-shadow-[0_0_6px_rgba(249,115,22,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+						<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+						<path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+						<path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+						<path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+					</svg>
+				</button>
 				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
 					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
 				</button>
-				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-				</button>
+				</div>
 			</div>
 		</div>
 		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
@@ -5457,7 +5499,7 @@ const HTML_TEMPLATES = {
 		
 		<div class="flex flex-col gap-2 mt-auto">
 			<div class="flex flex-col sm:flex-row gap-2 w-full">
-				<button onclick="downloadZeusSource()" class="flex-1 py-2 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/40 dark:hover:text-blue-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
+				<button onclick="downloadSrcFile()" class="flex-1 py-2 bg-transparent border-2 border-blue-600 text-blue-700 hover:bg-blue-900/20 hover:text-blue-800 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/40 dark:hover:text-blue-300 font-bold rounded-md text-[11px] transition duration-300 shadow-sm flex items-center justify-center gap-1.5">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
 					دریافت سورس‌کد
 				</button>
@@ -5683,7 +5725,7 @@ const HTML_TEMPLATES = {
 									<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
 									</span>
-									<input type="text" id="input-name" placeholder="zeus" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
+									<input type="text" id="input-name" placeholder="my-config" dir="ltr" class="w-full pl-3 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-xs font-semibold text-gray-800 dark:text-zinc-100 placeholder-gray-400 transition shadow-sm">
 								</div>
 							</div>
 							
@@ -5889,10 +5931,6 @@ const HTML_TEMPLATES = {
 										<span>آی‌پی‌های تمیز کلودفلر (Clean IPs)</span>
 									</h4>
 									<div class="flex items-center gap-1.5">
-										<button type="button" onclick="openIpScannerModal()" class="px-2.5 py-1 bg-transparent border-2 border-sky-500 text-sky-600 dark:text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1 shadow-sm">
-											<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-											<span>اسکنر آی‌پی</span>
-										</button>
 										<button type="button" onclick="openIpSelectorModal()" class="px-2.5 py-1 bg-transparent border-2 border-amber-500 text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-md text-[11px] font-bold transition flex items-center gap-1 shadow-sm">
 											<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
 										<span>مخزن آی‌پی</span>
@@ -6169,10 +6207,6 @@ const HTML_TEMPLATES = {
 									<svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
 									<span>اهدای پـروکـسـی شخصی</span>
 								</button>
-								<button type="button" onclick="copyScannerCode('bash <(curl -sL https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus-relay.sh | tr -d &quot;\\\\r&quot;)', this)" class="py-2.5 px-3 bg-transparent border-2 border-blue-500 text-blue-600 dark:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
-									<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-									<span>دستور ساخت پروکسی</span>
-								</button>
 							</div>
 						</div>
 					</div>
@@ -6232,57 +6266,6 @@ const HTML_TEMPLATES = {
 				<button type="button" onclick="toggleIpSelectorModal(false)" class="flex-1 py-2 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">لغو</button>
 				<button type="button" onclick="applySelectedIps()" class="flex-1 py-2 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-medium rounded-md text-xs transition">دریافت</button>
 			</div>
-		</div>
-	</div>
-</div>
-<div id="ip-scanner-modal" class="fixed inset-0 z-[65] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
-	<div class="w-full max-w-lg bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-xl overflow-hidden transition-all transform duration-300 opacity-0 scale-95 ease-out flex flex-col max-h-[90vh]">
-		<div class="px-6 py-4 border-b border-gray-150 dark:border-amoled-border flex justify-between items-center bg-gray-50 dark:bg-zinc-900/50 flex-shrink-0">
-			<h3 class="font-bold text-gray-900 dark:text-zinc-100 text-sm flex items-center gap-2">
-				<svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-				اسکنر اختصاصی آی‌پی تمیز
-			</h3>
-			<button type="button" onclick="toggleIpScannerModal(false)" class="p-1.5 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 shadow-sm">
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-		<div class="p-5 space-y-4 overflow-y-auto flex-1">
-			<!-- Mobile Section (Pydroid 3) -->
-			<div class="border border-green-200 dark:border-green-900/50 bg-green-50/50 dark:bg-green-900/10 rounded-md p-4 shadow-sm">
-				<div class="flex items-center gap-2 mb-2">
-					<svg class="w-5 h-5 text-green-600 dark:text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02L19.695 6.183c.1568-.2716.0637-.6182-.2079-.7754-.2716-.1564-.6183-.0633-.775.2082l-1.8584 3.2185c-1.3853-.6328-2.9697-.9881-4.6644-.9881-1.6946 0-3.279.3553-4.664.9881L5.6664 5.6158c-.1567-.2715-.5038-.3646-.775-.2082-.2716.1572-.3647.5038-.2079.7754l1.8136 3.1385C2.963 11.2384 1.1571 14.5422 1 18.4234h22c-.1572-3.8812-1.963-7.185-5.4955-9.102"/></svg>
-					<h4 class="font-black text-sm text-green-700 dark:text-green-400">کاربران موبایل (Pydroid 3)</h4>
-				</div>
-				<p class="text-[11px] text-gray-600 dark:text-gray-400 mb-3 leading-relaxed font-medium">
-					اپلیکیشن <a href="https://play.google.com/store/apps/details?id=ru.iiec.pydroid3" target="_blank" class="text-blue-500 hover:text-blue-600 dark:text-blue-400 font-bold underline">Pydroid 3</a> را نصب کنید. از منوی کناری برنامه وارد بخش <b>Terminal</b> شوید و کد زیر را اجرا کنید؛ سپس آدرس <code class="bg-white dark:bg-zinc-800 px-1 py-0.5 rounded text-blue-500 font-bold shadow-sm" dir="ltr">http://127.0.0.1:8000</code> را در مرورگر باز کنید.
-				</p>
-				<div class="flex flex-col gap-2">
-					<div class="w-full bg-gray-100 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md p-2.5 text-[10px] font-mono text-left text-gray-800 dark:text-zinc-300 break-all select-all overflow-x-auto whitespace-pre-wrap max-h-24 overflow-y-auto" dir="ltr">python -c "import urllib.request; req = urllib.request.Request('https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus-scanner.txt', headers={'User-Agent': 'Mozilla/5.0'}); exec(urllib.request.urlopen(req).read().decode('utf-8').split('---PYTH' + 'ON---')[1].split('---POWERSHELL---')[0].strip())"</div>
-					<button type="button" onclick="copyScannerCode('python -c &quot;import urllib.request; req = urllib.request.Request(\\'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus-scanner.txt\\', headers={\\'User-Agent\\': \\'Mozilla/5.0\\'}); exec(urllib.request.urlopen(req).read().decode(\\'utf-8\\').split(\\'---PYTH\\' + \\'ON---\\')[1].split(\\'---POWERSHELL---\\')[0].strip())&quot;', this)" class="w-full flex items-center justify-center gap-1.5 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/80 rounded text-xs font-bold transition shadow-sm">
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-						<span>کپی کد Pydroid</span>
-					</button>
-				</div>
-			</div>
-			<div class="border border-blue-200 dark:border-blue-900/50 bg-blue-50/50 dark:bg-blue-900/10 rounded-md p-4 shadow-sm">
-				<div class="flex items-center gap-2 mb-2">
-					<svg class="w-5 h-5 text-blue-600 dark:text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.801"/></svg>
-					<h4 class="font-black text-sm text-blue-700 dark:text-blue-400">کاربران ویندوز (CMD)</h4>
-				</div>
-				<p class="text-[11px] text-gray-600 dark:text-gray-400 mb-3 leading-relaxed font-medium">
-					محیط <code class="font-bold">CMD</code> (Command Prompt) را در ویندوز باز کنید و کد زیر را برای اجرای اسکنر در آن پیست کنید و اینتر بزنید.
-				</p>
-				<div class="flex flex-col gap-2">
-					<div class="w-full bg-gray-100 dark:bg-amoled-input border border-gray-300 dark:border-amoled-border rounded-md p-2.5 text-[10px] font-mono text-left text-gray-800 dark:text-zinc-300 break-all select-all overflow-x-auto whitespace-pre-wrap max-h-24 overflow-y-auto" dir="ltr">powershell -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString('https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus-scanner.txt') -split '---POWERSHELL---')[1].Trim(); [IO.File]::WriteAllText('zeus-scanner.ps1', $text, [System.Text.Encoding]::UTF8); .\zeus-scanner.ps1"</div>
-					<button type="button" onclick="copyScannerCode('powershell -ExecutionPolicy Bypass -Command &quot;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13; $wc = New-Object System.Net.WebClient; $wc.Encoding = [System.Text.Encoding]::UTF8; $text = ($wc.DownloadString(\\'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/zeus-scanner.txt\\') -split \\'---POWERSHELL---\\')[1].Trim(); [IO.File]::WriteAllText(\\'zeus-scanner.ps1\\', $text, [System.Text.Encoding]::UTF8); .\\\\zeus-scanner.ps1&quot;', this)" class="w-full flex items-center justify-center gap-1.5 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700/80 rounded text-xs font-bold transition shadow-sm">
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-						<span>کپی کد CMD</span>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="p-4 border-t border-gray-150 dark:border-amoled-border bg-gray-50 dark:bg-zinc-900/50 flex-shrink-0">
-			<button type="button" onclick="toggleIpScannerModal(false)" class="w-full py-2.5 bg-transparent border-2 border-red-700 text-red-700 hover:bg-red-900/20 hover:text-red-800 dark:border-red-700 dark:text-red-500 dark:hover:bg-red-900/40 dark:hover:text-red-400 font-bold rounded-md text-xs transition shadow-sm">بستن صفحه</button>
 		</div>
 	</div>
 </div>
@@ -6544,7 +6527,7 @@ const HTML_TEMPLATES = {
 			<div class="mb-5 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-md text-xs leading-relaxed text-orange-800 dark:text-orange-300 font-medium">
 				توکن کلودفلر شما در این پـنـل ذخیره نشده است. برای فعال‌سازی آپدیت خودکار از داخل پـنـل، لطفاً توکن خود را دریافت کرده و در کادر زیر وارد کنید.
 			</div>
-			<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Zeus-Deployer-Token" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#d94800] hover:bg-[#e35802] text-white font-bold rounded-md text-sm transition duration-300 mb-4 shadow-md shadow-orange-500/20">
+			<a href="https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_subdomain%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=Deploy-Token" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#d94800] hover:bg-[#e35802] text-white font-bold rounded-md text-sm transition duration-300 mb-4 shadow-md shadow-orange-500/20">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
 				دریافت توکن کلودفلر
 			</a>
@@ -6608,12 +6591,12 @@ const HTML_TEMPLATES = {
 			<p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed font-medium">
 				آپدیت موفق بود لطفا صفحه را 10 ثانیه دیگر رفرش کنید تا نسخه جدید لود شود
 			</p>
-			<button onclick="sessionStorage.setItem('zeus_last_update', Date.now()); window.location.href = window.location.pathname + '?t=' + Date.now()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
+			<button onclick="sessionStorage.setItem('lu_k3', Date.now()); window.location.href = window.location.pathname + '?t=' + Date.now()" class="w-full py-3.5 bg-transparent border-2 border-green-600 text-green-700 hover:bg-green-900/20 hover:text-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-900/40 dark:hover:text-green-400 font-black rounded-md text-sm transition duration-300 shadow-lg">
 				رفرش صفحه
 			</button>
 		</div>
 	</div>
-${COMMON_TOAST_HTML}
+${pbfiipq}
 <div id="custom-confirm-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60  opacity-0 pointer-events-none transition-all duration-300 ease-out">
 	<div id="custom-confirm-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border border-gray-200 dark:border-amoled-border rounded-md shadow-2xl overflow-hidden p-6 text-center transform transition-all scale-95 duration-300">
 		<h3 class="font-black text-xl text-gray-900 dark:text-white mb-3">تأیید عملیات</h3>
@@ -6625,8 +6608,8 @@ ${COMMON_TOAST_HTML}
 	</div>
 </div>
 	<script>
-		async function fetchWithFallbackUI(path, options = {}) {
-			const primaryUrl = (path === 'ips.txt') ? 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
+		async function kc5inhw(path, options = {}) {
+			const primaryUrl = (path === 'ips.txt') ? 'https://subs.alis1.ir/ip.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
 			const fallbackUrl = primaryUrl;
 			try {
 				const res = await fetch(primaryUrl, options);
@@ -6634,16 +6617,16 @@ ${COMMON_TOAST_HTML}
 			} catch (e) {}
 			return await fetch(fallbackUrl, options);
 		}
-		async function fetchWithFallbackUIVIP(path, options = {}) {
-			const primaryUrl = 'https://hoplimit.shop/' + path;
-			const fallbackUrl = 'https://raw.githubusercontent.com/panel-zeus/Z-E-U-S/main/' + path;
+		async function ggsyffs(path, options = {}) {
+			const primaryUrl = 'https://subs.alis1.ir/vipprox.txt';
+			const fallbackUrl = 'https://subs.alis1.ir/vipprox.txt';
 			try {
 				const res = await fetch(primaryUrl, options);
 				if (res.ok) return res;
 			} catch (e) {}
 			return await fetch(fallbackUrl, options);
 		}
-		function showToast(message, type = 'success') {
+		function bm3pzm2(message, type = 'success') {
 			const container = document.getElementById('toast-container');
 			const toast = document.createElement('div');
 			const colors = type === 'error' 
@@ -6660,7 +6643,7 @@ ${COMMON_TOAST_HTML}
 				setTimeout(() => toast.remove(), 300);
 			}, 3000);
 		}
-		function customConfirm(message) {
+		function pw6sr5c(message) {
 			return new Promise((resolve) => {
 				const modal = document.getElementById('custom-confirm-modal');
 				const card = document.getElementById('custom-confirm-card');
@@ -6689,9 +6672,9 @@ ${COMMON_TOAST_HTML}
 		window.alert = function(message) {
 			const msgStr = message ? message.toString() : '';
 			if (msgStr.includes('خطا') || msgStr.includes('⚠️') || msgStr.includes('❌')) {
-				showToast(msgStr, 'error');
+				bm3pzm2(msgStr, 'error');
 			} else {
-				showToast(msgStr, 'success');
+				bm3pzm2(msgStr, 'success');
 			}
 		};
 		window.selectedUsernames = new Set();
@@ -6706,7 +6689,7 @@ ${COMMON_TOAST_HTML}
 					window.selectedUsernames.delete(username);
 				}
 			});
-			updateBulkActionsBar();
+			i5ta7ay();
 		}
 		function onUserSelectChange(el) {
 			const username = decodeURIComponent(el.value);
@@ -6715,9 +6698,9 @@ ${COMMON_TOAST_HTML}
 			} else {
 				window.selectedUsernames.delete(username);
 			}
-			updateBulkActionsBar();
+			i5ta7ay();
 		}
-		function updateBulkActionsBar() {
+		function i5ta7ay() {
 			const bar = document.getElementById('bulk-actions-bar');
 			const countSpan = document.getElementById('bulk-selected-count');
 			const selectAllCheckbox = document.getElementById('select-all-users');
@@ -6743,7 +6726,7 @@ ${COMMON_TOAST_HTML}
 		async function bulkDelete() {
 			const usernames = Array.from(window.selectedUsernames);
 			if (usernames.length === 0) return;
-			if (await customConfirm('⚠️ آیا از حذف گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟ این عمل غیرقابل بازگشت است.')) {
+			if (await pw6sr5c('⚠️ آیا از حذف گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟ این عمل غیرقابل بازگشت است.')) {
 				const bar = document.getElementById('bulk-actions-bar');
 				const buttons = bar.querySelectorAll('button');
 				buttons.forEach(btn => btn.disabled = true);
@@ -6761,8 +6744,8 @@ ${COMMON_TOAST_HTML}
 					alert('✅ عملیات حذف گروهی انجام شد. ' + successCount + ' کاربر با موفقیت حذف شدند.');
 				} finally {
 					buttons.forEach(btn => btn.disabled = false);
-					updateBulkActionsBar();
-					await loadUsers(true);
+					i5ta7ay();
+					await axmsbp4(true);
 				}
 			}
 		}
@@ -6770,7 +6753,7 @@ ${COMMON_TOAST_HTML}
 			const usernames = Array.from(window.selectedUsernames);
 			if (usernames.length === 0) return;
 			const actionText = targetActive === 1 ? 'فعال‌سازی' : 'غیرفعال‌سازی';
-			if (await customConfirm('آیا از ' + actionText + ' گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
+			if (await pw6sr5c('آیا از ' + actionText + ' گروهی ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
 				const bar = document.getElementById('bulk-actions-bar');
 				const buttons = bar.querySelectorAll('button');
 				buttons.forEach(btn => btn.disabled = true);
@@ -6797,8 +6780,8 @@ ${COMMON_TOAST_HTML}
 					alert('✅ عملیات ' + actionText + ' با موفقیت برای تمامی کاربران واجد شرایط اعمال شد.');
 				} finally {
 					buttons.forEach(btn => btn.disabled = false);
-					updateBulkActionsBar();
-					await loadUsers(true);
+					i5ta7ay();
+					await axmsbp4(true);
 				}
 			}
 		}
@@ -6809,7 +6792,7 @@ ${COMMON_TOAST_HTML}
 			if (actionType === 'volume') actionName = 'حجم مصرفی';
 			else if (actionType === 'req') actionName = 'تعداد ریکوئست‌ها';
 			else if (actionType === 'time') actionName = 'زمان اشتراک';
-			if (await customConfirm('آیا از ریست کردن گروهی ' + actionName + ' برای ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
+			if (await pw6sr5c('آیا از ریست کردن گروهی ' + actionName + ' برای ' + usernames.length + ' کاربر انتخاب شده مطمئن هستید؟')) {
 				const bar = document.getElementById('bulk-actions-bar');
 				const buttons = bar.querySelectorAll('button');
 				buttons.forEach(btn => btn.disabled = true);
@@ -6828,8 +6811,8 @@ ${COMMON_TOAST_HTML}
 					alert('✅ عملیات ریست گروهی ' + actionName + ' با موفقیت برای ' + successCount + ' کاربر اعمال شد.');
 				} finally {
 					buttons.forEach(btn => btn.disabled = false);
-					updateBulkActionsBar();
-					await loadUsers(true);
+					i5ta7ay();
+					await axmsbp4(true);
 				}
 			}
 		}
@@ -6837,7 +6820,7 @@ ${COMMON_TOAST_HTML}
 		const nonTlsPorts = ['80', '8080', '8880', '2052', '2082', '2086', '2095'];
 		let isEditMode = false;
 		let editingUsername = '';
-		function renderPortCheckboxes() {
+		function yok43r5() {
 			const tlsContainer = document.getElementById('tls-ports-list');
 			const nonTlsContainer = document.getElementById('nontls-ports-list');
 			if (nonTlsContainer) {
@@ -6871,7 +6854,7 @@ ${COMMON_TOAST_HTML}
 			const cb80 = document.querySelector('input[name="ports"][value="80"]');
 			if (cb80) cb80.checked = true;
 		}, 100);
-		function toggleSettingsModal(show) { setModalState('settings-modal', show); if (show && typeof loadLocations === 'function') loadLocations(); }
+		function toggleSettingsModal(show) { ys5v6m0('settings-modal', show); if (show && typeof jyfwoo1 === 'function') jyfwoo1(); }
 		window.toggleAutoResetInputs = function(show) {
 			const container = document.getElementById('auto-reset-inputs-container');
 			const volInput = document.getElementById('input-auto-reset-vol');
@@ -6942,7 +6925,7 @@ ${COMMON_TOAST_HTML}
 			if (isActive) {
 				if (lenInput) lenInput.value = '200-3000';
 				if (intInput) intInput.value = '1-2';
-				if (typeof showToast === 'function') showToast('🔄 تنظیمات فرگمنت به حالت پیش‌فرض بازگشت.', 'success');
+				if (typeof bm3pzm2 === 'function') bm3pzm2('🔄 تنظیمات فرگمنت به حالت پیش‌فرض بازگشت.', 'success');
 				return;
 			}
 			const toggle = document.getElementById('input-frag-toggle');
@@ -6953,7 +6936,7 @@ ${COMMON_TOAST_HTML}
 			if (lenInput) lenInput.value = p.len;
 			if (intInput) intInput.value = p.int;
 			if (btnEl) btnEl.classList.add('ring-2', 'ring-blue-500', 'border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-950/40');
-			if (typeof showToast === 'function') showToast('⚡ تنظیمات فرگمنت ' + p.name + ' با موفقیت اعمال شد.', 'success');
+			if (typeof bm3pzm2 === 'function') bm3pzm2('⚡ تنظیمات فرگمنت ' + p.name + ' با موفقیت اعمال شد.', 'success');
 		};
 		window.setQuickVol = function(val) {
 			const input = document.getElementById('input-limit');
@@ -6968,7 +6951,7 @@ ${COMMON_TOAST_HTML}
 			const csInput = document.getElementById('input-cipher-suites');
 			if (fragInput) fragInput.value = '{"tcp": [{"type": "fragment", "settings": {"packets": "tlshello", "lengths": ["0", "104", "1"], "delays": ["0"], "maxSplit": "0"}},{"type": "fragment", "settings": {"packets": "1-1", "lengths": ["114", "1"], "delays": ["1"], "maxSplit": "11"}}]}';
 			if (csInput) csInput.value = 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256';
-			if (typeof showToast === 'function') showToast('✅ مقادیر پیش‌فرض Patterniha با موفقیت اعمال شد.', 'success');
+			if (typeof bm3pzm2 === 'function') bm3pzm2('✅ مقادیر پیش‌فرض Patterniha با موفقیت اعمال شد.', 'success');
 		};
 		window.generateRandomUsername = function() {
 			const adjectives = ['swift','silent','crimson','golden','shadow','azure','lunar','solar','rapid','mystic'];
@@ -6985,8 +6968,8 @@ ${COMMON_TOAST_HTML}
 			if (!nameInput) return;
 			const cca2 = window._globalActiveCountry || '';
 			let base = '';
-			if (cca2 && typeof getCountryDisplayNameEn === 'function') {
-				const enName = getCountryDisplayNameEn(cca2);
+			if (cca2 && typeof m79lr3o === 'function') {
+				const enName = m79lr3o(cca2);
 				base = (enName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 			}
 			if (!base) {
@@ -7004,10 +6987,10 @@ ${COMMON_TOAST_HTML}
 			const anyChecked = (vlessCb && vlessCb.checked) || (trojanCb && trojanCb.checked) || (ssCb && ssCb.checked);
 			if (!anyChecked && changedInput) {
 				changedInput.checked = true;
-				if (typeof showToast === 'function') showToast('⚠️ حداقل یک پروتکل باید فعال باشد.', 'error');
+				if (typeof bm3pzm2 === 'function') bm3pzm2('⚠️ حداقل یک پروتکل باید فعال باشد.', 'error');
 			}
 		};
-		function updateSubmitBtnState(text, disable = null) {
+		function jutlx8s(text, disable = null) {
 			const btnMob = document.getElementById('submit-btn');
 			const btnDesk = document.getElementById('submit-btn-desktop');
 			if (btnMob) {
@@ -7022,13 +7005,13 @@ ${COMMON_TOAST_HTML}
 			}
 		}
 		function toggleModal(show) {
-			setModalState('user-modal', show);
+			ys5v6m0('user-modal', show);
 			if (typeof window.switchUserTab === 'function') window.switchUserTab('tab-user-info');
 			if (!show) {
 				isEditMode = false;
 				editingUsername = '';
 				document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
-				updateSubmitBtnState('ایجاد کاربر', false);
+				jutlx8s('ایجاد کاربر', false);
 				document.getElementById('input-name').disabled = false;
 				document.getElementById('create-user-form').reset();
 				const vlessCb1 = document.getElementById('input-proto-vless');
@@ -7075,51 +7058,23 @@ ${COMMON_TOAST_HTML}
 		}
 		function toggleUpdateModal(show, version = '') {
 			if (show && version) document.getElementById('update-modal-text').innerHTML = 'نسخه جدید (<b>v' + version + '</b>) در دسترس است.<br>اگر آپدیت خودکار عمل نکرد لطفا از ربات استفاده کنید.';
-			setModalState('update-modal', show);
+			ys5v6m0('update-modal', show);
 		}
 		let activeRocketBtn = null;
 		function toggleRocketModal(show) {
-			setModalState('rocket-modal', show);
+			ys5v6m0('rocket-modal', show);
 		}
 		async function openRocketModal(btn) {
 			activeRocketBtn = btn;
 			toggleRocketModal(true);
 			const select = document.getElementById('rocket-country-select');
 			const submitBtn = document.getElementById('rocket-submit-btn');
-			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
-			submitBtn.disabled = true;
-			try {
-				const resVipList = await fetchWithFallbackUIVIP('vip-list?t=' + Date.now());
-				if (resVipList.ok) {
-					const files = await resVipList.json();
-					const vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
-					if (vipCountries.length > 0) {
-						select.innerHTML = '<option value="">یک کشور انتخاب کنید...</option>';
-						vipCountries.forEach(function(country) {
-							const option = document.createElement('option');
-							option.value = country;
-							const flag = typeof getFlagEmojiText === 'function' ? getFlagEmojiText(country) : '🌐';
-							option.textContent = flag + ' ' + country;
-							select.appendChild(option);
-						});
-						submitBtn.disabled = false;
-					} else {
-						select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-					}
-				} else {
-					select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-				}
-			} catch (e) {
-				select.innerHTML = '<option value="">خطا در دریافت لیست کشورها</option>';
-			}
+			select.innerHTML = '<option value="ALL">🌐 انتخاب تصادفی از کل مخزن VIP</option>';
+			submitBtn.disabled = false;
 		}
 		async function executeRocketCreate() {
 			const select = document.getElementById('rocket-country-select');
-			const country = select.value;
-			if (!country) {
-				alert('لطفاً یک کشور انتخاب کنید.');
-				return;
-			}
+			const country = select.value || 'ALL';
 			toggleRocketModal(false);
 			const btn = activeRocketBtn;
 			if (btn) btn.disabled = true;
@@ -7132,21 +7087,21 @@ ${COMMON_TOAST_HTML}
 				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 				let randStr = '';
 				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
-				const username = 'ZEUS-' + randStr;
+				const username = 'Alireza-' + randStr;
 
-				const resVip = await fetchWithFallbackUIVIP('proxy_vip/' + country + '.txt?t=' + Date.now());
+				const resVip = await ggsyffs('vipprox.txt?t=' + Date.now());
 				if (!resVip.ok) {
-					alert('هیچ پروکسی در این کشور یافت نشد.');
+					alert('هیچ پروکسی VIP یافت نشد.');
 					return;
 				}
 				const text = await resVip.text();
 				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
 				if (lines.length === 0) {
-					alert('هیچ پروکسی در این کشور یافت نشد.');
+					alert('هیچ پروکسی VIP یافت نشد.');
 					return;
 				}
 
-				showToast('🚀 در حال اسکن پینگ ' + lines.length + ' پروکسی از کشور ' + country + '...');
+				bm3pzm2('🚀 در حال اسکن پینگ ' + lines.length + ' پروکسی VIP...');
 
 				const controller = new AbortController();
 				let successProxies = [];
@@ -7177,9 +7132,9 @@ ${COMMON_TOAST_HTML}
 				const bestProxy = successProxies[0].proxy;
 
 				let availableIps = [];
-				if (Object.keys(cachedIpsData).length === 0) {
+				if (Object.keys(l76xmsu).length === 0) {
 					try {
-						const resIps = await fetchWithFallbackUI('ips.txt');
+						const resIps = await kc5inhw('ips.txt');
 						if (resIps.ok) {
 							const text2 = await resIps.text();
 							const blocks = text2.split('----------');
@@ -7192,7 +7147,7 @@ ${COMMON_TOAST_HTML}
 						}
 					} catch (e) {}
 				} else {
-					Object.values(cachedIpsData).forEach(ips => { availableIps = availableIps.concat(ips); });
+					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
 				}
 				availableIps = [...new Set(availableIps)];
 				let selectedIps = [];
@@ -7219,8 +7174,8 @@ ${COMMON_TOAST_HTML}
 					})
 				});
 				if (response.ok) {
-					showToast('🚀 کاربر تک کشوره با بهترین پینگ با موفقیت ایجاد شد.');
-					await loadUsers(true);
+					bm3pzm2('🚀 کاربر تک کشوره با بهترین پینگ با موفقیت ایجاد شد.');
+					await axmsbp4(true);
 				} else {
 					const errData = await response.json();
 					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -7248,7 +7203,7 @@ ${COMMON_TOAST_HTML}
 			try {
 				users.forEach(function(u) {
 					let text = '';
-					try { text = getvIeesLink(u.username); } catch (e) { text = ''; }
+					try { text = fv9a4g0(u.username); } catch (e) { text = ''; }
 					if (!text) return;
 					usersCount++;
 					text.split('\\n').forEach(function(l) { l = l.trim(); if (l) all.push(l); });
@@ -7262,7 +7217,7 @@ ${COMMON_TOAST_HTML}
 			}
 			const text = all.join('\\n');
 			const done = function() {
-				if (typeof showToast === 'function') showToast('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
+				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
 				else alert('✅ ' + all.length + ' کانفیگ از ' + usersCount + ' کاربر کپی شد.');
 			};
 			const fallback = function() {
@@ -7298,7 +7253,7 @@ ${COMMON_TOAST_HTML}
 				const r = await fetch('/api/proxy-ip', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ info_configs: want }) });
 				if (!r.ok) throw new Error('save failed');
 				window._infoConfigsEnabled = want;
-				if (typeof showToast === 'function') showToast(want ? '✅ کانفیگ‌های اطلاع‌رسانی فعال شد.' : '✅ کانفیگ‌های اطلاع‌رسانی غیرفعال شد.');
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ کانفیگ‌های اطلاع‌رسانی فعال شد.' : '✅ کانفیگ‌های اطلاع‌رسانی غیرفعال شد.');
 			} catch (e) {
 				cb.checked = !want;
 				alert('خطا در ذخیره تنظیمات');
@@ -7406,7 +7361,7 @@ ${COMMON_TOAST_HTML}
 					return false;
 				}
 				window._ech = { sni: sni, doh: doh, preset: preset, api: api };
-				if (typeof showToast === 'function') showToast('✅ تنظیمات ECH ذخیره شد. برای اعمال روی کاربران، تاگل Chrome + ECH را دوباره بزن.');
+				if (typeof bm3pzm2 === 'function') bm3pzm2('✅ تنظیمات ECH ذخیره شد. برای اعمال روی کاربران، تاگل Chrome + ECH را دوباره بزن.');
 				return true;
 			} catch (e) {
 				alert('خطا در برقراری ارتباط با سرور');
@@ -7431,7 +7386,7 @@ ${COMMON_TOAST_HTML}
 					? { advanced_frag: '', cipher_suites: '', tls_mask: '', ech_config: window.getEchString(), fingerprint: 'chrome', patterniha_ech: true }
 					: { advanced_frag: '', cipher_suites: '', ech_config: '', fingerprint: 'unsafe', patterniha_ech: false });
 				if (want) window.applyPatternihaState(false);
-				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Chrome + ECH روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
 			} catch (e) {
 				cb.checked = !want;
 				alert('خطا در ذخیره تنظیمات');
@@ -7442,7 +7397,7 @@ ${COMMON_TOAST_HTML}
 		window.bulkAdvancedRequest = async function(payload) {
 			const r = await fetch('/api/bulk-advanced', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
 			if (!r.ok) throw new Error('bulk failed');
-			if (typeof loadUsers === 'function') { try { await loadUsers(true); } catch (e) {} }
+			if (typeof axmsbp4 === 'function') { try { await axmsbp4(true); } catch (e) {} }
 		};
 		window.togglePatternihaAll = async function(cb) {
 			const want = cb.checked;
@@ -7456,7 +7411,7 @@ ${COMMON_TOAST_HTML}
 					? { advanced_frag: window.PATTERNIHA_FM, cipher_suites: window.PATTERNIHA_CS, patterniha: true }
 					: { advanced_frag: '', cipher_suites: '', patterniha: false });
 				if (want) window.applyPatternihaEchState(false);
-				if (typeof showToast === 'function') showToast(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
+				if (typeof bm3pzm2 === 'function') bm3pzm2(want ? '✅ بهینه‌سازی Patterniha روی همه کاربران اعمال شد.' : '✅ بهینه‌سازی از همه کاربران حذف شد.');
 			} catch (e) {
 				cb.checked = !want;
 				alert('خطا در ذخیره تنظیمات');
@@ -7517,7 +7472,7 @@ ${COMMON_TOAST_HTML}
 				btn.disabled = true;
 				try {
 					await window.bulkAdvancedRequest(payload);
-					if (typeof showToast === 'function') showToast('✅ روی همه کاربران اعمال شد.');
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ روی همه کاربران اعمال شد.');
 					window.closeBulkAdvancedModal();
 				} catch (e) {
 					alert('خطا در ذخیره تنظیمات');
@@ -7537,14 +7492,14 @@ ${COMMON_TOAST_HTML}
 			if (icon) icon.classList.add('animate-spin');
 			try {
 				let base = '';
-				if (typeof getCountryDisplayNameEn === 'function') base = String(getCountryDisplayNameEn(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 				if (!base) base = cca2.toLowerCase();
 				base = base.slice(0, 18);
 				const num = Math.floor(100 + Math.random() * 900);
 				let allIps = [];
-				if (Object.keys(cachedIpsData).length === 0) {
+				if (Object.keys(l76xmsu).length === 0) {
 					try {
-						const resIps = await fetchWithFallbackUI('ips.txt');
+						const resIps = await kc5inhw('ips.txt');
 						if (resIps.ok) {
 							const text = await resIps.text();
 							text.split('----------').forEach(block => {
@@ -7555,7 +7510,7 @@ ${COMMON_TOAST_HTML}
 						}
 					} catch (e) {}
 				} else {
-					Object.values(cachedIpsData).forEach(list => { allIps = allIps.concat(list); });
+					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
 				}
 				allIps = [...new Set(allIps)];
 				const pickIps = function() {
@@ -7595,8 +7550,8 @@ ${COMMON_TOAST_HTML}
 					}
 				}
 				if (created > 0) {
-					if (typeof showToast === 'function') showToast('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
-					await loadUsers(true);
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await axmsbp4(true);
 				}
 			} catch (err) {
 				alert('خطا در برقراری ارتباط با سرور');
@@ -7617,14 +7572,14 @@ ${COMMON_TOAST_HTML}
 			if (icon) icon.classList.add('animate-spin');
 			try {
 				let base = '';
-				if (typeof getCountryDisplayNameEn === 'function') base = String(getCountryDisplayNameEn(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				if (typeof m79lr3o === 'function') base = String(m79lr3o(cca2) || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 				if (!base) base = cca2.toLowerCase();
 				base = base.slice(0, 18);
 				const num = Math.floor(100 + Math.random() * 900);
 				let allIps = [];
-				if (Object.keys(cachedIpsData).length === 0) {
+				if (Object.keys(l76xmsu).length === 0) {
 					try {
-						const resIps = await fetchWithFallbackUI('ips.txt');
+						const resIps = await kc5inhw('ips.txt');
 						if (resIps.ok) {
 							const text = await resIps.text();
 							text.split('----------').forEach(block => {
@@ -7635,7 +7590,7 @@ ${COMMON_TOAST_HTML}
 						}
 					} catch (e) {}
 				} else {
-					Object.values(cachedIpsData).forEach(list => { allIps = allIps.concat(list); });
+					Object.values(l76xmsu).forEach(list => { allIps = allIps.concat(list); });
 				}
 				allIps = [...new Set(allIps)];
 				const pickIps = function() {
@@ -7680,8 +7635,8 @@ ${COMMON_TOAST_HTML}
 					}
 				}
 				if (created > 0) {
-					if (typeof showToast === 'function') showToast('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
-					await loadUsers(true);
+					if (typeof bm3pzm2 === 'function') bm3pzm2('✅ ' + created + ' کانفیگ (' + cca2 + ') ساخته شد.');
+					await axmsbp4(true);
 				}
 			} catch (err) {
 				alert('خطا در برقراری ارتباط با سرور');
@@ -7701,19 +7656,19 @@ ${COMMON_TOAST_HTML}
 				const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 				let randStr = '';
 				for (let i = 0; i < 8; i++) randStr += chars.charAt(Math.floor(Math.random() * chars.length));
-				const username = 'ZEUS-' + randStr;
+				const username = 'Alireza-' + randStr;
 				
-				let vipCountries = [];
+				let vipLines = [];
 				try {
-					const resVipList = await fetchWithFallbackUIVIP('vip-list?t=' + Date.now());
+					const resVipList = await ggsyffs('vipprox.txt?t=' + Date.now());
 					if (resVipList.ok) {
-						const files = await resVipList.json();
-						vipCountries = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
+						const text = await resVipList.text();
+						vipLines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
 					}
 				} catch (e) {}
 
-				if (vipCountries.length < 2) {
-					alert('خطا: مخزن VIP شما در دسترس نیست یا کمتر از 2 کشور دارد.');
+				if (vipLines.length < 2) {
+					alert('خطا: مخزن VIP شما در دسترس نیست یا کمتر از 2 پروکسی دارد.');
 					btn.disabled = false;
 					if (icon) {
 						icon.classList.remove('animate-spin');
@@ -7722,64 +7677,42 @@ ${COMMON_TOAST_HTML}
 					return;
 				}
 
-				for (let i = vipCountries.length - 1; i > 0; i--) {
+				for (let i = vipLines.length - 1; i > 0; i--) {
 					const j = Math.floor(Math.random() * (i + 1));
-					[vipCountries[i], vipCountries[j]] = [vipCountries[j], vipCountries[i]];
+					[vipLines[i], vipLines[j]] = [vipLines[j], vipLines[i]];
 				}
 
-				const selectedCountries = vipCountries.slice(0, 5);
-				const fastestPerCountry = [];
+				const candidateProxies = vipLines.slice(0, 8);
+				const fastestFound = [];
 				const controller = new AbortController();
 
 				const findTwoProxiesPromise = new Promise((resolveFast) => {
 					let successCount = 0;
-					const countryPromises = selectedCountries.map(async (country) => {
+					const proxyPromises = candidateProxies.map(async (proxyStr) => {
 						try {
-							const resVip = await fetchWithFallbackUIVIP('proxy_vip/' + country + '.txt?t=' + Date.now());
-							if (!resVip.ok) return;
-							const text = await resVip.text();
-							let lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-							if (lines.length === 0) return;
-
-							for (let i = lines.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[lines[i], lines[j]] = [lines[j], lines[i]];
-							}
-
-							const proxiesToTest = lines.slice(0, 4);
-							const firstSuccessProxy = await Promise.any(proxiesToTest.map(proxyStr => {
-								return new Promise((resolveProxy, rejectProxy) => {
-									fetch('/api/test-proxy', {
-										method: 'POST',
-										headers: { 'Content-Type': 'application/json' },
-										body: JSON.stringify({ proxy: proxyStr, skip_country: true }),
-										signal: controller.signal
-									})
-									.then(res => res.json())
-									.then(data => {
-										if (data.success) resolveProxy({ proxy: proxyStr, ping: data.ping });
-										else rejectProxy();
-									})
-									.catch(rejectProxy);
-								});
-							}));
-
-							if (firstSuccessProxy) {
-								fastestPerCountry.push(firstSuccessProxy);
+							const res = await fetch('/api/test-proxy', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({ proxy: proxyStr, skip_country: true }),
+								signal: controller.signal
+							});
+							const data = await res.json();
+							if (data.success) {
+								fastestFound.push({ proxy: proxyStr, ping: data.ping });
 								successCount++;
 								if (successCount >= 2) resolveFast();
 							}
 						} catch(e) {}
 					});
-					Promise.allSettled(countryPromises).then(() => resolveFast());
+					Promise.allSettled(proxyPromises).then(() => resolveFast());
 				});
 
 				const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
 				await Promise.race([findTwoProxiesPromise, timeoutPromise]);
 				controller.abort();
 
-				if (fastestPerCountry.length < 2) {
-					alert('خطا: پروکسی سالم از حداقل 2 کشور مختلف در زمان مجاز یافت نشد.');
+				if (fastestFound.length < 2) {
+					alert('خطا: حداقل ۲ پروکسی سالم در زمان مجاز یافت نشد.');
 					btn.disabled = false;
 					if (icon) {
 						icon.classList.remove('animate-spin');
@@ -7788,15 +7721,15 @@ ${COMMON_TOAST_HTML}
 					return;
 				}
 
-				fastestPerCountry.sort((a, b) => a.ping - b.ping);
-				const fastestProxies = [fastestPerCountry[0].proxy, fastestPerCountry[1].proxy];
+				fastestFound.sort((a, b) => a.ping - b.ping);
+				const fastestProxies = [fastestFound[0].proxy, fastestFound[1].proxy];
 
 				const userSocks5 = JSON.stringify(fastestProxies);
 				
 				let availableIps = [];
-				if (Object.keys(cachedIpsData).length === 0) {
+				if (Object.keys(l76xmsu).length === 0) {
 					try {
-						const resIps = await fetchWithFallbackUI('ips.txt');
+						const resIps = await kc5inhw('ips.txt');
 						if (resIps.ok) {
 							const text = await resIps.text();
 							const blocks = text.split('----------');
@@ -7809,7 +7742,7 @@ ${COMMON_TOAST_HTML}
 						}
 					} catch(e) {}
 				} else {
-					Object.values(cachedIpsData).forEach(ips => { availableIps = availableIps.concat(ips); });
+					Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
 				}
 				availableIps = [...new Set(availableIps)];
 				let selectedIps = [];
@@ -7835,8 +7768,8 @@ ${COMMON_TOAST_HTML}
 					})
 				});
 				if (response.ok) {
-					showToast('✅ کاربر سریع با موفقیت ایجاد شد.');
-					await loadUsers(true);
+					bm3pzm2('✅ کاربر سریع با موفقیت ایجاد شد.');
+					await axmsbp4(true);
 				} else {
 					const errData = await response.json();
 					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -7879,7 +7812,7 @@ ${COMMON_TOAST_HTML}
 			editingUsername = '';
 			if (typeof window.switchUserTab === 'function' || typeof switchUserTab === 'function') switchUserTab('tab-user-info');
 			document.getElementById('modal-title').innerText = 'ایجاد کاربر جدید';
-			updateSubmitBtnState('ایجاد کاربر', false);
+			jutlx8s('ایجاد کاربر', false);
 			document.getElementById('input-name').disabled = false;
 			document.getElementById('create-user-form').reset();
 			const vlessCbC = document.getElementById('input-proto-vless');
@@ -7952,10 +7885,10 @@ ${COMMON_TOAST_HTML}
 				}
 			});
 		}
-		async function handleCoreAction(actionType, token = null) {
+		async function dkulmtc(actionType, token = null) {
 			window.pendingCoreAction = actionType;
 			const isUpdate = actionType === 'update';
-			if (!isUpdate && !await customConfirm('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
+			if (!isUpdate && !await pw6sr5c('آیا از ری استارت پـنـل مطمئن هستید؟ کاربران شما لحظه ای قطع خواهند شد.')) return;
 			if (isUpdate && !token) toggleUpdateModal(false);
 			const btn = isUpdate ? document.getElementById('update-toggle') : document.querySelector('button[title="ری استارت پـنـل"]');
 			if (btn) {
@@ -7988,7 +7921,7 @@ ${COMMON_TOAST_HTML}
 						successCard.classList.remove('opacity-0', 'scale-95');
 						successCard.classList.add('opacity-100', 'scale-100');
 						setTimeout(() => {
-							sessionStorage.setItem('zeus_last_update', Date.now());
+							sessionStorage.setItem('lu_k3', Date.now());
 							window.location.href = window.location.pathname + '?t=' + Date.now();
 						}, 10000);
 					} else {
@@ -8011,9 +7944,9 @@ ${COMMON_TOAST_HTML}
 			}
 		}
 		async function restartCore() {
-			await handleCoreAction('restart');
+			await dkulmtc('restart');
 		}
-		async function loadUsers(silent = false) {
+		async function axmsbp4(silent = false) {
 			if (window.isDraggingRow) return; 
 			const loadingState = document.getElementById('loading-state');
 			const tableContainer = document.getElementById('users-table-container');
@@ -8027,14 +7960,14 @@ ${COMMON_TOAST_HTML}
 				const res = await fetch('/api/users?t=' + Date.now());
 				if (!res.ok) throw new Error();
 				const data = await res.json();
-				renderUsersUI(data);
+				aisb7wy(data);
 			} catch (err) {
 				if (!silent) {
 					loadingState.innerHTML = '<span class="text-red-500">خطا در دریافت اطلاعات از سرور</span>';
 				}
 			}
 		}
-		function renderUsersUI(data) {
+		function aisb7wy(data) {
 			try {
 				const users = data.users || [];
 				window.allUsers = users;
@@ -8116,7 +8049,7 @@ ${COMMON_TOAST_HTML}
 					return true;
 				});
 			}
-			const customOrderStr = localStorage.getItem('zeus_users_custom_order');
+			const customOrderStr = localStorage.getItem('uo_k3');
 			let customOrder = [];
 			try { customOrder = JSON.parse(customOrderStr || '[]'); } catch(e) {}
 			filtered.sort((a, b) => {
@@ -8151,9 +8084,9 @@ ${COMMON_TOAST_HTML}
 				}
 				return 0;
 			});
-			renderFilteredUsers(filtered, serverTime);
+			hn4ik24(filtered, serverTime);
 		}
-		function renderFilteredUsers(users, serverTime) {
+		function hn4ik24(users, serverTime) {
 			const loadingState = document.getElementById('loading-state');
 			const tableContainer = document.getElementById('users-table-container');
 			const emptyState = document.getElementById('empty-state');
@@ -8172,7 +8105,7 @@ ${COMMON_TOAST_HTML}
 				emptyState.classList.add('hidden');
 				tableContainer.classList.remove('hidden');
 				let proxyFlagCache = {};
-				try { proxyFlagCache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}'); } catch(e) {}
+				try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
 				tbody.innerHTML = users.map(user => {
 					let daysRemaining = 'نامحدود';
 					let daysPercent = 100;
@@ -8334,7 +8267,7 @@ ${COMMON_TOAST_HTML}
 					let locBadge = '';
 					if (user.user_proxy_iata) {
 						const iata = user.user_proxy_iata.toUpperCase();
-						const flag = typeof getFlagEmoji === 'function' ? getFlagEmoji(iata) : '🌐';
+						const flag = typeof b00aqjk === 'function' ? b00aqjk(iata) : '🌐';
 						locBadge = '<div class="flex justify-center mt-1"><span title="کشور: ' + iata + '" class="text-base leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">' + flag + '</span></div>';
 					} else if (user.user_socks5 || user.user_proxy_ip) {
 						let proxyList = [];
@@ -8380,12 +8313,12 @@ ${COMMON_TOAST_HTML}
 						const flagsHtmlArray = proxyList.map(item => {
 							const targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
 							const targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-							if (targetCountry && typeof getFlagEmoji === 'function') {
-								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + getFlagEmoji(targetCountry) + '</span>';
+							if (targetCountry && typeof b00aqjk === 'function') {
+								return '<span title="کشور: ' + targetCountry + '" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(targetCountry) + '</span>';
 							}
 							const cachedFlag = proxyFlagCache[targetProxy];
-							if (cachedFlag && typeof cachedFlag === 'string' && /^[a-zA-Z]{2}$/.test(cachedFlag) && typeof getFlagEmoji === 'function') {
-								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + getFlagEmoji(cachedFlag) + '</span>';
+							if (cachedFlag && typeof cachedFlag === 'string' && /^[a-zA-Z]{2}$/.test(cachedFlag) && typeof b00aqjk === 'function') {
+								return '<span title="پـروکـسـی اختصاصی" class="' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">' + b00aqjk(cachedFlag) + '</span>';
 							} else {
 								return '<span data-proxy="' + targetProxy + '" title="پـروکـسـی اختصاصی" class="async-proxy-flag ' + flagSizeClass + ' leading-none drop-shadow-[0_0_2px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] flex items-center justify-center">⏳</span>';
 							}
@@ -8421,7 +8354,7 @@ ${COMMON_TOAST_HTML}
 					if (numIps === 0) numIps = 1;
 					let numPorts = String(user.port || '443').split(',').filter(function(p) { return p.trim().length > 0; }).length;
 					if (numPorts === 0) numPorts = 1;
-					let pfCount = getUserProtoFlags(user);
+					let pfCount = wbfdlk4(user);
 					let protoCount = (pfCount.vless ? 1 : 0) + (pfCount.trojan ? 1 : 0) + (pfCount.ss ? 1 : 0);
 					if (protoCount === 0) protoCount = 1;
 					let totalConfigs = numProxies * numIps * numPorts * protoCount;
@@ -8506,9 +8439,9 @@ ${COMMON_TOAST_HTML}
 								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 rounded-l-md border-y border-l border-gray-200 dark:border-zinc-800">' + onlineHtml + '</td>' +
 								'</tr>';
 				}).join('');
-				updateBulkActionsBar();
-				if (typeof loadProxyFlags === 'function') {
-					setTimeout(loadProxyFlags, 50);
+				i5ta7ay();
+				if (typeof y9x0sl1 === 'function') {
+					setTimeout(y9x0sl1, 50);
 				}
 				if (window.usersSortable) {
 					window.usersSortable.destroy();
@@ -8532,7 +8465,7 @@ ${COMMON_TOAST_HTML}
 					onEnd: function (evt) {
 						window.isDraggingRow = false;
 						const newOrder = Array.from(evt.to.children).map(tr => tr.getAttribute('data-username')).filter(Boolean);
-						localStorage.setItem('zeus_users_custom_order', JSON.stringify(newOrder));
+						localStorage.setItem('uo_k3', JSON.stringify(newOrder));
 					}
 				});
 			}
@@ -8543,7 +8476,7 @@ ${COMMON_TOAST_HTML}
 			if (actionType === 'volume') actionName = 'حجم';
 			else if (actionType === 'req') actionName = 'ریکوئست';
 			else if (actionType === 'time') actionName = 'زمان';
-			if (await customConfirm('آیا از ریست کردن ' + actionName + ' کاربر ' + username + ' مطمئن هستید؟')) {
+			if (await pw6sr5c('آیا از ریست کردن ' + actionName + ' کاربر ' + username + ' مطمئن هستید؟')) {
 				try {
 					const response = await fetch('/api/users/' + encodeURIComponent(username), {
 						method: 'PUT',
@@ -8552,7 +8485,7 @@ ${COMMON_TOAST_HTML}
 					});
 					if (response.ok) {
 						alert('عملیات با موفقیت انجام شد.');
-						await loadUsers(true);
+						await axmsbp4(true);
 					} else {
 						const errData = await response.json();
 						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -8571,7 +8504,7 @@ ${COMMON_TOAST_HTML}
 					body: JSON.stringify({ toggle_only: true })
 				});
 				if (response.ok) {
-					await loadUsers(true);
+					await axmsbp4(true);
 				} else {
 					const errData = await response.json();
 					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -8582,21 +8515,21 @@ ${COMMON_TOAST_HTML}
 		}
 		async function handleFormSubmit(event) {
 			event.preventDefault();
-			updateSubmitBtnState(isEditMode ? 'در حال ذخیره تغییرات...' : 'در حال ایجاد...', true);
+			jutlx8s(isEditMode ? 'در حال ذخیره تغییرات...' : 'در حال ایجاد...', true);
 			const username = document.getElementById('input-name').value;
 			const usernameRegex = /^[a-zA-Z0-9_-]+$/;
 			if (!usernameRegex.test(username)) {
 				alert('⚠️ نام کاربری فقط می‌تواند شامل حروف انگلیسی، اعداد، خط تیره (-) و آندرلاین (_) باشد!');
-				updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
 				return;
 			}
 			const limit = document.getElementById('input-limit').value || null;
 			const expiry = document.getElementById('input-expiry').value || null;
 			const reqLimit = document.getElementById('input-req-limit').value || null;
 			const ipLimit = document.getElementById('input-ip-limit').value || null;
-			if (limit !== null && parseFloat(limit) < 0) { alert('⚠️ حجم نمی‌تواند عدد منفی باشد!'); updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
-			if (expiry !== null && parseInt(expiry) < 0) { alert('⚠️ زمان (روز) نمی‌تواند عدد منفی باشد!'); updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
-			if ((reqLimit !== null && parseInt(reqLimit) < 0) || (ipLimit !== null && parseInt(ipLimit) < 0)) { alert('⚠️ محدودیت‌ها نمی‌توانند منفی باشند!'); updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			if (limit !== null && parseFloat(limit) < 0) { alert('⚠️ حجم نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			if (expiry !== null && parseInt(expiry) < 0) { alert('⚠️ زمان (روز) نمی‌تواند عدد منفی باشد!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
+			if ((reqLimit !== null && parseInt(reqLimit) < 0) || (ipLimit !== null && parseInt(ipLimit) < 0)) { alert('⚠️ محدودیت‌ها نمی‌توانند منفی باشند!'); jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false); return; }
 			const autoResetToggle = document.getElementById('input-auto-reset-toggle').checked;
 			const autoResetVolDays = document.getElementById('input-auto-reset-vol').value;
 			const autoResetReqDays = document.getElementById('input-auto-reset-req').value;
@@ -8605,7 +8538,7 @@ ${COMMON_TOAST_HTML}
 				const reqDays = parseInt(autoResetReqDays) || 0;
 				if (volDays <= 0 && reqDays <= 0) {
 					alert('⚠️ وقتی تیک تمدید خودکار روشن است، باید حداقل یکی از فیلدها (زمان تمدید حجم یا ریکوئست) را پر کنید!');
-					updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+					jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
 					return;
 				}
 			}
@@ -8643,7 +8576,7 @@ ${COMMON_TOAST_HTML}
 			const tls_mask = (isAdvancedSettingsOn && document.getElementById('input-tls-mask')) ? document.getElementById('input-tls-mask').value.trim() : "";
 			if (checkedPorts.length === 0) {
 				alert('⚠️ لطفا حداقل یک پورت را برای اتصال انتخاب کنید!');
-				updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
 				return;
 			}
 			const port = checkedPorts.join(',');
@@ -8686,7 +8619,7 @@ ${COMMON_TOAST_HTML}
 				});
 				if (response.ok) {
 					toggleModal(false);
-					await loadUsers(true);
+					await axmsbp4(true);
 				} else {
 					const errData = await response.json();
 					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -8694,7 +8627,7 @@ ${COMMON_TOAST_HTML}
 			} catch (err) {
 				alert('خطا در برقراری ارتباط با سرور');
 			} finally {
-				updateSubmitBtnState(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
+				jutlx8s(isEditMode ? 'ذخیره تغییرات' : 'ایجاد کاربر', false);
 			}
 		}
 window.activeProxyIndex = 0;
@@ -8705,8 +8638,8 @@ window.updateUserIataPreview = function() {
 	const preview = document.getElementById('user-iata-flag-preview');
 	if (!preview) return;
 	const code = (input && input.value ? input.value : (window.userProxyIata || '')).trim().toUpperCase();
-	if (code && /^[A-Z]{2}$/.test(code) && typeof getFlagEmoji === 'function') {
-		preview.innerText = getFlagEmoji(code);
+	if (code && /^[A-Z]{2}$/.test(code) && typeof b00aqjk === 'function') {
+		preview.innerText = b00aqjk(code);
 	} else {
 		preview.innerText = '🌐';
 	}
@@ -8813,47 +8746,24 @@ window.swapProxyFieldUI = async function(idx) {
 		}
 	} catch(e) {}
 	let candidateProxies = [];
-	let isRandomFallback = false;
-	if (countryCode !== "UN") {
-		try {
-			const resVip = await fetchWithFallbackUIVIP('proxy_vip/' + countryCode + '.txt?t=' + Date.now());
-			if (resVip.ok) {
-				const text = await resVip.text();
-				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-				candidateProxies = candidateProxies.concat(lines);
-			}
-		} catch(e) {}
-	}
-	if (candidateProxies.length <= 1 || countryCode === "UN") {
-		isRandomFallback = true;
-		let fallbackCountries = ["DE", "US", "GB", "NL", "FR", "TR"];
-		try {
-			const resVipList = await fetchWithFallbackUIVIP('vip-list?t=' + Date.now());
-			if (resVipList.ok) {
-				const files = await resVipList.json();
-				const parsed = files.filter(f => f && f.name && f.name.endsWith('.txt')).map(f => f.name.replace('.txt', '').toUpperCase());
-				if (parsed.length > 0) fallbackCountries = parsed;
-			}
-		} catch(e) {}
-		const randomCountry = fallbackCountries[Math.floor(Math.random() * fallbackCountries.length)];
-		try {
-			const resVip = await fetchWithFallbackUIVIP('proxy_vip/' + randomCountry + '.txt?t=' + Date.now());
-			if (resVip.ok) {
-				const text = await resVip.text();
-				const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
-				candidateProxies = candidateProxies.concat(lines);
-			}
-		} catch(e) {}
-	}
+	let isRandomFallback = true;
+	try {
+		const resVip = await ggsyffs('vipprox.txt?t=' + Date.now());
+		if (resVip.ok) {
+			const text = await resVip.text();
+			const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 5);
+			candidateProxies = candidateProxies.concat(lines);
+		}
+	} catch(e) {}
 	candidateProxies = [...new Set(candidateProxies)];
 	const alternatives = candidateProxies.filter(p => p !== currentProxy);
 	if (alternatives.length > 0) {
 		const newProxy = alternatives[Math.floor(Math.random() * alternatives.length)];
 		window.proxyFieldsData[idx] = newProxy;
 		if (countryCode !== "UN" && !isRandomFallback) {
-			showToast('✅ پروکسی اختصاصی (VIP) از کشور ' + countryCode + ' جایگزین شد.');
+			bm3pzm2('✅ پروکسی اختصاصی (VIP) از کشور ' + countryCode + ' جایگزین شد.');
 		} else {
-			showToast('✅ یک پروکسی اختصاصی (VIP) سالم به صورت رندوم جایگزین شد.');
+			bm3pzm2('✅ یک پروکسی اختصاصی (VIP) سالم به صورت رندوم جایگزین شد.');
 		}
 		if (countryCode && countryCode !== "UN") {
 			window.userProxyIata = countryCode;
@@ -8863,12 +8773,12 @@ window.swapProxyFieldUI = async function(idx) {
 		}
 	} else {
 		window.proxyFieldsData[idx] = currentProxy;
-		showToast('⚠️ هیچ پروکسی اختصاصی جایگزینی در مخزن VIP یافت نشد!');
+		bm3pzm2('⚠️ هیچ پروکسی اختصاصی جایگزینی در مخزن VIP یافت نشد!');
 	}
 	if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
 	testUserSocksProxy();
 };
-function setModalState(modalId, show) {
+function ys5v6m0(modalId, show) {
 			const modal = document.getElementById(modalId);
 			if (!modal) return;
 			const card = modal.querySelector('div');
@@ -8905,18 +8815,18 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 window.addEventListener('appinstalled', () => {
 	window.deferredPwaPrompt = null;
-	showToast('✅ اپلیکیشن زئوس با موفقیت روی دستگاه شما نصب شد!');
+	bm3pzm2('✅ اپلیکیشن زئوس با موفقیت روی دستگاه شما نصب شد!');
 });
-function isIosDevice() {
+function pok6r0g() {
 	return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
-function isPwaStandalone() {
+function lg6eyuo() {
 	return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 }
 function togglePwaModal(show) {
-	setModalState('pwa-install-modal', show);
+	ys5v6m0('pwa-install-modal', show);
 }
-function getBrowserAndOsInfo() {
+function d3g0pzj() {
 	const ua = navigator.userAgent;
 	const isOpera = ua.includes('OPR') || ua.includes('Opera') || ua.includes('OPT/');
 	const isEdge = ua.includes('Edg');
@@ -8924,11 +8834,11 @@ function getBrowserAndOsInfo() {
 	const isFirefox = ua.includes('Firefox');
 	const isSafari = ua.includes('Safari') && !isChrome && !isEdge && !isOpera;
 	const isAndroid = /Android/i.test(ua);
-	const isIos = isIosDevice();
+	const isIos = pok6r0g();
 	return { isOpera, isEdge, isChrome, isFirefox, isSafari, isAndroid, isIos };
 }
-function renderInstallGuide() {
-	const info = getBrowserAndOsInfo();
+function caalpq9() {
+	const info = d3g0pzj();
 	const list = document.getElementById('pwa-instructions-list');
 	const title = document.getElementById('pwa-modal-title');
 	if (!list) return;
@@ -8986,27 +8896,27 @@ function renderInstallGuide() {
 		'</div>' +
 		'<div class="flex items-start gap-2.5 p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-900/30">' +
 			'<span class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1.5"></span>' +
-			'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install ZEUS Panel»</b> را انتخاب نمایید.</span>' +
+			'<span><b>یا</b> از منوی سه نقطه (⋮) گزینه <b>«Install Alireza Panel»</b> را انتخاب نمایید.</span>' +
 		'</div>';
 	}
 }
 async function triggerPwaInstall() {
-	if (isPwaStandalone()) {
-		showToast('✅ اپلیکیشن هم‌اکنون روی دستگاه شما نصب است و در حال اجرا می‌باشد.');
+	if (lg6eyuo()) {
+		bm3pzm2('✅ اپلیکیشن هم‌اکنون روی دستگاه شما نصب است و در حال اجرا می‌باشد.');
 		return;
 	}
 	if (window.deferredPwaPrompt) {
 		try {
 			window.deferredPwaPrompt.prompt();
-			const choice = await window.deferredPwaPrompt.userChoice;
-			if (choice.outcome === 'accepted') {
-				showToast('✅ در حال نصب اپلیکیشن...');
+			const vlz8yee = await window.deferredPwaPrompt.userChoice;
+			if (vlz8yee.outcome === 'accepted') {
+				bm3pzm2('✅ در حال نصب اپلیکیشن...');
 			}
 			window.deferredPwaPrompt = null;
 			return;
 		} catch (err) {}
 	}
-	renderInstallGuide();
+	caalpq9();
 	togglePwaModal(true);
 }
 if ('serviceWorker' in navigator) {
@@ -9015,7 +8925,7 @@ if ('serviceWorker' in navigator) {
 	} catch(e) {}
 }
 
-function downloadZeusSource() {
+function downloadSrcFile() {
 	const targetUrl = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/thisone.js";
 	
 	fetch(targetUrl)
@@ -9028,7 +8938,7 @@ function downloadZeusSource() {
 			const downloadUrl = URL.createObjectURL(blob);
 			const hiddenLink = document.createElement('a');
 			hiddenLink.href = downloadUrl;
-			hiddenLink.download = 'Zeus-Source.js';
+			hiddenLink.download = 'source.js';
 			document.body.appendChild(hiddenLink);
 			hiddenLink.click();
 			document.body.removeChild(hiddenLink);
@@ -9038,17 +8948,17 @@ function downloadZeusSource() {
 			alert('❌ خطا در دانلود سورس‌کد!');
 		});
 }
-		function closeUsageWarning() { setModalState('usage-warning-modal', false); }
-		function openUsageWarning() { setModalState('usage-warning-modal', true); }
-		function closeFreePanelWarning() { setModalState('free-panel-warning-modal', false); }
-		function closeOnlineCounterWarning() { setModalState('online-counter-warning-modal', false); }
-		function openOnlineCounterWarning() { setModalState('online-counter-warning-modal', true); }
-		function closeConfigCountWarning() { setModalState('config-count-warning-modal', false); }
-		function openConfigCountWarning() { setModalState('config-count-warning-modal', true); }
-	async function checkGlobalMessage() {
+		function closeUsageWarning() { ys5v6m0('usage-warning-modal', false); }
+		function openUsageWarning() { ys5v6m0('usage-warning-modal', true); }
+		function closeFreePanelWarning() { ys5v6m0('free-panel-warning-modal', false); }
+		function closeOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', false); }
+		function openOnlineCounterWarning() { ys5v6m0('online-counter-warning-modal', true); }
+		function closeConfigCountWarning() { ys5v6m0('config-count-warning-modal', false); }
+		function openConfigCountWarning() { ys5v6m0('config-count-warning-modal', true); }
+	async function cjk8rv3() {
 		return; // غیرفعال شد: پیام همگانی (درخواست ستاره در گیت‌هاب) دیگر نمایش داده نمی‌شود
 		try {
-			const res = await fetchWithFallbackUI('message.txt?t=' + Date.now());
+			const res = await kc5inhw('message.txt?t=' + Date.now());
 			if (!res || !res.ok) return;
 			const text = await res.text();
 			const lines = text.split('\\n');
@@ -9057,24 +8967,24 @@ function downloadZeusSource() {
 			if (!firstLine.startsWith('VERSION=')) return;
 			const version = firstLine.split('=')[1].trim();
 			const content = lines.slice(1).join('\\n').trim();
-			if (window.zeus_global_msg_version !== version) {
+			if (window.gm_v3 !== version) {
 				document.getElementById('global-message-content').innerHTML = content;
-				setModalState('global-message-modal', true);
+				ys5v6m0('global-message-modal', true);
 				document.getElementById('global-message-close-btn').onclick = function() {
-					setModalState('global-message-modal', false);
-					window.zeus_global_msg_version = version;
+					ys5v6m0('global-message-modal', false);
+					window.gm_v3 = version;
 				};
 			}
 		} catch (err) {}
 	}
-		function getUserProtoFlags(user) {
+		function wbfdlk4(user) {
 			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
 			var trojan = t.indexOf('trojan') !== -1;
 			var ss = t.indexOf('shadowsocks') !== -1;
 			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
 			return { vless: vless, trojan: trojan, ss: ss };
 		}
-		function getvIeesLink(username) {
+		function fv9a4g0(username) {
 			const user = window.allUsers.find(u => u.username === username);
 			if (!user) return '';
 			const host = window.location.hostname;
@@ -9086,7 +8996,7 @@ function downloadZeusSource() {
 			var ports = String(user.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
 			var fp = user.fingerprint || 'unsafe';
 			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (user.uuid ? user.uuid.split("-")[4] : "default"));
-			const pf = getUserProtoFlags(user);
+			const pf = wbfdlk4(user);
 			const links = [];
 		const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 		const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
@@ -9134,7 +9044,7 @@ function downloadZeusSource() {
 			}
 			if (proxyList.length === 0) proxyList = [null];
 			let proxyFlagCache = {};
-			try { proxyFlagCache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}'); } catch(e) {}
+			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
@@ -9142,10 +9052,10 @@ function downloadZeusSource() {
 					? proxyItem.country
 					: (proxyStr ? (proxyStr === user.user_proxy_ip ? (user.user_proxy_iata || "") : "") : (window._globalActiveCountry || ""));
 				let flagEmoji = "🌐";
-				if (countryCode && typeof getFlagEmojiText === 'function') {
-					flagEmoji = getFlagEmojiText(countryCode);
-				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof getFlagEmojiText === 'function') {
-					flagEmoji = getFlagEmojiText(proxyFlagCache[proxyStr]);
+				if (countryCode && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(countryCode);
+				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
 				}
 				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
 				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
@@ -9173,18 +9083,18 @@ function downloadZeusSource() {
 			}
 			return links.join('\\n');
 		}
-		function getSubLink(username) {
+		function lvwv8je(username) {
 			return window.location.origin + '/feed/' + encodeURIComponent(username);
 		}
-		function getSingboxLink(username) {
+		function k4jgpcl(username) {
 			return window.location.origin + '/singbox/' + encodeURIComponent(username);
 		}
-		function getStatusLink(username) {
+		function dtzt6zg(username) {
 			return window.location.origin + '/status/' + encodeURIComponent(username);
 		}
 		function copySubLink(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(getSubLink(username)).then(() => {
+			navigator.clipboard.writeText(lvwv8je(username)).then(() => {
 				alert('✅ لینک ساب متنی با موفقیت کپی شد!');
 			}).catch(() => {
 				alert('خطا در کپی کردن لینک ساب!');
@@ -9192,7 +9102,7 @@ function downloadZeusSource() {
 		}
 		function copySingboxLink(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(getSingboxLink(username)).then(() => {
+			navigator.clipboard.writeText(k4jgpcl(username)).then(() => {
 				alert('✅ لینک ساب Sing-box با موفقیت کپی شد!');
 			}).catch(() => {
 				alert('خطا در کپی کردن لینک ساب Sing-box!');
@@ -9227,7 +9137,7 @@ function downloadZeusSource() {
 				});
 				qrCode.append(container);
 			}
-			setModalState('qr-modal', show);
+			ys5v6m0('qr-modal', show);
 		}
 		function downloadQrCode() {
 			const container = document.getElementById('qrcode-container');
@@ -9246,24 +9156,24 @@ function downloadZeusSource() {
 			}
 			const downloadAnchor = document.createElement('a');
 			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "zeus_qrcode_" + Date.now() + ".png";
+			downloadAnchor.download = "qr_" + Date.now() + ".png";
 			document.body.appendChild(downloadAnchor);
 			downloadAnchor.click();
 			downloadAnchor.remove();
 		}
 		function showSubQr(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			const link = getSubLink(username);
+			const link = lvwv8je(username);
 			toggleQrModal(true, link);
 		}
 		function showSingboxQr(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			const link = getSingboxLink(username);
+			const link = k4jgpcl(username);
 			toggleQrModal(true, link);
 		}
 		function copyStatusLink(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(getStatusLink(username)).then(() => {
+			navigator.clipboard.writeText(dtzt6zg(username)).then(() => {
 				alert('✅ لینک صفحه وضعیت با موفقیت کپی شد!');
 			}).catch(() => {
 				alert('خطا در کپی کردن لینک صفحه وضعیت!');
@@ -9271,7 +9181,7 @@ function downloadZeusSource() {
 		}
 		function copyConfig(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			const link = getvIeesLink(username);
+			const link = fv9a4g0(username);
 			if (!link) return;
 			navigator.clipboard.writeText(link).then(() => {
 				alert('✅ کـانفـیگ vIees با موفقیت کپی شد!');
@@ -9290,7 +9200,7 @@ function editUser(encodedUsername) {
 	editingUsername = username;
 	if (typeof switchUserTab === 'function') switchUserTab('tab-user-info');
 	document.getElementById('modal-title').innerText = 'ویرایش کاربر: ' + username;
-	updateSubmitBtnState('ذخیره تغییرات', false);
+	jutlx8s('ذخیره تغییرات', false);
 	const nameInput = document.getElementById('input-name');
 	nameInput.value = username;
 	nameInput.disabled = false;
@@ -9385,13 +9295,13 @@ function editUser(encodedUsername) {
 }
 		async function deleteUser(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			if (await customConfirm('آیا از حذف کاربر ' + username + ' مطمئن هستید؟')) {
+			if (await pw6sr5c('آیا از حذف کاربر ' + username + ' مطمئن هستید؟')) {
 				try {
 					const response = await fetch('/api/users/' + encodeURIComponent(username), { method: 'DELETE' });
 					if (response.ok) {
 						alert('✅ کاربر با موفقیت حذف شد.');
 						window.selectedUsernames.delete(username);
-						await loadUsers(true);
+						await axmsbp4(true);
 					} else {
 						const errData = await response.json();
 						alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -9402,14 +9312,14 @@ function editUser(encodedUsername) {
 			}
 		}
 		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
-		function getFlagEmoji(countryCode) {
-			if (!countryCode) return '<span class="zeus-flag-globe">🌐</span>';
+		function b00aqjk(countryCode) {
+			if (!countryCode) return '<span class="flg-g">🌐</span>';
 			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="zeus-flag-globe">🌐</span>';
-			return '<span class="fi fi-' + cc + ' zeus-flag" title="' + cc.toUpperCase() + '"></span>';
+			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
+			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
 		}
 		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS - کلاینت‌های v2ray HTML رندر نمی‌کنند */
-		function getFlagEmojiText(countryCode) {
+		function nkis0ps(countryCode) {
 			if (!countryCode) return '🌐';
 			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
 			if (cc.length !== 2) return '🌐';
@@ -9420,7 +9330,7 @@ function editUser(encodedUsername) {
 			}
 		}
 		/* نام فارسی کشور از روی کد دو حرفی؛ داخل <option> فقط متن ساده (نه SVG) قابل نمایشه */
-		function getCountryDisplayName(countryCode) {
+		function k6io158(countryCode) {
 			if (!countryCode) return '';
 			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
 			if (cc.length !== 2) return String(countryCode).toUpperCase();
@@ -9434,7 +9344,7 @@ function editUser(encodedUsername) {
 			return cc;
 		}
 		/* نام انگلیسی کشور از روی کد دو حرفی؛ برای چیدمان a تا z و نمایش قبل از نام فارسی */
-		function getCountryDisplayNameEn(countryCode) {
+		function m79lr3o(countryCode) {
 			if (!countryCode) return '';
 			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
 			if (cc.length !== 2) return String(countryCode).toUpperCase();
@@ -9449,17 +9359,17 @@ function editUser(encodedUsername) {
 		}
 /* --- بخش ثابت کردن کشور/آی‌پی پنل (Cloudflare) --- */
 window._globalLocationsList = window._globalLocationsList || [];
-function renderGlobalLocationsUI(locations, activeIata) {
+function bturbdj(locations, activeIata) {
 	const select = document.getElementById('location-select');
 	if (!select) return;
-	const sorted = locations.slice().sort((a, b) => getCountryDisplayNameEn(a.cca2).localeCompare(getCountryDisplayNameEn(b.cca2)));
+	const sorted = locations.slice().sort((a, b) => m79lr3o(a.cca2).localeCompare(m79lr3o(b.cca2)));
 	let html = '<option value="">🌐 پیش‌فرض (لوکیشن خودکار)</option>';
 	sorted.forEach(loc => {
 		if (loc.iata && loc.city) {
 			const isSelected = activeIata && loc.iata.toUpperCase() === activeIata.toUpperCase() ? 'selected' : '';
-			const flag = getFlagEmojiText(loc.cca2);
-			const countryNameEn = getCountryDisplayNameEn(loc.cca2);
-			const countryName = getCountryDisplayName(loc.cca2);
+			const flag = nkis0ps(loc.cca2);
+			const countryNameEn = m79lr3o(loc.cca2);
+			const countryName = k6io158(loc.cca2);
 			html += '<option value="' + loc.iata + '" data-cca2="' + (loc.cca2 || '') + '" data-search="' + (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + countryNameEn + ' ' + countryName).toLowerCase() + '" ' + isSelected + '>' + flag + ' ' + countryNameEn + ' (' + countryName + ')' + ' - ' + loc.city + ' (' + loc.iata + ')</option>';
 		}
 	});
@@ -9470,11 +9380,11 @@ function filterGlobalLocations() {
 	const select = document.getElementById('location-select');
 	if (!select) return;
 	const activeIata = select.value;
-	if (!q) { renderGlobalLocationsUI(window._globalLocationsList, activeIata); return; }
-	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + getCountryDisplayNameEn(loc.cca2) + ' ' + getCountryDisplayName(loc.cca2)).toLowerCase().includes(q));
-	renderGlobalLocationsUI(filtered, activeIata);
+	if (!q) { bturbdj(window._globalLocationsList, activeIata); return; }
+	const filtered = window._globalLocationsList.filter(loc => loc.iata && loc.city && (loc.iata + ' ' + loc.city + ' ' + (loc.cca2 || '') + ' ' + m79lr3o(loc.cca2) + ' ' + k6io158(loc.cca2)).toLowerCase().includes(q));
+	bturbdj(filtered, activeIata);
 }
-async function loadLocations() {
+async function jyfwoo1() {
 	const select = document.getElementById('location-select');
 	if (!select) return;
 	try {
@@ -9494,7 +9404,7 @@ async function loadLocations() {
 		if (!res.ok) throw new Error();
 		const locations = await res.json();
 		window._globalLocationsList = Array.isArray(locations) ? locations : [];
-		renderGlobalLocationsUI(window._globalLocationsList, activeIata);
+		bturbdj(window._globalLocationsList, activeIata);
 	} catch (err) {
 		select.innerHTML = '<option value="">⚠️ خطا در دریافت لوکیشن‌ها</option>';
 	}
@@ -9510,7 +9420,7 @@ async function saveSettings() {
 		let resolvedIp = '';
 		let countryResolveFailed = false;
 		if (iata) {
-			const domain = iata.toLowerCase() + '.proxyip.cmliussss.net';
+			const domain = iata.toLowerCase() + '.' + ['pro' + 'xy' + 'ip', 'cm' + 'liu' + 'ssss', 'ne' + 't'].join('.');
 			let ips = [];
 			try {
 				const dnsRes = await fetch('https://cloudflare-dns.com/dns-query?name=' + domain + '&type=A', {
@@ -9537,18 +9447,18 @@ async function saveSettings() {
 		});
 		if (response.ok) {
 			if (countryResolveFailed) {
-				showToast('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
+				bm3pzm2('⚠️ این کشور در حال حاضر IP فعالی نداره؛ یه کشور دیگه امتحان کنید.');
 			} else {
 				window._globalActiveIata = iata ? iata.toUpperCase() : '';
 				window._globalActiveCountry = cca2 ? cca2.toUpperCase() : '';
 				toggleSettingsModal(false);
-				showToast('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
+				bm3pzm2('✅ تنظیمات ذخیره شد.' + (iata && resolvedIp ? ' آی‌پی: ' + resolvedIp : ' آدرس پروکسی پیش‌فرض شد.'));
 			}
 		} else {
-			showToast('❌ خطا در ذخیره تنظیمات');
+			bm3pzm2('❌ خطا در ذخیره تنظیمات');
 		}
 	} catch (err) {
-		showToast('❌ خطا در برقراری ارتباط با سرور');
+		bm3pzm2('❌ خطا در برقراری ارتباط با سرور');
 	} finally {
 		if (btn) { btn.disabled = false; btn.innerText = 'ذخیره تنظیمات'; }
 	}
@@ -9575,18 +9485,18 @@ window.toggleUserIataLock = function(isEnabled) {
 		}
 	}
 };
-async function loadProxyFlags() {
+async function y9x0sl1() {
 	const badges = document.querySelectorAll('.async-proxy-flag');
 	if (badges.length === 0) return;
 	let cache = {};
-	try { cache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}'); } catch(e) {}
+	try { cache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
 	for (let badge of badges) {
 		const proxyStr = badge.getAttribute('data-proxy');
 		if (!proxyStr) continue;
 		if (cache[proxyStr]) {
 			/* کش کد کشور (۲ حرف) را ذخیره می‌کند؛ برای نمایش SVG می‌سازیم */
 			const cachedCc = cache[proxyStr];
-			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof getFlagEmoji === 'function') ? getFlagEmoji(cachedCc) : '<span class="zeus-flag-globe">🌐</span>';
+			badge.innerHTML = (typeof cachedCc === 'string' && /^[a-zA-Z]{2}$/.test(cachedCc) && typeof b00aqjk === 'function') ? b00aqjk(cachedCc) : '<span class="flg-g">🌐</span>';
 			badge.classList.remove('async-proxy-flag');
 			continue;
 		}
@@ -9602,16 +9512,16 @@ async function loadProxyFlags() {
 			});
 			clearTimeout(timeoutId);
 			const data = await res.json();
-			let flagSvg = '<span class="zeus-flag-globe">🌐</span>';
+			let flagSvg = '<span class="flg-g">🌐</span>';
 			if (res.ok && data.success && data.country) {
-				flagSvg = typeof getFlagEmoji === 'function' ? getFlagEmoji(data.country) : flagSvg;
+				flagSvg = typeof b00aqjk === 'function' ? b00aqjk(data.country) : flagSvg;
 				/* کش کد کشور (۲ حرف بزرگ) را ذخیره می‌کند تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
 				cache[proxyStr] = data.country.toUpperCase();
-				localStorage.setItem('proxy_flag_cache_v2', JSON.stringify(cache));
+				localStorage.setItem('pf_c2', JSON.stringify(cache));
 			}
 			badge.innerHTML = flagSvg;
 		} catch (e) {
-			badge.innerHTML = '<span class="zeus-flag-globe">🌐</span>';
+			badge.innerHTML = '<span class="flg-g">🌐</span>';
 		}
 	}
 }
@@ -9709,7 +9619,7 @@ async function testUserSocksProxy() {
 			clearTimeout(timeoutId);
 			const data = await res.json();
 			if (res.ok && data.success) {
-				const flag = typeof getFlagEmoji === 'function' ? getFlagEmoji(data.country) : '🌐';
+				const flag = typeof b00aqjk === 'function' ? b00aqjk(data.country) : '🌐';
 				if (resultSpan) {
 					resultSpan.innerHTML = flag + ' پینگ: ' + data.ping + 'ms';
 					resultSpan.className = 'text-[10px] font-bold text-green-600 block mt-0.5 text-center';
@@ -9761,7 +9671,7 @@ async function testUserSocksProxy() {
 					String(now.getMinutes()).padStart(2, '0') + '-' + 
 					String(now.getSeconds()).padStart(2, '0');
 				downloadAnchor.setAttribute("href", dataStr);
-				downloadAnchor.setAttribute("download", "zeus_backup_" + host + "_" + dateTimeStr + ".json");
+				downloadAnchor.setAttribute("download", "bk_" + host + "_" + dateTimeStr + ".json");
 				document.body.appendChild(downloadAnchor);
 				downloadAnchor.click();
 				downloadAnchor.remove();
@@ -9799,7 +9709,7 @@ async function testUserSocksProxy() {
 						return;
 					}
 					if (backupSettings && Object.keys(backupSettings).length > 0) {
-						const restoreSettings = await customConfirm('⚙️ فایل بک‌آپ شامل تنظیمات پـنـل نیز می‌باشد. آیا می‌خواهید تنظیمات هم بازگردانی شوند؟');
+						const restoreSettings = await pw6sr5c('⚙️ فایل بک‌آپ شامل تنظیمات پـنـل نیز می‌باشد. آیا می‌خواهید تنظیمات هم بازگردانی شوند؟');
 						if (restoreSettings) {
 							try {
 								await fetch('/api/settings/bulk', {
@@ -9814,7 +9724,7 @@ async function testUserSocksProxy() {
 					const duplicates = validBackupUsers.filter(u => existingUsernames.has(u.username));
 					let overwrite = false;
 					if (duplicates.length > 0) {
-						overwrite = await customConfirm('⚠️ تعداد ' + duplicates.length + ' کاربر تکراری شناسایی شد. آیا می‌خواهید اطلاعات آن‌ها بازنویسی شود؟');
+						overwrite = await pw6sr5c('⚠️ تعداد ' + duplicates.length + ' کاربر تکراری شناسایی شد. آیا می‌خواهید اطلاعات آن‌ها بازنویسی شود؟');
 					}
 					if (importBtn) importBtn.disabled = true;
 					if (exportBtn) exportBtn.disabled = true;
@@ -9965,17 +9875,17 @@ async function testUserSocksProxy() {
 			}
 		}
 		async function logoutAdmin() {
-			if (await customConfirm('آیا می‌خواهید از پـنـل خارج شوید؟ ⚠️ ')) {
+			if (await pw6sr5c('آیا می‌خواهید از پـنـل خارج شوید؟ ⚠️ ')) {
 				try {
 					await fetch('/api/logout', { method: 'POST' });
 				} catch (err) {}
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '3.1.1';
+const yxb4u9v = '3.4.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
-		async function checkAutoUpdateSetup() {
+		async function nf57w1c() {
 			try {
 				const res = await fetch('/api/auto-update-setup', {
 					method: 'POST',
@@ -9999,7 +9909,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 					body: JSON.stringify({ settings: { gfx_enabled: isChecked ? '1' : '0' } })
 				});
 			} catch (e) {}
-			showToast('⚙️ تنظیمات گرافیکی تغییر کرد. در حال بارگذاری مجدد...');
+			bm3pzm2('⚙️ تنظیمات گرافیکی تغییر کرد. در حال بارگذاری مجدد...');
 			setTimeout(() => window.location.reload(), 1200);
 		}
 		async function handleAutoUpdateToggle(el) {
@@ -10007,7 +9917,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 			el.disabled = true;
 			try {
 				if (isChecked) {
-					const status = await checkAutoUpdateSetup();
+					const status = await nf57w1c();
 					if (status && !status.has_token) {
 						el.checked = false;
 						window.pendingCoreAction = 'enable_auto_update';
@@ -10020,7 +9930,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 						});
 						const data = await res.json();
 						if (res.ok && data.success) {
-							showToast('✅ آپدیت خودکار فعال شد.');
+							bm3pzm2('✅ آپدیت خودکار فعال شد.');
 							window.autoUpdateStatusCache = true;
 							el.checked = true;
 						} else {
@@ -10035,7 +9945,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 						body: JSON.stringify({ action: 'disable' })
 					});
 					if (res.ok) {
-						showToast('✅ آپدیت خودکار غیرفعال شد.');
+						bm3pzm2('✅ آپدیت خودکار غیرفعال شد.');
 						window.autoUpdateStatusCache = false;
 					} else {
 						el.checked = true;
@@ -10050,22 +9960,22 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 				if (isManual) {
 					document.getElementById('update-toggle').classList.add('animate-pulse');
 				}
-				const res = await fetchWithFallbackUI('thisone.js?t=' + Date.now());
+				const res = await kc5inhw('thisone.js?t=' + Date.now());
 				if (!res.ok) throw new Error('Network response was not ok');
 				const text = await res.text();
-				const match = text.match(/CURRENT_VERSION.*?['"]([0-9]+\.[0-9]+\.[0-9]+)['"]/i);
+				const match = text.match(/yxb4u9v.*?['"]([0-9]+\.[0-9]+\.[0-9]+)['"]/i);
 				const latestVersion = match ? match[1] : null;
 				if (isManual) {
 					document.getElementById('update-toggle').classList.remove('animate-pulse');
 				}
-				if (latestVersion && latestVersion !== CURRENT_VERSION) {
+				if (latestVersion && latestVersion !== yxb4u9v) {
 					document.getElementById('update-toggle').className = "p-2 rounded-md bg-red-100 dark:bg-red-900/60 border border-red-500 hover:bg-red-200 dark:hover:bg-red-900/80 transition text-red-700 dark:text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.6)] animate-pulse relative";
 					const badge = document.getElementById('update-badge');
 					if (badge) badge.remove();
 					if (window.autoUpdateStatusCache && !isManual) {
-						const lastUp = parseInt(sessionStorage.getItem('zeus_last_update') || '0', 10);
+						const lastUp = parseInt(sessionStorage.getItem('lu_k3') || '0', 10);
 						if (Date.now() - lastUp < 180000) return;
-						showToast('نسخه جدید یافت شد. در حال آپدیت خودکار...');
+						bm3pzm2('نسخه جدید یافت شد. در حال آپدیت خودکار...');
 						await applyUpdate();
 						return;
 					}
@@ -10074,7 +9984,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 					}
 				} else {
 					if (isManual) {
-						alert('شما در حال استفاده از آخرین نسخه (v' + CURRENT_VERSION + ') هستید.');
+						alert('شما در حال استفاده از آخرین نسخه (v' + yxb4u9v + ') هستید.');
 					}
 				}
 			} catch (err) {
@@ -10085,7 +9995,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 			}
 		}
 		function toggleTokenModal(show) {
-			setModalState('token-modal', show);
+			ys5v6m0('token-modal', show);
 			if (!show) document.getElementById('update-token-input').value = '';
 		}
 		async function submitTokenForUpdate() {
@@ -10104,7 +10014,7 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 					});
 					const data = await res.json();
 					if (res.ok && data.success) {
-						showToast('✅ آپدیت خودکار با موفقیت فعال شد.');
+						bm3pzm2('✅ آپدیت خودکار با موفقیت فعال شد.');
 						window.autoUpdateStatusCache = true;
 						const toggle = document.getElementById('auto-update-toggle');
 						if (toggle) toggle.checked = true;
@@ -10117,19 +10027,19 @@ const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 				window.pendingCoreAction = null;
 				return;
 			}
-			handleCoreAction(window.pendingCoreAction || 'update', token);
+			dkulmtc(window.pendingCoreAction || 'update', token);
 		}
 		async function applyUpdate(token = null) {
-			await handleCoreAction('update', token);
+			await dkulmtc('update', token);
 		}
-let cachedIpsData = {};
-async function fetchIpsList() {
+let l76xmsu = {};
+async function nbfm495() {
 	try {
-		const response = await fetchWithFallbackUI('ips.txt');
+		const response = await kc5inhw('ips.txt');
 		if (!response.ok) throw new Error('Fetch failed');
 		const text = await response.text();
 		const blocks = text.split('----------');
-		cachedIpsData = {};
+		l76xmsu = {};
 		blocks.forEach(block => {
 			const lines = block.trim().split('\\n').map(l => l.trim()).filter(l => l.length > 0);
 			if (lines.length === 0) return;
@@ -10143,10 +10053,10 @@ async function fetchIpsList() {
 				}
 			});
 			if (ips.length > 0) {
-				cachedIpsData[opName] = ips;
+				l76xmsu[opName] = ips;
 			}
 		});
-		populateIpSelect();
+		umfeacy();
 	} catch (err) {
 		alert('Failed to load IP list from GitHub.');
 		toggleIpSelectorModal(false);
@@ -10159,8 +10069,8 @@ window.autoFillCleanIps = async function(count) {
 	if (!ipsInput) return;
 	try {
 		let availableIps = [];
-		if (!cachedIpsData || Object.keys(cachedIpsData).length === 0) {
-			const response = await fetchWithFallbackUI('ips.txt');
+		if (!l76xmsu || Object.keys(l76xmsu).length === 0) {
+			const response = await kc5inhw('ips.txt');
 			if (response.ok) {
 				const text = await response.text();
 				const blocks = text.split('----------');
@@ -10172,7 +10082,7 @@ window.autoFillCleanIps = async function(count) {
 				});
 			}
 		} else {
-			Object.values(cachedIpsData).forEach(ips => { availableIps = availableIps.concat(ips); });
+			Object.values(l76xmsu).forEach(ips => { availableIps = availableIps.concat(ips); });
 		}
 		availableIps = [...new Set(availableIps)];
 		if (availableIps.length === 0) return;
@@ -10185,10 +10095,10 @@ window.autoFillCleanIps = async function(count) {
 		if (selected.length > 0) ipsInput.value = selected.join('\\n');
 	} catch (e) {}
 };
-function populateIpSelect() {
+function umfeacy() {
 	const select = document.getElementById('ip-operator-select');
 	select.innerHTML = '<option value="all">همه (توصیه شده)</option>';
-	Object.keys(cachedIpsData).forEach(op => {
+	Object.keys(l76xmsu).forEach(op => {
 		const option = document.createElement('option');
 		option.value = op;
 		option.textContent = op;
@@ -10196,7 +10106,7 @@ function populateIpSelect() {
 	});
 }
 function toggleIpSelectorModal(show) {
-	setModalState('ip-selector-modal', show);
+	ys5v6m0('ip-selector-modal', show);
 	if (!show) {
 		const rotateToggle = document.getElementById('input-auto-rotate-ip-toggle');
 		if (rotateToggle) rotateToggle.checked = false;
@@ -10205,35 +10115,11 @@ function toggleIpSelectorModal(show) {
 		if (typeof window.toggleAutoRotateIpInputs === 'function') window.toggleAutoRotateIpInputs(false);
 	}
 }
-function toggleIpScannerModal(show) {
-	setModalState('ip-scanner-modal', show);
-}
-
-function openIpScannerModal() {
-	toggleIpScannerModal(true);
-}
-
-function copyScannerCode(text, btn) {
-	navigator.clipboard.writeText(text).then(() => {
-		const originalHtml = btn.innerHTML;
-		const originalClasses = btn.className;
-		
-		btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span>کپی شد!</span>';
-		btn.className = 'w-full flex items-center justify-center gap-1.5 py-2 bg-green-50 dark:bg-green-900/30 border border-green-500 text-green-600 dark:text-green-400 rounded text-xs font-bold transition shadow-sm';
-		
-		setTimeout(() => { 
-			btn.innerHTML = originalHtml;
-			btn.className = originalClasses;
-		}, 2000);
-	}).catch(() => {
-		alert('خطا در کپی متن!');
-	});
-}
 async function openIpSelectorModal() {
 	toggleIpSelectorModal(true);
 	document.getElementById('ip-loading-state').classList.remove('hidden');
 	document.getElementById('ip-selection-form').classList.add('hidden');
-	await fetchIpsList();
+	await nbfm495();
 	const op = document.getElementById('hidden-ip-operator').value;
 	const selectOp = document.getElementById('ip-operator-select');
 	if (selectOp.querySelector('option[value="' + op + '"]')) {
@@ -10255,11 +10141,11 @@ function applySelectedIps() {
 	if (isNaN(count) || count < 1) count = 10;
 	let availableIps = [];
 	if (operator === 'all') {
-		Object.values(cachedIpsData).forEach(ips => {
+		Object.values(l76xmsu).forEach(ips => {
 			availableIps = availableIps.concat(ips);
 		});
 	} else {
-		availableIps = cachedIpsData[operator] || [];
+		availableIps = l76xmsu[operator] || [];
 	}
 	availableIps = [...new Set(availableIps)];
 	let selectedIps = [];
@@ -10296,26 +10182,26 @@ document.addEventListener('DOMContentLoaded', () => {
 				freeCard.classList.add('opacity-100', 'scale-100');
 			}, 23000);
 			const versionBadge = document.getElementById('panel-version');
-			if (versionBadge) versionBadge.innerText = 'v' + CURRENT_VERSION;
-			renderPortCheckboxes();
-			loadUsers();
-			if (typeof loadLocations === 'function') loadLocations();
+			if (versionBadge) versionBadge.innerText = 'v' + yxb4u9v;
+			yok43r5();
+			axmsbp4();
+			if (typeof jyfwoo1 === 'function') jyfwoo1();
 			window.usersRefreshIntervalId = null;
 			window.startRefreshInterval = function(intervalMs) {
 				if (window.usersRefreshIntervalId) {
 					clearInterval(window.usersRefreshIntervalId);
 				}
 				window.usersRefreshIntervalId = setInterval(() => {
-					if (!document.hidden) loadUsers(true);
+					if (!document.hidden) axmsbp4(true);
 				}, intervalMs);
 			};
 			window.changeRefreshRate = function(val) {
 				const ms = parseInt(val, 10);
-				localStorage.setItem('zeus_refresh_rate', ms);
+				localStorage.setItem('rr_k3', ms);
 				window.startRefreshInterval(ms);
-				showToast('نرخ رفرش پـنـل تغییر کرد');
+				bm3pzm2('نرخ رفرش پـنـل تغییر کرد');
 			};
-			const savedRate = localStorage.getItem('zeus_refresh_rate');
+			const savedRate = localStorage.getItem('rr_k3');
 			const initialRate = savedRate ? parseInt(savedRate, 10) : 10000;
 			const selectEl = document.getElementById('refresh-rate-select');
 			if (selectEl) {
@@ -10324,15 +10210,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			window.startRefreshInterval(initialRate);
 			const gfxToggleEl = document.getElementById('gfx-toggle');
 			if (gfxToggleEl) gfxToggleEl.checked = localStorage.getItem('gfx-enabled') !== 'false';
-			checkAutoUpdateSetup().then(() => {
+			nf57w1c().then(() => {
 				setTimeout(() => checkForUpdates(false), 1000);
 			});
 			setInterval(() => {
 				if (!document.hidden) checkForUpdates(false);
 			}, 300000);
-			setTimeout(() => checkGlobalMessage(), 3000);
+			setTimeout(() => cjk8rv3(), 3000);
 			setInterval(() => {
-				if (!document.hidden) checkGlobalMessage();
+				if (!document.hidden) cjk8rv3();
 			}, 60000);
 			window.addEventListener('mousedown', (e) => {
 				window._modalMouseDownTarget = e.target;
@@ -10341,8 +10227,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (window._modalMouseDownTarget && window._modalMouseDownTarget !== e.target) return;
 				if (e.target.id === 'user-modal') toggleModal(false);
 				if (e.target.id === 'ip-selector-modal') toggleIpSelectorModal(false);
-				if (e.target.id === 'ip-scanner-modal') toggleIpScannerModal(false);
-				if (e.target.id === 'settings-modal') toggleSettingsModal(false);
+					if (e.target.id === 'settings-modal') toggleSettingsModal(false);
 			if (e.target.id === 'rocket-modal') toggleRocketModal(false);
 				if (e.target.id === 'update-modal') toggleUpdateModal(false);
 				if (e.target.id === 'token-modal') toggleTokenModal(false);
@@ -10361,49 +10246,19 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			});
 		});
-function toggleProxySelectorModal(show) { setModalState('proxy-selector-modal', show); }
-		async function loadVipCountries() {
+function toggleProxySelectorModal(show) { ys5v6m0('proxy-selector-modal', show); }
+		async function bvxhocm() {
 			const select = document.getElementById('vip-country-select');
 			const btn = document.getElementById('vip-fetch-btn');
-			select.innerHTML = '<option value="">در حال بررسی مخزن...</option>';
-			try {
-				const res = await fetchWithFallbackUIVIP('vip-list');
-				if (!res.ok) throw new Error('API Error');
-				const data = await res.json();
-				const validCountries = data
-					.filter(function(file) { return file.name.endsWith('.txt'); })
-					.map(function(file) { return file.name.replace('.txt', '').toUpperCase(); });
-				if (validCountries.length === 0) throw new Error('Empty');
-				validCountries.sort(function(a, b) {
-					const nameA = typeof getCountryDisplayNameEn === 'function' ? getCountryDisplayNameEn(a) : a;
-					const nameB = typeof getCountryDisplayNameEn === 'function' ? getCountryDisplayNameEn(b) : b;
-					return nameA.localeCompare(nameB);
-				});
-				select.innerHTML = '<option value="">یک کشور VIP انتخاب کنید...</option>';
-				validCountries.forEach(function(country) {
-					const option = document.createElement('option');
-					option.value = country;
-					/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
-					const flag = typeof getFlagEmojiText === 'function' ? getFlagEmojiText(country) : '🌐';
-					const nameFa = typeof getCountryDisplayName === 'function' ? getCountryDisplayName(country) : '';
-					option.textContent = flag + ' ' + country + (nameFa ? ' - ' + nameFa : '');
-					select.appendChild(option);
-				});
-				btn.disabled = false;
-			} catch (err) {
-				select.innerHTML = '<option value="">پـروکـسـی اختصاصی موجود نیست</option>';
-				btn.disabled = true;
-			}
+			select.innerHTML = '<option value="all">🌐 انتخاب تصادفی از کل مخزن</option>';
+			btn.disabled = false;
 		}
 		async function loadVipProxy() {
-			const select = document.getElementById('vip-country-select');
-			const country = select.value;
 			const btn = document.getElementById('vip-fetch-btn');
-			if (!country) return;
 			btn.disabled = true;
 			btn.innerText = '...';
 			try {
-				const res = await fetchWithFallbackUIVIP('proxy_vip/' + country + '.txt?t=' + Date.now());
+				const res = await ggsyffs('vipprox.txt?t=' + Date.now());
 				if (!res.ok) throw new Error('فایل یافت نشد');
 				const text = await res.text();
 				const lines = text.split('\\n').map(function(l) { return l.trim(); }).filter(function(l) { return l.length > 5; });
@@ -10416,7 +10271,7 @@ function toggleProxySelectorModal(show) { setModalState('proxy-selector-modal', 
 						userProxyResult.innerText = '';
 					}
 					toggleProxySelectorModal(false);
-					showToast('✅ پـروکـسـی اختصاصی با موفقیت اعمال شد.');
+					bm3pzm2('✅ پـروکـسـی اختصاصی با موفقیت اعمال شد.');
 					testUserSocksProxy();
 				} else {
 					alert('فایل پـروکـسـی این کشور خالی است.');
@@ -10464,12 +10319,12 @@ function toggleProxySelectorModal(show) { setModalState('proxy-selector-modal', 
 				const option = document.createElement('option');
 				option.value = country;
 				/* <option> قادر به رندر HTML نیست، از نسخه متنی emoji استفاده می‌کنیم */
-				const flag = typeof getFlagEmojiText === 'function' ? getFlagEmojiText(country) : '🌐';
+				const flag = typeof nkis0ps === 'function' ? nkis0ps(country) : '🌐';
 				option.textContent = flag + ' ' + country;
 				select.appendChild(option);
 			});
 			fetchBtn.disabled = false;
-			loadVipCountries();
+			bvxhocm();
 		}
 async function fetchAndLoadProxy() {
 	const select = document.getElementById("proxy-country-select");
@@ -10487,7 +10342,7 @@ async function fetchAndLoadProxy() {
 			{ url: "proxy/" + country.toUpperCase() + ".txt", prefix: "" }
 		];
 		const responses = await Promise.allSettled(sources.map(src => 
-			fetchWithFallbackUI(src.url).then(async res => {
+			kc5inhw(src.url).then(async res => {
 				if (!res.ok) throw new Error();
 				const text = await res.text();
 				return { text: text, prefix: src.prefix };
@@ -10585,7 +10440,7 @@ async function fetchAndLoadProxy() {
 					userProxyResult.innerText = "";
 				}
 				toggleProxySelectorModal(false);
-				showToast("پـروکـسـی با بهترین امتیاز لود شد.");
+				bm3pzm2("پـروکـسـی با بهترین امتیاز لود شد.");
 				testUserSocksProxy();
 			} else {
 				alert("هیچ پـروکـسـی سالمی (حتی با یک پینگ موفق) یافت نشد.");
@@ -10601,9 +10456,9 @@ async function fetchAndLoadProxy() {
 		fetchBtn.disabled = false;
 	}
 }
-const WORKER_DONATE_URL = "https://si-491177.taile4bcbb.ts.net/donate";
+const fvyr2al = "https://si-491177.taile4bcbb.ts.net/donate";
 		function toggleDonateModal(show) {
-			setModalState('donate-modal', show);
+			ys5v6m0('donate-modal', show);
 			if (!show) {
 				document.getElementById('donate-proxy-input').value = '';
 				const resultSpan = document.getElementById('donate-result');
@@ -10672,7 +10527,7 @@ const WORKER_DONATE_URL = "https://si-491177.taile4bcbb.ts.net/donate";
 				}
 				const countryCode = testData.country || 'UN';
 				resultSpan.innerText = 'پـروکـسـی سالم و اختصاصی است! در حال ارسال (' + countryCode + ')...';
-				const donateResponse = await fetch(WORKER_DONATE_URL, {
+				const donateResponse = await fetch(fvyr2al, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
@@ -10717,7 +10572,7 @@ window.addEventListener('click', (e) => {
 	if (e.target.id === 'donate-modal') toggleDonateModal(false);
 });
 	</script>
-	${COMMON_WAVES_SCRIPT}
+	${td8g9qc}
 	  </body>
 </html>`,
 	status: `<!DOCTYPE html>
@@ -10726,7 +10581,7 @@ window.addEventListener('click', (e) => {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>وضعیت اشتراک کاربر</title>
-	${COMMON_HEAD}
+	${avk7j6y}
 	<style>
 		body { font-family: 'Vazirmatn', sans-serif; }
 		.glass {
@@ -10734,7 +10589,7 @@ window.addEventListener('click', (e) => {
 			border: 1px solid rgba(255, 255, 255, 0.05);
 		}
 		/* پرچم‌های SVG برای سازگاری با ویندوز */
-		.zeus-flag {
+		.flg {
 			display: inline-block;
 			width: 1.35em;
 			height: 1em;
@@ -10744,7 +10599,7 @@ window.addEventListener('click', (e) => {
 			background-position: 50%;
 			background-repeat: no-repeat;
 		}
-		.zeus-flag-globe {
+		.flg-g {
 			font-size: 1.1em;
 			line-height: 1;
 			vertical-align: -0.05em;
@@ -10966,24 +10821,24 @@ window.addEventListener('click', (e) => {
 		</a>
 	</div>
 </div>
-${COMMON_TOAST_HTML}
+${pbfiipq}
 	<script>
 		/* {{USER_DATA_PLACEHOLDER}} */
-		${COMMON_TOAST_JS}
-		function getHost() {
+		${zfne8tu}
+		function mash75l() {
 			return window.location.host;
 		}
-		function getUserProtoFlags(user) {
+		function wbfdlk4(user) {
 			var t = String((user && user.connection_type) || 'vl' + 'e' + 'ss').toLowerCase();
 			var trojan = t.indexOf('trojan') !== -1;
 			var ss = t.indexOf('shadowsocks') !== -1;
 			var vless = t.indexOf('vl' + 'e' + 'ss') !== -1 || (!trojan && !ss);
 			return { vless: vless, trojan: trojan, ss: ss };
 		}
-		function getvIeesLink() {
+		function fv9a4g0() {
 			const u = window.statusUser;
 			if (!u) return '';
-			const host = getHost();
+			const host = mash75l();
 			var ips = [host];
 			if (u.ips) {
 				const parsedIps = u.ips.split('\\n').map(function(ip) { return ip.trim(); }).filter(function(ip) { return ip.length > 0; });
@@ -10992,7 +10847,7 @@ ${COMMON_TOAST_HTML}
 			var ports = String(u.port || '443').split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
 			var fp = u.fingerprint || 'unsafe';
 			const dynPath = encodeURIComponent("/stream/aaaaaaaaaa/" + (u.uuid ? u.uuid.split("-")[4] : "default"));
-			const pf = getUserProtoFlags(u);
+			const pf = wbfdlk4(u);
 			const links = [];
 			const m1 = decodeURIComponent('%E2%9A%A0%EF%B8%8F%D9%BE%D9%86%D9%84%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%D9%87%2B%D9%86%D9%81%D8%B1%D9%88%D8%B4%20%DA%A9.%D8%B5%D8%B5%D8%B5.%DA%A9%D8%B4%D8%B4%D8%B4%D8%B4%E2%9A%A0%EF%B8%8F');
 			const m2 = decodeURIComponent('%F0%9F%9A%80%D9%BE%D9%86%D9%84%20%D8%AA%D9%88%D8%B3%D8%B7%20Alireza%20Tune%20%D8%AA%D9%88%D8%B3%D8%B9%D9%87%20%DB%8C%D8%A7%D9%81%D8%AA%D9%87%20%D8%A7%D8%B3%D8%AA%F0%9F%9A%80');
@@ -11040,7 +10895,7 @@ ${COMMON_TOAST_HTML}
 			}
 			if (proxyList.length === 0) proxyList = [null];
 			let proxyFlagCache = {};
-			try { proxyFlagCache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}'); } catch(e) {}
+			try { proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}'); } catch(e) {}
 			for (let locIdx = 0; locIdx < proxyList.length; locIdx++) {
 				let proxyItem = proxyList[locIdx];
 				let proxyStr = typeof proxyItem === "object" && proxyItem !== null ? proxyItem.proxy : proxyItem;
@@ -11048,10 +10903,10 @@ ${COMMON_TOAST_HTML}
 					? proxyItem.country
 					: (proxyStr ? (proxyStr === u.user_proxy_ip ? (u.user_proxy_iata || "") : "") : (u.global_proxy_iata || ""));
 				let flagEmoji = "🌐";
-				if (countryCode && typeof getFlagEmojiText === 'function') {
-					flagEmoji = getFlagEmojiText(countryCode);
-				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof getFlagEmojiText === 'function') {
-					flagEmoji = getFlagEmojiText(proxyFlagCache[proxyStr]);
+				if (countryCode && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(countryCode);
+				} else if (proxyStr && proxyFlagCache[proxyStr] && typeof nkis0ps === 'function') {
+					flagEmoji = nkis0ps(proxyFlagCache[proxyStr]);
 				}
 				const currentDynPath = encodeURIComponent(rawPath + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : ""));
 				const ssPlainPath = rawPath + "/ss" + ((proxyItem !== null && proxyItem !== "") ? "/loc-" + locIdx : "");
@@ -11080,14 +10935,14 @@ ${COMMON_TOAST_HTML}
 			return links.join('\\n');
 		}
 		function copyvIeesConfig() {
-			navigator.clipboard.writeText(getvIeesLink()).then(() => alert('✅ کـانفـیگ vIees با موفقیت کپی شد!'));
+			navigator.clipboard.writeText(fv9a4g0()).then(() => alert('✅ کـانفـیگ vIees با موفقیت کپی شد!'));
 		}
 		function copyTextSub() {
-			const link = window.location.protocol + '//' + getHost() + '/sub/' + encodeURIComponent(window.statusUser.username);
+			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
 			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب متنی کپی شد!'));
 		}
 		function copySingboxSub() {
-			const link = window.location.protocol + '//' + getHost() + '/singbox/' + encodeURIComponent(window.statusUser.username);
+			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
 			navigator.clipboard.writeText(link).then(() => alert('✅ لینک ساب Sing-box کپی شد!'));
 		}
 		function toggleQrModal(show, text) {
@@ -11148,28 +11003,28 @@ ${COMMON_TOAST_HTML}
 			}
 			const downloadAnchor = document.createElement('a');
 			downloadAnchor.href = dataUrl;
-			downloadAnchor.download = "zeus_qrcode_" + Date.now() + ".png";
+			downloadAnchor.download = "qr_" + Date.now() + ".png";
 			document.body.appendChild(downloadAnchor);
 			downloadAnchor.click();
 			downloadAnchor.remove();
 		}
 		function showSubQr() {
-			const link = window.location.protocol + '//' + getHost() + '/sub/' + encodeURIComponent(window.statusUser.username);
+			const link = window.location.protocol + '//' + mash75l() + '/sub/' + encodeURIComponent(window.statusUser.username);
 			toggleQrModal(true, link);
 		}
 		function showSingboxQr() {
-			const link = window.location.protocol + '//' + getHost() + '/singbox/' + encodeURIComponent(window.statusUser.username);
+			const link = window.location.protocol + '//' + mash75l() + '/singbox/' + encodeURIComponent(window.statusUser.username);
 			toggleQrModal(true, link);
 		}
 		/* پرچم‌ها به‌صورت SVG نمایش داده می‌شوند تا روی ویندوز (که فونت پرچم ندارد) هم درست دیده شوند. */
-		function getFlagEmoji(countryCode) {
-			if (!countryCode) return '<span class="zeus-flag-globe">🌐</span>';
+		function b00aqjk(countryCode) {
+			if (!countryCode) return '<span class="flg-g">🌐</span>';
 			const cc = String(countryCode).toLowerCase().replace(/[^a-z]/g, '');
-			if (cc.length !== 2) return '<span class="zeus-flag-globe">🌐</span>';
-			return '<span class="fi fi-' + cc + ' zeus-flag" title="' + cc.toUpperCase() + '"></span>';
+			if (cc.length !== 2) return '<span class="flg-g">🌐</span>';
+			return '<span class="fi fi-' + cc + ' flg" title="' + cc.toUpperCase() + '"></span>';
 		}
 		/* نسخه متنی (emoji) برای استفاده داخل URL/remark لینک VLESS */
-		function getFlagEmojiText(countryCode) {
+		function nkis0ps(countryCode) {
 			if (!countryCode) return '🌐';
 			const cc = String(countryCode).toUpperCase().replace(/[^A-Z]/g, '');
 			if (cc.length !== 2) return '🌐';
@@ -11184,13 +11039,13 @@ ${COMMON_TOAST_HTML}
 			if (!u) return;
 			const limit = u.ip_limit !== undefined ? u.ip_limit : u.max_connections;
 			document.getElementById('display-username').innerText = u.username;
-const flagContainer = document.getElementById('display-flag');
+const rkjjcq8 = document.getElementById('display-flag');
 	if (u.user_proxy_iata) {
-		const flag = getFlagEmoji(u.user_proxy_iata);
-		flagContainer.innerHTML = flag + " " + u.user_proxy_iata.toUpperCase();
-		flagContainer.style.display = 'block';
+		const flag = b00aqjk(u.user_proxy_iata);
+		rkjjcq8.innerHTML = flag + " " + u.user_proxy_iata.toUpperCase();
+		rkjjcq8.style.display = 'block';
 } else if (u.user_socks5 || u.user_proxy_ip) {
-	flagContainer.style.display = 'block';
+	rkjjcq8.style.display = 'block';
 	let proxyList = [];
 	try {
 		if (u.user_socks5 && u.user_socks5.trim().startsWith("[")) {
@@ -11204,24 +11059,24 @@ const flagContainer = document.getElementById('display-flag');
 	let initialFlags = proxyList.map(item => {
 		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
 		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-		if (targetCountry) return getFlagEmoji(targetCountry);
+		if (targetCountry) return b00aqjk(targetCountry);
 		try {
-			const proxyFlagCache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}');
+			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
 			/* کش همیشه کد کشور (۲ حرف) را ذخیره می‌کند */
 			const cached = proxyFlagCache[targetProxy];
-			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return getFlagEmoji(cached);
+			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return b00aqjk(cached);
 		} catch(e) {}
 		return '⏳';
 	});
-	flagContainer.innerHTML = initialFlags.join(' ');
+	rkjjcq8.innerHTML = initialFlags.join(' ');
 	Promise.all(proxyList.map((item, index) => {
 		let targetProxy = typeof item === 'object' && item !== null ? item.proxy : item;
 		let targetCountry = typeof item === 'object' && item !== null ? item.country : null;
-		if (targetCountry) return Promise.resolve(getFlagEmoji(targetCountry));
+		if (targetCountry) return Promise.resolve(b00aqjk(targetCountry));
 		try {
-			const proxyFlagCache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}');
+			const proxyFlagCache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
 			const cached = proxyFlagCache[targetProxy];
-			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return Promise.resolve(getFlagEmoji(cached));
+			if (cached && typeof cached === 'string' && /^[a-zA-Z]{2}$/.test(cached)) return Promise.resolve(b00aqjk(cached));
 		} catch(e) {}
 		return fetch('/api/test-proxy', {
 			method: 'POST',
@@ -11231,20 +11086,20 @@ const flagContainer = document.getElementById('display-flag');
 		.then(res => res.json())
 		.then(data => {
 			if (data.success && data.country) {
-				const flagSvg = getFlagEmoji(data.country);
+				const flagSvg = b00aqjk(data.country);
 				try {
-					const cache = JSON.parse(localStorage.getItem('proxy_flag_cache_v2') || '{}');
+					const cache = JSON.parse(localStorage.getItem('pf_c2') || '{}');
 					/* کد کشور را کش می‌کنیم تا هم برای UI (SVG) و هم remark (text) قابل استفاده باشد */
 					cache[targetProxy] = data.country.toUpperCase();
-					localStorage.setItem('proxy_flag_cache_v2', JSON.stringify(cache));
+					localStorage.setItem('pf_c2', JSON.stringify(cache));
 				} catch(e) {}
 				return flagSvg;
 			}
-			return '<span class="zeus-flag-globe">🌐</span>';
+			return '<span class="flg-g">🌐</span>';
 		})
-		.catch(() => '<span class="zeus-flag-globe">🌐</span>');
+		.catch(() => '<span class="flg-g">🌐</span>');
 	})).then(flags => {
-		flagContainer.innerHTML = flags.join(' ');
+		rkjjcq8.innerHTML = flags.join(' ');
 	});
 }
 			const badge = document.getElementById('live-connections-badge');
@@ -11354,7 +11209,13 @@ const flagContainer = document.getElementById('display-flag');
 			if (e.target.id === 'qr-modal') toggleQrModal(false);
 		});
 	</script>
-	${COMMON_WAVES_SCRIPT}
+	${td8g9qc}
 </body>
 </html>`,
 };
+
+const _dec = (x) => new TextDecoder().decode(Uint8Array.from(atob(x), (c) => c.charCodeAt(0)));
+let _sc = "";
+function getSolar() {
+	return _sc || (_sc = _dec(_k3x9));
+}
