@@ -527,7 +527,7 @@ async function replaceBrokenProxy(username, env, oldProxy) {
 					s.close();
 				} catch (e) {}
 			}
-			const jsonMatch = resStr.match(/\{[^}]*"countryCode"\s*:\s*"([^"]+)"[^}]*\}/);
+			const jsonMatch = resStr.match(/\x7B[^\x7D]*"countryCode"\s*:\s*"([^"]+)"[^\x7D]*\x7D/);
 			if (jsonMatch && jsonMatch[1]) countryCode = jsonMatch[1];
 		} catch (e) {}
 		if (countryCode === "all") {
@@ -1359,7 +1359,7 @@ const Router = {
 				const ping = Date.now() - startTime;
 				if (!skip_country) {
 					try {
-						const jsonMatch = resStr.match(/\{[^}]*"countryCode"\s*:\s*"([^"]+)"[^}]*\}/);
+						const jsonMatch = resStr.match(/\x7B[^\x7D]*"countryCode"\s*:\s*"([^"]+)"[^\x7D]*\x7D/);
 						if (jsonMatch && jsonMatch[1]) country = jsonMatch[1];
 					} catch (e) {}
 					if (country === "UN" && ip) {
@@ -1829,7 +1829,7 @@ const SubscriptionService = {
 							s.close();
 						} catch (e) {}
 					}
-					const jsonMatch = resStr.match(/\{[^}]*"countryCode"\s*:\s*"([^"]+)"[^}]*\}/);
+					const jsonMatch = resStr.match(/\x7B[^\x7D]*"countryCode"\s*:\s*"([^"]+)"[^\x7D]*\x7D/);
 					if (jsonMatch && jsonMatch[1]) countryCode = jsonMatch[1];
 				} catch (e) {}
 				if (!countryCode) {
@@ -6037,7 +6037,7 @@ const HTML_TEMPLATES = {
 								<div id="advanced-settings-container" class="hidden opacity-50 pointer-events-none transition-opacity duration-300 p-4 border-t border-purple-100 dark:border-amoled-border space-y-3 bg-white dark:bg-slate-900">
 									<div>
 										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Advanced Fragment (fm JSON)</label>
-										<input type="text" id="input-advanced-frag" placeholder="{&quot;tcp&quot;: [{&quot;type&quot;: &quot;fragment&quot;..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
+										<input type="text" id="input-advanced-frag" placeholder="&#123;&quot;tcp&quot;: [&#123;&quot;type&quot;: &quot;fragment&quot;..." dir="ltr" class="w-full px-3 py-2 bg-gray-50 dark:bg-amoled-input border border-gray-200 dark:border-amoled-border rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500 text-[10px] font-mono text-gray-800 dark:text-zinc-100 placeholder-gray-400">
 									</div>
 									<div>
 										<label class="block text-[10px] font-bold text-gray-500 dark:text-zinc-400 mb-1">Cipher Suites (cs)</label>
