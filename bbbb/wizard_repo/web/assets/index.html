@@ -35,7 +35,7 @@
                         </span>
                     </a>
                 </div>
-                <p class="subtitle">Install, manage &amp; update BPB Zeus Panel (D1) efficiently</p>
+                <p class="subtitle">Deploy any .js file on Cloudflare with D1 · manage &amp; update</p>
                 <h4 id="user" style="display: none;"></h4>
                 <ol id="steps">
                     <li>
@@ -96,13 +96,20 @@
                     <div id="srcEditor" class="editor hidden">
                         <input id="srcName" class="input-plain" placeholder="Name · اسم دلخواه (optional)" autocomplete="off" dir="auto" />
                         <input id="srcUrl" class="input-plain mono" placeholder="https://raw.githubusercontent.com/user/repo/refs/heads/main/worker.js" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <input id="srcSha" class="input-plain mono" placeholder="Expected SHA-256 · چک‌سام (optional, pins the file)" maxlength="80" autocomplete="off" spellcheck="false" dir="ltr" />
                         <div class="row">
                             <button type="button" id="srcSave" class="btn-mini ok">Save</button>
                             <button type="button" id="srcCancel" class="btn-mini">Cancel</button>
                             <button type="button" id="srcReset" class="btn-mini">↺ Restore default</button>
                         </div>
                     </div>
-                    <p id="srcStatus" class="hint">Used for both <b>Install</b> and <b>Update</b>. Raw GitHub / Gist / GitLab / jsDelivr links (GitHub “blob” links are converted automatically). The list is saved in this browser.</p>
+                    <div class="row">
+                        <button type="button" id="fileBtn" class="btn-mini info">📁 Upload a .js file instead</button>
+                        <input type="file" id="scriptFile" accept=".js,.mjs,.cjs,text/javascript" class="hidden" />
+                    </div>
+                    <p id="fileStatus" class="hint hidden"></p>
+                    <label class="switch-row"><input type="checkbox" id="allowUnverified" /> Deploy even if verification fails <span class="fa">(not recommended)</span></label>
+                    <p id="srcStatus" class="hint">Any <b>.js</b> file works (a Worker module or a classic service worker): it gets a D1 database bound to it. Used for <b>Install</b> and <b>Update</b>. Any https link; GitHub / GitLab “blob” links are converted automatically. BPB / Zeus builds additionally get their panel settings. Every file is <b>verified</b> first: size, lines, SHA-256 and the count of <code>{ }</code> <code>( )</code> <code>[ ]</code>; a truncated or corrupt file is refused. The list is saved in this browser.</p>
                 </section>
 
                 <!-- ============ Runtime Placement · منطقه اجرای ورکر ============ -->
@@ -121,6 +128,10 @@
                     </div>
                     <input id="customName" class="input-plain mono hidden" placeholder="my-panel" maxlength="50" autocomplete="off" spellcheck="false" dir="ltr" />
                     <p id="nameHint" class="hint">Random: a long unguessable name. Custom: lowercase Latin letters, digits and “-” only; this name is used in the panel link (<code>name.&lt;your-subdomain&gt;.workers.dev</code>).</p>
+                    <div class="row">
+                        <input id="d1Binding" class="input-plain mono" value="DB" maxlength="63" autocomplete="off" spellcheck="false" dir="ltr" title="D1 binding name" />
+                        <span class="hint">← D1 binding name in your code (<code>env.DB</code>)</span>
+                    </div>
                     <input id="panelLabel" class="input-plain" placeholder="Label · برچسب (optional, for your saved links)" autocomplete="off" dir="auto" />
                 </section>
 
@@ -166,18 +177,20 @@
                         </button>
                     </div>
                     <div class="toast-body">
-                        Access your BPB Panel.
+                        <span id="liveUrlText">Open your deployment.</span>
                         <a id="liveUrl" href="#" target="_blank" class="toast-link">
                             <span class="material-symbols-rounded">
                                 open_in_new
                             </span>
                         </a>
+                        <span id="liveZeusWrap">
                         &nbsp;&nbsp;Zeus page ⚡
                         <a id="liveZeus" href="#" target="_blank" class="toast-link">
                             <span class="material-symbols-rounded">
                                 open_in_new
                             </span>
                         </a>
+                        </span>
                     </div>
                 </div>
 
@@ -186,7 +199,7 @@
             <!-- ============ Manage & update panels · مدیریت و آپدیت پنل‌ها ============ -->
             <section class="box manage" id="manageBox">
                 <div class="box-title">🛠 Manage &amp; Update Panels <span class="fa">مدیریت و آپدیت پنل‌ها</span></div>
-                <p class="hint">Finds every BPB Zeus panel in the account by looking <b>inside</b> the Workers (embedded settings + D1 binding), so it works even when the Worker has a completely different name.</p>
+                <p class="hint">Lists every Worker and Pages project of the account with its D1 databases (BPB / Zeus panels are recognised by their content, whatever the name). <b>Delete removes the project and its D1 database(s).</b></p>
                 <div class="row">
                     <button type="button" id="scanBtn" class="btn-mini ok wide">🔍 Scan account</button>
                 </div>

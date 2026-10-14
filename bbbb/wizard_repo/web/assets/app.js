@@ -325,14 +325,14 @@ let selectedSourceId = store.get(SRC_SEL_KEY, 'default');
 let editingSourceId = null;
 const SRC_HINT = $('srcStatus').innerHTML;
 
-// same rules as the server: raw links stay, GitHub / GitLab "blob" links are converted
+// same rules as the server: any https link to a .js file, "blob" links are converted
 function normalizeSourceUrl(raw) {
     const s = String(raw || '').trim();
     let u;
     try { u = new URL(s); } catch { throw new Error('This is not a valid link.'); }
     if (u.protocol !== 'https:') throw new Error('The link must start with https://');
     const host = u.hostname.toLowerCase();
-    if (host === 'raw.githubusercontent.com' || host === 'gist.githubusercontent.com' || host === 'cdn.jsdelivr.net') return u.origin + u.pathname + u.search;
+    if (!host.includes('.') || /^[0-9.]+$/.test(host) || host.startsWith('[') || host.endsWith('.local') || host.endsWith('.internal')) throw new Error('Use a public domain name.');
     if (host === 'github.com') {
         const m = u.pathname.match(/^\/([^/]+)\/([^/]+)\/(?:blob|raw)\/(.+)$/);
         if (!m) throw new Error('This GitHub link does not point to a file (github.com/user/repo/blob/branch/file.js).');
@@ -340,10 +340,9 @@ function normalizeSourceUrl(raw) {
     }
     if (host === 'gitlab.com') {
         const m = u.pathname.match(/^\/(.+?)\/-\/(?:blob|raw)\/(.+)$/);
-        if (!m) throw new Error('This GitLab link does not point to a file.');
-        return `https://gitlab.com/${m[1]}/-/raw/${m[2]}`;
+        if (m) return `https://gitlab.com/${m[1]}/-/raw/${m[2]}`;
     }
-    throw new Error('Allowed hosts: raw.githubusercontent.com, github.com (blob links), gist.githubusercontent.com, gitlab.com, cdn.jsdelivr.net');
+    return u.origin + u.pathname + u.search;
 }
 const getSelectedSource = () => sources.find(s => s.id === selectedSourceId) || sources[0];
 function srcMsg(text, kind) {
@@ -359,9 +358,18 @@ function renderSources() {
     sel.value = selectedSourceId;
     store.set(SRC_KEY, sources); store.set(SRC_SEL_KEY, selectedSourceId);
 }
+const normSha = (v) => String(v || '').trim().toLowerCase().replace(/^sha-?256\s*[:=-]?\s*/, '');
+// what the server found in a downloaded file: size, lines, SHA-256 and the bracket counts
+function describeCheck(c) {
+    if (!c) return '';
+    const raw = c.raw && (c.raw[0] !== c.raw[1] || c.raw[0] !== c.braces[0]) ? `\n(a plain character count gives { ${c.raw[0]}/${c.raw[1]}, but braces inside strings, regex and comments are ignored)` : '';
+    return `${(c.size / 1024).toFixed(0)} KB · ${c.lines} lines · SHA-256 ${c.sha256.slice(0, 16)}…\n{ } ${c.braces[0]}/${c.braces[1]} · ( ) ${c.parens[0]}/${c.parens[1]} · [ ] ${c.brackets[0]}/${c.brackets[1]}${c.checksum === 'matched' ? ' · checksum matched ✓' : ''}${raw}`;
+}
+const verifyOpts = () => ({ sha256: getSelectedSource().sha256 || '', allowUnverified: $('allowUnverified').checked });
 function openSourceEditor(src) {
     editingSourceId = src ? src.id : null;
     $('srcName').value = src ? src.name : '';
+    $('srcSha').value = src?.sha256 || '';
     $('srcUrl').value = src ? src.url : '';
     $('srcEditor').classList.remove('hidden');
     $('srcUrl').focus();
@@ -383,8 +391,10 @@ $('srcSave').addEventListener('click', () => {
         const dup = sources.find(s => s.url === url && s.id !== editingSourceId);
         if (dup) throw new Error(`This link already exists (“${dup.name}”).`);
         const name = $('srcName').value.trim() || decodeURIComponent(url.split('/').pop() || 'source').slice(0, 40);
-        if (editingSourceId) { sources = sources.map(s => s.id === editingSourceId ? { ...s, name, url } : s); selectedSourceId = editingSourceId; }
-        else { const id = 'src-' + Date.now().toString(36); sources.push({ id, name, url }); selectedSourceId = id; }
+        const sha256 = normSha($('srcSha').value);
+        if (sha256 && !/^[0-9a-f]{64}$/.test(sha256)) throw new Error('The SHA-256 must be 64 hex characters.');
+        if (editingSourceId) { sources = sources.map(s => s.id === editingSourceId ? { ...s, name, url, sha256 } : s); selectedSourceId = editingSourceId; }
+        else { const id = 'src-' + Date.now().toString(36); sources.push({ id, name, url, sha256 }); selectedSourceId = id; }
         renderSources(); closeSourceEditor(); srcMsg(editingSourceId ? 'Source updated.' : 'Source added.', 'ok');
     } catch (e) { srcMsg(e.message, 'err'); }
 });
@@ -397,24 +407,47 @@ $('srcDelete').addEventListener('click', async () => {
     selectedSourceId = sources[0].id; renderSources(); closeSourceEditor(); srcMsg('Source deleted.', 'ok');
 });
 $('srcTest').addEventListener('click', async () => {
-    let url;
-    try { url = $('srcEditor').classList.contains('hidden') || !$('srcUrl').value.trim() ? getSelectedSource().url : normalizeSourceUrl($('srcUrl').value); }
-    catch (e) { return srcMsg(e.message, 'err'); }
-    srcMsg('Checking the source…');
+    let url, sha256;
     try {
-        const r = await callApi('/api/check-source', { sourceUrl: url });
-        srcMsg(`✅ Valid panel build · ${(r.size / 1024).toFixed(0)} KB${r.version ? ' · ' + r.version : ''}`, 'ok');
+        const editing = !$('srcEditor').classList.contains('hidden') && $('srcUrl').value.trim();
+        url = editing ? normalizeSourceUrl($('srcUrl').value) : getSelectedSource().url;
+        sha256 = editing ? normSha($('srcSha').value) : (getSelectedSource().sha256 || '');
+    } catch (e) { return srcMsg(e.message, 'err'); }
+    srcMsg('Downloading and verifying the source…');
+    try {
+        const r = await callApi('/api/check-source', { sourceUrl: url, sha256 });
+        const kind = r.check.ok ? 'ok' : 'err';
+        srcMsg(`${r.check.ok ? '✅ Verified' : '✗ Verification FAILED: ' + r.check.issues.join('; ')} · ${r.format === 'module' ? 'Worker module' : 'service worker'}${r.version ? ' · ' + r.version : ''} · ${r.bpb ? 'BPB / Zeus build (panel settings are embedded)' : 'uploaded as-is'}\n${describeCheck(r.check)}`, kind);
     } catch (e) { srcMsg('✗ ' + e.message, 'err'); }
 });
-for (const id of ['srcName', 'srcUrl', 'customName', 'panelLabel', 'checkName']) {
+for (const id of ['srcName', 'srcUrl', 'srcSha', 'customName', 'panelLabel', 'checkName', 'd1Binding']) {
     $(id).addEventListener('keydown', (e) => {
         if (e.key !== 'Enter') return;
         e.preventDefault();                           // never submit the install form by accident
-        if (id === 'srcName' || id === 'srcUrl') $('srcSave').click();
+        if (id === 'srcName' || id === 'srcUrl' || id === 'srcSha') $('srcSave').click();
         if (id === 'checkName') $('checkBtn').click();
     });
 }
 renderSources();
+
+/* ---- upload a local .js file instead of a link (used by the next install only) ---- */
+let uploadedFile = null;
+function showUploaded() {
+    const el = $('fileStatus');
+    el.textContent = '';
+    el.classList.toggle('hidden', !uploadedFile);
+    if (!uploadedFile) return;
+    el.append(`📁 ${uploadedFile.name} (${(uploadedFile.size / 1024).toFixed(0)} KB) will be deployed instead of the link, on the next install. `,
+        h('a', { href: '#', textContent: 'clear', onclick: (e) => { e.preventDefault(); uploadedFile = null; $('scriptFile').value = ''; showUploaded(); } }));
+}
+$('fileBtn').addEventListener('click', () => $('scriptFile').click());
+$('scriptFile').addEventListener('change', (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!/\.(m|c)?js$/i.test(f.name)) { srcMsg('Choose a .js file.', 'err'); e.target.value = ''; return; }
+    if (f.size > 10 * 1024 * 1024) { srcMsg('The file is larger than 10 MB.', 'err'); e.target.value = ''; return; }
+    uploadedFile = f; showUploaded();
+});
 
 /* ===================================================================== *
  *  Panel link name (random / custom)
@@ -485,7 +518,7 @@ function renderSaved() {
  *  never by the Worker name.
  * ===================================================================== */
 let panels = [];            // detected panels (workers + pages)
-let scanInfo = { devSub: '', latestVersion: '' };
+let scanInfo = { devSub: '', latestVersion: '', d1Names: {} };
 let busy = false;
 
 function setBusy(on) {
@@ -515,10 +548,10 @@ async function scanAccount() {
     if (busy || !requireToken()) return;
     setBusy(true);
     try {
-        log('info', 'Scanning the account for BPB Zeus panels...');
+        log('info', 'Scanning the account (Workers, Pages, D1)...');
         progress(0.02, 'Reading account…');
         const list = await callApi('/api/panels/list');
-        scanInfo.devSub = list.devSub;
+        scanInfo.devSub = list.devSub; scanInfo.d1Names = list.d1Names || {};
         const modified = Object.fromEntries(list.scripts.map(s => [s.name, s.modified]));
         const names = list.scripts.map(s => s.name);
         if (list.pagesError) log('warn', `Pages projects could not be read: ${list.pagesError}`);
@@ -526,13 +559,13 @@ async function scanAccount() {
         const found = [];
         for (let i = 0; i < names.length; i += 8) {
             progress(0.05 + 0.9 * (i / Math.max(1, names.length)), `Inspecting Workers ${Math.min(i + 8, names.length)} / ${names.length}`);
-            try { found.push(...(await callApi('/api/panels/inspect', { names: names.slice(i, i + 8), devSub: list.devSub })).panels); }
+            try { found.push(...(await callApi('/api/panels/inspect', { names: names.slice(i, i + 8), devSub: list.devSub, d1Names: scanInfo.d1Names })).panels); }
             catch (e) { log('warn', `Could not inspect ${names.slice(i, i + 8).join(', ')}: ${e.message}`); }
         }
         panels = [...found.map(p => ({ ...p, modified: modified[p.name] || '' })), ...list.pages];
         scanInfo.latestVersion = await latestVersion();
-        progress(1, `${panels.length} panel${panels.length === 1 ? '' : 's'} found in ${names.length} Worker${names.length === 1 ? '' : 's'}`);
-        log('success', `Found ${panels.length} panel(s) among ${names.length} Worker(s) and ${list.pages.length} Pages candidate(s).`);
+        progress(1, `${names.length} Worker${names.length === 1 ? '' : 's'} · ${list.pages.length} Pages project${list.pages.length === 1 ? '' : 's'}`);
+        log('success', `Found ${names.length} Worker(s) and ${list.pages.length} Pages project(s); ${panels.filter(p => p.d1s?.length).length} with a D1 database.`);
     } catch (e) { log('error', `Scan failed: ${e.message}`); hideProgress(); }
     setBusy(false);
     renderPanels();
@@ -543,27 +576,30 @@ async function checkOne() {
     if (busy || !name || !requireToken()) return;
     setBusy(true);
     try {
-        if (!scanInfo.devSub) { try { scanInfo.devSub = (await callApi('/api/panels/list')).devSub; } catch { } }
-        const r = await callApi('/api/panels/inspect', { names: [name], devSub: scanInfo.devSub });
-        if (!r.panels.length) log('warn', `“${name}” is not a BPB Zeus panel (no embedded settings / D1 binding found), or it does not exist.`);
-        else { r.panels.forEach(upsertPanel); if (!scanInfo.latestVersion) scanInfo.latestVersion = await latestVersion(); log('success', `“${name}” is a BPB Zeus panel.`); $('checkName').value = ''; }
+        if (!scanInfo.devSub) { try { const l = await callApi('/api/panels/list'); scanInfo.devSub = l.devSub; scanInfo.d1Names = l.d1Names || {}; } catch { } }
+        const r = await callApi('/api/panels/inspect', { names: [name], devSub: scanInfo.devSub, d1Names: scanInfo.d1Names });
+        if (!r.panels.length) log('warn', `Worker “${name}” was not found.`);
+        else { r.panels.forEach(upsertPanel); if (!scanInfo.latestVersion) scanInfo.latestVersion = await latestVersion(); log('success', `Worker “${name}” added to the list.`); $('checkName').value = ''; }
     } catch (e) { log('error', e.message); }
     setBusy(false);
     renderPanels();
 }
 
+const dbName = (d) => d.name || scanInfo.d1Names[d.id] || (d.id ? d.id.slice(0, 8) + '…' : '?');
 function panelBadges(p) {
-    const out = [h('span', { className: 'badge b-blue', textContent: p.kind === 'pages' ? 'Pages' : 'Worker' }), h('span', { className: 'badge', textContent: 'BPB + Zeus · D1' })];
-    if (p.confidence === 'medium') out.push(h('span', { className: 'badge b-amber', textContent: 'probable', title: 'Detected by the D1 "DB" binding only; the script itself cannot be read for Pages projects.' }));
-    if (p.version) out.push(h('span', { className: 'badge b-green', textContent: p.version }));
-    if (p.version && scanInfo.latestVersion && p.version !== scanInfo.latestVersion) out.push(h('span', { className: 'badge b-amber', textContent: `update available → ${scanInfo.latestVersion}` }));
+    const out = [h('span', { className: 'badge b-blue', textContent: p.kind === 'pages' ? 'Pages' : 'Worker' })];
+    if (p.family === 'bpb-zeus-d1') out.push(h('span', { className: 'badge', textContent: 'BPB + Zeus' }));
+    for (const d of p.d1s || []) out.push(h('span', { className: 'badge b-green', textContent: `🗄 ${dbName(d)}`, title: `D1 binding ${d.binding} · ${d.id}` }));
+    if (!(p.d1s || []).length) out.push(h('span', { className: 'badge', textContent: 'no D1' }));
+    if (p.version) out.push(h('span', { className: 'badge', textContent: p.version }));
+    if (p.version && scanInfo.latestVersion && p.family === 'bpb-zeus-d1' && p.version !== scanInfo.latestVersion) out.push(h('span', { className: 'badge b-amber', textContent: `update available → ${scanInfo.latestVersion}` }));
     return out;
 }
 
 function renderPanels() {
     const list = $('panelList'); list.textContent = '';
-    if (!panels.length) { list.append(h('p', { className: 'hint', textContent: 'No panels listed yet. Press “Scan account”.' })); }
-    for (const p of [...panels].sort((a, b) => String(b.modified || '').localeCompare(String(a.modified || '')))) list.append(panelCard(p));
+    if (!panels.length) { list.append(h('p', { className: 'hint', textContent: 'Nothing listed yet. Press “Scan account”.' })); }
+    for (const p of [...panels].sort((a, b) => ((b.d1s?.length ? 1 : 0) - (a.d1s?.length ? 1 : 0)) || String(b.modified || '').localeCompare(String(a.modified || '')))) list.append(panelCard(p));
     renderSaved();
 }
 
@@ -581,13 +617,13 @@ function panelCard(p) {
         saved?.label && saved.label !== p.name ? h('div', { className: 'plabel', textContent: saved.label }) : null,
         urlLine('Panel: ', p.url || (saved?.url ?? '')),
         urlLine('Zeus: ', p.zeus || (saved?.zeus ?? '')),
-        p.kind === 'pages' && !p.url && !saved?.url ? h('div', { className: 'pmeta', textContent: `https://${p.subdomain}/<secret-path>/panel — the secret path is not readable for Pages projects; use a saved link.` }) : null,
+        p.kind === 'pages' && !p.url && !saved?.url ? h('div', { className: 'pmeta' }, h('b', { textContent: 'URL: ' }), h('a', { href: `https://${p.subdomain}/`, target: '_blank', rel: 'noopener', textContent: `https://${p.subdomain}/` }), p.family === 'bpb-zeus-d1' ? ' (BPB / Zeus panels use a secret path: use a saved link)' : '') : null,
         h('div', { className: 'pmeta' },
             h('b', { textContent: 'Placement: ' }), describePlacement(p.placement), ' · ',
             h('b', { textContent: 'Build: ' }), p.build ? fmtDate(p.build) : '—',
             p.modified ? [' · ', h('b', { textContent: 'Modified: ' }), fmtDate(p.modified)] : null),
         h('div', { className: 'pmeta' },
-            p.d1 ? [h('b', { textContent: 'D1: ' }), short(p.d1, 13), ' · '] : null,
+            (p.d1s || []).length ? [h('b', { textContent: 'D1: ' }), (p.d1s).map(d => `${dbName(d)} (${d.binding})`).join(', '), ' · '] : null,
             p.email ? [h('b', { textContent: 'Account: ' }), p.email, ' · '] : null,
             p.embeddedDomain && p.embeddedDomain !== `${p.name}.${scanInfo.devSub}` && p.kind === 'workers' ? [h('b', { textContent: 'Embedded domain: ' }), p.embeddedDomain] : null),
         h('details', {}, h('summary', { textContent: '🌍 Runtime Placement for this panel' }), h('div', {}, pickerRoot,
@@ -606,11 +642,12 @@ function panelCard(p) {
             h('button', {
                 type: 'button', className: 'btn-mini ok', textContent: '⬆ Update from source', onclick: run(async () => {
                     const src = getSelectedSource();
-                    const warnPages = p.kind === 'pages' ? '\n\nPages note: the deployed script of a Pages project cannot be read back, so the internal UUID and password are regenerated' + (savedPath ? ' (the secret path is kept from your saved link).' : ' and the secret path changes (no saved link found).') : '\n\nThe panel link, UUID, password and D1 database are kept.';
+                    const warnPages = p.kind === 'pages' ? '\n\nPages note: the deployed script of a Pages project cannot be read back. If the source is a BPB / Zeus build its UUID and password are regenerated' + (savedPath ? ' (the secret path is kept from your saved link).' : ' and the secret path changes (no saved link found).') : '\n\nBindings (D1, secrets, ...), settings and the link are kept; BPB / Zeus panels also keep their UUID and password.';
                     const { ok } = await confirmBox(`Update “${p.name}” from:\n${src.name}\n${src.url}${warnPages}`);
                     if (!ok) return;
                     log('info', `Updating ${p.name} from ${short(src.url.replace('https://', ''), 60)}...`);
-                    const r = await callApi('/api/panels/update', { name: p.name, kind: p.kind, mode: 'update', sourceUrl: src.url, placement: pk.getValue(), securePath: savedPath });
+                    const r = await callApi('/api/panels/update', { name: p.name, kind: p.kind, mode: 'update', sourceUrl: src.url, placement: pk.getValue(), securePath: savedPath, ...verifyOpts() });
+                    if (r.check) log(r.check.ok ? 'info' : 'warn', `Source ${r.check.ok ? 'verified' : 'NOT verified (' + r.check.issues.join('; ') + ')'}: ${describeCheck(r.check).replace(/\n/g, ' · ')}`);
                     if (r.warning) log('warn', r.warning);
                     log('success', `${p.name} updated${r.version ? ' to ' + r.version : ''}.`);
                     if (r.regenerated) { log('warn', 'Pages panel: new internal UUID / password were generated.'); if (r.url) log('info', 'Panel URL: ', r.url); }
@@ -624,12 +661,13 @@ function panelCard(p) {
             h('button', { type: 'button', className: 'btn-mini', textContent: '✏️ Label', onclick: () => editLabel(p.name, p.kind, { url: p.url, zeus: p.zeus, placement: p.placement }) }),
             h('button', {
                 type: 'button', className: 'btn-mini danger', textContent: '🗑 Delete', onclick: run(async () => {
-                    const { ok, opt } = await confirmBox(`Delete ${p.kind === 'pages' ? 'Pages project' : 'Worker'} “${p.name}”?\n\nThis cannot be undone.`, 'Also delete its D1 database (all panel data)');
+                    const dbs = (p.d1s || []).map(d => `• ${dbName(d)}`).join('\n');
+                    const { ok } = await confirmBox(`Delete ${p.kind === 'pages' ? 'Pages project' : 'Worker'} “${p.name}”${dbs ? ' and its D1 database(s)' : ''}?\n\n${dbs ? dbs + '\n\n' : ''}This cannot be undone.`);
                     if (!ok) return;
                     log('info', `Deleting ${p.name}...`);
-                    const r = await callApi('/api/panels/delete', { name: p.name, kind: p.kind, deleteDb: opt });
+                    const r = await callApi('/api/panels/delete', { name: p.name, kind: p.kind, deleteDb: true });
                     if (r.warning) log('warn', r.warning);
-                    log('success', `${p.name} deleted${r.dbDeleted ? ' together with its D1 database' : ''}.`);
+                    log('success', `${p.name} deleted${r.dbDeleted ? ` together with ${r.deletedDbs.length} D1 database${r.deletedDbs.length === 1 ? '' : 's'}` : ''}.`);
                     panels = panels.filter(x => panelKey(x) !== panelKey(p));
                     removeSaved(p.name, p.kind);
                 })
@@ -640,27 +678,14 @@ function panelCard(p) {
 $('scanBtn').addEventListener('click', scanAccount);
 $('checkBtn').addEventListener('click', checkOne);
 renderPanels();
+const TOKEN_TEMPLATE_URL = 'https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=%5B%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_routes%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_r2%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22workers_r2%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22d1%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22page%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22dns%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22dns%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22ssl_and_certificates%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22cache%22%2C%22type%22%3A%22purge%22%7D%2C%7B%22key%22%3A%22account_settings%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22account_analytics%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22account_api_tokens%22%2C%22type%22%3A%22read%22%7D%5D&accountId=*&zoneId=all&name=';
 
 /* ===================================================================== *
  *  Token link, private link, install
  * ===================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    const permissions = [
-        { key: 'workers_scripts', type: 'edit' },
-        { key: 'page', type: 'edit' },
-        { key: 'd1', type: 'edit' },
-        { key: 'account_settings', type: 'read' },
-        { key: 'account_analytics', type: 'read' },
-        { key: 'user_details', type: 'read' }
-    ];
-
-    const permissionParam = JSON.stringify(permissions);
-    const url = new URL('https://dash.cloudflare.com/profile/api-tokens');
-    url.searchParams.set('permissionGroupKeys', permissionParam);
-    url.searchParams.set('accountId', '*');
-    url.searchParams.set('zoneId', 'all');
-    url.searchParams.set('name', 'Zeus-Wizard');
-    document.getElementById('tokenTemplate').href = url.href;
+    // token template: workers / KV / R2 / D1 / pages / zone / DNS / SSL / cache / account permissions
+    document.getElementById('tokenTemplate').href = TOKEN_TEMPLATE_URL;
 
     const urlParams = new URLSearchParams(window.location.search);
     const key = urlParams.get('key');
@@ -702,7 +727,11 @@ deployForm.addEventListener('submit', async (event) => {
     payload.set('placement', globalPlacement.getValue());
     payload.set('customName', getCustomName());
     payload.set('label', $('panelLabel').value.trim());
-    log('info', `Source: ${getSelectedSource().name}`);
+    payload.set('d1Binding', $('d1Binding').value.trim() || 'DB');
+    if (uploadedFile) payload.set('scriptFile', uploadedFile);
+    if (getSelectedSource().sha256 && !uploadedFile) payload.set('sha256', getSelectedSource().sha256);
+    if ($('allowUnverified').checked) payload.set('allowUnverified', '1');
+    log('info', uploadedFile ? `Source: uploaded file ${uploadedFile.name}` : `Source: ${getSelectedSource().name}`);
     if (globalPlacement.getValue()) log('info', `Runtime Placement: ${describePlacement(globalPlacement.getValue())}`);
     await startDeploymentPipeline(payload);
 });
@@ -750,10 +779,10 @@ async function startDeploymentPipeline(payload) {
                         log('info', 'Standby...\n');
                     },
                     complete: () => {
-                        log('success', 'BPB Zeus Panel successfully installed!\n');
+                        log('success', 'Successfully installed!\n');
                         if (message) {
                             const payload = JSON.parse(message);
-                            log('info', 'Panel URL: ', payload.url);
+                            log('info', payload.zeus ? 'Panel URL: ' : 'URL: ', payload.url);
                             if (payload.zeus) log('info', 'Zeus URL: ', payload.zeus);
 
                             if (!globalThis.isPrivateLink && payload.key) {
@@ -772,6 +801,8 @@ async function startDeploymentPipeline(payload) {
                             }
 
                             const zeusLink = document.getElementById('liveZeus');
+                            document.getElementById('liveZeusWrap').style.display = payload.zeus ? '' : 'none';
+                            document.getElementById('liveUrlText').textContent = payload.zeus ? 'Access your BPB Panel.' : 'Open your deployment.';
                             if (zeusLink && payload.zeus) {
                                 zeusLink.href = payload.zeus;
                             }
@@ -787,7 +818,7 @@ async function startDeploymentPipeline(payload) {
                             }
                             if (payload.name) {
                                 upsertPanel({
-                                    name: payload.name, kind: payload.kind, family: 'bpb-zeus-d1', confidence: payload.kind === 'pages' ? 'medium' : 'high',
+                                    name: payload.name, kind: payload.kind, family: payload.bpb ? 'bpb-zeus-d1' : 'generic', d1s: payload.d1 ? [payload.d1] : [],
                                     url: payload.url, zeus: payload.zeus, placement: payload.placement, build: new Date().toISOString(), modified: new Date().toISOString()
                                 });
                                 renderPanels();

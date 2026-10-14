@@ -517,3 +517,5 @@ code { font-family: "Ubuntu Mono", ui-monospace, Consolas, monospace; color: var
 .dlg p { white-space: pre-wrap; line-height: 1.6; font-size: 0.9rem; }
 
 .terminal-warn { color: #fbbf24; font-weight: bold; }
+
+#srcStatus { white-space: pre-line; }
