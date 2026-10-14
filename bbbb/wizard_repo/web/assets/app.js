@@ -420,7 +420,7 @@ $('srcTest').addEventListener('click', async () => {
         srcMsg(`${r.check.ok ? '✅ Verified' : '✗ Verification FAILED: ' + r.check.issues.join('; ')} · ${r.format === 'module' ? 'Worker module' : 'service worker'}${r.version ? ' · ' + r.version : ''} · ${r.bpb ? 'BPB / Zeus build (panel settings are embedded)' : 'uploaded as-is'}\n${describeCheck(r.check)}`, kind);
     } catch (e) { srcMsg('✗ ' + e.message, 'err'); }
 });
-for (const id of ['srcName', 'srcUrl', 'srcSha', 'customName', 'panelLabel', 'checkName', 'd1Binding']) {
+for (const id of ['srcName', 'srcUrl', 'srcSha', 'customName', 'panelLabel', 'checkName', 'd1Binding', 'dlFilter']) {
     $(id).addEventListener('keydown', (e) => {
         if (e.key !== 'Enter') return;
         e.preventDefault();                           // never submit the install form by accident
@@ -519,11 +519,13 @@ function renderSaved() {
  * ===================================================================== */
 let panels = [];            // detected panels (workers + pages)
 let scanInfo = { devSub: '', latestVersion: '', d1Names: {} };
+let allWorkers = [];        // every Worker of the account: { name, modified }
+const dlSelected = new Set();
 let busy = false;
 
 function setBusy(on) {
     busy = on;
-    for (const id of ['scanBtn', 'checkBtn']) $(id).disabled = on;
+    for (const id of ['scanBtn', 'checkBtn', 'dlGo']) $(id).disabled = on;
     for (const b of document.querySelectorAll('#panelList button')) b.disabled = on;
 }
 function progress(frac, text) {
@@ -554,6 +556,8 @@ async function scanAccount() {
         scanInfo.devSub = list.devSub; scanInfo.d1Names = list.d1Names || {};
         const modified = Object.fromEntries(list.scripts.map(s => [s.name, s.modified]));
         const names = list.scripts.map(s => s.name);
+        allWorkers = list.scripts.map(s => ({ name: s.name, modified: s.modified }));
+        renderDownloads();
         if (list.pagesError) log('warn', `Pages projects could not be read: ${list.pagesError}`);
 
         const found = [];
@@ -579,7 +583,7 @@ async function checkOne() {
         if (!scanInfo.devSub) { try { const l = await callApi('/api/panels/list'); scanInfo.devSub = l.devSub; scanInfo.d1Names = l.d1Names || {}; } catch { } }
         const r = await callApi('/api/panels/inspect', { names: [name], devSub: scanInfo.devSub, d1Names: scanInfo.d1Names });
         if (!r.panels.length) log('warn', `Worker “${name}” was not found.`);
-        else { r.panels.forEach(upsertPanel); if (!scanInfo.latestVersion) scanInfo.latestVersion = await latestVersion(); log('success', `Worker “${name}” added to the list.`); $('checkName').value = ''; }
+        else { r.panels.forEach(upsertPanel); r.panels.forEach(x => { if (!allWorkers.some(w => w.name === x.name)) allWorkers.push({ name: x.name, modified: '' }); }); renderDownloads(); if (!scanInfo.latestVersion) scanInfo.latestVersion = await latestVersion(); log('success', `Worker “${name}” added to the list.`); $('checkName').value = ''; }
     } catch (e) { log('error', e.message); }
     setBusy(false);
     renderPanels();
@@ -674,6 +678,123 @@ function panelCard(p) {
             })));
     return card;
 }
+
+/* ===================================================================== *
+ *  Download Worker scripts  (filter + checkboxes -> .js, or .zip for several)
+ * ===================================================================== */
+function renderDownloads() {
+    const q = $('dlFilter').value.trim().toLowerCase();
+    const sorted = [...allWorkers].sort($('dlSort').value === 'name'
+        ? (a, b) => a.name.localeCompare(b.name)
+        : (a, b) => String(b.modified || '').localeCompare(String(a.modified || '')) || a.name.localeCompare(b.name));
+    const shown = sorted.filter(w => !q || w.name.toLowerCase().includes(q));
+    for (const n of [...dlSelected]) if (!allWorkers.some(w => w.name === n)) dlSelected.delete(n);
+    $('dlCount').textContent = allWorkers.length ? `(${dlSelected.size} selected · ${shown.length}/${allWorkers.length})` : '';
+    $('dlGo').textContent = dlSelected.size ? `⬇ Download selected (${dlSelected.size})` : '⬇ Download selected';
+    const list = $('dlList'); list.textContent = '';
+    if (!allWorkers.length) { list.append(h('p', { className: 'hint', textContent: 'No Workers listed yet. Press “Scan account”.' })); return; }
+    if (!shown.length) { list.append(h('p', { className: 'hint', textContent: 'No Worker matches this filter.' })); return; }
+    for (const w of shown) {
+        const cb = h('input', { type: 'checkbox', checked: dlSelected.has(w.name) });
+        const row = h('label', { className: 'dl-item' + (cb.checked ? ' on' : '') }, cb,
+            h('span', { className: 'pname', textContent: w.name }),
+            w.modified ? h('span', { className: 'pmeta', textContent: fmtDate(w.modified) }) : null);
+        cb.addEventListener('change', () => {
+            if (cb.checked) dlSelected.add(w.name); else dlSelected.delete(w.name);
+            row.classList.toggle('on', cb.checked); renderDownloads_counts();
+        });
+        list.append(row);
+    }
+}
+function renderDownloads_counts() {
+    const q = $('dlFilter').value.trim().toLowerCase();
+    const shown = allWorkers.filter(w => !q || w.name.toLowerCase().includes(q)).length;
+    $('dlCount').textContent = `(${dlSelected.size} selected · ${shown}/${allWorkers.length})`;
+    $('dlGo').textContent = dlSelected.size ? `⬇ Download selected (${dlSelected.size})` : '⬇ Download selected';
+}
+
+const b64ToBytes = (b64) => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+const safePath = (p) => String(p || 'worker.js').replace(/\\/g, '/').split('/').filter(x => x && x !== '.' && x !== '..').join('/') || 'worker.js';
+function saveBlob(blob, filename) {
+    const a = h('a', { href: URL.createObjectURL(blob), download: filename });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+}
+
+// minimal "store" (no compression) zip writer, enough for .js files
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = (u8) => { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_TABLE[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function makeZip(files) {                       // files: [{ name, bytes }]
+    const te = new TextEncoder(), chunks = [], central = [];
+    let offset = 0;
+    const d = new Date(), dosTime = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1), dosDate = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+    for (const f of files) {
+        const name = te.encode(f.name), crc = crc32(f.bytes), size = f.bytes.length;
+        const lh = new DataView(new ArrayBuffer(30));
+        lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+        lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+        lh.setUint32(18, size, true); lh.setUint32(22, size, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+        chunks.push(new Uint8Array(lh.buffer), name, f.bytes);
+        const ch = new DataView(new ArrayBuffer(46));
+        ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+        ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true);
+        ch.setUint32(20, size, true); ch.setUint32(24, size, true); ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+        central.push(new Uint8Array(ch.buffer), name);
+        offset += 30 + name.length + size;
+    }
+    const cdSize = central.reduce((n, c) => n + c.length, 0);
+    const end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+    end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+    return new Blob([...chunks, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
+}
+
+async function downloadSelected() {
+    if (busy || !requireToken()) return;
+    const names = allWorkers.filter(w => dlSelected.has(w.name)).map(w => w.name);
+    if (!names.length) { log('warn', 'Tick at least one Worker to download.'); return; }
+    setBusy(true);
+    const got = [];                               // { name, parts:[{name, bytes}] }
+    try {
+        for (let i = 0; i < names.length; i += 3) {
+            const batch = names.slice(i, i + 3);
+            progress(i / names.length, `Downloading ${Math.min(i + 3, names.length)} / ${names.length}`);
+            try {
+                const r = await callApi('/api/panels/download', { names: batch });
+                for (const f of r.files) {
+                    if (f.error) log('error', `${f.name}: ${f.error}`);
+                    else got.push({ name: f.name, parts: f.parts.map(p => ({ name: safePath(p.name), bytes: b64ToBytes(p.data) })) });
+                }
+            } catch (e) { log('error', `Could not download ${batch.join(', ')}: ${e.message}`); }
+        }
+        if (!got.length) { hideProgress(); log('error', 'Nothing was downloaded.'); }
+        else if (got.length === 1 && got[0].parts.length === 1) {
+            saveBlob(new Blob([got[0].parts[0].bytes], { type: 'application/javascript' }), `${got[0].name}.js`);
+            progress(1, `${got[0].name}.js`); log('success', `Downloaded ${got[0].name}.js`);
+        } else {
+            const files = [];
+            for (const g of got) {
+                if (g.parts.length === 1) files.push({ name: `${g.name}.js`, bytes: g.parts[0].bytes });
+                else for (const p of g.parts) files.push({ name: `${g.name}/${p.name}`, bytes: p.bytes });   // several modules: one folder
+            }
+            const stamp = new Date().toISOString().slice(0, 10);
+            saveBlob(makeZip(files), `workers-${stamp}.zip`);
+            progress(1, `${got.length} Worker${got.length === 1 ? '' : 's'} · ${files.length} file${files.length === 1 ? '' : 's'}`);
+            log('success', `Downloaded workers-${stamp}.zip with ${files.length} file(s) from ${got.length} Worker(s)${got.length < names.length ? ` (${names.length - got.length} failed)` : ''}.`);
+        }
+    } catch (e) { log('error', e.message); }
+    setBusy(false);
+}
+$('dlFilter').addEventListener('input', renderDownloads);
+$('dlSort').addEventListener('change', renderDownloads);
+$('dlAll').addEventListener('click', () => {
+    const q = $('dlFilter').value.trim().toLowerCase();
+    for (const w of allWorkers) if (!q || w.name.toLowerCase().includes(q)) dlSelected.add(w.name);
+    renderDownloads();
+});
+$('dlNone').addEventListener('click', () => { dlSelected.clear(); renderDownloads(); });
+$('dlGo').addEventListener('click', downloadSelected);
+renderDownloads();
 
 $('scanBtn').addEventListener('click', scanAccount);
 $('checkBtn').addEventListener('click', checkOne);

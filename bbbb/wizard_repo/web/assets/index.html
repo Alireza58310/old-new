@@ -210,6 +210,25 @@
                 <div id="scanProgress" class="progress hidden"><div id="scanBar"></div><span id="scanText"></span></div>
                 <div id="panelList" class="panel-list"></div>
 
+                <!-- ============ Download Worker scripts · دانلود اسکریپت ورکرها ============ -->
+                <details id="dlBox" class="saved" open>
+                    <summary>📥 Download Worker scripts · دانلود اسکریپت ورکرها <span id="dlCount"></span></summary>
+                    <p class="hint">Every Worker of the account is listed here (after <b>Scan account</b>). Tick the ones you want and download their deployed <code>worker.js</code> directly, no need to open the Cloudflare dashboard. One Worker = one <code>.js</code> file; several = one <code>.zip</code>.</p>
+                    <div class="row">
+                        <input id="dlFilter" class="input-plain mono" placeholder="Filter by name · فیلتر نام ورکر" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <select id="dlSort" class="select-plain" style="width:auto">
+                            <option value="modified">Newest first</option>
+                            <option value="name">Name A–Z</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <button type="button" id="dlAll" class="btn-mini">☑ Select shown</button>
+                        <button type="button" id="dlNone" class="btn-mini">☐ Clear</button>
+                        <button type="button" id="dlGo" class="btn-mini ok">⬇ Download selected</button>
+                    </div>
+                    <div id="dlList" class="panel-list dl-list"></div>
+                </details>
+
                 <details id="savedBox" class="saved">
                     <summary>💾 Saved links · لینک‌های ذخیره‌شده <span id="savedCount"></span></summary>
                     <label class="switch-row"><input type="checkbox" id="autoSave" checked /> Save the link automatically after every install</label>

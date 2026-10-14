@@ -519,3 +519,14 @@ code { font-family: "Ubuntu Mono", ui-monospace, Consolas, monospace; color: var
 .terminal-warn { color: #fbbf24; font-weight: bold; }
 
 #srcStatus { white-space: pre-line; }
+
+/* ---- download Worker scripts ---- */
+.dl-list { max-height: 22rem; overflow-y: auto; gap: 0.3rem; }
+.dl-item {
+    display: flex; align-items: center; gap: var(--space-sm); padding: 0.45rem 0.6rem; cursor: pointer;
+    border: 1px solid var(--color-border-ui); border-radius: var(--radius-ui); background: rgba(15, 23, 42, 0.55);
+}
+.dl-item:hover { border-color: var(--color-text-secondary); }
+.dl-item.on { border-color: #166534; background: rgba(22, 101, 52, 0.18); }
+.dl-item .pname { flex: 1; font-size: 0.82rem; }
+.dl-item .pmeta { white-space: nowrap; }
