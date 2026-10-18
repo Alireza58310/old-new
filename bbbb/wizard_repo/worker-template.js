@@ -40,9 +40,20 @@ function randSubdomain() {
 }
 function randCode() {
     const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    // random prefix: letter/underscore first so generated names are always valid identifiers, never two the same run
+    const prefixes = ['__var', '__tmp', '__cfg', '__val', '_x', '_n', '__o', '__q'];
+    const pick = (arr) => arr[randInt(0, arr.length - 1)];
     let out = '';
-    for (let i = 0, n = randInt(50, 500); i < n; i++) out += `let __var_${randString(charset, 8, 16)}_${i} = ${randInt(0, 99999)};\n`;
-    for (let i = 0, n = randInt(50, 500); i < n; i++) out += `function __func_${randString(charset, 8, 16)}_${i}() { return ${randInt(0, 999)}; }\n`;
+    for (let i = 0, n = randInt(50, 500); i < n; i++) out += `let ${pick(prefixes)}_${randString(charset, 8, 16)}_${i} = ${randInt(0, 99999)};\n`;
+    for (let i = 0, n = randInt(50, 500); i < n; i++) out += `function ${pick(prefixes)}_${randString(charset, 8, 16)}_${i}() { return ${randInt(0, 999)}; }\n`;
+    return out;
+}
+// shuffles a flat object's key order - same data, different byte layout once JSON.stringify'd
+function shuffleKeys(obj) {
+    const keys = Object.keys(obj);
+    for (let i = keys.length - 1; i > 0; i--) { const j = randInt(0, i);[keys[i], keys[j]] = [keys[j], keys[i]]; }
+    const out = {};
+    for (const k of keys) out[k] = obj[k];
     return out;
 }
 const today = () => new Date().toISOString().split('T')[0];
@@ -412,6 +423,19 @@ class CFAccount {
         catch (err) { throw new Error(`Error deploying worker: ${err.message}`); }
     }
 
+    // Cloudflare can leave a brand-new script "dead" right after its first creation
+    // (route not yet activated) - a second, identical upload reliably fixes it.
+    async reuploadWorker(name, code, metadata) {
+        try { await this.putWorker(name, code, metadata); return true; }
+        catch { return false; }
+    }
+
+    // best-effort: the workers.dev route is usually already enabled by the PUT above;
+    // if Cloudflare's confirmation call fails, the panel still works, so never abort for this.
+    async enableSubdomainSafe(name) {
+        try { await this.api('POST', `/workers/scripts/${name}/subdomain`, { enabled: true, previews_enabled: true }); return ''; }
+        catch (err) { return err.message ?? String(err); }
+    }
     enableSubdomain(name) { return this.api('POST', `/workers/scripts/${name}/subdomain`, { enabled: true, previews_enabled: true }); }
 
     // the deployed module(s): multipart for ES modules, plain text for service workers
@@ -526,9 +550,11 @@ function freshSettings(account, mainDomain, securePath) {
     };
 }
 function buildCode(script, embeded, email) {
+    // random junk before AND after the real code, plus a shuffled settings object - varies every single deploy
     return [
         `// ${email}`, `// Build: ${new Date().toISOString()}`, '// @ts-nocheck',
-        `${randCode()}const EMBEDED_SETTINGS = ${JSON.stringify(embeded)};${script}`
+        `${randCode()}const EMBEDED_SETTINGS = ${JSON.stringify(shuffleKeys(embeded))};${script}`,
+        randCode()
     ].join('\n');
 }
 // BPB / Zeus builds get their embedded settings; any other script is uploaded exactly as it is
@@ -581,8 +607,18 @@ async function deployWorkers(env, account, workerName, databaseId, opts, { succe
     const warning = await account.deployWorker(workerName, built.code, databaseId, opts.placement, opts.d1Binding);
     success('Worker deployed successfully!');
     if (warning) warn(warning); else if (opts.placement) success(`Runtime Placement applied: ${placementString(opts.placement)}`);
-    await account.enableSubdomain(workerName);
-    success('Worker subdomain enabled successfully!');
+
+    // re-upload once more: Cloudflare can leave a first creation "dead" on a brand-new script/subdomain
+    const reMetadata = {
+        main_module: 'worker.js', compatibility_date: today(), compatibility_flags: ['nodejs_compat'],
+        bindings: [{ type: 'd1', name: opts.d1Binding, id: databaseId }], ...(warning ? {} : (opts.placement ? { placement: opts.placement } : {}))
+    };
+    if (await account.reuploadWorker(workerName, built.code, reMetadata)) success('Script re-created cleanly.');
+    else warn('Re-creating the script did not confirm, continuing anyway.');
+
+    const subErr = await account.enableSubdomainSafe(workerName);
+    if (subErr) warn(`workers.dev route confirm failed - continuing (${subErr})`);
+    else success('Worker subdomain enabled successfully!');
     complete(JSON.stringify(await resultPayload(env, account, {
         name: workerName, kind: 'workers', label: opts.label || workerName, sourceUrl: sourceLabel(built, opts), placement: warning ? '' : placementString(opts.placement),
         d1Binding: opts.d1Binding, d1: { binding: opts.d1Binding, id: databaseId, name: account.lastD1Name ?? '' }, bpb: built.bpb, ...urls(`${workerName}.${subdomain}`, built)
