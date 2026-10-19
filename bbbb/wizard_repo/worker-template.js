@@ -8,6 +8,7 @@
 //   - Deploy ANY .js file (link or uploaded file) on Workers or Pages with a D1 database bound to it
 //     (BPB / Zeus builds additionally get their embedded settings injected - everything else is uploaded as-is)
 //   - Deploy source: any https link to a .js file (GitHub "blob" links are converted), managed in the browser
+//   - Two-step deploy (optional switch): source 1 is deployed first, source 2 is uploaded over it right after (same Worker + D1 binding)
 //   - Runtime Placement: Default / Smart / Region (AWS, GCP, Azure) incl. countries
 //   - Panel link name: random or custom worker name
 //   - Manage: scan the account (Workers + Pages), see D1 bindings, update in place without losing
@@ -576,16 +577,36 @@ async function resultPayload(env, account, p) {
     return { ...p, user: account.email, key: env.SECRET ? await encrypt(account.token, env.SECRET) : '' };
 }
 const urls = (host, built) => built.bpb ? { url: `https://${host}/${built.path}/panel`, zeus: `https://${host}/${built.path}/zeus` } : { url: `https://${host}/`, zeus: '' };
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+// Two-step deploy: source 1 (a throw-away / stub script) goes up first, source 2 (the real one) is uploaded over it right after.
+// If source 1 cannot be loaded the deploy is NOT aborted: source 2 is simply deployed on its own.
+async function buildFirstStep(account, host, opts, { success, warn }) {
+    if (!opts.firstSourceUrl) return null;
+    try {
+        const b = await buildScript(account, host, { sourceUrl: opts.firstSourceUrl, sha256: opts.firstSha256, allowUnverified: opts.allowUnverified });
+        (b.check.ok ? success : warn)(`Source 1 ${b.check.ok ? 'verified' : 'NOT verified (' + b.check.issues.join('; ') + ')'}: ${describeCheck(b.check)}`);
+        return b;
+    } catch (err) {
+        warn(`Source 1 could not be loaded (${err.message ?? err}). Skipping it and deploying source 2 directly.`);
+        return null;
+    }
+}
 const sourceLabel = (built, opts) => built.sourceUrl || (opts.scriptName ? `file: ${opts.scriptName}` : '');
 
 async function deployPages(env, account, workerName, databaseId, opts, { success, warn, complete }) {
+    const stub = await buildFirstStep(account, `${workerName}.pages.dev`, opts, { success, warn });
     const built = await buildScript(account, `${workerName}.pages.dev`, opts);
-    (built.check.ok ? success : warn)(`Source ${built.check.ok ? 'verified' : 'NOT verified (' + built.check.issues.join('; ') + ')'}: ${describeCheck(built.check)}`);
+    (built.check.ok ? success : warn)(`${stub ? 'Source 2' : 'Source'} ${built.check.ok ? 'verified' : 'NOT verified (' + built.check.issues.join('; ') + ')'}: ${describeCheck(built.check)}`);
     success(built.bpb ? 'Script built successfully (BPB / Zeus settings embedded)!' : 'Script ready (uploaded as-is)!');
     const subdomain = await account.createPagesProject(workerName, databaseId, opts.d1Binding);
     success('Pages project created successfully!');
+    if (stub) {
+        await account.deployPages(workerName, stub.code);
+        success('Step 1/2: source 1 deployed.');
+        await sleep(opts.stepDelayMs ?? 2000);
+    }
     await account.deployPages(workerName, built.code);
-    success('Pages deployed successfully!');
+    success(stub ? 'Step 2/2: source 2 deployed over source 1.' : 'Pages deployed successfully!');
     if (opts.placement) {
         try { await account.patchPagesPlacement(workerName, opts.placement); success(`Runtime Placement applied: ${placementString(opts.placement)}`); }
         catch (err) { warn(`Cloudflare did not accept the Runtime Placement for Pages (${err.message}). It works with Default placement.`); }
@@ -601,11 +622,12 @@ async function deployWorkers(env, account, workerName, databaseId, opts, { succe
     try { subdomain = await account.getWorkersDevSubdomain(); success('Account workers subdomain is available!'); }
     catch { subdomain = await account.createWorkersDevSubdomain(); success('Fresh account, Workers subdomain created successfully!'); }
 
+    const stub = await buildFirstStep(account, `${workerName}.${subdomain}`, opts, { success, warn });
     const built = await buildScript(account, `${workerName}.${subdomain}`, opts);
-    (built.check.ok ? success : warn)(`Source ${built.check.ok ? 'verified' : 'NOT verified (' + built.check.issues.join('; ') + ')'}: ${describeCheck(built.check)}`);
+    (built.check.ok ? success : warn)(`${stub ? 'Source 2' : 'Source'} ${built.check.ok ? 'verified' : 'NOT verified (' + built.check.issues.join('; ') + ')'}: ${describeCheck(built.check)}`);
     success(built.bpb ? 'Script built successfully (BPB / Zeus settings embedded)!' : 'Script ready (uploaded as-is)!');
-    const warning = await account.deployWorker(workerName, built.code, databaseId, opts.placement, opts.d1Binding);
-    success('Worker deployed successfully!');
+    const warning = await account.deployWorker(workerName, (stub || built).code, databaseId, opts.placement, opts.d1Binding);
+    success(stub ? 'Step 1/2: source 1 deployed.' : 'Worker deployed successfully!');
     if (warning) warn(warning); else if (opts.placement) success(`Runtime Placement applied: ${placementString(opts.placement)}`);
 
     // re-upload once more: Cloudflare can leave a first creation "dead" on a brand-new script/subdomain
@@ -613,7 +635,13 @@ async function deployWorkers(env, account, workerName, databaseId, opts, { succe
         main_module: 'worker.js', compatibility_date: today(), compatibility_flags: ['nodejs_compat'],
         bindings: [{ type: 'd1', name: opts.d1Binding, id: databaseId }], ...(warning ? {} : (opts.placement ? { placement: opts.placement } : {}))
     };
-    if (await account.reuploadWorker(workerName, built.code, reMetadata)) success('Script re-created cleanly.');
+    if (stub) {
+        // step 2: the real script goes over source 1 (same Worker, same D1 binding)
+        await sleep(opts.stepDelayMs ?? 2000);
+        try { await account.putWorker(workerName, built.code, reMetadata); }
+        catch (err) { throw new Error(`Step 2 (source 2) failed: ${err.message ?? err}. Source 1 is still deployed on \"${workerName}\".`); }
+        success('Step 2/2: source 2 deployed over source 1.');
+    } else if (await account.reuploadWorker(workerName, built.code, reMetadata)) success('Script re-created cleanly.');
     else warn('Re-creating the script did not confirm, continuing anyway.');
 
     const subErr = await account.enableSubdomainSafe(workerName);
@@ -823,6 +851,9 @@ export default {
                         scriptName: file && typeof file !== 'string' ? String(file.name || '').slice(0, 80) : '',
                         sourceUrl: form.get('sourceUrl')?.toString().trim() ?? '',
                         sha256: form.get('sha256')?.toString().trim() ?? '',
+                        firstSourceUrl: form.get('firstSourceUrl')?.toString().trim() ?? '',
+                        firstSha256: form.get('firstSha256')?.toString().trim() ?? '',
+                        stepDelayMs: (() => { const v = parseFloat(form.get('stepDelay')?.toString() ?? ''); return Number.isFinite(v) ? Math.min(15000, Math.max(0, v * 1000)) : 2000; })(),
                         allowUnverified: form.get('allowUnverified')?.toString() === '1',
                         placement: parsePlacement(form.get('placement')?.toString()),
                         label: (form.get('label')?.toString() ?? '').trim().slice(0, 80)
