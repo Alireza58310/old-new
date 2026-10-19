@@ -141,6 +141,30 @@ await sleep(400);
 await (await btn('weird-worker-name-42', 'Delete')).click(); await confirmClick('cancel');
 check('manage: cancelling a delete keeps the Worker', !!st.scripts['weird-worker-name-42']);
 
+// ---- two-step deploy: source 1 first, source 2 over it
+await page.reload({ waitUntil: 'domcontentloaded' }); await sleep(300);
+check('two-step: off by default, source 2 hidden', !(await vis('#slot2')) && !(await vis('#slotLabel1')));
+await page.click('#twoStep');
+check('two-step: switch shows source 2 + the label of source 1', (await vis('#slot2')) && (await vis('#slotLabel1')));
+await page.click('#srcAdd2'); await page.type('#srcName2', 'Real two'); await page.type('#srcUrl2', 'https://cdn.example.com/classic-sw.js'); await page.click('#srcSave2'); await sleep(100);
+const sel1 = await page.$eval('#sourceSelect', e => e.selectedOptions[0].title), sel2 = await page.$eval('#sourceSelect2', e => e.selectedOptions[0].title);
+check('two-step: a link added in slot 2 is selected in slot 2 only', sel2 === 'https://cdn.example.com/classic-sw.js' && sel1 !== sel2, sel1 + ' | ' + sel2);
+await page.select('#sourceSelect', await page.$$eval('#sourceSelect option', o => o.find(x => x.title.endsWith('/generic.js')).value));
+await page.select('#sourceSelect2', await page.$$eval('#sourceSelect2 option', o => o.find(x => x.title.endsWith('/main/v1.js')).value));
+await page.reload({ waitUntil: 'domcontentloaded' }); await sleep(300);
+check('two-step: switch + both choices survive a reload', (await vis('#slot2')) && (await page.$eval('#sourceSelect', e => e.selectedOptions[0].title)).endsWith('/generic.js') && (await page.$eval('#sourceSelect2', e => e.selectedOptions[0].title)).endsWith('/main/v1.js'));
+await page.type('#apiToken', 'tok');
+await page.click('#nameSeg button[data-mode="custom"]'); await page.type('#customName', 'two-step-app');
+await page.$eval('#stepDelay', e => e.value = '0');
+const before = st.puts.length;
+await page.click('form#deployForm button[type="submit"]');
+check('two-step: install finishes', await waitTerm(/Step 2\/2/) && await waitTerm(/successfully installed/i));
+const mine = st.puts.slice(before).filter(x => x.name === 'two-step-app');
+check('two-step: source 1 uploaded first, source 2 over it, both with the D1 binding', mine.length === 2 && mine[0].text.includes('generic') && mine[1].text.includes("'1.0.0'") && mine.every(x => x.md.bindings?.[0]?.type === 'd1'), mine.map(x => x.text.slice(0, 40)).join(' | '));
+check('two-step: the Worker ends up with source 2', st.scripts['two-step-app']?.text.includes("'1.0.0'"));
+await page.click('#twoStep');
+check('two-step: switch off hides source 2 again', !(await vis('#slot2')) && !(await vis('#slotLabel1')));
+
 check('no JS errors in the page', errors.length === 0, errors.join(' | '));
 await browser.close(); server.close();
 console.log(ok ? 'ALL PASS' : 'SOME FAILED'); process.exit(ok ? 0 : 1);
