@@ -86,6 +86,8 @@
                 <!-- ============ Deploy source · سورس دیپلوی ============ -->
                 <section class="box" id="sourceBox">
                     <div class="box-title">📦 Deploy Source <span class="fa">سورس دیپلوی</span></div>
+                    <label class="switch-row"><input type="checkbox" id="twoStep" /> Two-step deploy <span class="fa">دپلوی دو مرحله‌ای: اول سورس ۱ بالا میره، بعدش سورس ۲ جاش میشینه</span></label>
+                    <div id="slotLabel1" class="slot-label hidden">① Source 1 — deployed first <span class="fa">سورس اول (مرده / موقت)</span></div>
                     <select id="sourceSelect" class="select-plain mono" dir="ltr"></select>
                     <div class="row">
                         <button type="button" id="srcAdd" class="btn-mini ok">＋ Add</button>
@@ -103,13 +105,36 @@
                             <button type="button" id="srcReset" class="btn-mini">↺ Restore default</button>
                         </div>
                     </div>
+                    <div id="slot2" class="slot hidden">
+                        <div class="slot-label">② Source 2 — deployed right after, over source 1 <span class="fa">سورس دوم (اصلی)</span></div>
+                        <select id="sourceSelect2" class="select-plain mono" dir="ltr"></select>
+                        <div class="row">
+                            <button type="button" id="srcAdd2" class="btn-mini ok">＋ Add</button>
+                            <button type="button" id="srcEdit2" class="btn-mini">✏️ Edit</button>
+                            <button type="button" id="srcTest2" class="btn-mini">✅ Test</button>
+                            <button type="button" id="srcDelete2" class="btn-mini danger">🗑 Delete</button>
+                        </div>
+                        <div id="srcEditor2" class="editor hidden">
+                            <input id="srcName2" class="input-plain" placeholder="Name · اسم دلخواه (optional)" autocomplete="off" dir="auto" />
+                            <input id="srcUrl2" class="input-plain mono" placeholder="https://raw.githubusercontent.com/user/repo/refs/heads/main/worker.js" autocomplete="off" spellcheck="false" dir="ltr" />
+                            <input id="srcSha2" class="input-plain mono" placeholder="Expected SHA-256 · چک‌سام (optional, pins the file)" maxlength="80" autocomplete="off" spellcheck="false" dir="ltr" />
+                            <div class="row">
+                                <button type="button" id="srcSave2" class="btn-mini ok">Save</button>
+                                <button type="button" id="srcCancel2" class="btn-mini">Cancel</button>
+                                <button type="button" id="srcReset2" class="btn-mini">↺ Restore default</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="switch-row">Wait between the two steps <input type="number" id="stepDelay" class="input-plain mono" value="2" min="0" max="15" step="0.5" style="max-width:5rem" dir="ltr" /> s <span class="fa">فاصله بین دو مرحله</span></label>
+                        </div>
+                    </div>
                     <div class="row">
                         <button type="button" id="fileBtn" class="btn-mini info">📁 Upload a .js file instead</button>
                         <input type="file" id="scriptFile" accept=".js,.mjs,.cjs,text/javascript" class="hidden" />
                     </div>
                     <p id="fileStatus" class="hint hidden"></p>
                     <label class="switch-row"><input type="checkbox" id="allowUnverified" /> Deploy even if verification fails <span class="fa">(not recommended)</span></label>
-                    <p id="srcStatus" class="hint">Any <b>.js</b> file works (a Worker module or a classic service worker): it gets a D1 database bound to it. Used for <b>Install</b> and <b>Update</b>. Any https link; GitHub / GitLab “blob” links are converted automatically. BPB / Zeus builds additionally get their panel settings. Every file is <b>verified</b> first: size, lines, SHA-256 and the count of <code>{ }</code> <code>( )</code> <code>[ ]</code>; a truncated or corrupt file is refused. The list is saved in this browser.</p>
+                    <p id="srcStatus" class="hint">Any <b>.js</b> file works (a Worker module or a classic service worker): it gets a D1 database bound to it. Used for <b>Install</b> and <b>Update</b>. Any https link; GitHub / GitLab “blob” links are converted automatically. BPB / Zeus builds additionally get their panel settings. Every file is <b>verified</b> first: size, lines, SHA-256 and the count of <code>{ }</code> <code>( )</code> <code>[ ]</code>; a truncated or corrupt file is refused. The list is saved in this browser. <b>Two-step deploy:</b> source 1 is deployed first, then source 2 is uploaded over it (same Worker, same D1); if source 1 cannot be loaded, source 2 is deployed alone. “Update from source” and the uploaded .js file always use source 2.</p>
                 </section>
 
                 <!-- ============ Runtime Placement · منطقه اجرای ورکر ============ -->

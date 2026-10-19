@@ -321,8 +321,12 @@ let sources = (() => {
     const ok = Array.isArray(a) ? a.filter(x => x && typeof x.url === 'string' && typeof x.name === 'string' && x.id) : [];
     return ok.length ? ok : [SRC_DEFAULT()];
 })();
-let selectedSourceId = store.get(SRC_SEL_KEY, 'default');
-let editingSourceId = null;
+// two slots: 1 = the source deployed first (stub / dead one), 2 = the real source deployed right after it (only used when "Two-step deploy" is on)
+const SRC2_SEL_KEY = 'bpb_wizard_source2_selected_v1', TWOSTEP_KEY = 'bpb_wizard_twostep_v1', STEPDELAY_KEY = 'bpb_wizard_stepdelay_v1';
+const selectedIds = { 1: store.get(SRC_SEL_KEY, 'default'), 2: store.get(SRC2_SEL_KEY, '') };
+const editingIds = { 1: null, 2: null };
+let twoStep = !!store.get(TWOSTEP_KEY, false);
+const sfx = (slot) => slot === 2 ? '2' : '';
 const SRC_HINT = $('srcStatus').innerHTML;
 
 // same rules as the server: any https link to a .js file, "blob" links are converted
@@ -344,19 +348,25 @@ function normalizeSourceUrl(raw) {
     }
     return u.origin + u.pathname + u.search;
 }
-const getSelectedSource = () => sources.find(s => s.id === selectedSourceId) || sources[0];
+const getSlotSource = (slot) => sources.find(s => s.id === selectedIds[slot]) || sources[0];
+// the source that ends up on the Worker: source 2 in two-step mode, otherwise the (only) selected one
+const getSelectedSource = () => getSlotSource(twoStep ? 2 : 1);
 function srcMsg(text, kind) {
     const el = $('srcStatus');
     if (!text) { el.innerHTML = SRC_HINT; el.className = 'hint'; return; }
     el.textContent = text; el.className = 'hint ' + (kind || '');
 }
 function renderSources() {
-    const sel = $('sourceSelect');
-    if (!sources.some(s => s.id === selectedSourceId)) selectedSourceId = sources[0].id;
-    sel.textContent = '';
-    for (const s of sources) sel.append(h('option', { value: s.id, textContent: `${s.name} — ${short(s.url.replace('https://', ''), 56)}`, title: s.url }));
-    sel.value = selectedSourceId;
-    store.set(SRC_KEY, sources); store.set(SRC_SEL_KEY, selectedSourceId);
+    if (!sources.some(s => s.id === selectedIds[1])) selectedIds[1] = sources[0].id;
+    // slot 2 starts on a source other than slot 1 when there is one
+    if (!sources.some(s => s.id === selectedIds[2])) selectedIds[2] = (sources.find(s => s.id !== selectedIds[1]) || sources[0]).id;
+    for (const slot of [1, 2]) {
+        const sel = $('sourceSelect' + sfx(slot));
+        sel.textContent = '';
+        for (const s of sources) sel.append(h('option', { value: s.id, textContent: `${s.name} — ${short(s.url.replace('https://', ''), 56)}`, title: s.url }));
+        sel.value = selectedIds[slot];
+    }
+    store.set(SRC_KEY, sources); store.set(SRC_SEL_KEY, selectedIds[1]); store.set(SRC2_SEL_KEY, selectedIds[2]);
 }
 const normSha = (v) => String(v || '').trim().toLowerCase().replace(/^sha-?256\s*[:=-]?\s*/, '');
 // what the server found in a downloaded file: size, lines, SHA-256 and the bracket counts
@@ -366,65 +376,84 @@ function describeCheck(c) {
     return `${(c.size / 1024).toFixed(0)} KB · ${c.lines} lines · SHA-256 ${c.sha256.slice(0, 16)}…\n{ } ${c.braces[0]}/${c.braces[1]} · ( ) ${c.parens[0]}/${c.parens[1]} · [ ] ${c.brackets[0]}/${c.brackets[1]}${c.checksum === 'matched' ? ' · checksum matched ✓' : ''}${raw}`;
 }
 const verifyOpts = () => ({ sha256: getSelectedSource().sha256 || '', allowUnverified: $('allowUnverified').checked });
-function openSourceEditor(src) {
-    editingSourceId = src ? src.id : null;
-    $('srcName').value = src ? src.name : '';
-    $('srcSha').value = src?.sha256 || '';
-    $('srcUrl').value = src ? src.url : '';
-    $('srcEditor').classList.remove('hidden');
-    $('srcUrl').focus();
+function openSourceEditor(slot, src) {
+    const S = sfx(slot);
+    editingIds[slot] = src ? src.id : null;
+    $('srcName' + S).value = src ? src.name : '';
+    $('srcSha' + S).value = src?.sha256 || '';
+    $('srcUrl' + S).value = src ? src.url : '';
+    $('srcEditor' + S).classList.remove('hidden');
+    $('srcUrl' + S).focus();
 }
-const closeSourceEditor = () => { editingSourceId = null; $('srcEditor').classList.add('hidden'); };
+const closeSourceEditor = (slot) => { editingIds[slot] = null; $('srcEditor' + sfx(slot)).classList.add('hidden'); };
 
-$('sourceSelect').addEventListener('change', (e) => { selectedSourceId = e.target.value; store.set(SRC_SEL_KEY, selectedSourceId); srcMsg(''); });
-$('srcAdd').addEventListener('click', () => openSourceEditor(null));
-$('srcEdit').addEventListener('click', () => openSourceEditor(getSelectedSource()));
-$('srcCancel').addEventListener('click', closeSourceEditor);
-$('srcReset').addEventListener('click', () => {
-    if (!sources.some(s => s.id === 'default')) sources.unshift(SRC_DEFAULT());
-    sources = sources.map(s => s.id === 'default' ? SRC_DEFAULT() : s);
-    selectedSourceId = 'default'; renderSources(); closeSourceEditor(); srcMsg('Default source restored.', 'ok');
-});
-$('srcSave').addEventListener('click', () => {
-    try {
-        const url = normalizeSourceUrl($('srcUrl').value);
-        const dup = sources.find(s => s.url === url && s.id !== editingSourceId);
-        if (dup) throw new Error(`This link already exists (“${dup.name}”).`);
-        const name = $('srcName').value.trim() || decodeURIComponent(url.split('/').pop() || 'source').slice(0, 40);
-        const sha256 = normSha($('srcSha').value);
-        if (sha256 && !/^[0-9a-f]{64}$/.test(sha256)) throw new Error('The SHA-256 must be 64 hex characters.');
-        if (editingSourceId) { sources = sources.map(s => s.id === editingSourceId ? { ...s, name, url, sha256 } : s); selectedSourceId = editingSourceId; }
-        else { const id = 'src-' + Date.now().toString(36); sources.push({ id, name, url, sha256 }); selectedSourceId = id; }
-        renderSources(); closeSourceEditor(); srcMsg(editingSourceId ? 'Source updated.' : 'Source added.', 'ok');
-    } catch (e) { srcMsg(e.message, 'err'); }
-});
-$('srcDelete').addEventListener('click', async () => {
-    const s = getSelectedSource();
-    const { ok } = await confirmBox(`Delete this source?\n\n${s.name}\n${s.url}` + (sources.length === 1 ? '\n\nIt is the last one, the default source will be put back.' : ''));
-    if (!ok) return;
-    sources = sources.filter(x => x.id !== s.id);
-    if (!sources.length) sources = [SRC_DEFAULT()];
-    selectedSourceId = sources[0].id; renderSources(); closeSourceEditor(); srcMsg('Source deleted.', 'ok');
-});
-$('srcTest').addEventListener('click', async () => {
-    let url, sha256;
-    try {
-        const editing = !$('srcEditor').classList.contains('hidden') && $('srcUrl').value.trim();
-        url = editing ? normalizeSourceUrl($('srcUrl').value) : getSelectedSource().url;
-        sha256 = editing ? normSha($('srcSha').value) : (getSelectedSource().sha256 || '');
-    } catch (e) { return srcMsg(e.message, 'err'); }
-    srcMsg('Downloading and verifying the source…');
-    try {
-        const r = await callApi('/api/check-source', { sourceUrl: url, sha256 });
-        const kind = r.check.ok ? 'ok' : 'err';
-        srcMsg(`${r.check.ok ? '✅ Verified' : '✗ Verification FAILED: ' + r.check.issues.join('; ')} · ${r.format === 'module' ? 'Worker module' : 'service worker'}${r.version ? ' · ' + r.version : ''} · ${r.bpb ? 'BPB / Zeus build (panel settings are embedded)' : 'uploaded as-is'}\n${describeCheck(r.check)}`, kind);
-    } catch (e) { srcMsg('✗ ' + e.message, 'err'); }
-});
-for (const id of ['srcName', 'srcUrl', 'srcSha', 'customName', 'panelLabel', 'checkName', 'd1Binding', 'dlFilter']) {
+function wireSourceSlot(slot) {
+    const S = sfx(slot), el = (id) => $(id + S);
+    el('sourceSelect').addEventListener('change', (e) => { selectedIds[slot] = e.target.value; renderSources(); srcMsg(''); });
+    el('srcAdd').addEventListener('click', () => openSourceEditor(slot, null));
+    el('srcEdit').addEventListener('click', () => openSourceEditor(slot, getSlotSource(slot)));
+    el('srcCancel').addEventListener('click', () => closeSourceEditor(slot));
+    el('srcReset').addEventListener('click', () => {
+        if (!sources.some(s => s.id === 'default')) sources.unshift(SRC_DEFAULT());
+        sources = sources.map(s => s.id === 'default' ? SRC_DEFAULT() : s);
+        selectedIds[slot] = 'default'; renderSources(); closeSourceEditor(slot); srcMsg('Default source restored.', 'ok');
+    });
+    el('srcSave').addEventListener('click', () => {
+        try {
+            const editingId = editingIds[slot];
+            const url = normalizeSourceUrl(el('srcUrl').value);
+            const dup = sources.find(s => s.url === url && s.id !== editingId);
+            if (dup) throw new Error(`This link already exists (“${dup.name}”). Pick it from the list instead.`);
+            const name = el('srcName').value.trim() || decodeURIComponent(url.split('/').pop() || 'source').slice(0, 40);
+            const sha256 = normSha(el('srcSha').value);
+            if (sha256 && !/^[0-9a-f]{64}$/.test(sha256)) throw new Error('The SHA-256 must be 64 hex characters.');
+            if (editingId) { sources = sources.map(s => s.id === editingId ? { ...s, name, url, sha256 } : s); selectedIds[slot] = editingId; }
+            else { const id = 'src-' + Date.now().toString(36); sources.push({ id, name, url, sha256 }); selectedIds[slot] = id; }
+            renderSources(); closeSourceEditor(slot); srcMsg(editingId ? 'Source updated.' : 'Source added.', 'ok');
+        } catch (e) { srcMsg(e.message, 'err'); }
+    });
+    el('srcDelete').addEventListener('click', async () => {
+        const s = getSlotSource(slot);
+        const { ok } = await confirmBox(`Delete this source?\n\n${s.name}\n${s.url}` + (sources.length === 1 ? '\n\nIt is the last one, the default source will be put back.' : ''));
+        if (!ok) return;
+        sources = sources.filter(x => x.id !== s.id);
+        if (!sources.length) sources = [SRC_DEFAULT()];
+        selectedIds[slot] = sources[0].id; renderSources(); closeSourceEditor(slot); srcMsg('Source deleted.', 'ok');
+    });
+    el('srcTest').addEventListener('click', async () => {
+        let url, sha256;
+        try {
+            const editing = !el('srcEditor').classList.contains('hidden') && el('srcUrl').value.trim();
+            url = editing ? normalizeSourceUrl(el('srcUrl').value) : getSlotSource(slot).url;
+            sha256 = editing ? normSha(el('srcSha').value) : (getSlotSource(slot).sha256 || '');
+        } catch (e) { return srcMsg(e.message, 'err'); }
+        srcMsg('Downloading and verifying the source…');
+        try {
+            const r = await callApi('/api/check-source', { sourceUrl: url, sha256 });
+            const kind = r.check.ok ? 'ok' : 'err';
+            srcMsg(`${r.check.ok ? '✅ Verified' : '✗ Verification FAILED: ' + r.check.issues.join('; ')} · ${r.format === 'module' ? 'Worker module' : 'service worker'}${r.version ? ' · ' + r.version : ''} · ${r.bpb ? 'BPB / Zeus build (panel settings are embedded)' : 'uploaded as-is'}\n${describeCheck(r.check)}`, kind);
+        } catch (e) { srcMsg('✗ ' + e.message, 'err'); }
+    });
+}
+wireSourceSlot(1); wireSourceSlot(2);
+
+// Two-step deploy switch: source 1 first, source 2 right after it
+function applyTwoStep() {
+    $('slot2').classList.toggle('hidden', !twoStep);
+    $('slotLabel1').classList.toggle('hidden', !twoStep);
+    $('twoStep').checked = twoStep;
+    store.set(TWOSTEP_KEY, twoStep);
+}
+$('twoStep').addEventListener('change', (e) => { twoStep = e.target.checked; applyTwoStep(); });
+$('stepDelay').value = store.get(STEPDELAY_KEY, 2);
+$('stepDelay').addEventListener('input', (e) => store.set(STEPDELAY_KEY, e.target.value));
+applyTwoStep();
+for (const id of ['srcName', 'srcUrl', 'srcSha', 'srcName2', 'srcUrl2', 'srcSha2', 'stepDelay', 'customName', 'panelLabel', 'checkName', 'd1Binding', 'dlFilter']) {
     $(id).addEventListener('keydown', (e) => {
         if (e.key !== 'Enter') return;
         e.preventDefault();                           // never submit the install form by accident
         if (id === 'srcName' || id === 'srcUrl' || id === 'srcSha') $('srcSave').click();
+        if (id === 'srcName2' || id === 'srcUrl2' || id === 'srcSha2') $('srcSave2').click();
         if (id === 'checkName') $('checkBtn').click();
     });
 }
@@ -845,6 +874,12 @@ deployForm.addEventListener('submit', async (event) => {
     if (nameMode === 'custom' && !getCustomName()) { log('error', 'Type a panel link name, or switch to Random.'); $('customName').focus(); return; }
     const payload = new FormData(deployForm);
     payload.set('sourceUrl', getSelectedSource().url);
+    if (twoStep) {
+        const first = getSlotSource(1);
+        payload.set('firstSourceUrl', first.url);
+        if (first.sha256) payload.set('firstSha256', first.sha256);
+        payload.set('stepDelay', $('stepDelay').value);
+    }
     payload.set('placement', globalPlacement.getValue());
     payload.set('customName', getCustomName());
     payload.set('label', $('panelLabel').value.trim());
@@ -852,7 +887,11 @@ deployForm.addEventListener('submit', async (event) => {
     if (uploadedFile) payload.set('scriptFile', uploadedFile);
     if (getSelectedSource().sha256 && !uploadedFile) payload.set('sha256', getSelectedSource().sha256);
     if ($('allowUnverified').checked) payload.set('allowUnverified', '1');
-    log('info', uploadedFile ? `Source: uploaded file ${uploadedFile.name}` : `Source: ${getSelectedSource().name}`);
+    if (twoStep) {
+        const first = getSlotSource(1);
+        log('info', `Two-step deploy → step 1: ${first.name} · step 2: ${uploadedFile ? 'uploaded file ' + uploadedFile.name : getSelectedSource().name}`);
+        if (!uploadedFile && first.url === getSelectedSource().url) log('warn', 'Source 1 and source 2 are the same link; pick two different sources.');
+    } else log('info', uploadedFile ? `Source: uploaded file ${uploadedFile.name}` : `Source: ${getSelectedSource().name}`);
     if (globalPlacement.getValue()) log('info', `Runtime Placement: ${describePlacement(globalPlacement.getValue())}`);
     await startDeploymentPipeline(payload);
 });

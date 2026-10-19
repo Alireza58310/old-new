@@ -530,3 +530,9 @@ code { font-family: "Ubuntu Mono", ui-monospace, Consolas, monospace; color: var
 .dl-item.on { border-color: #166534; background: rgba(22, 101, 52, 0.18); }
 .dl-item .pname { flex: 1; font-size: 0.82rem; }
 .dl-item .pmeta { white-space: nowrap; }
+
+/* ---- two-step deploy: source 1 / source 2 ---- */
+.slot { display: flex; flex-direction: column; gap: var(--space-sm); padding-top: var(--space-sm); border-top: 1px dashed var(--color-border-ui); }
+.slot.hidden, .slot-label.hidden { display: none !important; }
+.slot-label { font-size: var(--font-size-xs); font-weight: 700; color: var(--color-info); }
+input[type=number].input-plain { flex: 0 0 auto; width: 5rem; }
