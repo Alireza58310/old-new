@@ -49,6 +49,121 @@ function randCode() {
     for (let i = 0, n = randInt(50, 500); i < n; i++) out += `function ${pick(prefixes)}_${randString(charset, 8, 16)}_${i}() { return ${randInt(0, 999)}; }\n`;
     return out;
 }
+
+/* ------------------------- deploy-time obfuscation ------------------------
+ * Applied to every script this wizard actually uploads (link, file, BPB/Zeus
+ * or plain) so "Edit code" in the Cloudflare dashboard never shows the real
+ * logic - only the decoy junk plus one base64 blob that is decoded at runtime.
+ * Simple regex-based rename/wrap (same spirit as randCode() above), not a
+ * real parser: good enough for a single trusted source file, not a guarantee
+ * against a determined attacker.
+ * ------------------------------------------------------------------------- */
+
+// Detector: identifiers that look like decoy/renamed names - either this very
+// wizard's own randCode() output from an earlier deploy, or another tool's
+// similarly-shaped names (__var_xxxxx_0, __m123456, _a1b2c3, ...). Used to
+// re-randomize a file that already carries such a signature instead of
+// leaving a stable, fingerprintable name set across redeploys.
+const JUNK_ID_RE = /\b(?:__var|__func|__tmp|__cfg|__val|__m|__o|__q|_x|_n)_[0-9a-zA-Z]{3,16}(?:_\d+)?\b/g;
+
+function scanJunkIdentifiers(code) {
+    const found = new Map();
+    JUNK_ID_RE.lastIndex = 0;
+    let m;
+    while ((m = JUNK_ID_RE.exec(code))) found.set(m[0], (found.get(m[0]) || 0) + 1);
+    return found;
+}
+
+function freshJunkName() {
+    const prefixes = ['__var', '__tmp', '__cfg', '__val', '_x', '_n', '__o', '__q'];
+    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const pick = (arr) => arr[randInt(0, arr.length - 1)];
+    return `${pick(prefixes)}_${randString(charset, 8, 16)}_${randInt(0, 999999)}`;
+}
+const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// Gives every detected id above a brand-new random name (whole-word, every occurrence).
+function rerandomizeIdentifiers(code, ids) {
+    let out = code;
+    const used = new Set();
+    for (const id of ids) {
+        let next;
+        do { next = freshJunkName(); } while (used.has(next));
+        used.add(next);
+        out = out.replace(new RegExp(`\\b${reEscape(id)}\\b`, 'g'), next);
+    }
+    return out;
+}
+
+// Renames the script's own top-level `const`/`let NAME =` declarations to __mNNNNNN,
+// consistently across the file (every reference, since it's a flat word-replace).
+// Only matches declarations starting at column 0, so nested/local names are untouched.
+function renameTopLevelDeclarations(code) {
+    const re = /^(?:const|let)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=/gm;
+    const names = new Set();
+    let m;
+    while ((m = re.exec(code))) names.add(m[1]);
+    if (!names.size) return code;
+    // Object.create(null): a plain {} inherits Object.prototype, so a declared name like
+    // "toString" or "constructor" would silently look up the native method instead of
+    // being treated as "not renamed" - this avoids that trap.
+    const mapping = Object.create(null);
+    for (const name of [...names].sort((a, b) => b.length - a.length)) mapping[name] = `__m${randInt(100000, 999999)}`;
+    return code.replace(/\b[A-Za-z_$][A-Za-z0-9_$]*\b/g, (w) => (w in mapping ? mapping[w] : w));
+}
+
+function utf8ToBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return btoa(binary);
+}
+
+// Peels every top-level `import ... from "...";` line off the front (a Function()
+// body can't use `import`), base64-encodes the rest, and rebuilds a loader that
+// decodes + runs it, re-exposing whatever those imports bound as call arguments.
+// A trailing `export default EXPR;` becomes `return EXPR;` inside the hidden body.
+function wrapBase64Loader(code) {
+    const importRe = /^import\s+(?:([A-Za-z_$][\w$]*)|(?:\*\s+as\s+([A-Za-z_$][\w$]*))|\{([^}]*)\})\s+from\s+["']([^"']+)["'];?\s*\r?\n/;
+    let header = '', body = code, bindings = [];
+    for (; ;) {
+        const m = body.match(importRe);
+        if (!m) break;
+        header += m[0];
+        if (m[1]) bindings.push(m[1]);
+        else if (m[2]) bindings.push(m[2]);
+        else if (m[3]) for (const part of m[3].split(',')) {
+            const piece = part.trim();
+            if (!piece) continue;
+            const as = piece.match(/^(.+?)\s+as\s+(.+)$/);
+            bindings.push(as ? as[2].trim() : piece);
+        }
+        body = body.slice(m[0].length);
+    }
+    // anchored to column 0 so an "export default ..." that merely appears inside a string/template
+    // literal elsewhere in the file (e.g. example code shown in the panel's own UI) isn't touched
+    body = body.replace(/^export\s+default\s+/m, 'return ');
+    const b64 = utf8ToBase64(body);
+    const v1 = '_' + randString('0123456789abcdef', 6, 6);
+    const v2 = '_' + randString('0123456789abcdef', 6, 6);
+    const ctorArgs = [...bindings.map((b) => JSON.stringify(b)), v1].join(',');
+    return `${header}var ${v1}=new TextDecoder("utf-8").decode(Uint8Array.from(atob("${b64}"),function(c){return c.charCodeAt(0);}));\n` +
+        `var ${v2}=new Function(${ctorArgs})(${bindings.join(',')});\n` +
+        `export default ${v2};\n`;
+}
+
+// Full pipeline, run on every script this wizard uploads:
+//  1) detector - re-randomize any decoy/renamed ids already present (ours or another tool's)
+//  2) rename the script's own top-level declarations
+//  3) wrap the result in the base64 runtime-decode loader
+//  4) surround with fresh decoy junk (before AND after)
+function obfuscateForDeploy(code) {
+    const junk = scanJunkIdentifiers(code);
+    let out = junk.size ? rerandomizeIdentifiers(code, [...junk.keys()]) : code;
+    out = renameTopLevelDeclarations(out);
+    out = wrapBase64Loader(out);
+    return [randCode(), out, randCode()].join('\n');
+}
 // shuffles a flat object's key order - same data, different byte layout once JSON.stringify'd
 function shuffleKeys(obj) {
     const keys = Object.keys(obj);
@@ -251,16 +366,19 @@ async function verifyScript(script, { sha256 = '', allowUnverified = false } = {
         if (!/^[0-9a-f]{64}$/.test(expected)) throw new Error('The expected SHA-256 must be 64 hex characters.');
         if (expected !== digest) issues.push(`SHA-256 mismatch (expected ${expected.slice(0, 12)}…, got ${digest.slice(0, 12)}…)`);
     }
+    const junkIds = scanJunkIdentifiers(script);
     const check = {
         ok: issues.length === 0, issues, size: bytes.length, lines: script.split('\n').length, sha256: digest,
         checksum: expected ? (expected === digest ? 'matched' : 'mismatch') : 'none',
-        braces: scan.braces, parens: scan.parens, brackets: scan.brackets, raw: scan.raw
+        braces: scan.braces, parens: scan.parens, brackets: scan.brackets, raw: scan.raw,
+        junkIdentifiers: junkIds.size
     };
     if (issues.length && !allowUnverified) throw new Error(`Source verification failed: ${issues.join('; ')}. Nothing was deployed. (Use “Install even if verification fails” only if you are sure the file is fine.)`);
     return check;
 }
 const describeCheck = (c) => `${(c.size / 1024).toFixed(0)} KB · ${c.lines} lines · SHA-256 ${c.sha256.slice(0, 12)}… · { } ${c.braces[0]}/${c.braces[1]} · ( ) ${c.parens[0]}/${c.parens[1]} · [ ] ${c.brackets[0]}/${c.brackets[1]}` +
-    (c.raw[0] !== c.raw[1] || c.raw[0] !== c.braces[0] ? ` (plain count { ${c.raw[0]}/${c.raw[1]}: braces inside strings, regex and comments are ignored)` : '') + (c.checksum === 'matched' ? ' · checksum matched ✓' : '');
+    (c.raw[0] !== c.raw[1] || c.raw[0] !== c.braces[0] ? ` (plain count { ${c.raw[0]}/${c.raw[1]}: braces inside strings, regex and comments are ignored)` : '') + (c.checksum === 'matched' ? ' · checksum matched ✓' : '') +
+    (c.junkIdentifiers ? ` · ⚠ ${c.junkIdentifiers} decoy identifier(s) detected in the source (will be re-randomized on deploy)` : '');
 
 async function fetchSource(raw, opts = {}) {
     const url = normalizeSourceUrl(raw);
@@ -551,14 +669,13 @@ function freshSettings(account, mainDomain, securePath) {
     };
 }
 function buildCode(script, embeded, email) {
-    // random junk before AND after the real code, plus a shuffled settings object - varies every single deploy
-    return [
-        `// ${email}`, `// Build: ${new Date().toISOString()}`, '// @ts-nocheck',
-        `${randCode()}const EMBEDED_SETTINGS = ${JSON.stringify(shuffleKeys(embeded))};${script}`,
-        randCode()
-    ].join('\n');
+    // settings object is shuffled, then the whole thing (settings + real script) goes
+    // through the deploy-time obfuscator - varies every single deploy
+    const assembled = `// ${email}\n// Build: ${new Date().toISOString()}\n// @ts-nocheck\nconst EMBEDED_SETTINGS = ${JSON.stringify(shuffleKeys(embeded))};${script}`;
+    return obfuscateForDeploy(assembled);
 }
-// BPB / Zeus builds get their embedded settings; any other script is uploaded exactly as it is
+// BPB / Zeus builds get their embedded settings; any other script is run through the
+// same deploy-time obfuscator so "Edit code" never shows real logic either way
 async function buildScript(account, mainDomain, opts) {
     let script, url, version, check;
     const vopts = { sha256: opts.sha256, allowUnverified: opts.allowUnverified };
@@ -567,7 +684,7 @@ async function buildScript(account, mainDomain, opts) {
         validateScript(script, `The uploaded file "${opts.scriptName || 'script.js'}"`);
         check = await verifyScript(script, vopts);
     } else ({ script, url, version, check } = await fetchSource(opts.sourceUrl, vopts));
-    if (!isBpbBuild(script)) return { code: script, path: '', sourceUrl: url, version, bpb: false, check };
+    if (!isBpbBuild(script)) return { code: obfuscateForDeploy(script), path: '', sourceUrl: url, version, bpb: false, check };
     const embeded = freshSettings(account, mainDomain);
     return { code: buildCode(script, embeded, account.email), path: embeded.securePath, sourceUrl: url, version, bpb: true, check };
 }
@@ -706,7 +823,7 @@ async function updateWorkerPanel(account, name, body) {
         const src = await fetchSource(body.sourceUrl, { sha256: body.sha256, allowUnverified: !!body.allowUnverified });
         const embedded = extractEmbedded(script.text);
         version = src.version; sourceUrl = src.url; checkInfo = src.check;
-        if (!src.bpb) code = src.script;                                    // any other script: uploaded as-is, bindings are kept
+        if (!src.bpb) code = obfuscateForDeploy(src.script);                // any other script: obfuscated for deploy, bindings are kept
         else if (embedded) {                                                // BPB / Zeus on BPB / Zeus: same link, UUID, password
             if (embedded.accID === account.id) embedded.apiToken = account.token;
             code = buildCode(src.script, embedded, embedded.accEmail || account.email);
@@ -754,7 +871,7 @@ async function updatePagesPanel(account, name, body) {
             const base = `https://${project.subdomain}/${embedded.securePath}`;
             url = `${base}/panel`; zeus = `${base}/zeus`;
         } else {
-            await account.deployPages(name, src.script);
+            await account.deployPages(name, obfuscateForDeploy(src.script));
             url = `https://${project.subdomain}/`;
         }
     }
