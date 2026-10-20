@@ -373,7 +373,8 @@ const normSha = (v) => String(v || '').trim().toLowerCase().replace(/^sha-?256\s
 function describeCheck(c) {
     if (!c) return '';
     const raw = c.raw && (c.raw[0] !== c.raw[1] || c.raw[0] !== c.braces[0]) ? `\n(a plain character count gives { ${c.raw[0]}/${c.raw[1]}, but braces inside strings, regex and comments are ignored)` : '';
-    return `${(c.size / 1024).toFixed(0)} KB · ${c.lines} lines · SHA-256 ${c.sha256.slice(0, 16)}…\n{ } ${c.braces[0]}/${c.braces[1]} · ( ) ${c.parens[0]}/${c.parens[1]} · [ ] ${c.brackets[0]}/${c.brackets[1]}${c.checksum === 'matched' ? ' · checksum matched ✓' : ''}${raw}`;
+    const junk = c.junkIdentifiers ? `\n⚠ ${c.junkIdentifiers} decoy identifier(s) detected in the source (will be re-randomized on deploy)` : '';
+    return `${(c.size / 1024).toFixed(0)} KB · ${c.lines} lines · SHA-256 ${c.sha256.slice(0, 16)}…\n{ } ${c.braces[0]}/${c.braces[1]} · ( ) ${c.parens[0]}/${c.parens[1]} · [ ] ${c.brackets[0]}/${c.brackets[1]}${c.checksum === 'matched' ? ' · checksum matched ✓' : ''}${raw}${junk}`;
 }
 const verifyOpts = () => ({ sha256: getSelectedSource().sha256 || '', allowUnverified: $('allowUnverified').checked });
 function openSourceEditor(slot, src) {
