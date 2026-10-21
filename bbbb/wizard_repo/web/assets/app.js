@@ -834,9 +834,21 @@ const TOKEN_TEMPLATE_URL = 'https://dash.cloudflare.com/profile/api-tokens?permi
 /* ===================================================================== *
  *  Token link, private link, install
  * ===================================================================== */
+// random token name so the user never has to type one on Cloudflare's page: regenerated on every click
+function randomTokenName() {
+    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let s = '';
+    for (let i = 0; i < 12; i++) s += charset[Math.floor(Math.random() * charset.length)];
+    return s;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // token template: workers / KV / R2 / D1 / pages / zone / DNS / SSL / cache / account permissions
-    document.getElementById('tokenTemplate').href = TOKEN_TEMPLATE_URL;
+    const tokenLink = document.getElementById('tokenTemplate');
+    tokenLink.href = TOKEN_TEMPLATE_URL + encodeURIComponent(randomTokenName());
+    tokenLink.addEventListener('click', () => {
+        tokenLink.href = TOKEN_TEMPLATE_URL + encodeURIComponent(randomTokenName());
+    });
 
     const urlParams = new URLSearchParams(window.location.search);
     const key = urlParams.get('key');
@@ -960,6 +972,15 @@ async function startDeploymentPipeline(payload) {
                             if (link) {
                                 link.href = payload.url;
                             }
+
+                            // Quick login shortcuts: the panel route differs by build (/panel default,
+                            // /adminas or /alireza for de-branded builds) - show all three, click whichever applies
+                            try {
+                                const origin = new URL(payload.url).origin;
+                                document.getElementById('qlPanel').href = origin + '/panel';
+                                document.getElementById('qlAdminas').href = origin + '/adminas';
+                                document.getElementById('qlAlireza').href = origin + '/alireza';
+                            } catch { }
 
                             const zeusLink = document.getElementById('liveZeus');
                             document.getElementById('liveZeusWrap').style.display = payload.zeus ? '' : 'none';
