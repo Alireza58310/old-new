@@ -352,7 +352,7 @@ async function readJsonBody(request) {
 async function fetchWithFallback(path, options = {}) {
 	// لیست آی‌پی‌ها از مخزن جدید گرفته می‌شه؛ بقیه‌ی فایل‌ها مثل قبل
 	const isIpsList = path === "ips.txt";
-	const primaryUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
+	const primaryUrl = isIpsList ? "https://subs.alis1.ir/ip.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
 	const fallbackUrl = primaryUrl;
 	try {
 		const res = await fetch(primaryUrl, options);
@@ -1282,8 +1282,8 @@ const Router = {
 						patterniha_all: rowPatt ? rowPatt.value === "1" : false,
 						patterniha_ech_all: rowPattEch ? rowPattEch.value === "1" : false,
 						ech_sni: echMap.ech_sni || "cloudflare-ech.com",
-						ech_doh: echMap.ech_doh || "udp://1.1.1.1",
-						ech_doh_preset: echMap.ech_doh_preset || "cf-udp",
+						ech_doh: echMap.ech_doh || "https://8.8.8.8/dns-query",
+						ech_doh_preset: echMap.ech_doh_preset || "google-doh",
 						ech_api: echMap.ech_api || "",
 					}),
 					{ headers: { "Content-Type": "application/json" } },
@@ -5301,10 +5301,6 @@ const HTML_TEMPLATES = {
 				<button onclick="createDualCountryConfigs(this)" title="ساخت ۲ کانفیگ (معمولی + Hard) از کشور ثابت‌شده" class="p-2 rounded-md bg-cyan-50 dark:bg-cyan-950/40 border-2 border-cyan-500 dark:border-cyan-500 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.6)] hover:shadow-[0_0_25px_rgba(6,182,212,0.95)] hover:scale-125 active:scale-110 cursor-pointer inline-flex items-center justify-center relative group">
 					<svg id="dual-add-icon" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
 				</button>
-				<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
-					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
-					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
-				</button>
 				<button onclick="openCreateModal()" title="افزودن کاربر" class="p-2 rounded-md bg-green-50 dark:bg-green-950/30 border-2 border-green-600 dark:border-green-700/60 hover:bg-green-100 dark:hover:bg-green-900/50 transition-all duration-300 text-green-700 dark:text-green-400 shadow-sm hover:shadow hover:scale-110 cursor-pointer inline-flex items-center justify-center">
 					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
 				</button>
@@ -5322,6 +5318,10 @@ const HTML_TEMPLATES = {
 			</label>
 			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
 			<button type="button" onclick="openEchModal()" title="تنظیمات ECH (SNI و DoH) که روی کانفیگ‌ها اعمال می‌شود" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">🔐 تنظیمات ECH</button>
+			<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
+					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
+				</button>
 		</div>
 		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
 		<div class="flex flex-wrap items-center justify-end gap-2 mb-3">
@@ -6631,7 +6631,7 @@ ${COMMON_TOAST_HTML}
 </div>
 	<script>
 		async function fetchWithFallbackUI(path, options = {}) {
-			const primaryUrl = (path === 'ips.txt') ? 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
+			const primaryUrl = (path === 'ips.txt') ? 'https://subs.alis1.ir/ip.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
 			const fallbackUrl = primaryUrl;
 			try {
 				const res = await fetch(primaryUrl, options);
@@ -7317,9 +7317,9 @@ ${COMMON_TOAST_HTML}
 			const cb = document.getElementById('patterniha-all-toggle');
 			if (cb) cb.checked = !!on;
 		};
-		window.PATTERNIHA_ECH = 'cloudflare-ech.com+udp://1.1.1.1';
+		window.PATTERNIHA_ECH = 'cloudflare-ech.com+https://8.8.8.8/dns-query';
 		window.ECH_PRESETS = { 'cf-udp': 'udp://1.1.1.1', 'google-udp': 'udp://8.8.8.8', 'quad9-udp': 'udp://9.9.9.9', 'cf-doh': 'https://1.1.1.1/dns-query', 'google-doh': 'https://8.8.8.8/dns-query' };
-		window._ech = { sni: 'cloudflare-ech.com', doh: 'udp://1.1.1.1', preset: 'cf-udp', api: '' };
+		window._ech = { sni: 'cloudflare-ech.com', doh: 'https://8.8.8.8/dns-query', preset: 'google-doh', api: '' };
 		window.getEchString = function() { return window._ech.sni + '+' + window._ech.doh; };
 		window.refreshEchPreview = function() {
 			const el = document.getElementById('ech-preview');
@@ -7329,7 +7329,7 @@ ${COMMON_TOAST_HTML}
 		};
 		window.applyEchSettings = function(d) {
 			if (!d) return;
-			window._ech = { sni: d.ech_sni || 'cloudflare-ech.com', doh: d.ech_doh || 'udp://1.1.1.1', preset: d.ech_doh_preset || 'cf-udp', api: d.ech_api || '' };
+			window._ech = { sni: d.ech_sni || 'cloudflare-ech.com', doh: d.ech_doh || 'https://8.8.8.8/dns-query', preset: d.ech_doh_preset || 'google-doh', api: d.ech_api || '' };
 			const a = document.getElementById('ech-sni-input'); if (a) a.value = window._ech.sni;
 			const b = document.getElementById('ech-doh-input'); if (b) b.value = window._ech.doh;
 			const c = document.getElementById('ech-doh-preset'); if (c) c.value = window._ech.preset;
@@ -7374,7 +7374,7 @@ ${COMMON_TOAST_HTML}
 				'<option value="cf-doh">Cloudflare DoH (https://1.1.1.1/dns-query)</option>' +
 				'<option value="google-doh">Google DoH (https://8.8.8.8/dns-query)</option>' +
 				'</select></div>' +
-				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="udp://1.1.1.1" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="https://8.8.8.8/dns-query" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
 				'<div><label class="' + lblCls + '">API مرکزی (اختیاری)</label><input type="text" id="ech-api-input" dir="ltr" placeholder="https://your-central-server" class="' + inputCls + '">' +
 				'<p class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1">فعلاً فقط ذخیره می‌شود و در ساخت کانفیگ استفاده نمی‌شود.</p></div>' +
 				'<p class="text-[10px] text-gray-500 dark:text-zinc-500" dir="ltr" id="ech-preview"></p>' +
@@ -9977,7 +9977,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '3.1.1';
+const CURRENT_VERSION = '3.2.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
