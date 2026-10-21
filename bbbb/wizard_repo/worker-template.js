@@ -141,15 +141,28 @@ function wrapBase64Loader(code) {
         body = body.slice(m[0].length);
     }
     // anchored to column 0 so an "export default ..." that merely appears inside a string/template
-    // literal elsewhere in the file (e.g. example code shown in the panel's own UI) isn't touched
-    body = body.replace(/^export\s+default\s+/m, 'return ');
+    // literal elsewhere in the file (e.g. example code shown in the panel's own UI) isn't touched.
+    // IMPORTANT: module evaluation does NOT stop at `export default` - any top-level declarations
+    // written after it in the source still run (and get hoisted). Converting it straight to a bare
+    // `return` would cut the function off right there and silently skip all of that later code -
+    // exactly the bug that caused this. So the exported value is captured in a variable instead,
+    // and only returned once every remaining statement has actually executed.
+    const exportVar = '_' + randString('0123456789abcdef', 6, 6);
+    const hasExportDefault = /^export\s+default\s+/m.test(body);
+    if (hasExportDefault) {
+        body = body.replace(/^export\s+default\s+/m, `var ${exportVar} = `);
+        body = body.replace(/\s*$/, '') + `\nreturn ${exportVar};\n`;
+    }
     const b64 = utf8ToBase64(body);
     const v1 = '_' + randString('0123456789abcdef', 6, 6);
     const v2 = '_' + randString('0123456789abcdef', 6, 6);
     const ctorArgs = [...bindings.map((b) => JSON.stringify(b)), v1].join(',');
-    return `${header}var ${v1}=new TextDecoder("utf-8").decode(Uint8Array.from(atob("${b64}"),function(c){return c.charCodeAt(0);}));\n` +
-        `var ${v2}=new Function(${ctorArgs})(${bindings.join(',')});\n` +
-        `export default ${v2};\n`;
+    let out = `${header}var ${v1}=new TextDecoder("utf-8").decode(Uint8Array.from(atob("${b64}"),function(c){return c.charCodeAt(0);}));\n` +
+        `var ${v2}=new Function(${ctorArgs})(${bindings.join(',')});\n`;
+    // a classic service-worker-format script (addEventListener("fetch", ...), no export at all)
+    // already took effect when the line above ran - nothing to export, so don't fake one
+    if (hasExportDefault) out += `export default ${v2};\n`;
+    return out;
 }
 
 // Full pipeline, run on every script this wizard uploads:
