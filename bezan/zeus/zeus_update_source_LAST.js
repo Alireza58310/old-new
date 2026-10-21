@@ -352,8 +352,8 @@ async function readJsonBody(request) {
 async function fetchWithFallback(path, options = {}) {
 	// لیست آی‌پی‌ها از مخزن جدید گرفته می‌شه؛ بقیه‌ی فایل‌ها مثل قبل
 	const isIpsList = path === "ips.txt";
-	const primaryUrl = isIpsList ? "https://subs.alis1.ir/ip.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
-	const fallbackUrl = primaryUrl;
+	const primaryUrl = isIpsList ? "https://subs.alis1.ir/Ip.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
+	const fallbackUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt" : primaryUrl;
 	try {
 		const res = await fetch(primaryUrl, options);
 		if (res.ok) return res;
@@ -1238,6 +1238,14 @@ const Router = {
 			if (b.patterniha === true && b.patterniha_ech === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_ech_all', '0')").run();
 			if (b.patterniha_ech === true && b.patterniha === undefined) await env.DB.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('patterniha_all', '0')").run();
 			return new Response(JSON.stringify({ success: true }), { headers: { "Content-Type": "application/json" } });
+		}
+		if (url.pathname === "/api/ips-list" && request.method === "GET") {
+			try {
+				const r = await fetchWithFallback("ips.txt");
+				return new Response(await r.text(), { status: r.ok ? 200 : 502, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
+			} catch (e) {
+				return new Response("", { status: 502 });
+			}
 		}
 		if (url.pathname === "/api/proxy-ip") {
 			if (request.method === "POST") {
@@ -5306,6 +5314,12 @@ const HTML_TEMPLATES = {
 				</button>
 			</div>
 		</div>
+		<div class="flex items-center justify-end mb-4">
+			<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
+				<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
+				<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
+			</button>
+		</div>
 		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
 		<div class="flex flex-wrap items-center justify-end gap-2">
 			<label class="flex items-center gap-2 cursor-pointer select-none px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20" title="اضافه شدن ۳ کانفیگ اطلاع‌رسانی (مصرف/زمان + ۲ کانفیگ رایگان بودن پنل) به ابتدای ساب همه کاربران">
@@ -5318,10 +5332,6 @@ const HTML_TEMPLATES = {
 			</label>
 			<button type="button" onclick="openBulkAdvancedModal()" title="تغییر Advanced Fragment / Cipher Suites / TLS Mask برای همه کاربران" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">⚙️ تنظیم یکجای پیشرفته</button>
 			<button type="button" onclick="openEchModal()" title="تنظیمات ECH (SNI و DoH) که روی کانفیگ‌ها اعمال می‌شود" class="px-2.5 py-1 rounded-lg border border-purple-300 dark:border-purple-700/60 bg-purple-50/60 dark:bg-purple-950/20 text-[11px] font-bold text-purple-800 dark:text-purple-300">🔐 تنظیمات ECH</button>
-			<button onclick="createNoFilteringConfigs(this)" title="ساخت ۴ کانفیگ: ۲ معمولی + ۲ Hard (دو‌تا با ECH، دو‌تا با بهینه‌سازی Patterniha) از کشور ثابت‌شده" class="px-2.5 py-2 rounded-md bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-500 dark:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all duration-300 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] hover:shadow-[0_0_25px_rgba(16,185,129,0.95)] hover:scale-110 active:scale-100 cursor-pointer inline-flex items-center justify-center gap-1.5 relative group">
-					<svg id="nf-add-icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] relative z-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V6a2 2 0 0 1 2-2h10"></path><path d="M14 11v6M11 14h6"></path></svg>
-					<span class="text-[11px] font-black relative z-10 whitespace-nowrap">no filtering</span>
-				</button>
 		</div>
 		<div style="height:1px;margin:12px 0;background:linear-gradient(to left,transparent,rgba(125,211,252,.75),transparent)"></div>
 		<div class="flex flex-wrap items-center justify-end gap-2 mb-3">
@@ -6631,7 +6641,8 @@ ${COMMON_TOAST_HTML}
 </div>
 	<script>
 		async function fetchWithFallbackUI(path, options = {}) {
-			const primaryUrl = (path === 'ips.txt') ? 'https://subs.alis1.ir/ip.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
+			if (path === 'ips.txt') return await fetch('/api/ips-list', options);
+			const primaryUrl = (path === 'ips.txt') ? 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt' : 'https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/' + path;
 			const fallbackUrl = primaryUrl;
 			try {
 				const res = await fetch(primaryUrl, options);
@@ -7374,7 +7385,7 @@ ${COMMON_TOAST_HTML}
 				'<option value="cf-doh">Cloudflare DoH (https://1.1.1.1/dns-query)</option>' +
 				'<option value="google-doh">Google DoH (https://8.8.8.8/dns-query)</option>' +
 				'</select></div>' +
-				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="https://8.8.8.8/dns-query" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
+				'<div><label class="' + lblCls + '">ECH DoH</label><input type="text" id="ech-doh-input" dir="ltr" placeholder="udp://1.1.1.1" oninput="onEchDohInput()" class="' + inputCls + '"></div>' +
 				'<div><label class="' + lblCls + '">API مرکزی (اختیاری)</label><input type="text" id="ech-api-input" dir="ltr" placeholder="https://your-central-server" class="' + inputCls + '">' +
 				'<p class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1">فعلاً فقط ذخیره می‌شود و در ساخت کانفیگ استفاده نمی‌شود.</p></div>' +
 				'<p class="text-[10px] text-gray-500 dark:text-zinc-500" dir="ltr" id="ech-preview"></p>' +
@@ -9977,7 +9988,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '3.2.1';
+const CURRENT_VERSION = '3.1.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
