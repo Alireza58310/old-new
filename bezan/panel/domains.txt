@@ -1,0 +1,6 @@
+a.nami1.ir
+b.nami1.ir
+c.nami1.ir
+aa.nami1.ir
+bb.nami1.ir
+cc.nami1.ir
