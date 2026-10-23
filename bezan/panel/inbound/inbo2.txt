@@ -1,0 +1,87 @@
+{
+  "id": 2,
+  "userId": 0,
+  "up": 3340716,
+  "down": 6421645,
+  "total": 0,
+  "remark": "🇩🇪+2053",
+  "enable": true,
+  "expiryTime": 0,
+  "trafficReset": "never",
+  "trafficResetDay": 1,
+  "lastTrafficResetTime": 0,
+  "listen": "",
+  "port": 2053,
+  "protocol": "vless",
+  "settings": {
+    "clients": [],
+    "decryption": "none",
+    "encryption": "none"
+  },
+  "streamSettings": {
+    "network": "xhttp",
+    "xhttpSettings": {
+      "path": "/video",
+      "host": "b.nami1.ir",
+      "mode": "auto",
+      "xPaddingBytes": "100-1000",
+      "scMaxBufferedPosts": 30,
+      "scStreamUpServerSecs": "20-80"
+    },
+    "security": "tls",
+    "tlsSettings": {
+      "serverName": "b.nami1.ir",
+      "minVersion": "1.2",
+      "maxVersion": "1.3",
+      "cipherSuites": "",
+      "rejectUnknownSni": false,
+      "disableSystemRoot": false,
+      "enableSessionResumption": false,
+      "certificates": [
+        {
+          "ocspStapling": 0,
+          "oneTimeLoading": false,
+          "usage": "encipherment",
+          "buildChain": false,
+          "certificateFile": "/root/cert/b.nami1.ir/fullchain.pem",
+          "keyFile": "/root/cert/b.nami1.ir/privkey.pem"
+        }
+      ],
+      "alpn": [
+        "h2",
+        "http/1.1",
+        "h3"
+      ],
+      "echServerKeys": "",
+      "settings": {
+        "fingerprint": "random",
+        "echConfigList": "",
+        "pinnedPeerCertSha256": [],
+        "verifyPeerCertByName": ""
+      }
+    },
+    "sockopt": {
+      "tcpFastOpen": true,
+      "tcpcongestion": "bbr"
+    }
+  },
+  "tag": "in-2053-tcp",
+  "sniffing": {
+    "enabled": true,
+    "destOverride": [
+      "http",
+      "tls",
+      "quic",
+      "fakedns"
+    ]
+  },
+  "clientStats": [],
+  "nodeId": null,
+  "shareAddrStrategy": "listen",
+  "shareAddr": "",
+  "subSortIndex": 1,
+  "excludeFromSub": false,
+  "disableFlow": false,
+  "originNodeGuid": "",
+  "fallbackParent": null
+}
