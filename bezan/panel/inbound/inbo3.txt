@@ -1,36 +1,58 @@
 {
   "id": 3,
   "userId": 0,
-  "up": 11628,
-  "down": 28572,
+  "up": 0,
+  "down": 0,
   "total": 0,
-  "remark": "🇩🇪+2087",
+  "remark": "🇩🇪+8443",
   "enable": true,
   "expiryTime": 0,
   "trafficReset": "never",
   "trafficResetDay": 1,
   "lastTrafficResetTime": 0,
   "listen": "",
-  "port": 2087,
+  "port": 8443,
   "protocol": "vless",
   "settings": {
-    "clients": [],
+    "clients": [
+      {
+        "auth": "qcp47wwvml0nwflr",
+        "comment": "",
+        "created_at": 1792798772594,
+        "email": "Vasl",
+        "enable": true,
+        "expiryTime": 0,
+        "id": "alis-vasl",
+        "limitIp": 0,
+        "password": "ovy13r39ce7zmayv",
+        "reset": 0,
+        "resetDay": 0,
+        "resetMax": 0,
+        "resetWeekday": 0,
+        "security": "auto",
+        "subId": "alireza",
+        "tgId": 0,
+        "totalGB": 0,
+        "trafficReset": "never",
+        "trafficResetDay": 1,
+        "updated_at": 1792800107000
+      }
+    ],
     "decryption": "none",
     "encryption": "none"
   },
   "streamSettings": {
-    "network": "xhttp",
-    "xhttpSettings": {
+    "network": "ws",
+    "wsSettings": {
+      "acceptProxyProtocol": false,
       "path": "/video",
-      "host": "aa.alisv.ir",
-      "mode": "auto",
-      "xPaddingBytes": "100-1000",
-      "scMaxBufferedPosts": 30,
-      "scStreamUpServerSecs": "20-80"
+      "host": "bb.alisv.ir",
+      "headers": {},
+      "heartbeatPeriod": 0
     },
     "security": "tls",
     "tlsSettings": {
-      "serverName": "aa.alisv.ir",
+      "serverName": "bb.alisv.ir",
       "minVersion": "1.2",
       "maxVersion": "1.3",
       "cipherSuites": "",
@@ -43,13 +65,13 @@
           "oneTimeLoading": false,
           "usage": "encipherment",
           "buildChain": false,
-          "certificateFile": "/root/cert/aa.alisv.ir/fullchain.pem",
-          "keyFile": "/root/cert/aa.alisv.ir/privkey.pem"
+          "certificateFile": "/root/cert/bb.alisv.ir/fullchain.pem",
+          "keyFile": "/root/cert/bb.alisv.ir/privkey.pem"
         }
       ],
       "alpn": [
-        "h2",
         "http/1.1",
+        "h2",
         "h3"
       ],
       "echServerKeys": "",
@@ -65,7 +87,7 @@
       "tcpcongestion": "bbr"
     }
   },
-  "tag": "in-2087-tcp",
+  "tag": "in-8443-tcp",
   "sniffing": {
     "enabled": true,
     "destOverride": [
@@ -75,7 +97,27 @@
       "fakedns"
     ]
   },
-  "clientStats": [],
+  "clientStats": [
+    {
+      "id": 1,
+      "inboundId": 6,
+      "enable": true,
+      "email": "Vasl",
+      "uuid": "alis-vasl",
+      "subId": "alireza",
+      "up": 2287339,
+      "down": 9279614,
+      "expiryTime": 0,
+      "total": 0,
+      "reset": 0,
+      "resetDay": 0,
+      "resetWeekday": 0,
+      "resetMax": 0,
+      "resetCount": 0,
+      "lastOnline": 1792799624002,
+      "lastSubFetch": 1792799616403
+    }
+  ],
   "nodeId": null,
   "shareAddrStrategy": "listen",
   "shareAddr": "",
