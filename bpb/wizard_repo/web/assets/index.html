@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeus Wizard</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=alt_route,check_circle,cloud_upload,content_copy,key,keyboard_arrow_down,open_in_new,visibility,visibility_off" />
+    <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header-area">
+                <div class="card-header-group">
+                    <h3 class="header">
+                        <img src="favicon.ico" class="icon" />
+                        Zeus Wizard
+                    </h3>
+                    <a href="https://github.com/Alireza58310/old-new" target="_blank">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24"
+                                fill="white">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+                <p class="subtitle">Deploy any .js file on Cloudflare with D1 · manage &amp; update</p>
+                <h4 id="user" style="display: none;"></h4>
+                <ol id="steps">
+                    <li>
+                        <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener noreferrer">Sign
+                            up</a> a Cloudflare account and verify it.
+                    </li>
+                    <li>
+                        <a id="tokenTemplate" href="" target="_blank" rel="noopener noreferrer">Create a token</a>
+                        , you should <b>Continue to summary</b>, <b>Create Token</b> and copy it.
+                    </li>
+                    <li>Paste it here, choose installation method and install.</li>
+                    <li>After installation you get a <b>Private Link</b> which enables one-click installation.</li>
+                </ol>
+            </div>
+
+            <form id="deployForm" class="form">
+                <div id="apiTokenGroup" class="input-group">
+                    <span class="input-icon">
+                        <span class="material-symbols-rounded">
+                            key
+                        </span>
+                    </span>
+                    <input id="apiToken" name="apiToken" type="password" class="input-field"
+                        placeholder="Cloudflare API Token" required />
+                    <button id="togglePassword" type="button" class="input-after-icon">
+                        <span id="eyeIcon" class="material-symbols-rounded">
+                            visibility
+                        </span>
+                        <span id="eyeOffIcon" class="material-symbols-rounded hidden">
+                            visibility_off
+                        </span>
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <span class="material-symbols-rounded input-icon">
+                        alt_route
+                    </span>
+                    <select id="deployType" name="deployType" class="form-select">
+                        <option value="workers">Cloudflare Workers</option>
+                        <option value="pages">Cloudflare Pages</option>
+                    </select>
+                    <span class="material-symbols-rounded input-after-icon">
+                        keyboard_arrow_down
+                    </span>
+                </div>
+
+                <!-- ============ Deploy source · سورس دیپلوی ============ -->
+                <section class="box" id="sourceBox">
+                    <div class="box-title">📦 Deploy Source <span class="fa">سورس دیپلوی</span></div>
+                    <label class="switch-row"><input type="checkbox" id="twoStep" /> Two-step deploy <span class="fa">دپلوی دو مرحله‌ای: اول سورس ۱ بالا میره، بعدش سورس ۲ جاش میشینه</span></label>
+                    <div id="slotLabel1" class="slot-label hidden">① Source 1 — deployed first <span class="fa">سورس اول (مرده / موقت)</span></div>
+                    <select id="sourceSelect" class="select-plain mono" dir="ltr"></select>
+                    <div class="row">
+                        <button type="button" id="srcAdd" class="btn-mini ok">＋ Add</button>
+                        <button type="button" id="srcEdit" class="btn-mini">✏️ Edit</button>
+                        <button type="button" id="srcTest" class="btn-mini">✅ Test</button>
+                        <button type="button" id="srcDelete" class="btn-mini danger">🗑 Delete</button>
+                    </div>
+                    <div id="srcEditor" class="editor hidden">
+                        <input id="srcName" class="input-plain" placeholder="Name · اسم دلخواه (optional)" autocomplete="off" dir="auto" />
+                        <input id="srcUrl" class="input-plain mono" placeholder="https://raw.githubusercontent.com/user/repo/refs/heads/main/worker.js" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <input id="srcSha" class="input-plain mono" placeholder="Expected SHA-256 · چک‌سام (optional, pins the file)" maxlength="80" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <div class="row">
+                            <button type="button" id="srcSave" class="btn-mini ok">Save</button>
+                            <button type="button" id="srcCancel" class="btn-mini">Cancel</button>
+                            <button type="button" id="srcReset" class="btn-mini">↺ Restore default</button>
+                        </div>
+                    </div>
+                    <div id="slot2" class="slot hidden">
+                        <div class="slot-label">② Source 2 — deployed right after, over source 1 <span class="fa">سورس دوم (اصلی)</span></div>
+                        <select id="sourceSelect2" class="select-plain mono" dir="ltr"></select>
+                        <div class="row">
+                            <button type="button" id="srcAdd2" class="btn-mini ok">＋ Add</button>
+                            <button type="button" id="srcEdit2" class="btn-mini">✏️ Edit</button>
+                            <button type="button" id="srcTest2" class="btn-mini">✅ Test</button>
+                            <button type="button" id="srcDelete2" class="btn-mini danger">🗑 Delete</button>
+                        </div>
+                        <div id="srcEditor2" class="editor hidden">
+                            <input id="srcName2" class="input-plain" placeholder="Name · اسم دلخواه (optional)" autocomplete="off" dir="auto" />
+                            <input id="srcUrl2" class="input-plain mono" placeholder="https://raw.githubusercontent.com/user/repo/refs/heads/main/worker.js" autocomplete="off" spellcheck="false" dir="ltr" />
+                            <input id="srcSha2" class="input-plain mono" placeholder="Expected SHA-256 · چک‌سام (optional, pins the file)" maxlength="80" autocomplete="off" spellcheck="false" dir="ltr" />
+                            <div class="row">
+                                <button type="button" id="srcSave2" class="btn-mini ok">Save</button>
+                                <button type="button" id="srcCancel2" class="btn-mini">Cancel</button>
+                                <button type="button" id="srcReset2" class="btn-mini">↺ Restore default</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="switch-row">Wait between the two steps <input type="number" id="stepDelay" class="input-plain mono" value="2" min="0" max="15" step="0.5" style="max-width:5rem" dir="ltr" /> s <span class="fa">فاصله بین دو مرحله</span></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" id="fileBtn" class="btn-mini info">📁 Upload a .js file instead</button>
+                        <input type="file" id="scriptFile" accept=".js,.mjs,.cjs,text/javascript" class="hidden" />
+                    </div>
+                    <p id="fileStatus" class="hint hidden"></p>
+                    <label class="switch-row"><input type="checkbox" id="allowUnverified" /> Deploy even if verification fails <span class="fa">(not recommended)</span></label>
+                    <p id="srcStatus" class="hint">Any <b>.js</b> file works (a Worker module or a classic service worker): it gets a D1 database bound to it. Used for <b>Install</b> and <b>Update</b>. Any https link; GitHub / GitLab “blob” links are converted automatically. BPB / Zeus builds additionally get their panel settings. Every deployed file is also <b>obfuscated</b>: any decoy-style identifiers already in it are detected and re-randomized, its own top-level names are renamed, and the result is wrapped in a base64 runtime-decode loader - so "Edit code" in the Cloudflare dashboard never shows the real logic. Every file is <b>verified</b> first: size, lines, SHA-256 and the count of <code>{ }</code> <code>( )</code> <code>[ ]</code>; a truncated or corrupt file is refused. The list is saved in this browser. <b>Two-step deploy:</b> source 1 is deployed first, then source 2 is uploaded over it (same Worker, same D1); if source 1 cannot be loaded, source 2 is deployed alone. “Update from source” and the uploaded .js file always use source 2.</p>
+                </section>
+
+                <!-- ============ Runtime Placement · منطقه اجرای ورکر ============ -->
+                <section class="box" id="placementBox">
+                    <div class="box-title">🌍 Runtime Placement <span class="fa">منطقه اجرای ورکر</span></div>
+                    <div id="placementPicker"></div>
+                    <p class="hint">Where the Worker runs, near a cloud data-center region: the same setting as <i>Settings → Runtime → Placement</i> in the Cloudflare dashboard. It is applied automatically.</p>
+                </section>
+
+                <!-- ============ Panel link name · نام لینک پنل ============ -->
+                <section class="box" id="nameBox">
+                    <div class="box-title">🔗 Panel Link Name <span class="fa">نام لینک پنل</span></div>
+                    <div class="seg" id="nameSeg">
+                        <button type="button" data-mode="random" class="active">🎲 Random · تصادفی</button>
+                        <button type="button" data-mode="custom">✏️ Custom · دلخواه</button>
+                    </div>
+                    <input id="customName" class="input-plain mono hidden" placeholder="my-panel" maxlength="50" autocomplete="off" spellcheck="false" dir="ltr" />
+                    <p id="nameHint" class="hint">Random: a long unguessable name. Custom: lowercase Latin letters, digits and “-” only; this name is used in the panel link (<code>name.&lt;your-subdomain&gt;.workers.dev</code>).</p>
+                    <div class="row">
+                        <input id="d1Binding" class="input-plain mono" value="DB" maxlength="63" autocomplete="off" spellcheck="false" dir="ltr" title="D1 binding name" />
+                        <span class="hint">← D1 binding name in your code (<code>env.DB</code>)</span>
+                    </div>
+                    <input id="panelLabel" class="input-plain" placeholder="Label · برچسب (optional, for your saved links)" autocomplete="off" dir="auto" />
+                </section>
+
+                <button type="submit" class="btn-primary">
+                    <span class="material-symbols-rounded">
+                        cloud_upload
+                    </span>
+                    Install
+                </button>
+
+                <div id="privateUrlToast" class="toast-card hidden">
+                    <div class="toast-header">
+                        <div class="toast-title">
+                            <span class="material-symbols-rounded toast-success-icon">
+                                check_circle
+                            </span>
+                            Zeus Wizard private link
+                        </div>
+                        <button id="closePrivateUrlToast" class="toast-close-btn">
+                            ✕
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Your private link to use wizard in one-click mode.
+                        <button id="copyURL" type="button" class="btn-secondary">
+                            <span class="material-symbols-rounded">
+                                content_copy
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="deploymentToast" class="toast-card hidden">
+                    <div class="toast-header">
+                        <div class="toast-title">
+                            <span class="material-symbols-rounded toast-success-icon">
+                                check_circle
+                            </span>
+                            Successfully installed
+                        </div>
+                        <button id="closeDeploymentToast" class="toast-close-btn">
+                            ✕
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        <span id="liveUrlText">Open your deployment.</span>
+                        <a id="liveUrl" href="#" target="_blank" class="toast-link">
+                            <span class="material-symbols-rounded">
+                                open_in_new
+                            </span>
+                        </a>
+                        <span id="liveZeusWrap">
+                        &nbsp;&nbsp;Zeus page ⚡
+                        <a id="liveZeus" href="#" target="_blank" class="toast-link">
+                            <span class="material-symbols-rounded">
+                                open_in_new
+                            </span>
+                        </a>
+                        </span>
+                    </div>
+                    <div class="toast-quicklinks" id="quickLoginRow">
+                        <a href="#" id="qlPanel" target="_blank" class="toast-chip">/panel</a>
+                        <a href="#" id="qlAdminas" target="_blank" class="toast-chip">/adminas</a>
+                        <a href="#" id="qlAlireza" target="_blank" class="toast-chip">/alireza</a>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- ============ Manage & update panels · مدیریت و آپدیت پنل‌ها ============ -->
+            <section class="box manage" id="manageBox">
+                <div class="box-title">🛠 Manage &amp; Update Panels <span class="fa">مدیریت و آپدیت پنل‌ها</span></div>
+                <p class="hint">Lists every Worker and Pages project of the account with its D1 databases (BPB / Zeus panels are recognised by their content, whatever the name). <b>Delete removes the project and its D1 database(s).</b></p>
+                <div class="row">
+                    <button type="button" id="scanBtn" class="btn-mini ok wide">🔍 Scan account</button>
+                </div>
+                <div class="row">
+                    <input id="checkName" class="input-plain mono" placeholder="Check one Worker by name" autocomplete="off" spellcheck="false" dir="ltr" />
+                    <button type="button" id="checkBtn" class="btn-mini">Check</button>
+                </div>
+                <div id="scanProgress" class="progress hidden"><div id="scanBar"></div><span id="scanText"></span></div>
+                <div id="panelList" class="panel-list"></div>
+
+                <!-- ============ Download Worker scripts · دانلود اسکریپت ورکرها ============ -->
+                <details id="dlBox" class="saved" open>
+                    <summary>📥 Download Worker scripts · دانلود اسکریپت ورکرها <span id="dlCount"></span></summary>
+                    <p class="hint">Every Worker of the account is listed here (after <b>Scan account</b>). Tick the ones you want and download their deployed <code>worker.js</code> directly, no need to open the Cloudflare dashboard. One Worker = one <code>.js</code> file; several = one <code>.zip</code>.</p>
+                    <div class="row">
+                        <input id="dlFilter" class="input-plain mono" placeholder="Filter by name · فیلتر نام ورکر" autocomplete="off" spellcheck="false" dir="ltr" />
+                        <select id="dlSort" class="select-plain" style="width:auto">
+                            <option value="modified">Newest first</option>
+                            <option value="name">Name A–Z</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <button type="button" id="dlAll" class="btn-mini">☑ Select shown</button>
+                        <button type="button" id="dlNone" class="btn-mini">☐ Clear</button>
+                        <button type="button" id="dlGo" class="btn-mini ok">⬇ Download selected</button>
+                    </div>
+                    <div id="dlList" class="panel-list dl-list"></div>
+                </details>
+
+                <details id="savedBox" class="saved">
+                    <summary>💾 Saved links · لینک‌های ذخیره‌شده <span id="savedCount"></span></summary>
+                    <label class="switch-row"><input type="checkbox" id="autoSave" checked /> Save the link automatically after every install</label>
+                    <div id="savedList" class="panel-list"></div>
+                </details>
+            </section>
+
+            <pre id="output" class="terminal">●●● Standby
+            </pre>
+
+        </div>
+    </div>
+
+    <dialog id="confirmDialog" class="dlg">
+        <form method="dialog">
+            <p id="confirmText"></p>
+            <label id="confirmOptRow" class="switch-row hidden"><input type="checkbox" id="confirmOpt" /> <span id="confirmOptText"></span></label>
+            <div class="row end">
+                <button value="cancel" class="btn-mini">Cancel</button>
+                <button value="ok" id="confirmOk" class="btn-mini ok">OK</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="app.js" defer></script>
+</body>
+
+</html>

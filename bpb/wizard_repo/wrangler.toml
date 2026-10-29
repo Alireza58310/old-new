@@ -1,0 +1,13 @@
+name = "zeus-wizard"
+main = "web/src/index.ts"
+compatibility_date = "2026-07-17"
+workers_dev = true
+keep_vars = true
+
+[assets]
+directory = "web/assets"
+binding = "ASSETS"
+run_worker_first = true
+
+# Needed once (Dashboard > Worker > Settings > Variables and Secrets, type "Secret"):
+#   SECRET = any long random string   (encrypts the one-click "private link")

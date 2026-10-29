@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>⚡ Alireza</title>
+<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,__ICON__">
+<style>
+:root{--bg:#080a18;--bg2:#0e1230;--card:#12173acc;--card2:#1a2050;--line:#29316b;--fg:#eef0fb;--mute:#98a1c7;--p:#7c5cff;--c:#00d1c4;--hot:#ff4fd8;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--r:20px}
+@media(prefers-color-scheme:light){:root{--bg:#f2f3fb;--bg2:#e4e7fb;--card:#ffffffdd;--card2:#eef0ff;--line:#d3d8f0;--fg:#161a33;--mute:#5a6184}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{min-height:100vh;color:var(--fg);font:14.5px/1.8 'Segoe UI',Tahoma,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+background:radial-gradient(900px 520px at 90% -12%,#7c5cff38,transparent 60%),radial-gradient(760px 480px at -5% 8%,#00d1c426,transparent 60%),radial-gradient(700px 460px at 50% 112%,#ff4fd81f,transparent 60%),var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 14px 90px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:22px}
+.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,var(--p),var(--c));box-shadow:0 0 30px #7c5cff66}
+.brand small{display:block;font-size:11.5px;font-weight:600;color:var(--mute);direction:ltr;text-align:right}
+.top{display:flex;gap:8px;flex-wrap:wrap}
+.btn{cursor:pointer;border:0;border-radius:13px;padding:9px 15px;font:inherit;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--p),var(--c));box-shadow:0 6px 20px #7c5cff40;transition:.15s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn:active{transform:none}.btn:disabled{opacity:.5;cursor:wait}
+.btn.g{background:var(--card);color:var(--fg);border:1px solid var(--line);box-shadow:none}
+.btn.hot{background:linear-gradient(135deg,var(--hot),var(--p));box-shadow:0 6px 20px #ff4fd840}
+.btn.ok{background:linear-gradient(135deg,var(--ok),var(--c))}.btn.bad{background:linear-gradient(135deg,var(--bad),var(--hot))}
+.btn.s{padding:6px 11px;font-size:12.5px;border-radius:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.st{padding:14px 16px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.st:before{content:"";position:absolute;inset-inline-end:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--c));opacity:.18}
+.st b{display:block;font-size:24px;line-height:1.3}.st span{color:var(--mute);font-size:12.5px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.bar input,.bar select,.f input,.f select,.f textarea,.f2 input,.f2 select{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:#0000002e;color:var(--fg);font:inherit;outline:none;min-width:0}
+@media(prefers-color-scheme:light){.bar input,.bar select,.f input,.f select,.f textarea,.f2 input,.f2 select{background:#fff}}
+.bar input:focus,.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px #7c5cff33}
+.bar .grow{flex:1 1 200px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{cursor:pointer;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:12.5px;font-weight:700;color:var(--fg);user-select:none}
+.chip.on{background:linear-gradient(135deg,var(--p),var(--c));border-color:transparent;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.u{padding:15px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:9px;transition:.15s}
+.u:hover{border-color:#7c5cff88;box-shadow:0 10px 36px #7c5cff22}
+.u.off{opacity:.72}
+.uh{display:flex;align-items:center;gap:9px}
+.uh .n{font-weight:800;font-size:15.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.pill{padding:1px 10px;border-radius:99px;font-size:11.5px;font-weight:800;white-space:nowrap}
+.pill.ok{background:#22c55e26;color:#4ade80}.pill.no{background:#ef444426;color:#f87171}.pill.w{background:#f59e0b26;color:#fbbf24}.pill.p{background:#7c5cff26;color:#a78bfa}
+.dot{width:9px;height:9px;border-radius:50%;background:#64748b;flex:none}.dot.on{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.pb{height:8px;border-radius:9px;background:#7c5cff26;overflow:hidden}.pb i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--p),var(--c))}.pb i.w{background:linear-gradient(90deg,var(--warn),var(--bad))}
+.ur{display:flex;justify-content:space-between;color:var(--mute);font-size:12.5px;gap:8px}.ur b{color:var(--fg)}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2px}.acts .btn{justify-content:center;padding:7px 6px}
+.empty{text-align:center;color:var(--mute);padding:60px 10px}
+.sel{position:fixed;inset-inline:0;bottom:calc(14px + env(safe-area-inset-bottom));display:none;justify-content:center;z-index:30}
+.sel.on{display:flex}.sel div{display:flex;gap:7px;flex-wrap:wrap;padding:10px 14px;border-radius:18px;background:var(--card2);border:1px solid var(--line);box-shadow:0 14px 50px #000a;align-items:center;max-width:96vw}
+/* modals */
+.m{position:fixed;inset:0;background:#000b;backdrop-filter:blur(5px);display:none;align-items:flex-start;justify-content:center;padding:14px;overflow:auto;z-index:50}
+.m.on{display:flex}
+.mc{width:min(720px,100%);margin:auto;background:var(--bg2);border:1px solid var(--line);border-radius:24px;box-shadow:0 30px 90px #000a;overflow:hidden}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#7c5cff22,#00d1c411)}
+.mh h3{font-size:16.5px}.x{cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#ffffff12;font-size:16px}
+.mb{padding:16px 18px;max-height:72vh;overflow:auto}.mf{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;padding:10px 18px 0;overflow:auto}.tab{cursor:pointer;padding:7px 14px;border-radius:12px 12px 0 0;font-weight:800;color:var(--mute);white-space:nowrap}.tab.on{color:#fff;background:linear-gradient(135deg,var(--p),var(--c))}
+.pane{display:none}.pane.on{display:block}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}.f>div{display:flex;flex-direction:column;gap:3px;min-width:0}.f .w2{grid-column:1/-1}
+@media(max-width:560px){.f{grid-template-columns:1fr}}
+label.l{font-size:12.5px;font-weight:700;color:var(--mute)}
+.f input,.f select,.f textarea{width:100%;direction:ltr;text-align:left}.f textarea{min-height:90px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.sw,.f>.sw{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:14px;background:#ffffff0a;border:1px solid var(--line)}
+.sw .t{font-weight:700}.sw .d{font-size:11.5px;color:var(--mute)}
+.tg{position:relative;flex:none;width:46px;height:27px}.tg input{position:absolute;opacity:0;inset:0;z-index:2;cursor:pointer;width:100%;height:100%}
+.tg span{position:absolute;inset:0;border-radius:99px;background:#64748b66;transition:.2s}.tg span:after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s}
+.tg input:checked+span{background:linear-gradient(135deg,var(--ok),var(--c))}.tg input:checked+span:after{transform:translateX(-19px)}
+.hint{color:var(--mute);font-size:12px}
+.loc{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px;max-height:250px;overflow:auto;margin-top:8px}
+.lc{cursor:pointer;padding:8px 11px;border-radius:13px;border:1px solid var(--line);background:#ffffff08;display:flex;gap:9px;align-items:center}
+.lc:hover{border-color:var(--p)}.lc.on{border-color:transparent;background:linear-gradient(135deg,#7c5cff55,#00d1c433)}
+.lc .fl{font-size:22px}.lc b{display:block;font-size:13px;line-height:1.35}.lc span{font-size:11.5px;color:var(--mute);direction:ltr;display:block;text-align:right}
+.lks{display:flex;flex-direction:column;gap:7px}.lk{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;background:#ffffff0a;border:1px solid var(--line)}
+.lk code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left;font-size:11.5px;color:var(--mute)}
+.lk b{font-size:12.5px;max-width:42%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qr{display:block;margin:10px auto;border-radius:14px;background:#fff;padding:8px;width:210px;height:210px}
+textarea.big{width:100%;min-height:200px;direction:ltr;text-align:left;padding:10px;border-radius:12px;border:1px solid var(--line);background:#0003;color:var(--fg);font:11.5px/1.6 ui-monospace,Menlo,monospace}
+#toast{position:fixed;inset-inline:0;bottom:calc(76px + env(safe-area-inset-bottom));display:flex;justify-content:center;pointer-events:none;z-index:99}
+#toast div{padding:10px 18px;border-radius:14px;color:#fff;font-weight:800;box-shadow:0 10px 30px #0009;opacity:0;transform:translateY(10px);transition:.25s;max-width:92vw}#toast div.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><div class="logo">⚡</div><div>Alireza<small id="host">…</small></div></div>
+  <div class="top">
+    <button class="btn" onclick="openUser()">＋ کاربر جدید</button>
+    <button class="btn hot" id="bNF" onclick="noFilter(this)">no filtering</button>
+    <button class="btn g" id="bAll" onclick="copyAll(this)">📋 کپی همه</button>
+    <button class="btn g" onclick="openSettings()">⚙ تنظیمات</button>
+    <a class="btn g" id="bpb" href="#">BPB</a>
+    <button class="btn g" onclick="logout()">خروج</button>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="st"><b id="sU">0</b><span>کاربران</span></div>
+  <div class="st"><b id="sA">0</b><span>فعال</span></div>
+  <div class="st"><b id="sO">0</b><span>آنلاین</span></div>
+  <div class="st"><b id="sT">0</b><span>ترافیک کل (GB)</span></div>
+  <div class="st"><b id="sR">—</b><span>ریکوئست امروز ورکر</span></div>
+</div>
+
+<div class="bar">
+  <input class="grow" id="q" placeholder="🔎 جستجوی کاربر…" oninput="render()">
+  <div class="chips" id="flt"></div>
+  <select id="sort" onchange="render()"><option value="new">جدیدترین</option><option value="name">نام</option><option value="used">مصرف</option><option value="exp">انقضا</option></select>
+</div>
+<div class="grid" id="grid"></div>
+</div>
+
+<div class="sel" id="sel"><div><b id="selN"></b>
+  <button class="btn s ok" onclick="bulk('enable')">فعال</button><button class="btn s g" onclick="bulk('disable')">غیرفعال</button>
+  <button class="btn s g" onclick="bulk('reset')">ریست مصرف</button><button class="btn s g" onclick="openBulk()">اعمال تنظیمات</button>
+  <button class="btn s bad" onclick="bulk('delete')">حذف</button><button class="btn s g" onclick="selAll(false)">✕</button></div></div>
+
+<!-- user editor -->
+<div class="m" id="mU"><div class="mc">
+  <div class="mh"><h3 id="uT">کاربر جدید</h3><div class="x" onclick="closeM('mU')">✕</div></div>
+  <div class="tabs"><div class="tab on" data-t="t1">مشخصات</div><div class="tab" data-t="t2">شبکه و آی‌پی</div><div class="tab" data-t="t3">لوکیشن و پروکسی</div><div class="tab" data-t="t4">پیشرفته</div></div>
+  <div class="mb">
+   <div class="pane on" id="t1"><div class="f">
+    <div class="w2"><label class="l">نام کاربری</label><input id="fName" placeholder="ali"></div>
+    <div class="w2"><label class="l">پروتکل‌ها</label><div class="chips"><span class="chip on" id="pV" onclick="this.classList.toggle('on')">VLESS</span><span class="chip on" id="pT" onclick="this.classList.toggle('on')">Trojan</span></div></div>
+    <div><label class="l">حجم (GB) — خالی = نامحدود</label><input id="fLim" type="number" step="any" min="0"></div>
+    <div><label class="l">اعتبار (روز) — خالی = نامحدود</label><input id="fExp" type="number" min="0"></div>
+    <div><label class="l">تعداد ریکوئست</label><input id="fReq" type="number" min="0"></div>
+    <div><label class="l">محدودیت آی‌پی همزمان</label><input id="fIpl" type="number" min="0"></div>
+    <div class="w2 sw"><div><div class="t">شروع اعتبار از اولین اتصال</div><div class="d">زمان از اولین اتصال کاربر حساب می‌شه</div></div><label class="tg"><input type="checkbox" id="fFirst"><span></span></label></div>
+    <div><label class="l">تمدید خودکار حجم (روز)</label><input id="fArV" type="number" min="0"></div>
+    <div><label class="l">تمدید خودکار ریکوئست (روز)</label><input id="fArR" type="number" min="0"></div>
+    <div class="w2"><label class="l">یادداشت</label><input id="fNote"></div>
+   </div></div>
+   <div class="pane" id="t2"><div class="f">
+    <div class="w2"><label class="l">آی‌پی‌ها / دامنه‌ها (هر خط یکی)</label><textarea id="fIps" placeholder="104.16.1.1&#10;2606:4700::1"></textarea></div>
+    <div><label class="l">اپراتور</label><select id="fOp"><option value="all">all</option></select></div>
+    <div><label class="l">تعداد آی‌پی</label><input id="fCnt" type="number" min="1" max="200" value="15"></div>
+    <div class="w2" style="flex-direction:row;gap:8px"><button class="btn s ok" type="button" onclick="fillIps()">⬇ گرفتن از Ip.txt</button><button class="btn s g" type="button" onclick="document.getElementById('fIps').value=''">پاک کردن</button></div>
+    <div class="sw"><div><div class="t">چرخش خودکار آی‌پی</div><div class="d">هر چند دقیقه آی‌پی‌ها عوض بشه</div></div><label class="tg"><input type="checkbox" id="fRot"><span></span></label></div>
+    <div><label class="l">هر … دقیقه</label><input id="fRotT" type="number" min="1" value="60"></div>
+    <div><label class="l">پورت‌ها (با کاما)</label><input id="fPort" value="443"></div>
+    <div><label class="l">فینگرپرینت TLS</label><select id="fFp"></select></div>
+    <div><label class="l">Fragment طول</label><input id="fFl" placeholder="200-3000"></div>
+    <div><label class="l">Fragment فاصله</label><input id="fFi" placeholder="1-2"></div>
+   </div></div>
+   <div class="pane" id="t3">
+    <p class="hint">لوکیشن (IATA): ورکر برای این کاربر فقط از آی‌پی‌های همون لوکیشن (IPv4 و IPv6) استفاده می‌کنه و آی‌پی ثابت می‌مونه. برای هر لوکیشن یک ست کانفیگ با اسم و پرچم همون کشور ساخته می‌شه. اگه خالی بمونه، لوکیشن‌های کلی (تنظیمات) اعمال می‌شن.</p>
+    <div id="uLocBox"></div>
+    <div class="f" style="margin-top:12px">
+     <div class="w2"><label class="l">پروکسی SOCKS5 / HTTP (هر خط یکی؛ اختیاری: <code>پروکسی | کشور</code>)</label><textarea id="fSocks" placeholder="socks5://user:pass@1.2.3.4:1080 | DE"></textarea></div>
+     <div class="w2" style="flex-direction:row;gap:8px"><input id="tpIn" style="flex:1" placeholder="تست یک پروکسی…"><button class="btn s g" type="button" onclick="testProxy()">تست</button></div><div class="w2 hint" id="tpOut"></div>
+     <div class="sw"><div><div class="t">کانفیگ مستقیم هم باشه</div><div class="d">کنار پروکسی‌ها</div></div><label class="tg"><input type="checkbox" id="fDir" checked><span></span></label></div>
+     <div class="sw"><div><div class="t">IPv6</div><div class="d">آی‌پی‌های IPv6 لوکیشن هم استفاده بشن</div></div><label class="tg"><input type="checkbox" id="fV6" checked><span></span></label></div>
+    </div></div>
+   <div class="pane" id="t4"><div class="f">
+    <div class="sw"><div><div class="t">مسدودسازی محتوای غیراخلاقی</div></div><label class="tg"><input type="checkbox" id="fPorn"><span></span></label></div>
+    <div class="sw"><div><div class="t">مسدودسازی تبلیغات</div></div><label class="tg"><input type="checkbox" id="fAds"><span></span></label></div>
+    <div class="w2"><label class="l">Advanced fragment (JSON)</label><textarea id="fFm"></textarea></div>
+    <div class="w2"><label class="l">Cipher suites</label><input id="fCs"></div>
+    <div><label class="l">TLS mask (SNI)</label><input id="fMask"></div>
+    <div><label class="l">ECH</label><input id="fEch" placeholder="cloudflare-ech.com+udp://1.1.1.1"></div>
+   </div></div>
+  </div>
+  <div class="mf"><button class="btn g" onclick="closeM('mU')">انصراف</button><button class="btn" id="uSave" onclick="saveUser()">ذخیره</button></div>
+</div></div>
+
+<!-- info -->
+<div class="m" id="mI"><div class="mc"><div class="mh"><h3 id="iT">اطلاعات</h3><div class="x" onclick="closeM('mI')">✕</div></div>
+ <div class="mb" id="iB"></div></div></div>
+
+<!-- text -->
+<div class="m" id="mX"><div class="mc"><div class="mh"><h3 id="xT"></h3><div class="x" onclick="closeM('mX')">✕</div></div>
+ <div class="mb"><textarea class="big" id="xA" readonly></textarea></div><div class="mf"><button class="btn" onclick="copyText(el('xA').value)">کپی</button></div></div></div>
+
+<!-- bulk -->
+<div class="m" id="mB"><div class="mc"><div class="mh"><h3>اعمال تنظیمات روی کاربران انتخاب‌شده</h3><div class="x" onclick="closeM('mB')">✕</div></div>
+ <div class="mb"><div class="f">
+  <div><label class="l">فینگرپرینت</label><select id="bFp"><option value="">— بدون تغییر —</option></select></div>
+  <div><label class="l">پورت‌ها</label><input id="bPort" placeholder="بدون تغییر"></div>
+  <div><label class="l">Fragment طول</label><input id="bFl" placeholder="بدون تغییر"></div><div><label class="l">Fragment فاصله</label><input id="bFi" placeholder="بدون تغییر"></div>
+  <div class="w2"><label class="l">پروتکل‌ها</label><select id="bPr"><option value="">— بدون تغییر —</option><option value="vless">فقط VLESS</option><option value="trojan">فقط Trojan</option><option value="vless,trojan">هر دو</option></select></div>
+ </div></div><div class="mf"><button class="btn" onclick="applyBulk()">اعمال</button></div></div></div>
+
+<!-- settings -->
+<div class="m" id="mS"><div class="mc">
+ <div class="mh"><h3>⚙ تنظیمات علیرضا</h3><div class="x" onclick="closeM('mS')">✕</div></div>
+ <div class="tabs"><div class="tab on" data-t="s1">🌍 لوکیشن (IATA)</div><div class="tab" data-t="s2">🧼 آی‌پی تمیز</div><div class="tab" data-t="s3">🎛 کلیدها</div><div class="tab" data-t="s4">🛠 سیستم</div></div>
+ <div class="mb">
+  <div class="pane on" id="s1">
+   <p class="hint">لوکیشن‌هایی که اینجا انتخاب می‌کنی برای همه‌ی کاربرها (و خود BPB) اعمال می‌شه. برای هر لوکیشن آی‌پی ثابت (IPv4 و IPv6) ذخیره می‌شه و تا وقتی «به‌روزرسانی» نزنی عوض نمی‌شه. اسم، کشور و پرچم هر کانفیگ مال همون کشوره.</p>
+   <div id="gLocBox"></div>
+   <div class="f" style="margin-top:12px"><div><label class="l">نوع آی‌پی</label><select id="gFam"><option value="auto">خودکار (اول IPv4)</option><option value="v4">فقط IPv4</option><option value="v6">فقط IPv6</option><option value="both">هر دو</option></select></div>
+   <div><label class="l">منبع آی‌پی لوکیشن</label><input id="gSrc"></div></div>
+  </div>
+  <div class="pane" id="s2"><div class="f">
+   <div class="w2 sw"><div><div class="t">استفاده از آی‌پی تمیز</div><div class="d">کاربر جدید خودکار آی‌پی تمیز می‌گیره</div></div><label class="tg"><input type="checkbox" id="cEn"><span></span></label></div>
+   <div class="w2"><label class="l">آدرس منبع (Ip.txt)</label><input id="cSrc"></div>
+   <div><label class="l">به‌روزرسانی خودکار (دقیقه)</label><input id="cTtl" type="number" min="5"></div>
+   <div style="justify-content:flex-end"><button class="btn ok" id="bSync" onclick="syncClean()">⟳ همگام‌سازی الان</button></div>
+   <div class="w2 hint" id="cInfo"></div>
+  </div></div>
+  <div class="pane" id="s3"><div class="f">
+   <div class="w2 sw"><div><div class="t">📢 کانفیگ‌های اطلاع‌رسانی</div><div class="d">پیام‌ها + حجم/زمان/ریکوئست باقی‌مانده</div></div><label class="tg"><input type="checkbox" id="kInfo"><span></span></label></div>
+   <div class="w2 sw"><div><div class="t">🚀 بهینه‌ساز (Patterniha) — همه کاربران</div><div class="d">فرگمنت پیشرفته + سایفر روی همه لینک‌های TLS</div></div><label class="tg"><input type="checkbox" id="kPat"><span></span></label></div>
+   <div class="w2 sw"><div><div class="t">🔐 Chrome + ECH — همه کاربران</div><div class="d">fingerprint کروم + پارامتر ech</div></div><label class="tg"><input type="checkbox" id="kEch"><span></span></label></div>
+   <div><label class="l">ECH SNI</label><input id="kSni"></div><div><label class="l">ECH DoH</label><input id="kDoh"></div>
+   <div class="w2"><label class="l">متن کانفیگ اطلاع‌رسانی ۱</label><input id="kT1" style="direction:rtl;text-align:right"></div>
+   <div class="w2"><label class="l">متن کانفیگ اطلاع‌رسانی ۲</label><input id="kT2" style="direction:rtl;text-align:right"></div>
+  </div></div>
+  <div class="pane" id="s4"><div class="f">
+   <div class="w2"><label class="l">هر چند دقیقه دیتابیس (D1) خونده بشه: <b id="cmV">5</b> دقیقه</label><input type="range" id="gCache" min="1" max="30" oninput="el('cmV').textContent=this.value" style="padding:0"></div>
+   <div class="w2 hint">کاربران، تنظیمات و ورود به‌صورت حافظه‌ی موقت نگه داشته می‌شن؛ تغییراتی که از پنل می‌زنی همین‌جا فوراً اعمال می‌شه ولی روی بقیه‌ی سرورها تا این مدت طول می‌کشه. حجم مصرفی هم به همین فاصله روی D1 نوشته می‌شه.</div>
+   <div class="w2"><label class="l">تغییر رمز عبور</label><input id="gPw" type="password" placeholder="رمز جدید (حداقل ۴ حرف)"></div>
+   <div class="w2" style="flex-direction:row"><button class="btn g" onclick="changePw()">تغییر رمز</button></div>
+  </div></div>
+ </div>
+ <div class="mf"><button class="btn g" onclick="closeM('mS')">بستن</button><button class="btn" onclick="saveSettings()">ذخیره</button></div>
+</div></div>
+
+<div id="toast"><div id="tI"></div></div>
+
+<script>
+const el=id=>document.getElementById(id),ROOT=location.pathname.replace(/\/alireza\/?$/,''),API=ROOT+'/alireza/api/';
+const dnFa=(()=>{try{return new Intl.DisplayNames(['fa'],{type:'region'})}catch{return null}})(),dnEn=(()=>{try{return new Intl.DisplayNames(['en'],{type:'region'})}catch{return null}})();
+const nameFa=c=>{try{return dnFa&&dnFa.of(c)||c}catch{return c}},nameEn=c=>{try{return dnEn&&dnEn.of(c)||c}catch{return c}};
+const flag=c=>/^[A-Za-z]{2}$/.test(c||'')?String.fromCodePoint(...[...c.toUpperCase()].map(x=>127397+x.charCodeAt(0))):'🌐';
+let S={},U=[],COLOS=[],CLEAN=null,LOCIPS={},editing=null,flt='all',picked=new Set(),tt;
+const FPS=['chrome','firefox','safari','ios','android','edge','360','qq','random','randomized','unsafe'];
+function toast(m,ok=true){const e=el('tI');e.textContent=m;e.style.background=ok?'linear-gradient(135deg,#22c55e,#00d1c4)':'linear-gradient(135deg,#ef4444,#ff4fd8)';e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),2800)}
+async function api(p,method='GET',body){const r=await fetch(API+p,{method,headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});if(r.status===401){location.href=ROOT+'/login';throw new Error('401')}const j=await r.json();if(!j.success)throw new Error(j.message||'خطا');return j.body}
+async function copyText(t){try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}toast('کپی شد ✓')}
+const openM=id=>el(id).classList.add('on'),closeM=id=>el(id).classList.remove('on');
+document.querySelectorAll('.tabs').forEach(tb=>tb.addEventListener('click',e=>{const t=e.target.dataset.t;if(!t)return;tb.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===e.target));const mc=tb.closest('.mc');mc.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id===t))}));
+el('bpb').href=ROOT+'/panel';
+const fmtGb=n=>n>=100?n.toFixed(0):n>=10?n.toFixed(1):n.toFixed(2);
+async function logout(){try{await fetch(ROOT+'/panel/logout')}catch{}location.href=ROOT+'/login'}
+
+/* ---------- load / render ---------- */
+async function load(){try{const [s,u]=await Promise.all([api('state'),api('users')]);S=s.settings;LOCIPS=s.loc_ips||{};CLEAN=s.clean;U=u;
+ el('host').textContent=s.host;el('sU').textContent=s.stats.users;el('sA').textContent=s.stats.active;el('sO').textContent=s.stats.online;el('sT').textContent=s.stats.used_gb;el('sR').textContent=s.usage?Number(s.usage.worker).toLocaleString():'—';render()}catch(e){toast(e.message,false)}}
+function fltBar(){const l=[['all','همه'],['active','فعال'],['off','غیرفعال'],['exp','منقضی/تموم']];el('flt').innerHTML='';l.forEach(([k,t])=>{const c=document.createElement('span');c.className='chip'+(flt===k?' on':'');c.textContent=t;c.onclick=()=>{flt=k;render()};el('flt').appendChild(c)})}
+const stateTxt={disabled:['غیرفعال','no'],expired:['منقضی','no'],volume:['حجم تموم','w'],requests:['ریکوئست تموم','w']};
+function render(){fltBar();const q=el('q').value.trim().toLowerCase();let l=U.filter(u=>(!q||u.username.toLowerCase().includes(q)||(u.note||'').toLowerCase().includes(q))&&(flt==='all'||(flt==='active'&&!u.state)||(flt==='off'&&u.state==='disabled')||(flt==='exp'&&u.state&&u.state!=='disabled')));
+ const so=el('sort').value;l.sort((a,b)=>so==='name'?a.username.localeCompare(b.username):so==='used'?b.used_gb-a.used_gb:so==='exp'?(a.expiry_at||9e15)-(b.expiry_at||9e15):b.id-a.id);
+ const g=el('grid');g.innerHTML='';if(!l.length){g.innerHTML='<div class="empty" style="grid-column:1/-1">کاربری پیدا نشد.<br>با «＋ کاربر جدید» شروع کن.</div>';return}
+ l.forEach(u=>{const pct=u.limit_gb?Math.min(100,u.used_gb/u.limit_gb*100):0,[st,cl]=u.state?(stateTxt[u.state]||['غیرفعال','no']):['فعال','ok'];
+  const d=document.createElement('div');d.className='u'+(u.state?' off':'');
+  const exp=u.expiry_at?Math.max(0,Math.ceil((u.expiry_at-Date.now())/864e5))+' روز':(u.expiry_days&&u.start_on_first_connect?'از اولین اتصال':'نامحدود');
+  const locs=(u.locations&&u.locations.length?u.locations:(S.locations||[])).map(i=>{const r=LOCIPS[i];return `<span class="pill p">${flag(r&&r.cc)} ${i}</span>`}).join('');
+  d.innerHTML=`<div class="uh"><input type="checkbox" ${picked.has(u.id)?'checked':''} onchange="pick(${u.id},this.checked)"><span class="dot ${u.online||u.recent?'on':''}"></span><div class="n">${esc(u.username)}</div><span class="pill ${cl}">${st}</span></div>
+  <div><div class="ur"><span>حجم</span><b>${fmtGb(u.used_gb)} / ${u.limit_gb?u.limit_gb+' GB':'∞'}</b></div><div class="pb"><i class="${pct>85?'w':''}" style="width:${u.limit_gb?Math.max(pct,2):100}%;${u.limit_gb?'':'opacity:.3'}"></i></div></div>
+  <div class="ur"><span>اعتبار: <b>${exp}</b></span><span>ریکوئست: <b>${u.used_req.toLocaleString()}${u.limit_req?'/'+u.limit_req.toLocaleString():''}</b></span></div>
+  <div class="tags">${u.protocols_list.map(p=>`<span class="pill ${p==='vless'?'ok':'w'}">${p==='vless'?'VLESS':'Trojan'}</span>`).join('')}${locs}${u.socks.length?`<span class="pill p">SOCKS×${u.socks.length}</span>`:''}${u.ip_limit?`<span class="pill p">${u.online}/${u.ip_limit} IP</span>`:''}</div>
+  <div class="acts"><button class="btn s" onclick="copyText('${u.sub}')">اشتراک</button><button class="btn s g" onclick="info(${u.id})">ℹ لینک‌ها</button><button class="btn s g" onclick="openUser(${u.id})">ویرایش</button>
+  <button class="btn s g" onclick="act(${u.id},'toggle')">${u.is_active?'خاموش':'روشن'}</button><button class="btn s g" title="ریست مصرف" onclick="act(${u.id},'reset')">ریست</button><button class="btn s bad" onclick="del(${u.id})">حذف</button></div>`;
+  g.appendChild(d)});sel()}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function pick(id,on){on?picked.add(id):picked.delete(id);sel()}function selAll(on){picked.clear();render()}
+function sel(){el('sel').classList.toggle('on',picked.size>0);el('selN').textContent=picked.size+' انتخاب'}
+async function act(id,a){try{await api('users/'+id+'/'+a,'POST',{});toast('انجام شد ✓');load()}catch(e){toast(e.message,false)}}
+function del(id){if(confirm('این کاربر حذف بشه؟')){api('users/'+id,'DELETE').then(()=>{toast('حذف شد');load()}).catch(e=>toast(e.message,false))}}
+async function bulk(a){if(a==='delete'&&!confirm(picked.size+' کاربر حذف بشن؟'))return;try{await api('users/bulk','POST',{action:a,ids:[...picked]});picked.clear();toast('انجام شد ✓');load()}catch(e){toast(e.message,false)}}
+function openBulk(){const s=el('bFp');if(s.options.length<2)FPS.forEach(f=>s.add(new Option(f,f)));openM('mB')}
+async function applyBulk(){const f={};if(el('bFp').value)f.fingerprint=el('bFp').value;if(el('bPort').value.trim())f.port=el('bPort').value.trim();if(el('bFl').value.trim())f.frag_len=el('bFl').value.trim();if(el('bFi').value.trim())f.frag_int=el('bFi').value.trim();if(el('bPr').value)f.protocols=el('bPr').value;
+ if(!Object.keys(f).length)return toast('چیزی انتخاب نشده',false);try{await api('users/bulk','POST',{action:'apply',ids:[...picked],fields:f});closeM('mB');toast('اعمال شد ✓');load()}catch(e){toast(e.message,false)}}
+
+/* ---------- location picker (shared) ---------- */
+async function colos(){if(!COLOS.length){try{COLOS=(await api('locations')).colos||[]}catch{}}return COLOS}
+function locPicker(box,get,set){
+ const b=el(box);b.innerHTML=`<input class="lq" placeholder="🔎 جستجو: کشور، شهر یا کد IATA (مثلاً فرانسه، Amsterdam، FRA)" style="width:100%;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:#0000002e;color:var(--fg);font:inherit"><div class="chips" style="margin-top:8px" id="${box}_sel"></div><div class="loc" id="${box}_l"></div>`;
+ const q=b.querySelector('.lq'),L=el(box+'_l'),SEL=el(box+'_sel');
+ const paint=()=>{const cur=get(),t=q.value.trim().toLowerCase();
+  SEL.innerHTML='';cur.forEach(i=>{const r=LOCIPS[i]||{},c=document.createElement('span');c.className='chip on';c.innerHTML=`${flag(r.cc)} ${i}${r.cc?' · '+nameFa(r.cc):''} <small>${r.v4!==undefined?'v4:'+r.v4+' v6:'+r.v6:''}</small> ✕`;c.onclick=()=>{set(cur.filter(x=>x!==i));paint()};SEL.appendChild(c)});
+  const res=COLOS.filter(c=>!t||(c.iata+' '+c.city+' '+c.cca2+' '+nameEn(c.cca2)+' '+nameFa(c.cca2)).toLowerCase().includes(t)).slice(0,t?120:60);
+  L.innerHTML='';res.forEach(c=>{const d=document.createElement('div');d.className='lc'+(cur.includes(c.iata)?' on':'');d.innerHTML=`<div class="fl">${flag(c.cca2)}</div><div><b>${nameFa(c.cca2)}</b><span>${esc(c.city)} · ${c.iata} · ${c.cca2}</span></div>`;
+   d.onclick=async()=>{const now=get(),had=now.includes(c.iata),n=had?now.filter(x=>x!==c.iata):[...now,c.iata].slice(0,8);set(n);paint();if(!had){try{const r=await api('locations/resolve','POST',{iata:c.iata});LOCIPS[c.iata]={cc:r.cc,city:r.city,v4:r.v4.length,v6:r.v6.length,ts:r.ts};toast(c.iata+': '+r.v4.length+' آی‌پی IPv4 و '+r.v6.length+' آی‌پی IPv6')}catch(e){toast('آی‌پی این لوکیشن پیدا نشد: '+e.message,false)}paint()}};L.appendChild(d)});
+  if(!res.length)L.innerHTML='<div class="hint" style="padding:10px">چیزی پیدا نشد</div>'};
+ q.oninput=paint;colos().then(paint);paint()}
+
+/* ---------- user editor ---------- */
+let uLoc=[],sLoc=[];
+async function cleanOps(){if(!CLEAN){try{CLEAN=await api('clean')}catch{}}const s=el('fOp');s.innerHTML='<option value="all">all (همه)</option>';if(CLEAN)Object.entries(CLEAN.ops).forEach(([k,n])=>s.add(new Option(k+' ('+n+')',k)))}
+async function openUser(id){editing=id||null;const u=id?U.find(x=>x.id===id):null;el('uT').textContent=u?'ویرایش '+u.username:'کاربر جدید';
+ if(el('fFp').options.length<1)FPS.forEach(f=>el('fFp').add(new Option(f,f)));await cleanOps();
+ const v=(i,x)=>el(i).value=x??'',c=(i,x)=>el(i).checked=!!x;
+ v('fName',u?.username);const pr=u?u.protocols_list:['vless','trojan'];el('pV').classList.toggle('on',pr.includes('vless'));el('pT').classList.toggle('on',pr.includes('trojan'));
+ v('fLim',u?.limit_gb);v('fExp',u?.expiry_days);v('fReq',u?.limit_req);v('fIpl',u?.ip_limit);c('fFirst',u?.start_on_first_connect);v('fArV',u?.auto_reset_vol_days||'');v('fArR',u?.auto_reset_req_days||'');v('fNote',u?.note);
+ v('fIps',u?.ips);v('fOp',u?.ip_operator||'all');v('fCnt',u?.ip_count||15);c('fRot',u?.auto_rotate_ip);v('fRotT',u?.rotate_time||60);v('fPort',u?.port||'443');v('fFp',u?.fingerprint||'chrome');v('fFl',u?.frag_len);v('fFi',u?.frag_int);
+ uLoc=u?[...u.locations]:[];v('fSocks',(u?.socks||[]).map(s=>s.proxy+(s.country?' | '+s.country:'')).join('\n'));c('fDir',u?u.enable_direct!==0:true);c('fV6',u?u.user_ipv6!==0:true);
+ c('fPorn',u?.block_porn);c('fAds',u?.block_ads);v('fFm',u?.advanced_frag);v('fCs',u?.cipher_suites);v('fMask',u?.tls_mask);v('fEch',u?.ech_config);
+ locPicker('uLocBox',()=>uLoc,x=>uLoc=x);openM('mU')}
+async function fillIps(){try{const r=await api('clean/ips?operator='+encodeURIComponent(el('fOp').value)+'&count='+(el('fCnt').value||15));el('fIps').value=r.ips.join('\n');toast(r.ips.length+' آی‌پی تمیز گرفته شد')}catch(e){toast(e.message,false)}}
+async function testProxy(){const p=el('tpIn').value.trim()||el('fSocks').value.split('\n')[0].split('|')[0].trim();if(!p)return;el('tpOut').textContent='در حال تست…';try{const r=await api('test-proxy','POST',{proxy:p});el('tpOut').textContent='✅ '+(r.query||'')+' — '+flag(r.countryCode)+' '+(r.country||r.countryCode)}catch(e){el('tpOut').textContent='❌ '+e.message}}
+async function saveUser(){const num=i=>el(i).value===''?null:Number(el(i).value);
+ const pr=[el('pV').classList.contains('on')&&'vless',el('pT').classList.contains('on')&&'trojan'].filter(Boolean);
+ const socks=el('fSocks').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const [p,c]=l.split('|').map(x=>x.trim());return {proxy:p,country:(c||'').toUpperCase()}});
+ const b={username:el('fName').value.trim(),protocols:pr,limit_gb:num('fLim'),expiry_days:num('fExp')||null,limit_req:num('fReq')||null,ip_limit:num('fIpl')||null,start_on_first_connect:el('fFirst').checked,auto_reset_vol_days:num('fArV')||0,auto_reset_req_days:num('fArR')||0,note:el('fNote').value,
+  ips:el('fIps').value,ip_operator:el('fOp').value,ip_count:num('fCnt')||15,auto_rotate_ip:el('fRot').checked,rotate_time:el('fRot').checked?(num('fRotT')||60):0,port:el('fPort').value,fingerprint:el('fFp').value,frag_len:el('fFl').value,frag_int:el('fFi').value,
+  user_locations:uLoc,user_socks5:socks,enable_direct:el('fDir').checked,user_ipv6:el('fV6').checked,block_porn:el('fPorn').checked,block_ads:el('fAds').checked,advanced_frag:el('fFm').value,cipher_suites:el('fCs').value,tls_mask:el('fMask').value,ech_config:el('fEch').value};
+ const btn=el('uSave');btn.disabled=true;try{editing?await api('users/'+editing,'PUT',b):await api('users','POST',b);closeM('mU');toast(editing?'ذخیره شد ✓':'کاربر ساخته شد ✓');load()}catch(e){toast(e.message,false)}finally{btn.disabled=false}}
+
+/* ---------- info / links ---------- */
+async function info(id){try{const r=await api('users/'+id+'/links');el('iT').textContent=r.username;
+ const q=ROOT+'/qrcode?data='+encodeURIComponent(r.sub);
+ el('iB').innerHTML=`<img class="qr" src="${q}" alt="QR" onerror="this.style.display='none'">
+ <div class="lks" style="margin-bottom:12px"><div class="lk"><b>اشتراک</b><code>${esc(r.sub)}</code><button class="btn s" onclick="copyText('${r.sub}')">کپی</button></div>
+ <div class="lk"><b>sing-box</b><code>${esc(r.singbox)}</code><button class="btn s" onclick="copyText('${r.singbox}')">کپی</button></div>
+ <div class="lk"><b>صفحه‌ی وضعیت</b><code>${esc(r.status)}</code><button class="btn s" onclick="copyText('${r.status}')">کپی</button></div></div>
+ <div class="ur" style="margin-bottom:8px"><b>${r.links.length} کانفیگ</b><button class="btn s ok" onclick='copyText(${JSON.stringify(r.text).replace(/'/g,"&#39;")})'>کپی همه</button></div>
+ <div class="lks">${r.links.map(l=>{let n='';try{n=decodeURIComponent(l.split('#')[1]||'')}catch{n=l.split('#')[1]||''}return `<div class="lk"><b>${esc(n)}</b><code>${esc(l)}</code><button class="btn s g" onclick='copyText(${JSON.stringify(l).replace(/'/g,"&#39;")})'>کپی</button></div>`}).join('')}</div>`;openM('mI')}catch(e){toast(e.message,false)}}
+
+/* ---------- top buttons ---------- */
+async function noFilter(b){if(!(S.locations||[]).length){toast('اول از تنظیمات یه لوکیشن (IATA) انتخاب کن',false);openSettings();return}
+ if(!confirm('۴ کاربر no filtering (۲ ECH + ۲ Patterniha) برای '+S.locations[0]+' ساخته بشه؟ بعداً هر کدوم رو می‌تونی ویرایش و ذخیره کنی.'))return;
+ b.disabled=true;try{const r=await api('nofilter','POST',{iata:S.locations[0]});toast('✅ '+r.created.length+' کانفیگ ساخته شد');load()}catch(e){toast(e.message,false)}finally{b.disabled=false}}
+async function copyAll(b){b.disabled=true;try{const r=await api('export');el('xT').textContent='همه کانفیگ‌ها ('+r.count+')';el('xA').value=r.text;openM('mX');await copyText(r.text)}catch(e){toast(e.message,false)}finally{b.disabled=false}}
+
+/* ---------- settings ---------- */
+function openSettings(){const v=(i,x)=>el(i).value=x??'',c=(i,x)=>el(i).checked=!!x;
+ sLoc=[...(S.locations||[])];locPicker('gLocBox',()=>sLoc,x=>sLoc=x);v('gFam',S.loc_family);v('gSrc',S.loc_source);
+ c('cEn',S.clean_enabled);v('cSrc',S.clean_source);v('cTtl',S.clean_ttl_min);el('cInfo').textContent=CLEAN?`آخرین همگام‌سازی: ${new Date(CLEAN.ts).toLocaleString('fa-IR')} — ${Object.values(CLEAN.ops).reduce((a,b)=>a+b,0)} آی‌پی در ${Object.keys(CLEAN.ops).length} اپراتور`:'هنوز همگام‌سازی نشده';
+ c('kInfo',S.info_configs);c('kPat',S.patterniha_all);c('kEch',S.patterniha_ech_all);v('kSni',S.ech_sni);v('kDoh',S.ech_doh);v('kT1',(S.info_texts||[])[0]);v('kT2',(S.info_texts||[])[1]);
+ v('gCache',S.cache_min);el('cmV').textContent=S.cache_min;openM('mS')}
+async function saveSettings(){const b={locations:sLoc,loc_family:el('gFam').value,loc_source:el('gSrc').value.trim(),clean_enabled:el('cEn').checked,clean_source:el('cSrc').value.trim(),clean_ttl_min:Number(el('cTtl').value)||360,
+ info_configs:el('kInfo').checked,patterniha_all:el('kPat').checked,patterniha_ech_all:el('kEch').checked,ech_sni:el('kSni').value.trim(),ech_doh:el('kDoh').value.trim(),info_texts:[el('kT1').value,el('kT2').value],cache_min:Number(el('gCache').value)};
+ try{await api('settings','POST',b);closeM('mS');toast('ذخیره شد ✓');load()}catch(e){toast(e.message,false)}}
+async function syncClean(){const b=el('bSync');b.disabled=true;try{CLEAN=await api('clean/sync','POST',{});el('cInfo').textContent=Object.values(CLEAN.ops).reduce((a,b)=>a+b,0)+' آی‌پی در '+Object.keys(CLEAN.ops).length+' اپراتور';toast('همگام شد ✓')}catch(e){toast(e.message,false)}finally{b.disabled=false}}
+async function changePw(){const p=el('gPw').value;if(p.length<4)return toast('حداقل ۴ حرف',false);try{await fetch(ROOT+'/panel/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});toast('رمز عوض شد، دوباره وارد شو');setTimeout(()=>location.href=ROOT+'/login',900)}catch(e){toast(e.message,false)}}
+load();setInterval(()=>{if(!document.querySelector('.m.on'))load()},60000);
+</script>
+</body>
+</html>
