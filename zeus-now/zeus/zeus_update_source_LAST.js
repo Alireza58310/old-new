@@ -352,8 +352,8 @@ async function readJsonBody(request) {
 async function fetchWithFallback(path, options = {}) {
 	// لیست آی‌پی‌ها از مخزن جدید گرفته می‌شه؛ بقیه‌ی فایل‌ها مثل قبل
 	const isIpsList = path === "ips.txt";
-	const primaryUrl = isIpsList ? "https://subs.alis1.ir/Ip.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/${path}`;
-	const fallbackUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/ips.txt" : primaryUrl;
+	const primaryUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/ips.txt" : `https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/${path}`;
+	const fallbackUrl = isIpsList ? "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/ips.txt" : primaryUrl;
 	try {
 		const res = await fetch(primaryUrl, options);
 		if (res.ok) return res;
@@ -361,8 +361,8 @@ async function fetchWithFallback(path, options = {}) {
 	return await fetch(fallbackUrl, options);
 }
 async function fetchWithFallbackVIP(path, options = {}) {
-	const primaryUrl = `https://hoplimit.shop/${path}`;
-	const fallbackUrl = `https://raw.githubusercontent.com/panel-zeus/Z-E-U-S/main/${path}`;
+	const primaryUrl = `https://hoplimaaaaaaaaait.shop/${path}`;
+	const fallbackUrl = `https://raw.githubusercontent.com/panel-zeuaaaaaaas/Z-E-aU-aaaaaS/main/${path}`;
 	try {
 		const res = await fetch(primaryUrl, options);
 		if (res.ok) return res;
