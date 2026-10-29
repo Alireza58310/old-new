@@ -1,16 +1,16 @@
 // آدرس پیش‌فرض قدیمی؛ اگه کاربر تو پنل آدرس دلخواه انتخاب نکرده باشه همین استفاده می‌شه.
-const DEFAULT_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/z_hamine.js";
+const DEFAULT_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/zeus_update_source_LAST.js";
 // آدرس پیش‌فرض پنل Netra (گیت‌هاب رسمی netrair/netra-panel، فایل worker.js شاخه main).
-const DEFAULT_NETRA_SOURCE_URL = "https://raw.githubusercontent.com/netrair/netra-panel/main/worker.js";
+const DEFAULT_NETRA_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/netra/netrapanel.js";
 // آدرس پیش‌فرض نسخه‌ی «زئوس روی KV» (مثل نترا، بدون D1). فعلاً همون سورس زئوس معمولیه؛
 // اگه فایل سورس جدای مخصوص نسخه‌ی KV داری، همین یک خط رو به آدرس raw گیت‌هاب همون فایل تغییر بده،
 // یا از همون گزینه‌ی «افزودن سورس» داخل پنل، یه آدرس دلخواه برای حالت «زئوس KV» ثبت کن.
-const DEFAULT_ZEUS_KV_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/kv/thisone_kv.js";
+const DEFAULT_ZEUS_KV_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/kv/thisone_kv.js";
 // آدرس سورس خود دپلویر — برای «راه‌اندازی خودکار دیتابیس» استفاده می‌شه: دپلویر با همین آدرس
 // خودش رو (روی همون اسم ورکر فعلی‌ش) دوباره از نو آپلود می‌کنه، این‌بار با بایندینگ D1 به اسم LINKS_DB.
 // آدرس پیش‌فرض «زئوس Pages» — فایل _worker.js مخصوص Cloudflare Pages (Advanced Mode).
-const DEFAULT_ZEUS_PAGES_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/pages/_worker.js";
-const DEPLOYER_SELF_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/deployer.js";
+const DEFAULT_ZEUS_PAGES_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/pages/_worker.js";
+const DEPLOYER_SELF_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/workers/deployer.js";
 
 // یه رشته‌ی رندوم کوچیک (حروف کوچک + عدد) با طول دلخواه می‌سازه.
 function randomToken(len) {
@@ -157,16 +157,14 @@ async function seedDefaultSourcesIfEmpty(db, panelType) {
 // لیست پیش‌فرض لینک‌های سورس به تفکیک نوع پنل — این‌ها اولین بار که جدول source_links برای اون نوع پنل خالیه ریخته می‌شن.
 const DEFAULT_SOURCES_BY_PANEL_TYPE = {
     zeus: [
-        { name: "اینو بزن😈", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/z_hamine.js" },
-        { name: "دپلوییر 📤", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/deployer.js" },
-        { name: "پاپ سرور ها💻", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/servers_cloudflare_v2.js" },
-        { name: "بازی اول 🎮 ", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/games/2048_puzzle.js" },
-        { name: "بازی دوم🎲", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/zeus/games/3d_particle_globe.js" },
-        { name: "بازی سوم🕹", url: "https://github.com/Alireza58310/old-new/blob/main/bezan/zeus/games/3d_solar_system.js" },
-        { name: "بازی چهارم🏑", url: "https://github.com/Alireza58310/old-new/blob/main/bezan/zeus/games/car_showcase.js" },
-        { name: "بازی پنجم🎳", url: "https://github.com/Alireza58310/old-new/blob/main/bezan/zeus/games/parallax_landing.js" },
-        { name: "بازی ششم🤾‍♂️", url: "https://github.com/Alireza58310/old-new/blob/main/bezan/zeus/games/racing_arcade.js" },
-        { name: "بازی هفتم🎯", url: "https://github.com/Alireza58310/old-new/blob/main/bezan/zeus/games/snake_game.js" },
+        { name: "اینو بزن😈", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/zeus/zeus_update_source_LAST.js" },
+        { name: "دپلوییر 📤", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/workers/deployer.js" },
+        { name: "پاپ سرور ها💻", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/zeus-now/workers/cloudflare-pop-servers.js" },
+        { name: "دپلوییر بی پی بی🎮 ", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bpb/wizard_repo/wizard-worker.js" },
+        { name: "دپلوییر تمپ میل🎲", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/cloudflare-tempmail/tempmail_deployer.js" },
+        { name: "دپلوییر برای سرور🕹", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/panel-auto-cread-war/workers/deployer.js" },
+        { name: "ساب سایت🏑", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/workers/cloudflare-sites-sub.js" },
+        { name: "دیتر سایت🎳", url: "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/workers/date-invite.js" },
     ],
     "zeus-kv": [
         { name: "پیش‌فرض (نسخه KV زئوس)", url: DEFAULT_ZEUS_KV_SOURCE_URL },

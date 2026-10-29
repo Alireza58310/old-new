@@ -7,7 +7,7 @@
 // توکن کاربر هیچ‌جا ذخیره نمی‌شود؛ فقط همان لحظه برای چند فراخوانی API
 // کلودفلر استفاده می‌شود.
 
-const DEFAULT_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/bezan/panel/server-deployer.zip";
+const DEFAULT_SOURCE_URL = "https://raw.githubusercontent.com/Alireza58310/old-new/refs/heads/main/panel-auto-cread-war/workers/server-deployer.zip";
 
 const TOKEN_URL =
   "https://dash.cloudflare.com/profile/api-tokens?permissionGroupKeys=" +
