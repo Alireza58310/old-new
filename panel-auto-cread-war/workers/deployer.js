@@ -34,21 +34,174 @@ function sanitizeWorkerName(raw) {
   return n.slice(0, 58).replace(/-+$/g, "");
 }
 
-// ماژول‌هایی که این پروژه نیازشان دارد؛ مسیرها دقیقاً همان مسیرهای داخل
-// zip هستند (src/worker.js با import نسبی به session.js/ssh.js، و session.js
-// با import نسبی به فایل‌های scripts/*.sh) — همان چیزی که wrangler هم موقع
-// دیپلوی محلی می‌سازد.
-const REQUIRED_FILES = [
-  "src/worker.js",
-  "src/session.js",
-  "src/ssh.js",
-  "scripts/alis-installer.sh",
-  "scripts/alis-ufw-manager.sh",
-  "scripts/alis-fake-ssl-manager.sh",
-];
-const MAIN_MODULE = "src/worker.js";
-const DO_CLASS = "SessionDO";
-const DO_BINDING = "SESSIONS";
+// ===== کشف خودکار فایل‌ها =====
+// دیگه لیست ثابتی از فایل‌ها نداریم: کلاینت هر فایل متنی داخل zip رو می‌فرسته،
+// و اینجا از روی wrangler.toml (اگر باشه) main / compatibility / DO binding /
+// migration / vars / browser خونده می‌شه. قبل از آپلود هم همه‌ی importهای
+// نسبی چک می‌شن تا خطای "No such module" روی کلودفلر پیش نیاد.
+const LEGACY_MAIN = "src/worker.js";
+const LEGACY_DO_CLASS = "SessionDO";
+const LEGACY_DO_BINDING = "SESSIONS";
+const SKIP_UPLOAD = ["wrangler.toml", "package.json", "package-lock.json", ".dev.vars"];
+
+function normPath(p) {
+  const out = [];
+  for (const part of String(p).split("/")) {
+    if (!part || part === ".") continue;
+    if (part === "..") out.pop(); else out.push(part);
+  }
+  return out.join("/");
+}
+function dirOf(p) { const i = p.lastIndexOf("/"); return i < 0 ? "" : p.slice(0, i); }
+
+// پارسر کوچک TOML (کافی برای wrangler.toml: جدول، آرایه‌ی جدول، رشته/عدد/بولی/آرایه)
+function parseToml(src) {
+  const root = {}; let cur = root;
+  const stripComment = (line) => {
+    let q = null, out = "";
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (q) { out += ch; if (ch === q && line[i - 1] !== "\\") q = null; }
+      else if (ch === '"' || ch === "'") { q = ch; out += ch; }
+      else if (ch === "#") break;
+      else out += ch;
+    }
+    return out.trim();
+  };
+  const splitTop = (str) => {
+    const parts = []; let q = null, depth = 0, buf = "";
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i];
+      if (q) { buf += ch; if (ch === q) q = null; continue; }
+      if (ch === '"' || ch === "'") { q = ch; buf += ch; continue; }
+      if (ch === "[" || ch === "{") depth++;
+      if (ch === "]" || ch === "}") depth--;
+      if (ch === "," && depth === 0) { parts.push(buf); buf = ""; } else buf += ch;
+    }
+    if (buf.trim()) parts.push(buf);
+    return parts;
+  };
+  const parseVal = (v) => {
+    v = v.trim();
+    if (v === "true") return true;
+    if (v === "false") return false;
+    if (/^-?\d+(\.\d+)?$/.test(v)) return Number(v);
+    if (v[0] === '"' || v[0] === "'") return v.slice(1, -1);
+    if (v[0] === "[") return splitTop(v.slice(1, -1)).map(parseVal);
+    if (v[0] === "{") {
+      const o = {};
+      for (const kv of splitTop(v.slice(1, -1))) { const i = kv.indexOf("="); if (i > 0) o[kv.slice(0, i).trim().replace(/^["']|["']$/g, "")] = parseVal(kv.slice(i + 1)); }
+      return o;
+    }
+    return v;
+  };
+  const enter = (path, isArr) => {
+    let o = root;
+    const keys = path.split(".").map((k) => k.trim().replace(/^["']|["']$/g, ""));
+    keys.forEach((k, idx) => {
+      const last = idx === keys.length - 1;
+      if (last && isArr) { if (!Array.isArray(o[k])) o[k] = []; const n = {}; o[k].push(n); o = n; return; }
+      if (!o[k]) o[k] = {};
+      o = Array.isArray(o[k]) ? o[k][o[k].length - 1] : o[k];
+    });
+    return o;
+  };
+  const lines = String(src).split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    let line = stripComment(lines[i]);
+    if (!line) continue;
+    let m;
+    if ((m = line.match(/^\[\[([^\]]+)\]\]$/))) { cur = enter(m[1], true); continue; }
+    if ((m = line.match(/^\[([^\]]+)\]$/))) { cur = enter(m[1], false); continue; }
+    const eq = line.indexOf("=");
+    if (eq < 0) continue;
+    const key = line.slice(0, eq).trim().replace(/^["']|["']$/g, "");
+    let val = line.slice(eq + 1).trim();
+    // آرایه‌ی چندخطی
+    const depth = (t) => { let d = 0, q = null; for (const ch of t) { if (q) { if (ch === q) q = null; } else if (ch === '"' || ch === "'") q = ch; else if (ch === "[") d++; else if (ch === "]") d--; } return d; };
+    while (val[0] === "[" && depth(val) > 0 && i + 1 < lines.length) { i++; val += " " + stripComment(lines[i]); }
+    cur[key] = parseVal(val);
+  }
+  return root;
+}
+
+function importsOf(code) {
+  const out = new Set();
+  const re = /(?:\bimport|\bexport)\s*(?:[^'"();]*?\sfrom\s*)?['"](\.{1,2}\/[^'"]+)['"]|\bimport\s*\(\s*['"](\.{1,2}\/[^'"]+)['"]\s*\)/g;
+  let m; while ((m = re.exec(code))) out.add(m[1] || m[2]);
+  return [...out];
+}
+
+function buildPlan(files, enableBrowser) {
+  const warnings = [];
+  const toml = files["wrangler.toml"] ? parseToml(files["wrangler.toml"]) : null;
+  const main = normPath((toml && toml.main) || LEGACY_MAIN);
+  if (typeof files[main] !== "string") throw new Error(`فایل اصلی (${main}) در zip پیدا نشد — main داخل wrangler.toml با ساختار zip نمی‌خواند.`);
+
+  const uploads = Object.keys(files).filter((p) => !SKIP_UPLOAD.includes(p.split("/").pop()) && typeof files[p] === "string").sort();
+
+  // چک importهای نسبی — دقیقاً همون خطای No such module رو قبل از دیپلوی می‌گیره
+  const missing = [];
+  for (const p of uploads) {
+    if (!p.endsWith(".js") && !p.endsWith(".mjs")) continue;
+    for (const imp of importsOf(files[p])) {
+      const target = normPath(dirOf(p) + "/" + imp);
+      if (!(target in files)) missing.push(`${p}  ←  ${imp}`);
+    }
+  }
+  if (missing.length) throw new Error("این importها فایلشون داخل zip نیست:\n" + missing.join("\n"));
+
+  const bindings = []; const seen = new Set();
+  const addBinding = (b) => { if (!seen.has(b.name)) { seen.add(b.name); bindings.push(b); } };
+  const classesNew = new Set(), classesSqlite = new Set();
+
+  if (toml) {
+    const dos = (toml.durable_objects && toml.durable_objects.bindings) || [];
+    for (const d of dos) {
+      if (d.script_name) { warnings.push(`DO binding ${d.name} به Worker دیگری (${d.script_name}) اشاره می‌کند؛ نادیده گرفته شد.`); continue; }
+      addBinding({ type: "durable_object_namespace", name: d.name, class_name: d.class_name });
+    }
+    for (const m of (toml.migrations || [])) {
+      (m.new_classes || []).forEach((c) => classesNew.add(c));
+      (m.new_sqlite_classes || []).forEach((c) => classesSqlite.add(c));
+    }
+    for (const b of bindings) if (b.type === "durable_object_namespace" && !classesNew.has(b.class_name) && !classesSqlite.has(b.class_name)) classesSqlite.add(b.class_name);
+    for (const [k, v] of Object.entries(toml.vars || {})) {
+      if (typeof v === "object") addBinding({ type: "json", name: k, json: v });
+      else addBinding({ type: "plain_text", name: k, text: String(v) });
+    }
+    if (toml.browser && toml.browser.binding) addBinding({ type: "browser", name: toml.browser.binding });
+    if (toml.ai && toml.ai.binding) addBinding({ type: "ai", name: toml.ai.binding });
+    for (const k of ["kv_namespaces", "r2_buckets", "d1_databases", "services", "queues", "hyperdrive", "vectorize"]) {
+      if (toml[k] && (!Array.isArray(toml[k]) || toml[k].length)) warnings.push(`${k} در wrangler.toml هست ولی دیپلویر نمی‌تواند خودکار بسازدش؛ نادیده گرفته شد.`);
+    }
+  } else {
+    addBinding({ type: "durable_object_namespace", name: LEGACY_DO_BINDING, class_name: LEGACY_DO_CLASS });
+    classesSqlite.add(LEGACY_DO_CLASS);
+    warnings.push("wrangler.toml در zip نبود؛ تنظیمات پیش‌فرض (SessionDO / SESSIONS) استفاده شد.");
+  }
+  if (enableBrowser) addBinding({ type: "browser", name: "BROWSER" });
+
+  // هر DO باید از فایل اصلی export شده باشد
+  for (const b of bindings) {
+    if (b.type !== "durable_object_namespace") continue;
+    const c = b.class_name;
+    const re = new RegExp("export\\s+(?:default\\s+)?class\\s+" + c + "\\b|export\\s*\\{[^}]*\\b" + c + "\\b[^}]*\\}");
+    if (!re.test(files[main])) throw new Error(`کلاس Durable Object «${c}» از ${main} export نشده.`);
+  }
+
+  const migrations = {};
+  if (classesNew.size) migrations.new_classes = [...classesNew];
+  if (classesSqlite.size) migrations.new_sqlite_classes = [...classesSqlite];
+
+  return {
+    main,
+    compat: (toml && toml.compatibility_date) || "2024-09-23",
+    flags: (toml && toml.compatibility_flags) || ["nodejs_compat"],
+    bindings, migrations: Object.keys(migrations).length ? migrations : null,
+    uploads, warnings,
+  };
+}
 
 function cfErr(d, fallback) {
   return d && d.errors && d.errors.length > 0 ? d.errors[0].message : fallback;
@@ -57,9 +210,7 @@ function cfErr(d, fallback) {
 async function deploy({ token, files, customName, enableBrowser }) {
   const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
 
-  for (const f of REQUIRED_FILES) {
-    if (!files[f]) throw new Error(`فایل ${f} در zip پیدا نشد — مطمئن شو همان پروژه‌ی server-deployer را بدون تغییر ساختار آپلود کردی.`);
-  }
+  const plan = buildPlan(files, enableBrowser);
 
   const accRes = await fetch("https://api.cloudflare.com/client/v4/accounts", { headers });
   const accData = await accRes.json().catch(() => ({}));
@@ -102,23 +253,19 @@ async function deploy({ token, files, customName, enableBrowser }) {
     if (!workerName) workerName = randomAlnum(12);
   }
 
-  const bindings = [{ type: "durable_object_namespace", name: DO_BINDING, class_name: DO_CLASS }];
-  if (enableBrowser) bindings.push({ type: "browser", name: "BROWSER" });
-
   const metadata = {
-    main_module: MAIN_MODULE,
-    compatibility_date: "2024-09-23",
-    compatibility_flags: ["nodejs_compat"],
-    bindings,
-    migrations: { new_sqlite_classes: [DO_CLASS] },
+    main_module: plan.main,
+    compatibility_date: plan.compat,
+    compatibility_flags: plan.flags,
+    bindings: plan.bindings,
     observability: { enabled: true, head_sampling_rate: 1 },
   };
+  if (plan.migrations) metadata.migrations = plan.migrations;
 
   const formData = new FormData();
   formData.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
-  for (const path of REQUIRED_FILES) {
-    const isJs = path.endsWith(".js");
-    const type = isJs ? "application/javascript+module" : "text/plain";
+  for (const path of plan.uploads) {
+    const type = (path.endsWith(".js") || path.endsWith(".mjs")) ? "application/javascript+module" : (path.endsWith(".json") ? "application/json" : "text/plain");
     formData.append(path, new Blob([files[path]], { type }), path);
   }
 
@@ -136,7 +283,7 @@ async function deploy({ token, files, customName, enableBrowser }) {
   });
   if (!routeRes.ok) throw new Error("خطا در فعال‌سازی لینک نهایی.");
 
-  return { url: `https://${workerName}.${devSub}.workers.dev/`, workerName };
+  return { url: `https://${workerName}.${devSub}.workers.dev/`, workerName, fileCount: plan.uploads.length, files: plan.uploads, bindings: plan.bindings.map((b) => `${b.name} (${b.type})`), warnings: plan.warnings };
 }
 
 function html() {
@@ -220,20 +367,28 @@ document.getElementById('deployBtn').onclick = async () => {
     }
     statusEl.textContent = 'در حال باز کردن zip...';
     const zip = await JSZip.loadAsync(zipSource);
-    // اگر یک پوشه‌ی ریشه داخل zip باشد (مثل server-deployer/)، آن را کنار می‌زنیم
+    // همه‌ی فایل‌های متنی zip خوانده می‌شود؛ ریشه‌ی پروژه = پوشه‌ای که wrangler.toml دارد
+    // (اگر نبود، پوشه‌ای که src/worker.js دارد). فایل جدید => خودکار شناسایی می‌شود.
     const names = Object.keys(zip.files).filter(n => !zip.files[n].dir);
+    const tomls = names.filter(n => n === 'wrangler.toml' || n.endsWith('/wrangler.toml')).sort((x, y) => x.length - y.length);
     let prefix = '';
-    const srcWorker = names.find(n => n.endsWith('src/worker.js'));
-    if (srcWorker) prefix = srcWorker.slice(0, srcWorker.length - 'src/worker.js'.length);
-
-    const required = ['src/worker.js','src/session.js','src/ssh.js','scripts/alis-installer.sh','scripts/alis-ufw-manager.sh','scripts/alis-fake-ssl-manager.sh'];
-    const files = {};
-    for (const rel of required) {
-      const full = prefix + rel;
-      const entry = zip.files[full];
-      if (!entry) throw new Error('فایل ' + rel + ' در zip پیدا نشد.');
-      files[rel] = await entry.async('string');
+    if (tomls.length) prefix = tomls[0].slice(0, tomls[0].length - 'wrangler.toml'.length);
+    else {
+      const sw = names.find(n => n.endsWith('src/worker.js'));
+      if (!sw) throw new Error('نه wrangler.toml و نه src/worker.js در zip پیدا نشد.');
+      prefix = sw.slice(0, sw.length - 'src/worker.js'.length);
     }
+    const TEXT_EXT = ['.js', '.mjs', '.sh', '.txt', '.json', '.toml', '.html', '.css', '.sql', '.csv'];
+    const files = {};
+    let skipped = 0;
+    for (const full of names) {
+      if (!full.startsWith(prefix)) continue;
+      const rel = full.slice(prefix.length);
+      if (rel.includes('node_modules/') || rel.includes('__MACOSX') || rel.includes('.git/') || rel.endsWith('.DS_Store')) continue;
+      if (!TEXT_EXT.some(e => rel.endsWith(e))) { skipped++; continue; }
+      files[rel] = await zip.files[full].async('string');
+    }
+    statusEl.textContent = 'در zip ' + Object.keys(files).length + ' فایل پیدا شد (' + skipped + ' فایل غیرمتنی/مستند نادیده گرفته شد).';
 
     statusEl.textContent = 'در حال دیپلوی روی کلودفلر...';
     const resp = await fetch('/api/deploy', {
@@ -246,8 +401,14 @@ document.getElementById('deployBtn').onclick = async () => {
     statusEl.textContent = '';
     resultBox.classList.remove('hidden');
     resultBox.innerHTML = '✅ دیپلوی موفق بود.<br/><a class="text-blue-400 underline" target="_blank" href="' + data.url + '">' + data.url + '</a>';
+    const info = document.createElement('div');
+    info.className = 'text-xs text-zinc-400 mt-3 text-left';
+    info.dir = 'ltr';
+    info.style.whiteSpace = 'pre-wrap';
+    info.textContent = 'Uploaded ' + data.fileCount + ' files:' + String.fromCharCode(10) + data.files.join(String.fromCharCode(10)) + String.fromCharCode(10, 10) + 'Bindings: ' + (data.bindings.join(', ') || '-') + (data.warnings.length ? String.fromCharCode(10, 10) + 'Warnings:' + String.fromCharCode(10) + data.warnings.join(String.fromCharCode(10)) : '');
+    resultBox.appendChild(info);
   } catch (e) {
-    statusEl.textContent = 'خطا: ' + e.message;
+    statusEl.style.whiteSpace = 'pre-wrap'; statusEl.textContent = 'خطا: ' + e.message;
     statusEl.className = 'text-sm text-center min-h-[20px] text-red-400';
   }
 };
