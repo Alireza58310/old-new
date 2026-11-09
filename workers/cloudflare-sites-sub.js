@@ -786,7 +786,8 @@ function getAdminHTML(origin) {
 <div id="toast" class="toast">پیام سیستم</div>
 
 <script>
-	const origin = "${origin}";
+	// دامنه‌ای که مرورگر با آن آمده (دامنه اختصاصی/رله)، نه آدرس داخلی ورکر
+	const origin = location.origin;
 	const $ = (id) => document.getElementById(id);
 	const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 	const rid = () => Math.random().toString(36).slice(2, 10);
