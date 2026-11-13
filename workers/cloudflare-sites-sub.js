@@ -156,6 +156,16 @@ function parseSub(text) {
 }
 
 // یک آدرس سایت (نه ساب) را می‌گیرد و لینک «Subscription link» داخلش را پیدا می‌کند
+const FALLBACK_UAS = [
+	"v2rayNG/1.9.0",
+	"ClashforWindows/0.20.39",
+	"Clash/1.10.0",
+	"Shadowrocket/2277",
+	"Hiddify/4.0.0",
+	"FoXray/1.0 CFNetwork",
+	"Streisand/1.0",
+	"Mozilla/5.0 (compatible; v2rayN)",
+];
 const SITE_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 const ASSET_EXT = /\.(png|jpe?g|svg|gif|webp|ico|css|js|woff2?|ttf|map|json)(\?|#|$)/i;
 const LABEL_RE = /subscription\s*link|لینک\s*(?:اشتراک|ساب|سابسکرایپشن)/gi;
@@ -205,7 +215,20 @@ async function fetchSourceLines(s, st) {
 		if (!lines.length) throw new Error("ساب پیدا شد اما کانفیگی نداشت");
 		return { lines, resolved: subUrl };
 	}
-	const lines = parseSub(await fetchText(s.url, st));
+	let lines = parseSub(await fetchText(s.url, st));
+	if (!lines.length) {
+		// بعضی پنل‌ها (Marzban/PasarGuard و مشابه) بسته به User-Agent، یا صفحه‌ی داشبورد می‌دن یا خروجی کانفیگ؛
+		// اگر با UA تنظیمات چیزی پیدا نشد، چندتا UA شناخته‌شده‌ی دیگر را هم امتحان می‌کنیم
+		for (const ua of FALLBACK_UAS) {
+			if (ua === st.ua) continue;
+			try {
+				lines = parseSub(await fetchText(s.url, { ...st, ua }));
+			} catch (e) {
+				continue;
+			}
+			if (lines.length) break;
+		}
+	}
 	return { lines, resolved: null };
 }
 
@@ -826,6 +849,7 @@ function getAdminHTML(origin) {
 				<label class="set-row"><span>اگر پنلی خراب بود، آخرین نسخه‌ی سالمش استفاده شود</span><input type="checkbox" id="st-cache"></label>
 				<div class="set-row"><span>تایم‌اوت دانلود (ثانیه)</span><input type="number" id="st-timeout" class="inp" min="3" max="25" style="width:80px;text-align:center"></div>
 				<div class="set-col"><span>User-Agent هنگام دانلود</span><input type="text" id="st-ua" class="inp ltr"></div>
+				<div class="set-btns"><button class="btn btn-sm" id="st-download-save">💾 ذخیره این دو مورد</button></div>
 			</div>
 			<div class="set-group">
 				<h4>امنیت و دستگاه</h4>
@@ -1247,8 +1271,7 @@ function getAdminHTML(origin) {
 	$('st-split').addEventListener('change', (e) => saveSetting({ split: e.target.checked }));
 	$('st-b64').addEventListener('change', (e) => saveSetting({ b64: e.target.checked }));
 	$('st-cache').addEventListener('change', (e) => saveSetting({ cacheFallback: e.target.checked }));
-	$('st-timeout').addEventListener('change', (e) => saveSetting({ timeout: e.target.value }));
-	$('st-ua').addEventListener('change', (e) => saveSetting({ ua: e.target.value }));
+	$('st-download-save').addEventListener('click', () => saveSetting({ timeout: $('st-timeout').value, ua: $('st-ua').value }));
 	$('trust-btn').addEventListener('click', async () => {
 		const d = await api('trust', { on: !trusted });
 		if (d.success) { trusted = d.trusted; fillSettings(); showToast(trusted ? '📱 این گوشی برای ۱ ماه شناخته شد' : 'شناخت دستگاه لغو شد'); }
