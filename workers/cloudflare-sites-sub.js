@@ -122,7 +122,8 @@ function cleanSources(arr) {
 		let id = /^[a-z0-9]{4,20}$/.test(s.id || "") ? s.id : randHex(5);
 		if (seen.has(id)) id = randHex(5);
 		seen.add(id);
-		return { id, name: String(s.name || "").trim().slice(0, 80), url: u, on: s.on !== false };
+		const kind = s.kind === "site" ? "site" : "sub";
+		return { id, name: String(s.name || "").trim().slice(0, 80), url: u, on: s.on !== false, kind };
 	});
 }
 
@@ -154,6 +155,60 @@ function parseSub(text) {
 	return lines.filter((l) => SCHEME.test(l));
 }
 
+// یک آدرس سایت (نه ساب) را می‌گیرد و لینک «Subscription link» داخلش را پیدا می‌کند
+const SITE_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+const ASSET_EXT = /\.(png|jpe?g|svg|gif|webp|ico|css|js|woff2?|ttf|map|json)(\?|#|$)/i;
+const LABEL_RE = /subscription\s*link|لینک\s*(?:اشتراک|ساب|سابسکرایپشن)/gi;
+function extractSubLink(html, baseUrl) {
+	const dec = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
+	const urlRe = /https?:\/\/[^\s"'<>\\]+/g;
+	let m;
+	let cands = [];
+	while ((m = urlRe.exec(html))) {
+		const u = dec(m[0]).replace(/[),.;]+$/, "");
+		if (u !== baseUrl && !ASSET_EXT.test(u)) cands.push({ url: u, idx: m.index });
+	}
+	if (!cands.length) return null;
+	let base = null;
+	try {
+		base = new URL(baseUrl);
+	} catch (e) {}
+	const labelIdx = [];
+	while ((m = LABEL_RE.exec(html))) labelIdx.push(m.index);
+	for (const c of cands) {
+		let score = 0;
+		const low = c.url.toLowerCase();
+		if (/\/subscriptions?\//.test(low) || /[?&](key|token|sub|id)=/.test(low)) score += 5;
+		try {
+			if (base && new URL(c.url).hostname === base.hostname) score += 2;
+		} catch (e) {}
+		if (labelIdx.length) {
+			const nearest = Math.min(...labelIdx.map((li) => Math.abs(li - c.idx)));
+			if (nearest < 500) score += (500 - nearest) / 100;
+		}
+		c.score = score;
+	}
+	cands.sort((a, b) => b.score - a.score);
+	return cands[0].score > 0 ? cands[0].url : null;
+}
+
+// کانفیگ‌های یک منبع را برمی‌گرداند؛ برای نوع «سایت» اول لینک ساب واقعی را از صفحه پیدا می‌کند
+async function fetchSourceLines(s, st) {
+	if (s.kind === "site") {
+		const html = await fetch(s.url, { headers: { "User-Agent": SITE_UA, Accept: "text/html,*/*" }, redirect: "follow" }).then((r) => {
+			if (!r.ok) throw new Error("HTTP " + r.status);
+			return r.text();
+		});
+		const subUrl = extractSubLink(html, s.url);
+		if (!subUrl) throw new Error("لینک ساب در صفحه پیدا نشد");
+		const lines = parseSub(await fetchText(subUrl, st));
+		if (!lines.length) throw new Error("ساب پیدا شد اما کانفیگی نداشت");
+		return { lines, resolved: subUrl };
+	}
+	const lines = parseSub(await fetchText(s.url, st));
+	return { lines, resolved: null };
+}
+
 async function serveMerged(env, path, g) {
 	const st = await getSettings(env);
 	const srcs = (g.sources || []).filter((s) => s.on !== false && s.url);
@@ -162,7 +217,7 @@ async function serveMerged(env, path, g) {
 	const res = await Promise.all(
 		srcs.map(async (s) => {
 			try {
-				const lines = parseSub(await fetchText(s.url, st));
+				const { lines } = await fetchSourceLines(s, st);
 				if (!lines.length) throw new Error("empty");
 				return { id: s.id, lines, fresh: true };
 			} catch (e) {
@@ -367,12 +422,14 @@ async function handleApi(request, env, url, path) {
 		return jsonResponse({ success: true });
 	}
 	if (path === "api/sub-test" && m === "POST") {
-		const u = String((await request.json()).url || "").trim();
+		const b = await request.json();
+		const u = String(b.url || "").trim();
+		const kind = b.kind === "site" ? "site" : "sub";
 		if (!/^https?:\/\//i.test(u)) return jsonResponse({ ok: false, error: "آدرس نامعتبر" });
 		try {
-			const lines = parseSub(await fetchText(u, await getSettings(env)));
+			const { lines, resolved } = await fetchSourceLines({ url: u, kind }, await getSettings(env));
 			if (!lines.length) return jsonResponse({ ok: false, error: "کانفیگی پیدا نشد" });
-			return jsonResponse({ ok: true, count: lines.length });
+			return jsonResponse({ ok: true, count: lines.length, resolved });
 		} catch (e) {
 			return jsonResponse({ ok: false, error: e.name === "AbortError" ? "تایم‌اوت" : e.message });
 		}
@@ -574,6 +631,14 @@ const CSS = String.raw`
 	.src-top .pos { width: 58px; text-align: center; flex-shrink: 0; }
 	.src-top input[type=checkbox], .set-row input[type=checkbox], .trust-row input { width: 20px; height: 20px; accent-color: var(--accent); flex-shrink: 0; }
 	.src-url { direction: ltr; font-family: monospace; }
+	.kind-switch { display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; user-select: none; }
+	.kind-label { font-size: .72rem; color: var(--muted); font-weight: 700; transition: .2s; }
+	.kind-label.active { color: #fff; }
+	.switch-track { position: relative; width: 38px; height: 20px; border-radius: 999px; background: rgba(255,255,255,.14); flex-shrink: 0; }
+	.switch-track input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+	.switch-thumb { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #c7cbe0; transition: .2s; }
+	.switch-track input:checked ~ .switch-thumb { transform: translateX(18px); background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+	.resolved-line { direction: ltr; font-family: monospace; font-size: .72rem; color: var(--muted); text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 	.src-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 	.badge { font-size: .75rem; color: var(--muted); }
 	.hint { color: var(--muted); font-size: .78rem; line-height: 1.8; margin-top: 12px; }
@@ -1023,12 +1088,12 @@ function getAdminHTML(origin) {
 				'</div></div>' +
 				'<button class="btn btn-secondary btn-sm" id="sub-copy">📋 کپی</button>' +
 			'</div>' +
-			'<div class="hint">ترتیب کانفیگ‌ها در خروجی = ترتیب ردیف‌ها از بالا به پایین. با ▲ ▼ جابه‌جا کن، یا شماره‌ی جایگاه را عوض کن تا ردیف به همان نقطه برود. تیک سمت راست هر ردیف = فعال/غیرفعال. بعد از هر تغییر «ذخیره» را بزن.</div>';
+			'<div class="hint">ترتیب کانفیگ‌ها در خروجی = ترتیب ردیف‌ها از بالا به پایین. با ▲ ▼ جابه‌جا کن، یا شماره‌ی جایگاه را عوض کن تا ردیف به همان نقطه برود. تیک سمت راست هر ردیف = فعال/غیرفعال.<br>کلید «سایت / ساب»: روی <b>ساب</b> یعنی همین آدرس مستقیماً لینک ساب است. روی <b>سایت</b> یعنی این آدرس صفحه‌ی سایته؛ ورکر هر بار خودش می‌ره تو صفحه، لینک «Subscription link» رو پیدا می‌کنه و کانفیگ‌هاشو می‌گیره — برای سایت‌هایی که لینک سابشون مدام عوض می‌شه ولی آدرس خود صفحه ثابته.<br>بعد از هر تغییر «ذخیره» را بزن.</div>';
 		$('sub-save').addEventListener('click', saveSub);
 		$('sub-test-all').addEventListener('click', testAll);
 		$('sub-copy').addEventListener('click', () => copyText(link, 'لینک ساب کپی شد'));
 		$('src-add').addEventListener('click', () => {
-			curSources.push({ id: rid(), name: '', url: '', on: true });
+			curSources.push({ id: rid(), name: '', url: '', on: true, kind: 'sub' });
 			renderRows();
 			const rows = document.querySelectorAll('#src-rows .src-url');
 			if (rows.length) rows[rows.length - 1].focus();
@@ -1041,6 +1106,11 @@ function getAdminHTML(origin) {
 		if (r.pending) return '⏳ ...';
 		return r.ok ? '✅ ' + r.count + ' کانفیگ' : '❌ ' + esc(r.error || 'خطا');
 	}
+	function resolvedLineHtml(id) {
+		const r = testRes[id];
+		if (!r || !r.ok || !r.resolved) return '';
+		return '<div class="resolved-line" title="' + esc(r.resolved) + '">🔗 ساب فعلی: ' + esc(r.resolved) + '</div>';
+	}
 	function renderRows() {
 		const box = $('src-rows');
 		if (!box) return;
@@ -1049,13 +1119,19 @@ function getAdminHTML(origin) {
 		curSources.forEach((s, i) => {
 			const row = document.createElement('div');
 			row.className = 'src-row' + (s.on === false ? ' off' : '');
+			const isSite = s.kind === 'site';
 			row.innerHTML =
 				'<div class="src-top">' +
 					'<input type="number" class="inp pos" min="1" max="' + curSources.length + '" value="' + (i + 1) + '" title="جایگاه">' +
 					'<input type="text" class="inp src-name" placeholder="نام (مثلاً پنل اول)" value="' + esc(s.name) + '">' +
+					'<label class="kind-switch" title="سایت = آدرس صفحه (خودش لینک ساب رو پیدا می‌کنه) / ساب = لینک مستقیم ساب">' +
+						'<span class="kind-label site' + (isSite ? ' active' : '') + '">سایت</span>' +
+						'<span class="switch-track"><input type="checkbox" class="kind-chk"' + (isSite ? '' : ' checked') + '><span class="switch-thumb"></span></span>' +
+						'<span class="kind-label sub' + (isSite ? '' : ' active') + '">ساب</span>' +
+					'</label>' +
 					'<input type="checkbox" class="src-on" title="فعال / غیرفعال"' + (s.on === false ? '' : ' checked') + '>' +
 				'</div>' +
-				'<input type="text" class="inp src-url" placeholder="https://..." value="' + esc(s.url) + '">' +
+				'<input type="text" class="inp src-url" placeholder="' + (isSite ? 'آدرس صفحه سایت، مثل https://www.v2nodes.com/country/tw/' : 'https://...') + '" value="' + esc(s.url) + '">' +
 				'<div class="src-actions">' +
 					'<button class="icon-btn up" title="بالا">▲</button>' +
 					'<button class="icon-btn down" title="پایین">▼</button>' +
@@ -1063,10 +1139,16 @@ function getAdminHTML(origin) {
 					'<span class="badge">' + badgeHtml(s.id) + '</span>' +
 					'<span style="flex:1"></span>' +
 					'<button class="icon-btn danger del" title="حذف">🗑️</button>' +
-				'</div>';
+				'</div>' +
+				resolvedLineHtml(s.id);
 			row.querySelector('.src-name').addEventListener('input', (e) => { s.name = e.target.value; });
 			row.querySelector('.src-url').addEventListener('input', (e) => { s.url = e.target.value.trim(); });
 			row.querySelector('.src-on').addEventListener('change', (e) => { s.on = e.target.checked; row.classList.toggle('off', !s.on); });
+			row.querySelector('.kind-chk').addEventListener('change', (e) => {
+				s.kind = e.target.checked ? 'sub' : 'site';
+				delete testRes[s.id];
+				renderRows();
+			});
 			row.querySelector('.pos').addEventListener('change', (e) => moveSrc(i, parseInt(e.target.value, 10) - 1));
 			row.querySelector('.up').addEventListener('click', () => moveSrc(i, i - 1));
 			row.querySelector('.down').addEventListener('click', () => moveSrc(i, i + 1));
@@ -1085,7 +1167,7 @@ function getAdminHTML(origin) {
 		if (!s.url) { showToast('اول آدرس را وارد کن', true); return; }
 		testRes[s.id] = { pending: true };
 		renderRows();
-		testRes[s.id] = await api('sub-test', { url: s.url });
+		testRes[s.id] = await api('sub-test', { url: s.url, kind: s.kind });
 		renderRows();
 	}
 	async function testAll() {
