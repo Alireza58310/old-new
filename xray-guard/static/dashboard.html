@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xray Guard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#10151b; --panel:#171e26; --panel-border:#232c36;
+    --text:#d9e1e8; --muted:#7c8894;
+    --ok:#3fb38a; --warn:#e2a33d; --crit:#e2573d;
+    --accent:#4fb3bf;
+    font-family: -apple-system, "Segoe UI", Tahoma, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); padding:24px 32px 60px;}
+  h1{font-size:19px; font-weight:600; margin:0 0 2px;}
+  .sub{color:var(--muted); font-size:13px; margin-bottom:24px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-bottom:28px;}
+  .card{background:var(--panel); border:1px solid var(--panel-border); border-radius:10px; padding:16px;}
+  .card .name{font-weight:600; font-size:14px;}
+  .card .iface{color:var(--muted); font-size:12px; margin-bottom:10px;}
+  .ratio{font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size:22px;}
+  .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-left:6px;}
+  .dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.crit{background:var(--crit)}
+  .rl-notice{margin-top:10px; padding-top:10px; border-top:1px solid var(--panel-border);
+              font-size:11px; color:var(--crit); display:flex; flex-direction:column; gap:6px;}
+  .rl-notice button{align-self:flex-start;}
+  section{margin-bottom:28px;}
+  section > h2{font-size:14px; color:var(--muted); font-weight:600; text-transform:none; margin-bottom:10px;}
+  .chart-wrap{background:var(--panel); border:1px solid var(--panel-border); border-radius:10px; padding:16px;}
+  select{background:var(--panel); color:var(--text); border:1px solid var(--panel-border); border-radius:6px; padding:6px 10px; margin-bottom:12px;}
+  .alert{background:var(--panel); border:1px solid var(--panel-border); border-right:3px solid var(--warn);
+         border-radius:8px; padding:12px 14px; margin-bottom:8px; display:flex; justify-content:space-between; gap:12px; align-items:center;}
+  .alert.critical{border-right-color:var(--crit);}
+  .alert .msg{font-size:13px; line-height:1.6;}
+  .alert .meta{color:var(--muted); font-size:11px; margin-top:4px;}
+  button{background:transparent; border:1px solid var(--accent); color:var(--accent); border-radius:6px;
+         padding:6px 12px; font-size:12px; cursor:pointer; white-space:nowrap;}
+  button:hover{background:var(--accent); color:#0a1014;}
+  .empty{color:var(--muted); font-size:13px; padding:20px 0;}
+
+  .decoy-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px;}
+  .decoy-card{background:var(--panel); border:1px solid var(--panel-border); border-radius:10px; padding:16px;
+              display:flex; flex-direction:column; gap:10px;}
+  .decoy-head{display:flex; justify-content:space-between; align-items:center;}
+  .decoy-name{font-weight:600; font-size:14px;}
+  .badge{padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; white-space:nowrap;}
+  .badge.ok{background:rgba(63,179,138,.15); color:var(--ok);}
+  .badge.fail{background:rgba(226,87,61,.15); color:var(--crit);}
+  .badge.unknown{background:rgba(124,136,148,.15); color:var(--muted);}
+  .decoy-meta{color:var(--muted); font-size:11.5px; margin-top:-6px;}
+  .decoy-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .decoy-actions select{background:var(--panel); color:var(--text); border:1px solid var(--panel-border);
+                         border-radius:6px; padding:5px 8px; font-size:12px;}
+  button.primary{background:var(--accent); color:#0a1014; border-color:var(--accent);}
+  button.danger{border-color:var(--crit); color:var(--crit);}
+  button.danger:hover{background:var(--crit); color:#140a08;}
+  button:disabled{opacity:.5; cursor:default;}
+  .decoy-log summary{cursor:pointer; color:var(--muted); font-size:12px; user-select:none;}
+  .decoy-log pre{white-space:pre-wrap; word-break:break-all; font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;
+                 font-size:11px; color:var(--text); background:#0c1116; border-radius:6px; padding:10px;
+                 margin-top:8px; max-height:240px; overflow:auto;}
+</style>
+</head>
+<body>
+  <h1>Xray Guard</h1>
+  <div class="sub">پایش نسبت ترافیک سرور و اتصال‌های مشکوک</div>
+
+  <div class="grid" id="serverCards"></div>
+
+  <section>
+    <h2>نمودار نسبت ترافیک</h2>
+    <div class="chart-wrap">
+      <select id="serverSelect"></select>
+      <canvas id="ratioChart" height="90"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>هشدارها</h2>
+    <div id="alerts"></div>
+  </section>
+
+  <section>
+    <h2>محافظت DNS (ضد Xray-decoy)</h2>
+    <div class="decoy-grid" id="decoyGrid"></div>
+  </section>
+
+<script>
+const fmtMB = b => (b/1024/1024).toFixed(1) + ' MB';
+let chart;
+
+async function j(url, opts) {
+  const r = await fetch(url, opts);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+async function loadServers() {
+  const [servers, ratelimits] = await Promise.all([j('/api/servers'), j('/api/ratelimit/status')]);
+  const rlByServer = Object.fromEntries(ratelimits.map(r => [r.server, r]));
+  const cardsEl = document.getElementById('serverCards');
+  const selectEl = document.getElementById('serverSelect');
+  const prevSelected = selectEl.value;
+
+  if (!servers.length) {
+    cardsEl.innerHTML = '<div class="empty">هنوز سروری تو config.yaml ثبت نشده. با nano اضافه کن و سرویس رو ری‌استارت کن.</div>';
+    selectEl.innerHTML = '';
+    return;
+  }
+
+  cardsEl.innerHTML = '';
+  selectEl.innerHTML = '';
+  for (const s of servers) {
+    const metrics = await j(`/api/metrics?server=${encodeURIComponent(s.name)}&limit=1`);
+    const last = metrics[metrics.length - 1];
+    const ratio = last ? last.rx_delta / Math.max(last.reported_delta, 1) : 0;
+    const level = ratio >= 3 ? 'crit' : ratio >= 1.5 ? 'warn' : 'ok';
+    const rl = rlByServer[s.name];
+
+    cardsEl.insertAdjacentHTML('beforeend', `
+      <div class="card">
+        <div class="name">${s.name} <span class="dot ${level}"></span></div>
+        <div class="iface">${s.interface}</div>
+        <div class="ratio">${ratio.toFixed(1)}x</div>
+        ${rl && rl.active ? `
+          <div class="rl-notice">
+            سرعت ورودی موقتاً به ${rl.mbit}mbit محدود شده (اضطراری)
+            <button class="danger" onclick="clearRatelimit('${s.name}', this)">حذف محدودیت</button>
+          </div>` : ''}
+      </div>`);
+
+    const opt = document.createElement('option');
+    opt.value = s.name; opt.textContent = s.name;
+    selectEl.appendChild(opt);
+  }
+  if (prevSelected) selectEl.value = prevSelected;
+}
+
+async function clearRatelimit(server, btn) {
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'در حال حذف...';
+  try {
+    await j('/api/ratelimit/clear', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({server}),
+    });
+  } catch (e) {
+    alert('خطا: ' + e.message);
+  } finally {
+    loadServers();
+  }
+}
+
+async function loadChart() {
+  const server = document.getElementById('serverSelect').value;
+  if (!server) return;
+  const metrics = await j(`/api/metrics?server=${encodeURIComponent(server)}&limit=120`);
+  const labels = metrics.map(m => new Date(m.ts * 1000).toLocaleTimeString('fa-IR'));
+  const rx = metrics.map(m => m.rx_delta / 1024 / 1024);
+  const rep = metrics.map(m => m.reported_delta / 1024 / 1024);
+
+  if (!chart) {
+    const ctx = document.getElementById('ratioChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets: [
+        { label: 'rx واقعی (MB)', data: rx, borderColor: '#e2573d', tension: .25, pointRadius: 0 },
+        { label: 'گزارش پنل (MB)', data: rep, borderColor: '#4fb3bf', tension: .25, pointRadius: 0 },
+      ]},
+      options: {
+        responsive: true,
+        scales: {
+          x: { ticks: { color: '#7c8894', maxTicksLimit: 8 }, grid: { color: '#232c36' } },
+          y: { ticks: { color: '#7c8894' }, grid: { color: '#232c36' } },
+        },
+        plugins: { legend: { labels: { color: '#d9e1e8' } } },
+      },
+    });
+  } else {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = rx;
+    chart.data.datasets[1].data = rep;
+    chart.update();
+  }
+}
+
+async function loadAlerts() {
+  const alerts = await j('/api/alerts?limit=50');
+  const el = document.getElementById('alerts');
+  if (!alerts.length) {
+    el.innerHTML = '<div class="empty">فعلاً هشداری ثبت نشده.</div>';
+    return;
+  }
+  el.innerHTML = alerts.map(a => `
+    <div class="alert ${a.severity}">
+      <div>
+        <div class="msg">${a.message}</div>
+        <div class="meta">${a.server} · ${new Date(a.ts*1000).toLocaleString('fa-IR')}</div>
+      </div>
+      ${a.suspects.length ? `<button onclick="unlock('${a.server}','${a.suspects[0]}')">باز کردن قفل</button>` : ''}
+    </div>`).join('');
+}
+
+async function unlock(server, email) {
+  await j('/api/unlock', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({server, email}),
+  });
+  loadAlerts();
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+}
+
+async function loadDecoy() {
+  const [servers, statuses] = await Promise.all([j('/api/servers'), j('/api/decoy/status')]);
+  const byServer = Object.fromEntries(statuses.map(s => [s.server, s]));
+  const el = document.getElementById('decoyGrid');
+
+  el.innerHTML = servers.map(s => {
+    const st = byServer[s.name];
+    const badgeClass = !st ? 'unknown' : (st.installed ? (st.last_ok ? 'ok' : 'fail') : 'unknown');
+    const badgeText = !st
+      ? 'بررسی نشده'
+      : (st.installed ? (st.last_ok ? 'فعال و سالم' : 'نیاز به بررسی') : 'نصب‌نشده');
+    const edition = (st && st.edition && st.edition !== 'none' && st.edition !== 'unknown')
+      ? st.edition : 'standard';
+    const metaParts = [];
+    if (st) {
+      const actionFa = {deploy: 'نصب', check: 'بررسی', uninstall: 'حذف'}[st.action] || st.action;
+      metaParts.push(`آخرین عملیات: ${actionFa}`);
+      metaParts.push(new Date(st.ts * 1000).toLocaleString('fa-IR'));
+    } else {
+      metaParts.push('هنوز عملیاتی انجام نشده');
+    }
+
+    return `
+      <div class="decoy-card">
+        <div class="decoy-head">
+          <div class="decoy-name">${s.name}</div>
+          <span class="badge ${badgeClass}">${badgeText}</span>
+        </div>
+        <div class="decoy-meta">${metaParts.join(' · ')}</div>
+        <div class="decoy-actions">
+          <select id="decoy-edition-${s.name}">
+            <option value="standard" ${edition === 'standard' ? 'selected' : ''}>Standard</option>
+            <option value="strict" ${edition === 'strict' ? 'selected' : ''}>Strict</option>
+          </select>
+          <button class="primary" onclick="deployDecoy('${s.name}', this)">نصب / به‌روزرسانی</button>
+          <button onclick="checkDecoy('${s.name}', this)">بررسی وضعیت</button>
+          <button class="danger" onclick="uninstallDecoy('${s.name}', this)">حذف</button>
+        </div>
+        ${st && st.output ? `<details class="decoy-log"><summary>خروجی آخرین اجرا</summary><pre>${escapeHtml(st.output)}</pre></details>` : ''}
+      </div>`;
+  }).join('');
+}
+
+async function runDecoyAction(url, body, btn) {
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'در حال اجرا...';
+  try {
+    await j(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    alert('خطا: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+    loadDecoy();
+  }
+}
+
+function deployDecoy(server, btn) {
+  const edition = document.getElementById(`decoy-edition-${server}`).value;
+  runDecoyAction('/api/decoy/deploy', {server, edition}, btn);
+}
+function checkDecoy(server, btn) {
+  runDecoyAction('/api/decoy/check', {server}, btn);
+}
+function uninstallDecoy(server, btn) {
+  if (!confirm(`محافظت DNS روی سرور «${server}» حذف بشه؟`)) return;
+  runDecoyAction('/api/decoy/uninstall', {server}, btn);
+}
+
+async function refresh() {
+  await loadServers();
+  await loadChart();
+  await loadAlerts();
+  await loadDecoy();
+}
+
+document.getElementById('serverSelect').addEventListener('change', loadChart);
+refresh();
+setInterval(refresh, 8000);
+</script>
+</body>
+</html>

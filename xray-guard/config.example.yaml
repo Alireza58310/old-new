@@ -1,0 +1,50 @@
+# کپی کن به config.yaml و مقادیرشو با سرورهای خودت پر کن.
+# این ابزار رو روی یه سرور جدا (نه روی خود سرورهای Xray) اجرا کن.
+
+servers:
+  - name: "server-1"                # اسم دلخواه برای نمایش تو داشبورد
+    interface: "eth0"                # اینترفیس شبکه اصلی سرور (با: ip -br a روی خود سرور چک کن)
+    access_log_path: "/var/log/xray/access.log"   # مسیر لاگ Xray روی اون سرور (یا مسیر 3x-ui)
+    ssh:
+      host: "1.2.3.4"
+      port: 22
+      user: "root"
+      key_path: "/root/.ssh/id_rsa"   # یا password رو پر کن و این خط رو حذف کن
+      # password: "..."
+    panel:
+      base_url: "https://1.2.3.4:2053"   # آدرس پنل 3x-ui با پورت
+      web_base_path: "/"                  # اگه تو تنظیمات پنل webBasePath ست کردی همونو بذار
+      username: "admin"
+      password: "admin"
+      verify_ssl: false                   # اگه پنل گواهی معتبر نداره false بمونه
+
+  # - name: "server-2"
+  #   ... همین ساختار برای هر سرور دیگه
+
+thresholds:
+  poll_interval_seconds: 30     # هر چند ثانیه یه‌بار وضعیت سرورها رو چک کنه
+  history_window_seconds: 120   # بازه‌ای که برای مقایسه rx با گزارش پنل در نظر می‌گیره
+  global_ratio_multiplier: 3.0  # اگه rx واقعی بیشتر از (گزارش پنل × این عدد) بود → هشدار سطح سرور
+  global_min_rx_delta_mb: 50    # زیر این مقدار رو نویز در نظر بگیر و نادیده بگیر
+  conn_churn_per_minute: 40     # تعداد اتصال در دقیقه برای یک ایمیل که مشکوک تلقی بشه
+  auto_lock_suspect: true       # کلاینت مشکوک رو خودکار قفل کنه تو پنل
+  auto_global_ratelimit: true   # هنگام هشدار سطح سرور، سرعت ورودی سرور رو هم محدود کنه
+  global_ratelimit_mbit: 30     # سقف سرعت ورودی هنگام محدودسازی اضطراری (مگابیت بر ثانیه)
+
+notify:
+  telegram_bot_token: ""   # خالی بذار اگه نمی‌خوای تلگرام وصل بشه
+  telegram_chat_id: ""
+
+storage:
+  sqlite_path: "./xray_guard.db"
+
+web:
+  host: "0.0.0.0"
+  port: 8088
+  domain: null       # اگه install.sh موقع نصب دامنه گرفته باشه، اینجا پر می‌شه
+  tls_cert: null      # مسیر fullchain.pem (گواهی fake SSL ساخته‌شده)
+  tls_key: null       # مسیر privkey.pem
+  # اگه tls_cert/tls_key پر باشن، داشبورد روی HTTPS بالا میاد (با گواهی
+  # self-signed؛ مرورگر اولین بار هشدار گواهی می‌ده، طبیعیه).
+  # این داشبورد کنترل قفل‌کردن کاربرا رو داره، پس حتماً پشت یه لایه احراز هویت
+  # (نگینکس + basic auth، یا تانل SSH، یا فایروال با IP whitelist) قرارش بده.
